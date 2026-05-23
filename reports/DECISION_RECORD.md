@@ -368,3 +368,26 @@
   scales. Further full-speed attempts need paper-specific orientation
   extraction, planned orientation/timing scheduling, or a separate qdot-budget
   decision.
+
+## D024: Keep Paper Orientation Compliance Separate From UR10e Orientation Hold
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat the paper's orientation law as force-normal-derived orientation
+  compliance, with `u = F / ||F||`, `R_d` from the paper's Rodrigues-like
+  expression, quaternion error, and `xdot_o = k_o e_o` under the unknown-surface
+  slow-variation assumption. Keep the current UR10e `linear-primary`
+  orientation result labeled as adapted initial-orientation hold.
+- Reason:
+  PDF extraction resolves the Section VI gains and force-sensor filtering
+  note, but it also confirms a real ambiguity: Section III defines `u` as a
+  3D normalized force vector, while Section V writes a 2D signal
+  `[cos(0.1t), sin(0.1t)]`. The extracted Eq. (10) also applies scalar
+  trigonometric functions to `u`.
+- Consequence:
+  Future full-speed orientation claims must either resolve the paper's
+  orientation-signal ambiguity or explicitly document an adapted UR10e
+  orientation schedule. The v18 slowed `0.075` matrix remains the current
+  orientation-gated simulation fallback, not a paper-faithful orientation
+  compliance reproduction.

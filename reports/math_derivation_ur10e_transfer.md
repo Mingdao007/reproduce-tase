@@ -567,3 +567,40 @@ slowed to `0.075`, now with a more defensible linear-primary controller. Moving
 toward full speed likely requires the paper-specific orientation law,
 trajectory/orientation scheduling, or an explicit qdot-budget decision rather
 than more scalar task weighting.
+
+## V19 Paper Orientation Truth Extraction
+
+The paper's orientation compliance law is not an initial-orientation hold. The
+PDF-grounded contract is:
+
+```text
+u = F / ||F||, u in R^3
+S = skew(u)
+R_d = I + sin(u) S + (1 - cos(u)) S^2
+e_qua = Q_d^-1 Q
+xdot_o = xdot_od + k_o e_o
+```
+
+For an unknown surface, the paper assumes the desired angular velocity cannot
+be obtained and the orientation process is slow, so `xdot_od = 0` and
+`xdot_o = k_o e_o`, with an angular-velocity limit.
+
+This creates a transfer gap for the current UR10e implementation:
+
+- Section III defines `u` as a 3D normalized force vector.
+- Section V gives `u = [cos(0.1t), sin(0.1t)]`, which is only two-dimensional
+  in the extracted text.
+- Eq. (10) uses `sin(u)` and `cos(u)` even though `u` has just been defined as
+  a vector, so the intended scalar angle/axis construction is not uniquely
+  recoverable from text extraction alone.
+
+Therefore the v18 linear-primary controller remains a valid UR10e adapted
+orientation-hold feasibility baseline, but not a paper-faithful orientation
+compliance implementation. The next derivation step must define one of:
+
+- a paper-faithful interpretation of the missing third component and scalar
+  angle in the orientation signal;
+- an explicitly adapted UR10e orientation schedule with its own decision
+  record and acceptance gates;
+- or a manual figure/source audit that proves the extracted text omitted
+  required notation.

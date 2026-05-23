@@ -17,13 +17,17 @@ experiment matrix from the TASE finite-time force-motion paper.
 - `configs/paper_truth.yaml`
 - `plans/PAPER_TRUTH_EXTRACTION.md`
 - `reports/DECISION_RECORD.md`
-- Future: `reports/paper_truth_extraction.md`
+- `reports/paper_truth_extraction.md`
+- `reports/ITERATION_LOG.md`
+- `reports/math_derivation_ur10e_transfer.md`
 
 ## Commands To Run
 
 ```bash
-pdftotext "<paper-pdf>" /tmp/tase_paper.txt
-rg -n "finite|force|constraint|MIAE|Experiment|Fig" /tmp/tase_paper.txt
+pdfinfo "<paper-pdf>"
+pdftotext -layout "<paper-pdf>" /tmp/tase_paper_layout.txt
+wc -l /tmp/tase_paper_layout.txt
+rg -n "finite|force|constraint|MIAE|Experiment|Fig|Md|Bd|epsilon|kp|ko|kf" /tmp/tase_paper_layout.txt
 ```
 
 ## Expected Outputs
@@ -33,6 +37,8 @@ rg -n "finite|force|constraint|MIAE|Experiment|Fig" /tmp/tase_paper.txt
 - Section VI experiment trajectories, surfaces, target forces, duration, and
   metrics with PDF evidence.
 - All `pending_pdf_verify` fields either resolved or explicitly retained.
+- `configs/paper_truth.yaml` records `reports/paper_truth_extraction.md` as
+  the tracked source-of-truth report.
 
 ## Pass/Fail Criteria
 
@@ -53,9 +59,14 @@ PDF extraction is later found wrong.
 ## Unresolved Risks
 
 - PDF text extraction may mangle equations.
-- Some values may only appear in figures and require manual inspection.
+- Eq. (10) appears to apply scalar trigonometric functions to a vector `u`.
+- Section V gives a 2D orientation signal, while the orientation law defines a
+  3D normalized force vector.
+- Section V `z0` remains undefined in extracted text.
 
 ## Next Executable Step
 
-Extract text from the PDF and write `reports/paper_truth_extraction.md`.
-
+Resolve the Section V orientation signal ambiguity before implementing a
+paper-faithful desired-orientation generator. The current UR10e
+`linear-primary` orientation result must remain labeled as adapted
+orientation-hold, not paper orientation compliance.

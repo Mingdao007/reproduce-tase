@@ -624,3 +624,46 @@
   Keep the linear-primary controller as the cleaner `0.075` fallback. Further
   full-speed work should focus on paper-specific orientation extraction,
   planned timing/orientation scheduling, or an explicit qdot-budget decision.
+
+## 2026-05-24 v19 Paper Orientation Truth
+
+- Branch: `exp/tase-ur10e-v19-paper-orientation-truth`
+- Starting commit: `e589ce9af07b3a3b903692409432b5efda5c85f8`
+- Files updated:
+  - `configs/paper_truth.yaml`
+  - `plans/PAPER_TRUTH_EXTRACTION.md`
+  - `reports/paper_truth_extraction.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+- Commands run:
+  - `pdfinfo "<paper-pdf>"`
+  - `pdftotext -layout "<paper-pdf>" /tmp/tase_paper_layout.txt`
+  - `wc -l /tmp/tase_paper_layout.txt`
+  - `nl -ba /tmp/tase_paper_layout.txt | sed -n '140,260p'`
+  - `nl -ba /tmp/tase_paper_layout.txt | sed -n '260,390p'`
+  - `nl -ba /tmp/tase_paper_layout.txt | sed -n '380,510p'`
+  - `nl -ba /tmp/tase_paper_layout.txt | sed -n '500,680p'`
+  - `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml --smoke --output-dir /tmp/tase_v19_fig5_smoke`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Tests passed: `41 passed in 0.45s`. `git diff --check` passed. The Fig.5
+  smoke completed and emitted only the expected warning for the two retained
+  Section V pending fields: `orientation_signal_dimension_resolution` and
+  `z0_source`.
+- Paper-truth update:
+  `reports/paper_truth_extraction.md` now records the force-normal orientation
+  law, quaternion outer loop, impedance and velocity-level force-motion law,
+  dynamic-programming/RNN formulation, Section V simulation values, Section VI
+  gains, force-filter statement, orientation-delay statement, E1-E4 experiment
+  matrix, and comparison metrics. `configs/paper_truth.yaml` removes the
+  resolved Section VI `pending_pdf_verify` entries.
+- Limit:
+  The paper's Section III/Section V orientation signal mismatch remains open.
+  Current UR10e orientation results remain adapted orientation-hold baselines,
+  not paper-faithful orientation compliance.
+- Next step:
+  Resolve the Section V 2D/3D orientation-signal ambiguity or document an
+  explicit adapted UR10e orientation schedule before making further
+  full-speed orientation-gated claims.

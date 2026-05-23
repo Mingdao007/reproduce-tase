@@ -1,16 +1,38 @@
 v1:
   allow_pending_pdf_verify: true
-  note: "V1 started with plausible values. Initial PDF extraction evidence is recorded below, but unresolved fields remain pending until a full paper-truth report is complete."
+  note: "V19 records PDF-grounded paper truth in reports/paper_truth_extraction.md. Only the Section V orientation-signal dimension resolution and Section V z0 source remain pending."
 
 paper:
   title: "Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientation Compliance"
   pdf:
     local_path: "/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf"
-    extracted_text_path: "/tmp/tase_paper.txt"
+    extracted_text_path: "/tmp/tase_paper_layout.txt"
+    extraction_tool: "pdftotext -layout"
     extraction_date_local: "2026-05-24"
+    extracted_line_count: 886
+    pdf_pages: 13
+    truth_report: "reports/paper_truth_extraction.md"
+  orientation_controller:
+    force_normal_signal: "u = F / ||F||"
+    force_normal_dimension: 3
+    skew_matrix: "S = skew(u)"
+    desired_rotation_equation: "Rd = I + sin(u)*S + (1 - cos(u))*S^2"
+    desired_rotation_note: "Ambiguous in extracted paper text: u is defined as a 3D force-normal vector, but Eq. (10) applies scalar trigonometric functions to u."
+    quaternion_error: "e_qua = Qd^{-1} * Q"
+    angular_velocity_command: "xdot_o = xdot_od + ko*e_o"
+    unknown_surface_assumption: "Paper sets xdot_od = 0 for the slow unknown-surface orientation process, so xdot_o = ko*e_o with an angular velocity limit."
+  force_motion_controller:
+    impedance_equation: "Md*(xddot_pd - xddot_p) + Bd*(xdot_pd - xdot_p) + Kd*(xpd - xp) = Fd - F"
+    improved_impedance_assumption: "Kd = 0 with integral force-error term"
+    improved_impedance_equation: "xddot_p = (ef + kf*integral(ef dt) - Bd*xdot_p) / Md"
+    velocity_command: "xdot_p(t) = PhiO*(xdot_pd + kp*ep) + PhiO_bar*(xdot_p(t-T) + xddot_p(t)*T)"
+  optimization:
+    objective: "minimize qdot^T*qdot/2"
+    equality_constraint: "xdot_c = [xdot_p; xdot_o] = J(theta)*qdot"
+    boundary_method: "escape-velocity joint position and velocity bounds"
+    inner_loop: "finite-time recurrent neural network, Eq. (23)"
   section_v:
     pending_pdf_verify:
-      - orientation_signal_raw
       - orientation_signal_dimension_resolution
       - z0_source
     q0: [0.0, -0.7853981634, 0.0, -2.3561944902, 0.0, 1.5707963268, 0.7853981634]
@@ -19,7 +41,8 @@ paper:
       y: "0.2*sin(0.2*t)"
       z: "z0_TBD"
     orientation_signal_raw: "[cos(0.1*t), sin(0.1*t)]"
-    orientation_signal_note: "Pending PDF resolution for the 2D/3D orientation signal ambiguity."
+    orientation_signal_note: "PDF-verified raw Section V signal, but dimension resolution remains open because Eq. (9) defines u as a 3D force-normal vector."
+    orientation_signal_dimension_resolution: "unresolved: Section V gives a 2D signal, while the orientation compliance derivation defines u = F/||F|| in R^3."
     joint_limit_rad: [-2.5, 2.5]
     joint_velocity_limit_rad_s: [-1.5, 1.5]
     desired_normal_force_N: 5.0
@@ -31,14 +54,9 @@ paper:
       r_0_8: 0.55
       r_1_0: 0.89
   section_vi:
-    pending_pdf_verify:
-      - Md_diag
-      - Bd_diag
-      - epsilon
-      - kp
-      - ko
-      - kf
-      - force_filter
+    pending_pdf_verify: []
+    platform: "FRANKA manipulator / 7DOF Franka-Panda"
+    z0_source: "anticipated z position in the desired trajectory is the initial manipulator position"
     Md_diag: 12.0
     Bd_diag: 550.0
     epsilon: 0.022
@@ -47,7 +65,8 @@ paper:
     kf: 1.0
     experimental_joint_limit_rad: [-3.0, 3.0]
     experimental_joint_velocity_limit_rad_s: [-0.15, 0.15]
-    force_filter: "none in paper"
+    force_filter: "no force-sensor filter added in paper"
+    orientation_delay: "paper introduces an unspecified communication delay in orientation control to address force-sensor noise before contact"
     experiments:
       E1:
         trajectory: "cycloid"
