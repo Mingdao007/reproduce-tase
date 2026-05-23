@@ -82,3 +82,18 @@
 - Consequence:
   The wrapper sets `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` and then runs
   `python3 -m pytest -q`.
+
+## D007: Start Controller With No-Contact Velocity-Level Smoke
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Implement the first controller path as a simulation-only velocity-level TCP
+  smoke test, not as force/contact control.
+- Reason:
+  The MuJoCo model is approximate, the force source is unresolved, and
+  OnRobot/RTDE force-frame issues are still open. A bounded velocity task is
+  the smallest useful step that validates the UR10e 6DOF hard-limit contract.
+- Consequence:
+  Contact-force ladder work must come next before any claim about force-motion
+  control.

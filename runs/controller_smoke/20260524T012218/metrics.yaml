@@ -1,0 +1,19 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml
+run_id: 20260524T012218
+site_name: tcp_site_unverified_85mm
+duration_s: 1.0
+dt_s: 0.002
+steps: 500
+solver_success_fraction: 1.0
+max_abs_qdot_rad_s: 0.049999999999999996
+max_qdot_violation_rad_s: 0.0
+max_joint_limit_violation_rad: 0.0
+mean_tracking_error_norm_m_s: 0.0003721887229690171
+max_tracking_error_norm_m_s: 0.0010000000000011107
+max_active_bound_count: 3
+warnings:
+- simulation-only velocity-level smoke
+- not force control
+- not contact control
+- not hardware-ready

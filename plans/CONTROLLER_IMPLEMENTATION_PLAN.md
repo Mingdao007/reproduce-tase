@@ -13,7 +13,9 @@ contracts are testable.
 
 ## Exact Files Touched
 
-- Future: `src/tase_repro/controller.py`
+- `src/tase_repro/controller.py`
+- `scripts/run_controller_smoke.py`
+- `tests/test_controller.py`
 - Future: `src/tase_repro/kinematics.py`
 - Future: `src/tase_repro/contact.py`
 - Future: `src/tase_repro/metrics.py`
@@ -56,5 +58,6 @@ smoke runs regress.
 
 ## Next Executable Step
 
-Extend the bounded least-squares contract into the first simulation-only
-controller path, keeping all solver status and slack metrics visible.
+Extend the simulation-only controller smoke into a static contact-force ladder
+simulation. Keep force sign, solver status, active bounds, and failure states
+visible in metrics.

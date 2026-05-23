@@ -132,3 +132,29 @@ scripts/run_tests.sh
 ```
 
 Current result: `11 passed`.
+
+## V2 Controller Smoke
+
+The first simulation-only controller path is now represented by:
+
+- `src/tase_repro/controller.py`
+- `scripts/run_controller_smoke.py`
+- `tests/test_controller.py`
+
+The controller solves a velocity-level TCP linear velocity task with hard
+joint and velocity bounds enforced inside the bounded least-squares solve. It
+does not perform force control or contact control.
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+python3 scripts/run_controller_smoke.py --config configs/mujoco_ur10e.yaml --duration-s 1.0
+```
+
+Current result:
+
+- `13 passed`
+- `solver_success_fraction = 1.0`
+- `max_qdot_violation_rad_s = 0.0`
+- `max_joint_limit_violation_rad = 0.0`

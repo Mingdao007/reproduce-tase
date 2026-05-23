@@ -122,6 +122,27 @@ Legacy source root:
 - Result:
   completed as approximate MJCF smoke only, not controller validation.
 
+## V2 Controller Smoke Runs
+
+### Simulation-only velocity controller smoke
+
+- Run: `runs/controller_smoke/20260524T012218`
+- Command:
+  `python3 scripts/run_controller_smoke.py --config configs/mujoco_ur10e.yaml --duration-s 1.0`
+- Git state at run time:
+  branch `exp/tase-ur10e-v2-controller-smoke`, starting commit
+  `17093c62c255b27e981b7244477e8c0d7057031e`, dirty tree with v2 controller
+  smoke source edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `controller-smoke_qdot_20260524T012218.png`,
+  `controller-smoke_tracking-error_20260524T012218.png`
+- Ignored raw artifact:
+  `controller-smoke_raw.npz`
+- Result:
+  completed. Solver success fraction `1.0`; maximum velocity-bound violation
+  `0.0`; maximum joint-limit violation `0.0`.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

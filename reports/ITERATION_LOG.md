@@ -98,3 +98,27 @@
 - Next step:
   Commit and push the v1 math-contract branch, then use these contracts to
   implement the first simulation-only controller path.
+
+## 2026-05-24 v2 Controller Smoke
+
+- Branch: `exp/tase-ur10e-v2-controller-smoke`
+- Starting commit: `17093c62c255b27e981b7244477e8c0d7057031e`
+- Files added:
+  - `src/tase_repro/controller.py`
+  - `scripts/run_controller_smoke.py`
+  - `tests/test_controller.py`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `python3 scripts/run_controller_smoke.py --config configs/mujoco_ur10e.yaml --duration-s 1.0`
+- Result:
+  Tests passed: `13 passed in 0.14s`. Controller smoke produced
+  `runs/controller_smoke/20260524T012218` with solver success fraction `1.0`,
+  `max_qdot_violation_rad_s = 0.0`, and
+  `max_joint_limit_violation_rad = 0.0`.
+- Limit:
+  This is simulation-only velocity-level tracking. It is not contact control,
+  force control, or hardware-ready.
+- Next step:
+  Add a static contact-force ladder simulation that logs contact sign,
+  force target, solver status, and failure conditions before any real robot
+  motion is considered.
