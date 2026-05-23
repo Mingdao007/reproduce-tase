@@ -16,9 +16,11 @@ class FeasibilityThresholds:
     max_joint_limit_violation_rad_max: float = 1e-9
     qdot_saturation_fraction_max: float = 0.01
     tail_max_qdot_utilization_max: float = 0.98
+    max_orientation_error_rad_max: float | None = None
+    max_angular_velocity_slack_rad_s_max: float | None = None
 
-    def to_dict(self) -> dict[str, float]:
-        return asdict(self)
+    def to_dict(self) -> dict[str, float | None]:
+        return {key: value for key, value in asdict(self).items() if value is not None}
 
 
 def _metric(metrics: dict[str, Any], name: str) -> float | None:
@@ -135,6 +137,20 @@ def evaluate_force_motion_feasibility(
         name="tail_max_qdot_utilization",
         threshold=limits.tail_max_qdot_utilization_max,
     )
+    if limits.max_orientation_error_rad_max is not None:
+        _add_max_criterion(
+            criteria,
+            metrics,
+            name="max_orientation_error_rad",
+            threshold=limits.max_orientation_error_rad_max,
+        )
+    if limits.max_angular_velocity_slack_rad_s_max is not None:
+        _add_max_criterion(
+            criteria,
+            metrics,
+            name="max_angular_velocity_slack_rad_s",
+            threshold=limits.max_angular_velocity_slack_rad_s_max,
+        )
 
     failed = [name for name, criterion in criteria.items() if not bool(criterion["passed"])]
     return {

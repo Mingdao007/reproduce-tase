@@ -116,7 +116,7 @@ def run_case(args: argparse.Namespace, *, trajectory: str, time_scale: float, ou
         metrics = yaml.safe_load(f)
     gate = evaluate_force_motion_feasibility(
         metrics,
-        thresholds=FeasibilityThresholds(),
+        thresholds=build_thresholds(args),
         qdot_abs_limit_rad_s=args.qdot_limit_rad_s,
     )
     return {
@@ -124,6 +124,13 @@ def run_case(args: argparse.Namespace, *, trajectory: str, time_scale: float, ou
         "gate": gate,
         "command": command,
     }
+
+
+def build_thresholds(args: argparse.Namespace) -> FeasibilityThresholds:
+    return FeasibilityThresholds(
+        max_orientation_error_rad_max=args.max_orientation_error_rad,
+        max_angular_velocity_slack_rad_s_max=args.max_angular_slack_rad_s,
+    )
 
 
 def build_summary_row(case: dict[str, Any], *, case_dir: pathlib.Path) -> dict[str, Any]:
@@ -234,6 +241,8 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
             f"  Force-motion feasibility sweep for `{trajectory_text}` with time scales `{args.time_scales}`.",
             "- Orientation task:",
             f"  mode `{args.orientation_mode}`, kp `{args.orientation_kp}`, angular axis weight `{args.angular_axis_weight}`, angular slack weight `{args.angular_slack_weight}`.",
+            "- Orientation gates:",
+            f"  max orientation error `{args.max_orientation_error_rad}`, max angular slack `{args.max_angular_slack_rad_s}`.",
             "- Note:",
             "  Raw `.npz` files are ignored by repo policy. Metrics, plots, and aggregate summaries are tracked.",
             "",
@@ -264,6 +273,8 @@ def main() -> int:
     parser.add_argument("--orientation-kp", type=float, default=1.0)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
+    parser.add_argument("--max-orientation-error-rad", type=float, default=None)
+    parser.add_argument("--max-angular-slack-rad-s", type=float, default=None)
     args = parser.parse_args()
 
     trajectories = parse_csv_strings(args.trajectories)
@@ -296,7 +307,7 @@ def main() -> int:
             )
             rows.append(row)
 
-    thresholds = FeasibilityThresholds()
+    thresholds = build_thresholds(args)
     with (run_root / "summary.csv").open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=SUMMARY_FIELDS, lineterminator="\n")
         writer.writeheader()

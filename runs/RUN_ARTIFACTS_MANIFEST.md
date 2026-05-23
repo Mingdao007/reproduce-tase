@@ -485,6 +485,34 @@ Legacy source root:
   Orientation hold is measured but not paper-faithful orientation compliance.
   Orientation error is not yet a hard gate.
 
+## V16 Orientation-Gated Timing Runs
+
+### E1-E4 orientation-hold timing sweep with explicit gates
+
+- Run roots:
+  - `runs/orientation_gate_timing_sweep/20260524T023847`
+  - `runs/orientation_gate_timing_sweep/20260524T023938_e2e3_slow`
+  - `runs/orientation_gate_timing_sweep/20260524T024000_e3_slowest`
+  - `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075`
+- Scope:
+  Full-speed-to-slowed orientation-hold timing sweeps using the calibrated
+  `bend_0p10` MuJoCo posture, angular slack weight `0.1`, provisional max
+  orientation error gate `0.03 rad`, and provisional max angular slack gate
+  `0.03 rad/s`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation
+  plot, angular-slack plot, root `summary.csv`, `summary.json`,
+  `summary.yaml`, `summary.md`, and `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Fastest tested passing scales are E1 `0.5`, E2 `0.1`, E3 `0.075`, and E4
+  `0.5`. The common E1-E4 matrix at `paper_time_scale = 0.075` passes all
+  combined force-motion and orientation gates.
+- Limit:
+  This is a slowed orientation-gated simulation baseline, not full-speed paper
+  reproduction and not hardware validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

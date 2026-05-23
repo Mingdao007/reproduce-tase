@@ -474,3 +474,35 @@ soft task, but it does not yet establish paper-faithful orientation
 compliance. A future gate must define acceptable orientation error and decide
 whether that gate is feasible through timing, posture, or stricter task
 priority.
+
+## V16 Orientation Feasibility Gates
+
+The feasibility evaluator now optionally adds orientation gates:
+
+```text
+max ||log(R_desired R_tcp(t)^T)|| <= epsilon_R
+max ||s_angular|| <= epsilon_sR
+```
+
+The first provisional values are:
+
+```text
+epsilon_R = 0.03 rad
+epsilon_sR = 0.03 rad/s
+```
+
+With angular slack weight `0.1` and the v14 `bend_0p10` posture, the fastest
+tested passing scales are:
+
+| trajectory | fastest passing scale |
+| --- | ---: |
+| E1 cycloid | `0.5` |
+| E2 figure-eight | `0.1` |
+| E3 circle | `0.075` |
+| E4 cardioid | `0.5` |
+
+A common E1-E4 matrix at `paper_time_scale = 0.075` passes all current force,
+contact, planar, qdot, joint-limit, orientation-error, and angular-slack
+gates. This gives a conservative orientation-gated simulation baseline, while
+showing that full-speed orientation-gated UR10e transfer remains infeasible
+under the current velocity-level controller and posture.

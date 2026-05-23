@@ -58,7 +58,8 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/orientation_hold_matrix/20260524T023429` as the current full-speed
-force-motion baseline with measured low-priority orientation hold. Next, define
-an orientation-specific gate and sweep timing/posture/task priority if the
-`0.081 rad` maximum orientation error is unacceptable.
+Use `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075` as the
+current common E1-E4 matrix that passes the provisional orientation gates.
+Next, test whether a task-priority solve, posture search, or paper-specific
+orientation signal can move the orientation-gated baseline back toward full
+paper timing.

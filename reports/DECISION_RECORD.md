@@ -310,3 +310,21 @@
   Orientation is now measurable in the MuJoCo controller, but it is not yet a
   paper-faithful orientation compliance result. The next step is an explicit
   orientation gate or task-priority formulation.
+
+## D021: Gate Orientation Separately From Force-Motion
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add optional orientation feasibility thresholds and use provisional gates of
+  `0.03 rad` max orientation error and `0.03 rad/s` max angular slack for the
+  first orientation-hold timing sweep.
+- Reason:
+  v15 showed that a full-speed force-motion pass can still carry large
+  orientation error when the angular task is very low priority. The gate makes
+  that tradeoff explicit and prevents force/contact success from hiding
+  orientation failure.
+- Consequence:
+  The current common E1-E4 matrix that passes force-motion plus orientation
+  gates is slowed to `paper_time_scale = 0.075`. Full-speed orientation-gated
+  reproduction remains open.

@@ -507,3 +507,38 @@
   Define an orientation-specific gate and test whether posture, timing, or
   task-priority changes can reduce orientation error while preserving the
   full-speed force-motion gates.
+
+## 2026-05-24 v16 Orientation Feasibility Gates
+
+- Branch: `exp/tase-ur10e-v16-orientation-gates`
+- Starting commit: `130081a6a406e498927e588b35e19ba64a9f8710`
+- Files added:
+  - `reports/orientation_gate_timing_report.md`
+- Files updated:
+  - `src/tase_repro/feasibility.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `tests/test_feasibility.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Orientation-gated timing sweeps under
+    `runs/orientation_gate_timing_sweep/20260524T023847`,
+    `runs/orientation_gate_timing_sweep/20260524T023938_e2e3_slow`,
+    `runs/orientation_gate_timing_sweep/20260524T024000_e3_slowest`, and
+    `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075`
+- Result:
+  Tests passed: `38 passed in 0.42s` before the sweeps. Optional orientation
+  gates were added to the feasibility evaluator. With provisional gates
+  `max_orientation_error_rad <= 0.03` and
+  `max_angular_velocity_slack_rad_s <= 0.03`, the fastest tested passing
+  scales are E1 `0.5`, E2 `0.1`, E3 `0.075`, and E4 `0.5`. A common
+  E1-E4 matrix passes all combined gates at `paper_time_scale = 0.075`.
+- Limit:
+  The orientation gate is provisional and the common passing matrix is slowed.
+  Full-speed orientation-gated reproduction remains open.
+- Next step:
+  Try a true task-priority solve, posture search, or paper-specific
+  orientation signal if full-speed orientation feasibility is required.
