@@ -217,3 +217,36 @@ Current result:
 - solver success fraction `1.0`
 - max qdot violation `0.0`
 - max joint-limit violation `0.0`
+
+## V5 Tangential Force-Motion Smoke
+
+The first low-speed force-motion smoke is represented by:
+
+- `scripts/run_tangential_force_motion.py`
+- `tests/test_force_motion.py`
+- `reports/tangential_force_motion_report.md`
+- extended `src/tase_repro/force_feedback.py`
+
+It adds tangential x motion while retaining the normal-force feedback command:
+
+```text
+v_cmd = [v_tangent + Kp * (p_desired_tangent - p_tangent), v_normal_force]
+```
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+python3 scripts/run_tangential_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --tangential-velocity 0.0005,0.0 --tangential-kp 0.5
+```
+
+Current result:
+
+- `17 passed`
+- final x displacement `0.0019989989469737 m`
+- desired x displacement `0.0019990000000000008 m`
+- tail mean absolute force error `1.775978411200585e-05 N`
+- solver success fraction `1.0`
+- contact present fraction `1.0`
+- max qdot violation `0.0`
+- max joint-limit violation `0.0`

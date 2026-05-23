@@ -1,0 +1,55 @@
+{
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml",
+  "run_id": "20260524T013342",
+  "duration_s": 4.0,
+  "dt_s": 0.002,
+  "steps": 2000,
+  "initial_q": [
+    0.0,
+    -0.02,
+    0.03,
+    -0.01,
+    0.0,
+    0.0
+  ],
+  "base_z_offset_m": -4e-05,
+  "force_gain": 5e-05,
+  "r": 0.5,
+  "tangential_velocity_m_s": [
+    0.0005,
+    0.0
+  ],
+  "tangential_kp": 0.5,
+  "target_force_N": 5.0,
+  "initial_force_N": 5.886648180968636,
+  "final_force_N": 4.999976925773949,
+  "tail_mean_force_N": 4.999982240215888,
+  "tail_mean_abs_force_error_N": 1.775978411200585e-05,
+  "max_abs_force_error_N": 0.8866481809686357,
+  "mean_tangential_position_error_m": 9.987465096645692e-07,
+  "max_tangential_position_error_m": 9.999917177300807e-07,
+  "final_tangential_displacement_m": [
+    0.0019989989469737,
+    1.1196088518474852e-19
+  ],
+  "desired_tangential_displacement_m": [
+    0.0019990000000000008,
+    0.0
+  ],
+  "solver_success_fraction": 1.0,
+  "contact_present_fraction": 1.0,
+  "max_active_bound_count": 0,
+  "max_abs_qdot_rad_s": 0.01338972072636433,
+  "max_qdot_violation_rad_s": 0.0,
+  "max_joint_limit_violation_rad": 0.0,
+  "max_abs_commanded_linear_velocity_m_s": 0.0005022117287085413,
+  "max_abs_actual_linear_velocity_m_s": 0.0005015810123823836,
+  "warnings": [
+    "simulation-only force-motion smoke",
+    "kinematic velocity-level controller",
+    "no orientation compliance yet",
+    "not torque dynamics",
+    "not hardware-ready"
+  ]
+}

@@ -128,3 +128,17 @@
   The stationary force-feedback result is a simulation scaffolding result. It
   must not be translated to real UR10e posture or motion without a separate
   hardware gate.
+
+## D010: Start Force-Motion With Straight Low-Speed Tangential Smoke
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Validate force-motion coupling first with a straight, low-speed x-direction
+  tangential TCP command while holding 5 N normal force.
+- Reason:
+  This isolates force-motion coupling before adding paper trajectory geometry
+  and orientation compliance.
+- Consequence:
+  The result is the first UR10e adapted force-motion smoke, but it is not yet a
+  paper trajectory reproduction.

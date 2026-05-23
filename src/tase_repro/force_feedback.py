@@ -25,6 +25,20 @@ class ForceFeedbackResult:
     contact_count: np.ndarray
 
 
+@dataclass(frozen=True)
+class ForceMotionResult:
+    q: np.ndarray
+    qdot: np.ndarray
+    tcp: np.ndarray
+    desired_tcp: np.ndarray
+    force: np.ndarray
+    commanded_linear_velocity: np.ndarray
+    actual_linear_velocity: np.ndarray
+    solver_success: np.ndarray
+    active_bounds: np.ndarray
+    contact_count: np.ndarray
+
+
 def apply_base_z_offset(model: mujoco.MjModel, base_z_offset_m: float) -> None:
     base_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
     if base_id < 0:
@@ -151,3 +165,144 @@ def summarize_force_feedback(
         "max_abs_actual_vz_m_s": float(np.max(np.abs(result.actual_vz))),
     }
 
+
+def simulate_tangential_force_motion(
+    model_path: str | Path,
+    *,
+    initial_q: np.ndarray,
+    base_z_offset_m: float,
+    target_force_N: float,
+    tangential_velocity_m_s: np.ndarray,
+    duration_s: float,
+    dt_s: float,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    force_gain: float,
+    r: float,
+    tangential_kp: float = 0.5,
+    site_name: str = "tcp_site_unverified_85mm",
+) -> ForceMotionResult:
+    """Run a low-speed tangential motion while regulating normal force."""
+    model = load_model(model_path)
+    apply_base_z_offset(model, base_z_offset_m)
+    data = make_data(model)
+    q_min, q_max = joint_ranges(model)
+    q = np.asarray(initial_q, dtype=float).copy()
+    if q.shape != (model.nq,):
+        raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
+    qdot_min = np.asarray(qdot_min, dtype=float)
+    qdot_max = np.asarray(qdot_max, dtype=float)
+    tangent = np.asarray(tangential_velocity_m_s, dtype=float)
+    if tangent.shape != (2,):
+        raise ValueError("tangential_velocity_m_s must have shape (2,) for x/y")
+
+    set_qpos(model, data, q)
+    start_tcp = site_position(model, data, site_name)
+    steps = int(round(float(duration_s) / float(dt_s)))
+    q_hist = np.empty((steps, model.nq), dtype=float)
+    qdot_hist = np.empty((steps, model.nv), dtype=float)
+    tcp_hist = np.empty((steps, 3), dtype=float)
+    desired_tcp_hist = np.empty((steps, 3), dtype=float)
+    force_hist = np.empty(steps, dtype=float)
+    commanded_linear_hist = np.empty((steps, 3), dtype=float)
+    actual_linear_hist = np.empty((steps, 3), dtype=float)
+    solver_success = np.empty(steps, dtype=bool)
+    active_bounds = np.empty(steps, dtype=int)
+    contact_count = np.empty(steps, dtype=int)
+
+    for idx in range(steps):
+        t = idx * float(dt_s)
+        set_qpos(model, data, q)
+        mujoco.mj_forward(model, data)
+        tcp = site_position(model, data, site_name)
+        desired_tcp = start_tcp.copy()
+        desired_tcp[0] += tangent[0] * t
+        desired_tcp[1] += tangent[1] * t
+
+        tangential_error = desired_tcp[:2] - tcp[:2]
+        tangential_cmd = tangent + float(tangential_kp) * tangential_error
+        force = positive_contact_normal_force(model, data)
+        command_vz = finite_time_normal_velocity_command(
+            force,
+            target_force_N,
+            gain=force_gain,
+            r=r,
+        )
+        command = np.array([tangential_cmd[0], tangential_cmd[1], command_vz])
+        step = solve_site_linear_velocity_step(
+            model,
+            data,
+            site_name=site_name,
+            q=q,
+            command=CartesianVelocityCommand(command),
+            dt=dt_s,
+            q_min=q_min,
+            q_max=q_max,
+            qdot_min=qdot_min,
+            qdot_max=qdot_max,
+        )
+        q = q + dt_s * step.qdot
+        set_qpos(model, data, q)
+
+        q_hist[idx] = q
+        qdot_hist[idx] = step.qdot
+        tcp_hist[idx] = site_position(model, data, site_name)
+        desired_tcp_hist[idx] = desired_tcp
+        force_hist[idx] = force
+        commanded_linear_hist[idx] = command
+        actual_linear_hist[idx] = step.actual_linear_velocity_m_s
+        solver_success[idx] = step.solver_success
+        active_bounds[idx] = step.active_bound_count
+        contact_count[idx] = data.ncon
+
+    return ForceMotionResult(
+        q=q_hist,
+        qdot=qdot_hist,
+        tcp=tcp_hist,
+        desired_tcp=desired_tcp_hist,
+        force=force_hist,
+        commanded_linear_velocity=commanded_linear_hist,
+        actual_linear_velocity=actual_linear_hist,
+        solver_success=solver_success,
+        active_bounds=active_bounds,
+        contact_count=contact_count,
+    )
+
+
+def summarize_force_motion(
+    result: ForceMotionResult,
+    *,
+    target_force_N: float,
+    q_min: np.ndarray,
+    q_max: np.ndarray,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    tail_fraction: float = 0.2,
+) -> dict:
+    tail = max(1, int(round(len(result.force) * tail_fraction)))
+    force_error = result.force - float(target_force_N)
+    tangential_error = result.tcp[:, :2] - result.desired_tcp[:, :2]
+    q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
+    qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
+    displacement = result.tcp[-1, :2] - result.tcp[0, :2]
+    desired_displacement = result.desired_tcp[-1, :2] - result.desired_tcp[0, :2]
+    return {
+        "target_force_N": float(target_force_N),
+        "initial_force_N": float(result.force[0]),
+        "final_force_N": float(result.force[-1]),
+        "tail_mean_force_N": float(np.mean(result.force[-tail:])),
+        "tail_mean_abs_force_error_N": float(np.mean(np.abs(force_error[-tail:]))),
+        "max_abs_force_error_N": float(np.max(np.abs(force_error))),
+        "mean_tangential_position_error_m": float(np.mean(np.linalg.norm(tangential_error, axis=1))),
+        "max_tangential_position_error_m": float(np.max(np.linalg.norm(tangential_error, axis=1))),
+        "final_tangential_displacement_m": [float(x) for x in displacement],
+        "desired_tangential_displacement_m": [float(x) for x in desired_displacement],
+        "solver_success_fraction": float(np.mean(result.solver_success)),
+        "contact_present_fraction": float(np.mean(result.contact_count > 0)),
+        "max_active_bound_count": int(np.max(result.active_bounds)),
+        "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
+        "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
+        "max_joint_limit_violation_rad": float(np.max(q_violation)),
+        "max_abs_commanded_linear_velocity_m_s": float(np.max(np.linalg.norm(result.commanded_linear_velocity, axis=1))),
+        "max_abs_actual_linear_velocity_m_s": float(np.max(np.linalg.norm(result.actual_linear_velocity, axis=1))),
+    }

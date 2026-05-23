@@ -56,7 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/stationary_force_feedback/20260524T013040` as the stationary
-normal-force feedback baseline, then add low-speed tangential motion while
-holding normal force before starting full contact trajectories.
-
+Use `runs/tangential_force_motion/20260524T013342` as the first low-speed
+force-motion baseline, then run a paper-trajectory-shaped contact path in
+simulation before increasing trajectory complexity or adding orientation
+compliance.

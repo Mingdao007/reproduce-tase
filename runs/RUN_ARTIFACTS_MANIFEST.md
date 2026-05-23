@@ -190,6 +190,32 @@ Legacy source root:
   This is stationary simulation-only normal-force feedback, not tangential
   force-motion trajectory tracking and not hardware validation.
 
+## V5 Tangential Force-Motion Runs
+
+### Low-speed x tangential motion with 5 N normal force
+
+- Run: `runs/tangential_force_motion/20260524T013342`
+- Command:
+  `python3 scripts/run_tangential_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --tangential-velocity 0.0005,0.0 --tangential-kp 0.5`
+- Git state at run time:
+  branch `exp/tase-ur10e-v5-tangential-force-motion`, starting commit
+  `387ad1dce8b83c0ba5e897a9683e6883661aaca6`, dirty tree with v5 tangential
+  force-motion source edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `tangential-force-motion_force_20260524T013342.png`,
+  `tangential-force-motion_xy_20260524T013342.png`
+- Ignored raw artifact:
+  `tangential-force-motion_raw.npz`
+- Result:
+  completed. Final x displacement `0.0019989989469737 m`, desired x
+  displacement `0.0019990000000000008 m`, tail mean absolute force error
+  `1.775978411200585e-05 N`, solver success fraction `1.0`, contact present
+  fraction `1.0`, no qdot or joint-limit violation.
+- Limit:
+  This is low-speed simulation-only force-motion smoke. It still lacks
+  orientation compliance and does not validate hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

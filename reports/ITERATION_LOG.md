@@ -173,3 +173,30 @@
   dynamics, and not hardware-ready.
 - Next step:
   Add low-speed tangential motion while holding normal force in simulation.
+
+## 2026-05-24 v5 Tangential Force-Motion Smoke
+
+- Branch: `exp/tase-ur10e-v5-tangential-force-motion`
+- Starting commit: `387ad1dce8b83c0ba5e897a9683e6883661aaca6`
+- Files added:
+  - `scripts/run_tangential_force_motion.py`
+  - `tests/test_force_motion.py`
+  - `reports/tangential_force_motion_report.md`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `python3 scripts/run_tangential_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --tangential-velocity 0.0005,0.0 --tangential-kp 0.5`
+- Result:
+  Tests passed: `17 passed in 0.24s`. Tangential force-motion run
+  `runs/tangential_force_motion/20260524T013342` moved x by
+  `0.0019989989469737 m` while holding 5 N with tail mean absolute force
+  error `1.775978411200585e-05 N`, solver success fraction `1.0`, contact
+  present fraction `1.0`, and no qdot or joint-limit violation.
+- Limit:
+  This is simulation-only velocity-level force-motion. It lacks orientation
+  compliance, torque dynamics, calibrated TCP, and hardware force source
+  validation.
+- Next step:
+  Run the first low-speed paper-trajectory-shaped contact path in simulation
+  with the same metrics.
