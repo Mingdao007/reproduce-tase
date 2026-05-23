@@ -8,7 +8,7 @@ import mujoco
 import numpy as np
 
 from tase_repro.contact import finite_time_normal_velocity_command
-from tase_repro.contact_ladder import positive_contact_normal_force
+from tase_repro.contact_ladder import positive_contact_normal_force, positive_contact_normal_force_vector
 from tase_repro.controller import CartesianVelocityCommand, solve_site_linear_velocity_step
 from tase_repro.kinematics import (
     joint_ranges,
@@ -19,6 +19,7 @@ from tase_repro.kinematics import (
     site_position,
     site_rotation_matrix,
 )
+from tase_repro.orientation import rotation_aligning_local_z_to_normal
 from tase_repro.trajectories import PlanarTrajectoryState, linear_planar_state
 
 
@@ -261,8 +262,8 @@ def simulate_planar_force_motion(
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
-    if orientation_mode not in {"none", "hold"}:
-        raise ValueError("orientation_mode must be 'none' or 'hold'")
+    if orientation_mode not in {"none", "hold", "force_normal"}:
+        raise ValueError("orientation_mode must be 'none', 'hold', or 'force_normal'")
     if orientation_priority_mode not in {"weighted", "linear_primary"}:
         raise ValueError("orientation_priority_mode must be 'weighted' or 'linear_primary'")
     orientation_task_enabled = orientation_mode != "none"
@@ -316,6 +317,7 @@ def simulate_planar_force_motion(
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
     start_rotation = site_rotation_matrix(model, data, site_name)
+    last_desired_rotation = start_rotation.copy()
     steps = int(round(float(duration_s) / float(dt_s)))
     q_hist = np.empty((steps, model.nq), dtype=float)
     qdot_hist = np.empty((steps, model.nv), dtype=float)
@@ -355,6 +357,7 @@ def simulate_planar_force_motion(
         tangential_error = desired_tcp[:2] - tcp[:2]
         tangential_cmd = planar_velocity + float(planar_kp) * tangential_error
         force = positive_contact_normal_force(model, data)
+        force_vector = positive_contact_normal_force_vector(model, data)
         planar_scale = 1.0
         if guard_fraction is not None:
             threshold = abs(float(target_force_N)) * guard_fraction
@@ -369,6 +372,17 @@ def simulate_planar_force_motion(
         command = np.array([tangential_cmd[0], tangential_cmd[1], command_vz])
         if orientation_mode == "hold":
             desired_rotation = start_rotation
+            pre_step_orientation_error = orientation_error_rotvec(desired_rotation, current_rotation)
+            angular_command = float(orientation_kp) * pre_step_orientation_error
+        elif orientation_mode == "force_normal":
+            if np.linalg.norm(force_vector) > 1e-9:
+                desired_rotation = rotation_aligning_local_z_to_normal(
+                    force_vector,
+                    reference_rotation=start_rotation,
+                )
+                last_desired_rotation = desired_rotation
+            else:
+                desired_rotation = last_desired_rotation
             pre_step_orientation_error = orientation_error_rotvec(desired_rotation, current_rotation)
             angular_command = float(orientation_kp) * pre_step_orientation_error
         else:

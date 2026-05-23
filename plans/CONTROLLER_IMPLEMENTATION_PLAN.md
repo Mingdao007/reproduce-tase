@@ -14,6 +14,7 @@ contracts are testable.
 ## Exact Files Touched
 
 - `src/tase_repro/controller.py`
+- `src/tase_repro/orientation.py`
 - `src/tase_repro/force_feedback.py`
 - `src/tase_repro/kinematics.py`
 - `scripts/run_controller_smoke.py`
@@ -43,6 +44,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
   angular slack.
 - Linear-primary orientation runs preserve the first-stage TCP linear velocity
   before optimizing angular velocity.
+- Force-normal orientation runs align TCP local z to the simulated 3D contact
+  normal and record the same angular metrics.
 
 ## Pass/Fail Criteria
 
@@ -67,10 +70,12 @@ smoke runs regress.
 - Paper finite-time law details remain pending PDF verification.
 - Full-speed E2/E3 orientation-gated runs remain qdot-budget limited under the
   current `0.15 rad/s` cap.
+- The first force-normal orientation smoke uses a flat MuJoCo plane, so it
+  does not yet validate nontrivial curved-surface normal tracking.
 
 ## Next Executable Step
 
-Use the v18 linear-primary `paper_time_scale = 0.075` matrix as the current
-controller baseline. Next, extract the paper-specific orientation signal or
-prototype planned orientation/timing scheduling before revisiting full-speed
-claims.
+Use the v21 force-normal orientation mode on a tilted or curved MuJoCo contact
+surface before revisiting full-speed orientation claims. Keep the v18
+linear-primary `paper_time_scale = 0.075` matrix as the current flat-surface
+orientation-gated fallback.

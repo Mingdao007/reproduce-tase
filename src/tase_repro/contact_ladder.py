@@ -33,6 +33,20 @@ def positive_contact_normal_force(model: mujoco.MjModel, data: mujoco.MjData) ->
     return total
 
 
+def positive_contact_normal_force_vector(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
+    """Return the summed positive contact-normal force vector in world frame."""
+    total = np.zeros(3, dtype=float)
+    for contact_idx in range(data.ncon):
+        contact = data.contact[contact_idx]
+        wrench = np.zeros(6)
+        mujoco.mj_contactForce(model, data, contact_idx, wrench)
+        normal_force = max(0.0, float(wrench[0]))
+        if normal_force > 0.0:
+            normal_world = contact.frame.reshape(3, 3)[0].copy()
+            total += normal_force * normal_world
+    return total
+
+
 def measure_static_contact_force(
     model_path: str | Path,
     *,

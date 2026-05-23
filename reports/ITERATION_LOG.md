@@ -710,3 +710,46 @@
   contract, or explicitly label any Section V 2D schedule as an adapted
   assumption. The only remaining Section V paper-truth extraction field is
   `z0_source`.
+
+## 2026-05-24 v21 Force-Normal Orientation Mode
+
+- Branch: `exp/tase-ur10e-v21-force-normal-orientation`
+- Starting commit: `e1063f53aebb4e7904d1f0c4cc19725dc3bb0224`
+- Files added:
+  - `src/tase_repro/orientation.py`
+  - `tests/test_orientation.py`
+  - `reports/force_normal_orientation_report.md`
+  - `runs/force_normal_orientation_smoke/20260524T045559`
+- Files updated:
+  - `src/tase_repro/contact_ladder.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `scripts/run_posture_feasibility_sweep.py`
+  - `tests/test_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile scripts/run_paper_trajectory_force_motion.py src/tase_repro/orientation.py src/tase_repro/contact_ladder.py src/tase_repro/force_feedback.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e.yaml --output-dir runs/force_normal_orientation_smoke/20260524T045559 --duration-s 1.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0009710693359375 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --use-slack-solve --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --orientation-mode force-normal --orientation-priority-mode linear-primary --orientation-kp 5.0 --angular-axis-weight 1.0 --angular-slack-weight 1.0`
+- Result:
+  Tests passed: `46 passed in 0.49s`. The force-normal smoke passed with
+  solver success fraction `1.0`, contact present fraction `1.0`, tail mean
+  absolute force error `0.0002761445994167211 N`, max orientation error
+  `1.589167539872212e-06 rad`, max angular slack
+  `1.1092273136082997e-05 rad/s`, qdot saturation fraction `0.0`, and no
+  joint or velocity limit violation.
+- Limit:
+  The current MuJoCo surface is a flat plane with normal `+z`, so this verifies
+  wiring and metrics rather than curved-surface orientation adaptation. The
+  yaw convention around the force normal is a documented UR10e adaptation.
+- Next step:
+  Add or configure a tilted/curved MuJoCo contact surface so the force-normal
+  orientation target is nontrivial, then rerun orientation-gated smoke before
+  revisiting full-speed E2/E3 claims.

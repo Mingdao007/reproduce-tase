@@ -33,6 +33,7 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 - Contact trajectories.
 - Article-level E1-E4 simulation matrix.
 - Orientation-hold E1-E4 matrix with angular residual and slack metrics.
+- Force-normal orientation smoke and later tilted/curved-surface checks.
 
 ## Pass/Fail Criteria
 
@@ -55,13 +56,12 @@ them rather than deleting them.
 - Orientation-hold is not yet paper-faithful orientation compliance.
 - Full-speed E2/E3 do not pass the combined force-motion and provisional
   orientation gates under the current linear-primary controller.
+- Force-normal orientation is wired on a flat plane, but nontrivial surface
+  normal tracking still needs tilted or curved MuJoCo contact geometry.
 
 ## Next Executable Step
 
-Use `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075` as the
-weighted-controller reference and
-`runs/nullspace_orientation_timing_sweep/20260524T042206_common_0p075` as the
-cleaner linear-primary E1-E4 matrix that passes the provisional orientation
-gates. The v18 hierarchy did not recover full-speed E2/E3, so the next
-executable step is paper-specific orientation signal extraction, planned
-orientation/timing scheduling, or an explicit qdot-budget decision.
+Use `runs/force_normal_orientation_smoke/20260524T045559` as the first
+force-normal orientation wiring check. The next executable experiment is a
+tilted or curved MuJoCo contact surface where the measured contact normal is
+not `[0, 0, 1]`.

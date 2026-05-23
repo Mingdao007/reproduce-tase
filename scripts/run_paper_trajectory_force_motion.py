@@ -5,6 +5,7 @@ import argparse
 import datetime as dt
 import json
 import pathlib
+import subprocess
 import sys
 from collections.abc import Callable
 
@@ -34,6 +35,34 @@ PAPER_FORMULAS = {
     "e3-circle": "x=x0+0.03*cos(0.1*t); y=y0+0.03*sin(0.1*t)",
     "e4-cardioid": "x=x0+0.015*(2*cos(0.1*t)-cos(0.2*t)); y=y0+0.015*(2*sin(0.1*t)-sin(0.2*t))",
 }
+
+
+def write_git_state(out_dir: pathlib.Path, *, command: list[str]) -> None:
+    branch = subprocess.check_output(["git", "branch", "--show-current"], cwd=ROOT, text=True).strip()
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    status = subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True).strip()
+    content = "\n".join(
+        [
+            "# Git State",
+            "",
+            f"- Branch: `{branch}`",
+            f"- Commit: `{commit}`",
+            f"- Dirty tree: `{bool(status)}`",
+            "- Status:",
+            "",
+            "```text",
+            status,
+            "```",
+            "",
+            "- Command:",
+            "",
+            "```bash",
+            " ".join(command),
+            "```",
+            "",
+        ]
+    )
+    (out_dir / "git_state.md").write_text(content, encoding="utf-8")
 
 
 def parse_vector(text: str) -> np.ndarray:
@@ -109,7 +138,7 @@ def main() -> int:
     parser.add_argument("--slack-constraint-weight", type=float, default=1e3)
     parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
     parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
-    parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-mode", choices=["none", "hold", "force-normal"], default="none")
     parser.add_argument("--orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--orientation-kp", type=float, default=1.0)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
@@ -159,7 +188,7 @@ def main() -> int:
         slack_constraint_weight=args.slack_constraint_weight,
         normal_guard_force_fraction=args.normal_guard_force_fraction,
         normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
-        orientation_mode=args.orientation_mode,
+        orientation_mode=args.orientation_mode.replace("-", "_"),
         orientation_priority_mode=args.orientation_priority_mode.replace("-", "_"),
         orientation_kp=args.orientation_kp,
         angular_axis_weights=np.full(3, args.angular_axis_weight, dtype=float),
@@ -251,7 +280,9 @@ def main() -> int:
             "uses MuJoCo contact force rather than hardware force sensing",
             "kinematic velocity-level controller",
             "orientation hold is simulation-only and not paper orientation proof"
-            if args.orientation_mode != "none"
+            if args.orientation_mode == "hold"
+            else "force-normal orientation uses MuJoCo contact normal and is simulation-only"
+            if args.orientation_mode == "force-normal"
             else "no orientation compliance yet",
             "not torque dynamics",
             "not hardware-ready",
@@ -309,6 +340,7 @@ def main() -> int:
         plt.tight_layout()
         plt.savefig(out_dir / f"paper-trajectory-force-motion_angular-slack_{run_id}.png", dpi=160)
 
+    write_git_state(out_dir, command=[sys.executable, *sys.argv])
     print(out_dir)
     return 0
 

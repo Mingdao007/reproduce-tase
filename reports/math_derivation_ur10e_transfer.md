@@ -626,3 +626,30 @@ or, in simulation terms, the contact-normal vector with a clear force-frame
 convention. A 2D Section V schedule can still be useful as a synthetic adapted
 trajectory, but it must not be reported as the paper's force-normal
 orientation compliance law.
+
+## V21 Force-Normal Orientation Convention
+
+The first UR10e adapted implementation of the Section III orientation contract
+uses the measured/simulated 3D contact-normal force vector:
+
+```text
+u_force = normalize(F_contact)
+R_desired[:, 2] = u_force
+omega_cmd = k_o log(R_desired R_tcp^T)
+```
+
+Because the paper does not specify yaw about `u_force`, this repo preserves
+the initial TCP local x-axis projected into the tangent plane. This is an
+explicit adaptation:
+
+```text
+x_desired = normalize(x_initial - u_force (u_force^T x_initial))
+y_desired = normalize(u_force x x_desired)
+R_desired = [x_desired, y_desired, u_force]
+```
+
+This makes the orientation target testable without pretending the Section V
+2D signal supplied a hidden third component. The current flat-plane MuJoCo
+smoke has `u_force = [0, 0, 1]`, so it verifies the data path and constraints.
+A tilted or curved contact surface is still needed to validate nontrivial
+force-normal orientation adaptation.

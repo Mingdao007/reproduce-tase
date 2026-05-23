@@ -410,3 +410,22 @@
 - Consequence:
   The repo should not infer a missing third component and call it paper truth.
   The only remaining Section V PDF-verification field is `z0_source`.
+
+## D026: Implement Force-Normal Orientation As Explicit UR10e Convention
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add `orientation_mode="force_normal"` as a simulation-only mode that aligns
+  the TCP local z-axis to the measured 3D MuJoCo contact-normal force vector
+  and preserves the initial TCP local x-axis projected into the tangent plane.
+- Reason:
+  The paper's Section III contract requires a 3D force-normal orientation
+  input, but it does not specify yaw about the normal and Section V's 2D signal
+  is a verified ambiguity. The repo needs an explicit, testable convention
+  rather than an implied hidden paper value.
+- Consequence:
+  Force-normal orientation can now be tested independently from the old
+  initial-orientation hold mode. Results must still be labeled UR10e adapted
+  simulation because the yaw convention, MuJoCo force source, and kinematic
+  velocity-level controller are not the paper's full torque/RNN system.

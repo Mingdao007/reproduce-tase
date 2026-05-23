@@ -572,6 +572,32 @@ Legacy source root:
   hardware validation. It improves the controller baseline at `0.075` but does
   not recover full-speed orientation-gated reproduction.
 
+## V21 Force-Normal Orientation Smoke
+
+### First Section III force-normal wiring check
+
+- Run root:
+  - `runs/force_normal_orientation_smoke/20260524T045559`
+- Scope:
+  One-second E1 cycloid smoke at `paper_time_scale = 0.075` using
+  `orientation_mode = force-normal`, `orientation_priority_mode =
+  linear-primary`, `orientation_kp = 5.0`, `qdot_limit = 0.15 rad/s`, and the
+  calibrated `bend_0p10` MuJoCo contact setup.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`, force plot, xy plot,
+  orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Solver success fraction `1.0`, contact present fraction `1.0`, tail mean
+  absolute force error `0.0002761445994167211 N`, max orientation error
+  `1.589167539872212e-06 rad`, max angular slack
+  `1.1092273136082997e-05 rad/s`, qdot saturation fraction `0.0`, and no
+  joint or velocity limit violation.
+- Limit:
+  The current MuJoCo surface normal is `[0, 0, 1]`, so this validates wiring
+  and metadata rather than nontrivial curved-surface alignment.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
