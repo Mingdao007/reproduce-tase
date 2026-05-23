@@ -21,8 +21,8 @@ adapted formulation without relying on redundant null-space behavior.
 ## Commands To Run
 
 ```bash
-python3 -m pytest tests/test_kinematics.py
-python3 -m pytest tests/test_constraints.py
+scripts/run_tests.sh tests/test_kinematics.py
+scripts/run_tests.sh tests/test_constraints.py
 ```
 
 ## Expected Outputs
@@ -57,6 +57,6 @@ the decision record and revert only the affected controller commit.
 
 ## Next Executable Step
 
-Review `reports/math_derivation_ur10e_transfer.md` and turn the QP statement
-into tests before implementing a controller.
-
+Use the passing tests in `tests/test_kinematics.py`, `tests/test_contact.py`,
+and `tests/test_constraints.py` as the contract for the first controller
+implementation.

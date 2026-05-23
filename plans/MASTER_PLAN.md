@@ -34,6 +34,7 @@ pretending it is complete.
 
 ```bash
 git status --short --branch
+scripts/run_tests.sh
 python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
 ```
@@ -80,6 +81,5 @@ work exists only on that branch.
 
 ## Next Executable Step
 
-Run the smoke scripts inside `/home/andy/reproduce-tase`, capture results, then
-commit and push the `v0-paper-audit` baseline branch.
-
+Continue on `exp/tase-ur10e-v1-math-contracts`: implement the first
+simulation-only controller path behind the existing math-contract tests.

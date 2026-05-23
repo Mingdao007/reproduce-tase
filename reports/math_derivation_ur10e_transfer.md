@@ -113,3 +113,22 @@ successful.
 - QP hard-limit test.
 - Slack and infeasible-solver logging test.
 
+## V1 Contract Implementation
+
+The first testable contracts are now represented in code:
+
+- `src/tase_repro/finite_time.py`: scalar finite-time template.
+- `src/tase_repro/kinematics.py`: MuJoCo model loading, joint metadata, TCP
+  site Jacobian, and finite-difference Jacobian check.
+- `src/tase_repro/contact.py`: contact normal, tangential projector, force
+  error velocity template, and sphere-plane penetration helper.
+- `src/tase_repro/constraints.py`: bounded velocity least-squares contract
+  enforcing velocity and one-step position limits inside the solve.
+
+Verification command:
+
+```bash
+scripts/run_tests.sh
+```
+
+Current result: `11 passed`.

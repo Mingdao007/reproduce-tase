@@ -68,3 +68,33 @@
   `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml`
   completed after the config update and produced
   `runs/fig5_r_sweep/20260524T011603`.
+
+## 2026-05-24 v1 Math Contract Tests
+
+- Branch: `exp/tase-ur10e-v1-math-contracts`
+- Starting commit: `3ca7fe22ca70dab22368523cf5066b2dd30f9e84`
+- Files added:
+  - `src/tase_repro/kinematics.py`
+  - `src/tase_repro/contact.py`
+  - `src/tase_repro/constraints.py`
+  - `tests/test_finite_time.py`
+  - `tests/test_kinematics.py`
+  - `tests/test_contact.py`
+  - `tests/test_constraints.py`
+  - `scripts/run_tests.sh`
+- Commands run:
+  - `python3 -m pytest -q`
+  - `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q`
+- Result:
+  Direct pytest failed during external plugin loading because user-site `anyio`
+  expected `_pytest.scope`. With plugin autoload disabled, all math-contract
+  tests passed: `11 passed in 0.17s`.
+- Additional verification:
+  - `scripts/run_tests.sh` passed: `11 passed in 0.13s`.
+  - `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml --smoke`
+    produced `runs/fig5_r_sweep/20260524T012004`.
+  - `python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke`
+    produced `runs/ur10e_smoke/20260524T012004`.
+- Next step:
+  Commit and push the v1 math-contract branch, then use these contracts to
+  implement the first simulation-only controller path.

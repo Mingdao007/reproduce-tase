@@ -84,6 +84,44 @@ Legacy source root:
 - Result:
   completed as approximate MJCF smoke only, not controller validation.
 
+## V1 Math-Contract Branch Verification Runs
+
+### Fig.5 smoke
+
+- Run: `runs/fig5_r_sweep/20260524T012004`
+- Command:
+  `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml --smoke`
+- Git state at run time:
+  branch `exp/tase-ur10e-v1-math-contracts`, starting commit
+  `3ca7fe22ca70dab22368523cf5066b2dd30f9e84`, dirty tree with v1
+  math-contract edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `fig5_r-sweep_20260524T012004.png`
+- Ignored raw artifact:
+  `fig5_r-sweep_raw.npz`
+- Result:
+  completed with expected remaining warnings for orientation signal dimension
+  and `z0` source.
+
+### UR10e MuJoCo smoke
+
+- Run: `runs/ur10e_smoke/20260524T012004`
+- Command:
+  `python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke`
+- Git state at run time:
+  branch `exp/tase-ur10e-v1-math-contracts`, starting commit
+  `3ca7fe22ca70dab22368523cf5066b2dd30f9e84`, dirty tree with v1
+  math-contract edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `ur10e-smoke_contact-force_20260524T012004.png`,
+  `ur10e-smoke_tcp-z_20260524T012004.png`
+- Ignored raw artifact:
+  `ur10e-smoke_raw-state.npz`
+- Result:
+  completed as approximate MJCF smoke only, not controller validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

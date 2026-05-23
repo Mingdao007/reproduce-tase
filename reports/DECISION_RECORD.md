@@ -69,3 +69,16 @@
   `configs/paper_truth.yaml` keeps orientation dimension resolution in
   `pending_pdf_verify`.
 
+## D006: Use Repo Test Wrapper With Pytest Plugin Autoload Disabled
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use `scripts/run_tests.sh` as the test entry point.
+- Reason:
+  The bench has system pytest `6.2.5` and a user-site `anyio` pytest plugin
+  that expects newer pytest internals. Direct `python3 -m pytest` failed during
+  plugin loading before collecting repo tests.
+- Consequence:
+  The wrapper sets `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` and then runs
+  `python3 -m pytest -q`.

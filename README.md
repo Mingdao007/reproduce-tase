@@ -44,3 +44,10 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 UR10e results are "UR10e adapted reproduction" until a paper-faithful 7DOF
 line and the UR10e line are explicitly separated and verified.
 
+## Test Command
+
+Use the repo wrapper so user-site pytest plugins do not affect results:
+
+```bash
+scripts/run_tests.sh
+```

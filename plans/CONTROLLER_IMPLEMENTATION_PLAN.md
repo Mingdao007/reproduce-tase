@@ -22,7 +22,7 @@ contracts are testable.
 ## Commands To Run
 
 ```bash
-python3 -m pytest
+scripts/run_tests.sh
 python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
 ```
@@ -56,5 +56,5 @@ smoke runs regress.
 
 ## Next Executable Step
 
-Add tests for the mathematical contracts before writing the full controller.
-
+Extend the bounded least-squares contract into the first simulation-only
+controller path, keeping all solver status and slack metrics visible.
