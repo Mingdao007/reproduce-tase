@@ -250,3 +250,43 @@ Current result:
 - contact present fraction `1.0`
 - max qdot violation `0.0`
 - max joint-limit violation `0.0`
+
+## V6 Paper E1 Cycloid Force-Motion Smoke
+
+The first paper-shaped planar force-motion smoke is represented by:
+
+- `src/tase_repro/trajectories.py`
+- `scripts/run_paper_trajectory_force_motion.py`
+- `tests/test_trajectories.py`
+- `reports/paper_trajectory_force_motion_report.md`
+
+It uses the PDF-extracted Section VI Experiment 1 cycloid:
+
+```text
+x = x0 + 0.015 * (0.1 t - sin(0.1 t))
+y = y0 + 0.015 * (1 - cos(0.1 t))
+```
+
+The controller remains:
+
+```text
+v_cmd = [v_planar_desired + Kp * (p_desired_planar - p_planar), v_normal_force]
+```
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 8.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --trajectory e1-cycloid --amplitude-m 0.015 --omega-rad-s 0.1 --paper-time-scale 1.0 --planar-kp 0.5
+```
+
+Current result:
+
+- `20 passed`
+- final tangential displacement `[0.0012394851720925958, 0.004549066283786667] m`
+- desired tangential displacement `[0.0012387489718280922, 0.00454724750054618] m`
+- tail mean absolute force error `0.00898488092600231 N`
+- solver success fraction `1.0`
+- contact present fraction `1.0`
+- max qdot violation `0.0`
+- max joint-limit violation `0.0`

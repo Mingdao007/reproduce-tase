@@ -142,3 +142,21 @@
 - Consequence:
   The result is the first UR10e adapted force-motion smoke, but it is not yet a
   paper trajectory reproduction.
+
+## D011: Use Paper E1 Cycloid As First Paper-Shaped Contact Path
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add the Section VI Experiment 1 cycloid as the first paper-shaped
+  force-motion path in MuJoCo, using the PDF-extracted planar formula with
+  no time scaling.
+- Reason:
+  The straight v5 smoke already isolated force-motion coupling. E1 is the
+  smallest next step because it adds real paper geometry while avoiding the
+  larger E2-E4 trajectory matrix and still keeping orientation compliance out
+  of scope.
+- Consequence:
+  The v6 result can be described as a paper-trajectory-shaped simulation smoke,
+  not a full paper reproduction. Orientation compliance, force-source
+  reconciliation, and hardware validation remain blocked.

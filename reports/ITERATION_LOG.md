@@ -200,3 +200,34 @@
 - Next step:
   Run the first low-speed paper-trajectory-shaped contact path in simulation
   with the same metrics.
+
+## 2026-05-24 v6 Paper Trajectory Force-Motion Smoke
+
+- Branch: `exp/tase-ur10e-v6-paper-trajectory-force-motion`
+- Starting commit: `e47c2fe6d3ec1b17904623dcab1d787441d0183b`
+- Files added:
+  - `src/tase_repro/trajectories.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `tests/test_trajectories.py`
+  - `reports/paper_trajectory_force_motion_report.md`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+  - `tests/test_force_motion.py`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 8.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --trajectory e1-cycloid --amplitude-m 0.015 --omega-rad-s 0.1 --paper-time-scale 1.0 --planar-kp 0.5`
+- Result:
+  Tests passed: `20 passed in 0.28s`. Paper E1 cycloid force-motion run
+  `runs/paper_trajectory_force_motion/20260524T013829` tracked final
+  tangential displacement `[0.0012394851720925958, 0.004549066283786667] m`
+  against desired `[0.0012387489718280922, 0.00454724750054618] m`, with tail
+  mean absolute force error `0.00898488092600231 N`, solver success fraction
+  `1.0`, contact present fraction `1.0`, and no qdot or joint-limit
+  violation.
+- Limit:
+  This is the paper E1 planar shape only. It still lacks orientation
+  compliance, torque dynamics, calibrated TCP, and hardware force source
+  validation.
+- Next step:
+  Add the remaining paper trajectory shapes as simulation-only force-motion
+  smokes and compare force/position metrics across the matrix.

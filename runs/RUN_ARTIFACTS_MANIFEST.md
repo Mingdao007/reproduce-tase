@@ -216,6 +216,34 @@ Legacy source root:
   This is low-speed simulation-only force-motion smoke. It still lacks
   orientation compliance and does not validate hardware.
 
+## V6 Paper Trajectory Force-Motion Runs
+
+### Paper E1 cycloid path with 5 N normal force
+
+- Run: `runs/paper_trajectory_force_motion/20260524T013829`
+- Command:
+  `python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e.yaml --duration-s 8.0 --target-force-N 5.0 --force-gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5 --trajectory e1-cycloid --amplitude-m 0.015 --omega-rad-s 0.1 --paper-time-scale 1.0 --planar-kp 0.5`
+- Git state at run time:
+  branch `exp/tase-ur10e-v6-paper-trajectory-force-motion`, starting commit
+  `e47c2fe6d3ec1b17904623dcab1d787441d0183b`, dirty tree with v6 paper
+  trajectory force-motion source edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `paper-trajectory-force-motion_force_20260524T013829.png`,
+  `paper-trajectory-force-motion_xy_20260524T013829.png`
+- Ignored raw artifact:
+  `paper-trajectory-force-motion_raw.npz`
+- Result:
+  completed. Final tangential displacement
+  `[0.0012394851720925958, 0.004549066283786667] m`, desired displacement
+  `[0.0012387489718280922, 0.00454724750054618] m`, tail mean absolute force
+  error `0.00898488092600231 N`, solver success fraction `1.0`, contact
+  present fraction `1.0`, and no qdot or joint-limit violation.
+- Limit:
+  This is the paper E1 planar trajectory shape only. It is still
+  simulation-only and lacks orientation compliance, torque dynamics, calibrated
+  TCP, and hardware force source validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

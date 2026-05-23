@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
 import mujoco
 import numpy as np
@@ -10,6 +11,7 @@ from tase_repro.contact import finite_time_normal_velocity_command
 from tase_repro.contact_ladder import positive_contact_normal_force
 from tase_repro.controller import CartesianVelocityCommand, solve_site_linear_velocity_step
 from tase_repro.kinematics import joint_ranges, load_model, make_data, set_qpos, site_position
+from tase_repro.trajectories import PlanarTrajectoryState, linear_planar_state
 
 
 @dataclass(frozen=True)
@@ -183,6 +185,43 @@ def simulate_tangential_force_motion(
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run a low-speed tangential motion while regulating normal force."""
+    tangent = np.asarray(tangential_velocity_m_s, dtype=float)
+    if tangent.shape != (2,):
+        raise ValueError("tangential_velocity_m_s must have shape (2,) for x/y")
+    return simulate_planar_force_motion(
+        model_path,
+        initial_q=initial_q,
+        base_z_offset_m=base_z_offset_m,
+        target_force_N=target_force_N,
+        planar_trajectory=lambda t_s: linear_planar_state(t_s, tangent),
+        duration_s=duration_s,
+        dt_s=dt_s,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=force_gain,
+        r=r,
+        planar_kp=tangential_kp,
+        site_name=site_name,
+    )
+
+
+def simulate_planar_force_motion(
+    model_path: str | Path,
+    *,
+    initial_q: np.ndarray,
+    base_z_offset_m: float,
+    target_force_N: float,
+    planar_trajectory: Callable[[float], PlanarTrajectoryState],
+    duration_s: float,
+    dt_s: float,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    force_gain: float,
+    r: float,
+    planar_kp: float = 0.5,
+    site_name: str = "tcp_site_unverified_85mm",
+) -> ForceMotionResult:
+    """Run an x/y trajectory while regulating normal force."""
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
     data = make_data(model)
@@ -192,9 +231,6 @@ def simulate_tangential_force_motion(
         raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
     qdot_min = np.asarray(qdot_min, dtype=float)
     qdot_max = np.asarray(qdot_max, dtype=float)
-    tangent = np.asarray(tangential_velocity_m_s, dtype=float)
-    if tangent.shape != (2,):
-        raise ValueError("tangential_velocity_m_s must have shape (2,) for x/y")
 
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
@@ -215,12 +251,16 @@ def simulate_tangential_force_motion(
         set_qpos(model, data, q)
         mujoco.mj_forward(model, data)
         tcp = site_position(model, data, site_name)
+        trajectory_state = planar_trajectory(t)
+        planar_displacement = np.asarray(trajectory_state.displacement_m, dtype=float)
+        planar_velocity = np.asarray(trajectory_state.velocity_m_s, dtype=float)
+        if planar_displacement.shape != (2,) or planar_velocity.shape != (2,):
+            raise ValueError("planar trajectory must return x/y displacement and velocity")
         desired_tcp = start_tcp.copy()
-        desired_tcp[0] += tangent[0] * t
-        desired_tcp[1] += tangent[1] * t
+        desired_tcp[:2] += planar_displacement
 
         tangential_error = desired_tcp[:2] - tcp[:2]
-        tangential_cmd = tangent + float(tangential_kp) * tangential_error
+        tangential_cmd = planar_velocity + float(planar_kp) * tangential_error
         force = positive_contact_normal_force(model, data)
         command_vz = finite_time_normal_velocity_command(
             force,

@@ -56,7 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/tangential_force_motion/20260524T013342` as the first low-speed
-force-motion baseline, then run a paper-trajectory-shaped contact path in
-simulation before increasing trajectory complexity or adding orientation
-compliance.
+Use `runs/paper_trajectory_force_motion/20260524T013829` as the first
+paper-trajectory-shaped contact path baseline. Next, add the remaining
+simulation-only paper trajectory shapes and compare force/position metrics
+before increasing trajectory complexity or adding orientation compliance.
