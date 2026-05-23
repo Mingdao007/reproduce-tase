@@ -48,6 +48,8 @@ def test_tangential_force_motion_holds_contact_and_moves_x() -> None:
     assert summary["final_tangential_displacement_m"][0] > 0.0
     assert summary["max_planar_velocity_residual_m_s"] >= 0.0
     assert summary["max_abs_normal_velocity_residual_m_s"] >= 0.0
+    assert summary["max_planar_velocity_slack_m_s"] >= 0.0
+    assert summary["max_abs_normal_velocity_slack_m_s"] >= 0.0
     assert summary["tail_mean_abs_force_error_N"] < abs(summary["initial_force_N"] - 5.0)
     assert summary["max_qdot_violation_rad_s"] == 0.0
     assert summary["max_joint_limit_violation_rad"] == 0.0

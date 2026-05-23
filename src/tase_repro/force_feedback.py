@@ -37,6 +37,7 @@ class ForceMotionResult:
     commanded_linear_velocity: np.ndarray
     actual_linear_velocity: np.ndarray
     linear_velocity_residual: np.ndarray
+    task_slack_linear_velocity: np.ndarray
     planar_scale: np.ndarray
     solver_success: np.ndarray
     active_bounds: np.ndarray
@@ -185,6 +186,8 @@ def simulate_tangential_force_motion(
     r: float,
     tangential_kp: float = 0.5,
     axis_weights: np.ndarray | None = None,
+    slack_axis_weights: np.ndarray | None = None,
+    slack_constraint_weight: float = 1e3,
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
     site_name: str = "tcp_site_unverified_85mm",
@@ -207,6 +210,8 @@ def simulate_tangential_force_motion(
         r=r,
         planar_kp=tangential_kp,
         axis_weights=axis_weights,
+        slack_axis_weights=slack_axis_weights,
+        slack_constraint_weight=slack_constraint_weight,
         normal_guard_force_fraction=normal_guard_force_fraction,
         normal_guard_min_planar_scale=normal_guard_min_planar_scale,
         site_name=site_name,
@@ -228,6 +233,8 @@ def simulate_planar_force_motion(
     r: float,
     planar_kp: float = 0.5,
     axis_weights: np.ndarray | None = None,
+    slack_axis_weights: np.ndarray | None = None,
+    slack_constraint_weight: float = 1e3,
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
     site_name: str = "tcp_site_unverified_85mm",
@@ -248,6 +255,12 @@ def simulate_planar_force_motion(
         solve_axis_weights = np.asarray(axis_weights, dtype=float)
         if solve_axis_weights.shape != (3,):
             raise ValueError("axis_weights must have shape (3,)")
+    if slack_axis_weights is None:
+        solve_slack_axis_weights = None
+    else:
+        solve_slack_axis_weights = np.asarray(slack_axis_weights, dtype=float)
+        if solve_slack_axis_weights.shape != (3,):
+            raise ValueError("slack_axis_weights must have shape (3,)")
     guard_fraction = None if normal_guard_force_fraction is None else float(normal_guard_force_fraction)
     if guard_fraction is not None and guard_fraction <= 0.0:
         raise ValueError("normal_guard_force_fraction must be positive when set")
@@ -266,6 +279,7 @@ def simulate_planar_force_motion(
     commanded_linear_hist = np.empty((steps, 3), dtype=float)
     actual_linear_hist = np.empty((steps, 3), dtype=float)
     linear_residual_hist = np.empty((steps, 3), dtype=float)
+    task_slack_hist = np.empty((steps, 3), dtype=float)
     planar_scale_hist = np.empty(steps, dtype=float)
     solver_success = np.empty(steps, dtype=bool)
     active_bounds = np.empty(steps, dtype=int)
@@ -304,7 +318,12 @@ def simulate_planar_force_motion(
             data,
             site_name=site_name,
             q=q,
-            command=CartesianVelocityCommand(command, axis_weights=solve_axis_weights),
+            command=CartesianVelocityCommand(
+                command,
+                axis_weights=solve_axis_weights,
+                slack_axis_weights=solve_slack_axis_weights,
+                slack_constraint_weight=slack_constraint_weight,
+            ),
             dt=dt_s,
             q_min=q_min,
             q_max=q_max,
@@ -322,6 +341,7 @@ def simulate_planar_force_motion(
         commanded_linear_hist[idx] = command
         actual_linear_hist[idx] = step.actual_linear_velocity_m_s
         linear_residual_hist[idx] = step.residual_linear_velocity_m_s
+        task_slack_hist[idx] = step.task_slack_linear_velocity_m_s
         planar_scale_hist[idx] = planar_scale
         solver_success[idx] = step.solver_success
         active_bounds[idx] = step.active_bound_count
@@ -336,6 +356,7 @@ def simulate_planar_force_motion(
         commanded_linear_velocity=commanded_linear_hist,
         actual_linear_velocity=actual_linear_hist,
         linear_velocity_residual=linear_residual_hist,
+        task_slack_linear_velocity=task_slack_hist,
         planar_scale=planar_scale_hist,
         solver_success=solver_success,
         active_bounds=active_bounds,
@@ -358,6 +379,8 @@ def summarize_force_motion(
     tangential_error = result.tcp[:, :2] - result.desired_tcp[:, :2]
     planar_velocity_residual = np.linalg.norm(result.linear_velocity_residual[:, :2], axis=1)
     normal_velocity_residual = result.linear_velocity_residual[:, 2]
+    planar_velocity_slack = np.linalg.norm(result.task_slack_linear_velocity[:, :2], axis=1)
+    normal_velocity_slack = result.task_slack_linear_velocity[:, 2]
     q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
     qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
     displacement = result.tcp[-1, :2] - result.tcp[0, :2]
@@ -384,6 +407,12 @@ def summarize_force_motion(
         "mean_abs_normal_velocity_residual_m_s": float(np.mean(np.abs(normal_velocity_residual))),
         "max_abs_normal_velocity_residual_m_s": float(np.max(np.abs(normal_velocity_residual))),
         "tail_mean_abs_normal_velocity_residual_m_s": float(np.mean(np.abs(normal_velocity_residual[-tail:]))),
+        "mean_planar_velocity_slack_m_s": float(np.mean(planar_velocity_slack)),
+        "max_planar_velocity_slack_m_s": float(np.max(planar_velocity_slack)),
+        "tail_mean_planar_velocity_slack_m_s": float(np.mean(planar_velocity_slack[-tail:])),
+        "mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack))),
+        "max_abs_normal_velocity_slack_m_s": float(np.max(np.abs(normal_velocity_slack))),
+        "tail_mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack[-tail:]))),
         "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
         "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
         "max_joint_limit_violation_rad": float(np.max(q_violation)),

@@ -224,3 +224,18 @@
 - Consequence:
   Future pass/fail criteria must include task residuals, contact fraction,
   force error, qdot saturation, and joint-limit violation.
+
+## D016: Use Slack Metrics To Define Feasibility, Not To Claim Success
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add an opt-in slack-aware velocity solve, but treat its E2/E3 outputs as
+  feasibility diagnostics rather than successful full-speed reproduction.
+- Reason:
+  Explicit slack variables show the same hard tradeoff as weighted residuals:
+  force/contact can be recovered by assigning large planar slack, but that
+  violates trajectory tracking expectations.
+- Consequence:
+  The next experiment should define pass/fail thresholds and search for
+  feasible timing/posture changes before adding more controller features.

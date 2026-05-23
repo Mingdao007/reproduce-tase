@@ -5,7 +5,12 @@ from dataclasses import dataclass
 import mujoco
 import numpy as np
 
-from tase_repro.constraints import VelocitySolveResult, solve_constrained_velocity_least_squares
+from tase_repro.constraints import (
+    SlackVelocitySolveResult,
+    VelocitySolveResult,
+    solve_constrained_velocity_least_squares,
+    solve_constrained_velocity_least_squares_with_slack,
+)
 from tase_repro.kinematics import site_jacobian
 
 
@@ -14,6 +19,8 @@ class CartesianVelocityCommand:
     linear_velocity_m_s: np.ndarray
     weight: float = 1.0
     axis_weights: np.ndarray | None = None
+    slack_axis_weights: np.ndarray | None = None
+    slack_constraint_weight: float = 1e3
 
 
 @dataclass(frozen=True)
@@ -22,8 +29,11 @@ class ControllerStepResult:
     actual_linear_velocity_m_s: np.ndarray
     desired_linear_velocity_m_s: np.ndarray
     residual_linear_velocity_m_s: np.ndarray
+    task_slack_linear_velocity_m_s: np.ndarray
     planar_residual_norm_m_s: float
     normal_residual_m_s: float
+    planar_slack_norm_m_s: float
+    normal_slack_m_s: float
     residual_norm: float
     active_bound_count: int
     solver_success: bool
@@ -59,24 +69,47 @@ def solve_site_linear_velocity_step(
             raise ValueError("axis_weights must have shape (3,)")
         if np.any(axis_weights < 0.0):
             raise ValueError("axis_weights must be nonnegative")
-    row_weights = weight * axis_weights
-    solve: VelocitySolveResult = solve_constrained_velocity_least_squares(
-        row_weights[:, None] * jacp,
-        row_weights * desired,
-        q=np.asarray(q, dtype=float),
-        dt=dt,
-        q_min=np.asarray(q_min, dtype=float),
-        q_max=np.asarray(q_max, dtype=float),
-        qdot_min=np.asarray(qdot_min, dtype=float),
-        qdot_max=np.asarray(qdot_max, dtype=float),
-        damping=damping,
-    )
+    if command.slack_axis_weights is None:
+        row_weights = weight * axis_weights
+        solve: VelocitySolveResult | SlackVelocitySolveResult = solve_constrained_velocity_least_squares(
+            row_weights[:, None] * jacp,
+            row_weights * desired,
+            q=np.asarray(q, dtype=float),
+            dt=dt,
+            q_min=np.asarray(q_min, dtype=float),
+            q_max=np.asarray(q_max, dtype=float),
+            qdot_min=np.asarray(qdot_min, dtype=float),
+            qdot_max=np.asarray(qdot_max, dtype=float),
+            damping=damping,
+        )
+        slack = np.zeros(3, dtype=float)
+    else:
+        slack_weights = np.asarray(command.slack_axis_weights, dtype=float)
+        if slack_weights.shape != (3,):
+            raise ValueError("slack_axis_weights must have shape (3,)")
+        if np.any(slack_weights < 0.0):
+            raise ValueError("slack_axis_weights must be nonnegative")
+        solve = solve_constrained_velocity_least_squares_with_slack(
+            jacp,
+            desired,
+            q=np.asarray(q, dtype=float),
+            dt=dt,
+            q_min=np.asarray(q_min, dtype=float),
+            q_max=np.asarray(q_max, dtype=float),
+            qdot_min=np.asarray(qdot_min, dtype=float),
+            qdot_max=np.asarray(qdot_max, dtype=float),
+            slack_weights=slack_weights,
+            constraint_weight=float(command.slack_constraint_weight),
+            damping=damping,
+        )
+        slack = solve.slack
     if solve.success:
         qdot = solve.qdot
         actual = jacp @ qdot
     else:
         qdot = np.zeros(model.nv, dtype=float)
         actual = np.zeros(3, dtype=float)
+        slack = desired.copy()
     residual = actual - desired
 
     return ControllerStepResult(
@@ -84,8 +117,11 @@ def solve_site_linear_velocity_step(
         actual_linear_velocity_m_s=actual,
         desired_linear_velocity_m_s=desired,
         residual_linear_velocity_m_s=residual,
+        task_slack_linear_velocity_m_s=slack,
         planar_residual_norm_m_s=float(np.linalg.norm(residual[:2])),
         normal_residual_m_s=float(residual[2]),
+        planar_slack_norm_m_s=float(np.linalg.norm(slack[:2])),
+        normal_slack_m_s=float(slack[2]),
         residual_norm=solve.residual_norm,
         active_bound_count=solve.active_bound_count,
         solver_success=solve.success,

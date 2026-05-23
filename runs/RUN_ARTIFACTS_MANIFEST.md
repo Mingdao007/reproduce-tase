@@ -359,6 +359,26 @@ Legacy source root:
 - Limit:
   This is instrumentation and diagnostic evidence. It is not a controller fix.
 
+## V11 Slack-Aware Force-Motion Runs
+
+### Full-speed E2/E3 slack allocation probes
+
+- Run root: `runs/slack_aware_force_motion/20260524T020245`
+- Scope:
+  E2/E3 full-speed probes using `--use-slack-solve`, planar slack weight `1`,
+  normal slack weights `100`, `400`, and `10000`, and qdot cap `0.15 rad/s`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Slack metrics expose the infeasibility tradeoff: reducing normal slack
+  recovers force/contact but creates large planar slack and path error.
+- Limit:
+  This is a feasibility diagnostic, not full-speed paper trajectory
+  reproduction.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

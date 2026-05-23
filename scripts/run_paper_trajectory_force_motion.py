@@ -103,6 +103,10 @@ def main() -> int:
     parser.add_argument("--planar-kp", type=float, default=0.5)
     parser.add_argument("--planar-axis-weight", type=float, default=1.0)
     parser.add_argument("--normal-axis-weight", type=float, default=1.0)
+    parser.add_argument("--use-slack-solve", action="store_true")
+    parser.add_argument("--planar-slack-weight", type=float, default=1.0)
+    parser.add_argument("--normal-slack-weight", type=float, default=1.0)
+    parser.add_argument("--slack-constraint-weight", type=float, default=1e3)
     parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
     parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
     args = parser.parse_args()
@@ -144,6 +148,10 @@ def main() -> int:
         r=args.r,
         planar_kp=args.planar_kp,
         axis_weights=np.array([args.planar_axis_weight, args.planar_axis_weight, args.normal_axis_weight]),
+        slack_axis_weights=np.array([args.planar_slack_weight, args.planar_slack_weight, args.normal_slack_weight])
+        if args.use_slack_solve
+        else None,
+        slack_constraint_weight=args.slack_constraint_weight,
         normal_guard_force_fraction=args.normal_guard_force_fraction,
         normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
     )
@@ -166,6 +174,7 @@ def main() -> int:
         commanded_linear_velocity=result.commanded_linear_velocity,
         actual_linear_velocity=result.actual_linear_velocity,
         linear_velocity_residual=result.linear_velocity_residual,
+        task_slack_linear_velocity=result.task_slack_linear_velocity,
         planar_scale=result.planar_scale,
         solver_success=result.solver_success,
         active_bounds=result.active_bounds,
@@ -201,6 +210,13 @@ def main() -> int:
             float(args.planar_axis_weight),
             float(args.normal_axis_weight),
         ],
+        "use_slack_solve": bool(args.use_slack_solve),
+        "slack_axis_weights": [
+            float(args.planar_slack_weight),
+            float(args.planar_slack_weight),
+            float(args.normal_slack_weight),
+        ],
+        "slack_constraint_weight": float(args.slack_constraint_weight),
         "normal_guard_force_fraction": None
         if args.normal_guard_force_fraction is None
         else float(args.normal_guard_force_fraction),

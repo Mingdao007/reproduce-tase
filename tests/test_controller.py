@@ -99,3 +99,34 @@ def test_controller_axis_weights_prioritize_weighted_direction() -> None:
     weighted_z_error = abs(weighted.actual_linear_velocity_m_s[2] - desired[2])
     assert weighted.planar_residual_norm_m_s >= 0.0
     assert weighted_z_error < equal_z_error
+
+
+def test_controller_slack_solve_reports_task_slack() -> None:
+    model = load_model(MODEL_PATH)
+    data = make_data(model)
+    q = np.array([0.0, -0.02, 0.03, -0.01, 0.0, 0.0])
+    set_qpos(model, data, q)
+    q_min, q_max = joint_ranges(model)
+    result = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            np.array([0.004, 0.002, -0.0002]),
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=np.full(model.nv, -0.05),
+        qdot_max=np.full(model.nv, 0.05),
+    )
+    assert result.solver_success
+    assert result.planar_slack_norm_m_s >= 0.0
+    assert abs(result.normal_slack_m_s) >= 0.0
+    np.testing.assert_allclose(
+        result.task_slack_linear_velocity_m_s,
+        result.desired_linear_velocity_m_s - result.actual_linear_velocity_m_s,
+        atol=1e-6,
+    )

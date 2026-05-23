@@ -410,3 +410,28 @@ Representative full-speed E2/E3 comparison:
 
 This confirms that a future pass/fail gate must inspect residual allocation,
 not just `solver_success`.
+
+## V11 Slack-Aware Velocity Solve
+
+The bounded velocity solve now has an opt-in explicit task slack form:
+
+```text
+Jp qdot + slack = v_cmd
+```
+
+with hard joint/velocity bounds on `qdot` and separate planar/normal slack
+penalties.
+
+Representative E2/E3 full-speed result:
+
+| run | normal slack weight | tail force error N | contact present | max planar slack m/s | max normal slack m/s | max position error m |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| E2 | `100` | `5.0` | `0.568` | `0.0036232839672081176` | `0.0011754316818573876` | `0.0057693956482014275` |
+| E2 | `10000` | `0.047984` | `1.0` | `0.013217` | `0.00010718` | `0.021143` |
+| E3 | `100` | `5.0` | `0.656` | `0.005359207304529535` | `0.0011612165102032775` | `0.008504621058720654` |
+| E3 | `10000` | `0.01441` | `1.0` | `0.010693` | `0.00005457` | `0.016176` |
+
+Interpretation:
+
+The full-speed E2/E3 task is not feasible under the current posture, qdot cap,
+and velocity-level controller without accepting large planar slack.

@@ -56,8 +56,8 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/residual_metrics_force_motion/20260524T015831` as diagnostic evidence
-that full-speed E2/E3 fails by residual allocation: equal-axis solves leave
-large normal residuals, while high-normal-weight solves leave large planar
-residuals. Next, implement a bounded slack-aware velocity solve before
+Use `runs/slack_aware_force_motion/20260524T020245` as diagnostic evidence
+that full-speed E2/E3 is infeasible under the current posture, qdot cap, and
+velocity-level controller without accepting large planar slack. Next, define
+pass/fail thresholds and test slower timing or posture changes before
 increasing trajectory complexity or adding orientation compliance.

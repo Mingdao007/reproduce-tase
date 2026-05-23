@@ -347,3 +347,34 @@
 - Next step:
   Implement a bounded solver with explicit normal and planar slack variables
   or task hierarchy.
+
+## 2026-05-24 v11 Slack-Aware Velocity Solve
+
+- Branch: `exp/tase-ur10e-v11-slack-aware-solve`
+- Starting commit: `de6296836f05bcb95bd855fc8eb9f5cab33c8730`
+- Files updated:
+  - `src/tase_repro/constraints.py`
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_tangential_force_motion.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+- Files added:
+  - `reports/slack_aware_force_motion_report.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - E2/E3 slack-aware probes under
+    `runs/slack_aware_force_motion/20260524T020245`
+- Result:
+  Tests passed: `29 passed in 0.34s`. The slack-aware solver exposed the
+  tradeoff directly: low normal slack penalty preserves more planar tracking
+  but loses force; high normal slack penalty recovers force/contact but creates
+  large planar slack and centimeter-scale path error.
+- Limit:
+  This is explicit diagnostic slack accounting, not full-speed E2/E3
+  reproduction.
+- Next step:
+  Define pass/fail thresholds for slack, force, contact, and qdot saturation;
+  then test feasibility changes such as slower time scaling or different
+  initial posture before adding orientation compliance.
