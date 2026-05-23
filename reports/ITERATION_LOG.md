@@ -45,3 +45,26 @@
 - Next step:
   Commit and push the v0 migration branch, then start PDF truth extraction.
 
+## 2026-05-24 Initial PDF Truth Extraction
+
+- Branch: `exp/tase-ur10e-v0-paper-audit`
+- Starting commit: `fe8681582e5e28243c62042f41d91c9c16f107b6`
+- Commands run:
+  - `pdftotext "<paper-pdf>" /tmp/tase_paper.txt`
+  - `pdftotext -layout "<paper-pdf>" /tmp/tase_paper_layout.txt`
+  - `rg -n "Abstract|Index Terms|FINITE|finite-time|force.*motion|MIAE|77\\.26|Experiment|Fig\\. 5|Fig\\. 6|Table|Franka|Panda|UR|r =|0\\.2|0\\.4|0\\.6|0\\.8|1\\.0|cycloid|cardioid|impedance|neural" /tmp/tase_paper.txt`
+- Artifacts updated:
+  - `configs/paper_truth.yaml`
+  - `reports/paper_truth_extraction.md`
+  - `reports/DECISION_RECORD.md`
+- Result:
+  Section V q0, trajectory, force target, joint limits, velocity limits, and
+  Fig.5 convergence times are now PDF-grounded. Section VI E1-E4 trajectory
+  formulas, contact times, and comparison MIAE values are also recorded.
+- Remaining gap:
+  Orientation signal dimension, `z0`, and impedance/gain parameters still need
+  extraction or interpretation.
+- Verification:
+  `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml`
+  completed after the config update and produced
+  `runs/fig5_r_sweep/20260524T011603`.

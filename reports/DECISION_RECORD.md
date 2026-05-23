@@ -53,3 +53,19 @@
   Reports must state "UR10e adapted reproduction" or "synthetic simulation"
   where appropriate.
 
+## D005: Keep Orientation Signal Ambiguity Open
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record the Section V signal `u = [cos(0.1t), sin(0.1t)]` as PDF-extracted,
+  but keep its implementation interpretation unresolved.
+- Reason:
+  Earlier in the paper, orientation compliance is described using a force
+  direction vector and rotation matrix. The Section V notation appears
+  lower-dimensional and cannot be transferred to UR10e without an explicit
+  convention.
+- Consequence:
+  `configs/paper_truth.yaml` keeps orientation dimension resolution in
+  `pending_pdf_verify`.
+

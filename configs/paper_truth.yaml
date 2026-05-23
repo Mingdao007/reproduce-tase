@@ -1,16 +1,18 @@
 v1:
   allow_pending_pdf_verify: true
-  note: "V1 uses plausible paper-truth draft values with warnings; PDF extraction is a v2 gate."
+  note: "V1 started with plausible values. Initial PDF extraction evidence is recorded below, but unresolved fields remain pending until a full paper-truth report is complete."
 
 paper:
   title: "Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientation Compliance"
+  pdf:
+    local_path: "/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf"
+    extracted_text_path: "/tmp/tase_paper.txt"
+    extraction_date_local: "2026-05-24"
   section_v:
     pending_pdf_verify:
-      - q0
-      - trajectory
       - orientation_signal_raw
-      - desired_normal_force_N
-      - r_sweep
+      - orientation_signal_dimension_resolution
+      - z0_source
     q0: [0.0, -0.7853981634, 0.0, -2.3561944902, 0.0, 1.5707963268, 0.7853981634]
     trajectory:
       x: "0.2*cos(0.2*t)"
@@ -22,6 +24,12 @@ paper:
     joint_velocity_limit_rad_s: [-1.5, 1.5]
     desired_normal_force_N: 5.0
     r_sweep: [0.2, 0.4, 0.6, 0.8, 1.0]
+    fig5_convergence_time_s:
+      r_0_2: 0.15
+      r_0_4: 0.26
+      r_0_6: 0.38
+      r_0_8: 0.55
+      r_1_0: 0.89
   section_vi:
     pending_pdf_verify:
       - Md_diag
@@ -40,6 +48,62 @@ paper:
     experimental_joint_limit_rad: [-3.0, 3.0]
     experimental_joint_velocity_limit_rad_s: [-0.15, 0.15]
     force_filter: "none in paper"
+    experiments:
+      E1:
+        trajectory: "cycloid"
+        q0: [0.308701, 0.548698, -0.189603, -2.33053, 0.232508, 2.83806, 0.778152]
+        x: "x0 + 0.015*(0.1*t - sin(0.1*t))"
+        y: "y0 + 0.015*(1 - cos(0.1*t))"
+        z: "z0"
+        desired_force_N: -5.0
+        contact_time_s: 2.0
+        orientation_convergence_s: 6.0
+        force_error_bound_N: 1.0
+        surface: "fixed material"
+      E2:
+        trajectory: "figure-eight"
+        q0: [0.260378, 0.873101, -0.138578, -1.63611, 0.118616, 2.48961, 0.835513]
+        x: "x0 + 0.04*sin(0.1*t)"
+        y: "y0 + 0.01*sin(0.2*t)"
+        z: "z0"
+        desired_force_N: -5.0
+        contact_time_s: 2.0
+        orientation_convergence_s: 7.0
+        force_error_bound_N: 1.0
+        duration_s: 60.0
+        surface: "fixed material"
+      E3:
+        trajectory: "circle"
+        q0: [0.308701, 0.548698, -0.189603, -2.33053, 0.232508, 2.83806, 0.778152]
+        x: "x0 + 0.03*cos(0.1*t)"
+        y: "y0 + 0.03*sin(0.1*t)"
+        z: "z0"
+        desired_force_N: -5.0
+        contact_time_s: 3.5
+        orientation_convergence_s: 8.0
+        position_force_convergence_s: 9.0
+        surface: "variable material"
+      E4:
+        trajectory: "cardioid"
+        x: "x0 + 0.015*(2*cos(0.1*t) - cos(0.2*t))"
+        y: "y0 + 0.015*(2*sin(0.1*t) - sin(0.2*t))"
+        z: "z0"
+        desired_force_N: -5.0
+        contact_time_s: 1.5
+        position_convergence_s: 2.0
+        orientation_force_convergence_s: 7.0
+        force_error_bound_N: 1.0
+        surface: "variable material"
+    comparison:
+      proposed_miae: 1.190
+      constant_impedance_k_10I_miae: 5.232
+      constant_impedance_k_10I_reduction_percent: 77.26
+      integral_impedance_miae: 3.221
+      integral_impedance_reduction_percent: 63.06
+      constant_impedance_k_0_miae: 2.532
+      constant_impedance_k_0_reduction_percent: 53.00
+      lqr_reduction_percent: 55.72
+      ddpg_reduction_percent: 79.11
 
 fig5:
   initial_error: 1.0
@@ -47,4 +111,3 @@ fig5:
   dt: 0.0005
   duration_s: 2.0
   convergence_tol: 0.001
-

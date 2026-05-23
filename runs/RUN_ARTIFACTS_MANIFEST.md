@@ -51,6 +51,23 @@ Legacy source root:
 - Result:
   completed with expected `pending_pdf_verify` warning.
 
+### Fig.5 scalar sweep after initial PDF extraction
+
+- Run: `runs/fig5_r_sweep/20260524T011603`
+- Command:
+  `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml`
+- Git state at run time:
+  branch `exp/tase-ur10e-v0-paper-audit`, starting commit
+  `fe8681582e5e28243c62042f41d91c9c16f107b6`, dirty tree with PDF extraction
+  edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `fig5_r-sweep_20260524T011603.png`
+- Ignored raw artifact:
+  `fig5_r-sweep_raw.npz`
+- Result:
+  completed with remaining warnings for orientation signal dimension and `z0`
+  source.
+
 ### UR10e MuJoCo smoke
 
 - Run: `runs/ur10e_smoke/20260524T011145`
