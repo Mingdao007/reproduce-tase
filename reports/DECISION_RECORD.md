@@ -258,3 +258,21 @@
   For E2/E3 under the current posture and slack-aware controller,
   `paper_time_scale = 0.2` is the fastest tested timing that passes the current
   force, contact, slack, position, limit, and sustained qdot saturation gates.
+
+## D018: Treat Initial Posture As A Simulation Feasibility Variable
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Sweep small simulation-only initial postures with per-posture static contact
+  calibration before adding more controller features.
+- Reason:
+  v12 showed a timing limitation at the near-straight posture, but the UR10e
+  6DOF Jacobian coupling can change substantially with even small bends. A
+  posture sweep tests whether the blocker is controller formulation alone or a
+  posture/conditioning issue.
+- Consequence:
+  The `bend_0p10` simulation posture passes current full-speed E2/E3 gates and
+  becomes the next MuJoCo baseline. It is not approved for real robot motion;
+  hardware use still requires measured TCP/payload/force source and an
+  explicit SOP.

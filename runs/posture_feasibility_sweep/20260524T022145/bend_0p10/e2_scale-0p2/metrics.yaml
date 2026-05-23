@@ -1,0 +1,101 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml
+run_id: 20260524T022353
+duration_s: 8.0
+dt_s: 0.002
+steps: 4000
+initial_q:
+- 0.0
+- -0.1
+- 0.15
+- -0.05
+- 0.0
+- 0.0
+qdot_limit_source: cli_override
+qdot_min_rad_s:
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+qdot_max_rad_s:
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+base_z_offset_m: -0.0009710693359375
+force_gain: 0.0005
+r: 0.5
+trajectory: e2-figure-eight
+paper_formula: x=x0+0.04*sin(0.1*t); y=y0+0.01*sin(0.2*t)
+amplitude_m: 0.015
+amplitude_x_m: 0.04
+amplitude_y_m: 0.01
+radius_m: 0.03
+omega_rad_s: 0.1
+paper_time_scale: 0.2
+zero_initial_offset: true
+planar_kp: 0.5
+axis_weights:
+- 1.0
+- 1.0
+- 1.0
+use_slack_solve: true
+slack_axis_weights:
+- 1.0
+- 1.0
+- 10000.0
+slack_constraint_weight: 1000.0
+normal_guard_force_fraction: null
+normal_guard_min_planar_scale: 0.0
+target_force_N: 5.0
+initial_force_N: 4.995281922830507
+final_force_N: 5.000198101751868
+tail_mean_force_N: 4.999929163710081
+tail_mean_abs_force_error_N: 0.0002746695347656947
+max_abs_force_error_N: 0.004718077169492574
+mean_tangential_position_error_m: 1.7747484913349371e-06
+max_tangential_position_error_m: 1.7888492325043605e-06
+final_tangential_displacement_m:
+- 0.00637113028283875
+- 0.0031448614261645248
+desired_tangential_displacement_m:
+- 0.006371148695818679
+- 0.0031449062077613926
+solver_success_fraction: 1.0
+contact_present_fraction: 1.0
+max_active_bound_count: 0
+min_planar_scale: 1.0
+tail_mean_planar_scale: 1.0
+mean_planar_velocity_residual_m_s: 5.943085532752002e-09
+max_planar_velocity_residual_m_s: 7.331599078895743e-09
+tail_mean_planar_velocity_residual_m_s: 6.325667326405123e-09
+mean_abs_normal_velocity_residual_m_s: 6.512540936884957e-12
+max_abs_normal_velocity_residual_m_s: 2.373415239977127e-11
+tail_mean_abs_normal_velocity_residual_m_s: 7.482247853549393e-12
+mean_planar_velocity_slack_m_s: 5.943079589672925e-09
+max_planar_velocity_slack_m_s: 7.331591747457556e-09
+tail_mean_planar_velocity_slack_m_s: 6.325661000752495e-09
+mean_abs_normal_velocity_slack_m_s: 6.4480603075769826e-12
+max_abs_normal_velocity_slack_m_s: 2.3499160985450614e-11
+tail_mean_abs_normal_velocity_slack_m_s: 7.408166260402124e-12
+max_qdot_utilization: 0.017378577556903196
+tail_max_qdot_utilization: 0.011664441680852096
+qdot_saturation_threshold: 0.98
+qdot_saturation_fraction: 0.0
+tail_qdot_saturation_fraction: 0.0
+max_abs_qdot_rad_s: 0.002606786633535479
+max_qdot_violation_rad_s: 0.0
+max_joint_limit_violation_rad: 0.0
+max_abs_commanded_linear_velocity_m_s: 0.0008950863194644265
+max_abs_actual_linear_velocity_m_s: 0.0008950837431915101
+warnings:
+- simulation-only paper-trajectory-shaped force-motion smoke
+- uses MuJoCo contact force rather than hardware force sensing
+- kinematic velocity-level controller
+- no orientation compliance yet
+- not torque dynamics
+- not hardware-ready

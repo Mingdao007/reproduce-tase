@@ -407,3 +407,32 @@
   Use `paper_time_scale = 0.2` as the controlled baseline for posture or
   approach-phase experiments that try to move the fastest passing scale closer
   to `1.0`.
+
+## 2026-05-24 v13 Posture Feasibility Sweep
+
+- Branch: `exp/tase-ur10e-v13-posture-feasibility`
+- Starting commit: `e4131857157e48aa1e16f2f77746eca62ced6971`
+- Files added:
+  - `scripts/run_posture_feasibility_sweep.py`
+  - `reports/posture_feasibility_sweep_report.md`
+- Files updated:
+  - `src/tase_repro/contact_ladder.py`
+  - `tests/test_contact_ladder.py`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - E2/E3 posture feasibility sweep under
+    `runs/posture_feasibility_sweep/20260524T022145`
+- Result:
+  Tests passed: `33 passed in 0.38s`. The posture sweep reused the v12 gates
+  with per-posture static 5 N contact calibration. The calibrated near-straight
+  baseline did not pass the tested timing matrix. Small bends improved the
+  fastest passing E2/E3 scale: `bend_0p03` passed at `0.25`, `bend_0p05` at
+  `0.5`, `bend_0p075` at `0.75`, and `bend_0p10` at full paper time scale
+  `1.0`.
+- Limit:
+  The postures are simulation initial conditions, not real robot commands.
+  Contact is still approximate MuJoCo base z offset calibration. Orientation
+  compliance and hardware validation remain open.
+- Next step:
+  Use `bend_0p10` as the full-speed simulation baseline before adding
+  orientation compliance or planned approach-phase logic.

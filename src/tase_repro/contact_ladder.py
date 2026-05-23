@@ -16,6 +16,14 @@ class StaticContactMeasurement:
     mean_contact_count: float
 
 
+@dataclass(frozen=True)
+class InitialContactMeasurement:
+    base_z_offset_m: float
+    normal_force_N: float
+    tcp_z_m: float
+    contact_count: int
+
+
 def positive_contact_normal_force(model: mujoco.MjModel, data: mujoco.MjData) -> float:
     total = 0.0
     for contact_idx in range(data.ncon):
@@ -64,6 +72,95 @@ def measure_static_contact_force(
         final_tcp_z_m=float(data.site_xpos[site_id, 2]),
         mean_contact_count=float(np.mean(contact_hist[-tail:])),
     )
+
+
+def measure_initial_contact_force(
+    model_path: str | Path,
+    *,
+    initial_q: np.ndarray,
+    base_z_offset_m: float,
+    site_name: str = "tcp_site_unverified_85mm",
+) -> InitialContactMeasurement:
+    """Measure contact force at a fixed initial posture and base z offset."""
+    model = mujoco.MjModel.from_xml_path(str(Path(model_path)))
+    base_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
+    site_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, site_name)
+    if base_id < 0:
+        raise ValueError("base_link body not found")
+    if site_id < 0:
+        raise ValueError(f"site not found: {site_name}")
+    q = np.asarray(initial_q, dtype=float)
+    if q.shape != (model.nq,):
+        raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
+
+    model.body_pos[base_id, 2] += float(base_z_offset_m)
+    data = mujoco.MjData(model)
+    data.qpos[:] = q
+    data.qvel[:] = 0.0
+    mujoco.mj_forward(model, data)
+    return InitialContactMeasurement(
+        base_z_offset_m=float(base_z_offset_m),
+        normal_force_N=positive_contact_normal_force(model, data),
+        tcp_z_m=float(data.site_xpos[site_id, 2]),
+        contact_count=int(data.ncon),
+    )
+
+
+def calibrate_base_z_for_initial_q_target_force(
+    model_path: str | Path,
+    *,
+    initial_q: np.ndarray,
+    target_force_N: float,
+    lower_offset_m: float,
+    upper_offset_m: float,
+    tolerance_N: float,
+    max_iterations: int = 50,
+) -> InitialContactMeasurement:
+    """Find a base z offset that starts a fixed posture near target force."""
+    target = float(target_force_N)
+    lower = float(lower_offset_m)
+    upper = float(upper_offset_m)
+    low_meas = measure_initial_contact_force(
+        model_path,
+        initial_q=initial_q,
+        base_z_offset_m=lower,
+    )
+    high_meas = measure_initial_contact_force(
+        model_path,
+        initial_q=initial_q,
+        base_z_offset_m=upper,
+    )
+    if low_meas.normal_force_N < target:
+        raise ValueError(
+            f"lower offset force {low_meas.normal_force_N:.6g} N is below target {target:.6g} N"
+        )
+    if high_meas.normal_force_N > target:
+        raise ValueError(
+            f"upper offset force {high_meas.normal_force_N:.6g} N is above target {target:.6g} N"
+        )
+
+    best = low_meas
+    for _ in range(max_iterations):
+        mid = 0.5 * (lower + upper)
+        meas = measure_initial_contact_force(
+            model_path,
+            initial_q=initial_q,
+            base_z_offset_m=mid,
+        )
+        best = meas
+        if abs(meas.normal_force_N - target) <= tolerance_N:
+            break
+        if meas.normal_force_N > target:
+            lower = mid
+        else:
+            upper = mid
+    if abs(best.normal_force_N - target) > tolerance_N:
+        raise ValueError(
+            "could not calibrate initial posture to target force: "
+            f"best force {best.normal_force_N:.6g} N, target {target:.6g} N, "
+            f"tolerance {float(tolerance_N):.6g} N"
+        )
+    return best
 
 
 def calibrate_base_z_for_target_force(

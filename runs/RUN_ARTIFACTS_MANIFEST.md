@@ -403,6 +403,31 @@ Legacy source root:
   This is a slowed simulation-only feasibility baseline, not full-speed paper
   reproduction and not hardware validation.
 
+## V13 Posture Feasibility Gate Runs
+
+### E2/E3 calibrated posture sweep
+
+- Run root: `runs/posture_feasibility_sweep/20260524T022145`
+- Scope:
+  E2/E3 slack-aware force-motion sweeps over small initial postures
+  `baseline`, `bend_0p03`, `bend_0p05`, `bend_0p075`, and `bend_0p10`.
+  Each posture was calibrated to about `5 N` initial contact force using a
+  MuJoCo `base_link` z offset, then tested at paper time scales `1.0`, `0.75`,
+  `0.6`, `0.5`, `0.35`, `0.25`, and `0.2` with the v12 gates.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, root
+  `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  The `bend_0p10` simulation posture passes full-speed E2 and E3 under the
+  current gates. Smaller bends move the fastest passing scale progressively:
+  `bend_0p03 -> 0.25`, `bend_0p05 -> 0.5`, `bend_0p075 -> 0.75`.
+- Limit:
+  This is posture-conditioning evidence in simulation only. It is not a real
+  robot motion command or hardware validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
