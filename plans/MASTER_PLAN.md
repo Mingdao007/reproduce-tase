@@ -1,0 +1,85 @@
+# Master Plan
+
+## Scope
+
+Coordinate the TASE finite-time force-motion reproduction as a Git-backed
+research project. The immediate milestone is a clean `v0-paper-audit` baseline
+in `Mingdao007/reproduce-tase` that captures existing local work without
+pretending it is complete.
+
+## Assumptions
+
+- MuJoCo remains the baseline simulator.
+- Existing local artifacts are source material, not authoritative repo state.
+- Current UR10e hardware facts come from the lab vault and must be re-read
+  before hardware decisions.
+- Current work is no-motion and no-write for the real robot.
+
+## Exact Files Touched
+
+- `README.md`
+- `.gitignore`
+- `REPRODUCTION_PLAN.md`
+- `docs/goal.md`
+- `configs/*`
+- `assets/mjcf/ur10e_nominal.xml`
+- `assets/urdf/ur10e_nominal.urdf`
+- `scripts/*`
+- `src/tase_repro/*`
+- `plans/*.md`
+- `reports/*.md`
+- `runs/RUN_ARTIFACTS_MANIFEST.md`
+
+## Commands To Run
+
+```bash
+git status --short --branch
+python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
+python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
+```
+
+## Expected Outputs
+
+- Dedicated branch with migrated source, configs, plans, reports, and
+  lightweight run metadata.
+- A clear audit of what is verified, synthetic, placeholder, or omitted.
+- No real robot writes or motion.
+
+## Pass/Fail Criteria
+
+Pass:
+
+- Repo has a branch and commit that can be pushed to `Mingdao007/reproduce-tase`.
+- Mandatory plan and log files exist.
+- Large omitted artifacts are listed in a manifest.
+- Existing smoke scripts can be re-run or failures are documented.
+
+Fail:
+
+- Reproduction work remains only in the old UR10e workspace.
+- Large raw artifacts are committed without an explicit Git LFS decision.
+- UR10e adapted results are described as original paper-platform reproduction.
+
+## Rollback Point Or Recovery Command
+
+Before the initial commit, rollback is:
+
+```bash
+rm -rf /home/andy/reproduce-tase
+```
+
+After push, rollback is a branch revert or deletion after confirming no needed
+work exists only on that branch.
+
+## Unresolved Risks
+
+- Paper truth is still not PDF-verified.
+- UR10e MJCF is approximate and not calibrated.
+- OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
+- EOAT TCP and payload are not physically verified for control use.
+
+## Next Executable Step
+
+Run the smoke scripts inside `/home/andy/reproduce-tase`, capture results, then
+commit and push the `v0-paper-audit` baseline branch.
+

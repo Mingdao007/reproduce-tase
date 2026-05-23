@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Large/generated experiment artifacts should be tracked through manifests
+# unless intentionally added with Git LFS.
+*.npz
+*.npy
+*.mat
+*.bag
+*.db3
+*.tar
+*.tar.gz
+*.zip
+*.stl
+*.step
+
+# Local robot and editor state.
+.obsidian/
+From_Mac/
+*.log
+
