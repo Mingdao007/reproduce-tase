@@ -21,6 +21,9 @@ class ControllerStepResult:
     qdot: np.ndarray
     actual_linear_velocity_m_s: np.ndarray
     desired_linear_velocity_m_s: np.ndarray
+    residual_linear_velocity_m_s: np.ndarray
+    planar_residual_norm_m_s: float
+    normal_residual_m_s: float
     residual_norm: float
     active_bound_count: int
     solver_success: bool
@@ -74,11 +77,15 @@ def solve_site_linear_velocity_step(
     else:
         qdot = np.zeros(model.nv, dtype=float)
         actual = np.zeros(3, dtype=float)
+    residual = actual - desired
 
     return ControllerStepResult(
         qdot=qdot,
         actual_linear_velocity_m_s=actual,
         desired_linear_velocity_m_s=desired,
+        residual_linear_velocity_m_s=residual,
+        planar_residual_norm_m_s=float(np.linalg.norm(residual[:2])),
+        normal_residual_m_s=float(residual[2]),
         residual_norm=solve.residual_norm,
         active_bound_count=solve.active_bound_count,
         solver_success=solve.success,

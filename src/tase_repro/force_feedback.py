@@ -36,6 +36,7 @@ class ForceMotionResult:
     force: np.ndarray
     commanded_linear_velocity: np.ndarray
     actual_linear_velocity: np.ndarray
+    linear_velocity_residual: np.ndarray
     planar_scale: np.ndarray
     solver_success: np.ndarray
     active_bounds: np.ndarray
@@ -264,6 +265,7 @@ def simulate_planar_force_motion(
     force_hist = np.empty(steps, dtype=float)
     commanded_linear_hist = np.empty((steps, 3), dtype=float)
     actual_linear_hist = np.empty((steps, 3), dtype=float)
+    linear_residual_hist = np.empty((steps, 3), dtype=float)
     planar_scale_hist = np.empty(steps, dtype=float)
     solver_success = np.empty(steps, dtype=bool)
     active_bounds = np.empty(steps, dtype=int)
@@ -319,6 +321,7 @@ def simulate_planar_force_motion(
         force_hist[idx] = force
         commanded_linear_hist[idx] = command
         actual_linear_hist[idx] = step.actual_linear_velocity_m_s
+        linear_residual_hist[idx] = step.residual_linear_velocity_m_s
         planar_scale_hist[idx] = planar_scale
         solver_success[idx] = step.solver_success
         active_bounds[idx] = step.active_bound_count
@@ -332,6 +335,7 @@ def simulate_planar_force_motion(
         force=force_hist,
         commanded_linear_velocity=commanded_linear_hist,
         actual_linear_velocity=actual_linear_hist,
+        linear_velocity_residual=linear_residual_hist,
         planar_scale=planar_scale_hist,
         solver_success=solver_success,
         active_bounds=active_bounds,
@@ -352,6 +356,8 @@ def summarize_force_motion(
     tail = max(1, int(round(len(result.force) * tail_fraction)))
     force_error = result.force - float(target_force_N)
     tangential_error = result.tcp[:, :2] - result.desired_tcp[:, :2]
+    planar_velocity_residual = np.linalg.norm(result.linear_velocity_residual[:, :2], axis=1)
+    normal_velocity_residual = result.linear_velocity_residual[:, 2]
     q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
     qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
     displacement = result.tcp[-1, :2] - result.tcp[0, :2]
@@ -372,6 +378,12 @@ def summarize_force_motion(
         "max_active_bound_count": int(np.max(result.active_bounds)),
         "min_planar_scale": float(np.min(result.planar_scale)),
         "tail_mean_planar_scale": float(np.mean(result.planar_scale[-tail:])),
+        "mean_planar_velocity_residual_m_s": float(np.mean(planar_velocity_residual)),
+        "max_planar_velocity_residual_m_s": float(np.max(planar_velocity_residual)),
+        "tail_mean_planar_velocity_residual_m_s": float(np.mean(planar_velocity_residual[-tail:])),
+        "mean_abs_normal_velocity_residual_m_s": float(np.mean(np.abs(normal_velocity_residual))),
+        "max_abs_normal_velocity_residual_m_s": float(np.max(np.abs(normal_velocity_residual))),
+        "tail_mean_abs_normal_velocity_residual_m_s": float(np.mean(np.abs(normal_velocity_residual[-tail:]))),
         "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
         "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
         "max_joint_limit_violation_rad": float(np.max(q_violation)),

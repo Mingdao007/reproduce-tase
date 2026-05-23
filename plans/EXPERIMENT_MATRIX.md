@@ -56,7 +56,8 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/normal_guard_force_motion/20260524T015341` as diagnostic evidence
-that scalar planar guarding does not solve full-speed E2/E3. Next, implement a
-slack-aware velocity solve with explicit normal and planar residual metrics
-before increasing trajectory complexity or adding orientation compliance.
+Use `runs/residual_metrics_force_motion/20260524T015831` as diagnostic evidence
+that full-speed E2/E3 fails by residual allocation: equal-axis solves leave
+large normal residuals, while high-normal-weight solves leave large planar
+residuals. Next, implement a bounded slack-aware velocity solve before
+increasing trajectory complexity or adding orientation compliance.

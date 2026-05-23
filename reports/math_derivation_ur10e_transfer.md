@@ -388,3 +388,25 @@ Conclusion:
 The scalar guard is not a sufficient full-speed controller. The next solver
 must report normal and planar residuals separately and make the task tradeoff
 explicit.
+
+## V10 Residual Metrics
+
+The controller result now records unweighted TCP velocity residuals:
+
+```text
+residual = actual_linear_velocity - desired_linear_velocity
+planar_residual = ||residual_xy||
+normal_residual = residual_z
+```
+
+Representative full-speed E2/E3 comparison:
+
+| run | tail force error N | contact present | max planar velocity residual m/s | max normal velocity residual m/s | max position error m |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| E2 equal | `5.0` | `0.46725` | `4.616584808830004e-05` | `0.0012211832551020988` | `6.701093192370075e-05` |
+| E2 weighted | `0.04680027821015285` | `1.0` | `0.013308364152647561` | `0.00010776051130989523` | `0.02114519099848796` |
+| E3 equal | `5.0` | `0.42725` | `6.865700971642382e-05` | `0.0012373628185900344` | `0.00011339128879628036` |
+| E3 weighted | `0.013411903132922096` | `1.0` | `0.0105921848161393` | `5.415531503391008e-05` | `0.016169767707432416` |
+
+This confirms that a future pass/fail gate must inspect residual allocation,
+not just `solver_success`.

@@ -319,3 +319,31 @@
 - Next step:
   Implement a slack-aware velocity solve with separate normal and planar
   residual metrics.
+
+## 2026-05-24 v10 Residual Metrics
+
+- Branch: `exp/tase-ur10e-v10-residual-metrics`
+- Starting commit: `a471f34316296102a5910706d1a9507759946d4b`
+- Files updated:
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_tangential_force_motion.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+- Files added:
+  - `reports/residual_metrics_force_motion_report.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - E2/E3 residual comparison under
+    `runs/residual_metrics_force_motion/20260524T015831`
+- Result:
+  Tests passed: `28 passed in 0.33s`. Equal-axis E2/E3 cases showed small
+  planar velocity residuals but large normal residuals and contact loss.
+  High-normal-weight E2/E3 cases recovered normal residual and contact but
+  produced large planar residuals and centimeter-scale path error.
+- Limit:
+  Residual instrumentation confirms the tradeoff but does not solve it.
+- Next step:
+  Implement a bounded solver with explicit normal and planar slack variables
+  or task hierarchy.

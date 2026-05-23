@@ -88,6 +88,7 @@ def main() -> int:
         force=result.force,
         commanded_linear_velocity=result.commanded_linear_velocity,
         actual_linear_velocity=result.actual_linear_velocity,
+        linear_velocity_residual=result.linear_velocity_residual,
         planar_scale=result.planar_scale,
         solver_success=result.solver_success,
         active_bounds=result.active_bounds,

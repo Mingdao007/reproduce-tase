@@ -209,3 +209,18 @@
 - Consequence:
   The next controller step must expose normal and planar residuals explicitly,
   likely with slack variables or a true task-priority solve.
+
+## D015: Treat Solver Success As Insufficient Without Task Residuals
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record unweighted normal and planar TCP velocity residuals for force-motion
+  runs.
+- Reason:
+  Prior full-speed E2/E3 runs had solver success `1.0` even when contact was
+  lost or planar tracking was unacceptable. The bounded solver can satisfy its
+  numerical objective while failing the reproduction task.
+- Consequence:
+  Future pass/fail criteria must include task residuals, contact fraction,
+  force error, qdot saturation, and joint-limit violation.

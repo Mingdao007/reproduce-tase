@@ -339,6 +339,26 @@ Legacy source root:
   The scalar guard is diagnostic only. It does not solve the full-speed E2/E3
   controller tradeoff.
 
+## V10 Residual Metrics Runs
+
+### Full-speed E2/E3 residual comparison
+
+- Run root: `runs/residual_metrics_force_motion/20260524T015831`
+- Scope:
+  Equal-axis and high-normal-weight full-speed E2/E3 cases with explicit
+  normal and planar velocity residual metrics.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Equal-axis cases showed small planar residual and large normal residual with
+  contact loss. High-normal-weight cases showed reduced normal residual with
+  large planar residual and centimeter-scale path error.
+- Limit:
+  This is instrumentation and diagnostic evidence. It is not a controller fix.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

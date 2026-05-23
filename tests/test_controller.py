@@ -33,6 +33,9 @@ def test_controller_zero_velocity_command_returns_feasible_zero_motion() -> None
     assert result.solver_success
     np.testing.assert_allclose(result.qdot, np.zeros(model.nv), atol=1e-8)
     np.testing.assert_allclose(result.actual_linear_velocity_m_s, np.zeros(3), atol=1e-8)
+    np.testing.assert_allclose(result.residual_linear_velocity_m_s, np.zeros(3), atol=1e-8)
+    assert result.planar_residual_norm_m_s == 0.0
+    assert result.normal_residual_m_s == 0.0
 
 
 def test_controller_respects_velocity_bound_for_large_command() -> None:
@@ -94,4 +97,5 @@ def test_controller_axis_weights_prioritize_weighted_direction() -> None:
     assert weighted.solver_success
     equal_z_error = abs(equal.actual_linear_velocity_m_s[2] - desired[2])
     weighted_z_error = abs(weighted.actual_linear_velocity_m_s[2] - desired[2])
+    assert weighted.planar_residual_norm_m_s >= 0.0
     assert weighted_z_error < equal_z_error
