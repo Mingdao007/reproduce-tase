@@ -436,3 +436,32 @@
 - Next step:
   Use `bend_0p10` as the full-speed simulation baseline before adding
   orientation compliance or planned approach-phase logic.
+
+## 2026-05-24 v14 Full-Speed Posture Matrix
+
+- Branch: `exp/tase-ur10e-v14-fullspeed-posture-matrix`
+- Starting commit: `549334a9b27403f8c6e9915416d9c7f6420e0e9c`
+- Files added:
+  - `reports/fullspeed_posture_matrix_report.md`
+- Files updated:
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `reports/DECISION_RECORD.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Full-speed E1-E4 posture matrix under
+    `runs/fullspeed_posture_matrix/20260524T022724`
+- Result:
+  Tests passed: `33 passed in 0.37s`. With the calibrated `bend_0p10`
+  MuJoCo posture, E1, E2, E3, and E4 all pass the v12 feasibility gates at
+  `paper_time_scale = 1.0`. Tail mean absolute force errors are below
+  `0.001 N`, contact fraction is `1.0`, qdot saturation fraction is `0.0`,
+  and tail qdot utilization stays below `0.28` for all four cases.
+- Limit:
+  This is still a simulation-only posture baseline. `bend_0p10` is not a real
+  robot motion command, contact is a static MuJoCo base-offset calibration,
+  and orientation compliance remains absent.
+- Next step:
+  Add orientation compliance or a planned approach phase around the full-speed
+  `bend_0p10` baseline before considering any read-only hardware planning
+  checklist.

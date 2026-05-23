@@ -428,6 +428,34 @@ Legacy source root:
   This is posture-conditioning evidence in simulation only. It is not a real
   robot motion command or hardware validation.
 
+## V14 Full-Speed Posture Matrix Runs
+
+### E1-E4 calibrated bend_0p10 full-speed matrix
+
+- Run root: `runs/fullspeed_posture_matrix/20260524T022724`
+- Scope:
+  Full-speed E1-E4 slack-aware force-motion matrix using the calibrated
+  `bend_0p10` MuJoCo posture from v13, `paper_time_scale = 1.0`,
+  `initial_q = [0, -0.1, 0.15, -0.05, 0, 0]`,
+  `base_z_offset_m = -0.0009710693359375`, qdot cap `0.15 rad/s`, force
+  gain `5e-4`, planar slack weight `1`, normal slack weight `10000`, and
+  slack constraint weight `1000`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, root
+  `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  E1, E2, E3, and E4 all pass the v12 feasibility gates at full paper time
+  scale. Tail mean absolute force errors are below `0.001 N`, contact
+  fraction is `1.0` for all cases, and qdot saturation fraction is `0.0` for
+  all cases.
+- Limit:
+  This is a calibrated MuJoCo posture baseline, not real robot motion or
+  hardware validation. Orientation compliance and planned approach behavior
+  remain open.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

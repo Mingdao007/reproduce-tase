@@ -276,3 +276,19 @@
   becomes the next MuJoCo baseline. It is not approved for real robot motion;
   hardware use still requires measured TCP/payload/force source and an
   explicit SOP.
+
+## D019: Use Bend 0p10 As The Full-Speed MuJoCo Matrix Baseline
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use the calibrated `bend_0p10` posture as the current full-speed MuJoCo
+  baseline for the complete E1-E4 force-motion trajectory matrix.
+- Reason:
+  v14 shows E1, E2, E3, and E4 all pass the v12 feasibility gates at
+  `paper_time_scale = 1.0` with the same slack-aware controller settings,
+  qdot cap, force gain, and calibrated initial contact setup.
+- Consequence:
+  The next simulation work can build orientation compliance or a planned
+  approach phase from this baseline. The posture is still not a real robot
+  command and does not relax the hardware safety gate.

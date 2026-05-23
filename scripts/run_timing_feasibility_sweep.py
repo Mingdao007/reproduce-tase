@@ -207,6 +207,7 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     status = subprocess.check_output(["git", "status", "--short"], cwd=ROOT, text=True).strip()
     dirty = status if status else "clean"
+    trajectory_text = ", ".join(parse_csv_strings(args.trajectories))
     content = "\n".join(
         [
             "# Git State",
@@ -216,7 +217,7 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
             f"- Starting commit: `{commit}`",
             f"- Dirty state: `{dirty}`",
             "- Scope:",
-            f"  E2/E3 paper-time feasibility sweep with time scales `{args.time_scales}`.",
+            f"  Force-motion feasibility sweep for `{trajectory_text}` with time scales `{args.time_scales}`.",
             "- Note:",
             "  Raw `.npz` files are ignored by repo policy. Metrics, plots, and aggregate summaries are tracked.",
             "",
