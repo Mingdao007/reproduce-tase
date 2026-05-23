@@ -348,3 +348,23 @@
   `paper_time_scale = 0.075` E1-E4 matrix. The next full-speed attempt should
   be a true task-priority/null-space-aware solve or a paper-specific
   orientation signal extraction, not a claim based on small posture tuning.
+
+## D023: Prefer Linear-Primary Orientation Over Weighted Angular Priority
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use the v18 linear-primary orientation option as the cleaner controller
+  baseline for the current `paper_time_scale = 0.075` orientation-gated
+  fallback.
+- Reason:
+  The two-stage solve preserves the first-stage TCP linear velocity and then
+  optimizes orientation hold inside the remaining feasible velocity space. It
+  removes the v17 planar-slack failure mode and passes the E1-E4 combined gate
+  matrix at `0.075` with smaller planar errors than the weighted angular solve.
+- Consequence:
+  This is still not full-speed reproduction. Full-speed E2/E3 remain rejected
+  because qdot saturation and orientation residuals bind at higher paper-time
+  scales. Further full-speed attempts need paper-specific orientation
+  extraction, planned orientation/timing scheduling, or a separate qdot-budget
+  decision.

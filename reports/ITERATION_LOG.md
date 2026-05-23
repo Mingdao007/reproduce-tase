@@ -582,3 +582,45 @@
   orientation-gated fallback. Pursue a true task-priority/null-space-aware
   solve or a paper-specific orientation signal before more ad hoc posture
   searching.
+
+## 2026-05-24 v18 Linear-Primary Orientation
+
+- Branch: `exp/tase-ur10e-v18-nullspace-orientation`
+- Starting commit: `3ab4c4ef8b832230682d89668cc3621e6c493ea4`
+- Files added:
+  - `reports/nullspace_orientation_report.md`
+- Files updated:
+  - `src/tase_repro/constraints.py`
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `scripts/run_posture_feasibility_sweep.py`
+  - `tests/test_constraints.py`
+  - `tests/test_controller.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - E2/E3 linear-primary orientation timing sweep under
+    `runs/nullspace_orientation_timing_sweep/20260524T042206`
+  - E1-E4 common `0.075` confirmation under
+    `runs/nullspace_orientation_timing_sweep/20260524T042206_common_0p075`
+- Result:
+  Tests passed: `41 passed in 0.45s`. The new two-stage solve preserves the
+  primary TCP linear velocity and uses the remaining feasible velocity space
+  for orientation hold. It removes the v17 planar-slack failure mode but does
+  not recover full-speed E2/E3: both trajectories pass the combined gates only
+  at `paper_time_scale = 0.075`, with higher scales rejected by qdot
+  saturation and/or orientation gates. The E1-E4 common `0.075` matrix passes.
+- Limit:
+  The secondary solve is still velocity-level simulation logic, not torque
+  hierarchy or hardware validation. Orientation hold is still the initial TCP
+  orientation, not a PDF-verified paper orientation signal.
+- Next step:
+  Keep the linear-primary controller as the cleaner `0.075` fallback. Further
+  full-speed work should focus on paper-specific orientation extraction,
+  planned timing/orientation scheduling, or an explicit qdot-budget decision.

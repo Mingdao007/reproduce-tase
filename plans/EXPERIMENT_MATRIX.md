@@ -54,13 +54,14 @@ them rather than deleting them.
 
 - Orientation-hold is not yet paper-faithful orientation compliance.
 - Full-speed E2/E3 do not pass the combined force-motion and provisional
-  orientation gates under the current posture/weight bracket.
+  orientation gates under the current linear-primary controller.
 
 ## Next Executable Step
 
 Use `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075` as the
-current common E1-E4 matrix that passes the provisional orientation gates.
-The v17 posture/weight bracket did not recover full-speed E2/E3, so the next
-executable step is a true task-priority/null-space-aware solve or a
-paper-specific orientation signal extraction before more ad hoc posture
-searching.
+weighted-controller reference and
+`runs/nullspace_orientation_timing_sweep/20260524T042206_common_0p075` as the
+cleaner linear-primary E1-E4 matrix that passes the provisional orientation
+gates. The v18 hierarchy did not recover full-speed E2/E3, so the next
+executable step is paper-specific orientation signal extraction, planned
+orientation/timing scheduling, or an explicit qdot-budget decision.

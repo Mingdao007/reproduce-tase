@@ -110,6 +110,7 @@ def main() -> int:
     parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
     parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
     parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--orientation-kp", type=float, default=1.0)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
@@ -159,6 +160,7 @@ def main() -> int:
         normal_guard_force_fraction=args.normal_guard_force_fraction,
         normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
         orientation_mode=args.orientation_mode,
+        orientation_priority_mode=args.orientation_priority_mode.replace("-", "_"),
         orientation_kp=args.orientation_kp,
         angular_axis_weights=np.full(3, args.angular_axis_weight, dtype=float),
         angular_slack_axis_weights=np.full(3, args.angular_slack_weight, dtype=float)
@@ -239,6 +241,7 @@ def main() -> int:
         else float(args.normal_guard_force_fraction),
         "normal_guard_min_planar_scale": float(args.normal_guard_min_planar_scale),
         "orientation_mode": args.orientation_mode,
+        "orientation_priority_mode": args.orientation_priority_mode,
         "orientation_kp": float(args.orientation_kp),
         "angular_axis_weight": float(args.angular_axis_weight),
         "angular_slack_weight": float(args.angular_slack_weight),

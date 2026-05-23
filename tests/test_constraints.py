@@ -5,6 +5,7 @@ import numpy as np
 from tase_repro.constraints import (
     is_velocity_feasible,
     solve_constrained_velocity_least_squares,
+    solve_linear_primary_angular_secondary_with_slack,
     step_velocity_bounds,
 )
 
@@ -68,3 +69,27 @@ def test_solver_reports_infeasible_bounds() -> None:
     assert not result.success
     assert result.message == "infeasible bounds"
 
+
+def test_linear_primary_angular_secondary_preserves_primary_rows() -> None:
+    linear_A = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
+    linear_b = np.array([0.1, -0.2])
+    angular_A = np.array([[0.0, 0.0, 1.0]])
+    angular_b = np.array([0.3])
+    result = solve_linear_primary_angular_secondary_with_slack(
+        linear_A,
+        linear_b,
+        angular_A,
+        angular_b,
+        q=np.zeros(3),
+        dt=0.01,
+        q_min=np.full(3, -1.0),
+        q_max=np.full(3, 1.0),
+        qdot_min=np.full(3, -1.0),
+        qdot_max=np.full(3, 1.0),
+        linear_slack_weights=np.ones(2),
+        angular_axis_weights=np.ones(1),
+    )
+    assert result.success
+    np.testing.assert_allclose(linear_A @ result.qdot, linear_b, atol=1e-7)
+    np.testing.assert_allclose(angular_A @ result.qdot, angular_b, atol=1e-7)
+    np.testing.assert_allclose(result.slack, np.zeros(3), atol=1e-7)

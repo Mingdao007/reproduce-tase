@@ -148,6 +148,8 @@ def run_case(
         str(args.slack_constraint_weight),
         "--orientation-mode",
         args.orientation_mode,
+        "--orientation-priority-mode",
+        args.orientation_priority_mode,
         "--orientation-kp",
         str(args.orientation_kp),
         "--angular-axis-weight",
@@ -323,7 +325,7 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
             "- Scope:",
             f"  Posture feasibility sweep for `{args.trajectories}` with time scales `{args.time_scales}`.",
             "- Orientation task:",
-            f"  mode `{args.orientation_mode}`, kp `{args.orientation_kp}`, angular axis weight `{args.angular_axis_weight}`, angular slack weight `{args.angular_slack_weight}`.",
+            f"  mode `{args.orientation_mode}`, priority `{args.orientation_priority_mode}`, kp `{args.orientation_kp}`, angular axis weight `{args.angular_axis_weight}`, angular slack weight `{args.angular_slack_weight}`.",
             "- Orientation gates:",
             f"  max orientation error `{args.max_orientation_error_rad}`, max angular slack `{args.max_angular_slack_rad_s}`.",
             "- Note:",
@@ -355,6 +357,7 @@ def main() -> int:
     parser.add_argument("--normal-slack-weight", type=float, default=10000.0)
     parser.add_argument("--slack-constraint-weight", type=float, default=1000.0)
     parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--orientation-kp", type=float, default=1.0)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)

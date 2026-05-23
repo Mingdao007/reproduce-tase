@@ -165,3 +165,59 @@ def test_controller_accepts_angular_velocity_task_with_slack() -> None:
         result.desired_angular_velocity_rad_s - result.actual_angular_velocity_rad_s,
         atol=1e-6,
     )
+
+
+def test_controller_linear_primary_angular_priority_preserves_linear_solution() -> None:
+    model = load_model(MODEL_PATH)
+    data = make_data(model)
+    q = np.array([0.1, -0.4, 0.3, -0.2, 0.15, 0.0])
+    set_qpos(model, data, q)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.5)
+    qdot_max = np.full(model.nv, 0.5)
+    desired_linear = np.array([0.002, -0.001, -0.0002])
+    linear_only = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            desired_linear,
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    hierarchical = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            desired_linear,
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+            angular_velocity_rad_s=np.array([0.01, -0.02, 0.015]),
+            angular_axis_weights=np.ones(3),
+            angular_priority_mode="linear_primary",
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert linear_only.solver_success
+    assert hierarchical.solver_success
+    np.testing.assert_allclose(
+        hierarchical.actual_linear_velocity_m_s,
+        linear_only.actual_linear_velocity_m_s,
+        atol=1e-7,
+    )
+    np.testing.assert_allclose(
+        hierarchical.task_slack_angular_velocity_rad_s,
+        hierarchical.desired_angular_velocity_rad_s - hierarchical.actual_angular_velocity_rad_s,
+        atol=1e-6,
+    )

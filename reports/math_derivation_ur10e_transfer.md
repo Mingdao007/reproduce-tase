@@ -534,3 +534,36 @@ enough to recover full-speed orientation-gated E2/E3 with the current
 velocity-level 6DOF formulation. The next mathematical step is a task-priority
 or null-space-aware solve, or a more faithful extraction of the paper's
 orientation signal.
+
+## V18 Linear-Primary Orientation Hierarchy
+
+The v18 controller adds a two-stage velocity hierarchy for orientation hold.
+First, solve the linear force-motion task:
+
+```text
+Jp qdot_1 + s_p = v_cmd
+```
+
+with the same hard joint and velocity bounds as v16/v17. Then solve the
+secondary orientation problem:
+
+```text
+min ||Jr qdot - omega_cmd||^2
+subject to Jp qdot = Jp qdot_1
+           qdot_min <= qdot <= qdot_max
+```
+
+This preserves the first-stage TCP linear velocity instead of trading planar
+tracking against orientation through a single weighted slack objective.
+
+The result is cleaner but not faster. At full speed, E2 and E3 keep very small
+planar error and slack, but orientation correction saturates the `0.15 rad/s`
+qdot cap and still violates orientation gates. Both trajectories pass the
+combined gates at `paper_time_scale = 0.075`; the E1-E4 common `0.075` matrix
+also passes.
+
+Therefore the current best orientation-gated UR10e simulation baseline remains
+slowed to `0.075`, now with a more defensible linear-primary controller. Moving
+toward full speed likely requires the paper-specific orientation law,
+trajectory/orientation scheduling, or an explicit qdot-budget decision rather
+than more scalar task weighting.

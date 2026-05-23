@@ -545,6 +545,33 @@ Legacy source root:
   and calibration uses MuJoCo base-offset setup rather than a real approach
   trajectory.
 
+## V18 Linear-Primary Orientation Runs
+
+### E2/E3 timing and E1-E4 common fallback
+
+- Run roots:
+  - `runs/nullspace_orientation_timing_sweep/20260524T042206`
+  - `runs/nullspace_orientation_timing_sweep/20260524T042206_common_0p075`
+- Scope:
+  Orientation-hold timing sweeps using the v18 `linear-primary` orientation
+  priority mode. The primary solve preserves TCP linear force-motion behavior;
+  the secondary solve optimizes orientation hold while preserving the primary
+  TCP linear velocity.
+- Tracked lightweight artifacts:
+  per-case `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation
+  plot, angular-slack plot, root `summary.csv`, `summary.json`,
+  `summary.yaml`, `summary.md`, and `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  E2 and E3 both pass the combined force-motion and orientation gates only at
+  `paper_time_scale = 0.075`; higher scales are rejected by qdot saturation
+  and/or orientation gates. The E1-E4 common `0.075` matrix passes all gates.
+- Limit:
+  This is a velocity-level simulation hierarchy, not torque-level control or
+  hardware validation. It improves the controller baseline at `0.075` but does
+  not recover full-speed orientation-gated reproduction.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

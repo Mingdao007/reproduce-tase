@@ -254,6 +254,7 @@ def simulate_planar_force_motion(
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
     orientation_mode: str = "none",
+    orientation_priority_mode: str = "weighted",
     orientation_kp: float = 1.0,
     angular_axis_weights: np.ndarray | None = None,
     angular_slack_axis_weights: np.ndarray | None = None,
@@ -262,6 +263,8 @@ def simulate_planar_force_motion(
     """Run an x/y trajectory while regulating normal force."""
     if orientation_mode not in {"none", "hold"}:
         raise ValueError("orientation_mode must be 'none' or 'hold'")
+    if orientation_priority_mode not in {"weighted", "linear_primary"}:
+        raise ValueError("orientation_priority_mode must be 'weighted' or 'linear_primary'")
     orientation_task_enabled = orientation_mode != "none"
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
@@ -296,7 +299,12 @@ def simulate_planar_force_motion(
         solve_angular_slack_axis_weights = np.asarray(angular_slack_axis_weights, dtype=float)
         if solve_angular_slack_axis_weights.shape != (3,):
             raise ValueError("angular_slack_axis_weights must have shape (3,)")
-    if orientation_task_enabled and solve_slack_axis_weights is not None and solve_angular_slack_axis_weights is None:
+    if (
+        orientation_task_enabled
+        and orientation_priority_mode == "weighted"
+        and solve_slack_axis_weights is not None
+        and solve_angular_slack_axis_weights is None
+    ):
         raise ValueError("angular_slack_axis_weights are required when orientation task uses slack solve")
     guard_fraction = None if normal_guard_force_fraction is None else float(normal_guard_force_fraction)
     if guard_fraction is not None and guard_fraction <= 0.0:
@@ -379,6 +387,7 @@ def simulate_planar_force_motion(
                 angular_velocity_rad_s=angular_command,
                 angular_axis_weights=solve_angular_axis_weights,
                 angular_slack_axis_weights=solve_angular_slack_axis_weights,
+                angular_priority_mode=orientation_priority_mode,
             ),
             dt=dt_s,
             q_min=q_min,
