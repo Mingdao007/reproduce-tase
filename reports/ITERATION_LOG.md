@@ -465,3 +465,45 @@
   Add orientation compliance or a planned approach phase around the full-speed
   `bend_0p10` baseline before considering any read-only hardware planning
   checklist.
+
+## 2026-05-24 v15 Orientation-Hold Force-Motion
+
+- Branch: `exp/tase-ur10e-v15-orientation-hold`
+- Starting commit: `b4a5f09c5c93435ebd5a3e32efce970b4a1a7564`
+- Files added:
+  - `reports/orientation_hold_force_motion_report.md`
+- Files updated:
+  - `src/tase_repro/kinematics.py`
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `tests/test_kinematics.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `reports/DECISION_RECORD.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Orientation-hold E1-E4 matrix runs under
+    `runs/orientation_hold_matrix/20260524T030000`,
+    `runs/orientation_hold_matrix/20260524T023404`, and
+    `runs/orientation_hold_matrix/20260524T023429`
+- Result:
+  Tests passed: `36 passed in 0.42s` before the matrix runs. The controller
+  now supports optional angular velocity rows with explicit angular residual
+  and slack metrics. At angular slack weight `0.1`, all E1-E4 cases fail the
+  existing force-motion gates due planar error/slack. At `0.001`, E1/E3/E4
+  pass and E2 fails only the sustained tail qdot utilization gate. At
+  `0.0001`, all E1-E4 cases pass the v12 force-motion gates, but orientation
+  error reaches `0.08108796381776726 rad` and angular slack reaches
+  `0.08895566203803207 rad/s`.
+- Limit:
+  This is an initial-orientation hold task, not the paper's full orientation
+  compliance law. Orientation error is reported but not yet a hard acceptance
+  gate.
+- Next step:
+  Define an orientation-specific gate and test whether posture, timing, or
+  task-priority changes can reduce orientation error while preserving the
+  full-speed force-motion gates.

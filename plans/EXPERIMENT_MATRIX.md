@@ -32,6 +32,7 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 - No-contact trajectories.
 - Contact trajectories.
 - Article-level E1-E4 simulation matrix.
+- Orientation-hold E1-E4 matrix with angular residual and slack metrics.
 
 ## Pass/Fail Criteria
 
@@ -51,13 +52,13 @@ them rather than deleting them.
 
 ## Unresolved Risks
 
-- Existing E1-E4 results are synthetic and may not match PDF truth.
-- Force ladder is not yet implemented as a robust controller experiment.
+- Orientation-hold is not yet paper-faithful orientation compliance.
+- The current full-speed force-motion gate does not include a hard orientation
+  error threshold.
 
 ## Next Executable Step
 
-Use `runs/slack_aware_force_motion/20260524T020245` as diagnostic evidence
-that full-speed E2/E3 is infeasible under the current posture, qdot cap, and
-velocity-level controller without accepting large planar slack. Next, define
-pass/fail thresholds and test slower timing or posture changes before
-increasing trajectory complexity or adding orientation compliance.
+Use `runs/orientation_hold_matrix/20260524T023429` as the current full-speed
+force-motion baseline with measured low-priority orientation hold. Next, define
+an orientation-specific gate and sweep timing/posture/task priority if the
+`0.081 rad` maximum orientation error is unacceptable.

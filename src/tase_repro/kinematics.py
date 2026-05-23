@@ -42,6 +42,13 @@ def site_position(model: mujoco.MjModel, data: mujoco.MjData, site_name: str) ->
     return data.site_xpos[site_id].copy()
 
 
+def site_rotation_matrix(model: mujoco.MjModel, data: mujoco.MjData, site_name: str) -> np.ndarray:
+    site_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, site_name)
+    if site_id < 0:
+        raise ValueError(f"site not found: {site_name}")
+    return data.site_xmat[site_id].reshape(3, 3).copy()
+
+
 def site_jacobian(model: mujoco.MjModel, data: mujoco.MjData, site_name: str) -> tuple[np.ndarray, np.ndarray]:
     site_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, site_name)
     if site_id < 0:
@@ -79,3 +86,37 @@ def finite_difference_site_position_jacobian(
     set_qpos(model, data, q0)
     return jac
 
+
+def rotation_matrix_to_rotvec(rotation: np.ndarray) -> np.ndarray:
+    rotation = np.asarray(rotation, dtype=float)
+    if rotation.shape != (3, 3):
+        raise ValueError("rotation must have shape (3, 3)")
+    cos_angle = float(np.clip((np.trace(rotation) - 1.0) / 2.0, -1.0, 1.0))
+    angle = float(np.arccos(cos_angle))
+    vee = np.array(
+        [
+            rotation[2, 1] - rotation[1, 2],
+            rotation[0, 2] - rotation[2, 0],
+            rotation[1, 0] - rotation[0, 1],
+        ],
+        dtype=float,
+    )
+    if angle < 1e-9:
+        return 0.5 * vee
+    sin_angle = float(np.sin(angle))
+    if abs(sin_angle) < 1e-9:
+        axis = np.sqrt(np.maximum(np.diag(rotation) + 1.0, 0.0) / 2.0)
+        if np.linalg.norm(axis) == 0.0:
+            return np.zeros(3, dtype=float)
+        axis = axis / np.linalg.norm(axis)
+        return angle * axis
+    return angle * vee / (2.0 * sin_angle)
+
+
+def orientation_error_rotvec(desired_rotation: np.ndarray, current_rotation: np.ndarray) -> np.ndarray:
+    """Return world-frame rotation vector that moves current orientation to desired."""
+    desired = np.asarray(desired_rotation, dtype=float)
+    current = np.asarray(current_rotation, dtype=float)
+    if desired.shape != (3, 3) or current.shape != (3, 3):
+        raise ValueError("desired_rotation and current_rotation must have shape (3, 3)")
+    return rotation_matrix_to_rotvec(desired @ current.T)

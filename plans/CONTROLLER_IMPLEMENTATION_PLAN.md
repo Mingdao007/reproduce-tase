@@ -14,9 +14,14 @@ contracts are testable.
 ## Exact Files Touched
 
 - `src/tase_repro/controller.py`
+- `src/tase_repro/force_feedback.py`
+- `src/tase_repro/kinematics.py`
 - `scripts/run_controller_smoke.py`
+- `scripts/run_paper_trajectory_force_motion.py`
+- `scripts/run_timing_feasibility_sweep.py`
 - `tests/test_controller.py`
-- Future: `src/tase_repro/kinematics.py`
+- `tests/test_force_motion.py`
+- `tests/test_kinematics.py`
 - Future: `src/tase_repro/contact.py`
 - Future: `src/tase_repro/metrics.py`
 - Future: `tests/*`
@@ -34,6 +39,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
 - Unit tests for finite-time dynamics, kinematics, contact sign, and QP
   constraints.
 - Controller logs with slack, saturation, solver status, and task residuals.
+- Optional orientation-hold runs log orientation error, angular residual, and
+  angular slack.
 
 ## Pass/Fail Criteria
 
@@ -45,6 +52,8 @@ Pass:
 Fail:
 
 - A trajectory plot is accepted without solver/status metrics.
+- Orientation plots are accepted without angular slack and qdot-utilization
+  metrics.
 
 ## Rollback Point Or Recovery Command
 
@@ -58,6 +67,6 @@ smoke runs regress.
 
 ## Next Executable Step
 
-Extend the simulation-only controller smoke into a static contact-force ladder
-simulation. Keep force sign, solver status, active bounds, and failure states
-visible in metrics.
+Define an orientation-specific pass/fail gate and test whether timing, posture,
+or a stricter task-priority solve can reduce orientation error without
+regressing the full-speed force-motion gates.

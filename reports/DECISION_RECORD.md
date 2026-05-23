@@ -292,3 +292,21 @@
   The next simulation work can build orientation compliance or a planned
   approach phase from this baseline. The posture is still not a real robot
   command and does not relax the hardware safety gate.
+
+## D020: Treat Orientation Hold As A Soft Measured Task
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add an opt-in TCP orientation-hold task with angular residual and slack
+  metrics, but keep it soft and lower priority than normal-force and planar
+  force-motion gates.
+- Reason:
+  Stronger angular priority reduces orientation error but breaks full-speed
+  E1-E4 planar tracking on the 6DOF UR10e transfer. A very low angular slack
+  weight preserves the v14 force-motion gates while exposing residual
+  orientation error instead of hiding the missing orientation term.
+- Consequence:
+  Orientation is now measurable in the MuJoCo controller, but it is not yet a
+  paper-faithful orientation compliance result. The next step is an explicit
+  orientation gate or task-priority formulation.

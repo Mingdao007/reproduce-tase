@@ -456,6 +456,35 @@ Legacy source root:
   hardware validation. Orientation compliance and planned approach behavior
   remain open.
 
+## V15 Orientation-Hold Force-Motion Runs
+
+### E1-E4 orientation-hold priority sweep
+
+- Run roots:
+  - `runs/orientation_hold_matrix/20260524T030000`
+  - `runs/orientation_hold_matrix/20260524T023404`
+  - `runs/orientation_hold_matrix/20260524T023429`
+- Scope:
+  Full-speed E1-E4 slack-aware force-motion matrix using the calibrated
+  `bend_0p10` MuJoCo posture, with `--orientation-mode hold` and angular
+  slack weights `0.1`, `0.001`, and `0.0001`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation
+  plot, angular-slack plot, root `summary.csv`, `summary.json`,
+  `summary.yaml`, `summary.md`, and `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Angular slack weight `0.1` fails all four existing force-motion gates due
+  planar error/slack. Angular slack weight `0.001` passes E1/E3/E4 and fails
+  E2 only on sustained tail qdot utilization. Angular slack weight `0.0001`
+  passes the v12 force-motion gates for E1-E4 while reporting maximum
+  orientation error `0.08108796381776726 rad` and maximum angular slack
+  `0.08895566203803207 rad/s`.
+- Limit:
+  Orientation hold is measured but not paper-faithful orientation compliance.
+  Orientation error is not yet a hard gate.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

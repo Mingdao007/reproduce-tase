@@ -30,6 +30,8 @@ SUMMARY_FIELDS = (
     "max_tangential_position_error_m",
     "max_planar_velocity_slack_m_s",
     "max_abs_normal_velocity_slack_m_s",
+    "max_orientation_error_rad",
+    "max_angular_velocity_slack_rad_s",
     "max_abs_qdot_rad_s",
     "max_qdot_utilization",
     "tail_max_qdot_utilization",
@@ -100,6 +102,14 @@ def run_case(args: argparse.Namespace, *, trajectory: str, time_scale: float, ou
         str(args.normal_slack_weight),
         "--slack-constraint-weight",
         str(args.slack_constraint_weight),
+        "--orientation-mode",
+        args.orientation_mode,
+        "--orientation-kp",
+        str(args.orientation_kp),
+        "--angular-axis-weight",
+        str(args.angular_axis_weight),
+        "--angular-slack-weight",
+        str(args.angular_slack_weight),
     ]
     subprocess.run(command, check=True, cwd=ROOT)
     with (out_dir / "metrics.yaml").open("r", encoding="utf-8") as f:
@@ -129,6 +139,8 @@ def build_summary_row(case: dict[str, Any], *, case_dir: pathlib.Path) -> dict[s
         "max_tangential_position_error_m": metrics["max_tangential_position_error_m"],
         "max_planar_velocity_slack_m_s": metrics["max_planar_velocity_slack_m_s"],
         "max_abs_normal_velocity_slack_m_s": metrics["max_abs_normal_velocity_slack_m_s"],
+        "max_orientation_error_rad": metrics["max_orientation_error_rad"],
+        "max_angular_velocity_slack_rad_s": metrics["max_angular_velocity_slack_rad_s"],
         "max_abs_qdot_rad_s": metrics["max_abs_qdot_rad_s"],
         "max_qdot_utilization": metrics["max_qdot_utilization"],
         "tail_max_qdot_utilization": metrics["tail_max_qdot_utilization"],
@@ -179,13 +191,13 @@ def write_summary_markdown(
             "",
             "## Cases",
             "",
-            "| trajectory | scale | pass | failed criteria | force error N | contact | max pos err m | max planar slack m/s | max normal slack m/s | qdot sat frac | tail qdot util |",
-            "| --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| trajectory | scale | pass | failed criteria | force error N | contact | max pos err m | max planar slack m/s | max normal slack m/s | qdot sat frac | tail qdot util | max orient err rad | max angular slack rad/s |",
+            "| --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for row in rows:
         lines.append(
-            "| {trajectory} | `{scale}` | `{passed}` | `{failed}` | `{force}` | `{contact}` | `{pos}` | `{planar_slack}` | `{normal_slack}` | `{qdot_sat}` | `{tail_qdot_util}` |".format(
+            "| {trajectory} | `{scale}` | `{passed}` | `{failed}` | `{force}` | `{contact}` | `{pos}` | `{planar_slack}` | `{normal_slack}` | `{qdot_sat}` | `{tail_qdot_util}` | `{orient}` | `{angular_slack}` |".format(
                 trajectory=row["trajectory"],
                 scale=row["paper_time_scale"],
                 passed=row["feasibility_pass"],
@@ -197,6 +209,8 @@ def write_summary_markdown(
                 normal_slack=row["max_abs_normal_velocity_slack_m_s"],
                 qdot_sat=row["qdot_saturation_fraction"],
                 tail_qdot_util=row["tail_max_qdot_utilization"],
+                orient=row["max_orientation_error_rad"],
+                angular_slack=row["max_angular_velocity_slack_rad_s"],
             )
         )
     output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -218,6 +232,8 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
             f"- Dirty state: `{dirty}`",
             "- Scope:",
             f"  Force-motion feasibility sweep for `{trajectory_text}` with time scales `{args.time_scales}`.",
+            "- Orientation task:",
+            f"  mode `{args.orientation_mode}`, kp `{args.orientation_kp}`, angular axis weight `{args.angular_axis_weight}`, angular slack weight `{args.angular_slack_weight}`.",
             "- Note:",
             "  Raw `.npz` files are ignored by repo policy. Metrics, plots, and aggregate summaries are tracked.",
             "",
@@ -244,6 +260,10 @@ def main() -> int:
     parser.add_argument("--planar-slack-weight", type=float, default=1.0)
     parser.add_argument("--normal-slack-weight", type=float, default=10000.0)
     parser.add_argument("--slack-constraint-weight", type=float, default=1000.0)
+    parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-kp", type=float, default=1.0)
+    parser.add_argument("--angular-axis-weight", type=float, default=1.0)
+    parser.add_argument("--angular-slack-weight", type=float, default=1.0)
     args = parser.parse_args()
 
     trajectories = parse_csv_strings(args.trajectories)

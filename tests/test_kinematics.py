@@ -10,6 +10,8 @@ from tase_repro.kinematics import (
     joint_ranges,
     load_model,
     make_data,
+    orientation_error_rotvec,
+    rotation_matrix_to_rotvec,
     set_qpos,
     site_jacobian,
 )
@@ -46,3 +48,18 @@ def test_site_position_jacobian_matches_finite_difference() -> None:
     fd = finite_difference_site_position_jacobian(model, data, SITE, q, eps=1e-6)
     np.testing.assert_allclose(jacp, fd, atol=2e-6)
 
+
+def test_rotation_error_vector_sign_convention() -> None:
+    theta = 0.2
+    c = np.cos(theta)
+    s = np.sin(theta)
+    rz = np.array(
+        [
+            [c, -s, 0.0],
+            [s, c, 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+    )
+    np.testing.assert_allclose(rotation_matrix_to_rotvec(rz), np.array([0.0, 0.0, theta]), atol=1e-12)
+    np.testing.assert_allclose(orientation_error_rotvec(rz, np.eye(3)), np.array([0.0, 0.0, theta]), atol=1e-12)
+    np.testing.assert_allclose(orientation_error_rotvec(np.eye(3), rz), np.array([0.0, 0.0, -theta]), atol=1e-12)

@@ -130,3 +130,38 @@ def test_controller_slack_solve_reports_task_slack() -> None:
         result.desired_linear_velocity_m_s - result.actual_linear_velocity_m_s,
         atol=1e-6,
     )
+
+
+def test_controller_accepts_angular_velocity_task_with_slack() -> None:
+    model = load_model(MODEL_PATH)
+    data = make_data(model)
+    q = np.array([0.1, -0.4, 0.3, -0.2, 0.15, 0.0])
+    set_qpos(model, data, q)
+    q_min, q_max = joint_ranges(model)
+    desired_angular = np.array([0.0, 0.0, 0.02])
+    result = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            np.zeros(3),
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+            angular_velocity_rad_s=desired_angular,
+            angular_slack_axis_weights=np.array([0.5, 0.5, 0.5]),
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=np.full(model.nv, -0.5),
+        qdot_max=np.full(model.nv, 0.5),
+    )
+    assert result.solver_success
+    assert result.angular_task_enabled
+    assert result.actual_angular_velocity_rad_s.shape == (3,)
+    assert result.task_slack_angular_velocity_rad_s.shape == (3,)
+    np.testing.assert_allclose(
+        result.task_slack_angular_velocity_rad_s,
+        result.desired_angular_velocity_rad_s - result.actual_angular_velocity_rad_s,
+        atol=1e-6,
+    )

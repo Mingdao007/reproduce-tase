@@ -109,6 +109,10 @@ def main() -> int:
     parser.add_argument("--slack-constraint-weight", type=float, default=1e3)
     parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
     parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
+    parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-kp", type=float, default=1.0)
+    parser.add_argument("--angular-axis-weight", type=float, default=1.0)
+    parser.add_argument("--angular-slack-weight", type=float, default=1.0)
     args = parser.parse_args()
 
     config_path = (ROOT / args.config).resolve()
@@ -154,6 +158,12 @@ def main() -> int:
         slack_constraint_weight=args.slack_constraint_weight,
         normal_guard_force_fraction=args.normal_guard_force_fraction,
         normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
+        orientation_mode=args.orientation_mode,
+        orientation_kp=args.orientation_kp,
+        angular_axis_weights=np.full(3, args.angular_axis_weight, dtype=float),
+        angular_slack_axis_weights=np.full(3, args.angular_slack_weight, dtype=float)
+        if args.use_slack_solve and args.orientation_mode != "none"
+        else None,
     )
     summary = summarize_force_motion(
         result,
@@ -170,11 +180,18 @@ def main() -> int:
         qdot=result.qdot,
         tcp=result.tcp,
         desired_tcp=result.desired_tcp,
+        tcp_rotation=result.tcp_rotation,
+        desired_tcp_rotation=result.desired_tcp_rotation,
+        orientation_error_rotvec=result.orientation_error_rotvec,
         force=result.force,
         commanded_linear_velocity=result.commanded_linear_velocity,
+        commanded_angular_velocity=result.commanded_angular_velocity,
         actual_linear_velocity=result.actual_linear_velocity,
+        actual_angular_velocity=result.actual_angular_velocity,
         linear_velocity_residual=result.linear_velocity_residual,
+        angular_velocity_residual=result.angular_velocity_residual,
         task_slack_linear_velocity=result.task_slack_linear_velocity,
+        task_slack_angular_velocity=result.task_slack_angular_velocity,
         planar_scale=result.planar_scale,
         solver_success=result.solver_success,
         active_bounds=result.active_bounds,
@@ -221,12 +238,18 @@ def main() -> int:
         if args.normal_guard_force_fraction is None
         else float(args.normal_guard_force_fraction),
         "normal_guard_min_planar_scale": float(args.normal_guard_min_planar_scale),
+        "orientation_mode": args.orientation_mode,
+        "orientation_kp": float(args.orientation_kp),
+        "angular_axis_weight": float(args.angular_axis_weight),
+        "angular_slack_weight": float(args.angular_slack_weight),
         **summary,
         "warnings": [
             "simulation-only paper-trajectory-shaped force-motion smoke",
             "uses MuJoCo contact force rather than hardware force sensing",
             "kinematic velocity-level controller",
-            "no orientation compliance yet",
+            "orientation hold is simulation-only and not paper orientation proof"
+            if args.orientation_mode != "none"
+            else "no orientation compliance yet",
             "not torque dynamics",
             "not hardware-ready",
         ],
@@ -259,6 +282,29 @@ def main() -> int:
     plt.legend()
     plt.tight_layout()
     plt.savefig(out_dir / f"paper-trajectory-force-motion_xy_{run_id}.png", dpi=160)
+
+    if result.orientation_task_enabled:
+        orientation_error = np.linalg.norm(result.orientation_error_rotvec, axis=1)
+        angular_slack = np.linalg.norm(result.task_slack_angular_velocity, axis=1)
+        plt.figure(figsize=(8, 4))
+        plt.plot(t, orientation_error, label="orientation error")
+        plt.xlabel("time [s]")
+        plt.ylabel("angle [rad]")
+        plt.title(f"Orientation hold error: {args.trajectory}")
+        plt.grid(True, alpha=0.3)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(out_dir / f"paper-trajectory-force-motion_orientation_{run_id}.png", dpi=160)
+
+        plt.figure(figsize=(8, 4))
+        plt.plot(t, angular_slack, label="angular slack")
+        plt.xlabel("time [s]")
+        plt.ylabel("slack [rad/s]")
+        plt.title(f"Orientation hold angular slack: {args.trajectory}")
+        plt.grid(True, alpha=0.3)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(out_dir / f"paper-trajectory-force-motion_angular-slack_{run_id}.png", dpi=160)
 
     print(out_dir)
     return 0

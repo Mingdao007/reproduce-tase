@@ -10,7 +10,15 @@ import numpy as np
 from tase_repro.contact import finite_time_normal_velocity_command
 from tase_repro.contact_ladder import positive_contact_normal_force
 from tase_repro.controller import CartesianVelocityCommand, solve_site_linear_velocity_step
-from tase_repro.kinematics import joint_ranges, load_model, make_data, set_qpos, site_position
+from tase_repro.kinematics import (
+    joint_ranges,
+    load_model,
+    make_data,
+    orientation_error_rotvec,
+    set_qpos,
+    site_position,
+    site_rotation_matrix,
+)
 from tase_repro.trajectories import PlanarTrajectoryState, linear_planar_state
 
 
@@ -32,16 +40,24 @@ class ForceMotionResult:
     q: np.ndarray
     qdot: np.ndarray
     tcp: np.ndarray
+    tcp_rotation: np.ndarray
     desired_tcp: np.ndarray
+    desired_tcp_rotation: np.ndarray
+    orientation_error_rotvec: np.ndarray
     force: np.ndarray
     commanded_linear_velocity: np.ndarray
+    commanded_angular_velocity: np.ndarray
     actual_linear_velocity: np.ndarray
+    actual_angular_velocity: np.ndarray
     linear_velocity_residual: np.ndarray
+    angular_velocity_residual: np.ndarray
     task_slack_linear_velocity: np.ndarray
+    task_slack_angular_velocity: np.ndarray
     planar_scale: np.ndarray
     solver_success: np.ndarray
     active_bounds: np.ndarray
     contact_count: np.ndarray
+    orientation_task_enabled: bool
 
 
 def apply_base_z_offset(model: mujoco.MjModel, base_z_offset_m: float) -> None:
@@ -237,9 +253,16 @@ def simulate_planar_force_motion(
     slack_constraint_weight: float = 1e3,
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
+    orientation_mode: str = "none",
+    orientation_kp: float = 1.0,
+    angular_axis_weights: np.ndarray | None = None,
+    angular_slack_axis_weights: np.ndarray | None = None,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
+    if orientation_mode not in {"none", "hold"}:
+        raise ValueError("orientation_mode must be 'none' or 'hold'")
+    orientation_task_enabled = orientation_mode != "none"
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
     data = make_data(model)
@@ -261,6 +284,20 @@ def simulate_planar_force_motion(
         solve_slack_axis_weights = np.asarray(slack_axis_weights, dtype=float)
         if solve_slack_axis_weights.shape != (3,):
             raise ValueError("slack_axis_weights must have shape (3,)")
+    if angular_axis_weights is None:
+        solve_angular_axis_weights = np.ones(3, dtype=float)
+    else:
+        solve_angular_axis_weights = np.asarray(angular_axis_weights, dtype=float)
+        if solve_angular_axis_weights.shape != (3,):
+            raise ValueError("angular_axis_weights must have shape (3,)")
+    if angular_slack_axis_weights is None:
+        solve_angular_slack_axis_weights = None
+    else:
+        solve_angular_slack_axis_weights = np.asarray(angular_slack_axis_weights, dtype=float)
+        if solve_angular_slack_axis_weights.shape != (3,):
+            raise ValueError("angular_slack_axis_weights must have shape (3,)")
+    if orientation_task_enabled and solve_slack_axis_weights is not None and solve_angular_slack_axis_weights is None:
+        raise ValueError("angular_slack_axis_weights are required when orientation task uses slack solve")
     guard_fraction = None if normal_guard_force_fraction is None else float(normal_guard_force_fraction)
     if guard_fraction is not None and guard_fraction <= 0.0:
         raise ValueError("normal_guard_force_fraction must be positive when set")
@@ -270,16 +307,24 @@ def simulate_planar_force_motion(
 
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
+    start_rotation = site_rotation_matrix(model, data, site_name)
     steps = int(round(float(duration_s) / float(dt_s)))
     q_hist = np.empty((steps, model.nq), dtype=float)
     qdot_hist = np.empty((steps, model.nv), dtype=float)
     tcp_hist = np.empty((steps, 3), dtype=float)
+    tcp_rotation_hist = np.empty((steps, 3, 3), dtype=float)
     desired_tcp_hist = np.empty((steps, 3), dtype=float)
+    desired_tcp_rotation_hist = np.empty((steps, 3, 3), dtype=float)
+    orientation_error_hist = np.empty((steps, 3), dtype=float)
     force_hist = np.empty(steps, dtype=float)
     commanded_linear_hist = np.empty((steps, 3), dtype=float)
+    commanded_angular_hist = np.empty((steps, 3), dtype=float)
     actual_linear_hist = np.empty((steps, 3), dtype=float)
+    actual_angular_hist = np.empty((steps, 3), dtype=float)
     linear_residual_hist = np.empty((steps, 3), dtype=float)
+    angular_residual_hist = np.empty((steps, 3), dtype=float)
     task_slack_hist = np.empty((steps, 3), dtype=float)
+    task_slack_angular_hist = np.empty((steps, 3), dtype=float)
     planar_scale_hist = np.empty(steps, dtype=float)
     solver_success = np.empty(steps, dtype=bool)
     active_bounds = np.empty(steps, dtype=int)
@@ -290,6 +335,7 @@ def simulate_planar_force_motion(
         set_qpos(model, data, q)
         mujoco.mj_forward(model, data)
         tcp = site_position(model, data, site_name)
+        current_rotation = site_rotation_matrix(model, data, site_name)
         trajectory_state = planar_trajectory(t)
         planar_displacement = np.asarray(trajectory_state.displacement_m, dtype=float)
         planar_velocity = np.asarray(trajectory_state.velocity_m_s, dtype=float)
@@ -313,6 +359,13 @@ def simulate_planar_force_motion(
             r=r,
         )
         command = np.array([tangential_cmd[0], tangential_cmd[1], command_vz])
+        if orientation_mode == "hold":
+            desired_rotation = start_rotation
+            pre_step_orientation_error = orientation_error_rotvec(desired_rotation, current_rotation)
+            angular_command = float(orientation_kp) * pre_step_orientation_error
+        else:
+            desired_rotation = current_rotation
+            angular_command = None
         step = solve_site_linear_velocity_step(
             model,
             data,
@@ -323,6 +376,9 @@ def simulate_planar_force_motion(
                 axis_weights=solve_axis_weights,
                 slack_axis_weights=solve_slack_axis_weights,
                 slack_constraint_weight=slack_constraint_weight,
+                angular_velocity_rad_s=angular_command,
+                angular_axis_weights=solve_angular_axis_weights,
+                angular_slack_axis_weights=solve_angular_slack_axis_weights,
             ),
             dt=dt_s,
             q_min=q_min,
@@ -332,16 +388,28 @@ def simulate_planar_force_motion(
         )
         q = q + dt_s * step.qdot
         set_qpos(model, data, q)
+        post_step_rotation = site_rotation_matrix(model, data, site_name)
 
         q_hist[idx] = q
         qdot_hist[idx] = step.qdot
         tcp_hist[idx] = site_position(model, data, site_name)
+        tcp_rotation_hist[idx] = post_step_rotation
         desired_tcp_hist[idx] = desired_tcp
+        desired_tcp_rotation_hist[idx] = desired_rotation
+        orientation_error_hist[idx] = (
+            orientation_error_rotvec(desired_rotation, post_step_rotation)
+            if orientation_task_enabled
+            else np.zeros(3, dtype=float)
+        )
         force_hist[idx] = force
         commanded_linear_hist[idx] = command
+        commanded_angular_hist[idx] = np.zeros(3, dtype=float) if angular_command is None else angular_command
         actual_linear_hist[idx] = step.actual_linear_velocity_m_s
+        actual_angular_hist[idx] = step.actual_angular_velocity_rad_s
         linear_residual_hist[idx] = step.residual_linear_velocity_m_s
+        angular_residual_hist[idx] = step.residual_angular_velocity_rad_s
         task_slack_hist[idx] = step.task_slack_linear_velocity_m_s
+        task_slack_angular_hist[idx] = step.task_slack_angular_velocity_rad_s
         planar_scale_hist[idx] = planar_scale
         solver_success[idx] = step.solver_success
         active_bounds[idx] = step.active_bound_count
@@ -351,16 +419,24 @@ def simulate_planar_force_motion(
         q=q_hist,
         qdot=qdot_hist,
         tcp=tcp_hist,
+        tcp_rotation=tcp_rotation_hist,
         desired_tcp=desired_tcp_hist,
+        desired_tcp_rotation=desired_tcp_rotation_hist,
+        orientation_error_rotvec=orientation_error_hist,
         force=force_hist,
         commanded_linear_velocity=commanded_linear_hist,
+        commanded_angular_velocity=commanded_angular_hist,
         actual_linear_velocity=actual_linear_hist,
+        actual_angular_velocity=actual_angular_hist,
         linear_velocity_residual=linear_residual_hist,
+        angular_velocity_residual=angular_residual_hist,
         task_slack_linear_velocity=task_slack_hist,
+        task_slack_angular_velocity=task_slack_angular_hist,
         planar_scale=planar_scale_hist,
         solver_success=solver_success,
         active_bounds=active_bounds,
         contact_count=contact_count,
+        orientation_task_enabled=orientation_task_enabled,
     )
 
 
@@ -381,6 +457,9 @@ def summarize_force_motion(
     normal_velocity_residual = result.linear_velocity_residual[:, 2]
     planar_velocity_slack = np.linalg.norm(result.task_slack_linear_velocity[:, :2], axis=1)
     normal_velocity_slack = result.task_slack_linear_velocity[:, 2]
+    orientation_error = np.linalg.norm(result.orientation_error_rotvec, axis=1)
+    angular_velocity_residual = np.linalg.norm(result.angular_velocity_residual, axis=1)
+    angular_velocity_slack = np.linalg.norm(result.task_slack_angular_velocity, axis=1)
     q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
     qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
     qdot_abs_limits = np.minimum(np.abs(qdot_min), np.abs(qdot_max))
@@ -423,6 +502,16 @@ def summarize_force_motion(
         "mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack))),
         "max_abs_normal_velocity_slack_m_s": float(np.max(np.abs(normal_velocity_slack))),
         "tail_mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack[-tail:]))),
+        "orientation_task_enabled": bool(result.orientation_task_enabled),
+        "mean_orientation_error_rad": float(np.mean(orientation_error)),
+        "max_orientation_error_rad": float(np.max(orientation_error)),
+        "tail_mean_orientation_error_rad": float(np.mean(orientation_error[-tail:])),
+        "mean_angular_velocity_residual_rad_s": float(np.mean(angular_velocity_residual)),
+        "max_angular_velocity_residual_rad_s": float(np.max(angular_velocity_residual)),
+        "tail_mean_angular_velocity_residual_rad_s": float(np.mean(angular_velocity_residual[-tail:])),
+        "mean_angular_velocity_slack_rad_s": float(np.mean(angular_velocity_slack)),
+        "max_angular_velocity_slack_rad_s": float(np.max(angular_velocity_slack)),
+        "tail_mean_angular_velocity_slack_rad_s": float(np.mean(angular_velocity_slack[-tail:])),
         "max_qdot_utilization": float(np.max(qdot_utilization)),
         "tail_max_qdot_utilization": float(np.max(qdot_utilization[-tail:])),
         "qdot_saturation_threshold": qdot_saturation_threshold,
@@ -433,4 +522,8 @@ def summarize_force_motion(
         "max_joint_limit_violation_rad": float(np.max(q_violation)),
         "max_abs_commanded_linear_velocity_m_s": float(np.max(np.linalg.norm(result.commanded_linear_velocity, axis=1))),
         "max_abs_actual_linear_velocity_m_s": float(np.max(np.linalg.norm(result.actual_linear_velocity, axis=1))),
+        "max_abs_commanded_angular_velocity_rad_s": float(
+            np.max(np.linalg.norm(result.commanded_angular_velocity, axis=1))
+        ),
+        "max_abs_actual_angular_velocity_rad_s": float(np.max(np.linalg.norm(result.actual_angular_velocity, axis=1))),
     }

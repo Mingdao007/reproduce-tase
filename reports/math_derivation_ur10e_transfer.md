@@ -435,3 +435,42 @@ Interpretation:
 
 The full-speed E2/E3 task is not feasible under the current posture, qdot cap,
 and velocity-level controller without accepting large planar slack.
+
+## V15 Orientation-Hold Spatial Velocity Rows
+
+The controller now supports an opt-in stacked spatial velocity task:
+
+```text
+[Jp] qdot + s_linear  = v_cmd
+[Jr] qdot + s_angular = omega_cmd
+```
+
+For the first UR10e-adapted orientation experiment, the desired orientation is
+the initial TCP site orientation:
+
+```text
+R_desired = R_tcp(t0)
+omega_cmd = k_R log(R_desired R_tcp(t)^T)
+```
+
+This keeps hard joint and velocity bounds on `qdot` and reports:
+
+- orientation error rotation-vector norm;
+- angular velocity residual;
+- angular slack;
+- force/contact/planar gates from v12.
+
+Orientation is deliberately a soft task. The v15 sweep shows the 6DOF
+allocation tradeoff:
+
+| angular slack weight | E1-E4 force-motion gate pass | max orientation error rad | max angular slack rad/s | interpretation |
+| ---: | ---: | ---: | ---: | --- |
+| `0.1` | `0/4` | `0.022792200960046364` | `0.024703715417836912` | stronger angular priority breaks planar tracking |
+| `0.001` | `3/4` | `0.0792791337407633` | `0.0869211753487964` | E2 fails sustained qdot utilization |
+| `0.0001` | `4/4` | `0.08108796381776726` | `0.08895566203803207` | preserves force-motion gates with weak orientation hold |
+
+Therefore v15 turns orientation from an unmodeled omission into a measured
+soft task, but it does not yet establish paper-faithful orientation
+compliance. A future gate must define acceptable orientation error and decide
+whether that gate is feasible through timing, posture, or stricter task
+priority.
