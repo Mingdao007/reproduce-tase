@@ -177,3 +177,20 @@
 - Consequence:
   v7 demonstrates simulation-only E1-E4 shape tracking in contact at low
   speed. Full-speed E2/E3 remain open controller issues.
+
+## D013: Treat Axis Weighting As Diagnostic, Not Final Controller
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add row-wise Cartesian axis weights to the velocity solve and use high
+  normal-axis weights to diagnose the full-speed E2/E3 contact-loss blocker.
+- Reason:
+  Trace inspection showed the equal-weight solve could command negative z after
+  contact loss but still realize positive z because planar tracking dominated
+  the coupled Jacobian. Axis weighting is the smallest change that can test
+  whether prioritizing normal motion recovers contact.
+- Consequence:
+  The weighted v8 matrix recovers contact and force regulation but creates
+  unacceptable planar error on E2/E3. The next controller needs explicit
+  priority or slack accounting, not just larger weights.

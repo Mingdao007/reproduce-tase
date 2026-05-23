@@ -101,6 +101,8 @@ def main() -> int:
     parser.add_argument("--zero-initial-offset", dest="zero_initial_offset", action="store_true", default=True)
     parser.add_argument("--no-zero-initial-offset", dest="zero_initial_offset", action="store_false")
     parser.add_argument("--planar-kp", type=float, default=0.5)
+    parser.add_argument("--planar-axis-weight", type=float, default=1.0)
+    parser.add_argument("--normal-axis-weight", type=float, default=1.0)
     args = parser.parse_args()
 
     config_path = (ROOT / args.config).resolve()
@@ -139,6 +141,7 @@ def main() -> int:
         force_gain=args.force_gain,
         r=args.r,
         planar_kp=args.planar_kp,
+        axis_weights=np.array([args.planar_axis_weight, args.planar_axis_weight, args.normal_axis_weight]),
     )
     summary = summarize_force_motion(
         result,
@@ -187,6 +190,11 @@ def main() -> int:
         "paper_time_scale": float(args.paper_time_scale),
         "zero_initial_offset": bool(args.zero_initial_offset),
         "planar_kp": float(args.planar_kp),
+        "axis_weights": [
+            float(args.planar_axis_weight),
+            float(args.planar_axis_weight),
+            float(args.normal_axis_weight),
+        ],
         **summary,
         "warnings": [
             "simulation-only paper-trajectory-shaped force-motion smoke",

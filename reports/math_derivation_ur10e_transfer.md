@@ -327,3 +327,33 @@ Accepted low-speed matrix result:
 | E2 figure-eight | `0.22110301894575918` | `2.236053449085177e-06` | `1.0` | `1.0` |
 | E3 circle | `0.07713928700031802` | `1.4999786407036843e-06` | `1.0` | `1.0` |
 | E4 cardioid | `2.7477968988542934e-06` | `2.621139110103472e-07` | `1.0` | `1.0` |
+
+## V8 Weighted Normal Force-Motion Diagnostic
+
+The velocity solve now supports row-wise Cartesian axis weights:
+
+```text
+minimize ||W_axis (Jp qdot - v_cmd)||^2 + damping ||qdot||^2
+```
+
+The diagnostic full-speed matrix used:
+
+- `axis_weights = [1, 1, 100]`
+- `force_gain = 5e-4`
+- `qdot_limit = 0.15 rad/s`
+- `paper_time_scale = 1.0`
+
+Result:
+
+| trajectory | tail mean abs force error N | contact present | max position error m | max qdot rad/s |
+| --- | ---: | ---: | ---: | ---: |
+| E1 cycloid | `0.00033862693701109726` | `1.0` | `1.9594095253937445e-06` | `0.14999999924398735` |
+| E2 figure-eight | `0.04680027821015285` | `1.0` | `0.02114519099848796` | `0.14999999999999997` |
+| E3 circle | `0.013411903132922096` | `1.0` | `0.016169767707432416` | `0.14999999999999997` |
+| E4 cardioid | `0.0015612634092028888` | `1.0` | `0.0016367063021719241` | `0.14999999999999997` |
+
+Interpretation:
+
+Axis weighting can rescue contact and force regulation, but E2/E3 still fail
+the trajectory-tracking bar. This supports moving from a blended least-squares
+controller to a prioritized or slack-aware solve.

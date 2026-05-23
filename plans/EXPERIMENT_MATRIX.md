@@ -56,7 +56,8 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/paper_trajectory_matrix/20260524T014344` as the first E1-E4
-low-speed paper trajectory matrix baseline. Next, investigate full-speed E2/E3
-contact loss with a prioritized or weighted normal-force task before increasing
-trajectory complexity or adding orientation compliance.
+Use `runs/weighted_normal_force_motion/20260524T014811` as diagnostic evidence
+that full-speed E2/E3 contact can be recovered with normal-axis weighting, but
+only by accepting unacceptable planar tracking error. Next, implement a
+prioritized or slack-aware normal-force task before increasing trajectory
+complexity or adding orientation compliance.

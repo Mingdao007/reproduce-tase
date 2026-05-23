@@ -56,3 +56,42 @@ def test_controller_respects_velocity_bound_for_large_command() -> None:
     assert result.solver_success
     assert np.max(np.abs(result.qdot)) <= 0.05 + 1e-9
 
+
+def test_controller_axis_weights_prioritize_weighted_direction() -> None:
+    model = load_model(MODEL_PATH)
+    data = make_data(model)
+    q = np.array([0.0, -0.02, 0.03, -0.01, 0.0, 0.0])
+    set_qpos(model, data, q)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.05)
+    qdot_max = np.full(model.nv, 0.05)
+    desired = np.array([0.004, 0.002, -0.0002])
+    equal = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(desired),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    weighted = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(desired, axis_weights=np.array([1.0, 1.0, 20.0])),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert equal.solver_success
+    assert weighted.solver_success
+    equal_z_error = abs(equal.actual_linear_velocity_m_s[2] - desired[2])
+    weighted_z_error = abs(weighted.actual_linear_velocity_m_s[2] - desired[2])
+    assert weighted_z_error < equal_z_error

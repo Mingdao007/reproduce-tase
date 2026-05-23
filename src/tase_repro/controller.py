@@ -13,6 +13,7 @@ from tase_repro.kinematics import site_jacobian
 class CartesianVelocityCommand:
     linear_velocity_m_s: np.ndarray
     weight: float = 1.0
+    axis_weights: np.ndarray | None = None
 
 
 @dataclass(frozen=True)
@@ -47,9 +48,18 @@ def solve_site_linear_velocity_step(
         raise ValueError("linear velocity command must have shape (3,)")
 
     weight = float(command.weight)
+    if command.axis_weights is None:
+        axis_weights = np.ones(3, dtype=float)
+    else:
+        axis_weights = np.asarray(command.axis_weights, dtype=float)
+        if axis_weights.shape != (3,):
+            raise ValueError("axis_weights must have shape (3,)")
+        if np.any(axis_weights < 0.0):
+            raise ValueError("axis_weights must be nonnegative")
+    row_weights = weight * axis_weights
     solve: VelocitySolveResult = solve_constrained_velocity_least_squares(
-        weight * jacp,
-        weight * desired,
+        row_weights[:, None] * jacp,
+        row_weights * desired,
         q=np.asarray(q, dtype=float),
         dt=dt,
         q_min=np.asarray(q_min, dtype=float),
@@ -74,4 +84,3 @@ def solve_site_linear_velocity_step(
         solver_success=solve.success,
         solver_message=solve.message,
     )
-

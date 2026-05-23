@@ -262,3 +262,34 @@
 - Next step:
   Investigate full-speed E2/E3 contact loss with a prioritized or weighted
   normal-force task before claiming full paper-trajectory reproduction.
+
+## 2026-05-24 v8 Weighted Normal Force-Motion Probe
+
+- Branch: `exp/tase-ur10e-v8-normal-weighted-force-motion`
+- Starting commit: `1c1329ca32078f7822d426db6962521bcc714c88`
+- Files updated:
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+- Files added:
+  - `reports/weighted_normal_force_motion_report.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Weighted full-speed probes under
+    `runs/weighted_normal_force_motion/20260524T014811`
+- Result:
+  Tests passed: `27 passed in 0.32s`. Axis weighting confirmed the v7 failure
+  mode: equal-weight full-speed E2/E3 lose contact because planar tracking
+  dominates the coupled velocity solve. A full-speed weighted matrix with
+  `axis_weights = [1, 1, 100]`, `force_gain = 5e-4`, and
+  `--qdot-limit-rad-s 0.15` recovered contact and force regulation for E1-E4,
+  but E2/E3 had max planar errors `0.02114519099848796 m` and
+  `0.016169767707432416 m` respectively, with qdot saturation.
+- Limit:
+  This is diagnostic controller tuning, not an acceptable full-speed paper
+  reproduction.
+- Next step:
+  Implement a two-stage or prioritized velocity solve that reports normal-force
+  task residual and planar tracking slack separately.

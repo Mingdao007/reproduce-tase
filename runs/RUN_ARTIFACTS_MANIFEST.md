@@ -295,6 +295,28 @@ Legacy source root:
   This is a low-speed trajectory-shape baseline, not full-speed Section VI
   reproduction.
 
+## V8 Weighted Normal Force-Motion Runs
+
+### Full-speed weighted normal-force diagnostic
+
+- Run root: `runs/weighted_normal_force_motion/20260524T014811`
+- Scope:
+  Full-speed E2/E3 probes and complete E1-E4 weighted matrix using
+  `--normal-axis-weight 100`, `--planar-axis-weight 1`,
+  `--force-gain 5e-4`, and `--qdot-limit-rad-s 0.15`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Contact and force regulation were recovered for E1-E4 at full paper time
+  scale. E2 and E3 still showed large planar tracking errors:
+  `0.02114519099848796 m` and `0.016169767707432416 m` max error.
+- Limit:
+  This is diagnostic evidence for task-priority design. It is not a final
+  full-speed paper trajectory reproduction.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

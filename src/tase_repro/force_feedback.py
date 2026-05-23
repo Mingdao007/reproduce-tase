@@ -182,6 +182,7 @@ def simulate_tangential_force_motion(
     force_gain: float,
     r: float,
     tangential_kp: float = 0.5,
+    axis_weights: np.ndarray | None = None,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run a low-speed tangential motion while regulating normal force."""
@@ -201,6 +202,7 @@ def simulate_tangential_force_motion(
         force_gain=force_gain,
         r=r,
         planar_kp=tangential_kp,
+        axis_weights=axis_weights,
         site_name=site_name,
     )
 
@@ -219,6 +221,7 @@ def simulate_planar_force_motion(
     force_gain: float,
     r: float,
     planar_kp: float = 0.5,
+    axis_weights: np.ndarray | None = None,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
@@ -231,6 +234,12 @@ def simulate_planar_force_motion(
         raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
     qdot_min = np.asarray(qdot_min, dtype=float)
     qdot_max = np.asarray(qdot_max, dtype=float)
+    if axis_weights is None:
+        solve_axis_weights = np.ones(3, dtype=float)
+    else:
+        solve_axis_weights = np.asarray(axis_weights, dtype=float)
+        if solve_axis_weights.shape != (3,):
+            raise ValueError("axis_weights must have shape (3,)")
 
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
@@ -274,7 +283,7 @@ def simulate_planar_force_motion(
             data,
             site_name=site_name,
             q=q,
-            command=CartesianVelocityCommand(command),
+            command=CartesianVelocityCommand(command, axis_weights=solve_axis_weights),
             dt=dt_s,
             q_min=q_min,
             q_max=q_max,
