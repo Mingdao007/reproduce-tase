@@ -328,3 +328,23 @@
   The current common E1-E4 matrix that passes force-motion plus orientation
   gates is slowed to `paper_time_scale = 0.075`. Full-speed orientation-gated
   reproduction remains open.
+
+## D022: Do Not Claim Full-Speed Orientation-Gated Success From Posture Tuning
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat the v17 small-posture and angular-priority bracket as negative
+  evidence for full-speed E2/E3 orientation-gated feasibility under the
+  current velocity-level controller.
+- Reason:
+  `bend_0p10` and `bend_0p125` both calibrate to the `5 N` initial-contact
+  target, but at angular slack weight `0.1` they satisfy the orientation gates
+  only while failing planar position and planar slack gates. Reducing angular
+  priority restores planar tracking only by failing the orientation gates,
+  especially on E3.
+- Consequence:
+  The current accepted orientation-gated fallback remains the v16 common
+  `paper_time_scale = 0.075` E1-E4 matrix. The next full-speed attempt should
+  be a true task-priority/null-space-aware solve or a paper-specific
+  orientation signal extraction, not a claim based on small posture tuning.

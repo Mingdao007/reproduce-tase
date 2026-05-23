@@ -43,6 +43,8 @@ SUMMARY_FIELDS = (
     "max_tangential_position_error_m",
     "max_planar_velocity_slack_m_s",
     "max_abs_normal_velocity_slack_m_s",
+    "max_orientation_error_rad",
+    "max_angular_velocity_slack_rad_s",
     "qdot_saturation_fraction",
     "tail_max_qdot_utilization",
     "case_dir",
@@ -144,13 +146,21 @@ def run_case(
         str(args.normal_slack_weight),
         "--slack-constraint-weight",
         str(args.slack_constraint_weight),
+        "--orientation-mode",
+        args.orientation_mode,
+        "--orientation-kp",
+        str(args.orientation_kp),
+        "--angular-axis-weight",
+        str(args.angular_axis_weight),
+        "--angular-slack-weight",
+        str(args.angular_slack_weight),
     ]
     subprocess.run(command, check=True, cwd=ROOT)
     with (out_dir / "metrics.yaml").open("r", encoding="utf-8") as f:
         metrics = yaml.safe_load(f)
     gate = evaluate_force_motion_feasibility(
         metrics,
-        thresholds=FeasibilityThresholds(),
+        thresholds=build_thresholds(args),
         qdot_abs_limit_rad_s=args.qdot_limit_rad_s,
     )
     return {
@@ -158,6 +168,13 @@ def run_case(
         "gate": gate,
         "command": command,
     }
+
+
+def build_thresholds(args: argparse.Namespace) -> FeasibilityThresholds:
+    return FeasibilityThresholds(
+        max_orientation_error_rad_max=args.max_orientation_error_rad,
+        max_angular_velocity_slack_rad_s_max=args.max_angular_slack_rad_s,
+    )
 
 
 def build_summary_row(
@@ -184,6 +201,8 @@ def build_summary_row(
         "max_tangential_position_error_m": metrics["max_tangential_position_error_m"],
         "max_planar_velocity_slack_m_s": metrics["max_planar_velocity_slack_m_s"],
         "max_abs_normal_velocity_slack_m_s": metrics["max_abs_normal_velocity_slack_m_s"],
+        "max_orientation_error_rad": metrics["max_orientation_error_rad"],
+        "max_angular_velocity_slack_rad_s": metrics["max_angular_velocity_slack_rad_s"],
         "qdot_saturation_fraction": metrics["qdot_saturation_fraction"],
         "tail_max_qdot_utilization": metrics["tail_max_qdot_utilization"],
         "case_dir": display_path(case_dir),
@@ -218,6 +237,7 @@ def write_summary_markdown(
     *,
     run_root: pathlib.Path,
     rows: list[dict[str, Any]],
+    posture_calibrations: list[dict[str, Any]],
     trajectories: list[str],
     thresholds: FeasibilityThresholds,
 ) -> None:
@@ -232,22 +252,43 @@ def write_summary_markdown(
     ]
     for key, value in thresholds.to_dict().items():
         lines.append(f"- `{key}`: `{value}`")
-    lines.extend(["", "## Fastest Scale Passing Both E2/E3", ""])
+    lines.extend(["", "## Fastest Scale Passing All Requested Trajectories", ""])
     for posture, scale in joint.items():
         text = "none" if scale is None else f"`{scale}`"
         lines.append(f"- `{posture}`: {text}")
     lines.extend(
         [
             "",
+            "## Posture Calibration",
+            "",
+            "| posture | pass | base z offset m | initial force N | contact count | error |",
+            "| --- | --- | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for calibration in posture_calibrations:
+        error = str(calibration.get("calibration_error") or "none").replace("\n", " ")
+        lines.append(
+            "| {posture} | `{passed}` | `{offset}` | `{force}` | `{contact_count}` | `{error}` |".format(
+                posture=calibration["posture"],
+                passed=calibration.get("calibration_pass"),
+                offset=calibration.get("calibrated_base_z_offset_m"),
+                force=calibration.get("initial_force_N"),
+                contact_count=calibration.get("initial_contact_count"),
+                error=error,
+            )
+        )
+    lines.extend(
+        [
+            "",
             "## Cases",
             "",
-            "| posture | trajectory | scale | pass | failed criteria | base z offset m | force error N | max pos err m | max planar slack m/s | qdot sat frac | tail qdot util |",
-            "| --- | --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| posture | trajectory | scale | pass | failed criteria | base z offset m | force error N | max pos err m | max planar slack m/s | max orient err rad | max angular slack rad/s | qdot sat frac | tail qdot util |",
+            "| --- | --- | ---: | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for row in rows:
         lines.append(
-            "| {posture} | {trajectory} | `{scale}` | `{passed}` | `{failed}` | `{offset}` | `{force}` | `{pos}` | `{planar_slack}` | `{qdot_sat}` | `{tail_qdot}` |".format(
+            "| {posture} | {trajectory} | `{scale}` | `{passed}` | `{failed}` | `{offset}` | `{force}` | `{pos}` | `{planar_slack}` | `{orient}` | `{angular_slack}` | `{qdot_sat}` | `{tail_qdot}` |".format(
                 posture=row["posture"],
                 trajectory=row["trajectory"],
                 scale=row["paper_time_scale"],
@@ -257,6 +298,8 @@ def write_summary_markdown(
                 force=row["tail_mean_abs_force_error_N"],
                 pos=row["max_tangential_position_error_m"],
                 planar_slack=row["max_planar_velocity_slack_m_s"],
+                orient=row["max_orientation_error_rad"],
+                angular_slack=row["max_angular_velocity_slack_rad_s"],
                 qdot_sat=row["qdot_saturation_fraction"],
                 tail_qdot=row["tail_max_qdot_utilization"],
             )
@@ -278,7 +321,11 @@ def write_git_state(run_root: pathlib.Path, *, args: argparse.Namespace) -> None
             f"- Starting commit: `{commit}`",
             f"- Dirty state: `{dirty}`",
             "- Scope:",
-            f"  E2/E3 posture feasibility sweep with time scales `{args.time_scales}`.",
+            f"  Posture feasibility sweep for `{args.trajectories}` with time scales `{args.time_scales}`.",
+            "- Orientation task:",
+            f"  mode `{args.orientation_mode}`, kp `{args.orientation_kp}`, angular axis weight `{args.angular_axis_weight}`, angular slack weight `{args.angular_slack_weight}`.",
+            "- Orientation gates:",
+            f"  max orientation error `{args.max_orientation_error_rad}`, max angular slack `{args.max_angular_slack_rad_s}`.",
             "- Note:",
             "  Raw `.npz` files are ignored by repo policy. Metrics, plots, and aggregate summaries are tracked.",
             "",
@@ -307,6 +354,12 @@ def main() -> int:
     parser.add_argument("--planar-slack-weight", type=float, default=1.0)
     parser.add_argument("--normal-slack-weight", type=float, default=10000.0)
     parser.add_argument("--slack-constraint-weight", type=float, default=1000.0)
+    parser.add_argument("--orientation-mode", choices=["none", "hold"], default="none")
+    parser.add_argument("--orientation-kp", type=float, default=1.0)
+    parser.add_argument("--angular-axis-weight", type=float, default=1.0)
+    parser.add_argument("--angular-slack-weight", type=float, default=1.0)
+    parser.add_argument("--max-orientation-error-rad", type=float, default=None)
+    parser.add_argument("--max-angular-slack-rad-s", type=float, default=None)
     args = parser.parse_args()
 
     config_path = (ROOT / args.config).resolve()
@@ -329,14 +382,29 @@ def main() -> int:
     cases: list[dict[str, Any]] = []
     posture_calibrations: list[dict[str, Any]] = []
     for posture in postures:
-        calibration = calibrate_base_z_for_initial_q_target_force(
-            model_path,
-            initial_q=posture.q,
-            target_force_N=args.target_force_N,
-            lower_offset_m=args.calibration_lower_offset_m,
-            upper_offset_m=args.calibration_upper_offset_m,
-            tolerance_N=args.calibration_tolerance_N,
-        )
+        try:
+            calibration = calibrate_base_z_for_initial_q_target_force(
+                model_path,
+                initial_q=posture.q,
+                target_force_N=args.target_force_N,
+                lower_offset_m=args.calibration_lower_offset_m,
+                upper_offset_m=args.calibration_upper_offset_m,
+                tolerance_N=args.calibration_tolerance_N,
+            )
+        except ValueError as exc:
+            posture_calibrations.append(
+                {
+                    "posture": posture.name,
+                    "initial_q": posture.q,
+                    "calibrated_base_z_offset_m": None,
+                    "initial_force_N": None,
+                    "initial_tcp_z_m": None,
+                    "initial_contact_count": None,
+                    "calibration_pass": False,
+                    "calibration_error": str(exc),
+                }
+            )
+            continue
         posture_calibrations.append(
             {
                 "posture": posture.name,
@@ -345,6 +413,8 @@ def main() -> int:
                 "initial_force_N": calibration.normal_force_N,
                 "initial_tcp_z_m": calibration.tcp_z_m,
                 "initial_contact_count": calibration.contact_count,
+                "calibration_pass": True,
+                "calibration_error": None,
             }
         )
         for trajectory in trajectories:
@@ -384,7 +454,7 @@ def main() -> int:
                 )
                 rows.append(row)
 
-    thresholds = FeasibilityThresholds()
+    thresholds = build_thresholds(args)
     with (run_root / "summary.csv").open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=SUMMARY_FIELDS, lineterminator="\n")
         writer.writeheader()
@@ -407,6 +477,7 @@ def main() -> int:
         run_root / "summary.md",
         run_root=run_root,
         rows=rows,
+        posture_calibrations=posture_calibrations,
         trajectories=trajectories,
         thresholds=thresholds,
     )

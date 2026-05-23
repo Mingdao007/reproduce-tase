@@ -53,13 +53,14 @@ them rather than deleting them.
 ## Unresolved Risks
 
 - Orientation-hold is not yet paper-faithful orientation compliance.
-- The current full-speed force-motion gate does not include a hard orientation
-  error threshold.
+- Full-speed E2/E3 do not pass the combined force-motion and provisional
+  orientation gates under the current posture/weight bracket.
 
 ## Next Executable Step
 
 Use `runs/orientation_gate_timing_sweep/20260524T024026_common_0p075` as the
 current common E1-E4 matrix that passes the provisional orientation gates.
-Next, test whether a task-priority solve, posture search, or paper-specific
-orientation signal can move the orientation-gated baseline back toward full
-paper timing.
+The v17 posture/weight bracket did not recover full-speed E2/E3, so the next
+executable step is a true task-priority/null-space-aware solve or a
+paper-specific orientation signal extraction before more ad hoc posture
+searching.

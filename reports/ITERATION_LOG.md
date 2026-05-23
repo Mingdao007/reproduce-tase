@@ -542,3 +542,43 @@
 - Next step:
   Try a true task-priority solve, posture search, or paper-specific
   orientation signal if full-speed orientation feasibility is required.
+
+## 2026-05-24 v17 Orientation-Gated Posture Sweep
+
+- Branch: `exp/tase-ur10e-v17-orientation-posture-sweep`
+- Starting commit: `c85ca7fd8dd3bb219dfe41b8ebbefefc6d64937c`
+- Files added:
+  - `reports/orientation_posture_sweep_report.md`
+  - `tests/test_posture_feasibility_sweep.py`
+  - `runs/orientation_posture_sweep/20260524T024358/ABORTED.md`
+- Files updated:
+  - `scripts/run_posture_feasibility_sweep.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Focused full-speed E2/E3 orientation-gated posture sweep under
+    `runs/orientation_posture_sweep/20260524T041329_calibration_safe`
+  - Focused angular-priority brackets under
+    `runs/orientation_posture_sweep/20260524T041329_weight_0p03`,
+    `runs/orientation_posture_sweep/20260524T041329_weight_0p01`, and
+    `runs/orientation_posture_sweep/20260524T041329_weight_0p003`
+- Result:
+  The sweep driver now records calibration failures instead of aborting.
+  `bend_0p10` and `bend_0p125` calibrate to the `5 N` initial-contact target,
+  while `bend_0p15` and `bend_0p20` do not calibrate inside the default
+  bracket. At angular slack weight `0.1`, E2/E3 satisfy orientation gates but
+  fail planar position/slack gates at full speed. Lower angular slack weights
+  restore planar tracking only by failing the orientation gates. No tested
+  full-speed E2/E3 posture/weight pair passes the combined gate set.
+- Limit:
+  This is simulation-only posture and angular-priority evidence. The
+  calibration is a MuJoCo base-offset setup, not a hardware approach motion.
+- Next step:
+  Keep the v16 common `paper_time_scale = 0.075` matrix as the current
+  orientation-gated fallback. Pursue a true task-priority/null-space-aware
+  solve or a paper-specific orientation signal before more ad hoc posture
+  searching.

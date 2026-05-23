@@ -1,0 +1,1220 @@
+{
+  "run_id": "20260524T041426",
+  "run_root": "runs/orientation_posture_sweep/20260524T041329_weight_0p03",
+  "thresholds": {
+    "solver_success_fraction_min": 1.0,
+    "contact_present_fraction_min": 1.0,
+    "tail_mean_abs_force_error_N_max": 0.25,
+    "max_tangential_position_error_m_max": 0.002,
+    "max_planar_velocity_slack_m_s_max": 0.001,
+    "max_abs_normal_velocity_slack_m_s_max": 0.0002,
+    "max_qdot_violation_rad_s_max": 1e-09,
+    "max_joint_limit_violation_rad_max": 1e-09,
+    "qdot_saturation_fraction_max": 0.01,
+    "tail_max_qdot_utilization_max": 0.98,
+    "max_orientation_error_rad_max": 0.03,
+    "max_angular_velocity_slack_rad_s_max": 0.03
+  },
+  "posture_calibrations": [
+    {
+      "posture": "bend_0p10",
+      "initial_q": [
+        0.0,
+        -0.1,
+        0.15,
+        -0.05,
+        0.0,
+        0.0
+      ],
+      "calibrated_base_z_offset_m": -0.0009710693359375,
+      "initial_force_N": 4.995281922830507,
+      "initial_tcp_z_m": 0.04495320693268556,
+      "initial_contact_count": 1,
+      "calibration_pass": true,
+      "calibration_error": null
+    },
+    {
+      "posture": "bend_0p125",
+      "initial_q": [
+        0.0,
+        -0.125,
+        0.185,
+        -0.06,
+        0.0,
+        0.0
+      ],
+      "calibrated_base_z_offset_m": -0.0014990234375000001,
+      "initial_force_N": 5.005930952900419,
+      "initial_tcp_z_m": 0.04499523102006249,
+      "initial_contact_count": 1,
+      "calibration_pass": true,
+      "calibration_error": null
+    }
+  ],
+  "fastest_passing_scale_by_posture_and_trajectory": {
+    "bend_0p10": {
+      "e2-figure-eight": null,
+      "e3-circle": null
+    },
+    "bend_0p125": {
+      "e2-figure-eight": null,
+      "e3-circle": null
+    }
+  },
+  "fastest_scale_passing_all_trajectories_by_posture": {
+    "bend_0p10": null,
+    "bend_0p125": null
+  },
+  "rows": [
+    {
+      "posture": "bend_0p10",
+      "initial_q": "0,-0.1,0.15,-0.05,0,0",
+      "calibrated_base_z_offset_m": -0.0009710693359375,
+      "initial_force_N": 4.995281922830507,
+      "trajectory": "e2-figure-eight",
+      "paper_time_scale": 1.0,
+      "feasibility_pass": false,
+      "failed_criteria": "max_tangential_position_error_m;max_planar_velocity_slack_m_s",
+      "tail_mean_abs_force_error_N": 0.00023130783945310096,
+      "contact_present_fraction": 1.0,
+      "max_tangential_position_error_m": 0.004459991785956491,
+      "max_planar_velocity_slack_m_s": 0.002404776958087202,
+      "max_abs_normal_velocity_slack_m_s": 1.3200047337330022e-08,
+      "max_orientation_error_rad": 0.02091735647789599,
+      "max_angular_velocity_slack_rad_s": 0.021336044103234347,
+      "qdot_saturation_fraction": 0.0,
+      "tail_max_qdot_utilization": 0.15131119424268424,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e2_scale-1"
+    },
+    {
+      "posture": "bend_0p10",
+      "initial_q": "0,-0.1,0.15,-0.05,0,0",
+      "calibrated_base_z_offset_m": -0.0009710693359375,
+      "initial_force_N": 4.995281922830507,
+      "trajectory": "e3-circle",
+      "paper_time_scale": 1.0,
+      "feasibility_pass": false,
+      "failed_criteria": "max_tangential_position_error_m;max_planar_velocity_slack_m_s;max_orientation_error_rad;max_angular_velocity_slack_rad_s",
+      "tail_mean_abs_force_error_N": 0.00024109719467782064,
+      "contact_present_fraction": 1.0,
+      "max_tangential_position_error_m": 0.009332409383380758,
+      "max_planar_velocity_slack_m_s": 0.005677440020932266,
+      "max_abs_normal_velocity_slack_m_s": 3.8569616277887625e-09,
+      "max_orientation_error_rad": 0.0459954258417765,
+      "max_angular_velocity_slack_rad_s": 0.05008584241124015,
+      "qdot_saturation_fraction": 0.0,
+      "tail_max_qdot_utilization": 0.034469522148710956,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e3_scale-1"
+    },
+    {
+      "posture": "bend_0p125",
+      "initial_q": "0,-0.125,0.185,-0.06,0,0",
+      "calibrated_base_z_offset_m": -0.0014990234375000001,
+      "initial_force_N": 5.005930952900419,
+      "trajectory": "e2-figure-eight",
+      "paper_time_scale": 1.0,
+      "feasibility_pass": false,
+      "failed_criteria": "max_tangential_position_error_m;max_planar_velocity_slack_m_s",
+      "tail_mean_abs_force_error_N": 0.00019987023611298116,
+      "contact_present_fraction": 1.0,
+      "max_tangential_position_error_m": 0.004444203132114216,
+      "max_planar_velocity_slack_m_s": 0.002396555571995204,
+      "max_abs_normal_velocity_slack_m_s": 6.635949466405068e-09,
+      "max_orientation_error_rad": 0.02090444848766268,
+      "max_angular_velocity_slack_rad_s": 0.021323517227569776,
+      "qdot_saturation_fraction": 0.0,
+      "tail_max_qdot_utilization": 0.07150036421501886,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e2_scale-1"
+    },
+    {
+      "posture": "bend_0p125",
+      "initial_q": "0,-0.125,0.185,-0.06,0,0",
+      "calibrated_base_z_offset_m": -0.0014990234375000001,
+      "initial_force_N": 5.005930952900419,
+      "trajectory": "e3-circle",
+      "paper_time_scale": 1.0,
+      "feasibility_pass": false,
+      "failed_criteria": "max_tangential_position_error_m;max_planar_velocity_slack_m_s;max_orientation_error_rad;max_angular_velocity_slack_rad_s",
+      "tail_mean_abs_force_error_N": 0.00021087846981932446,
+      "contact_present_fraction": 1.0,
+      "max_tangential_position_error_m": 0.009325255341298501,
+      "max_planar_velocity_slack_m_s": 0.00567462691953639,
+      "max_abs_normal_velocity_slack_m_s": 4.798195686733504e-09,
+      "max_orientation_error_rad": 0.04599374500396258,
+      "max_angular_velocity_slack_rad_s": 0.050085097845713716,
+      "qdot_saturation_fraction": 0.0,
+      "tail_max_qdot_utilization": 0.03209498397341579,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e3_scale-1"
+    }
+  ],
+  "cases": [
+    {
+      "posture": "bend_0p10",
+      "initial_q": [
+        0.0,
+        -0.1,
+        0.15,
+        -0.05,
+        0.0,
+        0.0
+      ],
+      "trajectory": "e2-figure-eight",
+      "paper_time_scale": 1.0,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e2_scale-1",
+      "metrics": {
+        "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e.yaml",
+        "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml",
+        "run_id": "20260524T041426",
+        "duration_s": 8.0,
+        "dt_s": 0.002,
+        "steps": 4000,
+        "initial_q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.05,
+          0.0,
+          0.0
+        ],
+        "qdot_limit_source": "cli_override",
+        "qdot_min_rad_s": [
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15
+        ],
+        "qdot_max_rad_s": [
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ],
+        "base_z_offset_m": -0.0009710693359375,
+        "force_gain": 0.0005,
+        "r": 0.5,
+        "trajectory": "e2-figure-eight",
+        "paper_formula": "x=x0+0.04*sin(0.1*t); y=y0+0.01*sin(0.2*t)",
+        "amplitude_m": 0.015,
+        "amplitude_x_m": 0.04,
+        "amplitude_y_m": 0.01,
+        "radius_m": 0.03,
+        "omega_rad_s": 0.1,
+        "paper_time_scale": 1.0,
+        "zero_initial_offset": true,
+        "planar_kp": 0.5,
+        "axis_weights": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "use_slack_solve": true,
+        "slack_axis_weights": [
+          1.0,
+          1.0,
+          10000.0
+        ],
+        "slack_constraint_weight": 1000.0,
+        "normal_guard_force_fraction": null,
+        "normal_guard_min_planar_scale": 0.0,
+        "orientation_mode": "hold",
+        "orientation_kp": 1.0,
+        "angular_axis_weight": 1.0,
+        "angular_slack_weight": 0.03,
+        "target_force_N": 5.0,
+        "initial_force_N": 4.995281922830507,
+        "final_force_N": 4.999733853166663,
+        "tail_mean_force_N": 4.999768692160547,
+        "tail_mean_abs_force_error_N": 0.00023130783945310096,
+        "max_abs_force_error_N": 0.004718077169492574,
+        "mean_tangential_position_error_m": 0.002663266651427162,
+        "max_tangential_position_error_m": 0.004459991785956491,
+        "final_tangential_displacement_m": [
+          0.02868425311625339,
+          0.0055330587199536665
+        ],
+        "desired_tangential_displacement_m": [
+          0.028688669408458427,
+          0.00999585202884227
+        ],
+        "solver_success_fraction": 1.0,
+        "contact_present_fraction": 1.0,
+        "max_active_bound_count": 0,
+        "min_planar_scale": 1.0,
+        "tail_mean_planar_scale": 1.0,
+        "mean_planar_velocity_residual_m_s": 0.00189004135263003,
+        "max_planar_velocity_residual_m_s": 0.002404779362864159,
+        "tail_mean_planar_velocity_residual_m_s": 0.0023702082448847435,
+        "mean_abs_normal_velocity_residual_m_s": 3.869136514763279e-09,
+        "max_abs_normal_velocity_residual_m_s": 1.333204780715743e-08,
+        "tail_mean_abs_normal_velocity_residual_m_s": 9.744958060156146e-09,
+        "mean_planar_velocity_slack_m_s": 0.0018900394625905679,
+        "max_planar_velocity_slack_m_s": 0.002404776958087202,
+        "tail_mean_planar_velocity_slack_m_s": 0.0023702058746788756,
+        "mean_abs_normal_velocity_slack_m_s": 3.830828232268672e-09,
+        "max_abs_normal_velocity_slack_m_s": 1.3200047337330022e-08,
+        "tail_mean_abs_normal_velocity_slack_m_s": 9.648473327053452e-09,
+        "orientation_task_enabled": true,
+        "mean_orientation_error_rad": 0.014158951963293307,
+        "max_orientation_error_rad": 0.02091735647789599,
+        "tail_mean_orientation_error_rad": 0.02079905525979349,
+        "mean_angular_velocity_residual_rad_s": 0.01675427359925132,
+        "max_angular_velocity_residual_rad_s": 0.02133604474331567,
+        "tail_mean_angular_velocity_residual_rad_s": 0.021020575560570486,
+        "mean_angular_velocity_slack_rad_s": 0.01675427309662313,
+        "max_angular_velocity_slack_rad_s": 0.021336044103234347,
+        "tail_mean_angular_velocity_slack_rad_s": 0.02102057492995323,
+        "max_qdot_utilization": 0.4420279505288378,
+        "tail_max_qdot_utilization": 0.15131119424268424,
+        "qdot_saturation_threshold": 0.98,
+        "qdot_saturation_fraction": 0.0,
+        "tail_qdot_saturation_fraction": 0.0,
+        "max_abs_qdot_rad_s": 0.06630419257932567,
+        "max_qdot_violation_rad_s": 0.0,
+        "max_joint_limit_violation_rad": 0.0,
+        "max_abs_commanded_linear_velocity_m_s": 0.004710679968596339,
+        "max_abs_actual_linear_velocity_m_s": 0.004238538025624902,
+        "max_abs_commanded_angular_velocity_rad_s": 0.02091735647789599,
+        "max_abs_actual_angular_velocity_rad_s": 0.00528767305722374,
+        "warnings": [
+          "simulation-only paper-trajectory-shaped force-motion smoke",
+          "uses MuJoCo contact force rather than hardware force sensing",
+          "kinematic velocity-level controller",
+          "orientation hold is simulation-only and not paper orientation proof",
+          "not torque dynamics",
+          "not hardware-ready"
+        ]
+      },
+      "gate": {
+        "feasibility_pass": false,
+        "failed_criteria": [
+          "max_tangential_position_error_m",
+          "max_planar_velocity_slack_m_s"
+        ],
+        "criteria": {
+          "solver_success_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "contact_present_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "tail_mean_abs_force_error_N": {
+            "actual": 0.00023130783945310096,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true
+          },
+          "max_tangential_position_error_m": {
+            "actual": 0.004459991785956491,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false
+          },
+          "max_planar_velocity_slack_m_s": {
+            "actual": 0.002404776958087202,
+            "operator": "<=",
+            "threshold": 0.001,
+            "passed": false
+          },
+          "max_abs_normal_velocity_slack_m_s": {
+            "actual": 1.3200047337330022e-08,
+            "operator": "<=",
+            "threshold": 0.0002,
+            "passed": true
+          },
+          "max_qdot_violation_rad_s": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "max_joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "qdot_saturation_fraction": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 0.01,
+            "passed": true
+          },
+          "tail_max_qdot_utilization": {
+            "actual": 0.15131119424268424,
+            "operator": "<=",
+            "threshold": 0.98,
+            "passed": true
+          },
+          "max_orientation_error_rad": {
+            "actual": 0.02091735647789599,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true
+          },
+          "max_angular_velocity_slack_rad_s": {
+            "actual": 0.021336044103234347,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true
+          }
+        }
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/andy/reproduce-tase/scripts/run_paper_trajectory_force_motion.py",
+        "--config",
+        "configs/mujoco_ur10e.yaml",
+        "--output-dir",
+        "/home/andy/reproduce-tase/runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e2_scale-1",
+        "--duration-s",
+        "8.0",
+        "--target-force-N",
+        "5.0",
+        "--force-gain",
+        "0.0005",
+        "--r",
+        "0.5",
+        "--base-z-offset-m=-0.0009710693359375",
+        "--initial-q",
+        "0,-0.1,0.15,-0.05,0,0",
+        "--qdot-limit-rad-s",
+        "0.15",
+        "--trajectory",
+        "e2-figure-eight",
+        "--omega-rad-s",
+        "0.1",
+        "--paper-time-scale",
+        "1.0",
+        "--planar-kp",
+        "0.5",
+        "--use-slack-solve",
+        "--planar-slack-weight",
+        "1.0",
+        "--normal-slack-weight",
+        "10000.0",
+        "--slack-constraint-weight",
+        "1000.0",
+        "--orientation-mode",
+        "hold",
+        "--orientation-kp",
+        "1.0",
+        "--angular-axis-weight",
+        "1.0",
+        "--angular-slack-weight",
+        "0.03"
+      ]
+    },
+    {
+      "posture": "bend_0p10",
+      "initial_q": [
+        0.0,
+        -0.1,
+        0.15,
+        -0.05,
+        0.0,
+        0.0
+      ],
+      "trajectory": "e3-circle",
+      "paper_time_scale": 1.0,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e3_scale-1",
+      "metrics": {
+        "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e.yaml",
+        "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml",
+        "run_id": "20260524T041427",
+        "duration_s": 8.0,
+        "dt_s": 0.002,
+        "steps": 4000,
+        "initial_q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.05,
+          0.0,
+          0.0
+        ],
+        "qdot_limit_source": "cli_override",
+        "qdot_min_rad_s": [
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15
+        ],
+        "qdot_max_rad_s": [
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ],
+        "base_z_offset_m": -0.0009710693359375,
+        "force_gain": 0.0005,
+        "r": 0.5,
+        "trajectory": "e3-circle",
+        "paper_formula": "x=x0+0.03*cos(0.1*t); y=y0+0.03*sin(0.1*t)",
+        "amplitude_m": 0.015,
+        "amplitude_x_m": 0.04,
+        "amplitude_y_m": 0.01,
+        "radius_m": 0.03,
+        "omega_rad_s": 0.1,
+        "paper_time_scale": 1.0,
+        "zero_initial_offset": true,
+        "planar_kp": 0.5,
+        "axis_weights": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "use_slack_solve": true,
+        "slack_axis_weights": [
+          1.0,
+          1.0,
+          10000.0
+        ],
+        "slack_constraint_weight": 1000.0,
+        "normal_guard_force_fraction": null,
+        "normal_guard_min_planar_scale": 0.0,
+        "orientation_mode": "hold",
+        "orientation_kp": 1.0,
+        "angular_axis_weight": 1.0,
+        "angular_slack_weight": 0.03,
+        "target_force_N": 5.0,
+        "initial_force_N": 4.995281922830507,
+        "final_force_N": 4.999569161585632,
+        "tail_mean_force_N": 4.999803084159837,
+        "tail_mean_abs_force_error_N": 0.00024109719467782064,
+        "max_abs_force_error_N": 0.004718077169492574,
+        "mean_tangential_position_error_m": 0.004677658758233344,
+        "max_tangential_position_error_m": 0.009332409383380758,
+        "final_tangential_displacement_m": [
+          -0.009080517044750661,
+          0.01217989869929046
+        ],
+        "desired_tangential_displacement_m": [
+          -0.00909449500109236,
+          0.021516502056343815
+        ],
+        "solver_success_fraction": 1.0,
+        "contact_present_fraction": 1.0,
+        "max_active_bound_count": 0,
+        "min_planar_scale": 1.0,
+        "tail_mean_planar_scale": 1.0,
+        "mean_planar_velocity_residual_m_s": 0.0035075387946748825,
+        "max_planar_velocity_residual_m_s": 0.005677445698372319,
+        "tail_mean_planar_velocity_residual_m_s": 0.005322970709310897,
+        "mean_abs_normal_velocity_residual_m_s": 2.229790992343489e-09,
+        "max_abs_normal_velocity_residual_m_s": 3.895531261266535e-09,
+        "tail_mean_abs_normal_velocity_residual_m_s": 3.505141889668433e-09,
+        "mean_planar_velocity_slack_m_s": 0.0035075352871395886,
+        "max_planar_velocity_slack_m_s": 0.005677440020932266,
+        "tail_mean_planar_velocity_slack_m_s": 0.005322965386345488,
+        "mean_abs_normal_velocity_slack_m_s": 2.2077138538504463e-09,
+        "max_abs_normal_velocity_slack_m_s": 3.8569616277887625e-09,
+        "tail_mean_abs_normal_velocity_slack_m_s": 3.4704375143423592e-09,
+        "orientation_task_enabled": true,
+        "mean_orientation_error_rad": 0.02524410873320026,
+        "max_orientation_error_rad": 0.0459954258417765,
+        "tail_mean_orientation_error_rad": 0.042529511575544104,
+        "mean_angular_velocity_residual_rad_s": 0.03098231816523446,
+        "max_angular_velocity_residual_rad_s": 0.05008584391381542,
+        "tail_mean_angular_velocity_residual_rad_s": 0.04697593991684216,
+        "mean_angular_velocity_slack_rad_s": 0.030982317235764938,
+        "max_angular_velocity_slack_rad_s": 0.05008584241124015,
+        "tail_mean_angular_velocity_slack_rad_s": 0.046975938507564,
+        "max_qdot_utilization": 0.46294123890033145,
+        "tail_max_qdot_utilization": 0.034469522148710956,
+        "qdot_saturation_threshold": 0.98,
+        "qdot_saturation_fraction": 0.0,
+        "tail_qdot_saturation_fraction": 0.0,
+        "max_abs_qdot_rad_s": 0.06944118583504971,
+        "max_qdot_violation_rad_s": 0.0,
+        "max_joint_limit_violation_rad": 0.0,
+        "max_abs_commanded_linear_velocity_m_s": 0.0070948843014227644,
+        "max_abs_actual_linear_velocity_m_s": 0.002405084738670402,
+        "max_abs_commanded_angular_velocity_rad_s": 0.045987230816668,
+        "max_abs_actual_angular_velocity_rad_s": 0.007931509574909255,
+        "warnings": [
+          "simulation-only paper-trajectory-shaped force-motion smoke",
+          "uses MuJoCo contact force rather than hardware force sensing",
+          "kinematic velocity-level controller",
+          "orientation hold is simulation-only and not paper orientation proof",
+          "not torque dynamics",
+          "not hardware-ready"
+        ]
+      },
+      "gate": {
+        "feasibility_pass": false,
+        "failed_criteria": [
+          "max_tangential_position_error_m",
+          "max_planar_velocity_slack_m_s",
+          "max_orientation_error_rad",
+          "max_angular_velocity_slack_rad_s"
+        ],
+        "criteria": {
+          "solver_success_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "contact_present_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "tail_mean_abs_force_error_N": {
+            "actual": 0.00024109719467782064,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true
+          },
+          "max_tangential_position_error_m": {
+            "actual": 0.009332409383380758,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false
+          },
+          "max_planar_velocity_slack_m_s": {
+            "actual": 0.005677440020932266,
+            "operator": "<=",
+            "threshold": 0.001,
+            "passed": false
+          },
+          "max_abs_normal_velocity_slack_m_s": {
+            "actual": 3.8569616277887625e-09,
+            "operator": "<=",
+            "threshold": 0.0002,
+            "passed": true
+          },
+          "max_qdot_violation_rad_s": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "max_joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "qdot_saturation_fraction": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 0.01,
+            "passed": true
+          },
+          "tail_max_qdot_utilization": {
+            "actual": 0.034469522148710956,
+            "operator": "<=",
+            "threshold": 0.98,
+            "passed": true
+          },
+          "max_orientation_error_rad": {
+            "actual": 0.0459954258417765,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false
+          },
+          "max_angular_velocity_slack_rad_s": {
+            "actual": 0.05008584241124015,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false
+          }
+        }
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/andy/reproduce-tase/scripts/run_paper_trajectory_force_motion.py",
+        "--config",
+        "configs/mujoco_ur10e.yaml",
+        "--output-dir",
+        "/home/andy/reproduce-tase/runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p10/e3_scale-1",
+        "--duration-s",
+        "8.0",
+        "--target-force-N",
+        "5.0",
+        "--force-gain",
+        "0.0005",
+        "--r",
+        "0.5",
+        "--base-z-offset-m=-0.0009710693359375",
+        "--initial-q",
+        "0,-0.1,0.15,-0.05,0,0",
+        "--qdot-limit-rad-s",
+        "0.15",
+        "--trajectory",
+        "e3-circle",
+        "--omega-rad-s",
+        "0.1",
+        "--paper-time-scale",
+        "1.0",
+        "--planar-kp",
+        "0.5",
+        "--use-slack-solve",
+        "--planar-slack-weight",
+        "1.0",
+        "--normal-slack-weight",
+        "10000.0",
+        "--slack-constraint-weight",
+        "1000.0",
+        "--orientation-mode",
+        "hold",
+        "--orientation-kp",
+        "1.0",
+        "--angular-axis-weight",
+        "1.0",
+        "--angular-slack-weight",
+        "0.03"
+      ]
+    },
+    {
+      "posture": "bend_0p125",
+      "initial_q": [
+        0.0,
+        -0.125,
+        0.185,
+        -0.06,
+        0.0,
+        0.0
+      ],
+      "trajectory": "e2-figure-eight",
+      "paper_time_scale": 1.0,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e2_scale-1",
+      "metrics": {
+        "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e.yaml",
+        "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml",
+        "run_id": "20260524T041429",
+        "duration_s": 8.0,
+        "dt_s": 0.002,
+        "steps": 4000,
+        "initial_q": [
+          0.0,
+          -0.125,
+          0.185,
+          -0.06,
+          0.0,
+          0.0
+        ],
+        "qdot_limit_source": "cli_override",
+        "qdot_min_rad_s": [
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15
+        ],
+        "qdot_max_rad_s": [
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ],
+        "base_z_offset_m": -0.0014990234375000001,
+        "force_gain": 0.0005,
+        "r": 0.5,
+        "trajectory": "e2-figure-eight",
+        "paper_formula": "x=x0+0.04*sin(0.1*t); y=y0+0.01*sin(0.2*t)",
+        "amplitude_m": 0.015,
+        "amplitude_x_m": 0.04,
+        "amplitude_y_m": 0.01,
+        "radius_m": 0.03,
+        "omega_rad_s": 0.1,
+        "paper_time_scale": 1.0,
+        "zero_initial_offset": true,
+        "planar_kp": 0.5,
+        "axis_weights": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "use_slack_solve": true,
+        "slack_axis_weights": [
+          1.0,
+          1.0,
+          10000.0
+        ],
+        "slack_constraint_weight": 1000.0,
+        "normal_guard_force_fraction": null,
+        "normal_guard_min_planar_scale": 0.0,
+        "orientation_mode": "hold",
+        "orientation_kp": 1.0,
+        "angular_axis_weight": 1.0,
+        "angular_slack_weight": 0.03,
+        "target_force_N": 5.0,
+        "initial_force_N": 5.005930952900419,
+        "final_force_N": 4.999799602416404,
+        "tail_mean_force_N": 4.999800129763887,
+        "tail_mean_abs_force_error_N": 0.00019987023611298116,
+        "max_abs_force_error_N": 0.0059309529004192285,
+        "mean_tangential_position_error_m": 0.002657293395355375,
+        "max_tangential_position_error_m": 0.004444203132114216,
+        "final_tangential_displacement_m": [
+          0.028687900208132045,
+          0.005548851566679399
+        ],
+        "desired_tangential_displacement_m": [
+          0.028688669408458423,
+          0.00999585202884227
+        ],
+        "solver_success_fraction": 1.0,
+        "contact_present_fraction": 1.0,
+        "max_active_bound_count": 0,
+        "min_planar_scale": 1.0,
+        "tail_mean_planar_scale": 1.0,
+        "mean_planar_velocity_residual_m_s": 0.001885082161051222,
+        "max_planar_velocity_residual_m_s": 0.002396557968550769,
+        "tail_mean_planar_velocity_residual_m_s": 0.002360694625564395,
+        "mean_abs_normal_velocity_residual_m_s": 2.777455953476888e-09,
+        "max_abs_normal_velocity_residual_m_s": 6.702308959942209e-09,
+        "tail_mean_abs_normal_velocity_residual_m_s": 6.0783293407444485e-09,
+        "mean_planar_velocity_slack_m_s": 0.0018850802759709428,
+        "max_planar_velocity_slack_m_s": 0.002396555571995204,
+        "tail_mean_planar_velocity_slack_m_s": 0.002360692264872131,
+        "mean_abs_normal_velocity_slack_m_s": 2.7499563896623905e-09,
+        "max_abs_normal_velocity_slack_m_s": 6.635949466405068e-09,
+        "tail_mean_abs_normal_velocity_slack_m_s": 6.018147862356905e-09,
+        "orientation_task_enabled": true,
+        "mean_orientation_error_rad": 0.014151347110112017,
+        "max_orientation_error_rad": 0.02090444848766268,
+        "tail_mean_orientation_error_rad": 0.020786472634161758,
+        "mean_angular_velocity_residual_rad_s": 0.016744873113494034,
+        "max_angular_velocity_residual_rad_s": 0.021323517867275276,
+        "tail_mean_angular_velocity_residual_rad_s": 0.02100617695948938,
+        "mean_angular_velocity_slack_rad_s": 0.016744872611147862,
+        "max_angular_velocity_slack_rad_s": 0.021323517227569776,
+        "tail_mean_angular_velocity_slack_rad_s": 0.021006176329304092,
+        "max_qdot_utilization": 0.5192854225116359,
+        "tail_max_qdot_utilization": 0.07150036421501886,
+        "qdot_saturation_threshold": 0.98,
+        "qdot_saturation_fraction": 0.0,
+        "tail_qdot_saturation_fraction": 0.0,
+        "max_abs_qdot_rad_s": 0.07789281337674538,
+        "max_qdot_violation_rad_s": 0.0,
+        "max_joint_limit_violation_rad": 0.0,
+        "max_abs_commanded_linear_velocity_m_s": 0.004709965694505731,
+        "max_abs_actual_linear_velocity_m_s": 0.004238614965951418,
+        "max_abs_commanded_angular_velocity_rad_s": 0.02090444848766268,
+        "max_abs_actual_angular_velocity_rad_s": 0.005287357844949937,
+        "warnings": [
+          "simulation-only paper-trajectory-shaped force-motion smoke",
+          "uses MuJoCo contact force rather than hardware force sensing",
+          "kinematic velocity-level controller",
+          "orientation hold is simulation-only and not paper orientation proof",
+          "not torque dynamics",
+          "not hardware-ready"
+        ]
+      },
+      "gate": {
+        "feasibility_pass": false,
+        "failed_criteria": [
+          "max_tangential_position_error_m",
+          "max_planar_velocity_slack_m_s"
+        ],
+        "criteria": {
+          "solver_success_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "contact_present_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "tail_mean_abs_force_error_N": {
+            "actual": 0.00019987023611298116,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true
+          },
+          "max_tangential_position_error_m": {
+            "actual": 0.004444203132114216,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false
+          },
+          "max_planar_velocity_slack_m_s": {
+            "actual": 0.002396555571995204,
+            "operator": "<=",
+            "threshold": 0.001,
+            "passed": false
+          },
+          "max_abs_normal_velocity_slack_m_s": {
+            "actual": 6.635949466405068e-09,
+            "operator": "<=",
+            "threshold": 0.0002,
+            "passed": true
+          },
+          "max_qdot_violation_rad_s": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "max_joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "qdot_saturation_fraction": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 0.01,
+            "passed": true
+          },
+          "tail_max_qdot_utilization": {
+            "actual": 0.07150036421501886,
+            "operator": "<=",
+            "threshold": 0.98,
+            "passed": true
+          },
+          "max_orientation_error_rad": {
+            "actual": 0.02090444848766268,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true
+          },
+          "max_angular_velocity_slack_rad_s": {
+            "actual": 0.021323517227569776,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true
+          }
+        }
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/andy/reproduce-tase/scripts/run_paper_trajectory_force_motion.py",
+        "--config",
+        "configs/mujoco_ur10e.yaml",
+        "--output-dir",
+        "/home/andy/reproduce-tase/runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e2_scale-1",
+        "--duration-s",
+        "8.0",
+        "--target-force-N",
+        "5.0",
+        "--force-gain",
+        "0.0005",
+        "--r",
+        "0.5",
+        "--base-z-offset-m=-0.0014990234375000001",
+        "--initial-q",
+        "0,-0.125,0.185,-0.06,0,0",
+        "--qdot-limit-rad-s",
+        "0.15",
+        "--trajectory",
+        "e2-figure-eight",
+        "--omega-rad-s",
+        "0.1",
+        "--paper-time-scale",
+        "1.0",
+        "--planar-kp",
+        "0.5",
+        "--use-slack-solve",
+        "--planar-slack-weight",
+        "1.0",
+        "--normal-slack-weight",
+        "10000.0",
+        "--slack-constraint-weight",
+        "1000.0",
+        "--orientation-mode",
+        "hold",
+        "--orientation-kp",
+        "1.0",
+        "--angular-axis-weight",
+        "1.0",
+        "--angular-slack-weight",
+        "0.03"
+      ]
+    },
+    {
+      "posture": "bend_0p125",
+      "initial_q": [
+        0.0,
+        -0.125,
+        0.185,
+        -0.06,
+        0.0,
+        0.0
+      ],
+      "trajectory": "e3-circle",
+      "paper_time_scale": 1.0,
+      "case_dir": "runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e3_scale-1",
+      "metrics": {
+        "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e.yaml",
+        "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml",
+        "run_id": "20260524T041430",
+        "duration_s": 8.0,
+        "dt_s": 0.002,
+        "steps": 4000,
+        "initial_q": [
+          0.0,
+          -0.125,
+          0.185,
+          -0.06,
+          0.0,
+          0.0
+        ],
+        "qdot_limit_source": "cli_override",
+        "qdot_min_rad_s": [
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15,
+          -0.15
+        ],
+        "qdot_max_rad_s": [
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15,
+          0.15
+        ],
+        "base_z_offset_m": -0.0014990234375000001,
+        "force_gain": 0.0005,
+        "r": 0.5,
+        "trajectory": "e3-circle",
+        "paper_formula": "x=x0+0.03*cos(0.1*t); y=y0+0.03*sin(0.1*t)",
+        "amplitude_m": 0.015,
+        "amplitude_x_m": 0.04,
+        "amplitude_y_m": 0.01,
+        "radius_m": 0.03,
+        "omega_rad_s": 0.1,
+        "paper_time_scale": 1.0,
+        "zero_initial_offset": true,
+        "planar_kp": 0.5,
+        "axis_weights": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "use_slack_solve": true,
+        "slack_axis_weights": [
+          1.0,
+          1.0,
+          10000.0
+        ],
+        "slack_constraint_weight": 1000.0,
+        "normal_guard_force_fraction": null,
+        "normal_guard_min_planar_scale": 0.0,
+        "orientation_mode": "hold",
+        "orientation_kp": 1.0,
+        "angular_axis_weight": 1.0,
+        "angular_slack_weight": 0.03,
+        "target_force_N": 5.0,
+        "initial_force_N": 5.005930952900419,
+        "final_force_N": 5.000018957472901,
+        "tail_mean_force_N": 4.99982258214119,
+        "tail_mean_abs_force_error_N": 0.00021087846981932446,
+        "max_abs_force_error_N": 0.0059309529004192285,
+        "mean_tangential_position_error_m": 0.004673205486117267,
+        "max_tangential_position_error_m": 0.009325255341298501,
+        "final_tangential_displacement_m": [
+          -0.009075053406328464,
+          0.012187062166048259
+        ],
+        "desired_tangential_displacement_m": [
+          -0.00909449500109236,
+          0.021516502056343815
+        ],
+        "solver_success_fraction": 1.0,
+        "contact_present_fraction": 1.0,
+        "max_active_bound_count": 0,
+        "min_planar_scale": 1.0,
+        "tail_mean_planar_scale": 1.0,
+        "mean_planar_velocity_residual_m_s": 0.0035044189380384286,
+        "max_planar_velocity_residual_m_s": 0.005674632594163364,
+        "tail_mean_planar_velocity_residual_m_s": 0.005319472999821324,
+        "mean_abs_normal_velocity_residual_m_s": 2.666887999824073e-09,
+        "max_abs_normal_velocity_residual_m_s": 4.846177627392694e-09,
+        "tail_mean_abs_normal_velocity_residual_m_s": 4.782729619429943e-09,
+        "mean_planar_velocity_slack_m_s": 0.0035044154336229777,
+        "max_planar_velocity_slack_m_s": 0.00567462691953639,
+        "tail_mean_planar_velocity_slack_m_s": 0.0053194676803536,
+        "mean_abs_normal_velocity_slack_m_s": 2.6404831683505078e-09,
+        "max_abs_normal_velocity_slack_m_s": 4.798195686733504e-09,
+        "tail_mean_abs_normal_velocity_slack_m_s": 4.73537585977028e-09,
+        "orientation_task_enabled": true,
+        "mean_orientation_error_rad": 0.02524011967867531,
+        "max_orientation_error_rad": 0.04599374500396258,
+        "tail_mean_orientation_error_rad": 0.042526887524914014,
+        "mean_angular_velocity_residual_rad_s": 0.030978121552915745,
+        "max_angular_velocity_residual_rad_s": 0.05008509934826668,
+        "tail_mean_angular_velocity_residual_rad_s": 0.046974501201997934,
+        "mean_angular_velocity_slack_rad_s": 0.030978120623572126,
+        "max_angular_velocity_slack_rad_s": 0.050085097845713716,
+        "tail_mean_angular_velocity_slack_rad_s": 0.04697449979276293,
+        "max_qdot_utilization": 0.5817690289154896,
+        "tail_max_qdot_utilization": 0.03209498397341579,
+        "qdot_saturation_threshold": 0.98,
+        "qdot_saturation_fraction": 0.0,
+        "tail_qdot_saturation_fraction": 0.0,
+        "max_abs_qdot_rad_s": 0.08726535433732345,
+        "max_qdot_violation_rad_s": 0.0,
+        "max_joint_limit_violation_rad": 0.0,
+        "max_abs_commanded_linear_velocity_m_s": 0.007092297062827069,
+        "max_abs_actual_linear_velocity_m_s": 0.002403395139146058,
+        "max_abs_commanded_angular_velocity_rad_s": 0.04598554809325498,
+        "max_abs_actual_angular_velocity_rad_s": 0.007931036758112834,
+        "warnings": [
+          "simulation-only paper-trajectory-shaped force-motion smoke",
+          "uses MuJoCo contact force rather than hardware force sensing",
+          "kinematic velocity-level controller",
+          "orientation hold is simulation-only and not paper orientation proof",
+          "not torque dynamics",
+          "not hardware-ready"
+        ]
+      },
+      "gate": {
+        "feasibility_pass": false,
+        "failed_criteria": [
+          "max_tangential_position_error_m",
+          "max_planar_velocity_slack_m_s",
+          "max_orientation_error_rad",
+          "max_angular_velocity_slack_rad_s"
+        ],
+        "criteria": {
+          "solver_success_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "contact_present_fraction": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true
+          },
+          "tail_mean_abs_force_error_N": {
+            "actual": 0.00021087846981932446,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true
+          },
+          "max_tangential_position_error_m": {
+            "actual": 0.009325255341298501,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false
+          },
+          "max_planar_velocity_slack_m_s": {
+            "actual": 0.00567462691953639,
+            "operator": "<=",
+            "threshold": 0.001,
+            "passed": false
+          },
+          "max_abs_normal_velocity_slack_m_s": {
+            "actual": 4.798195686733504e-09,
+            "operator": "<=",
+            "threshold": 0.0002,
+            "passed": true
+          },
+          "max_qdot_violation_rad_s": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "max_joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true
+          },
+          "qdot_saturation_fraction": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 0.01,
+            "passed": true
+          },
+          "tail_max_qdot_utilization": {
+            "actual": 0.03209498397341579,
+            "operator": "<=",
+            "threshold": 0.98,
+            "passed": true
+          },
+          "max_orientation_error_rad": {
+            "actual": 0.04599374500396258,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false
+          },
+          "max_angular_velocity_slack_rad_s": {
+            "actual": 0.050085097845713716,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false
+          }
+        }
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/andy/reproduce-tase/scripts/run_paper_trajectory_force_motion.py",
+        "--config",
+        "configs/mujoco_ur10e.yaml",
+        "--output-dir",
+        "/home/andy/reproduce-tase/runs/orientation_posture_sweep/20260524T041329_weight_0p03/bend_0p125/e3_scale-1",
+        "--duration-s",
+        "8.0",
+        "--target-force-N",
+        "5.0",
+        "--force-gain",
+        "0.0005",
+        "--r",
+        "0.5",
+        "--base-z-offset-m=-0.0014990234375000001",
+        "--initial-q",
+        "0,-0.125,0.185,-0.06,0,0",
+        "--qdot-limit-rad-s",
+        "0.15",
+        "--trajectory",
+        "e3-circle",
+        "--omega-rad-s",
+        "0.1",
+        "--paper-time-scale",
+        "1.0",
+        "--planar-kp",
+        "0.5",
+        "--use-slack-solve",
+        "--planar-slack-weight",
+        "1.0",
+        "--normal-slack-weight",
+        "10000.0",
+        "--slack-constraint-weight",
+        "1000.0",
+        "--orientation-mode",
+        "hold",
+        "--orientation-kp",
+        "1.0",
+        "--angular-axis-weight",
+        "1.0",
+        "--angular-slack-weight",
+        "0.03"
+      ]
+    }
+  ]
+}

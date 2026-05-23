@@ -506,3 +506,31 @@ contact, planar, qdot, joint-limit, orientation-error, and angular-slack
 gates. This gives a conservative orientation-gated simulation baseline, while
 showing that full-speed orientation-gated UR10e transfer remains infeasible
 under the current velocity-level controller and posture.
+
+## V17 Orientation-Gated Posture Search
+
+The v17 posture search tests whether the full-speed E2/E3 blocker can be
+removed by changing the initial UR10e posture while keeping the same
+orientation-hold gate:
+
+```text
+paper_time_scale = 1.0
+epsilon_R = 0.03 rad
+epsilon_sR = 0.03 rad/s
+```
+
+Only `bend_0p10` and `bend_0p125` calibrated to the `5 N` initial-contact
+target in the default MuJoCo base-offset bracket. Larger tested bends were
+recorded as calibration failures rather than aborting the sweep.
+
+At angular slack weight `0.1`, the calibrated postures pass the orientation
+gates for E2/E3 but fail planar position/slack gates. Reducing angular slack
+weight through `0.03`, `0.01`, and `0.003` shows the expected tradeoff: planar
+tracking improves, but E3 loses the orientation gate before a combined
+full-speed pass appears.
+
+Therefore small posture tuning and scalar angular-priority tuning are not
+enough to recover full-speed orientation-gated E2/E3 with the current
+velocity-level 6DOF formulation. The next mathematical step is a task-priority
+or null-space-aware solve, or a more faithful extraction of the paper's
+orientation signal.

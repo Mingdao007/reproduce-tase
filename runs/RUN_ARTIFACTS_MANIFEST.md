@@ -513,6 +513,38 @@ Legacy source root:
   This is a slowed orientation-gated simulation baseline, not full-speed paper
   reproduction and not hardware validation.
 
+## V17 Orientation-Gated Posture Runs
+
+### Full-speed E2/E3 posture and angular-priority bracket
+
+- Run roots:
+  - `runs/orientation_posture_sweep/20260524T024358`
+  - `runs/orientation_posture_sweep/20260524T041329_calibration_safe`
+  - `runs/orientation_posture_sweep/20260524T041329_weight_0p03`
+  - `runs/orientation_posture_sweep/20260524T041329_weight_0p01`
+  - `runs/orientation_posture_sweep/20260524T041329_weight_0p003`
+- Scope:
+  Full-speed E2/E3 orientation-hold posture checks with provisional v16
+  orientation gates, `qdot_limit = 0.15 rad/s`, `force_gain = 5e-4`, and
+  angular slack weights `0.1`, `0.03`, `0.01`, and `0.003`.
+- Tracked lightweight artifacts:
+  per-case `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation
+  plot, and angular-slack plot. Completed roots also include `summary.csv`,
+  `summary.json`, `summary.yaml`, `summary.md`, and `git_state.md`. The first
+  aborted root includes `ABORTED.md` instead of a root summary.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  The corrected calibration-safe sweep records uncalibratable postures instead
+  of aborting. `bend_0p10` and `bend_0p125` calibrate but fail full-speed E2/E3
+  planar gates when orientation gates pass. Lower angular priority restores
+  planar tracking only by failing orientation gates. No tested full-speed E2/E3
+  posture/weight pair passes the combined gate set.
+- Limit:
+  This is negative simulation-only evidence. It does not validate hardware,
+  and calibration uses MuJoCo base-offset setup rather than a real approach
+  trajectory.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
