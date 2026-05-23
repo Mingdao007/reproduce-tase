@@ -1,0 +1,45 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml
+run_id: 20260524T012524
+steps: 500
+tail_steps: 100
+tolerance_N: 0.01
+lower_offset_m: 0.0
+upper_offset_m: 0.002
+contact_force_sign: positive MuJoCo contact-frame normal wrench[0]
+modeling_method: base_link z offset static penetration calibration
+max_abs_force_error_N: 0.0088706346160502
+ladder:
+- target_force_N: 0.5
+  base_z_offset_m: 0.00013671875
+  mean_normal_force_N: 0.5064341434657258
+  force_error_N: 0.0064341434657257945
+  max_normal_force_N: 0.5064341434657257
+  final_tcp_z_m: 0.04498671875
+  mean_contact_count: 1.0
+- target_force_N: 1.0
+  base_z_offset_m: 0.0001240234375
+  mean_normal_force_N: 0.9911293653839498
+  force_error_N: -0.0088706346160502
+  max_normal_force_N: 0.9911293653839492
+  final_tcp_z_m: 0.04497402343749997
+  mean_contact_count: 1.0
+- target_force_N: 2.0
+  base_z_offset_m: 9.765625e-05
+  mean_normal_force_N: 2.0022170253950193
+  force_error_N: 0.002217025395019334
+  max_normal_force_N: 2.002217025395019
+  final_tcp_z_m: 0.04494765625000004
+  mean_contact_count: 1.0
+- target_force_N: 5.0
+  base_z_offset_m: 2.1484375e-05
+  mean_normal_force_N: 5.000019100092963
+  force_error_N: 1.9100092963242332e-05
+  max_normal_force_N: 5.000019100092962
+  final_tcp_z_m: 0.04487148437500006
+  mean_contact_count: 1.0
+warnings:
+- simulation-only contact-model probe
+- base_link z offsets are not robot commands
+- not closed-loop force control
+- not hardware-ready

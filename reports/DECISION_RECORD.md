@@ -97,3 +97,18 @@
 - Consequence:
   Contact-force ladder work must come next before any claim about force-motion
   control.
+
+## D008: Use Static Model Offset For First Contact Force Ladder
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use tiny `base_link` z offsets to create calibrated static contact forces in
+  the v1 approximate MuJoCo model.
+- Reason:
+  The current objective is to verify contact force sign and target-force
+  measurement behavior before implementing closed-loop force control. Direct
+  model offsets are deterministic and avoid pretending a controller exists.
+- Consequence:
+  The ladder results are valid only as MuJoCo contact-model evidence. They are
+  not robot motion, not closed-loop control, and not hardware validation.

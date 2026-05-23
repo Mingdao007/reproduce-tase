@@ -158,3 +158,29 @@ Current result:
 - `solver_success_fraction = 1.0`
 - `max_qdot_violation_rad_s = 0.0`
 - `max_joint_limit_violation_rad = 0.0`
+
+## V3 Static Contact Force Ladder
+
+The first contact-model force ladder is represented by:
+
+- `src/tase_repro/contact_ladder.py`
+- `scripts/run_contact_force_ladder.py`
+- `tests/test_contact_ladder.py`
+- `reports/contact_force_ladder_report.md`
+
+The method calibrates tiny `base_link` z offsets to produce static MuJoCo
+contact normal forces. It verifies contact force sign and target-force
+measurement behavior, not closed-loop force control.
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+python3 scripts/run_contact_force_ladder.py --config configs/mujoco_ur10e.yaml --steps 500 --tail-steps 100 --tolerance-N 0.01
+```
+
+Current result:
+
+- `15 passed`
+- target forces `[0.5, 1.0, 2.0, 5.0] N`
+- max absolute force error `0.0088706346160502 N`

@@ -143,6 +143,27 @@ Legacy source root:
   completed. Solver success fraction `1.0`; maximum velocity-bound violation
   `0.0`; maximum joint-limit violation `0.0`.
 
+## V3 Contact Force Ladder Runs
+
+### Static contact-model force ladder
+
+- Run: `runs/contact_force_ladder/20260524T012524`
+- Command:
+  `python3 scripts/run_contact_force_ladder.py --config configs/mujoco_ur10e.yaml --steps 500 --tail-steps 100 --tolerance-N 0.01`
+- Git state at run time:
+  branch `exp/tase-ur10e-v3-contact-force-ladder`, starting commit
+  `ab94671f472a6043955dfdea5d605edc55c6dc33`, dirty tree with v3 contact
+  ladder source edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `contact-force-ladder_offsets_20260524T012524.png`,
+  `contact-force-ladder_target-vs-measured_20260524T012524.png`
+- Result:
+  completed. Targets `[0.5, 1.0, 2.0, 5.0] N` were matched with maximum
+  absolute force error `0.0088706346160502 N`.
+- Limit:
+  This is a static model-offset calibration, not closed-loop force control.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -122,3 +122,29 @@
   Add a static contact-force ladder simulation that logs contact sign,
   force target, solver status, and failure conditions before any real robot
   motion is considered.
+
+## 2026-05-24 v3 Contact Force Ladder
+
+- Branch: `exp/tase-ur10e-v3-contact-force-ladder`
+- Starting commit: `ab94671f472a6043955dfdea5d605edc55c6dc33`
+- Files added:
+  - `src/tase_repro/contact_ladder.py`
+  - `scripts/run_contact_force_ladder.py`
+  - `tests/test_contact_ladder.py`
+  - `reports/contact_force_ladder_report.md`
+- Commands run:
+  - exploratory contact scan over `base_link` z offsets
+  - `scripts/run_tests.sh`
+  - `python3 scripts/run_contact_force_ladder.py --config configs/mujoco_ur10e.yaml --steps 500 --tail-steps 100 --tolerance-N 0.01`
+- Result:
+  Tests passed: `15 passed in 0.15s`. Contact ladder run
+  `runs/contact_force_ladder/20260524T012524` matched targets
+  `[0.5, 1.0, 2.0, 5.0] N` with maximum absolute error
+  `0.0088706346160502 N`.
+- Limit:
+  This is static contact-model calibration via base z offsets, not closed-loop
+  force control, not a robot command, and not hardware-ready.
+- Next step:
+  Implement a stationary contact feedback controller simulation that regulates
+  normal force using the bounded velocity solve and logs force error, solver
+  status, active bounds, and stop conditions.

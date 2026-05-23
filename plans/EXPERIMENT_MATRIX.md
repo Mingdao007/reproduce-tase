@@ -56,6 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Re-run Fig.5 and UR10e smoke from the new repo path and update the iteration
-log.
+Use `runs/contact_force_ladder/20260524T012524` as the static sign/target
+baseline, then implement a stationary closed-loop force simulation before
+starting contact trajectories.
 
