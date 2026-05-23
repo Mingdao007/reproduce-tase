@@ -103,6 +103,8 @@ def main() -> int:
     parser.add_argument("--planar-kp", type=float, default=0.5)
     parser.add_argument("--planar-axis-weight", type=float, default=1.0)
     parser.add_argument("--normal-axis-weight", type=float, default=1.0)
+    parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
+    parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
     args = parser.parse_args()
 
     config_path = (ROOT / args.config).resolve()
@@ -142,6 +144,8 @@ def main() -> int:
         r=args.r,
         planar_kp=args.planar_kp,
         axis_weights=np.array([args.planar_axis_weight, args.planar_axis_weight, args.normal_axis_weight]),
+        normal_guard_force_fraction=args.normal_guard_force_fraction,
+        normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
     )
     summary = summarize_force_motion(
         result,
@@ -161,6 +165,7 @@ def main() -> int:
         force=result.force,
         commanded_linear_velocity=result.commanded_linear_velocity,
         actual_linear_velocity=result.actual_linear_velocity,
+        planar_scale=result.planar_scale,
         solver_success=result.solver_success,
         active_bounds=result.active_bounds,
         contact_count=result.contact_count,
@@ -195,6 +200,10 @@ def main() -> int:
             float(args.planar_axis_weight),
             float(args.normal_axis_weight),
         ],
+        "normal_guard_force_fraction": None
+        if args.normal_guard_force_fraction is None
+        else float(args.normal_guard_force_fraction),
+        "normal_guard_min_planar_scale": float(args.normal_guard_min_planar_scale),
         **summary,
         "warnings": [
             "simulation-only paper-trajectory-shaped force-motion smoke",

@@ -36,6 +36,7 @@ class ForceMotionResult:
     force: np.ndarray
     commanded_linear_velocity: np.ndarray
     actual_linear_velocity: np.ndarray
+    planar_scale: np.ndarray
     solver_success: np.ndarray
     active_bounds: np.ndarray
     contact_count: np.ndarray
@@ -183,6 +184,8 @@ def simulate_tangential_force_motion(
     r: float,
     tangential_kp: float = 0.5,
     axis_weights: np.ndarray | None = None,
+    normal_guard_force_fraction: float | None = None,
+    normal_guard_min_planar_scale: float = 0.0,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run a low-speed tangential motion while regulating normal force."""
@@ -203,6 +206,8 @@ def simulate_tangential_force_motion(
         r=r,
         planar_kp=tangential_kp,
         axis_weights=axis_weights,
+        normal_guard_force_fraction=normal_guard_force_fraction,
+        normal_guard_min_planar_scale=normal_guard_min_planar_scale,
         site_name=site_name,
     )
 
@@ -222,6 +227,8 @@ def simulate_planar_force_motion(
     r: float,
     planar_kp: float = 0.5,
     axis_weights: np.ndarray | None = None,
+    normal_guard_force_fraction: float | None = None,
+    normal_guard_min_planar_scale: float = 0.0,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
@@ -240,6 +247,12 @@ def simulate_planar_force_motion(
         solve_axis_weights = np.asarray(axis_weights, dtype=float)
         if solve_axis_weights.shape != (3,):
             raise ValueError("axis_weights must have shape (3,)")
+    guard_fraction = None if normal_guard_force_fraction is None else float(normal_guard_force_fraction)
+    if guard_fraction is not None and guard_fraction <= 0.0:
+        raise ValueError("normal_guard_force_fraction must be positive when set")
+    guard_min_scale = float(normal_guard_min_planar_scale)
+    if not 0.0 <= guard_min_scale <= 1.0:
+        raise ValueError("normal_guard_min_planar_scale must be in [0, 1]")
 
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
@@ -251,6 +264,7 @@ def simulate_planar_force_motion(
     force_hist = np.empty(steps, dtype=float)
     commanded_linear_hist = np.empty((steps, 3), dtype=float)
     actual_linear_hist = np.empty((steps, 3), dtype=float)
+    planar_scale_hist = np.empty(steps, dtype=float)
     solver_success = np.empty(steps, dtype=bool)
     active_bounds = np.empty(steps, dtype=int)
     contact_count = np.empty(steps, dtype=int)
@@ -271,6 +285,11 @@ def simulate_planar_force_motion(
         tangential_error = desired_tcp[:2] - tcp[:2]
         tangential_cmd = planar_velocity + float(planar_kp) * tangential_error
         force = positive_contact_normal_force(model, data)
+        planar_scale = 1.0
+        if guard_fraction is not None:
+            threshold = abs(float(target_force_N)) * guard_fraction
+            planar_scale = float(np.clip(force / threshold, guard_min_scale, 1.0))
+            tangential_cmd = planar_scale * tangential_cmd
         command_vz = finite_time_normal_velocity_command(
             force,
             target_force_N,
@@ -300,6 +319,7 @@ def simulate_planar_force_motion(
         force_hist[idx] = force
         commanded_linear_hist[idx] = command
         actual_linear_hist[idx] = step.actual_linear_velocity_m_s
+        planar_scale_hist[idx] = planar_scale
         solver_success[idx] = step.solver_success
         active_bounds[idx] = step.active_bound_count
         contact_count[idx] = data.ncon
@@ -312,6 +332,7 @@ def simulate_planar_force_motion(
         force=force_hist,
         commanded_linear_velocity=commanded_linear_hist,
         actual_linear_velocity=actual_linear_hist,
+        planar_scale=planar_scale_hist,
         solver_success=solver_success,
         active_bounds=active_bounds,
         contact_count=contact_count,
@@ -349,6 +370,8 @@ def summarize_force_motion(
         "solver_success_fraction": float(np.mean(result.solver_success)),
         "contact_present_fraction": float(np.mean(result.contact_count > 0)),
         "max_active_bound_count": int(np.max(result.active_bounds)),
+        "min_planar_scale": float(np.min(result.planar_scale)),
+        "tail_mean_planar_scale": float(np.mean(result.planar_scale[-tail:])),
         "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
         "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
         "max_joint_limit_violation_rad": float(np.max(q_violation)),

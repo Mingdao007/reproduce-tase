@@ -357,3 +357,34 @@ Interpretation:
 Axis weighting can rescue contact and force regulation, but E2/E3 still fail
 the trajectory-tracking bar. This supports moving from a blended least-squares
 controller to a prioritized or slack-aware solve.
+
+## V9 Normal Guard Diagnostic
+
+The force-motion simulation now records `planar_scale` and can apply a scalar
+normal-force guard:
+
+```text
+scale = clamp(force / (force_target * guard_fraction), min_scale, 1)
+v_xy_guarded = scale * v_xy_command
+```
+
+Diagnostic result:
+
+- Equal-axis guarded E2/E3 still lost force at full speed.
+- Guarded `normal_axis_weight = 50` kept E1-E4 in contact but did not remove
+  the force/tracking tradeoff.
+
+Guarded `normal_axis_weight = 50` matrix:
+
+| trajectory | tail force error N | max position error m | contact present |
+| --- | ---: | ---: | ---: |
+| E1 cycloid | `0.00033856499675277707` | `1.9594057514147845e-06` | `1.0` |
+| E2 figure-eight | `0.5085483615637729` | `0.020166709027307318` | `1.0` |
+| E3 circle | `0.14769228903285758` | `0.015963081975681002` | `1.0` |
+| E4 cardioid | `0.008334236881239064` | `0.0016131684506960832` | `1.0` |
+
+Conclusion:
+
+The scalar guard is not a sufficient full-speed controller. The next solver
+must report normal and planar residuals separately and make the task tradeoff
+explicit.

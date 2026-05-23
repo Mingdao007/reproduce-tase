@@ -1,0 +1,78 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml
+run_id: 20260524T015407
+duration_s: 8.0
+dt_s: 0.002
+steps: 4000
+initial_q:
+- 0.0
+- -0.02
+- 0.03
+- -0.01
+- 0.0
+- 0.0
+qdot_limit_source: cli_override
+qdot_min_rad_s:
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+qdot_max_rad_s:
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+base_z_offset_m: -4.0e-05
+force_gain: 0.0005
+r: 0.5
+trajectory: e2-figure-eight
+paper_formula: x=x0+0.04*sin(0.1*t); y=y0+0.01*sin(0.2*t)
+amplitude_m: 0.015
+amplitude_x_m: 0.04
+amplitude_y_m: 0.01
+radius_m: 0.03
+omega_rad_s: 0.1
+paper_time_scale: 1.0
+zero_initial_offset: true
+planar_kp: 0.5
+axis_weights:
+- 1.0
+- 1.0
+- 20.0
+normal_guard_force_fraction: 0.9
+normal_guard_min_planar_scale: 0.0
+target_force_N: 5.0
+initial_force_N: 5.886648180968636
+final_force_N: 2.3863677865532376
+tail_mean_force_N: 2.5032421045495705
+tail_mean_abs_force_error_N: 2.4967578954504295
+max_abs_force_error_N: 2.6140765160587263
+mean_tangential_position_error_m: 0.006250977557817567
+max_tangential_position_error_m: 0.016793858718527916
+final_tangential_displacement_m:
+- 0.012800733660423294
+- 0.004527299882722455
+desired_tangential_displacement_m:
+- 0.028688669408458423
+- 0.00999585202884227
+solver_success_fraction: 1.0
+contact_present_fraction: 1.0
+max_active_bound_count: 4
+min_planar_scale: 0.5302052186536164
+tail_mean_planar_scale: 0.5562760232332379
+max_abs_qdot_rad_s: 0.14999999999999997
+max_qdot_violation_rad_s: 0.0
+max_joint_limit_violation_rad: 0.0
+max_abs_commanded_linear_velocity_m_s: 0.005918507448973572
+max_abs_actual_linear_velocity_m_s: 0.004496837918523833
+warnings:
+- simulation-only paper-trajectory-shaped force-motion smoke
+- uses MuJoCo contact force rather than hardware force sensing
+- kinematic velocity-level controller
+- no orientation compliance yet
+- not torque dynamics
+- not hardware-ready

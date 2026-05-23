@@ -88,6 +88,7 @@ def main() -> int:
         force=result.force,
         commanded_linear_velocity=result.commanded_linear_velocity,
         actual_linear_velocity=result.actual_linear_velocity,
+        planar_scale=result.planar_scale,
         solver_success=result.solver_success,
         active_bounds=result.active_bounds,
         contact_count=result.contact_count,
@@ -150,4 +151,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

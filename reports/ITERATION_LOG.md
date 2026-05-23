@@ -293,3 +293,29 @@
 - Next step:
   Implement a two-stage or prioritized velocity solve that reports normal-force
   task residual and planar tracking slack separately.
+
+## 2026-05-24 v9 Normal Guard Force-Motion Probe
+
+- Branch: `exp/tase-ur10e-v9-normal-guard-force-motion`
+- Starting commit: `3eac57b6ee49e55908641b62fc427575f27f39a7`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `tests/test_force_motion.py`
+- Files added:
+  - `reports/normal_guard_force_motion_report.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Guarded full-speed probes under
+    `runs/normal_guard_force_motion/20260524T015341`
+- Result:
+  Tests passed: `28 passed in 0.32s`. The equal-axis guard reduced planar
+  commands but did not preserve force on E2/E3. With `normal_axis_weight = 50`,
+  contact stayed present for E1-E4, but E2/E3 still had max planar errors
+  `0.020166709027307318 m` and `0.015963081975681002 m`, with force errors
+  `0.5085483615637729 N` and `0.14769228903285758 N`.
+- Limit:
+  The scalar guard is diagnostic and does not solve full-speed E2/E3.
+- Next step:
+  Implement a slack-aware velocity solve with separate normal and planar
+  residual metrics.

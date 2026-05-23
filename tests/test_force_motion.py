@@ -118,3 +118,36 @@ def test_planar_force_motion_accepts_normal_axis_weight() -> None:
     )
     assert summary["solver_success_fraction"] == 1.0
     assert summary["contact_present_fraction"] == 1.0
+
+
+def test_planar_force_motion_guard_scales_planar_command_when_force_low() -> None:
+    model = load_model(MODEL_PATH)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.05)
+    qdot_max = np.full(model.nv, 0.05)
+    result = simulate_planar_force_motion(
+        MODEL_PATH,
+        initial_q=np.array([0.0, -0.02, 0.03, -0.01, 0.0, 0.0]),
+        base_z_offset_m=0.0,
+        target_force_N=5.0,
+        planar_trajectory=paper_e1_cycloid_planar_state,
+        duration_s=0.05,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-5,
+        r=0.5,
+        planar_kp=0.5,
+        normal_guard_force_fraction=0.9,
+        normal_guard_min_planar_scale=0.0,
+    )
+    summary = summarize_force_motion(
+        result,
+        target_force_N=5.0,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert 0.0 < summary["min_planar_scale"] < 1.0
+    assert np.max(result.planar_scale) < 1.0

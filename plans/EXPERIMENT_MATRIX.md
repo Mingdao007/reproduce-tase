@@ -56,8 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/weighted_normal_force_motion/20260524T014811` as diagnostic evidence
-that full-speed E2/E3 contact can be recovered with normal-axis weighting, but
-only by accepting unacceptable planar tracking error. Next, implement a
-prioritized or slack-aware normal-force task before increasing trajectory
-complexity or adding orientation compliance.
+Use `runs/normal_guard_force_motion/20260524T015341` as diagnostic evidence
+that scalar planar guarding does not solve full-speed E2/E3. Next, implement a
+slack-aware velocity solve with explicit normal and planar residual metrics
+before increasing trajectory complexity or adding orientation compliance.

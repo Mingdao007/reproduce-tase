@@ -317,6 +317,28 @@ Legacy source root:
   This is diagnostic evidence for task-priority design. It is not a final
   full-speed paper trajectory reproduction.
 
+## V9 Normal Guard Force-Motion Runs
+
+### Full-speed scalar normal guard diagnostic
+
+- Run root: `runs/normal_guard_force_motion/20260524T015341`
+- Scope:
+  Full-speed E2/E3 scalar guard probes plus a guarded E1-E4 matrix using
+  `normal_axis_weight = 50`, `force_gain = 5e-4`,
+  `--qdot-limit-rad-s 0.15`, and `normal_guard_force_fraction = 0.9`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Equal-axis guarding did not preserve E2/E3 force. Guarded
+  `normal_axis_weight = 50` maintained contact, but E2/E3 retained max planar
+  errors `0.020166709027307318 m` and `0.015963081975681002 m`.
+- Limit:
+  The scalar guard is diagnostic only. It does not solve the full-speed E2/E3
+  controller tradeoff.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

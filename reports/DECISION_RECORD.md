@@ -194,3 +194,18 @@
   The weighted v8 matrix recovers contact and force regulation but creates
   unacceptable planar error on E2/E3. The next controller needs explicit
   priority or slack accounting, not just larger weights.
+
+## D014: Reject Scalar Planar Guard As Full-Speed Fix
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the normal-force planar-speed guard as diagnostic instrumentation, but
+  do not treat it as the full-speed E2/E3 fix.
+- Reason:
+  Equal-axis guarding suppresses planar motion but still loses force. Moderate
+  normal-axis weighting with guarding keeps contact but retains centimeter-scale
+  E2/E3 planar error and qdot saturation.
+- Consequence:
+  The next controller step must expose normal and planar residuals explicitly,
+  likely with slack variables or a true task-priority solve.
