@@ -18,6 +18,7 @@ experiment matrix from the TASE finite-time force-motion paper.
 - `plans/PAPER_TRUTH_EXTRACTION.md`
 - `reports/DECISION_RECORD.md`
 - `reports/paper_truth_extraction.md`
+- `reports/orientation_signal_ambiguity_audit.md`
 - `reports/ITERATION_LOG.md`
 - `reports/math_derivation_ur10e_transfer.md`
 
@@ -28,6 +29,10 @@ pdfinfo "<paper-pdf>"
 pdftotext -layout "<paper-pdf>" /tmp/tase_paper_layout.txt
 wc -l /tmp/tase_paper_layout.txt
 rg -n "finite|force|constraint|MIAE|Experiment|Fig|Md|Bd|epsilon|kp|ko|kf" /tmp/tase_paper_layout.txt
+pdftotext -raw "<paper-pdf>" /tmp/tase_paper_raw.txt
+pdftotext -fixed 3 "<paper-pdf>" /tmp/tase_paper_fixed3.txt
+pdftohtml -xml -f 3 -l 4 -stdout "<paper-pdf>" > /tmp/tase_paper_p3_4.xml
+pdftohtml -xml -f 5 -l 8 -stdout "<paper-pdf>" > /tmp/tase_paper_p5_8.xml
 ```
 
 ## Expected Outputs
@@ -39,6 +44,8 @@ rg -n "finite|force|constraint|MIAE|Experiment|Fig|Md|Bd|epsilon|kp|ko|kf" /tmp/
 - All `pending_pdf_verify` fields either resolved or explicitly retained.
 - `configs/paper_truth.yaml` records `reports/paper_truth_extraction.md` as
   the tracked source-of-truth report.
+- Section V orientation mismatch is either resolved from the PDF or recorded
+  as a known paper ambiguity with evidence from multiple extraction modes.
 
 ## Pass/Fail Criteria
 
@@ -61,12 +68,14 @@ PDF extraction is later found wrong.
 - PDF text extraction may mangle equations.
 - Eq. (10) appears to apply scalar trigonometric functions to a vector `u`.
 - Section V gives a 2D orientation signal, while the orientation law defines a
-  3D normalized force vector.
+  3D normalized force vector. V20 confirms this as a paper ambiguity rather
+  than a hidden extraction omission.
 - Section V `z0` remains undefined in extracted text.
 
 ## Next Executable Step
 
-Resolve the Section V orientation signal ambiguity before implementing a
-paper-faithful desired-orientation generator. The current UR10e
-`linear-primary` orientation result must remain labeled as adapted
-orientation-hold, not paper orientation compliance.
+Implement paper-orientation work from the Section III 3D force-normal contract,
+`u = F / ||F||`, not from an inferred Section V third component. Keep any
+Section V 2D orientation schedule as an explicitly adapted option with its own
+decision record and gates. The remaining PDF-truth extraction item is the
+Section V `z0` source.

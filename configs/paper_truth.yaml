@@ -1,6 +1,6 @@
 v1:
   allow_pending_pdf_verify: true
-  note: "V19 records PDF-grounded paper truth in reports/paper_truth_extraction.md. Only the Section V orientation-signal dimension resolution and Section V z0 source remain pending."
+  note: "V20 records the Section V orientation-signal mismatch as a verified paper ambiguity. Only the Section V z0 source remains pending PDF verification."
 
 paper:
   title: "Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientation Compliance"
@@ -12,6 +12,7 @@ paper:
     extracted_line_count: 886
     pdf_pages: 13
     truth_report: "reports/paper_truth_extraction.md"
+    orientation_ambiguity_audit: "reports/orientation_signal_ambiguity_audit.md"
   orientation_controller:
     force_normal_signal: "u = F / ||F||"
     force_normal_dimension: 3
@@ -33,7 +34,6 @@ paper:
     inner_loop: "finite-time recurrent neural network, Eq. (23)"
   section_v:
     pending_pdf_verify:
-      - orientation_signal_dimension_resolution
       - z0_source
     q0: [0.0, -0.7853981634, 0.0, -2.3561944902, 0.0, 1.5707963268, 0.7853981634]
     trajectory:
@@ -41,8 +41,12 @@ paper:
       y: "0.2*sin(0.2*t)"
       z: "z0_TBD"
     orientation_signal_raw: "[cos(0.1*t), sin(0.1*t)]"
-    orientation_signal_note: "PDF-verified raw Section V signal, but dimension resolution remains open because Eq. (9) defines u as a 3D force-normal vector."
-    orientation_signal_dimension_resolution: "unresolved: Section V gives a 2D signal, while the orientation compliance derivation defines u = F/||F|| in R^3."
+    orientation_signal_note: "PDF-verified raw Section V signal. The dimension mismatch is recorded as a known paper ambiguity, not a hidden PDF-extraction omission."
+    orientation_signal_resolution_status: "verified_paper_ambiguity"
+    orientation_signal_dimension_resolution: "Resolved for repo use as a verified paper ambiguity: multiple PDF extraction modes show only the 2D Section V signal, while Section III requires u = F/||F|| in R^3. Do not infer a hidden third component or call a 2D embedding paper truth."
+    known_paper_ambiguities:
+      - "Section III defines u as a 3D normalized force vector, but Section V gives u = [cos(0.1*t), sin(0.1*t)]."
+      - "Eq. (10) uses sin(u) and cos(u) after u has been defined as a vector."
     joint_limit_rad: [-2.5, 2.5]
     joint_velocity_limit_rad_s: [-1.5, 1.5]
     desired_normal_force_N: 5.0

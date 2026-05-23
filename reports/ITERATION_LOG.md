@@ -667,3 +667,46 @@
   Resolve the Section V 2D/3D orientation-signal ambiguity or document an
   explicit adapted UR10e orientation schedule before making further
   full-speed orientation-gated claims.
+
+## 2026-05-24 v20 Orientation Signal Audit
+
+- Branch: `exp/tase-ur10e-v20-orientation-signal-audit`
+- Starting commit: `6ef9a6cfa5bf626adba0d8bceaacc029b5904318`
+- Files added:
+  - `reports/orientation_signal_ambiguity_audit.md`
+- Files updated:
+  - `configs/paper_truth.yaml`
+  - `plans/PAPER_TRUTH_EXTRACTION.md`
+  - `reports/paper_truth_extraction.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+- Commands run:
+  - `pdftotext -layout "<paper-pdf>" /tmp/tase_paper_layout.txt`
+  - `pdftotext -raw "<paper-pdf>" /tmp/tase_paper_raw.txt`
+  - `pdftotext -fixed 3 "<paper-pdf>" /tmp/tase_paper_fixed3.txt`
+  - `pdftohtml -xml -f 3 -l 4 -stdout "<paper-pdf>" > /tmp/tase_paper_p3_4.xml`
+  - `pdftohtml -xml -f 5 -l 8 -stdout "<paper-pdf>" > /tmp/tase_paper_p5_8.xml`
+  - `pdftotext -bbox-layout -f 3 -l 5 "<paper-pdf>" /tmp/tase_paper_p3_5_bbox.html`
+  - `rg -n "u =|cos\\(0\\.1t|sin\\(0\\.1t|Rd =|sin\\(u\\)|F/kFk" /tmp/tase_paper_*.txt /tmp/tase_paper_*.xml /tmp/tase_paper_*.html`
+  - `python3 - <<'PY' ... yaml.safe_load(...) ...`
+  - `python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml --smoke --output-dir /tmp/tase_v20_fig5_smoke`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Tests passed: `41 passed in 0.46s`. `git diff --check` passed. The Fig.5
+  smoke completed with only the expected `z0_source` pending warning.
+- Paper-truth update:
+  Multiple extraction modes confirmed that Section V contains only
+  `u = [cos(0.1t), sin(0.1t)]`, while Section III defines `u` as a 3D
+  normalized force vector and Eq. (9) uses all three components. The repo now
+  treats `orientation_signal_dimension_resolution` as a verified paper
+  ambiguity instead of a pending PDF-verification item.
+- Limit:
+  This does not implement the paper orientation law. It only prevents a hidden
+  third-component inference from being mislabeled as paper truth.
+- Next step:
+  Implement paper-orientation work from the Section III 3D force-normal
+  contract, or explicitly label any Section V 2D schedule as an adapted
+  assumption. The only remaining Section V paper-truth extraction field is
+  `z0_source`.

@@ -604,3 +604,25 @@ compliance implementation. The next derivation step must define one of:
   record and acceptance gates;
 - or a manual figure/source audit that proves the extracted text omitted
   required notation.
+
+## V20 Orientation Signal Audit Resolution
+
+The manual/source audit did not find omitted notation. Layout, raw,
+fixed-width, XML, and bbox extraction all preserve the same mismatch:
+
+- Section III: `u = F / ||F||`, `u in R^3`, with Eq. (9) using `u1`, `u2`,
+  and `u3`.
+- Section V: `u = [cos(0.1t), sin(0.1t)]`.
+
+Therefore the missing third component should not be guessed. For the UR10e
+transfer, the next paper-oriented implementation should use a 3D force-normal
+orientation target:
+
+```text
+u_force = normalize(F_contact)
+```
+
+or, in simulation terms, the contact-normal vector with a clear force-frame
+convention. A 2D Section V schedule can still be useful as a synthetic adapted
+trajectory, but it must not be reported as the paper's force-normal
+orientation compliance law.

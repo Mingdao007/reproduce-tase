@@ -391,3 +391,22 @@
   orientation schedule. The v18 slowed `0.075` matrix remains the current
   orientation-gated simulation fallback, not a paper-faithful orientation
   compliance reproduction.
+
+## D025: Treat Section V Orientation Signal As A Verified Paper Ambiguity
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Remove `orientation_signal_dimension_resolution` from
+  `pending_pdf_verify` and record it as a known paper ambiguity. Future
+  paper-orientation implementation must use the Section III 3D force-normal
+  contract, `u = F / ||F||`, or explicitly label any 2D Section V orientation
+  schedule as adapted.
+- Reason:
+  Multiple PDF extraction modes agree that Section V contains only
+  `u = [cos(0.1t), sin(0.1t)]`, with no hidden third component. Section III
+  still defines `u` as a three-component normalized force vector and Eq. (9)
+  uses `u1`, `u2`, and `u3`.
+- Consequence:
+  The repo should not infer a missing third component and call it paper truth.
+  The only remaining Section V PDF-verification field is `z0_source`.

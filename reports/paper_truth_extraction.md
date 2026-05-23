@@ -2,7 +2,9 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v19-paper-orientation-truth`
+Initial branch: `exp/tase-ur10e-v19-paper-orientation-truth`
+
+V20 update branch: `exp/tase-ur10e-v20-orientation-signal-audit`
 
 Source PDF:
 
@@ -29,10 +31,10 @@ the Section VI controller parameters and force-sensor filtering note that were
 previously still marked `pending_pdf_verify`, and it records the actual paper
 orientation law rather than only the early UR10e orientation-hold substitute.
 
-It does not claim a full paper-faithful implementation. Two items remain open:
+It does not claim a full paper-faithful implementation. V20 reclassified the
+orientation-signal mismatch as a verified paper ambiguity after checking
+multiple extraction modes. One Section V PDF-verification item remains open:
 
-- Section V gives a two-component orientation signal, while the orientation
-  controller definition requires a three-component force-normal vector.
 - Section V leaves `z0` undefined in the extracted text. Section VI defines
   `z0` from the initial manipulator position, but that statement appears in
   the experiment section, not the simulation section.
@@ -89,6 +91,8 @@ Important ambiguity:
   defines `u` as a vector. That looks like an axis-angle/Rodrigues notation
   mismatch in the paper text, not enough by itself to implement a faithful
   three-dimensional desired orientation.
+- V20 confirms this is present in layout, raw, fixed-width, XML, and bbox
+  extraction. See `reports/orientation_signal_ambiguity_audit.md`.
 
 The outer-loop orientation controller computes a desired quaternion from
 `R_d`, forms quaternion error, converts it to a 3D orientation error, and uses:
@@ -290,12 +294,12 @@ by the other comparison reductions.
   velocity limits, E1-E4 trajectory formulas, contact timings, convergence
   timings, and comparison values.
 
-The remaining `pending_pdf_verify` values should be exactly:
+After the V20 audit, the remaining `pending_pdf_verify` value should be:
 
-- `orientation_signal_dimension_resolution`
 - `z0_source`
 
-Those remaining pending values are Section V issues only.
+The orientation-signal mismatch remains a known paper ambiguity, but it is no
+longer treated as a hidden or unverified extraction field.
 
 ## Implementation Consequences
 
