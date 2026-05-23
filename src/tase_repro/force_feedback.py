@@ -383,6 +383,16 @@ def summarize_force_motion(
     normal_velocity_slack = result.task_slack_linear_velocity[:, 2]
     q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
     qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
+    qdot_abs_limits = np.minimum(np.abs(qdot_min), np.abs(qdot_max))
+    valid_qdot_limits = np.isfinite(qdot_abs_limits) & (qdot_abs_limits > 0.0)
+    if np.any(valid_qdot_limits):
+        qdot_utilization = np.max(
+            np.abs(result.qdot[:, valid_qdot_limits]) / qdot_abs_limits[valid_qdot_limits],
+            axis=1,
+        )
+    else:
+        qdot_utilization = np.zeros(len(result.force), dtype=float)
+    qdot_saturation_threshold = 0.98
     displacement = result.tcp[-1, :2] - result.tcp[0, :2]
     desired_displacement = result.desired_tcp[-1, :2] - result.desired_tcp[0, :2]
     return {
@@ -413,6 +423,11 @@ def summarize_force_motion(
         "mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack))),
         "max_abs_normal_velocity_slack_m_s": float(np.max(np.abs(normal_velocity_slack))),
         "tail_mean_abs_normal_velocity_slack_m_s": float(np.mean(np.abs(normal_velocity_slack[-tail:]))),
+        "max_qdot_utilization": float(np.max(qdot_utilization)),
+        "tail_max_qdot_utilization": float(np.max(qdot_utilization[-tail:])),
+        "qdot_saturation_threshold": qdot_saturation_threshold,
+        "qdot_saturation_fraction": float(np.mean(qdot_utilization >= qdot_saturation_threshold)),
+        "tail_qdot_saturation_fraction": float(np.mean(qdot_utilization[-tail:] >= qdot_saturation_threshold)),
         "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
         "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
         "max_joint_limit_violation_rad": float(np.max(q_violation)),

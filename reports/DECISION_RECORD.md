@@ -239,3 +239,22 @@
 - Consequence:
   The next experiment should define pass/fail thresholds and search for
   feasible timing/posture changes before adding more controller features.
+
+## D017: Gate Timing Feasibility With Sustained Qdot Saturation Metrics
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat qdot cap contact as a pass/fail issue only when it is sustained, using
+  qdot saturation fraction and tail max qdot utilization rather than a single
+  max qdot sample.
+- Reason:
+  The slack-aware controller can briefly touch the velocity cap during startup
+  even when the later trajectory is well within limits. A single max sample
+  would reject otherwise useful slowed-timing baselines, while sustained tail
+  saturation still indicates the trajectory/controller combination is not
+  feasible.
+- Consequence:
+  For E2/E3 under the current posture and slack-aware controller,
+  `paper_time_scale = 0.2` is the fastest tested timing that passes the current
+  force, contact, slack, position, limit, and sustained qdot saturation gates.

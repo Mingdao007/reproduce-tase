@@ -379,6 +379,30 @@ Legacy source root:
   This is a feasibility diagnostic, not full-speed paper trajectory
   reproduction.
 
+## V12 Timing Feasibility Gate Runs
+
+### E2/E3 paper-time-scale feasibility sweep
+
+- Run root: `runs/timing_feasibility_sweep/20260524T021322`
+- Scope:
+  E2/E3 slack-aware force-motion sweeps with `paper_time_scale` values
+  `1.0`, `0.75`, `0.5`, `0.35`, `0.25`, `0.2`, `0.15`, and `0.1`,
+  qdot cap `0.15 rad/s`, force gain `5e-4`, planar slack weight `1`, normal
+  slack weight `10000`, and explicit feasibility gates.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, root
+  `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Full-speed E2/E3 remain rejected. The fastest tested passing scale for both
+  E2 and E3 is `paper_time_scale = 0.2`. The `0.25` cases pass force, contact,
+  position, and slack gates but fail sustained qdot saturation gates.
+- Limit:
+  This is a slowed simulation-only feasibility baseline, not full-speed paper
+  reproduction and not hardware validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

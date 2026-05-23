@@ -378,3 +378,32 @@
   Define pass/fail thresholds for slack, force, contact, and qdot saturation;
   then test feasibility changes such as slower time scaling or different
   initial posture before adding orientation compliance.
+
+## 2026-05-24 v12 Timing Feasibility Gates
+
+- Branch: `exp/tase-ur10e-v12-feasibility-gates`
+- Starting commit: `2cd3b4179a3ca6548aa8d4398a7d030a9d388394`
+- Files added:
+  - `src/tase_repro/feasibility.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `tests/test_feasibility.py`
+  - `reports/timing_feasibility_gates_report.md`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - E2/E3 timing feasibility sweep under
+    `runs/timing_feasibility_sweep/20260524T021322`
+- Result:
+  Tests passed: `32 passed in 0.36s`. Full-speed E2/E3 remain rejected by
+  position, planar slack, and sustained qdot saturation gates. `paper_time_scale
+  = 0.25` passes force, contact, path, and slack gates but still has sustained
+  qdot saturation. The fastest tested passing scale for both E2 and E3 is
+  `0.2`.
+- Limit:
+  The `0.2` result is a slowed simulation-only feasibility point, not
+  full-speed paper reproduction and not hardware validation.
+- Next step:
+  Use `paper_time_scale = 0.2` as the controlled baseline for posture or
+  approach-phase experiments that try to move the fastest passing scale closer
+  to `1.0`.
