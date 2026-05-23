@@ -231,3 +231,34 @@
 - Next step:
   Add the remaining paper trajectory shapes as simulation-only force-motion
   smokes and compare force/position metrics across the matrix.
+
+## 2026-05-24 v7 Paper Trajectory Matrix
+
+- Branch: `exp/tase-ur10e-v7-paper-trajectory-matrix`
+- Starting commit: `e89f3561d576c420374aebdb8f7fe85839b49674`
+- Files updated:
+  - `src/tase_repro/trajectories.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `tests/test_trajectories.py`
+- Files added:
+  - `reports/paper_trajectory_matrix_report.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - Full-speed E1-E4 matrix:
+    `runs/paper_trajectory_matrix/20260524T014139`
+  - Full-speed E1-E4 matrix with `--qdot-limit-rad-s 0.15`:
+    `runs/paper_trajectory_matrix/20260524T014244`
+  - Low-speed E1-E4 matrix with `--paper-time-scale 0.25`:
+    `runs/paper_trajectory_matrix/20260524T014344`
+- Result:
+  Tests passed: `25 passed in 0.29s`. Full-speed E2/E3 lost contact even when
+  the qdot cap was raised to `0.15 rad/s`; stronger force-gain probes saturated
+  near the qdot cap and did not recover contact. The low-speed matrix kept all
+  E1-E4 trajectories in contact with solver success fraction `1.0`, contact
+  present fraction `1.0`, and no qdot or joint-limit violation.
+- Limit:
+  The accepted matrix uses `paper_time_scale = 0.25`; it is a low-speed
+  trajectory-shape smoke, not a full-speed Section VI reproduction.
+- Next step:
+  Investigate full-speed E2/E3 contact loss with a prioritized or weighted
+  normal-force task before claiming full paper-trajectory reproduction.

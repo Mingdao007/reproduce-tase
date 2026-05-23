@@ -160,3 +160,20 @@
   The v6 result can be described as a paper-trajectory-shaped simulation smoke,
   not a full paper reproduction. Orientation compliance, force-source
   reconciliation, and hardware validation remain blocked.
+
+## D012: Record Full-Speed E2/E3 Contact Loss And Use Low-Speed Matrix
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the full-speed E1-E4 matrix attempts as negative evidence and use a
+  `paper_time_scale = 0.25` E1-E4 matrix as the v7 baseline.
+- Reason:
+  E2 and E3 lost contact at full paper time scale under both the initial
+  `0.05 rad/s` qdot cap and a `0.15 rad/s` simulation cap. Increasing the
+  force gain saturated qdot and still did not restore contact. The low-speed
+  matrix isolates trajectory-shape support without hiding the full-speed
+  controller limitation.
+- Consequence:
+  v7 demonstrates simulation-only E1-E4 shape tracking in contact at low
+  speed. Full-speed E2/E3 remain open controller issues.

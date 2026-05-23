@@ -244,6 +244,57 @@ Legacy source root:
   simulation-only and lacks orientation compliance, torque dynamics, calibrated
   TCP, and hardware force source validation.
 
+## V7 Paper Trajectory Matrix Runs
+
+### Full-speed matrix under conservative qdot cap
+
+- Run root: `runs/paper_trajectory_matrix/20260524T014139`
+- Scope:
+  E1-E4 paper trajectory shapes, `paper_time_scale = 1.0`, config default
+  `0.05 rad/s` qdot cap.
+- Tracked lightweight artifacts:
+  per-trajectory `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-trajectory `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  E2 and E3 lost contact; retained as negative evidence.
+
+### Full-speed matrix under 0.15 rad/s qdot cap
+
+- Run root: `runs/paper_trajectory_matrix/20260524T014244`
+- Scope:
+  E1-E4 paper trajectory shapes, `paper_time_scale = 1.0`,
+  `--qdot-limit-rad-s 0.15`, plus E2/E3 high-force-gain probes.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  E2 and E3 still lost contact; high-force-gain probes saturated near the qdot
+  cap and did not recover contact.
+
+### Low-speed matrix accepted as v7 baseline
+
+- Run root: `runs/paper_trajectory_matrix/20260524T014344`
+- Scope:
+  E1-E4 paper trajectory shapes, `paper_time_scale = 0.25`, config default
+  `0.05 rad/s` qdot cap.
+- Tracked lightweight artifacts:
+  per-trajectory `metrics.yaml`, `metrics.json`, force plot, xy plot, and root
+  `git_state.md`.
+- Ignored raw artifacts:
+  per-trajectory `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  all four trajectories maintained contact, solver success, and hard-limit
+  compliance. Tail mean absolute force errors were `2.7377314706467093e-06 N`
+  for E1, `0.22110301894575918 N` for E2, `0.07713928700031802 N` for E3, and
+  `2.7477968988542934e-06 N` for E4.
+- Limit:
+  This is a low-speed trajectory-shape baseline, not full-speed Section VI
+  reproduction.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

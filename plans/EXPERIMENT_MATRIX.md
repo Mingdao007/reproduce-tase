@@ -56,7 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/paper_trajectory_force_motion/20260524T013829` as the first
-paper-trajectory-shaped contact path baseline. Next, add the remaining
-simulation-only paper trajectory shapes and compare force/position metrics
-before increasing trajectory complexity or adding orientation compliance.
+Use `runs/paper_trajectory_matrix/20260524T014344` as the first E1-E4
+low-speed paper trajectory matrix baseline. Next, investigate full-speed E2/E3
+contact loss with a prioritized or weighted normal-force task before increasing
+trajectory complexity or adding orientation compliance.

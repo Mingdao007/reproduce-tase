@@ -20,7 +20,20 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from tase_repro.force_feedback import simulate_planar_force_motion, summarize_force_motion
 from tase_repro.kinematics import joint_ranges, load_model
-from tase_repro.trajectories import PlanarTrajectoryState, paper_e1_cycloid_planar_state
+from tase_repro.trajectories import (
+    PlanarTrajectoryState,
+    paper_e1_cycloid_planar_state,
+    paper_e2_figure_eight_planar_state,
+    paper_e3_circle_planar_state,
+    paper_e4_cardioid_planar_state,
+)
+
+PAPER_FORMULAS = {
+    "e1-cycloid": "x=x0+0.015*(0.1*t-sin(0.1*t)); y=y0+0.015*(1-cos(0.1*t))",
+    "e2-figure-eight": "x=x0+0.04*sin(0.1*t); y=y0+0.01*sin(0.2*t)",
+    "e3-circle": "x=x0+0.03*cos(0.1*t); y=y0+0.03*sin(0.1*t)",
+    "e4-cardioid": "x=x0+0.015*(2*cos(0.1*t)-cos(0.2*t)); y=y0+0.015*(2*sin(0.1*t)-sin(0.2*t))",
+}
 
 
 def parse_vector(text: str) -> np.ndarray:
@@ -36,6 +49,30 @@ def build_trajectory(args: argparse.Namespace) -> Callable[[float], PlanarTrajec
             omega_rad_s=args.omega_rad_s,
             time_scale=args.paper_time_scale,
         )
+    if args.trajectory == "e2-figure-eight":
+        return lambda t_s: paper_e2_figure_eight_planar_state(
+            t_s,
+            amplitude_x_m=args.amplitude_x_m,
+            amplitude_y_m=args.amplitude_y_m,
+            omega_rad_s=args.omega_rad_s,
+            time_scale=args.paper_time_scale,
+        )
+    if args.trajectory == "e3-circle":
+        return lambda t_s: paper_e3_circle_planar_state(
+            t_s,
+            radius_m=args.radius_m,
+            omega_rad_s=args.omega_rad_s,
+            time_scale=args.paper_time_scale,
+            zero_initial_offset=args.zero_initial_offset,
+        )
+    if args.trajectory == "e4-cardioid":
+        return lambda t_s: paper_e4_cardioid_planar_state(
+            t_s,
+            amplitude_m=args.amplitude_m,
+            omega_rad_s=args.omega_rad_s,
+            time_scale=args.paper_time_scale,
+            zero_initial_offset=args.zero_initial_offset,
+        )
     raise ValueError(f"unknown trajectory: {args.trajectory}")
 
 
@@ -49,10 +86,20 @@ def main() -> int:
     parser.add_argument("--r", type=float, default=0.5)
     parser.add_argument("--base-z-offset-m", type=float, default=-4e-5)
     parser.add_argument("--initial-q", default="0,-0.02,0.03,-0.01,0,0")
-    parser.add_argument("--trajectory", choices=["e1-cycloid"], default="e1-cycloid")
+    parser.add_argument("--qdot-limit-rad-s", type=float, default=None)
+    parser.add_argument(
+        "--trajectory",
+        choices=["e1-cycloid", "e2-figure-eight", "e3-circle", "e4-cardioid"],
+        default="e1-cycloid",
+    )
     parser.add_argument("--amplitude-m", type=float, default=0.015)
+    parser.add_argument("--amplitude-x-m", type=float, default=0.04)
+    parser.add_argument("--amplitude-y-m", type=float, default=0.01)
+    parser.add_argument("--radius-m", type=float, default=0.03)
     parser.add_argument("--omega-rad-s", type=float, default=0.1)
     parser.add_argument("--paper-time-scale", type=float, default=1.0)
+    parser.add_argument("--zero-initial-offset", dest="zero_initial_offset", action="store_true", default=True)
+    parser.add_argument("--no-zero-initial-offset", dest="zero_initial_offset", action="store_false")
     parser.add_argument("--planar-kp", type=float, default=0.5)
     args = parser.parse_args()
 
@@ -64,8 +111,15 @@ def main() -> int:
     model = load_model(model_path)
     q_min, q_max = joint_ranges(model)
     qdot_limit_cfg = cfg["ur10e_mujoco"]["joint_velocity_limit_rad_s"]
-    qdot_min = np.asarray(qdot_limit_cfg["lower"], dtype=float)
-    qdot_max = np.asarray(qdot_limit_cfg["upper"], dtype=float)
+    if args.qdot_limit_rad_s is None:
+        qdot_min = np.asarray(qdot_limit_cfg["lower"], dtype=float)
+        qdot_max = np.asarray(qdot_limit_cfg["upper"], dtype=float)
+        qdot_limit_source = qdot_limit_cfg["source"]
+    else:
+        qdot_limit = abs(float(args.qdot_limit_rad_s))
+        qdot_min = np.full(model.nv, -qdot_limit, dtype=float)
+        qdot_max = np.full(model.nv, qdot_limit, dtype=float)
+        qdot_limit_source = "cli_override"
     dt_s = float(cfg["ur10e_mujoco"]["timestep_s"])
 
     run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
@@ -117,14 +171,21 @@ def main() -> int:
         "dt_s": dt_s,
         "steps": int(len(result.force)),
         "initial_q": [float(x) for x in parse_vector(args.initial_q)],
+        "qdot_limit_source": qdot_limit_source,
+        "qdot_min_rad_s": [float(x) for x in qdot_min],
+        "qdot_max_rad_s": [float(x) for x in qdot_max],
         "base_z_offset_m": float(args.base_z_offset_m),
         "force_gain": float(args.force_gain),
         "r": float(args.r),
         "trajectory": args.trajectory,
-        "paper_formula": "x=x0+0.015*(0.1*t-sin(0.1*t)); y=y0+0.015*(1-cos(0.1*t))",
+        "paper_formula": PAPER_FORMULAS[args.trajectory],
         "amplitude_m": float(args.amplitude_m),
+        "amplitude_x_m": float(args.amplitude_x_m),
+        "amplitude_y_m": float(args.amplitude_y_m),
+        "radius_m": float(args.radius_m),
         "omega_rad_s": float(args.omega_rad_s),
         "paper_time_scale": float(args.paper_time_scale),
+        "zero_initial_offset": bool(args.zero_initial_offset),
         "planar_kp": float(args.planar_kp),
         **summary,
         "warnings": [
@@ -158,7 +219,7 @@ def main() -> int:
     plt.plot(result.tcp[:, 0], result.tcp[:, 1], label="actual")
     plt.xlabel("x [m]")
     plt.ylabel("y [m]")
-    plt.title("Paper E1 cycloid path")
+    plt.title(f"Paper trajectory path: {args.trajectory}")
     plt.axis("equal")
     plt.grid(True, alpha=0.3)
     plt.legend()

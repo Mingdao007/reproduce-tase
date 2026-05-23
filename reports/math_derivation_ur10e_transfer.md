@@ -290,3 +290,40 @@ Current result:
 - contact present fraction `1.0`
 - max qdot violation `0.0`
 - max joint-limit violation `0.0`
+
+## V7 Paper Trajectory Matrix
+
+The planar trajectory library now covers the PDF-extracted Section VI E1-E4
+trajectory family:
+
+- E1 cycloid.
+- E2 figure-eight.
+- E3 circle.
+- E4 cardioid.
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+```
+
+Current test result: `25 passed`.
+
+Simulation matrix evidence:
+
+- `runs/paper_trajectory_matrix/20260524T014139`: full-speed matrix under
+  `0.05 rad/s`; E2/E3 lost contact.
+- `runs/paper_trajectory_matrix/20260524T014244`: full-speed matrix under
+  `0.15 rad/s`; E2/E3 still lost contact.
+- `runs/paper_trajectory_matrix/20260524T014344`: low-speed matrix with
+  `paper_time_scale = 0.25`; all E1-E4 trajectories maintained contact and
+  hard-limit compliance.
+
+Accepted low-speed matrix result:
+
+| trajectory | tail mean abs force error N | max position error m | solver success | contact present |
+| --- | ---: | ---: | ---: | ---: |
+| E1 cycloid | `2.7377314706467093e-06` | `1.2975956668356727e-07` | `1.0` | `1.0` |
+| E2 figure-eight | `0.22110301894575918` | `2.236053449085177e-06` | `1.0` | `1.0` |
+| E3 circle | `0.07713928700031802` | `1.4999786407036843e-06` | `1.0` | `1.0` |
+| E4 cardioid | `2.7477968988542934e-06` | `2.621139110103472e-07` | `1.0` | `1.0` |
