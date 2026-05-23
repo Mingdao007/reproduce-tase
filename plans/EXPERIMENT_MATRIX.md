@@ -56,7 +56,7 @@ them rather than deleting them.
 
 ## Next Executable Step
 
-Use `runs/contact_force_ladder/20260524T012524` as the static sign/target
-baseline, then implement a stationary closed-loop force simulation before
-starting contact trajectories.
+Use `runs/stationary_force_feedback/20260524T013040` as the stationary
+normal-force feedback baseline, then add low-speed tangential motion while
+holding normal force before starting full contact trajectories.
 

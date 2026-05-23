@@ -16,7 +16,7 @@ class StaticContactMeasurement:
     mean_contact_count: float
 
 
-def _positive_contact_normal_force(model: mujoco.MjModel, data: mujoco.MjData) -> float:
+def positive_contact_normal_force(model: mujoco.MjModel, data: mujoco.MjData) -> float:
     total = 0.0
     for contact_idx in range(data.ncon):
         wrench = np.zeros(6)
@@ -53,7 +53,7 @@ def measure_static_contact_force(
     contact_hist = np.empty(steps, dtype=int)
     for idx in range(steps):
         mujoco.mj_step(model, data)
-        force_hist[idx] = _positive_contact_normal_force(model, data)
+        force_hist[idx] = positive_contact_normal_force(model, data)
         contact_hist[idx] = data.ncon
 
     tail = max(1, min(int(tail_steps), int(steps)))
@@ -119,4 +119,3 @@ def calibrate_base_z_for_target_force(
         else:
             upper = mid
     return best
-

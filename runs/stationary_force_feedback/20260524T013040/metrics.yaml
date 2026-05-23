@@ -1,0 +1,35 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_nominal.xml
+run_id: 20260524T013040
+duration_s: 4.0
+dt_s: 0.002
+steps: 2000
+initial_q:
+- 0.0
+- -0.02
+- 0.03
+- -0.01
+- 0.0
+- 0.0
+base_z_offset_m: -4.0e-05
+gain: 5.0e-05
+r: 0.5
+target_force_N: 5.0
+initial_force_N: 5.886648180968636
+final_force_N: 5.000002800044511
+tail_mean_force_N: 4.999999999997073
+tail_mean_abs_force_error_N: 2.8000475610912012e-06
+max_abs_force_error_N: 0.8866481809686357
+solver_success_fraction: 1.0
+contact_present_fraction: 1.0
+max_active_bound_count: 0
+max_abs_qdot_rad_s: 0.013568982999521384
+max_qdot_violation_rad_s: 0.0
+max_joint_limit_violation_rad: 0.0
+max_abs_commanded_vz_m_s: 4.7080998846897774e-05
+max_abs_actual_vz_m_s: 3.987766241730438e-05
+warnings:
+- simulation-only stationary contact feedback
+- kinematic velocity-level controller
+- not torque dynamics
+- not hardware-ready

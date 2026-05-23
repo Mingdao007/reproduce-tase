@@ -31,11 +31,12 @@ def finite_time_normal_velocity_command(
 ) -> float:
     """Velocity correction template for force error.
 
-    The sign convention is `error = measured - desired`; model-specific
-    contact sign must still be verified before hardware use.
+    MuJoCo contact-ladder evidence in this repo uses positive z/TCP normal
+    velocity as contact relief: if measured force is too high, move away from
+    the plane. Hardware force sign must still be verified separately.
     """
     error = float(measured_normal_force) - float(desired_normal_force)
-    return float(-gain * sigr(error, r))
+    return float(gain * sigr(error, r))
 
 
 def sphere_plane_penetration_depth(
@@ -45,4 +46,3 @@ def sphere_plane_penetration_depth(
     sphere_radius_m: float,
 ) -> float:
     return max(0.0, float(plane_z_m) + float(sphere_radius_m) - float(tcp_z_m))
-

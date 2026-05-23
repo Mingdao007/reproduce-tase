@@ -24,11 +24,10 @@ def test_normal_force_uses_unit_normal() -> None:
 
 
 def test_finite_time_force_command_sign_contract() -> None:
-    assert finite_time_normal_velocity_command(6.0, 5.0, gain=2.0, r=0.5) < 0.0
-    assert finite_time_normal_velocity_command(4.0, 5.0, gain=2.0, r=0.5) > 0.0
+    assert finite_time_normal_velocity_command(6.0, 5.0, gain=2.0, r=0.5) > 0.0
+    assert finite_time_normal_velocity_command(4.0, 5.0, gain=2.0, r=0.5) < 0.0
 
 
 def test_sphere_plane_penetration_depth() -> None:
     assert sphere_plane_penetration_depth(0.044, plane_z_m=0.0, sphere_radius_m=0.045) > 0.0
     assert sphere_plane_penetration_depth(0.050, plane_z_m=0.0, sphere_radius_m=0.045) == 0.0
-

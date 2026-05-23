@@ -184,3 +184,36 @@ Current result:
 - `15 passed`
 - target forces `[0.5, 1.0, 2.0, 5.0] N`
 - max absolute force error `0.0088706346160502 N`
+
+## V4 Stationary Force Feedback
+
+The first closed-loop stationary normal-force feedback smoke is represented by:
+
+- `src/tase_repro/force_feedback.py`
+- `scripts/run_stationary_force_feedback.py`
+- `tests/test_force_feedback.py`
+- `reports/stationary_force_feedback_report.md`
+
+It combines:
+
+- positive MuJoCo contact-frame normal force;
+- finite-time force error command;
+- bounded velocity-level UR10e joint solve;
+- hard velocity and joint-limit metrics.
+
+Verification:
+
+```bash
+scripts/run_tests.sh
+python3 scripts/run_stationary_force_feedback.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5
+```
+
+Current result:
+
+- `16 passed`
+- initial force `5.886648180968636 N`
+- final force `5.000002800044511 N`
+- tail mean absolute force error `2.8000475610912012e-06 N`
+- solver success fraction `1.0`
+- max qdot violation `0.0`
+- max joint-limit violation `0.0`

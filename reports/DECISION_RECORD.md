@@ -112,3 +112,19 @@
 - Consequence:
   The ladder results are valid only as MuJoCo contact-model evidence. They are
   not robot motion, not closed-loop control, and not hardware validation.
+
+## D009: Use Lightly Bent Posture For Stationary Force Feedback
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use `q = [0, -0.02, 0.03, -0.01, 0, 0]` and a small `base_link` z offset for
+  the first stationary force-feedback simulation.
+- Reason:
+  At the zero pose, the approximate MJCF has a TCP z Jacobian row of zero, so
+  joint velocity commands cannot regulate normal contact force. The lightly
+  bent posture gives a nonzero z Jacobian while keeping the motion small.
+- Consequence:
+  The stationary force-feedback result is a simulation scaffolding result. It
+  must not be translated to real UR10e posture or motion without a separate
+  hardware gate.

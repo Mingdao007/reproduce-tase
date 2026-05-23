@@ -1,0 +1,153 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+
+import mujoco
+import numpy as np
+
+from tase_repro.contact import finite_time_normal_velocity_command
+from tase_repro.contact_ladder import positive_contact_normal_force
+from tase_repro.controller import CartesianVelocityCommand, solve_site_linear_velocity_step
+from tase_repro.kinematics import joint_ranges, load_model, make_data, set_qpos, site_position
+
+
+@dataclass(frozen=True)
+class ForceFeedbackResult:
+    q: np.ndarray
+    qdot: np.ndarray
+    tcp: np.ndarray
+    force: np.ndarray
+    commanded_vz: np.ndarray
+    actual_vz: np.ndarray
+    solver_success: np.ndarray
+    active_bounds: np.ndarray
+    contact_count: np.ndarray
+
+
+def apply_base_z_offset(model: mujoco.MjModel, base_z_offset_m: float) -> None:
+    base_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
+    if base_id < 0:
+        raise ValueError("base_link body not found")
+    model.body_pos[base_id, 2] += float(base_z_offset_m)
+
+
+def simulate_stationary_force_feedback(
+    model_path: str | Path,
+    *,
+    initial_q: np.ndarray,
+    base_z_offset_m: float,
+    target_force_N: float,
+    duration_s: float,
+    dt_s: float,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    gain: float,
+    r: float,
+    site_name: str = "tcp_site_unverified_85mm",
+) -> ForceFeedbackResult:
+    """Run a kinematic stationary normal-force feedback simulation.
+
+    This uses MuJoCo contact force measurement and the bounded velocity solve.
+    It is still simulation-only and does not model robot torque dynamics.
+    """
+    model = load_model(model_path)
+    apply_base_z_offset(model, base_z_offset_m)
+    data = make_data(model)
+    q_min, q_max = joint_ranges(model)
+    q = np.asarray(initial_q, dtype=float).copy()
+    if q.shape != (model.nq,):
+        raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
+    qdot_min = np.asarray(qdot_min, dtype=float)
+    qdot_max = np.asarray(qdot_max, dtype=float)
+
+    steps = int(round(float(duration_s) / float(dt_s)))
+    q_hist = np.empty((steps, model.nq), dtype=float)
+    qdot_hist = np.empty((steps, model.nv), dtype=float)
+    tcp_hist = np.empty((steps, 3), dtype=float)
+    force_hist = np.empty(steps, dtype=float)
+    cmd_vz_hist = np.empty(steps, dtype=float)
+    actual_vz_hist = np.empty(steps, dtype=float)
+    solver_success = np.empty(steps, dtype=bool)
+    active_bounds = np.empty(steps, dtype=int)
+    contact_count = np.empty(steps, dtype=int)
+
+    for idx in range(steps):
+        set_qpos(model, data, q)
+        mujoco.mj_forward(model, data)
+        force = positive_contact_normal_force(model, data)
+        command_vz = finite_time_normal_velocity_command(
+            force,
+            target_force_N,
+            gain=gain,
+            r=r,
+        )
+        step = solve_site_linear_velocity_step(
+            model,
+            data,
+            site_name=site_name,
+            q=q,
+            command=CartesianVelocityCommand(np.array([0.0, 0.0, command_vz])),
+            dt=dt_s,
+            q_min=q_min,
+            q_max=q_max,
+            qdot_min=qdot_min,
+            qdot_max=qdot_max,
+        )
+        q = q + dt_s * step.qdot
+        set_qpos(model, data, q)
+
+        q_hist[idx] = q
+        qdot_hist[idx] = step.qdot
+        tcp_hist[idx] = site_position(model, data, site_name)
+        force_hist[idx] = force
+        cmd_vz_hist[idx] = command_vz
+        actual_vz_hist[idx] = step.actual_linear_velocity_m_s[2]
+        solver_success[idx] = step.solver_success
+        active_bounds[idx] = step.active_bound_count
+        contact_count[idx] = data.ncon
+
+    return ForceFeedbackResult(
+        q=q_hist,
+        qdot=qdot_hist,
+        tcp=tcp_hist,
+        force=force_hist,
+        commanded_vz=cmd_vz_hist,
+        actual_vz=actual_vz_hist,
+        solver_success=solver_success,
+        active_bounds=active_bounds,
+        contact_count=contact_count,
+    )
+
+
+def summarize_force_feedback(
+    result: ForceFeedbackResult,
+    *,
+    target_force_N: float,
+    q_min: np.ndarray,
+    q_max: np.ndarray,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    tail_fraction: float = 0.2,
+) -> dict:
+    tail = max(1, int(round(len(result.force) * tail_fraction)))
+    force_error = result.force - float(target_force_N)
+    q_violation = np.maximum(q_min - result.q, 0.0) + np.maximum(result.q - q_max, 0.0)
+    qdot_violation = np.maximum(qdot_min - result.qdot, 0.0) + np.maximum(result.qdot - qdot_max, 0.0)
+    return {
+        "target_force_N": float(target_force_N),
+        "initial_force_N": float(result.force[0]),
+        "final_force_N": float(result.force[-1]),
+        "tail_mean_force_N": float(np.mean(result.force[-tail:])),
+        "tail_mean_abs_force_error_N": float(np.mean(np.abs(force_error[-tail:]))),
+        "max_abs_force_error_N": float(np.max(np.abs(force_error))),
+        "solver_success_fraction": float(np.mean(result.solver_success)),
+        "contact_present_fraction": float(np.mean(result.contact_count > 0)),
+        "max_active_bound_count": int(np.max(result.active_bounds)),
+        "max_abs_qdot_rad_s": float(np.max(np.abs(result.qdot))),
+        "max_qdot_violation_rad_s": float(np.max(qdot_violation)),
+        "max_joint_limit_violation_rad": float(np.max(q_violation)),
+        "max_abs_commanded_vz_m_s": float(np.max(np.abs(result.commanded_vz))),
+        "max_abs_actual_vz_m_s": float(np.max(np.abs(result.actual_vz))),
+    }
+

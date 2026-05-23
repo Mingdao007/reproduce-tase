@@ -164,6 +164,32 @@ Legacy source root:
 - Limit:
   This is a static model-offset calibration, not closed-loop force control.
 
+## V4 Stationary Force Feedback Runs
+
+### Stationary 5 N normal-force feedback
+
+- Run: `runs/stationary_force_feedback/20260524T013040`
+- Command:
+  `python3 scripts/run_stationary_force_feedback.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5`
+- Git state at run time:
+  branch `exp/tase-ur10e-v4-stationary-force-feedback`, starting commit
+  `082ab4e063b57bdd1cc23a4f436967a63d8497a0`, dirty tree with v4 stationary
+  force-feedback source edits.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `git_state.md`,
+  `stationary-force-feedback_force_20260524T013040.png`,
+  `stationary-force-feedback_vz_20260524T013040.png`
+- Ignored raw artifact:
+  `stationary-force-feedback_raw.npz`
+- Result:
+  completed. Initial force `5.886648180968636 N`, final force
+  `5.000002800044511 N`, tail mean absolute force error
+  `2.8000475610912012e-06 N`, solver success fraction `1.0`, no qdot or
+  joint-limit violation.
+- Limit:
+  This is stationary simulation-only normal-force feedback, not tangential
+  force-motion trajectory tracking and not hardware validation.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

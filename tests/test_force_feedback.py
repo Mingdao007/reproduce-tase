@@ -1,0 +1,44 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import numpy as np
+
+from tase_repro.force_feedback import simulate_stationary_force_feedback, summarize_force_feedback
+from tase_repro.kinematics import joint_ranges, load_model
+
+ROOT = Path(__file__).resolve().parents[1]
+MODEL_PATH = ROOT / "assets" / "mjcf" / "ur10e_nominal.xml"
+
+
+def test_stationary_force_feedback_reduces_force_error() -> None:
+    model = load_model(MODEL_PATH)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.05)
+    qdot_max = np.full(model.nv, 0.05)
+    result = simulate_stationary_force_feedback(
+        MODEL_PATH,
+        initial_q=np.array([0.0, -0.02, 0.03, -0.01, 0.0, 0.0]),
+        base_z_offset_m=-4e-5,
+        target_force_N=5.0,
+        duration_s=1.0,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        gain=5e-5,
+        r=0.5,
+    )
+    summary = summarize_force_feedback(
+        result,
+        target_force_N=5.0,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert summary["solver_success_fraction"] == 1.0
+    assert summary["contact_present_fraction"] == 1.0
+    assert summary["tail_mean_abs_force_error_N"] < abs(summary["initial_force_N"] - 5.0)
+    assert summary["max_qdot_violation_rad_s"] == 0.0
+    assert summary["max_joint_limit_violation_rad"] == 0.0
+

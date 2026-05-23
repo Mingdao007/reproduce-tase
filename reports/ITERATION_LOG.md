@@ -148,3 +148,28 @@
   Implement a stationary contact feedback controller simulation that regulates
   normal force using the bounded velocity solve and logs force error, solver
   status, active bounds, and stop conditions.
+
+## 2026-05-24 v4 Stationary Force Feedback
+
+- Branch: `exp/tase-ur10e-v4-stationary-force-feedback`
+- Starting commit: `082ab4e063b57bdd1cc23a4f436967a63d8497a0`
+- Files added:
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_stationary_force_feedback.py`
+  - `tests/test_force_feedback.py`
+  - `reports/stationary_force_feedback_report.md`
+- Commands run:
+  - exploratory bent-posture force-feedback scans
+  - `scripts/run_tests.sh`
+  - `python3 scripts/run_stationary_force_feedback.py --config configs/mujoco_ur10e.yaml --duration-s 4.0 --target-force-N 5.0 --gain 5e-5 --r 0.5 --base-z-offset-m=-4e-5`
+- Result:
+  Tests passed: `16 passed in 0.20s`. Stationary force feedback run
+  `runs/stationary_force_feedback/20260524T013040` regulated from
+  `5.886648180968636 N` to `5.000002800044511 N`, with solver success
+  fraction `1.0` and no qdot or joint-limit violation.
+- Limit:
+  This is kinematic, simulation-only stationary normal-force feedback. It is
+  not tangential trajectory tracking, not orientation compliance, not torque
+  dynamics, and not hardware-ready.
+- Next step:
+  Add low-speed tangential motion while holding normal force in simulation.
