@@ -3337,7 +3337,8 @@
   hardware readiness.
 - Validation:
   Full tests passed with `115 passed in 2.65s`; `git diff --check` passed. No
-  live hardware commands were run.
+  live hardware commands were run. Branch push was verified at
+  `e60a90cfb112e4f5962c67efc2abbbcc3db313d0`.
 - Next step:
   Execute only safe read-only portions of the SOP after explicit user
   confirmation, or refine the SOP if any measurement path is ambiguous.

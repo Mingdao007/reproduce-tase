@@ -2363,7 +2363,8 @@ Legacy source root:
   This is a planning/SOP artifact only. It is not an executed measurement,
   recovery, gate relaxation, calibrated contact model, canonical controller
   default, strict paper-equivalent claim, robustness proof, hardware evidence,
-  or authorization for motion, writes, zeroing, or force control.
+  or authorization for motion, writes, zeroing, or force control. Branch push
+  was verified at `e60a90cfb112e4f5962c67efc2abbbcc3db313d0`.
 
 ## Full Paper MATLAB/RNN Run
 
