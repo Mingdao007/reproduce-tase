@@ -886,3 +886,26 @@
   The v41 contact-tail failure is closed for the diagnostic 7DOF line, but the
   paper-equivalent claim remains blocked because the KKT-projection line still
   loses contact and the Panda DH/orientation assumptions remain unverified.
+
+## D048: Treat Capped-Integral KKT Contact Recovery As Diagnostic Evidence
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Accept the capped-integral `kkt_projection` run as contact-recovery evidence
+  for the paper-platform diagnostic line, but not as paper-equivalent
+  numerical parity.
+- Reason:
+  The v43 run at `runs/paper_7dof_section_v/20260524T114736` uses
+  `kkt_projection`, paper epsilon `0.022`, Section V hard joint and velocity
+  bounds, and a force-integral limit of `0.1`. It passes tail contact-force
+  metrics with `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.06720487008205062`, and no q or qdot bound
+  violations. The improvement shows v41 contact loss was tied to unbounded
+  force integral behavior, not an unavoidable KKT projection failure.
+- Consequence:
+  Future paper-platform work should move from contact recovery to parity
+  definition and model provenance: compare against legacy MATLAB/RNN outputs,
+  verify Panda/Franka DH parameters, and keep the force-integral cap labeled as
+  an explicit diagnostic anti-windup decision unless the paper source supports
+  it.

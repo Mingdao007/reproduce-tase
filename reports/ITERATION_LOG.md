@@ -1569,3 +1569,42 @@
   Debug the KKT-projection contact loss or define a paper-platform parity gate
   against the legacy MATLAB/RNN outputs. Do not claim the overall goal
   complete.
+
+## 2026-05-24 v43 Paper 7DOF KKT Contact Recovery
+
+- Branch: `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`
+- Starting commit: `d655455ea47fbaa0fd9892266846f9404670a0e8`
+- Code commit:
+  `38216bba5e08af8fbf0f078583f438c044990d68`
+- Files updated:
+  - `tests/test_paper_7dof.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_7dof_kkt_contact_recovery_report.md`
+  - `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
+  - `runs/paper_7dof_section_v/20260524T114736/metrics.json`
+  - `runs/paper_7dof_section_v/20260524T114736/summary.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Result:
+  The capped-integral KKT diagnostic passed the tail contact-force gate:
+  `contact_force_tail_success = true`, `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.06720487008205062`, and no q or qdot bound
+  violations.
+- Validation:
+  Targeted paper 7DOF tests passed with `6 passed in 0.76s`; full suite
+  passed with `76 passed in 2.10s`.
+- Limit:
+  The force-integral cap is diagnostic anti-windup, not a PDF-verified Section
+  V parameter. This is still not paper-equivalent numerical parity.
+- Next step:
+  Define a paper-platform parity gate against legacy MATLAB/RNN outputs, or
+  audit Panda/Franka DH model provenance before making stronger paper-platform
+  claims.

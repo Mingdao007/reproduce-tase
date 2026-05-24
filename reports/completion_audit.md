@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v42-paper-7dof-contact-loop`
+Branch: `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`
 
 ## Objective Restatement
 
@@ -36,6 +36,8 @@ The objective has two separate technical claim levels:
 - `runs/paper_7dof_section_v/20260524T113608/metrics.yaml`
 - `reports/paper_7dof_contact_loop_report.md`
 - `runs/paper_7dof_section_v/20260524T114244/metrics.yaml`
+- `reports/paper_7dof_kkt_contact_recovery_report.md`
+- `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
 - `reports/DECISION_RECORD.md`
 - `runs/RUN_ARTIFACTS_MANIFEST.md`
@@ -44,19 +46,19 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v41 branches pushed and GitHub-verified; v42 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v42-paper-7dof-contact-loop`; latest local branch is `exp/tase-ur10e-v42-paper-7dof-contact-loop` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v42 branches pushed and GitHub-verified; v43 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`; latest local branch is `exp/tase-ur10e-v43-paper-7dof-kkt-sweep` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D047 as of v42 | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D048 as of v43 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v42 validation was `75 passed in 1.53s` | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v43 validation was `76 passed in 2.10s` | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
-| Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 contact-stabilized run `20260524T114244` | Diagnostic line exists and contact-stabilized variant passes; not paper-faithful KKT parity |
+| Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -95,12 +97,27 @@ Evidence:
 - `reports/paper_7dof_contact_loop_report.md`
 - `runs/paper_7dof_section_v/20260524T114244/metrics.yaml`
 
+The KKT paper-platform line can additionally claim:
+
+```text
+paper_platform_7dof_capped_integral_kkt_contact_diagnostic:
+  contact-force tail pass = true
+  tail contact fraction = 1.0
+  tail mean force error = 0.06720487008205062 N
+  paper-equivalent numerical parity = false
+```
+
+Evidence:
+
+- `reports/paper_7dof_kkt_contact_recovery_report.md`
+- `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
 - Paper-platform 7DOF Franka/Panda reproduction now has a separate executable
-  diagnostic line and a contact-stabilized variant that passes tail force, but
-  it is not paper-faithful KKT parity.
+  diagnostic line and a capped-integral KKT variant that passes tail force,
+  but it is not paper-equivalent numerical parity.
 - Section V `z0` is now verified undefined in the simulation text; future code
   still needs an explicit adapted convention if it implements Section V.
 - UR10e MJCF, 85 mm TCP guess, payload, CoG, and contact geometry remain
@@ -109,9 +126,9 @@ Evidence:
 - Hardware gate report is not produced, and no real robot motion is authorized.
 - The relaxed setup budget is an explicit adapted-simulation label, not a
   mathematical solution to the strict Stage A setup gate.
-- The v42 paper-platform line inherits unverified Panda DH parameters, uses a
+- The v43 paper-platform line inherits unverified Panda DH parameters, uses a
   documented force-normal orientation interpretation, and passes force/contact
-  only under `pinv_bounded` plus a capped force integral.
+  only with an explicit capped-integral anti-windup assumption.
 
 ## Audit Conclusion
 
@@ -125,7 +142,7 @@ Do not mark the active goal complete from the current evidence.
 
 Choose one of these before any real hardware work:
 
-- debug the paper-platform KKT-projection contact loss or define a
-  paper-platform parity gate against the legacy MATLAB/RNN outputs; or
+- define a paper-platform parity gate against the legacy MATLAB/RNN outputs or
+  verify the Panda/Franka DH model provenance; or
 - validate or replace the approximate UR10e TCP/contact model and rerun the
   terminal setup audit.

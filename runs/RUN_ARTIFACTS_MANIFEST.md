@@ -1164,6 +1164,32 @@ Legacy source root:
   Fig.5/Fig.6 parity, not a UR10e adapted result, and not hardware readiness
   evidence.
 
+## V43 Paper 7DOF KKT Contact Recovery
+
+### Capped-integral KKT paper-platform Section V line
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T114736`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Git state at run time:
+  branch `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`, code commit
+  `38216bba5e08af8fbf0f078583f438c044990d68`, clean before output creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The capped-integral KKT diagnostic passed tail force/contact:
+  `contact_force_tail_success = true`, `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.06720487008205062`, and no q or qdot bound
+  violations.
+- Limit:
+  This is KKT-contact recovery evidence for the Python 7DOF diagnostic line,
+  not paper-equivalent numerical parity, because the force-integral cap is an
+  explicit anti-windup choice and the Panda DH/orientation assumptions remain
+  unverified.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

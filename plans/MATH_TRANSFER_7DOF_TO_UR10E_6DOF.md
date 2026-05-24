@@ -65,9 +65,12 @@ the decision record and revert only the affected controller commit.
 - The v42 contact-stabilized paper-platform line passes tail contact and force
   error, but only as a diagnostic variant using `pinv_bounded` and a capped
   force integral.
+- The v43 capped-integral KKT paper-platform line passes tail contact and
+  force error using `kkt_projection`, but the integral cap is not yet
+  PDF-verified paper truth.
 
 ## Next Executable Step
 
-For the paper-platform line, debug the KKT-projection contact loss or define a
-parity gate against the legacy MATLAB/RNN outputs. Keep this separate from
-UR10e adapted controller iterations.
+For the paper-platform line, define a parity gate against the legacy
+MATLAB/RNN outputs or verify the Panda/Franka DH model before upgrading the
+claim. Keep this separate from UR10e adapted controller iterations.

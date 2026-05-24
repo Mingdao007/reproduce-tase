@@ -23,6 +23,7 @@ python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
 python3 scripts/run_full_article_experiment_sim.py --config configs/full_article_experiments.yaml
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
+scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 ```
 
@@ -124,6 +125,9 @@ them rather than deleting them.
 - The v42 contact-stabilized 7DOF diagnostic passes the tail contact-force
   gate, but it is not paper-faithful KKT parity because it uses
   `pinv_bounded` and a capped force integral.
+- The v43 capped-integral KKT 7DOF diagnostic passes the tail contact-force
+  gate using `kkt_projection`, but the integral cap remains an adapted
+  anti-windup assumption and no paper-platform parity gate has been defined.
 
 ## Next Executable Step
 
@@ -131,4 +135,4 @@ Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
-KKT contact loss, not another duration bracket.
+paper-platform parity/model-provenance gaps, not another duration bracket.
