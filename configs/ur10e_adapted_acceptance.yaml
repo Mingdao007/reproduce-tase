@@ -25,6 +25,19 @@ ur10e_adapted_relaxed_setup_budget:
   qdot_saturation_policy: "record_only"
   transient_orientation_policy: "final_orientation_only_for_setup_maneuver"
 
+ur10e_adapted_terminal_setup_diagnostic_gate:
+  description: "Diagnostic-only terminal gate derived from v56 contact-manifold evidence; not paper-equivalent and not hardware-ready."
+  source_evidence:
+    - "reports/contact_manifold_gate_audit_report.md"
+    - "runs/contact_manifold_gate_audit/20260524T142404/metrics.yaml"
+    - "runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml"
+  max_terminal_tangential_error_m: 0.004
+  max_terminal_orientation_error_rad: 0.08
+  max_terminal_force_error_N: 0.25
+  min_target_contact_count: 1
+  qdot_saturation_policy: "not_evaluated_terminal_only"
+  claim_scope: "ur10e_adapted_terminal_setup_diagnostic_only"
+
 accepted_labels:
   paper_equivalent_full_staged_feasibility:
     requires: "strict setup gate and strict trajectory gate"
@@ -32,3 +45,6 @@ accepted_labels:
   ur10e_adapted_trajectory_after_relaxed_setup:
     requires: "relaxed setup budget and strict trajectory gate"
     current_status: "candidate label for v33 slowed tilted-plane E1-E4 matrix"
+  ur10e_adapted_terminal_setup_diagnostic:
+    requires: "diagnostic terminal gate only; no path or trajectory claim"
+    current_status: "candidate diagnostic label for v55/v56 terminal evidence"
