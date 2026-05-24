@@ -1261,3 +1261,40 @@ terminal setup. Under the current approximate tilted-plane model and 85 mm TCP
 guess, the remaining project decision is now mostly about acceptance criteria
 or model validity: either relax the UR10e adapted setup budget explicitly, or
 revisit the contact/TCP model before another Stage A controller iteration.
+
+## V38 Relaxed Setup Budget Implication
+
+The v38 acceptance split keeps two claims mathematically separate:
+
+```text
+paper_equivalent_full_staged_feasibility:
+  strict setup gate AND strict trajectory gate
+
+ur10e_adapted_trajectory_after_relaxed_setup:
+  relaxed setup budget AND strict trajectory gate
+```
+
+The relaxed setup budget is:
+
+```text
+max setup x/y drift <= 0.010 m
+final orientation error <= 0.03 rad
+tail force error <= 0.25 N
+contact fraction = 1.0
+hard qdot/joint-limit violation = 0
+setup qdot saturation = recorded, not gated
+```
+
+Applied to the v33 slowed tilted-plane E1-E4 matrix, this yields:
+
+```text
+relaxed setup pass count = 4 / 4
+trajectory feasibility pass count = 4 / 4
+UR10e adapted trajectory-after-relaxed-setup pass count = 4 / 4
+strict full staged feasibility pass count = 0 / 4
+```
+
+This is not a change to the controller math. It is a claim boundary: the UR10e
+adapted result can now be named without pretending the strict terminal setup
+gate has been solved. The strict gate remains the target for any future
+paper-equivalent full staged reproduction claim.

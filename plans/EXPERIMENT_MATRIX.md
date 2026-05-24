@@ -110,12 +110,15 @@ them rather than deleting them.
   for terminal setup configurations. It produces `0 / 65` terminal setup
   passes; the best candidate is close on force but fails the x/y and
   orientation gates.
+- The relaxed setup budget evaluation applies a separate UR10e adapted label
+  to the v33 slowed tilted-plane E1-E4 matrix: `4 / 4` relaxed setup passes,
+  `4 / 4` trajectory feasibility passes, and `0 / 4` strict full staged
+  feasibility passes.
 
 ## Next Executable Step
 
-Use `runs/setup_terminal_ik_audit/20260524T111150` together with the v35/v36
-phase probes as evidence that the current setup gate is not being met under
-the approximate tilted-plane model. The next executable step should define an
-accepted relaxed setup budget and keep it separate from full staged
-paper-equivalent feasibility, or revisit the model/TCP/contact geometry before
-adding another controller-duration bracket.
+Use the v38 relaxed label in the completion audit for the UR10e adapted
+simulation line, while keeping strict full staged feasibility marked as not
+achieved. Future experiment branches should target model/TCP/contact
+validation or a genuinely different Stage A formulation, not another duration
+bracket.

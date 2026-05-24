@@ -1,0 +1,222 @@
+run_id: 20260524T111859
+acceptance_config: /home/andy/reproduce-tase/configs/ur10e_adapted_acceptance.yaml
+run_root: /home/andy/reproduce-tase/runs/staged_orientation_e1e4_posture_regularized/20260524T102747
+budget:
+  max_setup_tangential_drift_m: 0.01
+  max_final_orientation_error_rad: 0.03
+  max_tail_mean_abs_force_error_N: 0.25
+  contact_present_fraction_min: 1.0
+  max_qdot_violation_rad_s: 1.0e-09
+  max_joint_limit_violation_rad: 1.0e-09
+  qdot_saturation_policy: record_only
+case_count: 4
+relaxed_setup_pass_count: 4
+trajectory_feasibility_pass_count: 4
+ur10e_adapted_trajectory_after_relaxed_setup_pass_count: 4
+strict_full_staged_feasibility_pass_count: 0
+rows:
+- trajectory: e1-cycloid
+  relaxed_setup_pass: true
+  relaxed_setup_failed_criteria: []
+  trajectory_feasibility_pass: true
+  ur10e_adapted_trajectory_after_relaxed_setup_pass: true
+  strict_full_staged_feasibility_pass: false
+  setup_final_orientation_error_rad: 0.0020290714973557108
+  setup_tangential_drift_m: 0.008347977658392892
+  setup_tail_mean_abs_force_error_N: 0.003600515115319756
+  setup_contact_present_fraction: 1.0
+  setup_qdot_saturation_fraction: 1.0
+  trajectory_max_orientation_error_rad: 0.0038625381780712795
+  trajectory_qdot_saturation_fraction: 0.0
+  relaxed_setup_gate:
+    passed: true
+    failed_criteria: []
+    criteria:
+      setup_tangential_drift_m:
+        actual: 0.008347977658392892
+        operator: <=
+        threshold: 0.01
+        passed: true
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        operator: <=
+        threshold: 0.03
+        passed: true
+      tail_mean_abs_force_error_N:
+        actual: 0.003600515115319756
+        operator: <=
+        threshold: 0.25
+        passed: true
+      contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+      max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+      max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+    recorded_qdot_saturation_fraction: 1.0
+    recorded_tail_max_qdot_utilization: 0.9999999999999999
+    qdot_saturation_policy: record_only
+- trajectory: e2-figure-eight
+  relaxed_setup_pass: true
+  relaxed_setup_failed_criteria: []
+  trajectory_feasibility_pass: true
+  ur10e_adapted_trajectory_after_relaxed_setup_pass: true
+  strict_full_staged_feasibility_pass: false
+  setup_final_orientation_error_rad: 0.0020290714973557108
+  setup_tangential_drift_m: 0.008347977658392892
+  setup_tail_mean_abs_force_error_N: 0.003600515115319756
+  setup_contact_present_fraction: 1.0
+  setup_qdot_saturation_fraction: 1.0
+  trajectory_max_orientation_error_rad: 0.0203545748607252
+  trajectory_qdot_saturation_fraction: 0.0
+  relaxed_setup_gate:
+    passed: true
+    failed_criteria: []
+    criteria:
+      setup_tangential_drift_m:
+        actual: 0.008347977658392892
+        operator: <=
+        threshold: 0.01
+        passed: true
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        operator: <=
+        threshold: 0.03
+        passed: true
+      tail_mean_abs_force_error_N:
+        actual: 0.003600515115319756
+        operator: <=
+        threshold: 0.25
+        passed: true
+      contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+      max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+      max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+    recorded_qdot_saturation_fraction: 1.0
+    recorded_tail_max_qdot_utilization: 0.9999999999999999
+    qdot_saturation_policy: record_only
+- trajectory: e3-circle
+  relaxed_setup_pass: true
+  relaxed_setup_failed_criteria: []
+  trajectory_feasibility_pass: true
+  ur10e_adapted_trajectory_after_relaxed_setup_pass: true
+  strict_full_staged_feasibility_pass: false
+  setup_final_orientation_error_rad: 0.0020290714973557108
+  setup_tangential_drift_m: 0.008347977658392892
+  setup_tail_mean_abs_force_error_N: 0.003600515115319756
+  setup_contact_present_fraction: 1.0
+  setup_qdot_saturation_fraction: 1.0
+  trajectory_max_orientation_error_rad: 0.007845080262833704
+  trajectory_qdot_saturation_fraction: 0.0
+  relaxed_setup_gate:
+    passed: true
+    failed_criteria: []
+    criteria:
+      setup_tangential_drift_m:
+        actual: 0.008347977658392892
+        operator: <=
+        threshold: 0.01
+        passed: true
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        operator: <=
+        threshold: 0.03
+        passed: true
+      tail_mean_abs_force_error_N:
+        actual: 0.003600515115319756
+        operator: <=
+        threshold: 0.25
+        passed: true
+      contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+      max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+      max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+    recorded_qdot_saturation_fraction: 1.0
+    recorded_tail_max_qdot_utilization: 0.9999999999999999
+    qdot_saturation_policy: record_only
+- trajectory: e4-cardioid
+  relaxed_setup_pass: true
+  relaxed_setup_failed_criteria: []
+  trajectory_feasibility_pass: true
+  ur10e_adapted_trajectory_after_relaxed_setup_pass: true
+  strict_full_staged_feasibility_pass: false
+  setup_final_orientation_error_rad: 0.0020290714973557108
+  setup_tangential_drift_m: 0.008347977658392892
+  setup_tail_mean_abs_force_error_N: 0.003600515115319756
+  setup_contact_present_fraction: 1.0
+  setup_qdot_saturation_fraction: 1.0
+  trajectory_max_orientation_error_rad: 0.003984908454267708
+  trajectory_qdot_saturation_fraction: 0.0
+  relaxed_setup_gate:
+    passed: true
+    failed_criteria: []
+    criteria:
+      setup_tangential_drift_m:
+        actual: 0.008347977658392892
+        operator: <=
+        threshold: 0.01
+        passed: true
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        operator: <=
+        threshold: 0.03
+        passed: true
+      tail_mean_abs_force_error_N:
+        actual: 0.003600515115319756
+        operator: <=
+        threshold: 0.25
+        passed: true
+      contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+      max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+      max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+    recorded_qdot_saturation_fraction: 1.0
+    recorded_tail_max_qdot_utilization: 0.9999999999999999
+    qdot_saturation_policy: record_only
+warnings:
+- UR10e adapted relaxed setup label only
+- does not change strict paper-equivalent full staged feasibility
+- qdot saturation during setup is recorded but not gated by this relaxed budget
+- simulation-only and not hardware-ready

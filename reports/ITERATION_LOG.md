@@ -1384,3 +1384,40 @@
   Define a relaxed setup-budget decision for the current UR10e adapted
   reproduction, or revisit model/TCP/contact geometry before designing another
   Stage A controller.
+
+## 2026-05-24 v38 Relaxed Setup Budget
+
+- Branch: `exp/tase-ur10e-v38-relaxed-setup-budget`
+- Starting commit: `b39265de3af59fec4770e7a7f72e11141eb8c084`
+- Files added:
+  - `configs/ur10e_adapted_acceptance.yaml`
+  - `src/tase_repro/relaxed_setup_budget.py`
+  - `scripts/evaluate_relaxed_setup_budget.py`
+  - `tests/test_relaxed_setup_budget.py`
+  - `reports/relaxed_setup_budget_report.md`
+  - `runs/relaxed_setup_budget_eval/20260524T111859`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/relaxed_setup_budget.py scripts/evaluate_relaxed_setup_budget.py`
+  - `scripts/run_tests.sh`
+  - `scripts/evaluate_relaxed_setup_budget.py --run-root runs/staged_orientation_e1e4_posture_regularized/20260524T102747 --acceptance-config configs/ur10e_adapted_acceptance.yaml`
+- Result:
+  Defined a separate `ur10e_adapted_trajectory_after_relaxed_setup` label and
+  evaluated the v33 slowed tilted-plane E1-E4 matrix under it. The evaluation
+  produced `4 / 4` relaxed setup passes, `4 / 4` trajectory feasibility
+  passes, `4 / 4` UR10e adapted trajectory-after-relaxed-setup passes, and
+  `0 / 4` strict full staged feasibility passes.
+- Validation:
+  `scripts/run_tests.sh` passed with `68 passed in 1.38s`.
+- Limit:
+  This is acceptance bookkeeping for simulation results. It is not
+  paper-equivalent full staged feasibility and not hardware readiness.
+- Next step:
+  Use this label in the completion audit and keep any future controller/model
+  work separate from the accepted UR10e adapted simulation claim.

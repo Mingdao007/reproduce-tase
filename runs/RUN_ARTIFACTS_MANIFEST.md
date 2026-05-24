@@ -1055,6 +1055,31 @@ Legacy source root:
   This is a local terminal IK audit, not a global infeasibility proof, not a
   path/controller solution, and not hardware readiness evidence.
 
+## V38 Relaxed Setup Budget Evaluation
+
+### UR10e adapted acceptance-label evaluation
+
+- Run root:
+  - `runs/relaxed_setup_budget_eval/20260524T111859`
+- Source run:
+  - `runs/staged_orientation_e1e4_posture_regularized/20260524T102747`
+- Scope:
+  Applies `configs/ur10e_adapted_acceptance.yaml` to the v33 slowed
+  tilted-plane E1-E4 matrix. The relaxed setup budget accepts up to `0.010 m`
+  setup drift while keeping force/contact, final orientation, hard limits, and
+  strict Stage B trajectory gates.
+- Tracked lightweight artifacts:
+  root `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Ignored raw artifacts:
+  none.
+- Result:
+  Relaxed setup pass count `4 / 4`, trajectory feasibility pass count `4 / 4`,
+  UR10e adapted trajectory-after-relaxed-setup pass count `4 / 4`, and strict
+  full staged feasibility pass count `0 / 4`.
+- Limit:
+  This is acceptance bookkeeping for simulation evidence. It is not
+  paper-equivalent full staged feasibility and not hardware readiness evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

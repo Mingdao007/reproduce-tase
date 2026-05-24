@@ -134,13 +134,16 @@ smoke runs regress.
   and still finds `0 / 65` accepted terminal setup states. The best candidate
   keeps contact and force but fails both the `2 mm` x/y gate and `0.03 rad`
   force-normal orientation gate.
+- The v38 relaxed setup budget creates a separate simulation-only acceptance
+  label. It gives the v33 slowed E1-E4 matrix `4 / 4` UR10e adapted
+  trajectory-after-relaxed-setup passes while preserving `0 / 4` strict full
+  staged feasibility.
 
 ## Next Executable Step
 
-Do not continue scalar phase-duration tuning under the current instantaneous
-velocity task formulation. After v37, the next executable step is to define and
-decision-record a relaxed UR10e adapted setup budget, or revisit the model,
-TCP, and contact geometry before implementing another Stage A controller. Any
-future approach experiment must keep reporting contact, drift, terminal
-orientation, and qdot saturation together so posture shaping cannot hide a
-force or drift regression.
+Use the relaxed label only for UR10e adapted simulation reports. Do not
+continue scalar phase-duration tuning under the current instantaneous velocity
+task formulation. Any future controller experiment should either revisit the
+model/TCP/contact geometry or introduce a genuinely different Stage A
+formulation, while keeping contact, drift, terminal orientation, and qdot
+saturation visible together.

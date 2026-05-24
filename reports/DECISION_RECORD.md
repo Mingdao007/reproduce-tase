@@ -786,3 +786,26 @@
   setup budget for the UR10e adapted reproduction, or revisit model/TCP/contact
   geometry and run a broader terminal feasibility audit before adding another
   Stage A controller.
+
+## D043: Define A Separate UR10e Adapted Relaxed Setup Budget
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Define `ur10e_adapted_trajectory_after_relaxed_setup` as a separate
+  simulation-only acceptance label. It accepts setup drift up to `0.010 m`,
+  requires final setup orientation `<= 0.03 rad`, setup tail force error
+  `<= 0.25 N`, contact fraction `1.0`, and no qdot or joint-limit violation.
+  Setup qdot saturation is recorded but not gated by this relaxed label.
+- Reason:
+  v35-v37 show that the strict setup terminal-state gate is not met, while
+  v33 shows all four slowed tilted-plane Stage B trajectories pass after the
+  current weighted prealignment with moderate trajectory posture
+  regularization. The v38 evaluator gives `4 / 4`
+  `ur10e_adapted_trajectory_after_relaxed_setup` passes for the v33 E1-E4
+  matrix, while strict full staged feasibility remains `0 / 4`.
+- Consequence:
+  Reports may use the relaxed label only when they also state that it is not
+  paper-equivalent full staged feasibility and not hardware-ready. The strict
+  full staged gate remains the criterion for any future paper-equivalent
+  reproduction claim.
