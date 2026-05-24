@@ -99,12 +99,15 @@ contact behavior regresses.
   existing Stage B `orientation_kp` feedback hook at a `0.11995 rad` gate and
   finds no feasible E2 cell: low gains miss orientation, while
   orientation-correcting gains fail qdot saturation/tail utilization even with
-  qdot limits up to `0.25 rad/s`.
+  qdot limits up to `0.25 rad/s`. v79 locally recovers the `+1.0 mm`,
+  `0.11995 rad` tightened-gate E1-E4 row using planar-primary Stage B priority
+  with normal-axis weight `30`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should revisit the terminal/contact model or
-test a redesigned Stage B priority/posture formulation before claiming anything
-stronger than diagnostic recovery.
+simulation controller prototype should run the recovered planar-primary
+formulation across the full positive-delta matrix or stress it against faster
+timing/tighter gates before claiming anything stronger than localized
+diagnostic recovery.

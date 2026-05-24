@@ -2109,6 +2109,37 @@ Legacy source root:
   paper-equivalent claim, robustness proof, contact-model calibration, or
   hardware evidence.
 
+## V79 Stage B Priority Recovery
+
+### Localized tightened-gate recovery with planar-primary priority
+
+- Run:
+  - `runs/stage_b_priority_recovery/20260524T224404`
+- Command:
+  `scripts/audit_stage_b_priority_recovery.py`
+- Git state at run time:
+  parent commit `de2c2a8d024458a50099cc6fdc4024ed97a229fe` with dirty v79
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  a run-local copied Stage A target config under `configs/`, plus per-scenario
+  E1-E4 stitched metrics/summaries/commands under `scenarios/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, the `+1.0 mm` positive
+  cell, `stage_a_duration_s = 15.0`, `paper_time_scale = 0.005`,
+  `qdot_limit_rad_s = 0.15`, and a `0.11995 rad` Stage A/Stage B orientation
+  gate fixed while comparing seven Stage B priority scenarios. Stage A passes
+  every scenario. Stitched recovery passes `2 / 7` scenarios:
+  `planar_normal30_kp0p001` and `planar_normal30_kp0p002`, each with Stage B
+  handoff `4 / 4`. Linear-primary controls still fail, and neighboring
+  planar-primary controls expose either E2 force loss or a return to the E2
+  qdot/orientation boundary.
+- Limit:
+  This is localized diagnostic Stage B priority-formulation recovery evidence
+  only. It is not a canonical-config change, full positive-delta matrix
+  recovery, strict paper-equivalent claim, robustness proof, contact-model
+  calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

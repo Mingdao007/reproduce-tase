@@ -1689,3 +1689,30 @@
   margin without driving qdot saturation. The project still must not claim
   robustness, strict paper-equivalent feasibility, contact-model calibration,
   or hardware readiness.
+
+## D084: Accept Planar-Primary Stage B Priority As A Localized Tightened-Gate Recovery
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v79 as evidence that a planar-primary Stage B priority formulation
+  with normal-axis secondary weight `30` locally recovers the `+1.0 mm`,
+  `0.11995 rad` tightened-orientation diagnostic row.
+- Reason:
+  The v79 run at `runs/stage_b_priority_recovery/20260524T224404` holds the
+  v70 relaxed target/path setup, `stage_a_duration_s = 15.0`,
+  `paper_time_scale = 0.005`, `qdot_limit_rad_s = 0.15`, and a `0.11995 rad`
+  Stage A/Stage B orientation gate fixed while comparing seven priority
+  scenarios over E1-E4. Stage A passes every scenario. Linear-primary controls
+  still fail: no orientation feedback misses E2 orientation, linear-primary
+  `orientation_kp = 0.003` saturates qdot, and adding handoff-posture
+  regularization preserves qdot by giving up orientation correction.
+  Planar-primary controls show a normal-force tradeoff, but normal-axis weight
+  `30` passes E1-E4 for both `orientation_kp = 0.001` and `0.002`.
+- Consequence:
+  The v77/v78 localized tightened-gate row has a diagnostic Stage B priority
+  recovery candidate. Do not generalize it yet to the full positive-delta
+  matrix, robustness, strict paper-equivalent feasibility, contact-model
+  calibration, or hardware readiness. The next branch should run the recovered
+  planar-primary formulation across the full positive-delta matrix or stress
+  it against faster timing/tighter gates.

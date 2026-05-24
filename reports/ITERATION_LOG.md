@@ -2980,3 +2980,45 @@
   Revisit the terminal/contact model or test a redesigned Stage B
   priority/posture formulation before claiming anything stronger than
   diagnostic recovery.
+
+## 2026-05-24 v79 Stage B Priority Recovery
+
+### Recover the localized tightened-gate row with planar-primary priority
+
+- Branch:
+  `exp/tase-ur10e-v79-stage-b-priority-posture-probe`
+- Run:
+  `runs/stage_b_priority_recovery/20260524T224404`
+- Report:
+  `reports/stage_b_priority_recovery_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py scripts/audit_stage_b_priority_recovery.py`
+  - `scripts/audit_stage_b_priority_recovery.py`
+- Result:
+  The audit holds the v70 relaxed target/path setup, the `+1.0 mm` positive
+  cell, `stage_a_duration_s = 15.0`, `paper_time_scale = 0.005`,
+  `qdot_limit_rad_s = 0.15`, and a `0.11995 rad` Stage A/Stage B orientation
+  gate fixed while comparing seven Stage B priority scenarios over E1-E4.
+  Stage A passes every scenario. Linear-primary controls still fail on E2:
+  no orientation feedback fails orientation, `orientation_kp = 0.003` fails
+  qdot, and handoff-posture regularization preserves qdot by giving up the
+  orientation correction. Planar-primary controls expose the normal-force
+  tradeoff; normal-axis weight `10` fails E2 force, while normal-axis weight
+  `100` returns to the E2 orientation/qdot boundary. The two normal-axis
+  weight `30` scenarios pass stitched recovery `4 / 4` at
+  `orientation_kp = 0.001` and `0.002`.
+- Limit:
+  This is a localized diagnostic Stage B priority-formulation recovery only.
+  It does not prove the full positive-delta matrix, robustness, strict
+  paper-equivalent feasibility, contact-model calibration, or hardware
+  readiness.
+- Validation:
+  `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py scripts/audit_stage_b_priority_recovery.py`
+  passed. Full tests passed with `115 passed in 2.54s`; `git diff --check`
+  passed. The run artifact is lightweight: `54` files, `788K`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
+  pending.
+- Next step:
+  Run the recovered planar-primary formulation across the full positive-delta
+  matrix, or stress it against faster timing/tighter gates, before claiming
+  anything stronger than localized diagnostic recovery.

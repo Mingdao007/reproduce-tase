@@ -30,7 +30,11 @@ from tase_repro.kinematics import (
     site_position,
     site_rotation_matrix,
 )
-from tase_repro.stage_a_contact_path import path_passes_diagnostic_terminal, rotation_slerp_path
+from tase_repro.stage_a_contact_path import (
+    parse_joint_vector,
+    path_passes_diagnostic_terminal,
+    rotation_slerp_path,
+)
 from tase_repro.stage_a_contact_path_tracking import replay_qdot_limited_joint_path
 from tase_repro.stage_a_target_handoff import (
     load_stage_a_target_config,
@@ -192,7 +196,14 @@ def main() -> int:
     parser.add_argument("--qdot-limit-rad-s", type=float, default=0.15)
     parser.add_argument("--planar-kp", type=float, default=0.5)
     parser.add_argument("--paper-time-scale", type=float, default=0.01)
+    parser.add_argument("--orientation-priority-mode", default="linear_primary")
     parser.add_argument("--orientation-kp", type=float, default=0.0)
+    parser.add_argument("--normal-axis-weight", type=float, default=1.0)
+    parser.add_argument("--angular-axis-weight", type=float, default=1.0)
+    parser.add_argument("--joint-posture-target-q", default=None)
+    parser.add_argument("--joint-posture-kp", type=float, default=0.0)
+    parser.add_argument("--joint-posture-weight", type=float, default=0.0)
+    parser.add_argument("--max-joint-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--max-orientation-error-rad", type=float, default=0.08)
     parser.add_argument("--max-angular-slack-rad-s", type=float, default=0.03)
     parser.add_argument(
@@ -303,6 +314,11 @@ def main() -> int:
     q_min, q_max = joint_ranges(handoff_model)
     qdot_min = np.full(handoff_model.nv, -qdot_limit, dtype=float)
     qdot_max = np.full(handoff_model.nv, qdot_limit, dtype=float)
+    joint_posture_target = (
+        None
+        if args.joint_posture_target_q is None
+        else parse_joint_vector(args.joint_posture_target_q, expected_size=handoff_model.nq)
+    )
     thresholds = FeasibilityThresholds(
         max_orientation_error_rad_max=args.max_orientation_error_rad,
         max_angular_velocity_slack_rad_s_max=args.max_angular_slack_rad_s,
@@ -324,15 +340,19 @@ def main() -> int:
             force_gain=args.force_gain,
             r=args.r,
             planar_kp=args.planar_kp,
-            axis_weights=np.ones(3, dtype=float),
+            axis_weights=np.array([1.0, 1.0, float(args.normal_axis_weight)], dtype=float),
             slack_axis_weights=np.array([1.0, 1.0, 10000.0], dtype=float),
             slack_constraint_weight=1000.0,
             normal_velocity_mode="contact_normal",
             orientation_mode="force_normal",
-            orientation_priority_mode="linear_primary",
+            orientation_priority_mode=args.orientation_priority_mode,
             orientation_kp=args.orientation_kp,
-            angular_axis_weights=np.ones(3, dtype=float),
+            angular_axis_weights=np.full(3, float(args.angular_axis_weight), dtype=float),
             angular_slack_axis_weights=np.ones(3, dtype=float),
+            joint_posture_target=joint_posture_target,
+            joint_posture_kp=args.joint_posture_kp,
+            joint_posture_weight=args.joint_posture_weight,
+            max_joint_posture_velocity_rad_s=args.max_joint_posture_velocity_rad_s,
         )
         total_force_metrics = summarize_force_motion(
             result,
@@ -399,7 +419,18 @@ def main() -> int:
         "force_gain": float(args.force_gain),
         "r": float(args.r),
         "planar_kp": float(args.planar_kp),
+        "orientation_priority_mode": str(args.orientation_priority_mode),
         "orientation_kp": float(args.orientation_kp),
+        "normal_axis_weight": float(args.normal_axis_weight),
+        "angular_axis_weight": float(args.angular_axis_weight),
+        "joint_posture_target_q": None
+        if joint_posture_target is None
+        else [float(value) for value in joint_posture_target],
+        "joint_posture_kp": float(args.joint_posture_kp),
+        "joint_posture_weight": float(args.joint_posture_weight),
+        "max_joint_posture_velocity_rad_s": None
+        if args.max_joint_posture_velocity_rad_s is None
+        else float(args.max_joint_posture_velocity_rad_s),
         "paper_time_scale": float(args.paper_time_scale),
         "stage_a": {
             "tracking": stage_a_tracking_summary,

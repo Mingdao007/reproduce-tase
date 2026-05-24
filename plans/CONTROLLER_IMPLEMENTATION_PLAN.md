@@ -286,13 +286,17 @@ smoke runs regress.
   Stage A passes all `30 / 30` cells, but stitched recovery passes `0 / 30`:
   low gains preserve qdot while missing orientation, and gains that meet the
   orientation gate fail qdot saturation and/or tail qdot utilization.
+- The v79 Stage B priority recovery audit recovers that localized tightened
+  gate with planar-primary priority and normal-axis weight `30`. The passing
+  `orientation_kp = 0.001` and `0.002` scenarios each report Stage A pass and
+  Stage B `4 / 4` at `qdot_limit_rad_s = 0.15`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should move to
-revisiting the terminal/contact model or testing a redesigned Stage B
-priority/posture formulation before claiming anything stronger than diagnostic
-recovery. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+running the recovered planar-primary formulation across the full positive-delta
+matrix or stress-testing it against faster timing/tighter gates before claiming
+anything stronger than localized diagnostic recovery. Keep contact, drift,
+terminal orientation, force error, and qdot saturation visible together.

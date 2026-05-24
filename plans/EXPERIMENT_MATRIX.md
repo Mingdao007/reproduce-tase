@@ -274,6 +274,10 @@ them rather than deleting them.
   passes all `30 / 30` cells, but stitched recovery passes `0 / 30`: low gains
   miss orientation, while orientation-correcting gains fail qdot saturation
   and/or tail qdot utilization.
+- The v79 Stage B priority recovery audit recovers the localized `+1.0 mm`,
+  `0.11995 rad` tightened-gate E1-E4 row with planar-primary priority and
+  normal-axis weight `30`. Passing scenarios are `orientation_kp = 0.001` and
+  `0.002`, both with Stage B handoff `4 / 4`.
 
 ## Next Executable Step
 
@@ -295,6 +299,7 @@ that duration. v76 brackets the `+1.0 mm` faster-timing failure at
 `paper_time_scale = 0.0052` pass versus `0.0054` first fail. v77 brackets the
 tightened-orientation boundary at `0.11997` fail versus `0.11998` first
 stitched pass. v78 rules out the current single-gain Stage B `orientation_kp`
-hook as a clean recovery for that boundary. Keep strict paper-equivalent setup,
-v38 trajectory-after-relaxed-setup, and v63-v78 diagnostic staged labels
-separate.
+hook as a clean recovery for that boundary. v79 locally recovers the hardest
+tightened-gate row with planar-primary priority and normal-axis weight `30`.
+Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
+v63-v79 diagnostic staged labels separate.

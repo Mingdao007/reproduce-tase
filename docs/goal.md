@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v78 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`, v67 brackets the base-z sensitivity, v68 shows positive base-z start contact is recoverable through `+1.0 mm`, v69 shows yaw is not the positive terminal limiter and the current model needs about `0.1195 rad` orientation margin, v70 shows a run-local `0.12 rad` diagnostic orientation envelope recovers positive start, terminal, and path feasibility through `+1.0 mm` but stitched recovery is still `0` because Stage B handoff remains `3 / 4` with E2 qdot saturation, v71 shows E2 timing recovers at `paper_time_scale = 0.005` for all positive deltas while qdot-limit-only relaxation at `+1.0 mm` does not recover original `0.01` timing, v72 shows the v70 relaxed terminal/path setup plus `paper_time_scale = 0.005` recovers the full positive E1-E4 stitched matrix `8 / 8` through `+1.0 mm`, v73 stress-tests that recovered policy with a compact five-scenario matrix that passes `37 / 40` cells and fails `qdot012_stage_a18s` at `+0.2 mm`, `paper_time_scale_0p0075` at `+1.0 mm`, and `orientation_gate_0p119` at `+1.0 mm`, v74 isolates the qdot012 `+0.2 mm` failure as a narrow Stage A duration margin recovered at `18.035 s`, v75 folds that margin into the full positive qdot012 matrix and recovers `8 / 8` through `+1.0 mm`, v76 isolates the faster-timing `+1.0 mm` boundary at `paper_time_scale = 0.0052` pass versus `0.0054` first E2 orientation fail, v77 isolates the tightened-orientation `+1.0 mm` boundary at `0.11997` fail versus `0.11998` first stitched pass, controlled by E2 orientation under v72 timing, and v78 tests existing Stage B `orientation_kp` feedback at a `0.11995 rad` gate and finds `0 / 30` E2 probe cells pass: low gains preserve qdot while missing orientation, and gains that meet orientation fail qdot saturation/tail utilization even with qdot limits up to `0.25 rad/s`. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should revisit the terminal/contact model or test a redesigned Stage B priority/posture formulation before claiming anything stronger than diagnostic recovery. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v78 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v79 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`, v67 brackets the base-z sensitivity, v68 shows positive base-z start contact is recoverable through `+1.0 mm`, v69 shows yaw is not the positive terminal limiter and the current model needs about `0.1195 rad` orientation margin, v70 shows a run-local `0.12 rad` diagnostic orientation envelope recovers positive start, terminal, and path feasibility through `+1.0 mm` but stitched recovery is still `0` because Stage B handoff remains `3 / 4` with E2 qdot saturation, v71 shows E2 timing recovers at `paper_time_scale = 0.005` for all positive deltas while qdot-limit-only relaxation at `+1.0 mm` does not recover original `0.01` timing, v72 shows the v70 relaxed terminal/path setup plus `paper_time_scale = 0.005` recovers the full positive E1-E4 stitched matrix `8 / 8` through `+1.0 mm`, v73 stress-tests that recovered policy with a compact five-scenario matrix that passes `37 / 40` cells and fails `qdot012_stage_a18s` at `+0.2 mm`, `paper_time_scale_0p0075` at `+1.0 mm`, and `orientation_gate_0p119` at `+1.0 mm`, v74 isolates the qdot012 `+0.2 mm` failure as a narrow Stage A duration margin recovered at `18.035 s`, v75 folds that margin into the full positive qdot012 matrix and recovers `8 / 8` through `+1.0 mm`, v76 isolates the faster-timing `+1.0 mm` boundary at `paper_time_scale = 0.0052` pass versus `0.0054` first E2 orientation fail, v77 isolates the tightened-orientation `+1.0 mm` boundary at `0.11997` fail versus `0.11998` first stitched pass, controlled by E2 orientation under v72 timing, v78 tests existing Stage B `orientation_kp` feedback at a `0.11995 rad` gate and finds `0 / 30` E2 probe cells pass, and v79 recovers the localized `+1.0 mm`, `0.11995 rad` tightened-gate E1-E4 row with planar-primary Stage B priority plus normal-axis weight `30` for `orientation_kp = 0.001` and `0.002`. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should run the recovered planar-primary formulation across the full positive-delta matrix or stress it against faster timing/tighter gates before claiming anything stronger than localized diagnostic recovery. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v79 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v78` repository state. The project goal is to reproduce the T-ASE finite-time
+`v79` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v78-stage-b-orientation-kp-probe`
-- Current v78 formal run:
-  `runs/stage_b_orientation_kp_probe/20260524T222953`
+  `exp/tase-ur10e-v79-stage-b-priority-posture-probe`
+- Current v79 formal run:
+  `runs/stage_b_priority_recovery/20260524T224404`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -222,6 +222,11 @@ Current accepted claims:
   cells, but stitched recovery passes `0 / 30`: low gains preserve qdot while
   missing orientation, and gains that satisfy orientation fail qdot saturation
   and/or tail qdot utilization even with qdot limits up to `0.25 rad/s`.
+- `ur10e_stage_b_priority_recovery`: v79 tests the redesigned Stage B priority
+  formulation against the localized `+1.0 mm`, `0.11995 rad` tightened-gate
+  row. Linear-primary controls still fail, but planar-primary priority with
+  normal-axis weight `30` recovers E1-E4 stitched recovery `4 / 4` at
+  `qdot_limit_rad_s = 0.15` for `orientation_kp = 0.001` and `0.002`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -231,11 +236,12 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by revisiting the terminal/contact model or
-  testing a redesigned Stage B priority/posture formulation before claiming
-  anything stronger than diagnostic recovery. Keep strict paper-equivalent
-  setup, v38 trajectory-after-relaxed-setup, and v63-v78 diagnostic staged
-  labels separate.
+- Continue UR10e adapted work by running the recovered planar-primary
+  formulation across the full positive-delta matrix or stress-testing it
+  against faster timing/tighter gates before claiming anything stronger than
+  localized diagnostic recovery. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63-v79 diagnostic staged labels
+  separate.
 
 ## Safety Boundary
 

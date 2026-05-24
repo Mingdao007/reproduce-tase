@@ -125,13 +125,16 @@ work exists only on that branch.
   existing Stage B `orientation_kp` feedback hook on that localized E2 row and
   finds `0 / 30` stitched probe passes: low gains miss orientation, while
   orientation-correcting gains fail qdot saturation and/or tail qdot
-  utilization even up to `0.25 rad/s`.
+  utilization even up to `0.25 rad/s`. v79 tests a redesigned Stage B priority
+  formulation and locally recovers the `+1.0 mm`, `0.11995 rad` tightened-gate
+  E1-E4 row with planar-primary priority and normal-axis weight `30`.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Revisit the terminal/contact model or test a redesigned Stage B
-priority/posture formulation before claiming anything stronger than diagnostic
-recovery. Keep strict paper-equivalent setup, v38 relaxed
-trajectory-after-relaxed-setup, and v63-v78 diagnostic staged labels separate.
+Run the recovered planar-primary formulation across the full positive-delta
+matrix, or stress it against faster timing/tighter gates, before claiming
+anything stronger than localized diagnostic recovery. Keep strict
+paper-equivalent setup, v38 relaxed trajectory-after-relaxed-setup, and
+v63-v79 diagnostic staged labels separate.
