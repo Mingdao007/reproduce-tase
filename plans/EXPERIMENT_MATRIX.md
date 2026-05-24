@@ -187,6 +187,8 @@ them rather than deleting them.
 - The v55 broad terminal audit enforces the intended `contact_plane` /
   `contact_tip` target force pair and still finds `0 / 513` strict terminal
   passes.
+- The v56 contact-manifold audit shows the remaining strict setup blocker is a
+  gate-definition conflict rather than a broad-seed contact discovery issue.
 
 ## Next Executable Step
 
@@ -196,5 +198,5 @@ achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next paper-platform step
 should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by running contact-manifold or gate-definition audits from known
-target-contact states.
+adapted work by explicitly relaxing or redefining the setup gate, or changing
+the setup target definition, before designing another Stage A controller.

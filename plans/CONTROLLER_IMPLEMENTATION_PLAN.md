@@ -204,6 +204,10 @@ smoke runs regress.
 - The v55 broad terminal audit enforces the intended `contact_plane` /
   `contact_tip` target force pair and still finds `0 / 513` strict terminal
   passes.
+- The v56 contact-manifold audit shows the strict setup blocker is a
+  gate-definition conflict: x/y+force, x/y+orientation, and force+orientation
+  cannot all satisfy the current thresholds together in the audited local
+  contact neighborhoods.
 
 ## Next Executable Step
 
@@ -215,7 +219,7 @@ formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists, the formula candidate covers 30 s, and the tuned
 figure-match candidate is implemented separately. Future work should formalize
 split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. For the UR10e adapted line, run a contact-manifold or
-gate-definition audit from known target-contact states before designing
-another Stage A controller. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+claim boundary. For the UR10e adapted line, explicitly relax or redefine the
+setup gate, or change the setup target definition, before designing another
+Stage A controller. Keep contact, drift, terminal orientation, force error, and
+qdot saturation visible together.

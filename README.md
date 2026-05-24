@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v55-broad-terminal-feasibility`
+Current branch: `exp/tase-ur10e-v56-contact-manifold-gate-audit`
 
 ## Scope
 
@@ -43,8 +43,9 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 
 Current accepted claims are tracked in `reports/completion_audit.md`.
 UR10e results remain adapted simulation evidence, not hardware evidence. The
-v55 enforces the intended `contact_plane` / `contact_tip` force pair in the
-terminal setup audit; the broad strict terminal search still fails.
+v56 shows the strict setup gate is a gate-definition conflict in the current
+UR10e adapted simulation: x/y, target force, and force-normal orientation are
+not jointly satisfied by the audited contact-neighborhood solves.
 
 ## Test Command
 

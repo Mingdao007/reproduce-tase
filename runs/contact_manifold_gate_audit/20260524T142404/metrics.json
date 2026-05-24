@@ -1,0 +1,622 @@
+{
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "run_id": "20260524T142404",
+  "random_seed": 761,
+  "random_seed_stds_rad": [
+    0.03,
+    0.1,
+    0.3,
+    0.8
+  ],
+  "random_seed_count_per_std": 40,
+  "max_nfev": 800,
+  "model_path": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "initial_q": [
+    0.0,
+    -0.1,
+    0.15,
+    -0.05,
+    0.0,
+    0.0
+  ],
+  "base_z_offset_m": -0.04612594095298278,
+  "target_force_N": 5.0,
+  "site_name": "tcp_site_unverified_85mm",
+  "contact_geom_name": "contact_tip",
+  "plane_geom_name": "contact_plane",
+  "reference_xy_m": [
+    0.00497792942394327,
+    0.0
+  ],
+  "surface_normal_world": [
+    0.1736481777010905,
+    0.0,
+    0.9848077530061847
+  ],
+  "target_signed_surface_distance_m": -1.7843686194222996e-05,
+  "thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.002,
+    "max_orientation_error_rad": 0.03
+  },
+  "seed_count": 161,
+  "seed_labels": [
+    "initial",
+    "random_std_0.03_000",
+    "random_std_0.03_001",
+    "random_std_0.03_002",
+    "random_std_0.03_003",
+    "random_std_0.03_004",
+    "random_std_0.03_005",
+    "random_std_0.03_006",
+    "random_std_0.03_007",
+    "random_std_0.03_008",
+    "random_std_0.03_009",
+    "random_std_0.03_010",
+    "random_std_0.03_011",
+    "random_std_0.03_012",
+    "random_std_0.03_013",
+    "random_std_0.03_014",
+    "random_std_0.03_015",
+    "random_std_0.03_016",
+    "random_std_0.03_017",
+    "random_std_0.03_018",
+    "random_std_0.03_019",
+    "random_std_0.03_020",
+    "random_std_0.03_021",
+    "random_std_0.03_022",
+    "random_std_0.03_023",
+    "random_std_0.03_024",
+    "random_std_0.03_025",
+    "random_std_0.03_026",
+    "random_std_0.03_027",
+    "random_std_0.03_028",
+    "random_std_0.03_029",
+    "random_std_0.03_030",
+    "random_std_0.03_031",
+    "random_std_0.03_032",
+    "random_std_0.03_033",
+    "random_std_0.03_034",
+    "random_std_0.03_035",
+    "random_std_0.03_036",
+    "random_std_0.03_037",
+    "random_std_0.03_038",
+    "random_std_0.03_039",
+    "random_std_0.1_000",
+    "random_std_0.1_001",
+    "random_std_0.1_002",
+    "random_std_0.1_003",
+    "random_std_0.1_004",
+    "random_std_0.1_005",
+    "random_std_0.1_006",
+    "random_std_0.1_007",
+    "random_std_0.1_008",
+    "random_std_0.1_009",
+    "random_std_0.1_010",
+    "random_std_0.1_011",
+    "random_std_0.1_012",
+    "random_std_0.1_013",
+    "random_std_0.1_014",
+    "random_std_0.1_015",
+    "random_std_0.1_016",
+    "random_std_0.1_017",
+    "random_std_0.1_018",
+    "random_std_0.1_019",
+    "random_std_0.1_020",
+    "random_std_0.1_021",
+    "random_std_0.1_022",
+    "random_std_0.1_023",
+    "random_std_0.1_024",
+    "random_std_0.1_025",
+    "random_std_0.1_026",
+    "random_std_0.1_027",
+    "random_std_0.1_028",
+    "random_std_0.1_029",
+    "random_std_0.1_030",
+    "random_std_0.1_031",
+    "random_std_0.1_032",
+    "random_std_0.1_033",
+    "random_std_0.1_034",
+    "random_std_0.1_035",
+    "random_std_0.1_036",
+    "random_std_0.1_037",
+    "random_std_0.1_038",
+    "random_std_0.1_039",
+    "random_std_0.3_000",
+    "random_std_0.3_001",
+    "random_std_0.3_002",
+    "random_std_0.3_003",
+    "random_std_0.3_004",
+    "random_std_0.3_005",
+    "random_std_0.3_006",
+    "random_std_0.3_007",
+    "random_std_0.3_008",
+    "random_std_0.3_009",
+    "random_std_0.3_010",
+    "random_std_0.3_011",
+    "random_std_0.3_012",
+    "random_std_0.3_013",
+    "random_std_0.3_014",
+    "random_std_0.3_015",
+    "random_std_0.3_016",
+    "random_std_0.3_017",
+    "random_std_0.3_018",
+    "random_std_0.3_019",
+    "random_std_0.3_020",
+    "random_std_0.3_021",
+    "random_std_0.3_022",
+    "random_std_0.3_023",
+    "random_std_0.3_024",
+    "random_std_0.3_025",
+    "random_std_0.3_026",
+    "random_std_0.3_027",
+    "random_std_0.3_028",
+    "random_std_0.3_029",
+    "random_std_0.3_030",
+    "random_std_0.3_031",
+    "random_std_0.3_032",
+    "random_std_0.3_033",
+    "random_std_0.3_034",
+    "random_std_0.3_035",
+    "random_std_0.3_036",
+    "random_std_0.3_037",
+    "random_std_0.3_038",
+    "random_std_0.3_039",
+    "random_std_0.8_000",
+    "random_std_0.8_001",
+    "random_std_0.8_002",
+    "random_std_0.8_003",
+    "random_std_0.8_004",
+    "random_std_0.8_005",
+    "random_std_0.8_006",
+    "random_std_0.8_007",
+    "random_std_0.8_008",
+    "random_std_0.8_009",
+    "random_std_0.8_010",
+    "random_std_0.8_011",
+    "random_std_0.8_012",
+    "random_std_0.8_013",
+    "random_std_0.8_014",
+    "random_std_0.8_015",
+    "random_std_0.8_016",
+    "random_std_0.8_017",
+    "random_std_0.8_018",
+    "random_std_0.8_019",
+    "random_std_0.8_020",
+    "random_std_0.8_021",
+    "random_std_0.8_022",
+    "random_std_0.8_023",
+    "random_std_0.8_024",
+    "random_std_0.8_025",
+    "random_std_0.8_026",
+    "random_std_0.8_027",
+    "random_std_0.8_028",
+    "random_std_0.8_029",
+    "random_std_0.8_030",
+    "random_std_0.8_031",
+    "random_std_0.8_032",
+    "random_std_0.8_033",
+    "random_std_0.8_034",
+    "random_std_0.8_035",
+    "random_std_0.8_036",
+    "random_std_0.8_037",
+    "random_std_0.8_038",
+    "random_std_0.8_039"
+  ],
+  "cases": [
+    {
+      "name": "xy_force",
+      "optimized_terms": [
+        "xy",
+        "force"
+      ],
+      "candidate_count": 161,
+      "pass_count": 0,
+      "best_candidate": {
+        "seed_label": "random_std_0.3_025",
+        "q": [
+          0.09861730192758755,
+          -0.05397220454986746,
+          0.035204860039088993,
+          0.013096967269385312,
+          -0.0018520639871352235,
+          0.07128498489907026
+        ],
+        "cost": 2.156931134697468e-25,
+        "nfev": 64,
+        "success": true,
+        "status": 3,
+        "optimized_terms": [
+          "xy",
+          "force"
+        ],
+        "tcp_m": [
+          0.004977929423941972,
+          -3.903127820947816e-18,
+          -0.0006869178784564833
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 1.2984463881799684e-15,
+        "orientation_error_rad": 0.14697007178233126,
+        "force_N": 4.999999999999975,
+        "force_error_N": 2.4868995751603507e-14,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -8.271833599820394e-05,
+        "signed_surface_distance_error_m": 6.487464980398094e-05,
+        "passed": false,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "max_gate_ratio": 4.899002392744376
+      },
+      "best_optimized_candidate": {
+        "seed_label": "random_std_0.3_025",
+        "q": [
+          0.09861730192758755,
+          -0.05397220454986746,
+          0.035204860039088993,
+          0.013096967269385312,
+          -0.0018520639871352235,
+          0.07128498489907026
+        ],
+        "cost": 2.156931134697468e-25,
+        "nfev": 64,
+        "success": true,
+        "status": 3,
+        "optimized_terms": [
+          "xy",
+          "force"
+        ],
+        "tcp_m": [
+          0.004977929423941972,
+          -3.903127820947816e-18,
+          -0.0006869178784564833
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 1.2984463881799684e-15,
+        "orientation_error_rad": 0.14697007178233126,
+        "force_N": 4.999999999999975,
+        "force_error_N": 2.4868995751603507e-14,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -8.271833599820394e-05,
+        "signed_surface_distance_error_m": 6.487464980398094e-05,
+        "passed": false,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "max_gate_ratio": 4.899002392744376
+      }
+    },
+    {
+      "name": "xy_orientation",
+      "optimized_terms": [
+        "xy",
+        "orientation"
+      ],
+      "candidate_count": 161,
+      "pass_count": 0,
+      "best_candidate": {
+        "seed_label": "initial",
+        "q": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ],
+        "cost": 5.097361458712398e-30,
+        "nfev": 43,
+        "success": true,
+        "status": 3,
+        "optimized_terms": [
+          "xy",
+          "orientation"
+        ],
+        "tcp_m": [
+          0.004977929423943275,
+          1.5214598946081535e-29,
+          0.0031155826136736453
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17,
+        "force_N": 0.0,
+        "force_error_N": 5.0,
+        "target_contact_count": 0,
+        "signed_surface_distance_m": 0.003932658286269472,
+        "signed_surface_distance_error_m": 0.003950501972463695,
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "contact_present"
+        ],
+        "max_gate_ratio": Infinity
+      },
+      "best_optimized_candidate": {
+        "seed_label": "initial",
+        "q": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ],
+        "cost": 5.097361458712398e-30,
+        "nfev": 43,
+        "success": true,
+        "status": 3,
+        "optimized_terms": [
+          "xy",
+          "orientation"
+        ],
+        "tcp_m": [
+          0.004977929423943275,
+          1.5214598946081535e-29,
+          0.0031155826136736453
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17,
+        "force_N": 0.0,
+        "force_error_N": 5.0,
+        "target_contact_count": 0,
+        "signed_surface_distance_m": 0.003932658286269472,
+        "signed_surface_distance_error_m": 0.003950501972463695,
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "contact_present"
+        ],
+        "max_gate_ratio": Infinity
+      }
+    },
+    {
+      "name": "force_orientation",
+      "optimized_terms": [
+        "force",
+        "orientation"
+      ],
+      "candidate_count": 161,
+      "pass_count": 0,
+      "best_candidate": {
+        "seed_label": "initial",
+        "q": [
+          5.761902892740324e-11,
+          -0.12554150638737455,
+          0.15442360524371262,
+          -0.016349597839721314,
+          1.0509984200544382e-09,
+          0.07444844398401271
+        ],
+        "cost": 4.258557495506127,
+        "nfev": 800,
+        "success": false,
+        "status": 0,
+        "optimized_terms": [
+          "force",
+          "orientation"
+        ],
+        "tcp_m": [
+          -0.00267525050946179,
+          2.7793830160324353e-10,
+          0.0006467360938615524
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 0.0076531799334050655,
+        "orientation_error_rad": 0.0875519802334906,
+        "force_N": 5.0019409531145715,
+        "force_error_N": 0.001940953114571542,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -1.8721266273336035e-09,
+        "signed_surface_distance_error_m": 1.7841814067595663e-05,
+        "passed": false,
+        "failed_criteria": [
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "max_gate_ratio": 3.8265899667025325
+      },
+      "best_optimized_candidate": {
+        "seed_label": "random_std_0.1_010",
+        "q": [
+          5.480958987183088e-16,
+          -0.06453574364714038,
+          0.016043419820671336,
+          0.0650046579206236,
+          -3.607272704471622e-14,
+          0.1580205911399655
+        ],
+        "cost": 9.347873735806074e-25,
+        "nfev": 72,
+        "success": true,
+        "status": 3,
+        "optimized_terms": [
+          "force",
+          "orientation"
+        ],
+        "tcp_m": [
+          -0.009149777309781183,
+          -9.49911871402019e-15,
+          0.0015595207785105009
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 0.014127706733724453,
+        "orientation_error_rad": 3.608594916770049e-14,
+        "force_N": 5.0000000000001625,
+        "force_error_N": 1.6253665080512292e-13,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -5.3014002562898344e-05,
+        "signed_surface_distance_error_m": 3.517031636867535e-05,
+        "passed": false,
+        "failed_criteria": [
+          "tangential_error_m"
+        ],
+        "max_gate_ratio": 7.063853366862227
+      }
+    },
+    {
+      "name": "xy_force_orientation",
+      "optimized_terms": [
+        "xy",
+        "force",
+        "orientation"
+      ],
+      "candidate_count": 161,
+      "pass_count": 0,
+      "best_candidate": {
+        "seed_label": "random_std_0.03_020",
+        "q": [
+          3.724578706383892e-09,
+          -0.02440166656247787,
+          -0.0004827435167661435,
+          0.0002981421103399159,
+          1.9265571608002266e-11,
+          0.12671315993947466
+        ],
+        "cost": 4.043473371274607,
+        "nfev": 71,
+        "success": true,
+        "status": 2,
+        "optimized_terms": [
+          "xy",
+          "force",
+          "orientation"
+        ],
+        "tcp_m": [
+          0.0019703506776695967,
+          1.242170605000881e-11,
+          -0.00031401678309772585
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 0.0030075787462736734,
+        "orientation_error_rad": 0.07240603326354965,
+        "force_N": 4.994902448513418,
+        "force_error_N": 0.005097551486581864,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -8.500608939170096e-05,
+        "signed_surface_distance_error_m": 6.716240319747796e-05,
+        "passed": false,
+        "failed_criteria": [
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "max_gate_ratio": 2.413534442118322
+      },
+      "best_optimized_candidate": {
+        "seed_label": "random_std_0.03_020",
+        "q": [
+          3.724578706383892e-09,
+          -0.02440166656247787,
+          -0.0004827435167661435,
+          0.0002981421103399159,
+          1.9265571608002266e-11,
+          0.12671315993947466
+        ],
+        "cost": 4.043473371274607,
+        "nfev": 71,
+        "success": true,
+        "status": 2,
+        "optimized_terms": [
+          "xy",
+          "force",
+          "orientation"
+        ],
+        "tcp_m": [
+          0.0019703506776695967,
+          1.242170605000881e-11,
+          -0.00031401678309772585
+        ],
+        "reference_xy_m": [
+          0.00497792942394327,
+          0.0
+        ],
+        "tangential_error_m": 0.0030075787462736734,
+        "orientation_error_rad": 0.07240603326354965,
+        "force_N": 4.994902448513418,
+        "force_error_N": 0.005097551486581864,
+        "target_contact_count": 1,
+        "signed_surface_distance_m": -8.500608939170096e-05,
+        "signed_surface_distance_error_m": 6.716240319747796e-05,
+        "passed": false,
+        "failed_criteria": [
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "max_gate_ratio": 2.413534442118322
+      }
+    }
+  ],
+  "strict_case_pass_count": 0,
+  "strict_case_best": {
+    "seed_label": "random_std_0.03_020",
+    "q": [
+      3.724578706383892e-09,
+      -0.02440166656247787,
+      -0.0004827435167661435,
+      0.0002981421103399159,
+      1.9265571608002266e-11,
+      0.12671315993947466
+    ],
+    "cost": 4.043473371274607,
+    "nfev": 71,
+    "success": true,
+    "status": 2,
+    "optimized_terms": [
+      "xy",
+      "force",
+      "orientation"
+    ],
+    "tcp_m": [
+      0.0019703506776695967,
+      1.242170605000881e-11,
+      -0.00031401678309772585
+    ],
+    "reference_xy_m": [
+      0.00497792942394327,
+      0.0
+    ],
+    "tangential_error_m": 0.0030075787462736734,
+    "orientation_error_rad": 0.07240603326354965,
+    "force_N": 4.994902448513418,
+    "force_error_N": 0.005097551486581864,
+    "target_contact_count": 1,
+    "signed_surface_distance_m": -8.500608939170096e-05,
+    "signed_surface_distance_error_m": 6.716240319747796e-05,
+    "passed": false,
+    "failed_criteria": [
+      "tangential_error_m",
+      "orientation_error_rad"
+    ],
+    "max_gate_ratio": 2.413534442118322
+  },
+  "warnings": [
+    "simulation-only gate-definition audit",
+    "not a path or controller feasibility proof",
+    "not a global infeasibility proof",
+    "not hardware-ready"
+  ]
+}

@@ -78,11 +78,12 @@ work exists only on that branch.
 - UR10e MJCF is approximate and not calibrated. v54 adds a contact-point
   variant that separates the 85 mm TCP site from the colliding sphere center,
   but v55 still finds `0 / 513` strict terminal passes after enforcing the
-  intended `contact_plane` / `contact_tip` force pair.
+  intended `contact_plane` / `contact_tip` force pair. v56 shows the remaining
+  strict setup blocker is a gate-definition conflict.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run a contact-manifold or gate-definition audit from known target-contact
-states before designing another Stage A controller.
+Explicitly relax or redefine the UR10e adapted setup gate, or change the setup
+target definition, before designing another Stage A controller.

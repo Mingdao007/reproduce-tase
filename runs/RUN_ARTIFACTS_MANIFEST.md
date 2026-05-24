@@ -1549,6 +1549,24 @@ Legacy source root:
   candidates, the strict setup pass count remains `0 / 513`. The best target
   contact candidate fails x/y and orientation gates.
 
+## V56 Contact-Manifold Gate Audit
+
+### Gate-combination audit from target-contact neighborhoods
+
+- Run:
+  - `runs/contact_manifold_gate_audit/20260524T142404`
+- Command:
+  `scripts/audit_contact_manifold_setup_gate.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count-per-std 40 --random-seed-stds-rad 0.03,0.1,0.3,0.8 --random-seed 761 --max-nfev 800`
+- Git state at run time:
+  commit `1d83e8f99ca29c75b1392d16033327df0d340d99`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The strict `xy_force_orientation` case remains failed with `0 / 161`
+  passes. Relaxed cases show the gate conflict: `xy_force` leaves orientation
+  error, `xy_orientation` loses target contact/force, and `force_orientation`
+  requires centimeter-scale x/y drift.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

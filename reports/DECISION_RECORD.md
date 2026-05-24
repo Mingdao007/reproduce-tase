@@ -1181,3 +1181,26 @@
   The broad v55 terminal audit reports `0 / 513` passing candidates. Future
   setup claims must preserve target-contact-pair accounting, especially when
   using wide random seeds that may introduce non-tool contacts.
+
+## D061: Treat Strict UR10e Setup As A Gate-Definition Conflict
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Stop treating the strict adapted UR10e setup failure as a phase-scheduling
+  problem. Under the current v54 TCP contact-point model, it is a gate-
+  definition conflict between original x/y, intended tool-plane force, and
+  force-normal TCP orientation.
+- Reason:
+  The v56 contact-manifold audit at
+  `runs/contact_manifold_gate_audit/20260524T142404` seeds from known
+  target-contact neighborhoods and solves relaxed gate combinations. It finds
+  `0 / 161` strict passes. The `xy_force` case can satisfy x/y and force but
+  leaves `0.14697007178233126 rad` orientation error; the `xy_orientation`
+  case satisfies x/y and orientation but loses target contact and has `5.0 N`
+  force error; the best optimized `force_orientation` case has
+  `0.014127706733724453 m` x/y error.
+- Consequence:
+  Future UR10e adapted setup work should explicitly relax or redefine the
+  setup gate, or change the setup target definition, before another Stage A
+  controller is designed. Full strict staged feasibility remains unachieved.

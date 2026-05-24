@@ -2141,3 +2141,52 @@
   Build a contact-manifold or gate-definition audit that seeds from known
   target-contact states and explicitly tests whether the current x/y, force,
   and orientation gates are mutually compatible under UR10e 6DOF geometry.
+
+## 2026-05-24 v56 Contact-Manifold Gate Audit
+
+- Branch: `exp/tase-ur10e-v56-contact-manifold-gate-audit`
+- Starting commit:
+  `429b9626352cbf92b1fe045cf57b4c583fd9e26b`
+- Code commits:
+  - `e8a51253b29306999838f38ed8177b3de41bfef0`
+  - `2d5a34aec3a2f1e490bbeef7f8b7c79ed87cdf96`
+  - `1d83e8f99ca29c75b1392d16033327df0d340d99`
+- Files added:
+  - `src/tase_repro/contact_manifold_gate_audit.py`
+  - `scripts/audit_contact_manifold_setup_gate.py`
+  - `tests/test_contact_manifold_gate_audit.py`
+  - `reports/contact_manifold_gate_audit_report.md`
+  - `runs/contact_manifold_gate_audit/20260524T142404/**`
+- Files updated:
+  - `reports/setup_terminal_ik_audit_report.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `docs/goal.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_contact_manifold_gate_audit.py`
+  - `python3 -m py_compile src/tase_repro/contact_manifold_gate_audit.py scripts/audit_contact_manifold_setup_gate.py`
+  - `scripts/audit_contact_manifold_setup_gate.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count-per-std 40 --random-seed-stds-rad 0.03,0.1,0.3,0.8 --random-seed 761 --max-nfev 800`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The v56 audit seeds from known target-contact neighborhoods and tests gate
+  combinations. The strict `xy_force_orientation` case reports `0 / 161`
+  passes. The best strict candidate has force error
+  `0.005097551486581864 N`, x/y error `0.0030075787462736734 m`, and
+  orientation error `0.07240603326354965 rad`.
+- Gate-definition evidence:
+  `xy_force` can satisfy force and x/y but leaves orientation error
+  `0.14697007178233126 rad`; `xy_orientation` can satisfy x/y and orientation
+  but loses target contact and force; the best optimized `force_orientation`
+  candidate has x/y error `0.014127706733724453 m`.
+- Limit:
+  This is still not a mathematical global infeasibility proof, but it is
+  strong enough to stop scalar phase-scheduling work under the current gate
+  definition.
+- Validation:
+  Full tests passed with `90 passed in 2.44s`. `git diff --check` passed.
+- Next step:
+  Explicitly relax or redefine the UR10e adapted setup gate, or change the
+  setup target definition, before designing another Stage A controller.

@@ -200,6 +200,31 @@ This is not a global infeasibility proof, because contact discovery from
 non-contact random seeds is a weak local least-squares problem. It does close
 the self-collision false-positive path.
 
+## 2026-05-24 v56 Contact-Manifold Gate Audit
+
+The v56 audit seeds from known target-contact neighborhoods and solves relaxed
+gate combinations before evaluating every result against the full strict gate.
+Evidence is in `reports/contact_manifold_gate_audit_report.md` and
+`runs/contact_manifold_gate_audit/20260524T142404`.
+
+Result:
+
+- strict pass count: `0`
+- seed count: `161`
+- `xy_force`: `0 / 161`; best leaves orientation error
+  `0.14697007178233126 rad`
+- `xy_orientation`: `0 / 161`; best loses target contact and has force error
+  `5.0 N`
+- `force_orientation`: `0 / 161`; best optimized force/orientation solution
+  has x/y error `0.014127706733724453 m`
+- `xy_force_orientation`: `0 / 161`; best has x/y error
+  `0.0030075787462736734 m` and orientation error
+  `0.07240603326354965 rad`
+
+This makes the current blocker explicit: the strict adapted setup gate is a
+gate-definition conflict under the current 6DOF UR10e simulation, not just a
+phase-scheduling failure.
+
 ## Verification
 
 - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`
