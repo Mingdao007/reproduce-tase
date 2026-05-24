@@ -2307,3 +2307,26 @@
   require approved read-only evidence or an accepted gate review. V104 does not
   prove robustness, strict paper-equivalent feasibility, contact calibration,
   gate acceptance, hardware readiness, or any hardware authorization.
+
+## D110: Stop Treating Positive Fast-Timing E2 As Pure Qdot-Limit Tuning
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v105 as a focused E2-only qdot/usage isolation probe for the
+  `positive_fast_timing_0p0075` failed cell.
+- Reason:
+  V104 identified `positive_fast_timing_0p0075` as the only unresolved
+  `+1.0 mm` cell with qdot saturation. V105 tests that hypothesis directly at
+  the E2 row. Slowing timing first recovers E2 at `paper_time_scale = 0.0052`,
+  but qdot-limit-only probes at `paper_time_scale = 0.0075` fail `0 / 5`
+  through `0.3 rad/s`: qdot saturation falls to `0.0`, while orientation stays
+  above the run-local `0.12 rad` gate.
+- Consequence:
+  Do not claim the `positive_fast_timing_0p0075` cell is closed and do not keep
+  raising qdot limits as the primary recovery path. Future offline work should
+  either probe orientation-margin reduction at `paper_time_scale = 0.0075`
+  without accepting a relaxed gate, or switch to the `base_z_plus1mm`
+  start-contact versus terminal-orientation split. V105 does not prove
+  robustness, strict paper-equivalent feasibility, contact calibration, gate
+  acceptance, hardware readiness, or any hardware authorization.

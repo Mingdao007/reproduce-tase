@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v104-plus1mm-unresolved-probe`
+Branch: `exp/tase-ur10e-v105-positive-fast-e2-qdot-isolation`
 
 ## Objective Restatement
 
@@ -189,6 +189,10 @@ The objective has two separate technical claim levels:
 - `tests/test_plus1mm_unresolved_diagnostic_probe.py`
 - `runs/plus1mm_unresolved_diagnostic_probe/20260525T062237/metrics.yaml`
 - `reports/plus1mm_unresolved_diagnostic_probe_report.md`
+- `scripts/audit_positive_stage_b_e2_margin.py`
+- `tests/test_positive_stage_b_e2_margin.py`
+- `runs/positive_fast_timing_e2_qdot_isolation/20260525T063019/metrics.yaml`
+- `reports/positive_fast_timing_e2_qdot_isolation_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -202,17 +206,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v104 branches pushed and GitHub-verified; v104 implementation branch push verified at `b412ddf5bbec20682ce021b754aa0efc845a3372` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v104-plus1mm-unresolved-probe`; latest local branch is `exp/tase-ur10e-v104-plus1mm-unresolved-probe` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v105 branches pushed and GitHub-verified through v104; v105 branch verification is pending final push | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v105-positive-fast-e2-qdot-isolation`; latest local branch is `exp/tase-ur10e-v105-positive-fast-e2-qdot-isolation` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v105.md` include the short prompt, authoritative local clone, v95-v104 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D109 as of v104 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v106.md` include the short prompt, authoritative local clone, v95-v105 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D110 as of v105 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v104 validation: `python3 -m py_compile scripts/audit_plus1mm_unresolved_diagnostic_probe.py` passed, `scripts/run_tests.sh tests/test_plus1mm_unresolved_diagnostic_probe.py` reported `2 passed in 0.22s`, the v104 probe run was created, `scripts/run_tests.sh` reported `146 passed in 6.74s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v105 focused validation: `python3 -m py_compile scripts/audit_positive_stage_b_e2_margin.py` passed, `scripts/run_tests.sh tests/test_positive_stage_b_e2_margin.py` reported `1 passed in 0.12s`, the v105 E2 qdot isolation run was created, `scripts/run_tests.sh` reported `147 passed in 6.86s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -276,6 +280,7 @@ The objective has two separate technical claim levels:
 | Positive orientation-gate failed-cell execution | `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml`, `scripts/audit_positive_orientation_gate_boundary.py`, `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`, `tests/test_positive_orientation_gate_boundary.py`, `tests/test_failed_diagnostic_robustness_experiment_execution.py`, `runs/failed_diagnostic_robustness_experiment_audit/20260525T060119/metrics.yaml`, `reports/positive_orientation_gate_failed_cell_execution_report.md` | v102 executes the planned `positive_orientation_gate_0p119` command and audits it as `executed_unresolved`: the current `0.119 rad` gate fails, the diagnostic boundary first passes at `0.11998 rad`, closed cells remain `0 / 4`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `5f7b30e7009296ca8153a020bd1475fec0b6dabd` | Done |
 | Weighted +1.0 mm gate failed-cell execution | `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate/metrics.yaml`, `scripts/audit_weighted_gate_time_matrix.py`, `scripts/audit_weighted_timing_recovery.py`, `scripts/audit_stage_b_priority_recovery.py`, `scripts/audit_positive_stitched_sensitivity.py`, `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`, `tests/test_weighted_gate_time_matrix.py`, `tests/test_failed_diagnostic_robustness_experiment_execution.py`, `runs/failed_diagnostic_robustness_experiment_audit/20260525T061328/metrics.yaml`, `reports/weighted_plus1mm_gate_failed_cell_execution_report.md` | v103 executes the planned `weighted_plus1mm_0p119_gate` command and audits it as `executed_unresolved`: the current `0.119 rad` weighted rows fail, diagnostic boundaries first pass at `0.11955 rad` and `0.1196 rad`, all four planned cells are now executed, closed cells remain `0 / 4`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `ce266165b9ec3e47dbe6fdcce3cb0c717b8dda15` | Done |
 | Plus1mm unresolved diagnostic probe | `scripts/audit_plus1mm_unresolved_diagnostic_probe.py`, `tests/test_plus1mm_unresolved_diagnostic_probe.py`, `runs/plus1mm_unresolved_diagnostic_probe/20260525T062237/metrics.yaml`, `reports/plus1mm_unresolved_diagnostic_probe_report.md` | v104 classifies the four executed unresolved `+1.0 mm` cells from existing v100-v103 metrics: all four remain unresolved, only `positive_fast_timing_0p0075` is qdot-limited, `weighted_plus1mm_0p119_gate` has max qdot saturation `0.0` and remains orientation-margin/gate-acceptance blocked, and `probe_closes_failed_cells = false`; implementation branch push verified at `b412ddf5bbec20682ce021b754aa0efc845a3372` | Done |
+| Positive fast-timing E2 qdot isolation | `scripts/audit_positive_stage_b_e2_margin.py`, `tests/test_positive_stage_b_e2_margin.py`, `runs/positive_fast_timing_e2_qdot_isolation/20260525T063019/metrics.yaml`, `reports/positive_fast_timing_e2_qdot_isolation_report.md` | v105 isolates the `positive_fast_timing_0p0075` E2 row: the first tested timing pass is `paper_time_scale = 0.0052`, and qdot-limit-only probes at `paper_time_scale = 0.0075` fail `0 / 5` through `0.3 rad/s` because orientation remains above `0.12 rad`; branch push verification is pending final push | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
@@ -1664,9 +1669,13 @@ executed and audited, but closed cells remain `0 / 4`. V104 classifies the
 remaining `+1.0 mm` signatures without rerunning MuJoCo: only
 `positive_fast_timing_0p0075` is qdot-limited, the weighted current-gate rows
 have max qdot saturation `0.0`, and the orientation-gate rows still require
-calibrated geometry or an accepted gate before any upgrade. The project still
-has not achieved strict paper-equivalent full staged feasibility, calibrated
-contact geometry, robustness, or hardware readiness.
+calibrated geometry or an accepted gate before any upgrade. V105 isolates the
+`positive_fast_timing_0p0075` E2 row and shows qdot-limit increases alone do
+not recover the `paper_time_scale = 0.0075` row: qdot saturation can be reduced
+to `0.0`, but orientation remains above `0.12 rad`; the first tested E2 timing
+pass is `0.0052`. The project still has not achieved strict paper-equivalent
+full staged feasibility, calibrated contact geometry, robustness, or hardware
+readiness.
 
 Do not mark the active goal complete from the current evidence.
 
@@ -1676,13 +1685,14 @@ Do not accept a replacement orientation gate from simulation metrics or current
 local records alone. The next executable step is to execute only safe read-only
 portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
 verifier after explicit user confirmation, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v104 blocker audits, the
-v99 planned experiment matrix, and the v100-v104 execution/probe audits. All
-v99 planned commands have now been executed; v104 narrows the next offline
-choice to either a `base_z_plus1mm` start-contact versus terminal-orientation
-split probe or a focused `positive_fast_timing_0p0075` E2 qdot/usage isolation
+simulation/paper-platform work identified by the v95-v105 blocker audits, the
+v99 planned experiment matrix, and the v100-v105 execution/probe audits. All
+v99 planned commands have now been executed; v105 narrows the fast-timing row
+away from pure qdot-limit tuning and leaves either orientation-margin
+reduction at `paper_time_scale = 0.0075` without gate relaxation, or the
+separate `base_z_plus1mm` start-contact versus terminal-orientation split
 probe. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v104 diagnostic staged labels
+trajectory-after-relaxed-setup, and v63-v105 diagnostic staged labels
 separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

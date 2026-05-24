@@ -4044,3 +4044,39 @@
   offline candidates are a `base_z_plus1mm` start-contact versus
   terminal-orientation split probe or a `positive_fast_timing_0p0075` E2
   qdot/usage isolation probe.
+
+## 2026-05-25 v105 Positive Fast-Timing E2 Qdot Isolation
+
+### Isolate qdot-limit effects on the `+1.0 mm` fast E2 row
+
+- Branch:
+  `exp/tase-ur10e-v105-positive-fast-e2-qdot-isolation`
+- Runs:
+  - `runs/positive_fast_timing_e2_qdot_isolation/20260525T063019`
+- Report:
+  `reports/positive_fast_timing_e2_qdot_isolation_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_stage_b_e2_margin.py`
+  - `scripts/run_tests.sh tests/test_positive_stage_b_e2_margin.py`
+  - `python3 scripts/audit_positive_stage_b_e2_margin.py --output-dir runs/positive_fast_timing_e2_qdot_isolation/20260525T063019 --base-z-deltas-mm 1.0 --paper-time-scales 0.0075,0.007,0.0065,0.006,0.0055,0.0052,0.005 --qdot-probe-limits-rad-s 0.15,0.18,0.2,0.25,0.3`
+  - `rg -n "&id|\*id" runs/positive_fast_timing_e2_qdot_isolation/20260525T063019/metrics.yaml`
+- Result:
+  The first tested E2 timing pass is `paper_time_scale = 0.0052`. At
+  `paper_time_scale = 0.0075`, qdot-limit-only probes fail `0 / 5` through
+  `0.3 rad/s`: qdot saturation can be reduced to `0.0`, but orientation
+  remains above the run-local `0.12 rad` gate.
+- Limit:
+  This is E2-only diagnostic simulation. It does not close the v99
+  `positive_fast_timing_0p0075` failed cell, accept a relaxed orientation gate,
+  calibrate contact geometry, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `1 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; full tests passed with
+  `147 passed in 6.86s`; `git diff --check` passed. Final push verification
+  is pending.
+- Next step:
+  Without live approval, continue only non-final offline work. Avoid pure
+  qdot-limit escalation for this row; either probe orientation-margin
+  reduction at `paper_time_scale = 0.0075` without gate relaxation or switch to
+  the `base_z_plus1mm` start-contact versus terminal-orientation split.

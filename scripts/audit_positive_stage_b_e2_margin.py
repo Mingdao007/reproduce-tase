@@ -133,13 +133,49 @@ def aggregate_timing(rows: list[dict[str, Any]], scales: list[float]) -> dict[st
     }
 
 
+def aggregate_qdot_probe(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    passing = [row for row in rows if row["stage_a_passed"] and row["e2_passed"]]
+    failing = [row for row in rows if not (row["stage_a_passed"] and row["e2_passed"])]
+    return {
+        "row_count": len(rows),
+        "pass_count": len(passing),
+        "fail_count": len(failing),
+        "min_passing_qdot_limit_rad_s": min(
+            (row["qdot_limit_rad_s"] for row in passing),
+            default=None,
+        ),
+        "max_failing_qdot_limit_rad_s": max(
+            (row["qdot_limit_rad_s"] for row in failing),
+            default=None,
+        ),
+        "max_qdot_saturation_fraction": max(
+            (row["qdot_saturation_fraction"] for row in rows),
+            default=None,
+        ),
+        "min_qdot_saturation_fraction": min(
+            (row["qdot_saturation_fraction"] for row in rows),
+            default=None,
+        ),
+        "max_tail_qdot_utilization": max(
+            (row["tail_max_qdot_utilization"] for row in rows),
+            default=None,
+        ),
+        "max_orientation_error_rad": max(
+            (row["max_orientation_error_rad"] for row in rows),
+            default=None,
+        ),
+    }
+
+
 def write_summary(
     *,
     out_dir: pathlib.Path,
     aggregate: dict[str, Any],
+    qdot_aggregate: dict[str, Any],
     timing_rows: list[dict[str, Any]],
     qdot_rows: list[dict[str, Any]],
     scales: list[float],
+    qdot_probe_paper_time_scale: float,
 ) -> None:
     case_rows = []
     for case, scale in aggregate["max_passing_scale_by_case"].items():
@@ -159,6 +195,7 @@ def write_summary(
         f"- Timing rows: `{aggregate['timing_row_count']}`",
         f"- Fastest all-pass paper_time_scale: `{aggregate['fastest_all_pass_paper_time_scale']}`",
         f"- Qdot-only probe rows: `{len(qdot_rows)}`",
+        f"- Qdot-only probe pass count: `{qdot_aggregate['pass_count']} / {qdot_aggregate['row_count']}`",
         "",
         "| paper_time_scale | E2 pass count | max recovered positive delta mm |",
         "| ---: | ---: | ---: |",
@@ -176,7 +213,7 @@ def write_summary(
     lines.extend(
         [
             "",
-            "| delta mm | max passing paper_time_scale | original E2 failed criteria at 0.01 | original qdot sat | original tail qdot | original max orientation rad |",
+            "| delta mm | max passing paper_time_scale | E2 failed criteria at first scale | first-scale qdot sat | first-scale tail qdot | first-scale max orientation rad |",
             "| ---: | ---: | --- | ---: | ---: | ---: |",
         ]
     )
@@ -195,7 +232,7 @@ def write_summary(
         lines.extend(
             [
                 "",
-                "Qdot-only probe at original `paper_time_scale = 0.01`:",
+                f"Qdot-only probe at `paper_time_scale = {qdot_probe_paper_time_scale}`:",
                 "",
                 "| qdot limit rad/s | pass | failed criteria | qdot sat | tail qdot | max orientation rad |",
                 "| ---: | --- | --- | ---: | ---: | ---: |",
@@ -217,8 +254,12 @@ def write_summary(
             "",
             "Interpretation:",
             "",
-            "- Slowing E2 to `paper_time_scale = 0.005` recovers all tested positive deltas under the v70 run-local `0.12 rad` gate.",
-            "- Raising qdot limit alone at the original `paper_time_scale = 0.01` does not recover the hardest tested `+1.0 mm` case because max orientation error remains above `0.12 rad`.",
+            "- Slowing E2 to `paper_time_scale = {scale}` recovers all tested positive deltas under the v70 run-local `0.12 rad` gate.".format(
+                scale=aggregate["fastest_all_pass_paper_time_scale"]
+            ),
+            "- Raising qdot limit alone at `paper_time_scale = {scale}` does not recover the hardest tested `+1.0 mm` case because max orientation error remains above `0.12 rad`.".format(
+                scale=qdot_probe_paper_time_scale
+            ),
             "- This is diagnostic-label simulation evidence only, not a canonical config change, robustness proof, paper-equivalent claim, or hardware readiness result.",
         ]
     )
@@ -307,6 +348,8 @@ def main() -> int:
         )
 
     aggregate = aggregate_timing(timing_rows, scales)
+    qdot_aggregate = aggregate_qdot_probe(qdot_rows)
+    qdot_probe_paper_time_scale = float(scales[0])
     payload = {
         "run_id": run_id,
         "source": "v70 positive relaxed-orientation Stage A/path cases with E2 Stage B margin probes",
@@ -318,7 +361,9 @@ def main() -> int:
         "max_orientation_error_rad": float(args.max_orientation_error_rad),
         "paper_time_scales": scales,
         "qdot_probe_limits_rad_s": qdot_limits,
+        "qdot_probe_paper_time_scale": qdot_probe_paper_time_scale,
         "aggregate": aggregate,
+        "qdot_probe_aggregate": qdot_aggregate,
         "timing_rows": timing_rows,
         "qdot_probe_rows": qdot_rows,
         "warnings": [
@@ -337,9 +382,11 @@ def main() -> int:
     write_summary(
         out_dir=out_dir,
         aggregate=aggregate,
+        qdot_aggregate=qdot_aggregate,
         timing_rows=timing_rows,
         qdot_rows=qdot_rows,
         scales=scales,
+        qdot_probe_paper_time_scale=qdot_probe_paper_time_scale,
     )
     write_git_state(out_dir, command=[sys.executable, *sys.argv])
     print(out_dir)
