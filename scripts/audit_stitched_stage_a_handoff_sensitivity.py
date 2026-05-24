@@ -29,6 +29,60 @@ DEFAULT_CASES: list[dict[str, Any]] = [
     {"name": "paper_time_scale_0p02", "parameters": {"paper_time_scale": 0.02}},
 ]
 
+TIMING_MARGIN_CASES: list[dict[str, Any]] = [
+    {"name": "nominal", "parameters": {}},
+    {"name": "stage_a_14s_reference_fail", "parameters": {"stage_a_duration_s": 14.0}},
+    {"name": "stage_a_14p5_recovery", "parameters": {"stage_a_duration_s": 14.5}},
+    {
+        "name": "qdot012_stage_a_17p5_reference_fail",
+        "parameters": {"qdot_limit_rad_s": 0.12, "stage_a_duration_s": 17.5},
+    },
+    {
+        "name": "qdot012_stage_a_18p0_recovery",
+        "parameters": {"qdot_limit_rad_s": 0.12, "stage_a_duration_s": 18.0},
+    },
+    {"name": "paper_time_scale_0p012_recovery", "parameters": {"paper_time_scale": 0.012}},
+    {"name": "paper_time_scale_0p0125_reference_fail", "parameters": {"paper_time_scale": 0.0125}},
+]
+
+CASE_SETS: dict[str, dict[str, Any]] = {
+    "sensitivity": {
+        "cases": DEFAULT_CASES,
+        "run_subdir": "stitched_stage_a_handoff_sensitivity",
+        "title": "Stitched Stage A Handoff Sensitivity Summary",
+        "claim_scope": "diagnostic-label simulation sensitivity only; not robustness proof or hardware evidence.",
+        "interpretation": [
+            "Passing cases preserve the v63 diagnostic stitched gate under the listed perturbation only.",
+            "Failing cases bound the nominal result and prevent a broad robustness claim.",
+            "This audit does not change the strict paper-equivalent, v38 relaxed, or v63 diagnostic claim labels.",
+        ],
+        "warnings": [
+            "diagnostic-label simulation sensitivity audit only",
+            "not strict paper-equivalent feasibility",
+            "not a formal robustness proof",
+            "not hardware-ready",
+        ],
+    },
+    "timing-margin": {
+        "cases": TIMING_MARGIN_CASES,
+        "run_subdir": "stitched_stage_a_handoff_timing_margin",
+        "title": "Stitched Stage A Handoff Timing Margin Summary",
+        "claim_scope": "diagnostic-label timing-margin audit only; not robustness proof or hardware evidence.",
+        "interpretation": [
+            "Passing recovery cases show timing or qdot-budget margins for the nominal diagnostic stitched policy.",
+            "Reference-fail cases preserve the nearby failing boundaries from v64.",
+            "This audit does not recover 1 mm base-z/contact perturbations and does not change paper-equivalent or hardware claims.",
+        ],
+        "warnings": [
+            "diagnostic-label timing-margin audit only",
+            "does not test base-z/contact path reoptimization",
+            "not strict paper-equivalent feasibility",
+            "not a formal robustness proof",
+            "not hardware-ready",
+        ],
+    },
+}
+
 PARAMETER_FLAGS = {
     "base_z_offset_delta_m": "--base-z-offset-delta-m",
     "stage_a_duration_s": "--stage-a-duration-s",
@@ -98,15 +152,21 @@ def run_case(case: dict[str, Any], *, cases_root: pathlib.Path) -> dict[str, Any
     return summarize_stitched_case(case_name=case_name, parameters=parameters, metrics=metrics)
 
 
-def write_summary(out_dir: pathlib.Path, aggregate: dict[str, Any], cases: list[dict[str, Any]]) -> None:
+def write_summary(
+    out_dir: pathlib.Path,
+    aggregate: dict[str, Any],
+    cases: list[dict[str, Any]],
+    *,
+    case_set: dict[str, Any],
+) -> None:
     lines = [
-        "# Stitched Stage A Handoff Sensitivity Summary",
+        f"# {case_set['title']}",
         "",
         f"Run root: `{out_dir}`",
         "",
         f"- Stitched pass count: `{aggregate['stitched_pass_count']} / {aggregate['case_count']}`",
         f"- Failing cases: `{', '.join(aggregate['failing_cases']) or 'none'}`",
-        "- Claim scope: diagnostic-label simulation sensitivity only; not robustness proof or hardware evidence.",
+        f"- Claim scope: {case_set['claim_scope']}",
         "",
         "| case | pass | Stage A pass | Stage B pass | Stage A max qdot | terminal force err N | Stage B worst force err N | parameters |",
         "| --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
@@ -132,9 +192,7 @@ def write_summary(out_dir: pathlib.Path, aggregate: dict[str, Any], cases: list[
             "",
             "Interpretation:",
             "",
-            "- Passing cases preserve the v63 diagnostic stitched gate under the listed perturbation only.",
-            "- Failing cases bound the nominal result and prevent a broad robustness claim.",
-            "- This audit does not change the strict paper-equivalent, v38 relaxed, or v63 diagnostic claim labels.",
+            *[f"- {line}" for line in case_set["interpretation"]],
         ]
     )
     (out_dir / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -142,34 +200,36 @@ def write_summary(out_dir: pathlib.Path, aggregate: dict[str, Any], cases: list[
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--case-set", choices=sorted(CASE_SETS), default="sensitivity")
     parser.add_argument("--output-dir", default=None)
     args = parser.parse_args()
+    case_set = CASE_SETS[args.case_set]
 
     run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
-    out_dir = pathlib.Path(args.output_dir) if args.output_dir else ROOT / "runs" / "stitched_stage_a_handoff_sensitivity" / run_id
+    out_dir = (
+        pathlib.Path(args.output_dir)
+        if args.output_dir
+        else ROOT / "runs" / str(case_set["run_subdir"]) / run_id
+    )
     out_dir.mkdir(parents=True, exist_ok=True)
     cases_root = out_dir / "cases"
 
-    case_summaries = [run_case(case, cases_root=cases_root) for case in DEFAULT_CASES]
+    case_summaries = [run_case(case, cases_root=cases_root) for case in case_set["cases"]]
     aggregate = aggregate_stitched_sensitivity(case_summaries)
     payload = {
         "run_id": run_id,
+        "case_set": args.case_set,
         "source": "v63 stitched diagnostic Stage A tracker plus Stage B handoff",
         "case_count": aggregate["case_count"],
         "aggregate": aggregate,
         "cases": case_summaries,
-        "warnings": [
-            "diagnostic-label simulation sensitivity audit only",
-            "not strict paper-equivalent feasibility",
-            "not a formal robustness proof",
-            "not hardware-ready",
-        ],
+        "warnings": case_set["warnings"],
     }
     with (out_dir / "metrics.yaml").open("w", encoding="utf-8") as f:
         yaml.safe_dump(payload, f, sort_keys=False, allow_unicode=True)
     with (out_dir / "metrics.json").open("w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
-    write_summary(out_dir, aggregate, case_summaries)
+    write_summary(out_dir, aggregate, case_summaries, case_set=case_set)
     write_git_state(out_dir, command=[sys.executable, *sys.argv])
     print(out_dir)
     return 0
