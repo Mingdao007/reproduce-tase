@@ -21,6 +21,7 @@ paper_platform_parity:
     fig5_r_sweep: true
     uncapped_force_integral: true
   candidate_fig5_r_sweep:
+    required_duration_s: 2.0
     required_r_values:
       - 0.2
       - 0.4

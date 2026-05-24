@@ -64,7 +64,18 @@ def test_synthetic_complete_candidate_can_pass_gate(tmp_path: Path) -> None:
     fig5_paths = {}
     for value in ["0.2", "0.4", "0.6", "0.8", "1"]:
         path = tmp_path / f"fig5_r{value.replace('.', 'p')}.yaml"
-        path.write_text("ok: true\n", encoding="utf-8")
+        path.write_text(
+            yaml.safe_dump(
+                {
+                    "metrics": {
+                        "fig5_r_value": float(value),
+                        "duration_s": 2.0,
+                        "execution_success": True,
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
         fig5_paths[value] = str(path)
     config_path = tmp_path / "parity.yaml"
     config_path.write_text(
@@ -98,6 +109,7 @@ def test_synthetic_complete_candidate_can_pass_gate(tmp_path: Path) -> None:
                         "uncapped_force_integral": True,
                     },
                     "candidate_fig5_r_sweep": {
+                        "required_duration_s": 2.0,
                         "required_r_values": [0.2, 0.4, 0.6, 0.8, 1.0],
                         "metrics_paths": fig5_paths,
                     },

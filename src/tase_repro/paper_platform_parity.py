@@ -299,11 +299,13 @@ def _candidate_q7_landmark(
 
 def _fig5_r_sweep_check(fig5_config: dict[str, Any], repo_root: Path) -> dict[str, Any]:
     required_values = [_numeric_key(value) for value in fig5_config.get("required_r_values", [])]
+    required_duration_s = float(fig5_config.get("required_duration_s", 0.0))
     configured_paths = {
         _numeric_key(key): path for key, path in dict(fig5_config.get("metrics_paths", {})).items()
     }
     missing = []
     present = []
+    invalid = []
     for value in required_values:
         path_value = configured_paths.get(value)
         if path_value is None:
@@ -313,12 +315,30 @@ def _fig5_r_sweep_check(fig5_config: dict[str, Any], repo_root: Path) -> dict[st
         if not path.exists():
             missing.append(value)
         else:
-            present.append(value)
+            payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+            metrics = payload.get("metrics", payload)
+            actual_r = _numeric_key(metrics.get("fig5_r_value", math.nan))
+            execution_success = bool(metrics.get("execution_success", False))
+            duration_s = float(metrics.get("duration_s", 0.0))
+            if actual_r != value or not execution_success or duration_s + 1.0e-12 < required_duration_s:
+                invalid.append(
+                    {
+                        "r": value,
+                        "path": str(path),
+                        "actual_r": actual_r,
+                        "execution_success": execution_success,
+                        "duration_s": duration_s,
+                    }
+                )
+            else:
+                present.append(value)
     return _check(
-        len(missing) == 0 and len(required_values) > 0,
+        len(missing) == 0 and len(invalid) == 0 and len(required_values) > 0,
         required_r_values=required_values,
+        required_duration_s=required_duration_s,
         present_r_values=present,
         missing_r_values=missing,
+        invalid_r_values=invalid,
     )
 
 
