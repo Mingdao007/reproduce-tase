@@ -3036,7 +3036,8 @@ Legacy source root:
   anchors in the root summary metrics; raw/heavy artifact scan found no
   payloads; full tests passed with `150 passed in 6.79s`; `git diff --check`
   passed.
-  Branch-push validation is pending before finalizing v107.
+  Branch push was verified at
+  `2e94f4bbd9ac25228c819bdc789eb6bc1f75f719`.
 - Limit:
   No live or physical measurement was collected. This is full-cell diagnostic
   simulation for one face and does not close the original v99

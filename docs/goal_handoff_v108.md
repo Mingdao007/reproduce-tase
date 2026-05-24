@@ -89,7 +89,7 @@ exp/tase-ur10e-v107-positive-fast-weighted-full-cell
 Verified implementation commit:
 
 ```text
-TBD after v107 branch push verification
+2e94f4bbd9ac25228c819bdc789eb6bc1f75f719
 ```
 
 V107 weighted full-cell artifacts:
