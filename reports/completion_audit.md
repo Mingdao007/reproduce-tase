@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v67-base-z-bracket`
+Branch: `exp/tase-ur10e-v68-positive-start-contact`
 
 ## Objective Restatement
 
@@ -90,6 +90,8 @@ The objective has two separate technical claim levels:
 - `runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml`
 - `reports/stage_a_base_z_bracket_report.md`
 - `runs/stage_a_base_z_bracket/20260524T165411/metrics.yaml`
+- `reports/positive_base_z_start_contact_report.md`
+- `runs/positive_base_z_start_contact/20260524T170350/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -100,17 +102,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v67 branches pushed and GitHub-verified; v67 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v67-base-z-bracket`; latest local branch is `exp/tase-ur10e-v67-base-z-bracket` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v68 branches pushed and GitHub-verified; v68 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v68-positive-start-contact`; latest local branch is `exp/tase-ur10e-v68-positive-start-contact` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v67 branch/run, claim boundary, and next executable positive-side contact-model target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D072 as of v67 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v68 branch/run, claim boundary, and next executable positive-side terminal-orientation target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D073 as of v68 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v67 validation was `113 passed in 2.48s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v68 validation was `114 passed in 2.47s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -137,6 +139,7 @@ The objective has two separate technical claim levels:
 | Stitched diagnostic timing-margin audit | `scripts/audit_stitched_stage_a_handoff_sensitivity.py --case-set timing-margin`, `reports/stitched_stage_a_handoff_timing_margin_report.md`, `runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml` | v65 evaluates seven timing-margin cases; `stage_a_14p5_recovery`, `qdot012_stage_a_18p0_recovery`, and `paper_time_scale_0p012_recovery` pass, while nearby reference-fail cases still fail; base-z/contact recovery remains unaddressed |
 | Stage A base-z recovery audit | `src/tase_repro/base_z_recovery.py`, `scripts/audit_stage_a_base_z_recovery.py`, `reports/stage_a_base_z_recovery_report.md`, `runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml` | v66 evaluates perturbation-aware start rebalance, terminal search, path reoptimization, and stitched handoff for three base-z cases; `base_z_minus_1mm_stage_a_16s_recovery` passes, while the exact `15.0 s` `base_z_minus_1mm` reference and `base_z_plus_1mm` remain unresolved |
 | Stage A base-z bracket audit | `scripts/audit_stage_a_base_z_bracket.py`, `reports/stage_a_base_z_bracket_report.md`, `runs/stage_a_base_z_bracket/20260524T165411/metrics.yaml` | v67 evaluates 13 compact base-z bracket cases; nominal, `-0.25 mm`, and `-0.5 mm` recover at `15.0 s`, `-1.0 mm` recovers only at `16.0 s`, `-0.75 mm` exposes a path anomaly, and no positive delta from `+0.05 mm` through `+1.0 mm` has start plus terminal feasibility |
+| Positive base-z start-contact audit | `scripts/audit_positive_base_z_start_contact.py`, `reports/positive_base_z_start_contact_report.md`, `runs/positive_base_z_start_contact/20260524T170350/metrics.yaml` | v68 uses deterministic and random start-contact seed sweeps for eight positive deltas; start contact passes `8 / 8` through `+1.0 mm`, terminal passes `0 / 8`, and every positive terminal row still fails orientation |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -622,6 +625,26 @@ Evidence:
 - `reports/stage_a_base_z_bracket_report.md`
 - `runs/stage_a_base_z_bracket/20260524T165411/metrics.yaml`
 
+The positive base-z start-contact audit can additionally claim:
+
+```text
+ur10e_positive_base_z_start_contact:
+  case count = 8
+  start pass count = 8 / 8
+  terminal pass count = 0 / 8
+  max start-pass delta = +1.0 mm
+  max terminal-pass delta = none
+  terminal orientation failures = 8 / 8
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/positive_base_z_start_contact_report.md`
+- `runs/positive_base_z_start_contact/20260524T170350/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -699,9 +722,15 @@ Evidence:
   `base_z_plus_1mm` still lacks a passing start plus terminal target pair under
   this diagnostic search. It therefore still does not establish robustness.
 - The v67 base-z bracket audit shows no tested positive delta from `+0.05 mm`
-  through `+1.0 mm` has a passing start plus terminal pair, so the positive
-  side is not a timing-only problem. It also shows a `-0.75 mm` path anomaly.
-  It therefore still does not establish robustness.
+  through `+1.0 mm` has a passing start plus terminal pair under that compact
+  local search, so the positive side is not a timing-only problem. It also
+  shows a `-0.75 mm` path anomaly. It therefore still does not establish
+  robustness.
+- The v68 positive base-z start-contact audit corrects the v67 start-contact
+  interpretation: with broader deterministic and random seeds, positive-side
+  start contact passes through `+1.0 mm`. Terminal orientation still fails all
+  `8 / 8` positive deltas, so this does not prove terminal recovery, path
+  recovery, robustness, contact-model calibration, or hardware readiness.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -725,8 +754,7 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Investigate the positive-side contact-model/start-contact definition that
-fails already at `+0.05 mm`. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v67 diagnostic staged labels separate.
-Any hardware work still requires measured mounted-stack geometry and a separate
-approved SOP.
+Investigate the positive-side terminal orientation gate/model convention. Keep
+strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v68
+diagnostic staged labels separate. Any hardware work still requires measured
+mounted-stack geometry and a separate approved SOP.

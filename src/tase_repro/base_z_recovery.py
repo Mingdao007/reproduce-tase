@@ -169,3 +169,34 @@ def aggregate_base_z_bracket(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "max_positive_terminal_pass_delta_mm": max(positive_terminal_pass_mm) if positive_terminal_pass_mm else None,
         "max_positive_recovered_delta_mm": max(positive_recovered_mm) if positive_recovered_mm else None,
     }
+
+
+def aggregate_positive_start_contact(cases: list[dict[str, Any]]) -> dict[str, Any]:
+    start_pass_cases = [case["case"] for case in cases if case["start_search"]["passed"]]
+    terminal_pass_cases = [case["case"] for case in cases if case["terminal"]["passed"]]
+    contact_without_start_pass_cases = [
+        case["case"]
+        for case in cases
+        if not case["start_search"]["passed"] and case["start_search"]["best_target_contact_count"] >= 1
+    ]
+    start_pass_delta_mm = [
+        float(case["base_z_offset_delta_mm"])
+        for case in cases
+        if case["start_search"]["passed"]
+    ]
+    terminal_pass_delta_mm = [
+        float(case["base_z_offset_delta_mm"])
+        for case in cases
+        if case["terminal"]["passed"]
+    ]
+    return {
+        "case_count": len(cases),
+        "start_pass_count": len(start_pass_cases),
+        "terminal_pass_count": len(terminal_pass_cases),
+        "contact_without_start_pass_count": len(contact_without_start_pass_cases),
+        "start_pass_cases": start_pass_cases,
+        "terminal_pass_cases": terminal_pass_cases,
+        "contact_without_start_pass_cases": contact_without_start_pass_cases,
+        "max_start_pass_delta_mm": max(start_pass_delta_mm) if start_pass_delta_mm else None,
+        "max_terminal_pass_delta_mm": max(terminal_pass_delta_mm) if terminal_pass_delta_mm else None,
+    }

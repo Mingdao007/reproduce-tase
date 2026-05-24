@@ -2591,3 +2591,35 @@
 - Next step:
   Investigate the positive-side contact-model/start-contact definition that
   fails already at `+0.05 mm`.
+
+## 2026-05-24 v68 Positive Base-Z Start Contact Audit
+
+### Separate positive-side start contact from terminal orientation
+
+- Branch:
+  `exp/tase-ur10e-v68-positive-start-contact`
+- Run:
+  `runs/positive_base_z_start_contact/20260524T170350`
+- Report:
+  `reports/positive_base_z_start_contact_report.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/base_z_recovery.py scripts/audit_positive_base_z_start_contact.py`
+  - `scripts/run_tests.sh tests/test_base_z_recovery.py`
+  - `scripts/audit_positive_base_z_start_contact.py`
+- Result:
+  The positive base-z start-contact audit evaluates `8` positive deltas from
+  `+0.05 mm` through `+1.0 mm`. With deterministic single-joint, paired-joint,
+  and random seed sweeps, start contact passes `8 / 8` cases. The terminal
+  diagnostic gate passes `0 / 8`; every positive terminal row still fails the
+  orientation gate, with best orientation error rising from
+  `0.0838175590896232 rad` at `+0.05 mm` to `0.11948560786548146 rad` at
+  `+1.0 mm`.
+- Limit:
+  This is diagnostic-label simulation start-contact evidence only. It is not a
+  strict paper-equivalent claim, terminal recovery, path or stitched recovery,
+  robustness proof, contact-model calibration, or hardware readiness.
+- Validation:
+  Focused base-z tests passed with `5 passed in 0.00s`. Full tests passed with
+  `114 passed in 2.47s`; `git diff --check` passed.
+- Next step:
+  Investigate the positive-side terminal orientation gate/model convention.

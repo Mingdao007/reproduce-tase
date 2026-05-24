@@ -243,11 +243,14 @@ smoke runs regress.
 - The v67 base-z bracket audit shows the positive side fails before path
   reoptimization can run: no tested positive delta from `+0.05 mm` through
   `+1.0 mm` has a passing start plus terminal pair.
+- The v68 positive start-contact audit shows broader deterministic seeds can
+  recover the positive-side start contact through `+1.0 mm`; the terminal
+  orientation gate still fails all positive deltas.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should focus on
-the positive-side contact-model/start-contact definition. Keep contact, drift,
-terminal orientation, force error, and qdot saturation visible together.
+the positive-side terminal orientation gate/model convention. Keep contact,
+drift, terminal orientation, force error, and qdot saturation visible together.

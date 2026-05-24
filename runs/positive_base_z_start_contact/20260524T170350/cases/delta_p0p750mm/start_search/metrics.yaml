@@ -1,0 +1,68 @@
+case: delta_p0p750mm
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: 0.00075
+base_z_offset_m: -0.04537594095298278
+candidate_count: 115611
+pass_count: 13
+contact_candidate_count: 46197
+joint_sweep_rad: 0.08
+joint_sweep_count: 321
+pair_sweep_rad: 0.04
+pair_sweep_count: 161
+pair_sweep_joints:
+- - 1
+  - 2
+- - 2
+  - 5
+- - 2
+  - 3
+- - 3
+  - 5
+random_seed_count: 10000
+random_seed_std_rad: 0.03
+random_seed: 541
+thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.004
+best_candidate:
+  seed_label: joint1_+0.033500__joint2_-0.039500
+  q:
+  - 0.0
+  - -0.0665
+  - 0.11049999999999999
+  - -0.05
+  - 0.0
+  - 0.0
+  tcp_m:
+  - 0.0036252667015053133
+  - 0.0
+  - 4.864431157408644e-05
+  force_N: 4.920012792586338
+  force_error_N: 0.07998720741366228
+  tangential_error_m: 0.0013526627224379568
+  target_contact_count: 1
+  criteria:
+    force_error_N:
+      actual: 0.07998720741366228
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0013526627224379568
+      operator: <=
+      threshold: 0.004
+      passed: true
+    target_contact_count:
+      actual: 1
+      operator: '>='
+      threshold: 1
+      passed: true
+  failed_criteria: []
+  passed: true
+  max_gate_ratio: 0.3381656806094892
+warnings:
+- start-contact candidate search only
+- not terminal, path, trajectory, robustness, or hardware evidence

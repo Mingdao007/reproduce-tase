@@ -1808,6 +1808,30 @@ Legacy source root:
   strict paper-equivalent claim, a robustness proof, contact-model calibration,
   or hardware evidence.
 
+## V68 Positive Base-Z Start Contact Audit
+
+### Positive-side start-contact recovery and terminal-orientation split
+
+- Run:
+  - `runs/positive_base_z_start_contact/20260524T170350`
+- Command:
+  `scripts/audit_positive_base_z_start_contact.py`
+- Git state at run time:
+  parent commit `df2790d834c4cb2b4fabc8c549444b28304a9d26` with dirty v68
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus compact start-search and terminal summaries for each positive delta.
+- Result:
+  The audit evaluates `8` positive base-z deltas from `+0.05 mm` through
+  `+1.0 mm`. Broader start-contact seed sweeps recover start contact for
+  `8 / 8` cases. The terminal diagnostic gate passes `0 / 8`; every positive
+  terminal row still fails orientation.
+- Limit:
+  This is diagnostic-label simulation start-contact evidence only. It is not a
+  strict paper-equivalent claim, terminal recovery, path or stitched recovery,
+  a robustness proof, contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

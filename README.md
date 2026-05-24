@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v67-base-z-bracket`
+Current branch: `exp/tase-ur10e-v68-positive-start-contact`
 
 ## Scope
 
@@ -65,6 +65,9 @@ base-z cases: `base_z_minus_1mm_stage_a_16s_recovery` passes, but the exact
 v67 brackets the base-z model perturbation and finds no positive-delta recovery
 from `+0.05 mm` through `+1.0 mm`; the positive side loses start contact and
 exceeds the terminal orientation gate before any path can be tested.
+v68 widens the start-contact search and shows positive-delta start contact is
+recoverable through `+1.0 mm`; the remaining positive-side blocker is terminal
+orientation, not the Stage A start contact.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

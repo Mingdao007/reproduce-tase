@@ -227,6 +227,9 @@ them rather than deleting them.
   through `+1.0 mm` has both start and terminal feasibility. Nominal,
   `-0.25 mm`, and `-0.5 mm` recover at `15.0 s`; `-1.0 mm` recovers only at
   `16.0 s`; `-0.75 mm` exposes a path-optimization anomaly.
+- The v68 positive base-z start-contact audit shows the positive-side start
+  contact itself is recoverable through `+1.0 mm` with broader deterministic
+  seed sweeps. Terminal orientation still fails all positive deltas.
 
 ## Next Executable Step
 
@@ -235,8 +238,9 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future UR10e experiment branches should stress-test the v63 stitched
 policy before treating it as more than a nominal diagnostic staged pass. v64
 did the first stress test, v65 recovered the qdot/timing side, v66 recovered
-only the `-1 mm` base-z case with a `16.0 s` Stage A duration, and v67 brackets
-the positive side down to `+0.05 mm`. The main remaining simulation gap is the
-positive-side contact-model/start-contact definition. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v67
+only the `-1 mm` base-z case with a `16.0 s` Stage A duration, v67 bracketed
+the positive side down to `+0.05 mm`, and v68 separated positive-side start
+contact from terminal orientation. The main remaining simulation gap is the
+positive-side terminal orientation gate/model convention. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v68
 diagnostic staged labels separate.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from tase_repro.base_z_recovery import (
     aggregate_base_z_bracket,
+    aggregate_positive_start_contact,
     aggregate_base_z_recovery,
     base_z_delta_label,
     summarize_base_z_recovery_case,
@@ -145,3 +146,27 @@ def test_base_z_bracket_aggregate_counts_duration_recovery() -> None:
     assert aggregate["duration_recovered_cases"] == ["delta_p0p250mm@16.0"]
     assert aggregate["max_positive_terminal_pass_delta_mm"] == 0.25
     assert aggregate["max_positive_recovered_delta_mm"] == 0.25
+
+
+def test_positive_start_contact_aggregate_distinguishes_contact_from_gate_pass() -> None:
+    cases = [
+        {
+            "case": "delta_p0p500mm",
+            "base_z_offset_delta_mm": 0.5,
+            "start_search": {"passed": True, "best_target_contact_count": 1},
+            "terminal": {"passed": False},
+        },
+        {
+            "case": "delta_p1p000mm",
+            "base_z_offset_delta_mm": 1.0,
+            "start_search": {"passed": False, "best_target_contact_count": 1},
+            "terminal": {"passed": False},
+        },
+    ]
+
+    aggregate = aggregate_positive_start_contact(cases)
+
+    assert aggregate["start_pass_cases"] == ["delta_p0p500mm"]
+    assert aggregate["terminal_pass_cases"] == []
+    assert aggregate["contact_without_start_pass_cases"] == ["delta_p1p000mm"]
+    assert aggregate["max_start_pass_delta_mm"] == 0.5

@@ -1,0 +1,361 @@
+run_id: 20260524T170350
+source: positive base-z start-contact diagnostic search
+base_z_deltas_mm:
+- 0.05
+- 0.1
+- 0.15
+- 0.2
+- 0.25
+- 0.5
+- 0.75
+- 1.0
+aggregate:
+  case_count: 8
+  start_pass_count: 8
+  terminal_pass_count: 0
+  contact_without_start_pass_count: 0
+  start_pass_cases:
+  - delta_p0p050mm
+  - delta_p0p100mm
+  - delta_p0p150mm
+  - delta_p0p200mm
+  - delta_p0p250mm
+  - delta_p0p500mm
+  - delta_p0p750mm
+  - delta_p1p000mm
+  terminal_pass_cases: []
+  contact_without_start_pass_cases: []
+  max_start_pass_delta_mm: 1.0
+  max_terminal_pass_delta_mm: null
+parameters:
+  joint_sweep_rad: 0.08
+  joint_sweep_count: 321
+  pair_sweep_rad: 0.04
+  pair_sweep_count: 161
+  pair_sweep_joints: 1:2,2:5,2:3,3:5
+  random_seed_count: 10000
+  random_seed_std_rad: 0.03
+  random_seed: 541
+  terminal_random_seed_count: 512
+  terminal_random_seed_std_rad: 0.15
+  terminal_random_seed: 37
+  terminal_max_nfev: 300
+cases:
+- case: delta_p0p050mm
+  base_z_offset_delta_m: 5.0e-05
+  base_z_offset_delta_mm: 0.05
+  start_search:
+    passed: true
+    pass_count: 132
+    candidate_count: 115611
+    contact_candidate_count: 56449
+    best_seed: joint3_+0.003000__joint5_-0.009000
+    best_force_error_N: 0.0043113621525501244
+    best_tangential_error_m: 3.0003869991209083e-05
+    best_force_N: 5.00431136215255
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.047
+    - 0.0
+    - -0.009000000000000001
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_164
+    force_error_N: 0.0008699274013377334
+    tangential_error_m: 0.0020703168129460998
+    orientation_error_rad: 0.0838175590896232
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -8.570499805313102e-09
+    - -0.023373849172367164
+    - -0.0004508658621282807
+    - 0.00027957173839832257
+    - 2.974134639201747e-10
+    - 0.11426050944059446
+- case: delta_p0p100mm
+  base_z_offset_delta_m: 0.0001
+  base_z_offset_delta_mm: 0.1
+  start_search:
+    passed: true
+    pass_count: 143
+    candidate_count: 115611
+    contact_candidate_count: 55719
+    best_seed: joint3_+0.004500__joint5_-0.012000
+    best_force_error_N: 0.020717782163206522
+    best_tangential_error_m: 0.00026250563903843817
+    best_force_N: 5.0207177821632065
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.045500000000000006
+    - 0.0
+    - -0.012
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_012
+    force_error_N: 0.0008976407522842678
+    tangential_error_m: 0.0021368298309197976
+    orientation_error_rad: 0.08565245135290023
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -8.11856619597856e-09
+    - -0.022886450623667755
+    - -0.0004465751968388975
+    - 0.00027266717252904285
+    - 2.3458590117003193e-10
+    - 0.11194083252919781
+- case: delta_p0p150mm
+  base_z_offset_delta_m: 0.00015
+  base_z_offset_delta_mm: 0.15
+  start_search:
+    passed: true
+    pass_count: 143
+    candidate_count: 115611
+    contact_candidate_count: 55037
+    best_seed: joint3_+0.006000__joint5_-0.015000
+    best_force_error_N: 0.0024986436865441775
+    best_tangential_error_m: 0.0004950068174480885
+    best_force_N: 4.997501356313456
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.044000000000000004
+    - 0.0
+    - -0.015
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_411
+    force_error_N: 0.0009261108784768268
+    tangential_error_m: 0.0022050853431446714
+    orientation_error_rad: 0.0874945141256073
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 9.69731649840358e-09
+    - -0.022395001142904707
+    - -0.0004421155495257384
+    - 0.0002656829255510863
+    - -3.005701891817745e-10
+    - 0.1096098448753927
+- case: delta_p0p200mm
+  base_z_offset_delta_m: 0.0002
+  base_z_offset_delta_mm: 0.2
+  start_search:
+    passed: true
+    pass_count: 138
+    candidate_count: 115611
+    contact_candidate_count: 54294
+    best_seed: joint3_+0.009000__joint5_-0.023500
+    best_force_error_N: 0.04426348783838385
+    best_tangential_error_m: 0.0005975372244772861
+    best_force_N: 4.955736512161616
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.041
+    - 0.0
+    - -0.0235
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_328
+    force_error_N: 0.0009553704213711711
+    tangential_error_m: 0.0022751499985566013
+    orientation_error_rad: 0.08934348318237911
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -1.0364889012811563e-08
+    - -0.021899507700215776
+    - -0.00043741004332752896
+    - 0.0002585951092996044
+    - 2.5879245467048296e-10
+    - 0.10726776468598527
+- case: delta_p0p250mm
+  base_z_offset_delta_m: 0.00025
+  base_z_offset_delta_mm: 0.25
+  start_search:
+    passed: true
+    pass_count: 145
+    candidate_count: 115611
+    contact_candidate_count: 53648
+    best_seed: joint1_+0.022000__joint2_-0.028500
+    best_force_error_N: 0.02572023701773496
+    best_tangential_error_m: 0.000814917190296382
+    best_force_N: 5.025720237017735
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.07800000000000001
+    - 0.1215
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_227
+    force_error_N: 0.000985454075132175
+    tangential_error_m: 0.0023470950296544148
+    orientation_error_rad: 0.09119904265401833
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -7.477657758674608e-09
+    - -0.021399661058702602
+    - -0.0004328252343050522
+    - 0.0002514219798896234
+    - 2.0296168521061363e-10
+    - 0.10491494689322009
+- case: delta_p0p500mm
+  base_z_offset_delta_m: 0.0005
+  base_z_offset_delta_mm: 0.5
+  start_search:
+    passed: true
+    pass_count: 109
+    candidate_count: 115611
+    contact_candidate_count: 50037
+    best_seed: joint1_+0.027000__joint2_-0.033000
+    best_force_error_N: 0.07328844161217152
+    best_tangential_error_m: 0.00031519335583544885
+    best_force_N: 4.9267115583878285
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.07300000000000001
+    - 0.11699999999999999
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_269
+    force_error_N: 0.0011495443133044958
+    tangential_error_m: 0.002737670736385471
+    orientation_error_rad: 0.10056247728510045
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -1.7023657755191496e-09
+    - -0.01883596373515915
+    - -0.0004095187254174353
+    - 0.00021475254364954372
+    - 2.876130095000642e-10
+    - 0.09300117786594672
+- case: delta_p0p750mm
+  base_z_offset_delta_m: 0.00075
+  base_z_offset_delta_mm: 0.75
+  start_search:
+    passed: true
+    pass_count: 13
+    candidate_count: 115611
+    contact_candidate_count: 46197
+    best_seed: joint1_+0.033500__joint2_-0.039500
+    best_force_error_N: 0.07998720741366228
+    best_tangential_error_m: 0.0013526627224379568
+    best_force_N: 4.920012792586338
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.0665
+    - 0.11049999999999999
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_153
+    force_error_N: 0.0013403179924091901
+    tangential_error_m: 0.003187388739474933
+    orientation_error_rad: 0.11002164736335575
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 3.185887962546853e-08
+    - -0.01616314345038177
+    - -0.00038596476219299994
+    - 0.000176506211527681
+    - -2.0597171121503152e-10
+    - 0.08088387987181599
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  start_search:
+    passed: true
+    pass_count: 6
+    candidate_count: 115611
+    contact_candidate_count: 42290
+    best_seed: joint1_+0.033500__joint2_-0.037000
+    best_force_error_N: 0.14209391841232932
+    best_tangential_error_m: 0.0030145867556624815
+    best_force_N: 5.142093918412329
+    best_target_contact_count: 1
+    best_failed_criteria: []
+    best_q:
+    - 0.0
+    - -0.0665
+    - 0.11299999999999999
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_184
+    force_error_N: 0.0015639424746973773
+    tangential_error_m: 0.0037081102250263293
+    orientation_error_rad: 0.11948560786548146
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 2.4301307228908532e-08
+    - -0.013382708679140294
+    - -0.00036297777643642904
+    - 0.00013685157798432314
+    - 9.345517764106481e-11
+    - 0.06865615224623349
+warnings:
+- start-contact diagnostic search only
+- not terminal/path/trajectory recovery
+- not strict paper-equivalent feasibility
+- not contact-model calibration
+- not hardware-ready

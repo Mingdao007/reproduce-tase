@@ -1425,3 +1425,26 @@
   start-contact definition instead of adding only more Stage A timing margin.
   The project still must not claim robustness, strict paper-equivalent
   feasibility, contact-model calibration, or hardware readiness.
+
+## D073: Treat Positive Base-Z Failure As Terminal-Orientation Limited
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v68 as evidence that the positive base-z side is no longer a
+  start-contact recovery problem under the broader diagnostic seed search; the
+  remaining audited blocker is terminal orientation.
+- Reason:
+  The v68 run at `runs/positive_base_z_start_contact/20260524T170350`
+  evaluates eight positive deltas from `+0.05 mm` through `+1.0 mm`. The
+  broader deterministic single-joint, paired-joint, and random start-contact
+  seeds recover start contact for `8 / 8` cases. The compact terminal probe
+  still passes `0 / 8`, and the best terminal orientation error increases from
+  `0.0838175590896232 rad` at `+0.05 mm` to
+  `0.11948560786548146 rad` at `+1.0 mm`.
+- Consequence:
+  The next branch should investigate the positive-side terminal orientation
+  gate, desired force-normal convention, or contact-point model instead of
+  spending another iteration only on start-contact recovery. The project still
+  must not claim robustness, strict paper-equivalent feasibility,
+  contact-model calibration, or hardware readiness.
