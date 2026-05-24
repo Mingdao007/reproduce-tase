@@ -30,7 +30,9 @@ def write_summary(out_dir: pathlib.Path, run_id: str, payload: dict) -> None:
         "",
         f"Run id: `{run_id}`",
         "",
-        f"Parity pass: `{result['paper_platform_parity_pass']}`",
+        f"Legacy strict aggregate pass: `{result['paper_platform_parity_pass']}`",
+        f"Formula convergence pass: `{result['paper_platform_formula_convergence_pass']}`",
+        f"Figure-match landmark pass: `{result['paper_platform_figure_match_landmark_pass']}`",
         "",
         "Candidate:",
         "",
@@ -38,11 +40,22 @@ def write_summary(out_dir: pathlib.Path, run_id: str, payload: dict) -> None:
         f"- Metrics: `{result['candidate']['metrics_path']}`",
         f"- Raw arrays: `{result['candidate']['raw_npz_path']}`",
         "",
-        "Strict checks:",
+        "Claim levels:",
         "",
-        "| Check | Pass | Detail |",
+        "| Claim Level | Pass | Boundary |",
         "| --- | ---: | --- |",
     ]
+    for name, claim in result["claim_results"].items():
+        lines.append(f"| `{name}` | `{claim['pass']}` | {claim['boundary']} |")
+    lines.extend(
+        [
+            "",
+            "Legacy strict aggregate checks:",
+            "",
+            "| Check | Pass | Detail |",
+            "| --- | ---: | --- |",
+        ]
+    )
     for name in result["strict_required_checks"]:
         check = result["checks"][name]
         detail = _check_detail(check)
@@ -125,7 +138,20 @@ def main() -> int:
         json.dump(payload, f, indent=2)
     write_summary(out_dir, run_id, payload)
     print(f"wrote {out_dir}")
-    print(yaml.safe_dump({"paper_platform_parity_pass": result["paper_platform_parity_pass"]}, sort_keys=False).strip())
+    print(
+        yaml.safe_dump(
+            {
+                "paper_platform_parity_pass": result["paper_platform_parity_pass"],
+                "paper_platform_formula_convergence_pass": result[
+                    "paper_platform_formula_convergence_pass"
+                ],
+                "paper_platform_figure_match_landmark_pass": result[
+                    "paper_platform_figure_match_landmark_pass"
+                ],
+            },
+            sort_keys=False,
+        ).strip()
+    )
     if args.fail_on_parity_failure and not result["paper_platform_parity_pass"]:
         return 1
     return 0

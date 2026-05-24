@@ -180,23 +180,68 @@ def evaluate_paper_platform_parity(config_path: Path, repo_root: Path | None = N
     checks["fig5_r_sweep_coverage"] = _fig5_r_sweep_check(gate.get("candidate_fig5_r_sweep", {}), repo_root)
     checks["paper_assumption_compatibility"] = _paper_assumption_check(candidate_config, required)
 
-    strict_required_checks = [
+    formula_convergence_required_checks = [
         "candidate_execution_contact_bounds",
         f"legacy_{primary_name}_overall",
-        f"legacy_{fig6_name}_overall",
         "tail_force_error_against_formula",
         "tail_position_error_against_formula",
         "tail_orientation_error_against_formula",
         "duration_coverage",
-        "fig6_q7_22s_landmark",
         "fig5_r_sweep_coverage",
         "paper_assumption_compatibility",
     ]
-    parity_pass = all(bool(checks[name]["pass"]) for name in strict_required_checks)
+    figure_match_landmark_required_checks = [
+        f"legacy_{fig6_name}_overall",
+        "fig6_q7_22s_landmark",
+    ]
+    legacy_strict_required_checks = [
+        *formula_convergence_required_checks,
+        *figure_match_landmark_required_checks,
+    ]
+    formula_convergence_pass = _all_checks_pass(checks, formula_convergence_required_checks)
+    figure_match_landmark_pass = _all_checks_pass(checks, figure_match_landmark_required_checks)
+    parity_pass = _all_checks_pass(checks, legacy_strict_required_checks)
+    claim_results = {
+        "formula_convergence": {
+            "pass": formula_convergence_pass,
+            "required_checks": formula_convergence_required_checks,
+            "claim": "paper_platform_7dof_formula_convergence",
+            "boundary": (
+                "passes execution/contact/bounds, duration, Fig.5 coverage, "
+                "paper-assumption compatibility, and tail convergence against "
+                "the formula-faithful legacy reference; does not claim full "
+                "q-trajectory or Fig.6 landmark parity"
+            ),
+        },
+        "figure_match_landmark": {
+            "pass": figure_match_landmark_pass,
+            "required_checks": figure_match_landmark_required_checks,
+            "claim": "paper_platform_7dof_figure_match_landmark",
+            "boundary": (
+                "tracks the tuned legacy figure-match q7 landmark separately "
+                "from formula-faithful parity because v49-v50 provenance shows "
+                "that landmark uses explicit figure-match tuning"
+            ),
+        },
+        "legacy_strict_all_checks": {
+            "pass": parity_pass,
+            "required_checks": legacy_strict_required_checks,
+            "claim": gate["claim"],
+            "boundary": (
+                "backward-compatible aggregate requiring both formula convergence "
+                "and the tuned figure-match q7 landmark"
+            ),
+        },
+    }
     return {
         "claim": gate["claim"],
         "paper_platform_parity_pass": parity_pass,
-        "strict_required_checks": strict_required_checks,
+        "paper_platform_formula_convergence_pass": formula_convergence_pass,
+        "paper_platform_figure_match_landmark_pass": figure_match_landmark_pass,
+        "strict_required_checks": legacy_strict_required_checks,
+        "formula_convergence_required_checks": formula_convergence_required_checks,
+        "figure_match_landmark_required_checks": figure_match_landmark_required_checks,
+        "claim_results": claim_results,
         "candidate": {
             "label": candidate_info.get("label", ""),
             "metrics_path": _display_path(candidate_metrics_path, repo_root),
@@ -208,7 +253,7 @@ def evaluate_paper_platform_parity(config_path: Path, repo_root: Path | None = N
         "primary_convergence_reference": primary_name,
         "fig6_landmark_reference": fig6_name,
         "checks": checks,
-        "interpretation": _interpretation(parity_pass, checks),
+        "interpretation": _interpretation(claim_results, checks),
     }
 
 
@@ -246,6 +291,10 @@ def _display_path(path: Path, repo_root: Path) -> str:
 
 def _check(pass_value: bool, **values: Any) -> dict[str, Any]:
     return {"pass": bool(pass_value), **values}
+
+
+def _all_checks_pass(checks: dict[str, dict[str, Any]], required_checks: list[str]) -> bool:
+    return all(bool(checks[name]["pass"]) for name in required_checks)
 
 
 def _compare_candidate_to_reference(
@@ -362,8 +411,16 @@ def _numeric_key(value: Any) -> str:
     return f"{float(value):.10g}"
 
 
-def _interpretation(parity_pass: bool, checks: dict[str, dict[str, Any]]) -> str:
-    if parity_pass:
-        return "strict paper-platform parity gate passed"
+def _interpretation(claim_results: dict[str, dict[str, Any]], checks: dict[str, dict[str, Any]]) -> str:
+    formula_pass = bool(claim_results["formula_convergence"]["pass"])
+    figure_pass = bool(claim_results["figure_match_landmark"]["pass"])
+    strict_pass = bool(claim_results["legacy_strict_all_checks"]["pass"])
+    if strict_pass:
+        return "legacy strict aggregate passed: formula convergence and figure-match landmark both pass"
     failed = [name for name, payload in checks.items() if not payload["pass"]]
-    return "strict paper-platform parity gate failed: " + ", ".join(failed)
+    if formula_pass and not figure_pass:
+        return (
+            "formula-convergence claim passed, but legacy strict aggregate remains failed "
+            "because tuned figure-match landmark checks failed: " + ", ".join(failed)
+        )
+    return "paper-platform split gate failed: " + ", ".join(failed)
