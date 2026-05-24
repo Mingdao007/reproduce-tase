@@ -1253,6 +1253,39 @@ Legacy source root:
   Fig.6 q7-at-22 s mismatch, missing Python Fig.5 r-sweep coverage, and the
   finite force-integral cap.
 
+## V46 Paper 7DOF Fig.5 r Sweep
+
+### Python-side Fig.5 coverage for strict parity gate
+
+- Run:
+  - `runs/paper_7dof_fig5_r_sweep/20260524T121033`
+- Command:
+  `scripts/run_paper_7dof_fig5_r_sweep.py --duration-s 2.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Git state at run time:
+  code commit `43f71fd79988f4f28549e213f542a3fa2fd30d28`, clean before
+  output creation.
+- Tracked lightweight artifacts:
+  top-level `summary.yaml`, `summary.json`, `summary.md`, plus per-r
+  `metrics.yaml`, `metrics.json`, and `summary.md` under `r_0p2`, `r_0p4`,
+  `r_0p6`, `r_0p8`, and `r_1p0`.
+- Result:
+  All five r rows executed successfully and are now wired into
+  `configs/paper_platform_parity.yaml`.
+
+### Parity gate after Fig.5 coverage
+
+- Run:
+  - `runs/paper_platform_parity_eval/20260524T121116`
+- Command:
+  `scripts/evaluate_paper_platform_parity.py`
+- Git state at run time:
+  commit `b0059d8ece3bb140a5a27b8aa9efebba927b1679`, clean before output
+  creation.
+- Result:
+  `paper_platform_parity_pass = false`. The gate now passes Fig.5 r-sweep
+  coverage. Remaining failures are Fig.6 q7-at-22 s mismatch and the finite
+  force-integral cap.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

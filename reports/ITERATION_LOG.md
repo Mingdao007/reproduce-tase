@@ -1699,3 +1699,45 @@
   Investigate the Fig.6 q7 landmark mismatch, add Python Fig.5 r-sweep
   coverage, or remove/justify the force-integral cap before making stronger
   paper-platform claims.
+
+## 2026-05-24 v46 Paper 7DOF Fig.5 r Sweep
+
+- Branch: `exp/tase-ur10e-v46-paper-7dof-fig5-sweep`
+- Starting commit: `59075df3bae1b03811208227ee8db7a2b030e39e`
+- Code commit:
+  `43f71fd79988f4f28549e213f542a3fa2fd30d28`
+- Files added:
+  - `scripts/run_paper_7dof_fig5_r_sweep.py`
+  - `reports/paper_7dof_fig5_sweep_report.md`
+  - `runs/paper_7dof_fig5_r_sweep/20260524T121033/**`
+  - `runs/paper_platform_parity_eval/20260524T121116/metrics.yaml`
+  - `runs/paper_platform_parity_eval/20260524T121116/metrics.json`
+  - `runs/paper_platform_parity_eval/20260524T121116/summary.md`
+- Files updated:
+  - `configs/paper_platform_parity.yaml`
+  - `src/tase_repro/paper_platform_parity.py`
+  - `tests/test_paper_platform_parity.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_platform_parity.py`
+  - `scripts/run_paper_7dof_fig5_r_sweep.py --duration-s 2.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+  - `scripts/evaluate_paper_platform_parity.py`
+- Result:
+  Added Python 7DOF Fig.5 r-sweep coverage and made the parity gate validate
+  each configured r metrics file. The v46 gate passes duration, Fig.5
+  coverage, and formula-faithful tail convergence checks. Strict parity still
+  fails on `fig6_q7_22s_landmark` and `paper_assumption_compatibility`.
+- Limit:
+  Fig.5 coverage is not Fig.5 numerical parity. The r-sweep rows are
+  diagnostic and use the same capped-integral assumption as the current
+  candidate.
+- Next step:
+  Investigate the q7-at-22 s mismatch or remove/justify the force-integral
+  cap.

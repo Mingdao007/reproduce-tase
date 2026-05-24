@@ -77,10 +77,13 @@ the decision record and revert only the affected controller commit.
   records q7 at 22 s. It still fails strict parity because q7 at 22 s is
   `1.6755097668200787 rad` rather than `2.5 rad`, Fig.5 r-sweep coverage is
   missing, and the force-integral cap remains an adapted assumption.
+- The v46 Python 7DOF Fig.5 sweep closes the Fig.5 coverage gap. Strict
+  parity still fails because q7 at 22 s remains mismatched and the
+  force-integral cap remains an adapted assumption.
 
 ## Next Executable Step
 
-For the paper-platform line, investigate the q7-at-22 s mismatch, add Fig.5
-r-sweep outputs, remove or justify the force-integral cap, or verify the
-Panda/Franka DH model before upgrading the claim. Keep this separate from
-UR10e adapted controller iterations.
+For the paper-platform line, investigate the q7-at-22 s mismatch, remove or
+justify the force-integral cap, or verify the Panda/Franka DH model before
+upgrading the claim. Keep this separate from UR10e adapted controller
+iterations.

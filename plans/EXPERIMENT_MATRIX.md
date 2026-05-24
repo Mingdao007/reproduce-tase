@@ -139,6 +139,9 @@ them rather than deleting them.
   formula-faithful tail convergence tolerances, but strict parity still fails
   on the Fig.6 q7-at-22 s landmark, missing Python Fig.5 r-sweep coverage,
   and the capped-integral assumption.
+- The v46 Python 7DOF Fig.5 sweep provides one 0-2 s metrics file per paper r
+  value and makes the strict parity gate pass Fig.5 coverage. Strict parity
+  still fails on the q7-at-22 s landmark and the capped-integral assumption.
 
 ## Next Executable Step
 
@@ -147,5 +150,5 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should target the measured q7-at-22 s mismatch, add Fig.5 r-sweep coverage,
-or remove/justify the capped-integral force loop assumption.
+should target the measured q7-at-22 s mismatch or remove/justify the
+capped-integral force loop assumption.

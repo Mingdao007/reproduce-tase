@@ -2,13 +2,13 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v45-paper-7dof-30s-candidate`
+Branch: `exp/tase-ur10e-v46-paper-7dof-fig5-sweep`
 
 ## Scope
 
 This report defines and applies the strict paper-platform parity gate for the
 separate Python 7DOF Section V diagnostic line. The current gate compares the
-v45 30 s Python capped-integral KKT candidate against the migrated legacy
+v46-configured Python capped-integral KKT candidate against the migrated legacy
 MATLAB/RNN verification outputs without upgrading the claim to
 paper-equivalent parity.
 
@@ -25,7 +25,7 @@ paper-equivalent parity.
 - Gate config:
   `configs/paper_platform_parity.yaml`
 - Gate output:
-  `runs/paper_platform_parity_eval/20260524T120503`
+  `runs/paper_platform_parity_eval/20260524T121116`
 
 ## Gate Definition
 
@@ -61,6 +61,8 @@ Passing checks:
   `2.332705910172063e-05 rad`, tolerance `0.0001 rad`.
 - Duration coverage passes: candidate duration is `30.0 s`, required duration
   is `30.0 s`.
+- Fig.5 r-sweep coverage passes: the gate validates one metrics file for each
+  required r value over the required `2.0 s` window.
 
 Failing checks:
 
@@ -68,23 +70,21 @@ Failing checks:
   `q7 = 1.6755097668200787 rad` at `22.0 s`; the figure-match reference is
   `2.5 rad`, so the absolute delta is `0.8244902331799213 rad` against a
   `0.05 rad` tolerance.
-- Fig.5 r-sweep coverage fails: no candidate Python 7DOF metrics are
-  configured for `r = 0.2, 0.4, 0.6, 0.8, 1.0`.
 - Paper-assumption compatibility fails: `force_integral_limit = 0.1` is a
   diagnostic anti-windup assumption, not PDF-verified paper truth.
 
 ## Claim Boundary
 
-The Python v45 candidate now has a formal partial result: its 30 s run covers
-the Fig.6 duration and its tail convergence metrics are close to the
-formula-faithful legacy MATLAB/RNN reference under the configured tolerances.
-It still cannot be called paper-equivalent numerical parity because the strict
-gate fails on the Fig.6 q7 landmark, Fig.5 sweep coverage, and the
-capped-integral assumption.
+The Python candidate now has a formal partial result: its 30 s run covers the
+Fig.6 duration, its tail convergence metrics are close to the formula-faithful
+legacy MATLAB/RNN reference under the configured tolerances, and Python Fig.5
+r-sweep coverage is present. It still cannot be called paper-equivalent
+numerical parity because the strict gate fails on the Fig.6 q7 landmark and
+the capped-integral assumption.
 
 ## Next Step
 
 To pursue paper-platform parity, investigate why q7 at 22 s is far from the
-figure-match reference, add Python Fig.5 r-sweep outputs, and remove or
-justify the finite force-integral cap from paper truth. Keep this path
-separate from UR10e adapted simulation and hardware readiness claims.
+figure-match reference and remove or justify the finite force-integral cap
+from paper truth. Keep this path separate from UR10e adapted simulation and
+hardware readiness claims.

@@ -953,3 +953,24 @@
   Future parity work should focus on the q7 landmark mismatch, Fig.5 r-sweep
   coverage, and paper justification or removal of the integral cap. The v45
   run is not paper-equivalent numerical parity and not hardware readiness.
+
+## D051: Treat Python 7DOF Fig.5 r-Sweep Coverage As Present But Not Parity
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add Python 7DOF Fig.5 r-sweep metrics for `r = 0.2, 0.4, 0.6, 0.8, 1.0` and
+  allow the strict parity gate to pass the Fig.5 coverage check when each
+  metrics file has the expected r value, `execution_success = true`, and a
+  `2.0 s` window.
+- Reason:
+  The v46 sweep at `runs/paper_7dof_fig5_r_sweep/20260524T121033` records a
+  clean 0-2 s Python 7DOF diagnostic for every paper r value. The parity
+  evaluation at `runs/paper_platform_parity_eval/20260524T121116` now passes
+  `fig5_r_sweep_coverage`, while strict parity remains failed on
+  `fig6_q7_22s_landmark` and `paper_assumption_compatibility`.
+- Consequence:
+  Future paper-platform claims can say Python Fig.5 r-sweep coverage exists,
+  but not that Fig.5 numerical parity is achieved. The remaining
+  paper-platform blockers are the q7 landmark mismatch and the finite
+  force-integral cap.

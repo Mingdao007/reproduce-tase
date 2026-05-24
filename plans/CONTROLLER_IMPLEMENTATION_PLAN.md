@@ -167,6 +167,8 @@ smoke runs regress.
   legacy Fig.6 duration. Tail convergence still agrees with the
   formula-faithful reference, but q7 at 22 s is `1.6755097668200787 rad`
   rather than the figure-match `2.5 rad`.
+- The v46 Python 7DOF Fig.5 sweep records all required r values over 0-2 s
+  windows. The strict parity gate now passes Fig.5 r-sweep coverage.
 
 ## Next Executable Step
 
@@ -176,6 +178,6 @@ task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
-paper-platform work should target the q7 landmark mismatch, Fig.5 r-sweep
-coverage, and an uncapped or paper-justified force loop. Keep contact, drift,
-terminal orientation, force error, and qdot saturation visible together.
+paper-platform work should target the q7 landmark mismatch and an uncapped or
+paper-justified force loop. Keep contact, drift, terminal orientation, force
+error, and qdot saturation visible together.
