@@ -1115,3 +1115,52 @@
 - Next step:
   Stop duration-only Stage A changes for E2. Add a posture/nullspace objective
   or otherwise change the terminal configuration before retesting E2.
+
+## 2026-05-24 v32 E2 Posture Regularization
+
+- Branch: `exp/tase-ur10e-v32-posture-regularization`
+- Starting commit: `e1af9174121dedb56af4489dcffbe06f3ef8cb9b`
+- Files added:
+  - `reports/e2_posture_regularization_report.md`
+  - `runs/staged_orientation_e2_posture_regularization/20260524T102224`
+- Files updated:
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `src/tase_repro/constraints.py`
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `src/tase_repro/staged_force_motion.py`
+  - `tests/test_constraints.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 - <<'PY' ... v32 posture matrix and summary aggregation ... PY`
+  - `python3 - <<'PY' ... summary aggregate check ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_e2_posture_regularization/20260524T102224/<case> --approach-duration-s 4.0 --trajectory-duration-s 8.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --approach-qdot-limit-rad-s 0.25 --trajectory-qdot-limit-rad-s 0.15 --trajectory e2-figure-eight --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode weighted --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.10 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03 [optional posture flags]`
+- Result:
+  The controller now supports an optional joint-velocity posture target inside
+  the bounded solve. In `linear-primary` mode, the primary linear solve keeps
+  its existing behavior while the posture target is applied in the secondary
+  objective that preserves primary TCP linear velocity. The 10-case E2 matrix
+  produced `10 / 10` approach terminal-orientation passes, `0 / 10` approach
+  ordinary-feasibility passes, `4 / 10` trajectory-after-approach passes, and
+  `0 / 10` full staged-feasibility passes. Moderate trajectory posture
+  weighting (`0.001` and `0.01`) removes the E2 qdot saturation failure;
+  strong approach posture weighting (`0.1`) breaks contact/force tracking.
+  Validation passed with `58 passed in 1.21s`, `git diff --check`, and
+  aggregate check `10 0 4 0`.
+- Limit:
+  This fixes the isolated E2 Stage B blocker after the current relaxed
+  weighted prealignment, but it does not fix Stage A. The result remains
+  simulation-only and is not hardware-ready.
+- Next step:
+  Preserve the moderate trajectory posture objective and retest the staged
+  E1-E4 matrix, or focus directly on a new Stage A task structure that avoids
+  sustained qdot saturation and unbounded drift.

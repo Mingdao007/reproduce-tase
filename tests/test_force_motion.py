@@ -260,6 +260,43 @@ def test_contact_normal_velocity_mode_commands_along_tilted_normal() -> None:
     )
 
 
+def test_planar_force_motion_joint_posture_target_records_capped_velocity_target() -> None:
+    model = load_model(MODEL_PATH)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+    initial_q = np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0])
+    posture_target = initial_q + np.array([0.2, -0.1, 0.05, 0.0, 0.0, 0.0])
+
+    def stationary_planar_state(_: float) -> PlanarTrajectoryState:
+        return PlanarTrajectoryState(
+            displacement_m=np.zeros(2, dtype=float),
+            velocity_m_s=np.zeros(2, dtype=float),
+        )
+
+    result = simulate_planar_force_motion(
+        MODEL_PATH,
+        initial_q=initial_q,
+        base_z_offset_m=-0.0009710693359375,
+        target_force_N=5.0,
+        planar_trajectory=stationary_planar_state,
+        duration_s=0.002,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.0,
+        joint_posture_target=posture_target,
+        joint_posture_kp=1.0,
+        joint_posture_weight=1.0,
+        max_joint_posture_velocity_rad_s=0.03,
+    )
+
+    assert result.commanded_joint_velocity_target.shape == (1, model.nv)
+    assert np.max(np.abs(result.commanded_joint_velocity_target)) <= 0.03 + 1e-12
+    assert np.linalg.norm(result.commanded_joint_velocity_target[0]) > 0.0
+
+
 def test_planar_force_motion_force_normal_orientation_records_metrics() -> None:
     model = load_model(MODEL_PATH)
     q_min, q_max = joint_ranges(model)

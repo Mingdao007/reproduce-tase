@@ -79,6 +79,7 @@ def solve_constrained_velocity_least_squares(
     qdot_min: np.ndarray,
     qdot_max: np.ndarray,
     damping: float = 1e-8,
+    damping_target: np.ndarray | None = None,
     margin: float = 0.0,
 ) -> VelocitySolveResult:
     """Solve a bounded least-squares velocity subproblem.
@@ -89,6 +90,15 @@ def solve_constrained_velocity_least_squares(
     """
     A = np.asarray(A, dtype=float)
     b = np.asarray(b, dtype=float)
+    damping_value = float(damping)
+    if damping_value < 0.0:
+        raise ValueError("damping must be nonnegative")
+    if damping_target is None:
+        solve_damping_target = np.zeros(A.shape[1], dtype=float)
+    else:
+        solve_damping_target = np.asarray(damping_target, dtype=float)
+        if solve_damping_target.shape != (A.shape[1],):
+            raise ValueError("damping_target must have one entry per velocity variable")
     lower, upper = step_velocity_bounds(
         np.asarray(q, dtype=float),
         dt=dt,
@@ -108,9 +118,9 @@ def solve_constrained_velocity_least_squares(
             active_bound_count=0,
         )
 
-    if damping > 0.0:
-        A_aug = np.vstack([A, np.sqrt(damping) * np.eye(A.shape[1])])
-        b_aug = np.concatenate([b, np.zeros(A.shape[1])])
+    if damping_value > 0.0:
+        A_aug = np.vstack([A, np.sqrt(damping_value) * np.eye(A.shape[1])])
+        b_aug = np.concatenate([b, np.sqrt(damping_value) * solve_damping_target])
     else:
         A_aug = A
         b_aug = b
@@ -142,6 +152,7 @@ def solve_constrained_velocity_least_squares_with_slack(
     slack_weights: np.ndarray,
     constraint_weight: float = 1e3,
     damping: float = 1e-8,
+    damping_target: np.ndarray | None = None,
     margin: float = 0.0,
 ) -> SlackVelocitySolveResult:
     """Solve a bounded velocity task with explicit task slack variables.
@@ -162,6 +173,15 @@ def solve_constrained_velocity_least_squares_with_slack(
         raise ValueError("slack_weights must be nonnegative")
     if constraint_weight <= 0.0:
         raise ValueError("constraint_weight must be positive")
+    damping_value = float(damping)
+    if damping_value < 0.0:
+        raise ValueError("damping must be nonnegative")
+    if damping_target is None:
+        solve_damping_target = np.zeros(A.shape[1], dtype=float)
+    else:
+        solve_damping_target = np.asarray(damping_target, dtype=float)
+        if solve_damping_target.shape != (A.shape[1],):
+            raise ValueError("damping_target must have one entry per velocity variable")
 
     lower_qdot, upper_qdot = step_velocity_bounds(
         np.asarray(q, dtype=float),
@@ -190,10 +210,10 @@ def solve_constrained_velocity_least_squares_with_slack(
     slack_block = np.hstack([np.zeros((task_rows, dof)), np.diag(np.sqrt(slack_weights))])
     blocks = [equality_block, slack_block]
     targets = [equality_target, np.zeros(task_rows)]
-    if damping > 0.0:
-        damping_block = np.hstack([np.sqrt(damping) * np.eye(dof), np.zeros((dof, task_rows))])
+    if damping_value > 0.0:
+        damping_block = np.hstack([np.sqrt(damping_value) * np.eye(dof), np.zeros((dof, task_rows))])
         blocks.append(damping_block)
-        targets.append(np.zeros(dof))
+        targets.append(np.sqrt(damping_value) * solve_damping_target)
 
     A_aug = np.vstack(blocks)
     b_aug = np.concatenate(targets)
@@ -232,6 +252,8 @@ def solve_linear_primary_angular_secondary_with_slack(
     angular_axis_weights: np.ndarray,
     primary_constraint_weight: float = 1e3,
     damping: float = 1e-8,
+    damping_target: np.ndarray | None = None,
+    secondary_damping: float | None = None,
     margin: float = 0.0,
 ) -> SlackVelocitySolveResult:
     """Preserve a primary linear task while optimizing a secondary angular task.
@@ -262,6 +284,18 @@ def solve_linear_primary_angular_secondary_with_slack(
         raise ValueError("angular_axis_weights must have one entry per angular task row")
     if np.any(angular_axis_weights < 0.0):
         raise ValueError("angular_axis_weights must be nonnegative")
+    damping_value = float(damping)
+    if damping_value < 0.0:
+        raise ValueError("damping must be nonnegative")
+    secondary_damping_value = damping_value if secondary_damping is None else float(secondary_damping)
+    if secondary_damping_value < 0.0:
+        raise ValueError("secondary_damping must be nonnegative")
+    if damping_target is None:
+        solve_damping_target = None
+    else:
+        solve_damping_target = np.asarray(damping_target, dtype=float)
+        if solve_damping_target.shape != (linear_A.shape[1],):
+            raise ValueError("damping_target must have one entry per velocity variable")
 
     primary = solve_constrained_velocity_least_squares_with_slack(
         linear_A,
@@ -274,7 +308,7 @@ def solve_linear_primary_angular_secondary_with_slack(
         qdot_max=qdot_max,
         slack_weights=linear_slack_weights,
         constraint_weight=primary_constraint_weight,
-        damping=damping,
+        damping=damping_value,
         margin=margin,
     )
     if not primary.success:
@@ -312,20 +346,20 @@ def solve_linear_primary_angular_secondary_with_slack(
 
     target_linear_velocity = linear_A @ primary.qdot
     angular_weight_sq = angular_axis_weights * angular_axis_weights
-    damping_value = max(float(damping), 0.0)
+    secondary_damping_target = primary.qdot if solve_damping_target is None else solve_damping_target
 
     def objective(x: np.ndarray) -> float:
         angular_error = angular_A @ x - angular_b
-        damping_error = x - primary.qdot
+        damping_error = x - secondary_damping_target
         return float(
             np.sum(angular_weight_sq * angular_error * angular_error)
-            + damping_value * np.dot(damping_error, damping_error)
+            + secondary_damping_value * np.dot(damping_error, damping_error)
         )
 
     def jacobian(x: np.ndarray) -> np.ndarray:
         angular_error = angular_A @ x - angular_b
-        return 2.0 * (angular_A.T @ (angular_weight_sq * angular_error)) + 2.0 * damping_value * (
-            x - primary.qdot
+        return 2.0 * (angular_A.T @ (angular_weight_sq * angular_error)) + 2.0 * secondary_damping_value * (
+            x - secondary_damping_target
         )
 
     result = minimize(

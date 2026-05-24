@@ -636,3 +636,28 @@
   The next useful change should alter the terminal configuration through a
   posture objective, explicit nullspace/posture step, or different tangent
   allocation, rather than changing only Stage A duration.
+
+## D037: Use Moderate Trajectory Posture Regularization As The E2 Stage B Fix Candidate
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the joint-velocity posture regularization hook and treat moderate
+  trajectory-phase posture regularization as the current E2 Stage B fix
+  candidate after weighted prealignment. Do not claim full staged feasibility
+  from this result.
+- Reason:
+  The v32 matrix added a posture velocity target toward
+  `q = [0, -0.1, 0.15, -0.05, 0, 0]` with `kp = 1.0` and max posture velocity
+  `0.05 rad/s`. Four cases passed the trajectory-after-approach gate:
+  `trajectory_w0p001`, `trajectory_w0p01`, `both_w0p001`, and `both_w0p01`.
+  These rows reduced E2 qdot saturation fraction from the baseline `0.9935`
+  to `0.0` while keeping orientation, force, position, and slack within the
+  existing gates. However, all ten rows still failed ordinary Stage A
+  feasibility, and strong approach posture weighting (`0.1`) broke
+  contact/force tracking.
+- Consequence:
+  Preserve the trajectory-stage posture objective for subsequent E2/E1-E4
+  staged tests. The next unresolved problem is Stage A task structure or an
+  explicitly documented approach budget; approach posture weighting alone is
+  not enough.

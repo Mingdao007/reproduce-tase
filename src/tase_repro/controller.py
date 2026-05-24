@@ -26,6 +26,8 @@ class CartesianVelocityCommand:
     angular_axis_weights: np.ndarray | None = None
     angular_slack_axis_weights: np.ndarray | None = None
     angular_priority_mode: str = "weighted"
+    joint_velocity_target_rad_s: np.ndarray | None = None
+    joint_velocity_weight: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -68,6 +70,27 @@ def solve_site_linear_velocity_step(
 ) -> ControllerStepResult:
     """Solve one velocity-level TCP task with hard joint/velocity bounds."""
     jacp, jacr = site_jacobian(model, data, site_name)
+    q_array = np.asarray(q, dtype=float)
+    damping_value = float(damping)
+    if damping_value < 0.0:
+        raise ValueError("damping must be nonnegative")
+    joint_velocity_weight = float(command.joint_velocity_weight)
+    if joint_velocity_weight < 0.0:
+        raise ValueError("joint_velocity_weight must be nonnegative")
+    if command.joint_velocity_target_rad_s is None:
+        if joint_velocity_weight > 0.0:
+            raise ValueError("joint_velocity_target_rad_s is required when joint_velocity_weight is positive")
+        joint_velocity_target = None
+    else:
+        joint_velocity_target = np.asarray(command.joint_velocity_target_rad_s, dtype=float)
+        if joint_velocity_target.shape != (jacp.shape[1],):
+            raise ValueError("joint_velocity_target_rad_s must have one entry per velocity variable")
+    if joint_velocity_target is not None and joint_velocity_weight > 0.0:
+        solve_damping = damping_value + joint_velocity_weight
+        solve_damping_target = (joint_velocity_weight / solve_damping) * joint_velocity_target
+    else:
+        solve_damping = damping_value
+        solve_damping_target = None
     desired = np.asarray(command.linear_velocity_m_s, dtype=float)
     if desired.shape != (3,):
         raise ValueError("linear velocity command must have shape (3,)")
@@ -122,13 +145,14 @@ def solve_site_linear_velocity_step(
         solve: VelocitySolveResult | SlackVelocitySolveResult = solve_constrained_velocity_least_squares(
             row_weights[:, None] * task_jacobian,
             row_weights * task_desired,
-            q=np.asarray(q, dtype=float),
+            q=q_array,
             dt=dt,
             q_min=np.asarray(q_min, dtype=float),
             q_max=np.asarray(q_max, dtype=float),
             qdot_min=np.asarray(qdot_min, dtype=float),
             qdot_max=np.asarray(qdot_max, dtype=float),
-            damping=damping,
+            damping=solve_damping,
+            damping_target=solve_damping_target,
         )
         slack = np.zeros(task_jacobian.shape[0], dtype=float)
     else:
@@ -145,7 +169,7 @@ def solve_site_linear_velocity_step(
                 desired,
                 jacr,
                 desired_angular,
-                q=np.asarray(q, dtype=float),
+                q=q_array,
                 dt=dt,
                 q_min=np.asarray(q_min, dtype=float),
                 q_max=np.asarray(q_max, dtype=float),
@@ -154,7 +178,9 @@ def solve_site_linear_velocity_step(
                 linear_slack_weights=slack_weights,
                 angular_axis_weights=angular_axis_weights,
                 primary_constraint_weight=float(command.slack_constraint_weight),
-                damping=damping,
+                damping=damping_value,
+                damping_target=solve_damping_target,
+                secondary_damping=solve_damping,
             )
         elif angular_task_enabled:
             if command.angular_slack_axis_weights is None:
@@ -168,7 +194,7 @@ def solve_site_linear_velocity_step(
             solve = solve_constrained_velocity_least_squares_with_slack(
                 task_jacobian,
                 task_desired,
-                q=np.asarray(q, dtype=float),
+                q=q_array,
                 dt=dt,
                 q_min=np.asarray(q_min, dtype=float),
                 q_max=np.asarray(q_max, dtype=float),
@@ -176,14 +202,15 @@ def solve_site_linear_velocity_step(
                 qdot_max=np.asarray(qdot_max, dtype=float),
                 slack_weights=solve_slack_weights,
                 constraint_weight=float(command.slack_constraint_weight),
-                damping=damping,
+                damping=solve_damping,
+                damping_target=solve_damping_target,
             )
         else:
             solve_slack_weights = slack_weights
             solve = solve_constrained_velocity_least_squares_with_slack(
                 task_jacobian,
                 task_desired,
-                q=np.asarray(q, dtype=float),
+                q=q_array,
                 dt=dt,
                 q_min=np.asarray(q_min, dtype=float),
                 q_max=np.asarray(q_max, dtype=float),
@@ -191,7 +218,8 @@ def solve_site_linear_velocity_step(
                 qdot_max=np.asarray(qdot_max, dtype=float),
                 slack_weights=solve_slack_weights,
                 constraint_weight=float(command.slack_constraint_weight),
-                damping=damping,
+                damping=solve_damping,
+                damping_target=solve_damping_target,
             )
         slack = solve.slack
     if solve.success:

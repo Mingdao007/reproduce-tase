@@ -1,0 +1,196 @@
+{
+  "phase": "approach",
+  "duration_s": 4.0,
+  "dt_s": 0.002,
+  "steps": 2000,
+  "qdot_limit_source": "approach_cli_override",
+  "qdot_min_rad_s": [
+    -0.25,
+    -0.25,
+    -0.25,
+    -0.25,
+    -0.25,
+    -0.25
+  ],
+  "qdot_max_rad_s": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25
+  ],
+  "target_force_N": 5.0,
+  "force_gain": 0.0005,
+  "r": 0.5,
+  "normal_velocity_mode": "contact-normal",
+  "planar_kp": 0.5,
+  "joint_posture_target": [
+    0.0,
+    -0.1,
+    0.15,
+    -0.05,
+    0.0,
+    0.0
+  ],
+  "joint_posture_kp": 1.0,
+  "joint_posture_weight": 0.001,
+  "max_joint_posture_velocity_rad_s": 0.05,
+  "use_slack_solve": true,
+  "slack_axis_weights": [
+    1.0,
+    1.0,
+    10000.0
+  ],
+  "slack_constraint_weight": 1000.0,
+  "initial_force_N": 5.000000003321885,
+  "final_force_N": 4.995276280027297,
+  "tail_mean_force_N": 4.999237463412116,
+  "tail_mean_abs_force_error_N": 0.0031403791787943747,
+  "max_abs_force_error_N": 9.182381201954794,
+  "mean_tangential_position_error_m": 0.006513394112718535,
+  "max_tangential_position_error_m": 0.008352181427760712,
+  "final_tangential_displacement_m": [
+    -0.008314026317109549,
+    -2.197066518389606e-18
+  ],
+  "desired_tangential_displacement_m": [
+    0.0,
+    0.0
+  ],
+  "solver_success_fraction": 1.0,
+  "contact_present_fraction": 1.0,
+  "max_active_bound_count": 2,
+  "min_planar_scale": 1.0,
+  "tail_mean_planar_scale": 1.0,
+  "mean_planar_velocity_residual_m_s": 0.005401808363757417,
+  "max_planar_velocity_residual_m_s": 0.019077652904773465,
+  "tail_mean_planar_velocity_residual_m_s": 0.004221307618789164,
+  "mean_abs_normal_velocity_residual_m_s": 1.6772641639085005e-05,
+  "max_abs_normal_velocity_residual_m_s": 5.892906037395572e-05,
+  "tail_mean_abs_normal_velocity_residual_m_s": 1.3308300966670028e-05,
+  "mean_planar_velocity_slack_m_s": 0.005401802961954951,
+  "max_planar_velocity_slack_m_s": 0.019077633827139645,
+  "tail_mean_planar_velocity_slack_m_s": 0.0042213033974857666,
+  "mean_abs_normal_velocity_slack_m_s": 1.6606575880282415e-05,
+  "max_abs_normal_velocity_slack_m_s": 5.834560433064909e-05,
+  "tail_mean_abs_normal_velocity_slack_m_s": 1.3176535610564348e-05,
+  "orientation_task_enabled": true,
+  "mean_orientation_error_rad": 0.02382769085249397,
+  "max_orientation_error_rad": 0.17386414743592185,
+  "tail_mean_orientation_error_rad": 0.0021594374708954226,
+  "mean_angular_velocity_residual_rad_s": 0.004704940895539985,
+  "max_angular_velocity_residual_rad_s": 0.01467696836093163,
+  "tail_mean_angular_velocity_residual_rad_s": 0.003930472997443645,
+  "mean_angular_velocity_slack_rad_s": 0.004704936190602919,
+  "max_angular_velocity_slack_rad_s": 0.014676953683977947,
+  "tail_mean_angular_velocity_slack_rad_s": 0.003930469066974579,
+  "max_qdot_utilization": 0.9999999999999999,
+  "tail_max_qdot_utilization": 0.014746976513430581,
+  "qdot_saturation_threshold": 0.98,
+  "qdot_saturation_fraction": 0.162,
+  "tail_qdot_saturation_fraction": 0.0,
+  "max_abs_qdot_rad_s": 0.24999999999999997,
+  "max_qdot_violation_rad_s": 0.0,
+  "max_joint_limit_violation_rad": 0.0,
+  "max_abs_commanded_linear_velocity_m_s": 0.0041788891740069545,
+  "max_abs_actual_linear_velocity_m_s": 0.019077657186194696,
+  "max_abs_commanded_angular_velocity_rad_s": 0.34906585040000004,
+  "max_abs_actual_angular_velocity_rad_s": 0.3343888820390684,
+  "orientation_priority_mode": "weighted",
+  "orientation_kp": 2.0,
+  "max_angular_command_rad_s": null,
+  "orientation_threshold_rad": 0.03,
+  "reached_threshold": true,
+  "first_threshold_index": 463,
+  "first_threshold_time_s": 0.926,
+  "final_orientation_error_rad": 0.0020411950415747605,
+  "feasibility_gate": {
+    "feasibility_pass": false,
+    "failed_criteria": [
+      "max_tangential_position_error_m",
+      "max_planar_velocity_slack_m_s",
+      "qdot_saturation_fraction",
+      "max_orientation_error_rad"
+    ],
+    "criteria": {
+      "solver_success_fraction": {
+        "actual": 1.0,
+        "operator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      "contact_present_fraction": {
+        "actual": 1.0,
+        "operator": ">=",
+        "threshold": 1.0,
+        "passed": true
+      },
+      "tail_mean_abs_force_error_N": {
+        "actual": 0.0031403791787943747,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "max_tangential_position_error_m": {
+        "actual": 0.008352181427760712,
+        "operator": "<=",
+        "threshold": 0.002,
+        "passed": false
+      },
+      "max_planar_velocity_slack_m_s": {
+        "actual": 0.019077633827139645,
+        "operator": "<=",
+        "threshold": 0.001,
+        "passed": false
+      },
+      "max_abs_normal_velocity_slack_m_s": {
+        "actual": 5.834560433064909e-05,
+        "operator": "<=",
+        "threshold": 0.0002,
+        "passed": true
+      },
+      "max_qdot_violation_rad_s": {
+        "actual": 0.0,
+        "operator": "<=",
+        "threshold": 1e-09,
+        "passed": true
+      },
+      "max_joint_limit_violation_rad": {
+        "actual": 0.0,
+        "operator": "<=",
+        "threshold": 1e-09,
+        "passed": true
+      },
+      "qdot_saturation_fraction": {
+        "actual": 0.162,
+        "operator": "<=",
+        "threshold": 0.01,
+        "passed": false
+      },
+      "tail_max_qdot_utilization": {
+        "actual": 0.014746976513430581,
+        "operator": "<=",
+        "threshold": 0.98,
+        "passed": true
+      },
+      "max_orientation_error_rad": {
+        "actual": 0.17386414743592185,
+        "operator": "<=",
+        "threshold": 0.03,
+        "passed": false
+      },
+      "max_angular_velocity_slack_rad_s": {
+        "actual": 0.014676953683977947,
+        "operator": "<=",
+        "threshold": 0.03,
+        "passed": true
+      }
+    }
+  },
+  "terminal_orientation_gate": {
+    "final_orientation_error_rad": 0.0020411950415747605,
+    "threshold_rad": 0.03,
+    "passed": true
+  }
+}

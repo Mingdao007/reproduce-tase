@@ -48,6 +48,7 @@ class ForceMotionResult:
     force: np.ndarray
     commanded_linear_velocity: np.ndarray
     commanded_angular_velocity: np.ndarray
+    commanded_joint_velocity_target: np.ndarray
     actual_linear_velocity: np.ndarray
     actual_angular_velocity: np.ndarray
     linear_velocity_residual: np.ndarray
@@ -263,6 +264,10 @@ def simulate_planar_force_motion(
     max_angular_command_rad_s: float | None = None,
     angular_axis_weights: np.ndarray | None = None,
     angular_slack_axis_weights: np.ndarray | None = None,
+    joint_posture_target: np.ndarray | None = None,
+    joint_posture_kp: float = 0.0,
+    joint_posture_weight: float = 0.0,
+    max_joint_posture_velocity_rad_s: float | None = None,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
@@ -283,6 +288,25 @@ def simulate_planar_force_motion(
     q = np.asarray(initial_q, dtype=float).copy()
     if q.shape != (model.nq,):
         raise ValueError(f"initial_q shape {q.shape} does not match model.nq={model.nq}")
+    posture_kp = float(joint_posture_kp)
+    posture_weight = float(joint_posture_weight)
+    if posture_kp < 0.0:
+        raise ValueError("joint_posture_kp must be nonnegative")
+    if posture_weight < 0.0:
+        raise ValueError("joint_posture_weight must be nonnegative")
+    if joint_posture_target is None:
+        if posture_weight > 0.0:
+            raise ValueError("joint_posture_target is required when joint_posture_weight is positive")
+        posture_target = None
+    else:
+        posture_target = np.asarray(joint_posture_target, dtype=float)
+        if posture_target.shape != (model.nq,):
+            raise ValueError(f"joint_posture_target shape {posture_target.shape} does not match model.nq={model.nq}")
+    posture_velocity_cap = (
+        None if max_joint_posture_velocity_rad_s is None else float(max_joint_posture_velocity_rad_s)
+    )
+    if posture_velocity_cap is not None and posture_velocity_cap < 0.0:
+        raise ValueError("max_joint_posture_velocity_rad_s must be nonnegative when set")
     qdot_min = np.asarray(qdot_min, dtype=float)
     qdot_max = np.asarray(qdot_max, dtype=float)
     if axis_weights is None:
@@ -338,6 +362,7 @@ def simulate_planar_force_motion(
     force_hist = np.empty(steps, dtype=float)
     commanded_linear_hist = np.empty((steps, 3), dtype=float)
     commanded_angular_hist = np.empty((steps, 3), dtype=float)
+    commanded_joint_velocity_target_hist = np.empty((steps, model.nv), dtype=float)
     actual_linear_hist = np.empty((steps, 3), dtype=float)
     actual_angular_hist = np.empty((steps, 3), dtype=float)
     linear_residual_hist = np.empty((steps, 3), dtype=float)
@@ -406,6 +431,14 @@ def simulate_planar_force_motion(
             angular_command_norm = np.linalg.norm(angular_command)
             if angular_command_norm > angular_command_cap and angular_command_norm > 0.0:
                 angular_command = (angular_command_cap / angular_command_norm) * angular_command
+        if posture_target is not None and posture_weight > 0.0:
+            joint_velocity_target = posture_kp * (posture_target - q)
+            if posture_velocity_cap is not None:
+                max_abs_posture_velocity = float(np.max(np.abs(joint_velocity_target)))
+                if max_abs_posture_velocity > posture_velocity_cap and max_abs_posture_velocity > 0.0:
+                    joint_velocity_target = (posture_velocity_cap / max_abs_posture_velocity) * joint_velocity_target
+        else:
+            joint_velocity_target = np.zeros(model.nv, dtype=float)
         step = solve_site_linear_velocity_step(
             model,
             data,
@@ -420,6 +453,8 @@ def simulate_planar_force_motion(
                 angular_axis_weights=solve_angular_axis_weights,
                 angular_slack_axis_weights=solve_angular_slack_axis_weights,
                 angular_priority_mode=orientation_priority_mode,
+                joint_velocity_target_rad_s=joint_velocity_target,
+                joint_velocity_weight=posture_weight,
             ),
             dt=dt_s,
             q_min=q_min,
@@ -445,6 +480,7 @@ def simulate_planar_force_motion(
         force_hist[idx] = force
         commanded_linear_hist[idx] = command
         commanded_angular_hist[idx] = np.zeros(3, dtype=float) if angular_command is None else angular_command
+        commanded_joint_velocity_target_hist[idx] = joint_velocity_target
         actual_linear_hist[idx] = step.actual_linear_velocity_m_s
         actual_angular_hist[idx] = step.actual_angular_velocity_rad_s
         linear_residual_hist[idx] = step.residual_linear_velocity_m_s
@@ -467,6 +503,7 @@ def simulate_planar_force_motion(
         force=force_hist,
         commanded_linear_velocity=commanded_linear_hist,
         commanded_angular_velocity=commanded_angular_hist,
+        commanded_joint_velocity_target=commanded_joint_velocity_target_hist,
         actual_linear_velocity=actual_linear_hist,
         actual_angular_velocity=actual_angular_hist,
         linear_velocity_residual=linear_residual_hist,

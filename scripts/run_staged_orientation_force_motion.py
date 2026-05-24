@@ -135,6 +135,7 @@ def write_phase_artifacts(
         force=result.force,
         commanded_linear_velocity=result.commanded_linear_velocity,
         commanded_angular_velocity=result.commanded_angular_velocity,
+        commanded_joint_velocity_target=result.commanded_joint_velocity_target,
         actual_linear_velocity=result.actual_linear_velocity,
         actual_angular_velocity=result.actual_angular_velocity,
         linear_velocity_residual=result.linear_velocity_residual,
@@ -219,6 +220,10 @@ def phase_metrics(
     qdot_limit_source: str,
     qdot_min: np.ndarray,
     qdot_max: np.ndarray,
+    joint_posture_target: np.ndarray | None,
+    joint_posture_kp: float,
+    joint_posture_weight: float,
+    max_joint_posture_velocity_rad_s: float | None,
 ) -> dict:
     return {
         "phase": phase,
@@ -233,6 +238,14 @@ def phase_metrics(
         "r": float(args.r),
         "normal_velocity_mode": args.normal_velocity_mode,
         "planar_kp": float(args.planar_kp),
+        "joint_posture_target": None
+        if joint_posture_target is None
+        else [float(x) for x in joint_posture_target],
+        "joint_posture_kp": float(joint_posture_kp),
+        "joint_posture_weight": float(joint_posture_weight),
+        "max_joint_posture_velocity_rad_s": None
+        if max_joint_posture_velocity_rad_s is None
+        else float(max_joint_posture_velocity_rad_s),
         "use_slack_solve": True,
         "slack_axis_weights": [
             float(args.planar_slack_weight),
@@ -286,6 +299,14 @@ def main() -> int:
     parser.add_argument("--trajectory-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
+    parser.add_argument("--approach-posture-target-q", default=None)
+    parser.add_argument("--trajectory-posture-target-q", default=None)
+    parser.add_argument("--approach-posture-kp", type=float, default=0.0)
+    parser.add_argument("--trajectory-posture-kp", type=float, default=0.0)
+    parser.add_argument("--approach-posture-weight", type=float, default=0.0)
+    parser.add_argument("--trajectory-posture-weight", type=float, default=0.0)
+    parser.add_argument("--approach-max-posture-velocity-rad-s", type=float, default=None)
+    parser.add_argument("--trajectory-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--approach-orientation-threshold-rad", type=float, default=0.03)
     parser.add_argument("--max-orientation-error-rad", type=float, default=0.03)
     parser.add_argument("--max-angular-slack-rad-s", type=float, default=0.03)
@@ -311,6 +332,10 @@ def main() -> int:
     )
     trajectory_qdot_limit_source = (
         "trajectory_cli_override" if args.trajectory_qdot_limit_rad_s is not None else "cli_override"
+    )
+    approach_posture_target = None if args.approach_posture_target_q is None else parse_vector(args.approach_posture_target_q)
+    trajectory_posture_target = (
+        None if args.trajectory_posture_target_q is None else parse_vector(args.trajectory_posture_target_q)
     )
     dt_s = float(cfg["ur10e_mujoco"]["timestep_s"])
     run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
@@ -345,6 +370,14 @@ def main() -> int:
         trajectory_max_angular_command_rad_s=args.trajectory_max_angular_command_rad_s,
         angular_axis_weights=np.full(3, args.angular_axis_weight, dtype=float),
         angular_slack_axis_weights=np.full(3, args.angular_slack_weight, dtype=float),
+        approach_joint_posture_target=approach_posture_target,
+        approach_joint_posture_kp=args.approach_posture_kp,
+        approach_joint_posture_weight=args.approach_posture_weight,
+        approach_max_joint_posture_velocity_rad_s=args.approach_max_posture_velocity_rad_s,
+        trajectory_joint_posture_target=trajectory_posture_target,
+        trajectory_joint_posture_kp=args.trajectory_posture_kp,
+        trajectory_joint_posture_weight=args.trajectory_posture_weight,
+        trajectory_max_joint_posture_velocity_rad_s=args.trajectory_max_posture_velocity_rad_s,
         approach_orientation_threshold_rad=args.approach_orientation_threshold_rad,
     )
     approach_summary = summarize_force_motion(
@@ -388,6 +421,10 @@ def main() -> int:
         qdot_limit_source=approach_qdot_limit_source,
         qdot_min=approach_qdot_min,
         qdot_max=approach_qdot_max,
+        joint_posture_target=approach_posture_target,
+        joint_posture_kp=args.approach_posture_kp,
+        joint_posture_weight=args.approach_posture_weight,
+        max_joint_posture_velocity_rad_s=args.approach_max_posture_velocity_rad_s,
     )
     approach_metrics.update(
         {
@@ -412,6 +449,10 @@ def main() -> int:
         qdot_limit_source=trajectory_qdot_limit_source,
         qdot_min=trajectory_qdot_min,
         qdot_max=trajectory_qdot_max,
+        joint_posture_target=trajectory_posture_target,
+        joint_posture_kp=args.trajectory_posture_kp,
+        joint_posture_weight=args.trajectory_posture_weight,
+        max_joint_posture_velocity_rad_s=args.trajectory_max_posture_velocity_rad_s,
     )
     trajectory_metrics.update(
         {

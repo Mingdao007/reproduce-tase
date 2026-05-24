@@ -992,3 +992,60 @@ The terminal-state problem is therefore not solved by a threshold-duration
 schedule alone. The next derivation should introduce an explicit posture or
 nullspace objective, or a different E2 tangent allocation, so the terminal
 configuration is shaped rather than only stopped earlier.
+
+## V32 Joint-Velocity Posture Regularization Implication
+
+The v32 controller adds an optional posture-derived joint-velocity target:
+
+```text
+qdot_ref = clip_inf(k_pq (q_ref - q), qdot_ref_max)
+```
+
+The bounded least-squares objective can then include:
+
+```text
+w_0 ||qdot||^2 + w_q ||qdot - qdot_ref||^2
+```
+
+which is equivalent to one damping row with combined weight
+`w_0 + w_q` and target:
+
+```text
+qdot_damping_target = (w_q / (w_0 + w_q)) qdot_ref
+```
+
+For the `linear-primary` trajectory controller, the posture objective is not
+allowed to spend the primary linear task slack. The primary solve keeps the
+existing damping behavior. The secondary solve then minimizes angular error
+plus the posture damping target under the equality constraint:
+
+```text
+J_v qdot = J_v qdot_primary
+```
+
+This matters for the UR10e 6DOF transfer because posture shaping must exploit
+whatever nullspace or secondary freedom remains without hiding a lost TCP
+linear task. The v32 matrix shows that this is enough to remove the isolated
+E2 Stage B qdot saturation after weighted prealignment:
+
+```text
+baseline E2 qdot saturation = 0.9935
+trajectory_w0p001 E2 qdot saturation = 0.0
+trajectory_w0p01 E2 qdot saturation = 0.0
+both_w0p001 E2 qdot saturation = 0.0
+both_w0p01 E2 qdot saturation = 0.0
+```
+
+The accepted conclusion is narrow. The E2 tangent-direction problem can be
+solved as a secondary posture-conditioning problem after the current
+prealignment state. Stage A is still not solved:
+
+```text
+approach ordinary-feasibility pass count = 0 / 10
+full staged-feasibility pass count = 0 / 10
+```
+
+The next derivation work should therefore keep trajectory posture
+regularization as a Stage B tool while treating Stage A as a separate task
+priority problem: contact-normal force, bounded planar drift, terminal
+orientation, and qdot saturation must be assigned explicit acceptance gates.

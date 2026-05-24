@@ -65,6 +65,14 @@ def simulate_orientation_prealign_then_planar_force_motion(
     trajectory_max_angular_command_rad_s: float | None = None,
     angular_axis_weights: np.ndarray | None = None,
     angular_slack_axis_weights: np.ndarray | None = None,
+    approach_joint_posture_target: np.ndarray | None = None,
+    approach_joint_posture_kp: float = 0.0,
+    approach_joint_posture_weight: float = 0.0,
+    approach_max_joint_posture_velocity_rad_s: float | None = None,
+    trajectory_joint_posture_target: np.ndarray | None = None,
+    trajectory_joint_posture_kp: float = 0.0,
+    trajectory_joint_posture_weight: float = 0.0,
+    trajectory_max_joint_posture_velocity_rad_s: float | None = None,
     approach_orientation_threshold_rad: float = 0.03,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> StagedForceMotionResult:
@@ -99,6 +107,10 @@ def simulate_orientation_prealign_then_planar_force_motion(
         max_angular_command_rad_s=approach_max_angular_command_rad_s,
         angular_axis_weights=angular_axis_weights,
         angular_slack_axis_weights=angular_slack_axis_weights,
+        joint_posture_target=approach_joint_posture_target,
+        joint_posture_kp=approach_joint_posture_kp,
+        joint_posture_weight=approach_joint_posture_weight,
+        max_joint_posture_velocity_rad_s=approach_max_joint_posture_velocity_rad_s,
         site_name=site_name,
     )
     threshold_index = first_orientation_threshold_index(approach, approach_orientation_threshold_rad)
@@ -129,6 +141,10 @@ def simulate_orientation_prealign_then_planar_force_motion(
         max_angular_command_rad_s=trajectory_max_angular_command_rad_s,
         angular_axis_weights=angular_axis_weights,
         angular_slack_axis_weights=angular_slack_axis_weights,
+        joint_posture_target=trajectory_joint_posture_target,
+        joint_posture_kp=trajectory_joint_posture_kp,
+        joint_posture_weight=trajectory_joint_posture_weight,
+        max_joint_posture_velocity_rad_s=trajectory_max_joint_posture_velocity_rad_s,
         site_name=site_name,
     )
     return StagedForceMotionResult(

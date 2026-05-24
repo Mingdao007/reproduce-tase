@@ -87,10 +87,16 @@ them rather than deleting them.
   crossing also do not fix E2. Short approaches fail E2 orientation gates;
   longer approaches recover orientation but keep E2 qdot saturation near
   `0.99`.
+- Moderate trajectory-phase posture regularization fixes the isolated E2
+  Stage B qdot blocker after weighted prealignment, but it does not fix Stage
+  A. In v32, four trajectory-after-approach rows passed, while all ten rows
+  still failed ordinary approach feasibility.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_e2_short_approach_bracket/20260524T101113` as
-evidence that Stage A duration alone is not enough. The next executable
-experiment should add a posture/nullspace objective or otherwise change the
-terminal configuration before rerunning E2.
+Use `runs/staged_orientation_e2_posture_regularization/20260524T102224` as
+evidence that E2 Stage B can pass with moderate trajectory posture
+regularization. The next executable experiment should either rerun the staged
+E1-E4 matrix with that Stage B posture objective or change the Stage A task
+structure so the approach phase no longer relies on sustained qdot
+saturation.

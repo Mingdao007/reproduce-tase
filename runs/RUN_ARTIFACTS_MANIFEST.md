@@ -878,6 +878,38 @@ Legacy source root:
   This is E2-only negative simulation evidence for duration-only Stage A
   stopping. It does not test a posture objective or task-structure change.
 
+## V32 E2 Posture Regularization
+
+### E2 after posture-conditioned trajectory secondary objective
+
+- Run root:
+  - `runs/staged_orientation_e2_posture_regularization/20260524T102224`
+- Scope:
+  Ten E2 staged tilted-plane runs. Stage A uses the same weighted
+  prealignment setup as v29-v31. Stage B is fixed to E2 at
+  `paper_time_scale = 0.075`, while posture targets toward
+  `q = [0, -0.1, 0.15, -0.05, 0, 0]` are applied to trajectory-only,
+  approach-only, or both phases with weights `0.001`, `0.01`, and `0.1`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, and `summary.md`;
+  per-case root `metrics.yaml`, `metrics.json`, `summary.md`, and
+  `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `10 / 10`, approach
+  ordinary-feasibility pass count `0 / 10`, trajectory-after-approach pass
+  count `4 / 10`, trajectory-feasibility pass count `4 / 10`, and full
+  staged-feasibility pass count `0 / 10`. Moderate trajectory posture
+  weighting removes the E2 qdot saturation failure; strong approach posture
+  weighting breaks contact/force tracking.
+- Limit:
+  This is an E2 Stage B fix candidate after the current relaxed weighted
+  prealignment. It does not establish an accepted Stage A approach or full
+  staged feasibility.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

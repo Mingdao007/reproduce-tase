@@ -14,8 +14,10 @@ contracts are testable.
 ## Exact Files Touched
 
 - `src/tase_repro/controller.py`
+- `src/tase_repro/constraints.py`
 - `src/tase_repro/orientation.py`
 - `src/tase_repro/force_feedback.py`
+- `src/tase_repro/staged_force_motion.py`
 - `src/tase_repro/kinematics.py`
 - `scripts/run_controller_smoke.py`
 - `scripts/run_paper_trajectory_force_motion.py`
@@ -48,6 +50,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
   normal and record the same angular metrics.
 - Tilted-surface force-normal runs can map scalar force correction along the
   measured contact normal instead of only along world z.
+- Optional joint-velocity posture targets are solved inside the hard
+  velocity/joint bounds and recorded in staged run metrics.
 
 ## Pass/Fail Criteria
 
@@ -106,10 +110,15 @@ smoke runs regress.
 - The v31 short-approach bracket shows that stopping Stage A near the first
   orientation threshold only trades E2 qdot failure for E2 orientation failure;
   duration alone is not an adequate terminal-configuration control.
+- The v32 posture regularization hook solves the isolated E2 Stage B qdot
+  blocker for moderate trajectory posture weights, but all tested cases still
+  fail ordinary Stage A feasibility. Strong approach posture weighting can
+  also break contact/force tracking.
 
 ## Next Executable Step
 
-Prototype a posture/nullspace objective before or during Stage A, then rerun
-E2 after prealignment. The experiment should report both terminal orientation
-margin and qdot saturation, so it cannot hide the current drift/orientation
-tradeoff.
+Carry the moderate trajectory posture objective into the next staged E1-E4
+matrix, or redesign Stage A with explicit task priority/acceptance gates. The
+next approach experiment must report contact, drift, terminal orientation,
+and qdot saturation together so posture shaping cannot hide a force or drift
+regression.
