@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v50-legacy-figure-match-source-audit`
+Branch: `exp/tase-ur10e-v51-split-paper-parity-claims`
 
 ## Objective Restatement
 
@@ -51,6 +51,8 @@ The objective has two separate technical claim levels:
 - `runs/paper_7dof_fig6_raw_provenance/20260524T123130/metrics.yaml`
 - `reports/legacy_figure_match_source_audit_report.md`
 - `runs/legacy_figure_match_source_audit/20260524T123651/metrics.yaml`
+- `reports/paper_platform_split_claim_report.md`
+- `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -61,16 +63,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v49 branches pushed and GitHub-verified; v50 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v50-legacy-figure-match-source-audit`; latest local branch is `exp/tase-ur10e-v50-legacy-figure-match-source-audit` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v50 branches pushed and GitHub-verified; v51 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v51-split-paper-parity-claims`; latest local branch is `exp/tase-ur10e-v51-split-paper-parity-claims` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D055 as of v50 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v51 branch/commit, claim boundary, and next executable choice | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D056 as of v51 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v50 full-suite validation was `83 passed in 2.28s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v51 full-suite validation was `84 passed in 2.28s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -78,6 +81,7 @@ The objective has two separate technical claim levels:
 | Paper-platform q7 variant probe | `scripts/run_paper_7dof_q7_variant_probe.py`, `reports/paper_7dof_q7_variant_probe_report.md`, `runs/paper_7dof_q7_variant_probe/20260524T122345/summary.yaml` | v48 shows q7 mismatch persists across current supported Python solver/orientation/cap variants |
 | Paper-platform Fig.6 raw provenance audit | `scripts/compare_paper_7dof_fig6_raw_provenance.py`, `reports/paper_7dof_fig6_raw_provenance_report.md`, `runs/paper_7dof_fig6_raw_provenance/20260524T123130/metrics.yaml` | v49 shows Python Panda FK/Jacobian matches sampled legacy raw states; figure-match q7 is tied to legacy `admittance_proxy` landmark line |
 | Legacy figure-match source audit | `scripts/audit_legacy_figure_match_source.py`, `reports/legacy_figure_match_source_audit_report.md`, `runs/legacy_figure_match_source_audit/20260524T123651/metrics.yaml` | v50 shows figure-match has eight non-paper-faithful tuning knobs and explicit q7 nullspace bias |
+| Split paper-platform claim gate | `src/tase_repro/paper_platform_parity.py`, `reports/paper_platform_split_claim_report.md`, `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml` | v51 separates formula convergence from tuned figure-match landmark evidence; formula convergence passes, tuned landmark fails, old strict aggregate fails |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -131,11 +135,13 @@ Evidence:
 - `reports/paper_7dof_kkt_contact_recovery_report.md`
 - `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
 
-The strict parity gate can additionally claim:
+The split paper-platform gate can additionally claim:
 
 ```text
-paper_platform_7dof_strict_parity:
-  parity pass = false
+paper_platform_7dof_split_claims:
+  formula convergence pass = true
+  figure-match landmark pass = false
+  legacy strict aggregate pass = false
   tail convergence against formula-faithful legacy reference = pass
   duration coverage = true
   Fig.6 q7-at-22 s landmark = false
@@ -146,7 +152,8 @@ paper_platform_7dof_strict_parity:
 Evidence:
 
 - `reports/paper_platform_parity_gate_report.md`
-- `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
+- `reports/paper_platform_split_claim_report.md`
+- `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml`
 
 The 30 s paper-platform candidate can additionally claim:
 
@@ -250,6 +257,23 @@ Evidence:
 - `reports/legacy_figure_match_source_audit_report.md`
 - `runs/legacy_figure_match_source_audit/20260524T123651/metrics.yaml`
 
+The split claim-level gate can additionally claim:
+
+```text
+paper_platform_7dof_formula_convergence:
+  pass = true
+  boundary = tail convergence and coverage only; not full q-trajectory parity
+paper_platform_7dof_figure_match_landmark:
+  pass = false
+paper_platform_7dof_legacy_strict_all_checks:
+  pass = false
+```
+
+Evidence:
+
+- `reports/paper_platform_split_claim_report.md`
+- `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -262,7 +286,9 @@ Evidence:
   Python solver/orientation/cap variants. v49 shows the q7 mismatch is not a
   Python Panda FK/Jacobian porting error and ties the `2.5 rad` landmark to
   the legacy `admittance_proxy` figure-match line. v50 shows that line has
-  explicit non-paper-faithful tuning, including q7 nullspace bias.
+  explicit non-paper-faithful tuning, including q7 nullspace bias. v51 splits
+  the claim levels so formula convergence can pass while the tuned
+  figure-match landmark and old strict aggregate remain failed.
 - Section V `z0` is now verified undefined in the simulation text; future code
   still needs an explicit adapted convention if it implements Section V.
 - UR10e MJCF, 85 mm TCP guess, payload, CoG, and contact geometry remain
@@ -271,7 +297,7 @@ Evidence:
 - Hardware gate report is not produced, and no real robot motion is authorized.
 - The relaxed setup budget is an explicit adapted-simulation label, not a
   mathematical solution to the strict Stage A setup gate.
-- The v43-v50 paper-platform line inherits unverified Panda DH parameters,
+- The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
   coverage but not Fig.5 numerical parity, and it has a
@@ -279,7 +305,8 @@ Evidence:
   persists across the v48 variant matrix. v49 verifies the Python kinematics
   port against legacy raw states, and v50 resolves that the tuned
   `admittance_proxy` line should not be a formula-faithful parity target.
-  The strict gate still needs to be split or relabeled accordingly.
+  v51 splits the gate accordingly, but full paper-equivalent numerical parity
+  and tuned figure-match landmark reproduction remain incomplete.
 
 ## Audit Conclusion
 
@@ -293,8 +320,8 @@ Do not mark the active goal complete from the current evidence.
 
 Choose one of these before any real hardware work:
 
-- split the paper-platform gate into formula-faithful parity and tuned
-  figure-match landmark evidence, or implement the tuned line in Python with
-  explicit labels; or
+- implement the tuned figure-match line in Python with explicit labels if the
+  q7 landmark remains required, or continue UR10e adapted work using the
+  formula-convergence boundary; or
 - validate or replace the approximate UR10e TCP/contact model and rerun the
   terminal setup audit.

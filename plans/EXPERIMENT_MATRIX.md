@@ -53,6 +53,8 @@ scripts/evaluate_paper_platform_parity.py
   ignored local legacy MATLAB/RNN `.mat` arrays without committing raw data.
 - Legacy figure-match source audit outputs that classify tuned landmark knobs
   separately from formula-faithful paper-platform parity.
+- Split paper-platform gate outputs that report formula-convergence evidence
+  separately from tuned figure-match landmark evidence.
 
 ## Pass/Fail Criteria
 
@@ -170,6 +172,9 @@ them rather than deleting them.
   q7@22 s figure-match landmark should therefore be treated as tuned landmark
   evidence unless a separate Python figure-match candidate is intentionally
   implemented and labeled.
+- The v51 split gate reports `paper_platform_formula_convergence_pass = true`
+  while keeping `paper_platform_figure_match_landmark_pass = false` and the
+  backward-compatible strict aggregate `paper_platform_parity_pass = false`.
 
 ## Next Executable Step
 
@@ -178,6 +183,6 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should split the paper-platform gate into formula-faithful parity and
-figure-match landmark evidence, or intentionally implement the tuned
-figure-match line as a separate Python candidate.
+should intentionally implement the tuned figure-match line as a separate
+Python candidate if the landmark remains required, or proceed with UR10e
+adapted work using the formula-convergence claim boundary.

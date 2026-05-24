@@ -99,10 +99,12 @@ the decision record and revert only the affected controller commit.
   non-paper-faithful tuning knobs, including q7 nullspace bias. The
   formula-faithful math transfer should not inherit that bias unless a
   separately labeled landmark-matching candidate is being implemented.
+- The v51 split gate separates formula-convergence evidence from tuned
+  figure-match landmark reproduction. This keeps the formula-faithful transfer
+  from inheriting q7 nullspace bias as a hidden paper requirement.
 
 ## Next Executable Step
 
-For the paper-platform line, split the strict gate claim structure into
-formula-faithful parity and tuned figure-match landmark evidence, or implement
-the tuned line in Python with explicit labeling. Keep this separate from
-UR10e adapted controller iterations.
+For the paper-platform line, implement the tuned figure-match branch only as a
+separately labeled candidate if needed. Otherwise continue UR10e adapted
+controller iterations with the formula-convergence boundary explicit.

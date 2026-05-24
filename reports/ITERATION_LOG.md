@@ -1541,6 +1541,7 @@
   - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
   - `plans/EXPERIMENT_MATRIX.md`
   - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `docs/goal.md`
   - `reports/DECISION_RECORD.md`
   - `reports/ITERATION_LOG.md`
   - `reports/completion_audit.md`
@@ -1902,3 +1903,44 @@
   Split the paper-platform gate into formula-faithful parity and
   figure-match landmark evidence, or implement a separately labeled Python
   figure-match candidate.
+
+## 2026-05-24 v51 Split Paper-Platform Parity Claims
+
+- Branch: `exp/tase-ur10e-v51-split-paper-parity-claims`
+- Starting commit: `4f3e21653526d252277ee6988ffd00f78076f1b6`
+- Code commit:
+  `bddf1dad1645199de92458616162291b6881aa4c`
+- Files updated:
+  - `src/tase_repro/paper_platform_parity.py`
+  - `scripts/evaluate_paper_platform_parity.py`
+  - `tests/test_paper_platform_parity.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_platform_split_claim_report.md`
+  - `runs/paper_platform_parity_eval/20260524T124200/**`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_platform_parity.py`
+  - `scripts/evaluate_paper_platform_parity.py`
+- Result:
+  The paper-platform evaluator now reports split claim levels. The v51 run
+  has `paper_platform_formula_convergence_pass = true`,
+  `paper_platform_figure_match_landmark_pass = false`, and
+  `paper_platform_parity_pass = false`. The next-thread goal prompt now points
+  future work at the v51 branch, the completion audit, and the split claim
+  boundary before any further implementation.
+- Validation:
+  Full tests passed with `84 passed in 2.28s`.
+- Limit:
+  This is a claim-structure fix, not full paper-equivalent numerical parity.
+  The candidate still does not reproduce the tuned figure-match q7 landmark.
+- Next step:
+  Implement a separately labeled Python figure-match candidate if that
+  landmark is still needed, or proceed with UR10e adapted work using the
+  formula-convergence claim boundary.

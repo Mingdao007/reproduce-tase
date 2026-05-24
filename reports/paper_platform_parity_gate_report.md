@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v50-legacy-figure-match-source-audit`
+Branch: `exp/tase-ur10e-v51-split-paper-parity-claims`
 
 ## Scope
 
@@ -32,6 +32,8 @@ paper-equivalent parity.
   `runs/paper_7dof_fig6_raw_provenance/20260524T123130`
 - legacy figure-match source audit output:
   `runs/legacy_figure_match_source_audit/20260524T123651`
+- split claim-level gate output:
+  `runs/paper_platform_parity_eval/20260524T124200`
 
 ## Gate Definition
 
@@ -50,7 +52,13 @@ The strict gate requires all of these checks to pass:
 
 ## Result
 
-`paper_platform_parity_pass = false`
+Current split result from `runs/paper_platform_parity_eval/20260524T124200`:
+
+- `paper_platform_formula_convergence_pass = true`
+- `paper_platform_figure_match_landmark_pass = false`
+- `paper_platform_parity_pass = false`
+
+The backward-compatible strict aggregate remains failed.
 
 Passing checks:
 
@@ -107,9 +115,16 @@ The v50 source audit confirms that this path is explicitly tuned. The legacy
 wired into the pseudoinverse nullspace branch. The q7 landmark should not be
 used as a formula-faithful parity requirement without this label.
 
+The v51 evaluator now encodes this separation. The current Python candidate
+passes the formula-convergence claim level, which covers
+execution/contact/bounds, duration, Fig.5 coverage, paper-assumption
+compatibility, and tail convergence against the formula-faithful legacy
+reference. It does not pass tuned figure-match landmark reproduction or full
+legacy strict aggregation.
+
 ## Next Step
 
-To pursue paper-platform parity, split the gate into formula-faithful parity
-and tuned figure-match landmark evidence, or implement a separate Python
-figure-match candidate with explicit tuning labels. Keep this path separate
-from UR10e adapted simulation and hardware readiness claims.
+To pursue the tuned landmark, implement a separate Python figure-match
+candidate with explicit tuning labels. Otherwise continue UR10e adapted
+simulation work using the split formula-convergence boundary. Keep this path
+separate from hardware readiness claims.

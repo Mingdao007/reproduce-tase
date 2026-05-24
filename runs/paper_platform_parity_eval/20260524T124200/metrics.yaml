@@ -1,0 +1,236 @@
+run_id: 20260524T124200
+git_commit: bddf1dad1645199de92458616162291b6881aa4c
+git_status_short: ''
+config_path: configs/paper_platform_parity.yaml
+result:
+  claim: paper_platform_7dof_strict_parity
+  paper_platform_parity_pass: false
+  paper_platform_formula_convergence_pass: true
+  paper_platform_figure_match_landmark_pass: false
+  strict_required_checks: &id003
+  - candidate_execution_contact_bounds
+  - legacy_formula_faithful_overall
+  - tail_force_error_against_formula
+  - tail_position_error_against_formula
+  - tail_orientation_error_against_formula
+  - duration_coverage
+  - fig5_r_sweep_coverage
+  - paper_assumption_compatibility
+  - legacy_figure_match_overall
+  - fig6_q7_22s_landmark
+  formula_convergence_required_checks: &id001
+  - candidate_execution_contact_bounds
+  - legacy_formula_faithful_overall
+  - tail_force_error_against_formula
+  - tail_position_error_against_formula
+  - tail_orientation_error_against_formula
+  - duration_coverage
+  - fig5_r_sweep_coverage
+  - paper_assumption_compatibility
+  figure_match_landmark_required_checks: &id002
+  - legacy_figure_match_overall
+  - fig6_q7_22s_landmark
+  claim_results:
+    formula_convergence:
+      pass: true
+      required_checks: *id001
+      claim: paper_platform_7dof_formula_convergence
+      boundary: passes execution/contact/bounds, duration, Fig.5 coverage, paper-assumption
+        compatibility, and tail convergence against the formula-faithful legacy reference;
+        does not claim full q-trajectory or Fig.6 landmark parity
+    figure_match_landmark:
+      pass: false
+      required_checks: *id002
+      claim: paper_platform_7dof_figure_match_landmark
+      boundary: tracks the tuned legacy figure-match q7 landmark separately from formula-faithful
+        parity because v49-v50 provenance shows that landmark uses explicit figure-match
+        tuning
+    legacy_strict_all_checks:
+      pass: false
+      required_checks: *id003
+      claim: paper_platform_7dof_strict_parity
+      boundary: backward-compatible aggregate requiring both formula convergence and
+        the tuned figure-match q7 landmark
+  candidate:
+    label: python_v47_30s_uncapped_kkt
+    metrics_path: runs/paper_7dof_section_v/20260524T121503/metrics.yaml
+    raw_npz_path: runs/paper_7dof_section_v/20260524T121503/paper_7dof_section_v_raw.npz
+    metrics:
+      execution_success: true
+      contact_force_tail_success: true
+      claim_level: paper_platform_7dof_executable_diagnostic
+      duration_s: 30.0
+      dt_s: 0.002
+      sample_count: 15001
+      solver_mode: kkt_projection
+      orientation_mode: force_shortest_arc
+      force_loop_mode: paper_literal
+      z0_convention: q0_forward_kinematics_height
+      z0_m: 0.4868820523028392
+      plane_z_m: 0.4870070523028392
+      max_abs_q_rad: 2.4995864840253907
+      max_abs_qdot_rad_s: 0.6318376969546269
+      q_bound_violation_count: 0
+      qdot_bound_violation_count: 0
+      velocity_clamp_fraction: 0.09359376041597227
+      contact_fraction: 0.8708752749816678
+      tail_contact_fraction: 1.0
+      desired_rotation_valid_fraction: 0.8702753149790013
+      task_residual_rms: 0.03341260685348086
+      tail_position_error_mean_m: 0.0005087140069982723
+      tail_orientation_error_mean_rad: 5.032735496157772e-05
+      tail_force_error_mean_N: 0.023282898803479644
+      final_position_error_norm_m: 0.00041740145441366183
+      final_orientation_error_norm_rad: 3.1483493591900124e-05
+      final_force_error_N: 0.04560867570413496
+      max_condition_number: 8.191873682164445
+      fig6_q7_sample_time_s: 22.0
+      fig6_q7_at_22s_rad: 1.6680622878116045
+      fig6_q7_abs_error_to_2p5_rad: 0.8319377121883955
+    config:
+      duration_s: 30.0
+      dt_s: 0.002
+      q0_rad:
+      - 0.0
+      - -0.7853981633974483
+      - 0.0
+      - -2.356194490192345
+      - 0.0
+      - 1.5707963267948966
+      - 0.7853981633974483
+      radius_m: 0.2
+      omega_rad_s: 0.2
+      desired_force_N: 5.0
+      epsilon: 0.022
+      kp: 4.0
+      ko: 5.0
+      kf: 1.0
+      md_kg: 12.0
+      bd_N_s_m: 550.0
+      finite_time_power: 0.6666666666666666
+      q_min_rad: -2.5
+      q_max_rad: 2.5
+      qdot_min_rad_s: -1.5
+      qdot_max_rad_s: 1.5
+      escape_velocity_alpha: 2.0
+      communication_delay_s: 0.032
+      max_angular_speed_rad_s: 1.0
+      contact_stiffness_N_m: 40000.0
+      contact_damping_N_s_m: 220.0
+      max_contact_force_N: 50.0
+      force_integral_limit: .inf
+      force_integral_leak: 0.0
+      force_min_norm_N: 1.0e-06
+      orientation_mode: force_shortest_arc
+      solver_mode: kkt_projection
+      force_loop_mode: paper_literal
+      z0_convention: q0_forward_kinematics_height
+  legacy_references:
+    formula_faithful:
+      acceptance_mode: diagnostic
+      overall_pass: true
+      q7_sample_time_s: 22.0
+      q7_at_22_s_rad: 1.124179
+      startup_reaches_velocity_limit: false
+      tail_force_error_mean_N: 0.0476436
+      tail_force_error_pass: true
+      tail_position_error_mean_m: 0.000583872
+      tail_position_error_pass: true
+      tail_orientation_error_mean_rad: 7.42197e-05
+      tail_orientation_error_pass: true
+      max_joint_limit_violation_rad: 0.0
+      max_velocity_limit_violation_rad_s: 0.0
+      constraints_pass: true
+      required_method_coverage_pass: true
+    figure_match:
+      acceptance_mode: landmark
+      overall_pass: true
+      q7_sample_time_s: 22.0
+      q7_at_22_s_rad: 2.5
+      startup_reaches_velocity_limit: true
+      tail_force_error_mean_N: 0.000574393
+      tail_force_error_pass: true
+      tail_position_error_mean_m: 0.000907723
+      tail_position_error_pass: true
+      tail_orientation_error_mean_rad: 2.69494e-06
+      tail_orientation_error_pass: true
+      max_joint_limit_violation_rad: 0.0
+      max_velocity_limit_violation_rad_s: 0.0
+      constraints_pass: true
+      required_method_coverage_pass: true
+  primary_convergence_reference: formula_faithful
+  fig6_landmark_reference: figure_match
+  checks:
+    candidate_execution_contact_bounds:
+      pass: true
+      execution_success: true
+      contact_force_tail_success: true
+      q_bound_violation_count: 0
+      qdot_bound_violation_count: 0
+    legacy_formula_faithful_overall:
+      pass: true
+      overall_pass: true
+      constraints_pass: true
+      required_method_coverage_pass: true
+    legacy_figure_match_overall:
+      pass: true
+      overall_pass: true
+      constraints_pass: true
+      required_method_coverage_pass: true
+    tail_force_error_against_formula:
+      pass: true
+      candidate_value: 0.023282898803479644
+      reference_value: 0.0476436
+      absolute_limit: 1.0
+      abs_delta: 0.024360701196520358
+      delta_tolerance: 0.05
+    tail_position_error_against_formula:
+      pass: true
+      candidate_value: 0.0005087140069982723
+      reference_value: 0.000583872
+      absolute_limit: 0.002
+      abs_delta: 7.515799300172779e-05
+      delta_tolerance: 0.001
+    tail_orientation_error_against_formula:
+      pass: true
+      candidate_value: 5.032735496157772e-05
+      reference_value: 7.42197e-05
+      absolute_limit: 0.001
+      abs_delta: 2.389234503842228e-05
+      delta_tolerance: 0.0001
+    duration_coverage:
+      pass: true
+      candidate_duration_s: 30.0
+      required_duration_s: 30.0
+    fig6_q7_22s_landmark:
+      pass: false
+      candidate_q7_rad: 1.6680622878116045
+      candidate_source: candidate metrics field fig6_q7_at_22s_rad
+      reference_q7_rad: 2.5
+      abs_delta_rad: 0.8319377121883955
+      tolerance_rad: 0.05
+      reason: candidate metric present
+    fig5_r_sweep_coverage:
+      pass: true
+      required_r_values:
+      - '0.2'
+      - '0.4'
+      - '0.6'
+      - '0.8'
+      - '1'
+      required_duration_s: 2.0
+      present_r_values:
+      - '0.2'
+      - '0.4'
+      - '0.6'
+      - '0.8'
+      - '1'
+      missing_r_values: []
+      invalid_r_values: []
+    paper_assumption_compatibility:
+      pass: true
+      force_integral_limit: .inf
+      required_uncapped_force_integral: true
+      reason: uncapped
+  interpretation: 'formula-convergence claim passed, but legacy strict aggregate remains
+    failed because tuned figure-match landmark checks failed: fig6_q7_22s_landmark'

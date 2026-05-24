@@ -190,6 +190,9 @@ smoke runs regress.
   non-paper-faithful tuning knobs, including explicit q7 nullspace bias. This
   makes the current q7 landmark a tuned figure-match signal, not a
   formula-faithful controller requirement.
+- The v51 split gate lets the Python paper-platform line claim formula
+  convergence separately from tuned figure-match landmark reproduction. The
+  legacy strict aggregate remains failed.
 
 ## Next Executable Step
 
@@ -200,6 +203,7 @@ model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
 paper-platform work should target the legacy `admittance_proxy` force-loop
-source as a separately labeled Python candidate or revise the strict parity
-gate's claim structure. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+source as a separately labeled Python candidate only if the tuned landmark is
+still required. Otherwise continue UR10e adapted work using the split
+formula-convergence claim boundary. Keep contact, drift, terminal orientation,
+force error, and qdot saturation visible together.

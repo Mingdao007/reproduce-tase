@@ -1390,6 +1390,25 @@ Legacy source root:
   pseudoinverse nullspace branch. The q7 landmark should be treated as tuned
   figure-match evidence, not a formula-faithful parity requirement.
 
+## V51 Split Paper-Platform Parity Claims
+
+### Split claim-level paper-platform evaluation
+
+- Run:
+  - `runs/paper_platform_parity_eval/20260524T124200`
+- Command:
+  `scripts/evaluate_paper_platform_parity.py`
+- Git state at run time:
+  commit `bddf1dad1645199de92458616162291b6881aa4c`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Result:
+  `paper_platform_formula_convergence_pass = true`,
+  `paper_platform_figure_match_landmark_pass = false`, and
+  `paper_platform_parity_pass = false`. The old strict aggregate remains
+  failed, while formula-convergence evidence is now separately reportable.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

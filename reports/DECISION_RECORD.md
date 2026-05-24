@@ -1067,3 +1067,25 @@
   does not reproduce a tuned q7-nullspace landmark. A separate Python
   `figure_match` candidate may still be useful, but it must be labeled as a
   tuned landmark reproduction rather than paper-equivalent numerical parity.
+
+## D056: Split Paper-Platform Gate Into Formula Convergence And Landmark Claims
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Split the paper-platform evaluator into three claim levels:
+  `formula_convergence`, `figure_match_landmark`, and the backward-compatible
+  `legacy_strict_all_checks` aggregate.
+- Reason:
+  The v51 evaluation at `runs/paper_platform_parity_eval/20260524T124200`
+  reports `paper_platform_formula_convergence_pass = true`,
+  `paper_platform_figure_match_landmark_pass = false`, and
+  `paper_platform_parity_pass = false`. This keeps the v49-v50 provenance
+  boundary visible: formula-convergence evidence should not be blocked by the
+  tuned figure-match q7 landmark, but the old aggregate still records that
+  full strict paper-platform parity is not achieved.
+- Consequence:
+  Future reports may claim formula-convergence evidence for the Python
+  7DOF paper-platform line. They must not call it full paper-equivalent
+  numerical parity, Fig.6 q-trajectory parity, or figure-match landmark
+  reproduction unless the corresponding claim level passes.

@@ -4,11 +4,18 @@ Use this file as the long-form goal instructions for the next Codex thread.
 The short thread goal should reference this file instead of pasting the full
 instructions into the goal text.
 
+## Short Thread Goal Prompt
+
+```text
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v51 claim boundary: Python paper-platform formula-convergence evidence passes, tuned Fig.6 q7 landmark reproduction fails, and legacy strict paper-equivalent parity fails. Choose the next branch deliberately: either implement a separately labeled Python tuned figure-match candidate if the q7 landmark is still required, or continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+```
+
 ## Objective
 
-Continue the UR10e + OnRobot force/torque sensor project to reproduce the
-T-ASE finite-time force-motion control paper, then adapt the method to the
-current UR10e hardware and simulation stack.
+Continue the UR10e + OnRobot force/torque sensor project from the current
+`v51` repository state. The project goal is to reproduce the T-ASE finite-time
+force-motion control paper, then adapt the method to the current UR10e
+hardware and simulation stack.
 
 Work from the whole-system plan down to derivations, implementation,
 simulation, validation, and iterative experiments. Use MuJoCo as the baseline
@@ -24,15 +31,30 @@ Read and audit these files before making assumptions:
   `Mingdao007/reproduce-tase`
   `https://github.com/Mingdao007/reproduce-tase`
   Default branch: `main`
+- Local authoritative clone:
+  `/home/andy/reproduce-tase`
+- Current local branch:
+  `exp/tase-ur10e-v51-split-paper-parity-claims`
+- Current v51 code commit:
+  `bddf1dad1645199de92458616162291b6881aa4c`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
-- Current reproduction workspace:
+- Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
-- Existing plan:
-  `REPRODUCTION_PLAN.md`
-- Existing reports:
-  `reports/v1_simulation_start_report.md`
-  `reports/full_article_reproduction_report.md`
+- Required repository entry points:
+  `reports/completion_audit.md`
+  `reports/ITERATION_LOG.md`
+  `reports/DECISION_RECORD.md`
+  `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Mandatory plans:
+  `plans/MASTER_PLAN.md`
+  `plans/PAPER_TRUTH_EXTRACTION.md`
+  `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  `plans/MUJOCO_ENVIRONMENT_PLAN.md`
+  `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  `plans/EXPERIMENT_MATRIX.md`
+  `plans/HARDWARE_GATE_SOP.md`
+  `plans/ROLLBACK_AND_CHECKPOINTS.md`
 - Current UR10e / OnRobot hardware state source:
   `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - EOAT and TCP notes:
@@ -60,6 +82,39 @@ Read and audit these files before making assumptions:
   resolved.
 - Local records mainly say `KSM-8N`. If the user says `FSN-8N`, first verify
   whether this is the same part or a naming error.
+
+## Current Repository State And Claim Boundary
+
+The repository is not at full paper-equivalent completion. Start by reading
+`reports/completion_audit.md`; treat it as the current evidence map, not as a
+substitute for inspecting files and command output.
+
+Current accepted claims:
+
+- `UR10e adapted slowed tilted-plane E1-E4 simulation`: relaxed setup plus
+  trajectory feasibility passes `4 / 4`; strict full staged feasibility
+  remains `0 / 4`; hardware readiness is false.
+- `paper_platform_7dof_formula_convergence`: passes the v51 split gate.
+  Evidence is `reports/paper_platform_split_claim_report.md` and
+  `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml`.
+- `paper_platform_7dof_figure_match_landmark`: fails because the current
+  Python candidate has q7 at 22 s of `1.6680622878116045 rad`, while the tuned
+  figure-match reference is `2.5 rad`.
+- `paper_platform_7dof_legacy_strict_all_checks`: fails. Do not call the
+  current Python 7DOF line full paper-equivalent numerical parity.
+
+The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
+to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
+bias, not the formula-faithful controller path. Future work must keep these
+claim levels separate.
+
+Current next executable choice:
+
+- Implement a separately labeled Python tuned figure-match candidate if the
+  Fig.6 q7 landmark remains required; or
+- Continue UR10e adapted work using the formula-convergence boundary by
+  validating or replacing the approximate UR10e TCP/contact model and rerunning
+  the terminal setup audit.
 
 ## Safety Boundary
 
@@ -143,8 +198,10 @@ At the end of every iteration:
 
 ## Workflow
 
-1. Audit the existing reproduction directory. Identify what is already done,
-   what is synthetic, what is PDF-verified, and what is still placeholder.
+1. Audit the current repository state. Start with `git status`, current
+   branch, recent commits, `reports/completion_audit.md`, and the v51 split
+   claim artifacts. Identify what is already done, what is synthetic, what is
+   PDF-verified, and what is still placeholder.
 2. Extract paper truth from the PDF: equations, assumptions, dimensions,
    controller law, finite-time RNN dynamics, constraints, Section V
    parameters, Section VI experiment matrix, metrics, and claimed MIAE
@@ -188,9 +245,13 @@ At the end of every iteration:
 - A completion audit mapping each requirement to concrete evidence: branch,
   commit, files, commands, run directories, plots, metrics, tests, and
   remaining gaps.
+- A final handoff that states the exact claim level achieved and explicitly
+  lists any claim levels that remain failed.
 
 ## Naming And Claims
 
 Until the paper-faithful 7DOF reproduction and the UR10e adapted line are
 clearly separated, never call UR10e results "original paper platform
-reproduction." Call them "UR10e adapted reproduction."
+reproduction." Call them "UR10e adapted reproduction." The v51 split gate also
+means that "formula convergence" must not be described as "full
+paper-equivalent parity" or "Fig.6 q-trajectory parity."
