@@ -185,7 +185,7 @@ def summarize_case(delta_m: float, metrics: dict[str, Any]) -> dict[str, Any]:
     stage_b_failed = [
         {
             "trajectory": row["trajectory"],
-            "failed_criteria": row["feasibility_gate"]["failed_criteria"],
+            "failed_criteria": list(row["feasibility_gate"]["failed_criteria"]),
         }
         for row in stage_b_rows
         if not row["feasibility_gate"]["feasibility_pass"]
@@ -208,7 +208,7 @@ def summarize_case(delta_m: float, metrics: dict[str, Any]) -> dict[str, Any]:
         "base_z_offset_delta_mm": 1000.0 * float(delta_m),
         "stage_a_passed": bool(metrics["stitched_gate"]["stage_a_passed"]),
         "stage_a_terminal_gate_passed": bool(terminal_gate["passed"]),
-        "stage_a_terminal_failed_criteria": terminal_gate.get("failed_criteria", []),
+        "stage_a_terminal_failed_criteria": list(terminal_gate.get("failed_criteria", [])),
         "stage_a_failed_criteria": stage_a_failed_criteria(metrics),
         "stage_a_gate_criteria": stage_a_gate["criteria"],
         "stitched_passed": bool(metrics["stitched_gate"]["passed"]),

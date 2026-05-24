@@ -163,6 +163,39 @@ def planned_orientation_gate_args_match(
     }
 
 
+def planned_weighted_gate_args_match(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    command = list(plan["command"])
+    expected_deltas = parse_float_list(command_arg(command, "--base-z-deltas-mm"))
+    expected_boundary_delta = float(command_arg(command, "--boundary-base-z-delta-mm"))
+    expected_gates = parse_float_list(command_arg(command, "--orientation-gates"))
+    observed_deltas = [float(value) for value in metrics.get("base_z_deltas_mm", [])]
+    observed_boundary_delta = float(metrics["boundary_base_z_delta_mm"])
+    observed_gates = [float(value) for value in metrics.get("orientation_gates_rad", [])]
+    return {
+        "base_z_deltas_mm": {
+            "planned": expected_deltas,
+            "observed": observed_deltas,
+            "matched": expected_deltas == observed_deltas,
+        },
+        "boundary_base_z_delta_mm": {
+            "planned": expected_boundary_delta,
+            "observed": observed_boundary_delta,
+            "matched": expected_boundary_delta == observed_boundary_delta,
+        },
+        "orientation_gates_rad": {
+            "planned": expected_gates,
+            "observed": observed_gates,
+            "matched": expected_gates == observed_gates,
+        },
+        "all_matched": expected_deltas == observed_deltas
+        and expected_boundary_delta == observed_boundary_delta
+        and expected_gates == observed_gates,
+    }
+
+
 def evaluate_base_z_plus1mm(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
     aggregate = metrics["aggregate"]
     cases = metrics["cases"]
@@ -410,6 +443,139 @@ def evaluate_positive_orientation_gate_0p119(
     }
 
 
+def evaluate_weighted_plus1mm_0p119_gate(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    aggregate = metrics["aggregate"]
+    current_gate_rad = 0.119
+    current_gate_groups = [
+        group
+        for group in metrics["full_groups"]
+        if float(group["orientation_gate_rad"]) == current_gate_rad
+    ]
+    current_gate_cases = [
+        case
+        for group in current_gate_groups
+        for case in group["cases"]
+        if float(case["base_z_offset_delta_mm"]) == 1.0
+    ]
+    boundary_groups = list(metrics["boundary_groups"])
+    boundary_identified = all(
+        group["aggregate"]["min_passing_orientation_gate_rad"] is not None
+        and group["aggregate"]["max_failing_orientation_gate_rad"] is not None
+        for group in boundary_groups
+    )
+    current_gate_all_passed = bool(current_gate_cases) and all(
+        bool(case["stitched_passed"]) for case in current_gate_cases
+    )
+    min_passing_gates = [
+        float(group["aggregate"]["min_passing_orientation_gate_rad"])
+        for group in boundary_groups
+        if group["aggregate"]["min_passing_orientation_gate_rad"] is not None
+    ]
+    passes_at_or_below_current = bool(min_passing_gates) and all(
+        gate <= current_gate_rad for gate in min_passing_gates
+    )
+    closure_checks = {
+        "planned_parameters_match": planned_weighted_gate_args_match(plan, metrics),
+        "source_delta_present": {
+            "passed": metrics["base_z_deltas_mm"] == [1.0]
+            and float(metrics["boundary_base_z_delta_mm"]) == 1.0,
+            "base_z_deltas_mm": list(metrics["base_z_deltas_mm"]),
+            "boundary_base_z_delta_mm": float(metrics["boundary_base_z_delta_mm"]),
+        },
+        "current_gate_groups_present": {
+            "passed": len(current_gate_groups) == 4,
+            "current_gate_rad": current_gate_rad,
+            "group_names": [str(group["name"]) for group in current_gate_groups],
+        },
+        "current_gate_weighted_scenarios_recovered": {
+            "passed": current_gate_all_passed,
+            "case_count": len(current_gate_cases),
+            "failed_cases": [
+                {
+                    "group": str(case["group"]),
+                    "scenario": str(case["scenario"]),
+                    "paper_time_scale": float(case["paper_time_scale"]),
+                    "orientation_gate_rad": float(case["orientation_gate_rad"]),
+                    "stage_a_passed": bool(case["stage_a_passed"]),
+                    "handoff_pass_count": int(case["handoff_pass_count"]),
+                    "handoff_trajectory_count": int(case["handoff_trajectory_count"]),
+                    "stage_b_failed_rows": list(case["stage_b_failed_rows"]),
+                    "stage_b_max_orientation_error_rad": float(
+                        case["stage_b_max_orientation_error_rad"]
+                    ),
+                    "stage_b_max_qdot_saturation_fraction": float(
+                        case["stage_b_max_qdot_saturation_fraction"]
+                    ),
+                }
+                for case in current_gate_cases
+                if not bool(case["stitched_passed"])
+            ],
+        },
+        "diagnostic_boundaries_identified": {
+            "passed": boundary_identified,
+            "boundaries": [
+                {
+                    "name": str(group["name"]),
+                    "paper_time_scale": float(group["paper_time_scale"]),
+                    "min_passing_orientation_gate_rad": group["aggregate"][
+                        "min_passing_orientation_gate_rad"
+                    ],
+                    "max_failing_orientation_gate_rad": group["aggregate"][
+                        "max_failing_orientation_gate_rad"
+                    ],
+                }
+                for group in boundary_groups
+            ],
+        },
+        "passes_at_or_below_current_gate": {
+            "passed": passes_at_or_below_current,
+            "current_gate_rad": current_gate_rad,
+            "min_passing_orientation_gates_rad": list(min_passing_gates),
+        },
+        "gate_relaxation_not_accepted": {
+            "passed": True,
+            "accepted_gate_rad": None,
+            "diagnostic_min_passing_gates_rad": list(min_passing_gates),
+        },
+    }
+    closure_passed = all(
+        [
+            closure_checks["planned_parameters_match"]["all_matched"],
+            closure_checks["source_delta_present"]["passed"],
+            closure_checks["current_gate_groups_present"]["passed"],
+            closure_checks["current_gate_weighted_scenarios_recovered"]["passed"],
+            closure_checks["diagnostic_boundaries_identified"]["passed"],
+            closure_checks["passes_at_or_below_current_gate"]["passed"],
+        ]
+    )
+    return {
+        "cell_id": "weighted_plus1mm_0p119_gate",
+        "status": "executed_closed" if closure_passed else "executed_unresolved",
+        "closure_passed": closure_passed,
+        "closure_checks": closure_checks,
+        "observed_status": (
+            "current_gate_passed" if current_gate_all_passed else "current_gate_failed"
+        ),
+        "aggregate": {
+            "group_count": int(aggregate["group_count"]),
+            "case_count": int(aggregate["case_count"]),
+            "stitched_pass_count": int(aggregate["stitched_pass_count"]),
+            "stitched_fail_count": int(aggregate["stitched_fail_count"]),
+            "all_pass_groups": list(aggregate["all_pass_groups"]),
+            "failing_groups": list(aggregate["failing_groups"]),
+        },
+        "interpretation": (
+            "The weighted +1.0 mm 0.119 rad gate cell remains unresolved. "
+            "All current-gate weighted rows fail on orientation, while "
+            "diagnostic boundaries first pass at 0.11955 rad for time 0.0075 "
+            "and 0.1196 rad for time 0.01; neither is an accepted replacement gate."
+        ),
+    }
+
+
 def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[str, Any]:
     cell_id = str(plan["id"])
     metrics_path = experiment_root / cell_id / "metrics.yaml"
@@ -430,12 +596,14 @@ def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[s
         result = evaluate_positive_fast_timing_0p0075(plan, metrics)
     elif cell_id == "positive_orientation_gate_0p119":
         result = evaluate_positive_orientation_gate_0p119(plan, metrics)
+    elif cell_id == "weighted_plus1mm_0p119_gate":
+        result = evaluate_weighted_plus1mm_0p119_gate(plan, metrics)
     else:
         result = {
             "cell_id": cell_id,
             "status": "executed_not_evaluated",
             "closure_passed": False,
-            "interpretation": "This audit currently evaluates only the executed base-z, positive fast-timing, and positive orientation-gate cells.",
+            "interpretation": "This audit currently evaluates only the executed base-z, positive fast-timing, positive orientation-gate, and weighted gate/time cells.",
         }
     result["experiment_metrics"] = relative(metrics_path)
     result["source_failed_cell"] = dict(plan["source_failed_cell"])
@@ -464,7 +632,7 @@ def build_audit(
     ]
     not_executed = [item["cell_id"] for item in cell_results if item["status"] == "not_executed"]
     return {
-        "audit_source": "v102 failed diagnostic robustness experiment execution audit",
+        "audit_source": "v103 failed diagnostic robustness experiment execution audit",
         "run_id": run_id,
         "status": "completed",
         "source_files": {
@@ -501,7 +669,8 @@ def build_audit(
             "Do not upgrade the base_z_plus1mm cell; it remains unresolved under the executed command.",
             "Do not upgrade the positive_fast_timing_0p0075 cell; it remains unresolved under the executed command.",
             "Do not upgrade the positive_orientation_gate_0p119 cell; it remains unresolved at the current 0.119 rad gate.",
-            "If continuing offline, run the remaining weighted planned command or design narrower probes for the unresolved +1.0 mm rows.",
+            "Do not upgrade the weighted_plus1mm_0p119_gate cell; it remains unresolved at the current 0.119 rad gate.",
+            "All v99 planned commands have now been executed; if continuing offline, design narrower probes for the unresolved +1.0 mm rows.",
             "Keep contact-model and gate interpretations blocked until approved read-only evidence exists.",
         ],
     }

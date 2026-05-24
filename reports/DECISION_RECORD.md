@@ -2259,3 +2259,27 @@
   a comparison audit before it can affect the matrix. V102 does not prove
   robustness, strict paper-equivalent feasibility, contact calibration, gate
   acceptance, hardware readiness, or any hardware authorization.
+
+## D108: Keep Weighted Gate Recovery Unresolved At Current Gate
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v103 as the focused execution and audit of the v99
+  `weighted_plus1mm_0p119_gate` planned failed cell.
+- Reason:
+  V99 queued this row because the v98 diagnostic matrix still failed the
+  weighted `+1.0 mm`, `0.119 rad` gate case. V103 runs the exact planned
+  weighted gate/time command and extends the execution audit to compare the
+  output against closure criteria. All current `0.119 rad` weighted rows still
+  fail on orientation; the diagnostic boundaries first pass at `0.11955 rad`
+  for time `0.0075` and `0.1196 rad` for time `0.01`.
+- Consequence:
+  Do not upgrade the `weighted_plus1mm_0p119_gate` failed cell, and do not
+  treat either diagnostic boundary as an accepted gate. All four v99 planned
+  commands have now been executed and audited, but none of the four failed
+  cells is closed. Future offline work should use narrower probes or await
+  approved read-only evidence before changing contact or gate interpretation.
+  V103 does not prove robustness, strict paper-equivalent feasibility, contact
+  calibration, gate acceptance, hardware readiness, or any hardware
+  authorization.

@@ -35,15 +35,16 @@ def test_failed_experiment_execution_audit_preserves_claim_boundary(tmp_path) ->
     assert metrics["run_id"] == "TEST_FAILED_EXECUTION_AUDIT"
     assert metrics["status"] == "completed"
     assert metrics["summary"]["cell_count"] == 4
-    assert metrics["summary"]["executed_cell_count"] == 3
+    assert metrics["summary"]["executed_cell_count"] == 4
     assert metrics["summary"]["closed_cell_count"] == 0
-    assert metrics["summary"]["not_executed_cell_count"] == 1
+    assert metrics["summary"]["not_executed_cell_count"] == 0
     assert metrics["summary"]["all_failed_cells_closed"] is False
     assert metrics["summary"]["closed_cell_ids"] == []
     assert metrics["summary"]["unresolved_executed_cell_ids"] == [
         "base_z_plus1mm",
         "positive_fast_timing_0p0075",
         "positive_orientation_gate_0p119",
+        "weighted_plus1mm_0p119_gate",
     ]
 
     boundary = metrics["claim_boundary"]
@@ -83,8 +84,6 @@ def test_failed_experiment_execution_audit_reports_base_z_unresolved(tmp_path) -
     assert checks["path_geometry_recovered"]["passed"] is False
     assert checks["duration_recovered"]["passed"] is False
     assert checks["terminal_target_recovered"]["orientation_error_rad"] == 0.11948560786548146
-
-    assert results["weighted_plus1mm_0p119_gate"]["status"] == "not_executed"
 
 
 def test_failed_experiment_execution_audit_reports_fast_timing_unresolved(tmp_path) -> None:
@@ -158,4 +157,55 @@ def test_failed_experiment_execution_audit_reports_orientation_gate_unresolved(t
     assert checks["passes_at_or_below_current_gate"]["passed"] is False
     assert checks["passes_at_or_below_current_gate"]["current_gate_rad"] == 0.119
     assert checks["passes_at_or_below_current_gate"]["min_passing_orientation_gate_rad"] == 0.11998
+    assert checks["gate_relaxation_not_accepted"]["passed"] is True
+
+
+def test_failed_experiment_execution_audit_reports_weighted_gate_unresolved(tmp_path) -> None:
+    _, metrics = run_audit(tmp_path)
+
+    results = {item["cell_id"]: item for item in metrics["cell_results"]}
+    weighted = results["weighted_plus1mm_0p119_gate"]
+
+    assert weighted["status"] == "executed_unresolved"
+    assert weighted["closure_passed"] is False
+    assert weighted["experiment_metrics"].endswith(
+        "runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate/metrics.yaml"
+    )
+    assert weighted["aggregate"]["group_count"] == 8
+    assert weighted["aggregate"]["case_count"] == 20
+    assert weighted["aggregate"]["stitched_pass_count"] == 9
+    assert weighted["aggregate"]["stitched_fail_count"] == 11
+    assert weighted["aggregate"]["all_pass_groups"] == [
+        "time0p01_gate0p11995:weighted_kp0_normal1",
+        "time0p01_gate0p11995:weighted_kp0_normal30",
+    ]
+
+    checks = weighted["closure_checks"]
+    assert checks["planned_parameters_match"]["all_matched"] is True
+    assert checks["source_delta_present"]["passed"] is True
+    assert checks["current_gate_groups_present"]["passed"] is True
+    assert checks["current_gate_weighted_scenarios_recovered"]["passed"] is False
+    assert checks["current_gate_weighted_scenarios_recovered"]["case_count"] == 4
+    assert len(checks["current_gate_weighted_scenarios_recovered"]["failed_cases"]) == 4
+    assert checks["diagnostic_boundaries_identified"]["passed"] is True
+    assert checks["diagnostic_boundaries_identified"]["boundaries"] == [
+        {
+            "name": "gate_boundary_plus1mm_time_0p0075",
+            "paper_time_scale": 0.0075,
+            "min_passing_orientation_gate_rad": 0.11955,
+            "max_failing_orientation_gate_rad": 0.1195,
+        },
+        {
+            "name": "gate_boundary_plus1mm_time_0p01",
+            "paper_time_scale": 0.01,
+            "min_passing_orientation_gate_rad": 0.1196,
+            "max_failing_orientation_gate_rad": 0.11955,
+        },
+    ]
+    assert checks["passes_at_or_below_current_gate"]["passed"] is False
+    assert checks["passes_at_or_below_current_gate"]["current_gate_rad"] == 0.119
+    assert checks["passes_at_or_below_current_gate"]["min_passing_orientation_gates_rad"] == [
+        0.11955,
+        0.1196,
+    ]
     assert checks["gate_relaxation_not_accepted"]["passed"] is True

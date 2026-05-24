@@ -185,7 +185,7 @@ def stage_b_rows(metrics: dict[str, Any]) -> list[dict[str, Any]]:
             {
                 "trajectory": row["trajectory"],
                 "passed": bool(gate["feasibility_pass"]),
-                "failed_criteria": gate["failed_criteria"],
+                "failed_criteria": list(gate["failed_criteria"]),
                 "orientation_error_rad": float(target["max_orientation_error_rad"]),
                 "qdot_saturation_fraction": float(target["qdot_saturation_fraction"]),
                 "tail_max_qdot_utilization": float(target["tail_max_qdot_utilization"]),

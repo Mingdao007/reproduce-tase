@@ -3965,3 +3965,44 @@
   Without live approval, continue only non-final offline work. Candidate paths
   are to execute the remaining `weighted_plus1mm_0p119_gate` planned command,
   or design narrower diagnostic probes for the unresolved `+1.0 mm` rows.
+
+## 2026-05-25 v103 Weighted +1.0 mm Gate Failed-Cell Execution
+
+### Execute and audit the planned `weighted_plus1mm_0p119_gate` command
+
+- Branch:
+  `exp/tase-ur10e-v103-weighted-plus1mm-gate-execution`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T061328`
+- Report:
+  `reports/weighted_plus1mm_gate_failed_cell_execution_report.md`
+- Commands run:
+  - `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_weighted_gate_time_matrix.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate --base-z-deltas-mm 1.0 --boundary-base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11955,0.1196,0.1197,0.11995`
+  - `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py scripts/audit_weighted_timing_recovery.py scripts/audit_stage_b_priority_recovery.py scripts/audit_positive_stitched_sensitivity.py scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  - `scripts/run_tests.sh tests/test_weighted_gate_time_matrix.py tests/test_failed_diagnostic_robustness_experiment_execution.py`
+  - `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T061328`
+  - `rg -n "&id|\*id" runs/failed_diagnostic_robustness_experiment_audit/20260525T061328/metrics.yaml runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate/metrics.yaml`
+- Result:
+  Executed the v99 `weighted_plus1mm_0p119_gate` command and extended the
+  execution audit to evaluate the cell. The executed cell is
+  `executed_unresolved`: all current `0.119 rad` weighted rows fail on
+  orientation, while diagnostic boundaries first pass at `0.11955 rad` for
+  time `0.0075` and `0.1196 rad` for time `0.01`. The v103 audit reports
+  executed cells `4`, closed cells `0`, and not-executed cells `0`.
+- Limit:
+  This is one additional offline diagnostic experiment plus a comparison
+  audit. The diagnostic boundaries are not accepted replacement gates. V103
+  does not collect measurements, execute the read-only SOP, calibrate the
+  contact model, accept any replacement gate, prove robustness, prove strict
+  paper-equivalent feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py scripts/audit_weighted_timing_recovery.py scripts/audit_stage_b_priority_recovery.py scripts/audit_positive_stitched_sensitivity.py scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  passed; focused execution-audit tests passed with `6 passed in 0.96s`; the
+  v103 execution audit run was created; the YAML anchor check found no
+  anchors; full tests passed with `144 passed in 6.60s`.
+- Next step:
+  Without live approval, continue only non-final offline work. All v99 planned
+  commands have now been executed; candidate paths are narrower diagnostic
+  probes for the unresolved `+1.0 mm` rows or explicitly approved read-only
+  evidence before changing contact/gate interpretation.

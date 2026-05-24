@@ -153,7 +153,7 @@ def run_case(
             "stage_b_max_tail_force_error_N": max(row["tail_mean_abs_force_error_N"] for row in rows),
             "stage_b_max_xy_error_m": max(row["max_tangential_position_error_m"] for row in rows),
             "e2_passed": bool(e2["passed"]),
-            "e2_failed_criteria": e2["failed_criteria"],
+            "e2_failed_criteria": list(e2["failed_criteria"]),
             "e2_orientation_error_rad": e2["orientation_error_rad"],
             "e2_qdot_saturation_fraction": e2["qdot_saturation_fraction"],
             "e2_tail_qdot_utilization": e2["tail_max_qdot_utilization"],

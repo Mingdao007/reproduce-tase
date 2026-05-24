@@ -2854,6 +2854,48 @@ Legacy source root:
   an accepted replacement orientation gate, not a strict paper-equivalent
   claim, not a robustness proof, and not hardware authorization.
 
+## V103 Weighted +1.0 mm Gate Failed-Cell Execution
+
+### Executed `weighted_plus1mm_0p119_gate` planned command and audit update
+
+- Scripts:
+  - `scripts/audit_weighted_gate_time_matrix.py`
+  - `scripts/audit_weighted_timing_recovery.py`
+  - `scripts/audit_stage_b_priority_recovery.py`
+  - `scripts/audit_positive_stitched_sensitivity.py`
+  - `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T061328`
+- Report:
+  - `reports/weighted_plus1mm_gate_failed_cell_execution_report.md`
+- Tests:
+  - `tests/test_weighted_gate_time_matrix.py`
+  - `tests/test_failed_diagnostic_robustness_experiment_execution.py`
+- Executed command:
+  `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_weighted_gate_time_matrix.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate --base-z-deltas-mm 1.0 --boundary-base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11955,0.1196,0.1197,0.11995`
+- Audit command:
+  `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T061328`
+- Tracked lightweight artifacts:
+  experiment metrics/summary/configs/git state, audit metrics/summary/git
+  state, report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The executed `weighted_plus1mm_0p119_gate` cell remains unresolved. The
+  audit reports `executed_cell_count = 4`, `closed_cell_count = 0`,
+  `not_executed_cell_count = 0`, `all_failed_cells_closed = false`; the
+  current `0.119 rad` weighted rows fail, while diagnostic boundaries first
+  pass at `0.11955 rad` and `0.1196 rad`, neither accepted as a replacement
+  gate.
+- Validation:
+  Focused execution-audit tests passed with `6 passed in 0.96s`; YAML anchor
+  check found no anchors in the generated metrics; full tests passed with
+  `144 passed in 6.60s`.
+- Limit:
+  No live or physical measurement was collected. All four planned experiment
+  commands have now been executed. This is not a calibrated contact model, not
+  an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, not a robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
