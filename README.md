@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`
+Current branch: `exp/tase-ur10e-v71-stage-b-e2-margin`
 
 ## Scope
 
@@ -76,6 +76,10 @@ v70 uses a run-local `0.12 rad` diagnostic orientation envelope and recovers
 positive start, terminal, and path feasibility through `+1.0 mm`, but stitched
 recovery remains `0`: Stage B handoff is `3 / 4`, consistently failing E2 on
 qdot saturation.
+v71 isolates that E2 handoff margin: at original `paper_time_scale = 0.01`, E2
+passes `0 / 8` positive deltas; at `0.005`, E2 passes `8 / 8`. A qdot-limit-only
+probe at `+1.0 mm` still fails because orientation remains just above
+`0.12 rad`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

@@ -255,12 +255,16 @@ smoke runs regress.
   `0.12 rad` terminal orientation envelope and recovers positive start,
   terminal, and path feasibility through `+1.0 mm`, but stitched recovery is
   still `0` because Stage B handoff is `3 / 4` with E2 qdot saturation.
+- The v71 positive Stage B E2 margin audit shows E2 passes all positive deltas
+  at `paper_time_scale = 0.005` under the v70 run-local relaxed terminal/path
+  setup. Qdot-limit-only relaxation at original `0.01` timing does not recover
+  the hardest `+1.0 mm` row because orientation remains just above `0.12 rad`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should combine
-the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot margin
-audit. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+task formulation. The next UR10e adapted controller experiment should run the
+full positive E1-E4 stitched matrix with the v70 relaxed terminal/path setup
+and `paper_time_scale = 0.005`. Keep contact, drift, terminal orientation,
+force error, and qdot saturation visible together.

@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v70 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`, v67 brackets the base-z sensitivity, v68 shows positive base-z start contact is recoverable through `+1.0 mm`, v69 shows yaw is not the positive terminal limiter and the current model needs about `0.1195 rad` orientation margin, and v70 shows a run-local `0.12 rad` diagnostic orientation envelope recovers positive start, terminal, and path feasibility through `+1.0 mm` but stitched recovery is still `0` because Stage B handoff remains `3 / 4` with E2 qdot saturation. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot margin audit. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v70 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v71 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`, v67 brackets the base-z sensitivity, v68 shows positive base-z start contact is recoverable through `+1.0 mm`, v69 shows yaw is not the positive terminal limiter and the current model needs about `0.1195 rad` orientation margin, v70 shows a run-local `0.12 rad` diagnostic orientation envelope recovers positive start, terminal, and path feasibility through `+1.0 mm` but stitched recovery is still `0` because Stage B handoff remains `3 / 4` with E2 qdot saturation, and v71 shows E2 timing recovers at `paper_time_scale = 0.005` for all positive deltas while qdot-limit-only relaxation at `+1.0 mm` does not recover original `0.01` timing because orientation stays just above `0.12 rad`. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should run the full positive E1-E4 stitched matrix with the v70 relaxed terminal/path setup and `paper_time_scale = 0.005`. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v71 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v70` repository state. The project goal is to reproduce the T-ASE finite-time
+`v71` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`
-- Current v70 formal run:
-  `runs/positive_relaxed_orientation_recovery/20260524T172909`
+  `exp/tase-ur10e-v71-stage-b-e2-margin`
+- Current v71 formal run:
+  `runs/positive_stage_b_e2_margin/20260524T192129`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -181,6 +181,11 @@ Current accepted claims:
   terminal, and path feasibility `8 / 8` through `+1.0 mm`, but stitched
   recovery remains `0` because Stage B handoff is `3 / 4` with E2 qdot
   saturation.
+- `ur10e_positive_stage_b_e2_margin`: v71 reuses the v70 run-local relaxed
+  terminal/path setup and shows E2 passes `0 / 8` positive deltas at
+  `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005`.
+  A qdot-limit-only probe on `+1.0 mm` at the original `0.01` timing still
+  fails because max orientation error remains just above `0.12 rad`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -190,10 +195,11 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by combining the v70 relaxed terminal/path setup
-  with a Stage B E2 timing or qdot margin audit. Keep strict paper-equivalent
-  setup, v38 trajectory-after-relaxed-setup, and v63-v70 diagnostic staged
-  labels separate.
+- Continue UR10e adapted work by running the full positive E1-E4 stitched
+  matrix with the v70 relaxed terminal/path setup and
+  `paper_time_scale = 0.005`. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63-v71 diagnostic staged labels
+  separate.
 
 ## Safety Boundary
 

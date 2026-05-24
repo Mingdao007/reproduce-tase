@@ -240,6 +240,11 @@ them rather than deleting them.
   terminal, and path feasibility `8 / 8` through `+1.0 mm`, but stitched
   recovery remains `0` because Stage B handoff is `3 / 4`, consistently
   failing E2 on qdot saturation.
+- The v71 positive Stage B E2 margin audit reuses the v70 relaxed
+  terminal/path setup. E2 passes `0 / 8` positive deltas at
+  `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005`.
+  Raising qdot limit alone on the hardest `+1.0 mm` case at original timing
+  still fails because orientation remains just above `0.12 rad`.
 
 ## Next Executable Step
 
@@ -252,6 +257,7 @@ only the `-1 mm` base-z case with a `16.0 s` Stage A duration, v67 bracketed
 the positive side down to `+0.05 mm`, v68 separated positive-side start
 contact from terminal orientation, v69 quantified the orientation margin, and
 v70 recovered positive-side endpoints/path under an explicit `0.12 rad`
-diagnostic envelope. The next simulation gap is Stage B E2 qdot saturation
-after that relaxed setup. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v70 diagnostic staged labels separate.
+diagnostic envelope, and v71 found that E2 recovers for all positive deltas at
+`paper_time_scale = 0.005`. The next simulation gap is the full positive E1-E4
+stitched matrix at that timing. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v71 diagnostic staged labels separate.

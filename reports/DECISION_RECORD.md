@@ -1497,3 +1497,25 @@
   Stage B E2 timing or qdot margin audit. The project still must not claim
   robustness, strict paper-equivalent feasibility, contact-model calibration,
   or hardware readiness.
+
+## D076: Treat Positive E2 Handoff As Timing-Recoverable
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v71 as evidence that the remaining positive-side E2 Stage B handoff
+  blocker under the v70 run-local relaxed terminal/path setup is recoverable by
+  slowing E2 timing to `paper_time_scale = 0.005`.
+- Reason:
+  The v71 run at `runs/positive_stage_b_e2_margin/20260524T192129` evaluates
+  E2 only for eight positive deltas from `+0.05 mm` through `+1.0 mm`.
+  Original `paper_time_scale = 0.01` passes `0 / 8`; `0.0075` passes `7 / 8`
+  through `+0.75 mm`; and `0.005` passes `8 / 8` through `+1.0 mm`. A
+  qdot-limit-only probe on the hardest `+1.0 mm` case at original `0.01`
+  timing still fails even at `0.25 rad/s`, because max orientation error stays
+  just above the run-local `0.12 rad` diagnostic gate.
+- Consequence:
+  The next branch should run the full positive E1-E4 stitched matrix with the
+  v70 relaxed terminal/path setup and `paper_time_scale = 0.005`. The project
+  still must not claim robustness, strict paper-equivalent feasibility,
+  contact-model calibration, or hardware readiness.

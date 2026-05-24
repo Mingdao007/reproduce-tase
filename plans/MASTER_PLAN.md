@@ -101,13 +101,16 @@ work exists only on that branch.
   numerically identical, so yaw is not the limiter. v70 uses a run-local
   `0.12 rad` diagnostic orientation envelope and recovers positive start,
   terminal, and path feasibility through `+1.0 mm`, but stitched recovery still
-  fails because Stage B handoff is `3 / 4` with E2 qdot saturation. This is
+  fails because Stage B handoff is `3 / 4` with E2 qdot saturation. v71 shows
+  that E2 recovers for all positive deltas at `paper_time_scale = 0.005`, while
+  a qdot-limit-only probe at original `0.01` timing does not recover the
+  `+1.0 mm` case because orientation remains just above `0.12 rad`. This is
   still not robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot
-margin audit. Keep strict paper-equivalent setup, v38 relaxed
-trajectory-after-setup, and v63-v70 diagnostic staged labels separate.
+Run the full positive E1-E4 stitched matrix with the v70 relaxed terminal/path
+setup and `paper_time_scale = 0.005`. Keep strict paper-equivalent setup, v38
+relaxed trajectory-after-setup, and v63-v71 diagnostic staged labels separate.

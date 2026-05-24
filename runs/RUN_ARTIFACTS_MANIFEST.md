@@ -1885,6 +1885,34 @@ Legacy source root:
   config only. It is not a canonical-config change, strict paper-equivalent
   claim, robustness proof, contact-model calibration, or hardware evidence.
 
+## V71 Positive Stage B E2 Margin Audit
+
+### E2 timing and qdot margin after v70 positive path recovery
+
+- Run:
+  - `runs/positive_stage_b_e2_margin/20260524T192129`
+- Command:
+  `scripts/audit_positive_stage_b_e2_margin.py`
+- Git state at run time:
+  parent commit `0c03cf3ff25c7945efff2ad2d74a0b3d3967ad74` with dirty v71
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-delta E2 timing-sweep metrics/summaries/commands under `cases/*`
+  and qdot-only probe artifacts under `qdot_probe/*`.
+- Result:
+  The audit reuses the v70 run-local `0.12 rad` relaxed target config and
+  positive path CSV artifacts. E2 passes `0 / 8` positive deltas at
+  `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005` and
+  `0.0025`. At original `0.01` timing, the `+1.0 mm` qdot-limit-only probe
+  still fails up to `0.25 rad/s` because max orientation error remains just
+  above `0.12 rad`.
+- Limit:
+  This is diagnostic-label E2 Stage B margin evidence only. It is not a full
+  E1-E4 stitched recovery claim, canonical-config change, strict
+  paper-equivalent claim, robustness proof, contact-model calibration, or
+  hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

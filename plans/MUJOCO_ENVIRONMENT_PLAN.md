@@ -79,10 +79,14 @@ contact behavior regresses.
   the cause. v70 uses a run-local `0.12 rad` diagnostic orientation envelope
   and recovers positive start, terminal, and path feasibility through
   `+1.0 mm`, but stitched recovery still fails on Stage B E2 qdot saturation.
+  v71 shows E2 recovers for all positive deltas at
+  `paper_time_scale = 0.005`; qdot-limit-only relaxation at original `0.01`
+  timing still fails the hardest `+1.0 mm` row because orientation remains
+  just above `0.12 rad`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should combine the v70 relaxed terminal/path
-setup with a Stage B E2 timing or qdot margin audit.
+simulation controller prototype should run the full positive E1-E4 stitched
+matrix with the v70 relaxed terminal/path setup and `paper_time_scale = 0.005`.

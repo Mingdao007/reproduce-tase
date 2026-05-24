@@ -2692,3 +2692,37 @@
 - Next step:
   Combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot
   margin audit.
+
+## 2026-05-24 v71 Positive Stage B E2 Margin Audit
+
+### Isolate E2 timing and qdot margin after v70 positive path recovery
+
+- Branch:
+  `exp/tase-ur10e-v71-stage-b-e2-margin`
+- Run:
+  `runs/positive_stage_b_e2_margin/20260524T192129`
+- Report:
+  `reports/positive_stage_b_e2_margin_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_stage_b_e2_margin.py`
+  - `scripts/audit_positive_stage_b_e2_margin.py`
+- Result:
+  The E2-only timing sweep reuses the v70 run-local `0.12 rad` relaxed target
+  config and per-delta path CSV artifacts. At original `paper_time_scale =
+  0.01`, E2 passes `0 / 8` positive deltas. At `0.0075`, E2 passes `7 / 8`
+  through `+0.75 mm`; at `0.005` and `0.0025`, E2 passes `8 / 8` through
+  `+1.0 mm`. The qdot-limit-only probe on `+1.0 mm` at original `0.01` timing
+  still fails up to `0.25 rad/s` because max orientation error remains just
+  above `0.12 rad`.
+- Limit:
+  This is diagnostic-label E2 Stage B margin evidence only. It is not a full
+  E1-E4 stitched recovery claim, strict paper-equivalent claim, robustness
+  proof, contact-model calibration, or hardware readiness. The relaxed
+  `0.12 rad` config remains a run artifact, not a canonical config change.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_stage_b_e2_margin.py`
+  passed. Full tests passed with `115 passed in 2.45s`; `git diff --check`
+  passed.
+- Next step:
+  Run the full positive E1-E4 stitched matrix with the v70 relaxed
+  terminal/path setup and `paper_time_scale = 0.005`.

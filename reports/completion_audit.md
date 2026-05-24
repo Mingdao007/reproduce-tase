@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`
+Branch: `exp/tase-ur10e-v71-stage-b-e2-margin`
 
 ## Objective Restatement
 
@@ -96,6 +96,8 @@ The objective has two separate technical claim levels:
 - `runs/positive_terminal_orientation/20260524T171705/metrics.yaml`
 - `reports/positive_relaxed_orientation_recovery_report.md`
 - `runs/positive_relaxed_orientation_recovery/20260524T172909/metrics.yaml`
+- `reports/positive_stage_b_e2_margin_report.md`
+- `runs/positive_stage_b_e2_margin/20260524T192129/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -106,17 +108,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v70 branches pushed and GitHub-verified; v70 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`; latest local branch is `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v71 branches pushed and GitHub-verified; v71 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v71-stage-b-e2-margin`; latest local branch is `exp/tase-ur10e-v71-stage-b-e2-margin` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v70 branch/run, claim boundary, and next executable Stage B E2 qdot/timing target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D075 as of v70 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v71 branch/run, claim boundary, and next executable full positive E1-E4 stitched target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D076 as of v71 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v70 validation was `115 passed in 2.44s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v71 validation was `115 passed in 2.45s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -146,6 +148,7 @@ The objective has two separate technical claim levels:
 | Positive base-z start-contact audit | `scripts/audit_positive_base_z_start_contact.py`, `reports/positive_base_z_start_contact_report.md`, `runs/positive_base_z_start_contact/20260524T170350/metrics.yaml` | v68 uses deterministic and random start-contact seed sweeps for eight positive deltas; start contact passes `8 / 8` through `+1.0 mm`, terminal passes `0 / 8`, and every positive terminal row still fails orientation |
 | Positive terminal orientation audit | `scripts/audit_positive_terminal_orientation.py`, `reports/positive_terminal_orientation_report.md`, `runs/positive_terminal_orientation/20260524T171705/metrics.yaml` | v69 compares the current contact-point model with the legacy sphere-center model; in the current model force/x-y/contact passes `8 / 8` positive terminal cases but diagnostic orientation passes `0 / 8`, full-rotation and force-normal-only errors are numerically identical, and all positive force/x-y/contact cases require about `0.1195 rad` orientation margin |
 | Positive relaxed-orientation recovery audit | `scripts/audit_positive_relaxed_orientation_recovery.py`, `reports/positive_relaxed_orientation_recovery_report.md`, `runs/positive_relaxed_orientation_recovery/20260524T172909/metrics.yaml` | v70 uses a run-local `0.12 rad` diagnostic orientation envelope; positive start, terminal, and path geometry pass `8 / 8` through `+1.0 mm`, but stitched recovery is `0` because Stage B handoff is `3 / 4` with E2 qdot saturation |
+| Positive Stage B E2 margin audit | `scripts/audit_positive_stage_b_e2_margin.py`, `reports/positive_stage_b_e2_margin_report.md`, `runs/positive_stage_b_e2_margin/20260524T192129/metrics.yaml` | v71 reuses the v70 relaxed terminal/path setup and shows E2 passes `0 / 8` positive deltas at `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005`; qdot-limit-only relaxation on `+1.0 mm` at original timing still fails because orientation remains just above `0.12 rad` |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -696,6 +699,28 @@ Evidence:
 - `reports/positive_relaxed_orientation_recovery_report.md`
 - `runs/positive_relaxed_orientation_recovery/20260524T172909/metrics.yaml`
 
+The positive Stage B E2 margin audit can additionally claim:
+
+```text
+ur10e_positive_stage_b_e2_margin:
+  source setup = v70 run-local relaxed terminal/path setup
+  stage_b trajectory = e2-figure-eight
+  E2 pass count at paper_time_scale 0.01 = 0 / 8
+  E2 pass count at paper_time_scale 0.0075 = 7 / 8
+  E2 pass count at paper_time_scale 0.005 = 8 / 8
+  fastest all-positive E2 pass scale tested = 0.005
+  qdot-limit-only recovery at +1.0 mm and original 0.01 timing = false
+  full E1-E4 stitched recovery claim = false
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/positive_stage_b_e2_margin_report.md`
+- `runs/positive_stage_b_e2_margin/20260524T192129/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -796,6 +821,11 @@ Evidence:
   stitched Stage A plus Stage B. All tested stitched rows have Stage B handoff
   `3 / 4`, with E2 failing on qdot saturation. This does not prove robustness,
   strict paper-equivalent feasibility, or hardware readiness.
+- The v71 positive Stage B E2 margin audit shows E2 recovers for all positive
+  deltas at `paper_time_scale = 0.005`, but it does not yet prove the full
+  E1-E4 stitched positive matrix at that timing. The qdot-limit-only probe at
+  original `0.01` timing also does not recover the hardest `+1.0 mm` row
+  because orientation remains just above `0.12 rad`.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -819,8 +849,8 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot
-margin audit. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v70 diagnostic staged labels separate.
+Run the full positive E1-E4 stitched matrix with the v70 relaxed terminal/path
+setup and `paper_time_scale = 0.005`. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v71 diagnostic staged labels separate.
 Any hardware work still requires measured mounted-stack geometry and a separate
 approved SOP.
