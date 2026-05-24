@@ -1,0 +1,38 @@
+v1:
+  model_status: "v54_tilted_plane_tcp_contact_point_simulation_variant_not_calibrated_for_hardware"
+  tcp_status: "unverified_85mm_site_as_contact_point_convention"
+
+ur10e_mujoco:
+  mjcf_path: "assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml"
+  urdf_nominal_path: "assets/urdf/ur10e_nominal.urdf"
+  timestep_s: 0.002
+  smoke_duration_s: 2.0
+  qdot_limit_initial_rad_s: 0.05
+  qdot_limit_after_sim_validation_rad_s: 0.15
+  force_ladder_N: [0.5, 1.0, 2.0, 5.0]
+  joint_names:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+  joint_limit_rad:
+    source: "v1_from_ur_description_typical_ur10e_range_pending_parse"
+    lower: [-6.283185307, -6.283185307, -3.141592654, -6.283185307, -6.283185307, -6.283185307]
+    upper: [6.283185307, 6.283185307, 3.141592654, 6.283185307, 6.283185307, 6.283185307]
+  joint_velocity_limit_rad_s:
+    source: "v1_safe_initial_override"
+    lower: [-0.05, -0.05, -0.05, -0.05, -0.05, -0.05]
+    upper: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+  contact:
+    surface: "single_material_analytic_plane_tilted_10deg_about_y"
+    plane_z_m: 0.0
+    plane_tilt_rad_about_y: 0.1745329252
+    expected_normal_world: [0.1736481777, 0.0, 0.9848077530]
+    tcp_guess_m: [0.0, 0.0, -0.085]
+    contact_model_convention: "tcp_site_is_intended_contact_point_when_tcp_local_z_aligns_surface_normal"
+    contact_tip_sphere_radius_m: 0.045
+    contact_tip_sphere_center_local_m: [0.0, 0.0, 0.045]
+    target_force_ladder_N: [0.5, 1.0, 2.0, 5.0]
+    calibrated_bend_0p10_base_z_offset_m_for_5N: -0.04612594095298278
