@@ -2140,6 +2140,35 @@ Legacy source root:
   recovery, strict paper-equivalent claim, robustness proof, contact-model
   calibration, or hardware evidence.
 
+## V80 Positive Planar-Priority Matrix
+
+### Full positive-delta matrix with the recovered planar-primary formulation
+
+- Run:
+  - `runs/positive_planar_priority_matrix/20260524T225138`
+- Command:
+  `scripts/audit_positive_planar_priority_matrix.py`
+- Git state at run time:
+  parent commit `5a11a2505a2d864abbf6db8e2ded33c0c921a12b` with dirty v80
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  a run-local copied Stage A target config under `configs/`, plus per-scenario
+  and per-delta E1-E4 stitched metrics/summaries/commands under
+  `scenarios/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `paper_time_scale = 0.005`, `qdot_limit_rad_s = 0.15`, and a
+  `0.11995 rad` Stage A/Stage B orientation gate fixed. Both v79 passing
+  planar-primary scenarios pass all eight positive deltas through `+1.0 mm`;
+  total stitched pass count is `16 / 16`.
+- Limit:
+  This is diagnostic-label full positive-delta matrix evidence for the
+  planar-primary Stage B priority formulation only. It is not a canonical
+  config change, faster-timing recovery, qdot012 tightened-gate recovery,
+  strict paper-equivalent claim, robustness proof, contact-model calibration,
+  or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

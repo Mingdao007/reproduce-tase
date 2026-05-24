@@ -278,6 +278,9 @@ them rather than deleting them.
   `0.11995 rad` tightened-gate E1-E4 row with planar-primary priority and
   normal-axis weight `30`. Passing scenarios are `orientation_kp = 0.001` and
   `0.002`, both with Stage B handoff `4 / 4`.
+- The v80 positive planar-priority matrix carries both v79 passing candidates
+  across all eight positive deltas through `+1.0 mm`. Both scenarios pass
+  `8 / 8`, for `16 / 16` stitched cells under the `0.11995 rad` gate.
 
 ## Next Executable Step
 
@@ -301,5 +304,6 @@ tightened-orientation boundary at `0.11997` fail versus `0.11998` first
 stitched pass. v78 rules out the current single-gain Stage B `orientation_kp`
 hook as a clean recovery for that boundary. v79 locally recovers the hardest
 tightened-gate row with planar-primary priority and normal-axis weight `30`.
-Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-v63-v79 diagnostic staged labels separate.
+v80 carries that recovery across the full positive-delta matrix. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v80
+diagnostic staged labels separate.

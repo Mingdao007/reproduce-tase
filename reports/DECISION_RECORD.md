@@ -1716,3 +1716,30 @@
   calibration, or hardware readiness. The next branch should run the recovered
   planar-primary formulation across the full positive-delta matrix or stress
   it against faster timing/tighter gates.
+
+## D085: Treat Planar-Primary Priority As A Full Positive-Matrix Diagnostic Recovery
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v80 as evidence that the v79 planar-primary Stage B priority
+  formulation recovers the full positive-delta diagnostic matrix under the
+  tested `0.11995 rad` tightened orientation gate.
+- Reason:
+  The v80 run at `runs/positive_planar_priority_matrix/20260524T225138` holds
+  the v70 relaxed target/path setup, `stage_a_duration_s = 15.0`,
+  `paper_time_scale = 0.005`, `qdot_limit_rad_s = 0.15`, and a `0.11995 rad`
+  Stage A/Stage B orientation gate fixed. It evaluates both v79 passing
+  candidates, `planar_normal30_kp0p001` and `planar_normal30_kp0p002`, across
+  all eight positive deltas through `+1.0 mm` and all E1-E4 Stage B
+  trajectories. Both scenarios pass `8 / 8`, for `16 / 16` total stitched
+  passes. The larger-gain candidate has lower max orientation error
+  (`0.11961552028823065 rad`) but a larger max tail force error
+  (`0.1902561439715911 N`), still inside the gate.
+- Consequence:
+  The full positive-delta diagnostic matrix is recovered for the planar-primary
+  formulation at the tested timing and gate. Do not generalize yet to
+  faster-timing recovery, qdot012 tightened-gate recovery, robustness, strict
+  paper-equivalent feasibility, contact-model calibration, or hardware
+  readiness. The next branch should stress the recovered formulation against
+  faster timing and the tighter `0.119 rad` orientation gate.

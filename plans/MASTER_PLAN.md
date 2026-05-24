@@ -127,14 +127,15 @@ work exists only on that branch.
   orientation-correcting gains fail qdot saturation and/or tail qdot
   utilization even up to `0.25 rad/s`. v79 tests a redesigned Stage B priority
   formulation and locally recovers the `+1.0 mm`, `0.11995 rad` tightened-gate
-  E1-E4 row with planar-primary priority and normal-axis weight `30`.
+  E1-E4 row with planar-primary priority and normal-axis weight `30`. v80
+  carries both v79 passing candidates across all eight positive deltas and
+  passes `16 / 16` stitched cells through `+1.0 mm`.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run the recovered planar-primary formulation across the full positive-delta
-matrix, or stress it against faster timing/tighter gates, before claiming
-anything stronger than localized diagnostic recovery. Keep strict
-paper-equivalent setup, v38 relaxed trajectory-after-relaxed-setup, and
-v63-v79 diagnostic staged labels separate.
+Stress the recovered planar-primary formulation against faster timing and the
+tighter `0.119 rad` orientation gate before claiming anything stronger than
+diagnostic recovery. Keep strict paper-equivalent setup, v38 relaxed
+trajectory-after-relaxed-setup, and v63-v80 diagnostic staged labels separate.

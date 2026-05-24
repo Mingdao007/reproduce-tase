@@ -101,13 +101,13 @@ contact behavior regresses.
   orientation-correcting gains fail qdot saturation/tail utilization even with
   qdot limits up to `0.25 rad/s`. v79 locally recovers the `+1.0 mm`,
   `0.11995 rad` tightened-gate E1-E4 row using planar-primary Stage B priority
-  with normal-axis weight `30`.
+  with normal-axis weight `30`. v80 carries that formulation across all eight
+  positive deltas and passes `16 / 16` stitched cells through `+1.0 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should run the recovered planar-primary
-formulation across the full positive-delta matrix or stress it against faster
-timing/tighter gates before claiming anything stronger than localized
-diagnostic recovery.
+simulation controller prototype should stress the recovered planar-primary
+formulation against faster timing and the tighter `0.119 rad` orientation gate
+before claiming anything stronger than diagnostic recovery.

@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v79-stage-b-priority-posture-probe`
+Branch: `exp/tase-ur10e-v80-planar-priority-positive-matrix`
 
 ## Objective Restatement
 
@@ -114,6 +114,8 @@ The objective has two separate technical claim levels:
 - `runs/stage_b_orientation_kp_probe/20260524T222953/metrics.yaml`
 - `reports/stage_b_priority_recovery_report.md`
 - `runs/stage_b_priority_recovery/20260524T224404/metrics.yaml`
+- `reports/positive_planar_priority_matrix_report.md`
+- `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -124,17 +126,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v79 branches pushed and GitHub-verified; v79 branch push verified at `9bfdb9b6dbf0c76760ca41b4a918d790ae61dc08` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v79-stage-b-priority-posture-probe`; latest local branch is `exp/tase-ur10e-v79-stage-b-priority-posture-probe` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v79 branches pushed and GitHub-verified; v80 is the current iteration branch pending push | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v80-planar-priority-positive-matrix`; latest local branch is `exp/tase-ur10e-v80-planar-priority-positive-matrix` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v79 branch/run, claim boundary, and next executable full-positive/stress-test target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D084 as of v79 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v80 branch/run, claim boundary, and next executable faster-timing/tighter-gate stress target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D085 as of v80 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v79 validation was `115 passed in 2.54s`; `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py scripts/audit_stage_b_priority_recovery.py` and `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v80 validation was `115 passed in 2.55s`; `python3 -m py_compile scripts/audit_positive_planar_priority_matrix.py` and `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -173,6 +175,7 @@ The objective has two separate technical claim levels:
 | Positive orientation-gate boundary audit | `scripts/audit_positive_orientation_gate_boundary.py`, `reports/positive_orientation_gate_boundary_report.md`, `runs/positive_orientation_gate_boundary/20260524T221842/metrics.yaml` | v77 isolates the v73 `orientation_gate_0p119` `+1.0 mm` failure; Stage A passes once the gate reaches `0.1195 rad`, while full stitched recovery first passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad` |
 | Stage B orientation-kp probe | `scripts/audit_stage_b_orientation_kp_probe.py`, `reports/stage_b_orientation_kp_probe_report.md`, `runs/stage_b_orientation_kp_probe/20260524T222953/metrics.yaml` | v78 tests existing Stage B `orientation_kp` feedback on the localized E2 `+1.0 mm` tightened-orientation row; Stage A passes all `30 / 30` cells, but stitched recovery passes `0 / 30` because low gains miss orientation while higher gains fail qdot saturation and/or tail qdot utilization |
 | Stage B priority recovery | `scripts/evaluate_stitched_stage_a_handoff.py`, `scripts/audit_stage_b_priority_recovery.py`, `reports/stage_b_priority_recovery_report.md`, `runs/stage_b_priority_recovery/20260524T224404/metrics.yaml` | v79 recovers the localized `+1.0 mm`, `0.11995 rad` tightened-gate E1-E4 row with planar-primary Stage B priority and normal-axis weight `30`; passing scenarios are `planar_normal30_kp0p001` and `planar_normal30_kp0p002`, each with Stage B `4 / 4` |
+| Positive planar-priority matrix | `scripts/audit_positive_planar_priority_matrix.py`, `reports/positive_planar_priority_matrix_report.md`, `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml` | v80 carries both v79 passing planar-primary candidates across all eight positive deltas; both scenarios pass `8 / 8`, for `16 / 16` stitched passes through `+1.0 mm` under the `0.11995 rad` gate |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -937,6 +940,31 @@ Evidence:
 - `reports/stage_b_priority_recovery_report.md`
 - `runs/stage_b_priority_recovery/20260524T224404/metrics.yaml`
 
+The positive planar-priority matrix audit can additionally claim:
+
+```text
+ur10e_positive_planar_priority_matrix:
+  source setup = v70 run-local relaxed terminal/path setup
+  inherited recovery = v79 planar-primary Stage B priority
+  Stage A duration = 15.0 s
+  paper_time_scale = 0.005
+  qdot limit = 0.15 rad/s
+  orientation gate = 0.11995 rad
+  scenarios = [planar_normal30_kp0p001, planar_normal30_kp0p002]
+  positive delta count per scenario = 8
+  total stitched pass count = 16 / 16
+  max positive stitched pass delta = +1.0 mm
+  Stage A passed every case = true
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/positive_planar_priority_matrix_report.md`
+- `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -1095,6 +1123,14 @@ Evidence:
   E2 orientation/qdot boundary. This is a localized diagnostic recovery, not a
   full positive-delta matrix, robustness proof, or hardware-ready control
   claim.
+- The v80 positive planar-priority matrix audit carries both v79 passing
+  candidates across all eight positive deltas through `+1.0 mm`. Both
+  `planar_normal30_kp0p001` and `planar_normal30_kp0p002` pass `8 / 8`, giving
+  `16 / 16` stitched passes under the run-local `0.11995 rad` gate. This
+  closes the full positive-delta matrix gap for the planar-primary diagnostic
+  formulation, but it still does not prove faster-timing recovery, qdot012
+  tightened-gate recovery, robustness, contact calibration, strict
+  paper-equivalent feasibility, or hardware readiness.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1118,10 +1154,9 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Run the recovered planar-primary formulation across the full positive-delta
-matrix, or stress it against faster timing/tighter gates, before claiming
-anything stronger than localized diagnostic recovery. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v79
-diagnostic staged labels separate.
+Stress the recovered planar-primary formulation against faster timing and the
+tighter `0.119 rad` orientation gate before claiming anything stronger than
+diagnostic recovery. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v80 diagnostic staged labels separate.
 Any hardware work still requires measured mounted-stack geometry and a separate
 approved SOP.

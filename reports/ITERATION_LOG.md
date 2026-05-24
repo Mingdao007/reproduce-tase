@@ -3022,3 +3022,45 @@
   Run the recovered planar-primary formulation across the full positive-delta
   matrix, or stress it against faster timing/tighter gates, before claiming
   anything stronger than localized diagnostic recovery.
+
+## 2026-05-24 v80 Positive Planar-Priority Matrix
+
+### Carry the recovered planar-primary formulation across all positive deltas
+
+- Branch:
+  `exp/tase-ur10e-v80-planar-priority-positive-matrix`
+- Run:
+  `runs/positive_planar_priority_matrix/20260524T225138`
+- Report:
+  `reports/positive_planar_priority_matrix_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_planar_priority_matrix.py`
+  - `scripts/audit_positive_planar_priority_matrix.py`
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `paper_time_scale = 0.005`, `qdot_limit_rad_s = 0.15`, and a
+  `0.11995 rad` Stage A/Stage B orientation gate fixed, then evaluates both
+  v79 passing planar-primary candidates across all eight positive base-z
+  deltas and all E1-E4 Stage B trajectories. Both scenarios pass all eight
+  positive deltas through `+1.0 mm`; total stitched pass count is `16 / 16`.
+  The `orientation_kp = 0.001` scenario has max Stage B orientation
+  `0.11973133163816624 rad`, max qdot saturation `0.001`, and max tail force
+  error `0.1223546677432889 N`. The `orientation_kp = 0.002` scenario has max
+  Stage B orientation `0.11961552028823065 rad`, max qdot saturation `0.001`,
+  and max tail force error `0.1902561439715911 N`.
+- Limit:
+  This is diagnostic-label full positive-delta matrix evidence for the
+  planar-primary Stage B priority formulation. It is not a canonical config
+  change, faster-timing recovery, qdot012 tightened-gate recovery, strict
+  paper-equivalent feasibility, robustness proof, contact-model calibration,
+  or hardware readiness.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_planar_priority_matrix.py`
+  passed. Full tests passed with `115 passed in 2.55s`; `git diff --check`
+  passed. The run artifact is lightweight: `117` files, `1.8M`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
+  pending.
+- Next step:
+  Stress the recovered planar-primary formulation against the v73/v76
+  faster-timing boundary and the tighter `0.119 rad` orientation gate before
+  claiming anything stronger than diagnostic recovery.

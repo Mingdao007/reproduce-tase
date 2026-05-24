@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v79-stage-b-priority-posture-probe`
+Current branch: `exp/tase-ur10e-v80-planar-priority-positive-matrix`
 
 ## Scope
 
@@ -108,7 +108,9 @@ that meet orientation consume qdot budget, even with qdot limits up to
 `+1.0 mm`, `0.11995 rad` tightened gate: linear-primary controls still fail,
 but planar-primary priority with normal-axis weight `30` recovers E1-E4
 stitched recovery `4 / 4` at `qdot_limit_rad_s = 0.15` for
-`orientation_kp = 0.001` and `0.002`.
+`orientation_kp = 0.001` and `0.002`. v80 carries both v79 passing candidates
+across the full positive-delta matrix at the same tightened `0.11995 rad`
+gate; both pass `8 / 8` positive deltas through `+1.0 mm`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
