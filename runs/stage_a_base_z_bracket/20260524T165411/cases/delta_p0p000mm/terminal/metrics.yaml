@@ -1,0 +1,68 @@
+case: delta_p0p000mm
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: 0.0
+base_z_offset_m: -0.04612594095298278
+candidate_count: 515
+pass_count: 1
+extra_seed_labels:
+- selected_stage_a_target
+initial_candidate:
+  seed_label: initial_unoptimized
+  q:
+  - 0.0
+  - -0.1
+  - 0.15
+  - -0.05
+  - 0.0
+  - 0.0
+  cost: null
+  success: true
+  status: 0
+  message: not optimized
+  nfev: 0
+  tcp_m:
+  - 0.00497792942394327
+  - 0.0
+  - -0.00020166468435967033
+  force_N: 4.9999999999967395
+  force_error_N: 3.2605029787191597e-12
+  tangential_error_m: 0.0
+  orientation_error_rad: 0.17453292523412012
+  target_contact_count: 1
+  failed_criteria:
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.1816615654265012
+best_candidate:
+  seed_label: extra_selected_stage_a_target_unoptimized
+  q:
+  - -1.1745579135426345e-08
+  - -0.02440152369247043
+  - -0.00048297839388595083
+  - 0.0002982283198967393
+  - 2.405416739224147e-10
+  - 0.12671314216940235
+  cost: null
+  success: true
+  status: 0
+  message: extra seed not optimized
+  nfev: 0
+  tcp_m:
+  - 0.001970353198813028
+  - 4.032096983994156e-11
+  - -0.00031401714282958126
+  force_N: 4.994902453443297
+  force_error_N: 0.005097546556703136
+  tangential_error_m: 0.0030075762251302427
+  orientation_error_rad: 0.07240605683117833
+  target_contact_count: 1
+  failed_criteria: []
+  passed: true
+  max_gate_ratio: 0.9050757103897291
+warnings:
+- compact terminal nonlinear least-squares feasibility audit only
+- not a path or velocity-controller feasibility proof
+- simulation-only and not hardware-ready

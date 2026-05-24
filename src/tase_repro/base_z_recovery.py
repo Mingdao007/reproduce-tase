@@ -3,6 +3,13 @@ from __future__ import annotations
 from typing import Any
 
 
+def base_z_delta_label(delta_m: float) -> str:
+    milli = float(delta_m) * 1000.0
+    sign = "p" if milli >= 0.0 else "m"
+    text = f"{abs(milli):.3f}".replace(".", "p")
+    return f"delta_{sign}{text}mm"
+
+
 def summarize_base_z_recovery_case(
     *,
     case_name: str,
@@ -126,4 +133,39 @@ def aggregate_base_z_recovery(cases: list[dict[str, Any]]) -> dict[str, Any]:
         "stitched_pass_cases": stitched_cases,
         "recovered_cases": recovered_cases,
         "unresolved_cases": unresolved_cases,
+    }
+
+
+def aggregate_base_z_bracket(cases: list[dict[str, Any]]) -> dict[str, Any]:
+    start_cases = [case["case"] for case in cases if case["start"]["passed"]]
+    terminal_cases = [case["case"] for case in cases if case["terminal"]["passed"]]
+    path_cases = [case["case"] for case in cases if case["path"] and case["path"]["path_gate_passed"]]
+    recovered = []
+    for case in cases:
+        for duration in case["durations"]:
+            if duration["stitched_passed"]:
+                recovered.append(f"{case['case']}@{duration['stage_a_duration_s']}")
+    positive_cases = [case for case in cases if case["base_z_offset_delta_m"] > 0.0]
+    positive_terminal_pass_mm = [
+        1000.0 * float(case["base_z_offset_delta_m"])
+        for case in positive_cases
+        if case["terminal"]["passed"]
+    ]
+    positive_recovered_mm = [
+        1000.0 * float(case["base_z_offset_delta_m"])
+        for case in positive_cases
+        if any(duration["stitched_passed"] for duration in case["durations"])
+    ]
+    return {
+        "case_count": len(cases),
+        "start_pass_count": len(start_cases),
+        "terminal_pass_count": len(terminal_cases),
+        "path_geometry_pass_count": len(path_cases),
+        "duration_recovered_count": len(recovered),
+        "start_pass_cases": start_cases,
+        "terminal_pass_cases": terminal_cases,
+        "path_geometry_pass_cases": path_cases,
+        "duration_recovered_cases": recovered,
+        "max_positive_terminal_pass_delta_mm": max(positive_terminal_pass_mm) if positive_terminal_pass_mm else None,
+        "max_positive_recovered_delta_mm": max(positive_recovered_mm) if positive_recovered_mm else None,
     }

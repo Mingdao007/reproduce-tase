@@ -72,6 +72,28 @@ def test_setup_terminal_ik_returns_ranked_candidates() -> None:
     assert result.to_dict()["candidate_count"] == 2
 
 
+def test_setup_terminal_ik_accepts_extra_seed_candidates() -> None:
+    q = np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0])
+    result = solve_setup_terminal_ik(
+        TILTED_MODEL_PATH,
+        initial_q=q,
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=5.0,
+        thresholds=SetupTerminalThresholds(),
+        surface_normal_world=np.array([0.1736481777, 0.0, 0.9848077530]),
+        random_seed_count=0,
+        max_nfev=5,
+        extra_seed_qs={"nominal_target": q + 0.01},
+    )
+
+    assert len(result.candidates) == 3
+    assert {candidate.seed_label for candidate in result.candidates} == {
+        "extra_nominal_target_unoptimized",
+        "initial",
+        "extra_nominal_target",
+    }
+
+
 def test_setup_terminal_candidate_ignores_non_target_self_collision_force() -> None:
     model = load_model(TCP_CONTACT_POINT_MODEL_PATH)
     apply_base_z_offset(model, -0.04612594095298278)

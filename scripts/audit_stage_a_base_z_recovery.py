@@ -408,7 +408,7 @@ def run_path_case(
     *,
     case_name: str,
     base_z_offset_delta_m: float,
-    stage_a_duration_s: float,
+    stage_a_duration_s: float | None,
     initial_q: list[float],
     target_q: list[float],
     args: argparse.Namespace,
@@ -439,13 +439,13 @@ def run_path_case(
         str(args.path_max_nfev),
         "--qdot-limit-rad-s",
         str(args.qdot_limit_rad_s),
-        "--duration-s",
-        str(stage_a_duration_s),
         "--continuity-weight",
         str(args.continuity_weight),
         "--linear-posture-weight",
         str(args.linear_posture_weight),
     ]
+    if stage_a_duration_s is not None:
+        command.extend(["--duration-s", str(stage_a_duration_s)])
     return run_child(command, out_dir=out_dir)
 
 

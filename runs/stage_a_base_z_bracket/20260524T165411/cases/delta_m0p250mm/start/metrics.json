@@ -1,0 +1,232 @@
+{
+  "case": "delta_m0p250mm",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "base_z_offset_nominal_m": -0.04612594095298278,
+  "base_z_offset_delta_m": -0.00025,
+  "base_z_offset_m": -0.04637594095298278,
+  "target_force_N": 5.0,
+  "site_name": "tcp_site_unverified_85mm",
+  "contact_geom_name": "contact_tip",
+  "plane_geom_name": "contact_plane",
+  "start_max_nfev": 300,
+  "start_posture_weight": 0.01,
+  "thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.004
+  },
+  "candidate_count": 2,
+  "pass_count": 1,
+  "initial_candidate": {
+    "seed_label": "initial_unoptimized",
+    "q": [
+      0.0,
+      -0.1,
+      0.15,
+      -0.05,
+      0.0,
+      0.0
+    ],
+    "cost": null,
+    "success": true,
+    "status": 0,
+    "message": "not optimized",
+    "nfev": 0,
+    "tcp_m": [
+      0.00497792942394327,
+      0.0,
+      -0.0004516646843597538
+    ],
+    "target_force_N": 5.0,
+    "force_N": 17.543901856471383,
+    "force_error_N": 12.543901856471383,
+    "tangential_error_m": 0.0,
+    "force_normal_orientation_error_rad": 0.17453292523411995,
+    "target_contact_count": 1,
+    "criteria": {
+      "force_error_N": {
+        "actual": 12.543901856471383,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": false
+      },
+      "tangential_error_m": {
+        "actual": 0.0,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    },
+    "failed_criteria": [
+      "force_error_N"
+    ],
+    "passed": false,
+    "max_gate_ratio": 50.17560742588553
+  },
+  "best_candidate": {
+    "seed_label": "least_squares_start_rebalance",
+    "q": [
+      8.205051749198143e-09,
+      -0.11060656207688477,
+      0.15810487979699223,
+      -0.04617367004753453,
+      -1.541343834294509e-10,
+      0.011365094220317689
+    ],
+    "cost": 1.611120665353315e-08,
+    "success": false,
+    "status": 0,
+    "message": "The maximum number of function evaluations is exceeded.",
+    "nfev": 300,
+    "tcp_m": [
+      0.004977929767489946,
+      3.1115388255989903e-18,
+      -0.0002881724390054047
+    ],
+    "target_force_N": 5.0,
+    "force_N": 4.999998801938678,
+    "force_error_N": 1.1980613221496128e-06,
+    "tangential_error_m": 3.4354667548253115e-10,
+    "force_normal_orientation_error_rad": 0.16184318334122877,
+    "target_contact_count": 1,
+    "criteria": {
+      "force_error_N": {
+        "actual": 1.1980613221496128e-06,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "tangential_error_m": {
+        "actual": 3.4354667548253115e-10,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    },
+    "failed_criteria": [],
+    "passed": true,
+    "max_gate_ratio": 4.792245288598451e-06
+  },
+  "candidates": [
+    {
+      "seed_label": "initial_unoptimized",
+      "q": [
+        0.0,
+        -0.1,
+        0.15,
+        -0.05,
+        0.0,
+        0.0
+      ],
+      "cost": null,
+      "success": true,
+      "status": 0,
+      "message": "not optimized",
+      "nfev": 0,
+      "tcp_m": [
+        0.00497792942394327,
+        0.0,
+        -0.0004516646843597538
+      ],
+      "target_force_N": 5.0,
+      "force_N": 17.543901856471383,
+      "force_error_N": 12.543901856471383,
+      "tangential_error_m": 0.0,
+      "force_normal_orientation_error_rad": 0.17453292523411995,
+      "target_contact_count": 1,
+      "criteria": {
+        "force_error_N": {
+          "actual": 12.543901856471383,
+          "operator": "<=",
+          "threshold": 0.25,
+          "passed": false
+        },
+        "tangential_error_m": {
+          "actual": 0.0,
+          "operator": "<=",
+          "threshold": 0.004,
+          "passed": true
+        },
+        "target_contact_count": {
+          "actual": 1,
+          "operator": ">=",
+          "threshold": 1,
+          "passed": true
+        }
+      },
+      "failed_criteria": [
+        "force_error_N"
+      ],
+      "passed": false,
+      "max_gate_ratio": 50.17560742588553
+    },
+    {
+      "seed_label": "least_squares_start_rebalance",
+      "q": [
+        8.205051749198143e-09,
+        -0.11060656207688477,
+        0.15810487979699223,
+        -0.04617367004753453,
+        -1.541343834294509e-10,
+        0.011365094220317689
+      ],
+      "cost": 1.611120665353315e-08,
+      "success": false,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded.",
+      "nfev": 300,
+      "tcp_m": [
+        0.004977929767489946,
+        3.1115388255989903e-18,
+        -0.0002881724390054047
+      ],
+      "target_force_N": 5.0,
+      "force_N": 4.999998801938678,
+      "force_error_N": 1.1980613221496128e-06,
+      "tangential_error_m": 3.4354667548253115e-10,
+      "force_normal_orientation_error_rad": 0.16184318334122877,
+      "target_contact_count": 1,
+      "criteria": {
+        "force_error_N": {
+          "actual": 1.1980613221496128e-06,
+          "operator": "<=",
+          "threshold": 0.25,
+          "passed": true
+        },
+        "tangential_error_m": {
+          "actual": 3.4354667548253115e-10,
+          "operator": "<=",
+          "threshold": 0.004,
+          "passed": true
+        },
+        "target_contact_count": {
+          "actual": 1,
+          "operator": ">=",
+          "threshold": 1,
+          "passed": true
+        }
+      },
+      "failed_criteria": [],
+      "passed": true,
+      "max_gate_ratio": 4.792245288598451e-06
+    }
+  ],
+  "warnings": [
+    "start contact rebalance only",
+    "orientation is recorded but not gated for the Stage A start endpoint",
+    "simulation-only and not hardware-ready"
+  ]
+}

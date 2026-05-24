@@ -2560,3 +2560,34 @@
 - Next step:
   Investigate the unresolved `+1 mm` base-z/contact side and the exact
   `15.0 s` `-1 mm` boundary.
+
+## 2026-05-24 v67 Stage A Base-Z Bracket Audit
+
+### Compact bracket around positive-side base-z failure
+
+- Branch:
+  `exp/tase-ur10e-v67-base-z-bracket`
+- Run:
+  `runs/stage_a_base_z_bracket/20260524T165411`
+- Report:
+  `reports/stage_a_base_z_bracket_report.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py src/tase_repro/base_z_recovery.py scripts/audit_stage_a_base_z_bracket.py`
+  - `scripts/run_tests.sh tests/test_setup_terminal_ik.py tests/test_base_z_recovery.py`
+  - `scripts/audit_stage_a_base_z_bracket.py`
+- Result:
+  The compact bracket evaluates `13` base-z deltas and two Stage A durations.
+  Nominal, `-0.25 mm`, and `-0.5 mm` recover at both `15.0 s` and `16.0 s`;
+  `-1.0 mm` recovers only at `16.0 s`; `-0.75 mm` has start and terminal
+  feasibility but fails the path geometry gate. No positive delta from
+  `+0.05 mm` through `+1.0 mm` has both start and terminal feasibility.
+- Limit:
+  This is diagnostic-label simulation bracket evidence only. It is not a
+  strict paper-equivalent claim, robustness proof, contact-model calibration,
+  or hardware readiness.
+- Validation:
+  Focused tests passed with `8 passed in 0.13s`. Full tests passed with
+  `113 passed in 2.48s`; `git diff --check` passed.
+- Next step:
+  Investigate the positive-side contact-model/start-contact definition that
+  fails already at `+0.05 mm`.

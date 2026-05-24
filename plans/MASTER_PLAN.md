@@ -91,13 +91,15 @@ work exists only on that branch.
   evidence. v65 recovers the qdot/timing side with explicit margins. v66
   recovers only the `-1 mm` base-z side with a rebalanced start, reoptimized
   path, and `16.0 s` Stage A duration; the exact `15.0 s` `-1 mm` reference
-  and `+1 mm` case remain unresolved. This is still not robust,
+  and `+1 mm` case remain unresolved. v67 brackets the positive side and shows
+  recovery already fails at `+0.05 mm` under the current diagnostic
+  start/terminal gates. This is still not robust,
   paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Investigate the unresolved `+1 mm` base-z/contact case and the exact `15.0 s`
-`-1 mm` boundary while keeping strict paper-equivalent setup, v38 relaxed
-trajectory-after-setup, and v63-v66 diagnostic staged labels separate.
+Investigate the positive-side contact-model/start-contact definition that fails
+already at `+0.05 mm`, while keeping strict paper-equivalent setup, v38 relaxed
+trajectory-after-setup, and v63-v67 diagnostic staged labels separate.

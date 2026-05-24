@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v66-base-z-path-recovery`
+Current branch: `exp/tase-ur10e-v67-base-z-bracket`
 
 ## Scope
 
@@ -62,6 +62,9 @@ faster Stage B timing. v65 recovers the timing/qdot side with explicit margins:
 `0.0125`. v66 adds perturbation-aware endpoint and path reoptimization for the
 base-z cases: `base_z_minus_1mm_stage_a_16s_recovery` passes, but the exact
 `15.0 s` `base_z_minus_1mm` reference and `base_z_plus_1mm` remain unresolved.
+v67 brackets the base-z model perturbation and finds no positive-delta recovery
+from `+0.05 mm` through `+1.0 mm`; the positive side loses start contact and
+exceeds the terminal orientation gate before any path can be tested.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

@@ -1,0 +1,71 @@
+case: delta_p0p200mm
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: 0.0002
+base_z_offset_m: -0.04592594095298278
+candidate_count: 515
+pass_count: 0
+extra_seed_labels:
+- selected_stage_a_target
+initial_candidate:
+  seed_label: initial_unoptimized
+  q:
+  - 0.0
+  - -0.1
+  - 0.15
+  - -0.05
+  - 0.0
+  - 0.0
+  cost: null
+  success: true
+  status: 0
+  message: not optimized
+  nfev: 0
+  tcp_m:
+  - 0.00497792942394327
+  - 0.0
+  - -1.6646843596923588e-06
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_m: 0.0
+  orientation_error_rad: 0.17453292523412012
+  target_contact_count: 0
+  failed_criteria:
+  - force_error_N
+  - orientation_error_rad
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+best_candidate:
+  seed_label: random_328
+  q:
+  - -1.0364889012811563e-08
+  - -0.021899507700215776
+  - -0.00043741004332752896
+  - 0.0002585951092996044
+  - 2.5879245467048296e-10
+  - 0.10726776468598527
+  cost: 0.7853808171947112
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 95
+  tcp_m:
+  - 0.0027027794253866692
+  - 4.0350310856591594e-11
+  - -0.0003837477929913846
+  force_N: 4.999044629578629
+  force_error_N: 0.0009553704213711711
+  tangential_error_m: 0.0022751499985566013
+  orientation_error_rad: 0.08934348318237911
+  target_contact_count: 1
+  failed_criteria:
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 1.1167935397797388
+warnings:
+- compact terminal nonlinear least-squares feasibility audit only
+- not a path or velocity-controller feasibility proof
+- simulation-only and not hardware-ready

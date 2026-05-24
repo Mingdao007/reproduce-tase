@@ -240,12 +240,14 @@ smoke runs regress.
 - The v66 base-z recovery audit recovers `base_z_minus_1mm` only when Stage A
   is extended to `16.0 s` and the start/terminal endpoints are reoptimized.
   The exact `15.0 s` boundary and `base_z_plus_1mm` remain unresolved.
+- The v67 base-z bracket audit shows the positive side fails before path
+  reoptimization can run: no tested positive delta from `+0.05 mm` through
+  `+1.0 mm` has a passing start plus terminal pair.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should focus on
-the unresolved `+1 mm` contact side and the exact `15.0 s` `-1 mm` boundary.
-Keep contact, drift, terminal orientation, force error, and qdot saturation
-visible together.
+the positive-side contact-model/start-contact definition. Keep contact, drift,
+terminal orientation, force error, and qdot saturation visible together.

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from tase_repro.base_z_recovery import aggregate_base_z_recovery, summarize_base_z_recovery_case
+from tase_repro.base_z_recovery import (
+    aggregate_base_z_bracket,
+    aggregate_base_z_recovery,
+    base_z_delta_label,
+    summarize_base_z_recovery_case,
+)
 
 
 def start_metrics(*, passed: bool) -> dict:
@@ -104,3 +109,39 @@ def test_base_z_recovery_aggregate_counts_recovered_cases() -> None:
     assert aggregate["terminal_pass_cases"] == ["base_z_minus_1mm"]
     assert aggregate["recovered_cases"] == ["base_z_minus_1mm"]
     assert aggregate["unresolved_cases"] == ["base_z_plus_1mm"]
+
+
+def test_base_z_delta_label_is_file_safe() -> None:
+    assert base_z_delta_label(-0.001) == "delta_m1p000mm"
+    assert base_z_delta_label(0.00025) == "delta_p0p250mm"
+
+
+def test_base_z_bracket_aggregate_counts_duration_recovery() -> None:
+    cases = [
+        {
+            "case": "delta_p0p250mm",
+            "base_z_offset_delta_m": 0.00025,
+            "start": {"passed": True},
+            "terminal": {"passed": True},
+            "path": {"path_gate_passed": True},
+            "durations": [
+                {"stage_a_duration_s": 15.0, "stitched_passed": False},
+                {"stage_a_duration_s": 16.0, "stitched_passed": True},
+            ],
+        },
+        {
+            "case": "delta_p1p000mm",
+            "base_z_offset_delta_m": 0.001,
+            "start": {"passed": False},
+            "terminal": {"passed": False},
+            "path": None,
+            "durations": [],
+        },
+    ]
+
+    aggregate = aggregate_base_z_bracket(cases)
+
+    assert aggregate["terminal_pass_cases"] == ["delta_p0p250mm"]
+    assert aggregate["duration_recovered_cases"] == ["delta_p0p250mm@16.0"]
+    assert aggregate["max_positive_terminal_pass_delta_mm"] == 0.25
+    assert aggregate["max_positive_recovered_delta_mm"] == 0.25

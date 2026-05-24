@@ -236,6 +236,7 @@ def solve_setup_terminal_ik(
     random_seed: int = 37,
     max_nfev: int = 300,
     posture_weight: float = 1e-4,
+    extra_seed_qs: dict[str, np.ndarray] | None = None,
 ) -> SetupTerminalIKResult:
     """Audit whether a terminal setup q can satisfy x/y, force, and orientation gates.
 
@@ -257,6 +258,7 @@ def solve_setup_terminal_ik(
         raise ValueError("max_nfev must be positive")
     if posture_weight < 0.0:
         raise ValueError("posture_weight must be nonnegative")
+    extra_seeds = {} if extra_seed_qs is None else dict(extra_seed_qs)
 
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
@@ -292,6 +294,14 @@ def solve_setup_terminal_ik(
     )
 
     seeds: list[tuple[str, np.ndarray]] = [("initial", q0.copy())]
+    extra_seed_items: list[tuple[str, np.ndarray]] = []
+    for label, seed_q in extra_seeds.items():
+        seed = np.asarray(seed_q, dtype=float)
+        if seed.shape != (model.nq,):
+            raise ValueError(f"extra seed {label!r} shape {seed.shape} does not match model.nq={model.nq}")
+        clipped = np.clip(seed, q_min, q_max)
+        extra_seed_items.append((f"extra_{label}_unoptimized", clipped))
+        seeds.append((f"extra_{label}", clipped))
     rng = np.random.default_rng(int(random_seed))
     for idx in range(int(random_seed_count)):
         perturbation = rng.normal(0.0, float(random_seed_std_rad), size=q0.shape)
@@ -318,7 +328,27 @@ def solve_setup_terminal_ik(
             ]
         )
 
-    candidates: list[SetupTerminalCandidate] = []
+    candidates: list[SetupTerminalCandidate] = [
+        evaluate_setup_terminal_candidate(
+            model,
+            data,
+            q=seed_q,
+            seed_label=label,
+            cost=float("nan"),
+            success=True,
+            status=0,
+            message="extra seed not optimized",
+            nfev=0,
+            site_name=site_name,
+            contact_geom_name=contact_geom_name,
+            plane_geom_name=plane_geom_name,
+            reference_xy_m=reference_xy,
+            desired_rotation=desired_rotation,
+            target_force_N=target_force_N,
+            thresholds=thresholds,
+        )
+        for label, seed_q in extra_seed_items
+    ]
     for label, seed_q in seeds:
         result = least_squares(
             residual,

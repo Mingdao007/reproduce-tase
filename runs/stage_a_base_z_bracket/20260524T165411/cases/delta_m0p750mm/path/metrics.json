@@ -1,0 +1,1247 @@
+{
+  "run_id": "20260524T165428",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "stage_a_target_config": "/home/andy/reproduce-tase/configs/ur10e_adapted_stage_a_target.yaml",
+  "selected_target_label": "delta_m0p750mm_perturbed_terminal_target",
+  "initial_label": "delta_m0p750mm_perturbed_start_contact",
+  "initial_source": "cli_initial_q",
+  "initial_q_rad": [
+    0.0005375164070290701,
+    -0.11993324505155034,
+    0.1624925365675374,
+    -0.04272405026266851,
+    -1.3960072597199845e-05,
+    0.02206602264592008
+  ],
+  "target_source": "cli_target_q",
+  "target_q_rad": [
+    -4.0993350502878e-09,
+    -0.03064416151587838,
+    -0.0005211816392377036,
+    0.0003834745775760979,
+    -9.132642299357745e-12,
+    0.14975338316079212
+  ],
+  "claim_scope": "offline_quasi_static_contact_path_not_online_controller_or_hardware",
+  "base_z_offset_nominal_m": -0.04612594095298278,
+  "base_z_offset_delta_m": -0.00075,
+  "base_z_offset_m": -0.04687594095298278,
+  "knot_count": 128,
+  "max_nfev": 200,
+  "continuity_weight": 0.02,
+  "linear_posture_weight": 0.002,
+  "target_force_N": 5.0,
+  "diagnostic_gate": {
+    "max_terminal_tangential_error_m": 0.004,
+    "max_terminal_orientation_error_rad": 0.08,
+    "max_terminal_force_error_N": 0.25,
+    "min_target_contact_count": 1
+  },
+  "timing": {
+    "knot_count": 128,
+    "qdot_limit_rad_s": 0.15,
+    "min_duration_s": 138.0288650739265,
+    "segment_duration_s": 1.0868414572750118,
+    "max_abs_segment_delta_rad": 0.16302621859125177,
+    "max_abs_qdot_rad_s": 0.15,
+    "qdot_saturation_fraction": 0.007874015748031496,
+    "tail_max_qdot_utilization": 1.0
+  },
+  "evaluation": {
+    "target_contact_present_fraction": 1.0,
+    "min_target_contact_count": 1,
+    "max_force_error_N": 0.001872753597179866,
+    "terminal_force_error_N": 0.000507727237798683,
+    "max_scheduled_xy_error_m": 0.0028504630410804335,
+    "max_reference_xy_error_m": 0.001679201125048321,
+    "terminal_reference_xy_error_m": 0.0011974659410293727,
+    "max_scheduled_orientation_error_rad": 0.09627510687282123,
+    "max_force_normal_orientation_error_rad": 0.15263167414728848,
+    "terminal_force_normal_orientation_error_rad": 0.055561410650865485
+  },
+  "terminal_gate": {
+    "passed": true,
+    "failed_criteria": [],
+    "criteria": {
+      "terminal_force_error_N": {
+        "actual": 0.000507727237798683,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "terminal_xy_error_m": {
+        "actual": 0.0011974659410293727,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "terminal_force_normal_orientation_error_rad": {
+        "actual": 0.055561410650865485,
+        "operator": "<=",
+        "threshold": 0.08,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    }
+  },
+  "path_gate": {
+    "passed": false,
+    "criteria": {
+      "target_contact_present_fraction": 1.0,
+      "max_force_error_N": 0.001872753597179866,
+      "max_scheduled_xy_error_m": 0.0028504630410804335,
+      "max_scheduled_orientation_error_rad": 0.09627510687282123,
+      "max_abs_qdot_rad_s": 0.15,
+      "terminal_gate_passed": true
+    }
+  },
+  "solve_rows": [
+    {
+      "index": 1,
+      "alpha": 0.007874015748031496,
+      "success": true,
+      "cost": 6.90595580476786e-05,
+      "nfev": 15,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 2,
+      "alpha": 0.015748031496062992,
+      "success": true,
+      "cost": 0.00025408647819221667,
+      "nfev": 16,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 3,
+      "alpha": 0.023622047244094488,
+      "success": true,
+      "cost": 0.0005624646784331158,
+      "nfev": 16,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 4,
+      "alpha": 0.031496062992125984,
+      "success": true,
+      "cost": 0.0009941941587703826,
+      "nfev": 16,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 5,
+      "alpha": 0.03937007874015748,
+      "success": true,
+      "cost": 0.0015492749192040033,
+      "nfev": 16,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 6,
+      "alpha": 0.047244094488188976,
+      "success": true,
+      "cost": 0.0022277069597339883,
+      "nfev": 16,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 7,
+      "alpha": 0.05511811023622047,
+      "success": true,
+      "cost": 0.0030294902803603197,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 8,
+      "alpha": 0.06299212598425197,
+      "success": true,
+      "cost": 0.0039546248810830254,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 9,
+      "alpha": 0.07086614173228346,
+      "success": true,
+      "cost": 0.005003110761902079,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 10,
+      "alpha": 0.07874015748031496,
+      "success": true,
+      "cost": 0.00617494792281751,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 11,
+      "alpha": 0.08661417322834646,
+      "success": true,
+      "cost": 0.007470136363829294,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 12,
+      "alpha": 0.09448818897637795,
+      "success": true,
+      "cost": 0.00888867608493744,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 13,
+      "alpha": 0.10236220472440945,
+      "success": true,
+      "cost": 0.010430567086141955,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 14,
+      "alpha": 0.11023622047244094,
+      "success": true,
+      "cost": 0.012095809367442797,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 15,
+      "alpha": 0.11811023622047244,
+      "success": true,
+      "cost": 0.013884402928840021,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 16,
+      "alpha": 0.12598425196850394,
+      "success": true,
+      "cost": 0.01579634777033359,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 17,
+      "alpha": 0.13385826771653542,
+      "success": true,
+      "cost": 0.017831643891923547,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 18,
+      "alpha": 0.14173228346456693,
+      "success": true,
+      "cost": 0.01999029129360985,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 19,
+      "alpha": 0.14960629921259844,
+      "success": true,
+      "cost": 0.022272289975392528,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 20,
+      "alpha": 0.15748031496062992,
+      "success": true,
+      "cost": 0.0246776399372715,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 21,
+      "alpha": 0.1653543307086614,
+      "success": true,
+      "cost": 0.027206341179246904,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 22,
+      "alpha": 0.1732283464566929,
+      "success": true,
+      "cost": 0.02985839370131867,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 23,
+      "alpha": 0.18110236220472442,
+      "success": true,
+      "cost": 0.032633797503486765,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 24,
+      "alpha": 0.1889763779527559,
+      "success": true,
+      "cost": 0.035532552585751304,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 25,
+      "alpha": 0.19685039370078738,
+      "success": true,
+      "cost": 0.038554658948112046,
+      "nfev": 17,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 26,
+      "alpha": 0.2047244094488189,
+      "success": true,
+      "cost": 0.04170011659056925,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 27,
+      "alpha": 0.2125984251968504,
+      "success": true,
+      "cost": 0.04496892551312281,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 28,
+      "alpha": 0.2204724409448819,
+      "success": true,
+      "cost": 0.04836108571577274,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 29,
+      "alpha": 0.22834645669291337,
+      "success": true,
+      "cost": 0.05187659719851901,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 30,
+      "alpha": 0.23622047244094488,
+      "success": true,
+      "cost": 0.055515459961361584,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 31,
+      "alpha": 0.2440944881889764,
+      "success": true,
+      "cost": 0.0592776740043006,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 32,
+      "alpha": 0.25196850393700787,
+      "success": true,
+      "cost": 0.063163239327336,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 33,
+      "alpha": 0.25984251968503935,
+      "success": true,
+      "cost": 0.06717215593046756,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 34,
+      "alpha": 0.26771653543307083,
+      "success": true,
+      "cost": 0.07130442381369566,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 35,
+      "alpha": 0.2755905511811024,
+      "success": true,
+      "cost": 0.07556004297702018,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 36,
+      "alpha": 0.28346456692913385,
+      "success": true,
+      "cost": 0.0799390134204409,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 37,
+      "alpha": 0.29133858267716534,
+      "success": true,
+      "cost": 0.08444133514395805,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 38,
+      "alpha": 0.2992125984251969,
+      "success": true,
+      "cost": 0.08906700814757161,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 39,
+      "alpha": 0.30708661417322836,
+      "success": true,
+      "cost": 0.09381603243128146,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 40,
+      "alpha": 0.31496062992125984,
+      "success": true,
+      "cost": 0.0986884079950877,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 41,
+      "alpha": 0.3228346456692913,
+      "success": true,
+      "cost": 0.10368413483899025,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 42,
+      "alpha": 0.3307086614173228,
+      "success": true,
+      "cost": 0.10880321296298924,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 43,
+      "alpha": 0.33858267716535434,
+      "success": true,
+      "cost": 0.11404564236708464,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 44,
+      "alpha": 0.3464566929133858,
+      "success": true,
+      "cost": 0.11941142305127617,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 45,
+      "alpha": 0.3543307086614173,
+      "success": true,
+      "cost": 0.12490055501556423,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 46,
+      "alpha": 0.36220472440944884,
+      "success": true,
+      "cost": 0.13051303825994853,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 47,
+      "alpha": 0.3700787401574803,
+      "success": true,
+      "cost": 0.13624887278442926,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 48,
+      "alpha": 0.3779527559055118,
+      "success": true,
+      "cost": 0.14210805858900635,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 49,
+      "alpha": 0.3858267716535433,
+      "success": true,
+      "cost": 0.14809059567368,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 50,
+      "alpha": 0.39370078740157477,
+      "success": true,
+      "cost": 0.1541964840384497,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 51,
+      "alpha": 0.4015748031496063,
+      "success": true,
+      "cost": 0.16042572368331598,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 52,
+      "alpha": 0.4094488188976378,
+      "success": true,
+      "cost": 0.16677831460827844,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 53,
+      "alpha": 0.41732283464566927,
+      "success": true,
+      "cost": 0.17325425681333745,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 54,
+      "alpha": 0.4251968503937008,
+      "success": true,
+      "cost": 0.1798535502924994,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 55,
+      "alpha": 0.4330708661417323,
+      "success": true,
+      "cost": 0.1865761950346173,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 56,
+      "alpha": 0.4409448818897638,
+      "success": true,
+      "cost": 0.19342219103892258,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 57,
+      "alpha": 0.44881889763779526,
+      "success": true,
+      "cost": 0.20039153830521628,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 58,
+      "alpha": 0.45669291338582674,
+      "success": true,
+      "cost": 0.20748423683277867,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 59,
+      "alpha": 0.4645669291338583,
+      "success": true,
+      "cost": 0.21470028661083793,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 60,
+      "alpha": 0.47244094488188976,
+      "success": true,
+      "cost": 0.22203968748228017,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 61,
+      "alpha": 0.48031496062992124,
+      "success": false,
+      "cost": 0.2294992699480191,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 62,
+      "alpha": 0.4881889763779528,
+      "success": true,
+      "cost": 0.23708493494846813,
+      "nfev": 20,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 63,
+      "alpha": 0.49606299212598426,
+      "success": true,
+      "cost": 0.24479433354829677,
+      "nfev": 18,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 64,
+      "alpha": 0.5039370078740157,
+      "success": true,
+      "cost": 0.25262516857895245,
+      "nfev": 35,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 65,
+      "alpha": 0.5118110236220472,
+      "success": false,
+      "cost": 0.26057594254912664,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 66,
+      "alpha": 0.5196850393700787,
+      "success": true,
+      "cost": 0.26864923063549284,
+      "nfev": 20,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 67,
+      "alpha": 0.5275590551181102,
+      "success": true,
+      "cost": 0.27682978667885094,
+      "nfev": 197,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 68,
+      "alpha": 0.5354330708661417,
+      "success": true,
+      "cost": 0.28515366125969066,
+      "nfev": 32,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 69,
+      "alpha": 0.5433070866141733,
+      "success": true,
+      "cost": 0.2935950595012715,
+      "nfev": 137,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 70,
+      "alpha": 0.5511811023622047,
+      "success": true,
+      "cost": 0.30215538565335237,
+      "nfev": 164,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 71,
+      "alpha": 0.5590551181102362,
+      "success": false,
+      "cost": 0.31083949183776105,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 72,
+      "alpha": 0.5669291338582677,
+      "success": true,
+      "cost": 0.319655953336121,
+      "nfev": 20,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 73,
+      "alpha": 0.5748031496062992,
+      "success": true,
+      "cost": 0.3285841710918105,
+      "nfev": 92,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 74,
+      "alpha": 0.5826771653543307,
+      "success": false,
+      "cost": 0.3376372197185718,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 75,
+      "alpha": 0.5905511811023622,
+      "success": true,
+      "cost": 0.3468233679572662,
+      "nfev": 20,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 76,
+      "alpha": 0.5984251968503937,
+      "success": true,
+      "cost": 0.3561163647782325,
+      "nfev": 113,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 77,
+      "alpha": 0.6062992125984252,
+      "success": false,
+      "cost": 0.3655369258602904,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 78,
+      "alpha": 0.6141732283464567,
+      "success": true,
+      "cost": 0.37508136044656354,
+      "nfev": 197,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 79,
+      "alpha": 0.6220472440944882,
+      "success": true,
+      "cost": 0.3847520712550745,
+      "nfev": 122,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 80,
+      "alpha": 0.6299212598425197,
+      "success": false,
+      "cost": 0.3945395652394665,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 81,
+      "alpha": 0.6377952755905512,
+      "success": true,
+      "cost": 0.40446410124866744,
+      "nfev": 44,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 82,
+      "alpha": 0.6456692913385826,
+      "success": true,
+      "cost": 0.41450073038378876,
+      "nfev": 173,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 83,
+      "alpha": 0.6535433070866141,
+      "success": true,
+      "cost": 0.4246575534267251,
+      "nfev": 188,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 84,
+      "alpha": 0.6614173228346456,
+      "success": false,
+      "cost": 0.4349397246994375,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 85,
+      "alpha": 0.6692913385826772,
+      "success": true,
+      "cost": 0.4453498427110159,
+      "nfev": 154,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 86,
+      "alpha": 0.6771653543307087,
+      "success": true,
+      "cost": 0.4558865091855834,
+      "nfev": 92,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 87,
+      "alpha": 0.6850393700787402,
+      "success": false,
+      "cost": 0.4665334424518211,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 88,
+      "alpha": 0.6929133858267716,
+      "success": true,
+      "cost": 0.47731990784460043,
+      "nfev": 44,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 89,
+      "alpha": 0.7007874015748031,
+      "success": true,
+      "cost": 0.48821605705491394,
+      "nfev": 194,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 90,
+      "alpha": 0.7086614173228346,
+      "success": true,
+      "cost": 0.49924184940511634,
+      "nfev": 115,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 91,
+      "alpha": 0.7165354330708661,
+      "success": true,
+      "cost": 0.5103888198700107,
+      "nfev": 131,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 92,
+      "alpha": 0.7244094488188977,
+      "success": false,
+      "cost": 0.5216497617971713,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 93,
+      "alpha": 0.7322834645669292,
+      "success": true,
+      "cost": 0.5330518708124925,
+      "nfev": 44,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 94,
+      "alpha": 0.7401574803149606,
+      "success": false,
+      "cost": 0.5445648013897646,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 95,
+      "alpha": 0.7480314960629921,
+      "success": true,
+      "cost": 0.5562063390249462,
+      "nfev": 106,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 96,
+      "alpha": 0.7559055118110236,
+      "success": true,
+      "cost": 0.5679681300279221,
+      "nfev": 122,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 97,
+      "alpha": 0.7637795275590551,
+      "success": true,
+      "cost": 0.5798552254641074,
+      "nfev": 100,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 98,
+      "alpha": 0.7716535433070866,
+      "success": true,
+      "cost": 0.5918600429436076,
+      "nfev": 169,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 99,
+      "alpha": 0.7795275590551181,
+      "success": true,
+      "cost": 0.6039904889421231,
+      "nfev": 128,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 100,
+      "alpha": 0.7874015748031495,
+      "success": true,
+      "cost": 0.6162460932164434,
+      "nfev": 106,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 101,
+      "alpha": 0.7952755905511811,
+      "success": true,
+      "cost": 0.6286223800319384,
+      "nfev": 122,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 102,
+      "alpha": 0.8031496062992126,
+      "success": true,
+      "cost": 0.6411321032933148,
+      "nfev": 52,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 103,
+      "alpha": 0.8110236220472441,
+      "success": false,
+      "cost": 0.6537494769484421,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 104,
+      "alpha": 0.8188976377952756,
+      "success": true,
+      "cost": 0.6664955641060576,
+      "nfev": 125,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 105,
+      "alpha": 0.8267716535433071,
+      "success": true,
+      "cost": 0.679374942581236,
+      "nfev": 49,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 106,
+      "alpha": 0.8346456692913385,
+      "success": false,
+      "cost": 0.6923571297605453,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 107,
+      "alpha": 0.84251968503937,
+      "success": true,
+      "cost": 0.7054843739619452,
+      "nfev": 35,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 108,
+      "alpha": 0.8503937007874016,
+      "success": false,
+      "cost": 0.7187115316776482,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 109,
+      "alpha": 0.8582677165354331,
+      "success": true,
+      "cost": 0.7320756804500149,
+      "nfev": 103,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 110,
+      "alpha": 0.8661417322834646,
+      "success": true,
+      "cost": 0.7455711508684226,
+      "nfev": 49,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 111,
+      "alpha": 0.8740157480314961,
+      "success": false,
+      "cost": 0.7591678583282997,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 112,
+      "alpha": 0.8818897637795275,
+      "success": true,
+      "cost": 0.7729104187900034,
+      "nfev": 49,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 113,
+      "alpha": 0.889763779527559,
+      "success": true,
+      "cost": 0.7867537858715247,
+      "nfev": 185,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 114,
+      "alpha": 0.8976377952755905,
+      "success": true,
+      "cost": 0.8007416766841382,
+      "nfev": 46,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 115,
+      "alpha": 0.905511811023622,
+      "success": true,
+      "cost": 0.8148409074077306,
+      "nfev": 118,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 116,
+      "alpha": 0.9133858267716535,
+      "success": false,
+      "cost": 0.8290510816003218,
+      "nfev": 200,
+      "status": 0,
+      "message": "The maximum number of function evaluations is exceeded."
+    },
+    {
+      "index": 117,
+      "alpha": 0.9212598425196851,
+      "success": true,
+      "cost": 0.843408083340101,
+      "nfev": 49,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 118,
+      "alpha": 0.9291338582677166,
+      "success": true,
+      "cost": 0.857882541011996,
+      "nfev": 79,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 119,
+      "alpha": 0.937007874015748,
+      "success": true,
+      "cost": 0.8724739408666896,
+      "nfev": 109,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 120,
+      "alpha": 0.9448818897637795,
+      "success": true,
+      "cost": 0.8871879101628884,
+      "nfev": 115,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 121,
+      "alpha": 0.952755905511811,
+      "success": true,
+      "cost": 0.902016264614287,
+      "nfev": 178,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 122,
+      "alpha": 0.9606299212598425,
+      "success": true,
+      "cost": 0.9169891645364392,
+      "nfev": 49,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 123,
+      "alpha": 0.968503937007874,
+      "success": true,
+      "cost": 0.9320713725604117,
+      "nfev": 118,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 124,
+      "alpha": 0.9763779527559056,
+      "success": true,
+      "cost": 0.947283812694426,
+      "nfev": 79,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 125,
+      "alpha": 0.984251968503937,
+      "success": true,
+      "cost": 0.9626126254189725,
+      "nfev": 106,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 126,
+      "alpha": 0.9921259842519685,
+      "success": true,
+      "cost": 0.9780712881940279,
+      "nfev": 79,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    }
+  ],
+  "warnings": [
+    "offline quasi-static contact-manifold path only",
+    "not an online Stage A controller",
+    "not strict paper-equivalent trajectory feasibility",
+    "not hardware-ready"
+  ]
+}

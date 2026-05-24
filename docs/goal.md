@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v66 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, and v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should investigate the unresolved `+1 mm` base-z/contact case and the exact `15.0 s` `-1 mm` boundary while keeping strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v66 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v67 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count, v64 sensitivity passes only `4 / 9` cases, v65 recovers the qdot/timing failure side with explicit margins, v66 recovers only the `-1 mm` base-z side when Stage A is extended to `16.0 s`, and v67 shows positive base-z recovery fails already at `+0.05 mm` under the current diagnostic start/terminal gates. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should investigate the positive-side contact-model/start-contact definition while keeping strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v67 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v66` repository state. The project goal is to reproduce the T-ASE finite-time
+`v67` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v66-base-z-path-recovery`
-- Current v66 formal run:
-  `runs/stage_a_base_z_recovery/20260524T163746`
+  `exp/tase-ur10e-v67-base-z-bracket`
+- Current v67 formal run:
+  `runs/stage_a_base_z_bracket/20260524T165411`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -163,6 +163,10 @@ Current accepted claims:
   recovery cases. It recovers `base_z_minus_1mm_stage_a_16s_recovery`, while
   the exact `15.0 s` `base_z_minus_1mm` reference and `base_z_plus_1mm` remain
   unresolved. This is still diagnostic-label simulation evidence only.
+- `ur10e_stage_a_base_z_bracket`: v67 runs a compact 13-point base-z bracket.
+  It recovers nominal, `-0.25 mm`, and `-0.5 mm` at `15.0 s`, recovers
+  `-1.0 mm` only at `16.0 s`, finds a `-0.75 mm` path anomaly, and finds no
+  positive-delta recovery from `+0.05 mm` through `+1.0 mm`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -172,10 +176,10 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by investigating the unresolved `+1 mm`
-  base-z/contact side and the exact `15.0 s` `-1 mm` boundary. Keep strict
-  paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v66
-  diagnostic staged labels separate.
+- Continue UR10e adapted work by investigating the positive-side
+  contact-model/start-contact definition that fails already at `+0.05 mm`.
+  Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
+  v63-v67 diagnostic staged labels separate.
 
 ## Safety Boundary
 

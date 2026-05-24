@@ -1404,3 +1404,24 @@
   base-z side only with an explicit `16.0 s` Stage A margin. It still must not
   claim robustness, strict paper-equivalent feasibility, contact-model
   calibration, hardware readiness, or recovery of the `+1 mm` perturbation.
+
+## D072: Treat Positive Base-Z Failure As A Contact-Model/Start-Contact Gap
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v67 as a compact base-z bracket that rules out treating the positive
+  base-z side as only a Stage A timing problem under the current diagnostic
+  model.
+- Reason:
+  The v67 run at `runs/stage_a_base_z_bracket/20260524T165411` evaluates 13
+  base-z deltas from `-1.0 mm` to `+1.0 mm`. Nominal, `-0.25 mm`, and
+  `-0.5 mm` recover at `15.0 s`, and `-1.0 mm` recovers at `16.0 s`; however,
+  no tested positive delta from `+0.05 mm` through `+1.0 mm` has both a
+  passing start contact and terminal target. The `+0.05 mm` row already loses
+  start contact and exceeds the terminal orientation gate.
+- Consequence:
+  The next branch should investigate the positive-side contact-model or
+  start-contact definition instead of adding only more Stage A timing margin.
+  The project still must not claim robustness, strict paper-equivalent
+  feasibility, contact-model calibration, or hardware readiness.

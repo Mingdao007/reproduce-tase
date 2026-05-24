@@ -223,6 +223,10 @@ them rather than deleting them.
   `base_z_minus_1mm` reference remains qdot-limited, and `base_z_plus_1mm`
   still lacks a passing start plus terminal target pair under the diagnostic
   search.
+- The v67 base-z bracket audit shows no tested positive delta from `+0.05 mm`
+  through `+1.0 mm` has both start and terminal feasibility. Nominal,
+  `-0.25 mm`, and `-0.5 mm` recover at `15.0 s`; `-1.0 mm` recovers only at
+  `16.0 s`; `-0.75 mm` exposes a path-optimization anomaly.
 
 ## Next Executable Step
 
@@ -230,8 +234,9 @@ Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future UR10e experiment branches should stress-test the v63 stitched
 policy before treating it as more than a nominal diagnostic staged pass. v64
-did the first stress test, v65 recovered the qdot/timing side, and v66 recovered
-only the `-1 mm` base-z case with a `16.0 s` Stage A duration. The main
-remaining simulation gaps are the `+1 mm` base-z/contact side and the exact
-`15.0 s` `-1 mm` boundary. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v66 diagnostic staged labels separate.
+did the first stress test, v65 recovered the qdot/timing side, v66 recovered
+only the `-1 mm` base-z case with a `16.0 s` Stage A duration, and v67 brackets
+the positive side down to `+0.05 mm`. The main remaining simulation gap is the
+positive-side contact-model/start-contact definition. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v67
+diagnostic staged labels separate.

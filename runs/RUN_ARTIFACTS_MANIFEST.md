@@ -1783,6 +1783,31 @@ Legacy source root:
   paper-equivalent claim, a robustness proof, contact-model calibration, or
   hardware evidence.
 
+## V67 Stage A Base-Z Bracket Audit
+
+### Compact perturbation bracket around the v66 positive-side gap
+
+- Run:
+  - `runs/stage_a_base_z_bracket/20260524T165411`
+- Command:
+  `scripts/audit_stage_a_base_z_bracket.py`
+- Git state at run time:
+  parent commit `3f280e2d35ea2d87abc9769a81c1ff0cf377415e` with dirty v67
+  bracket code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  compact start/terminal summaries for every delta, and path/stitched artifacts
+  only for feasible endpoint cases.
+- Result:
+  The compact bracket evaluates `13` deltas. Nominal, `-0.25 mm`, and
+  `-0.5 mm` recover at `15.0 s`; `-1.0 mm` recovers only at `16.0 s`;
+  `-0.75 mm` has a path-geometry failure; and no tested positive delta from
+  `+0.05 mm` through `+1.0 mm` has both start and terminal feasibility.
+- Limit:
+  This is diagnostic-label simulation bracket evidence only. It is not a
+  strict paper-equivalent claim, a robustness proof, contact-model calibration,
+  or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

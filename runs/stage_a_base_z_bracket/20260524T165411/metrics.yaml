@@ -1,0 +1,697 @@
+run_id: 20260524T165411
+source: compact base-z perturbation bracket around v66 recovery gaps
+base_z_deltas_mm:
+- -1.0
+- -0.75
+- -0.5
+- -0.25
+- 0.0
+- 0.05
+- 0.1
+- 0.15
+- 0.2
+- 0.25
+- 0.5
+- 0.75
+- 1.0
+stage_a_durations_s:
+- 15.0
+- 16.0
+diagnostic_gate:
+  max_terminal_tangential_error_m: 0.004
+  max_terminal_orientation_error_rad: 0.08
+  max_terminal_force_error_N: 0.25
+  min_target_contact_count: 1
+parameters:
+  random_seed_count: 512
+  random_seed_std_rad: 0.15
+  random_seed: 37
+  start_max_nfev: 300
+  terminal_max_nfev: 300
+  extra_terminal_seed_labels:
+  - selected_stage_a_target
+  knot_count: 128
+  path_max_nfev: 200
+  qdot_limit_rad_s: 0.15
+  stage_b_duration_s: 2.0
+  paper_time_scale: 0.01
+aggregate:
+  case_count: 13
+  start_pass_count: 5
+  terminal_pass_count: 5
+  path_geometry_pass_count: 4
+  duration_recovered_count: 7
+  start_pass_cases:
+  - delta_m1p000mm
+  - delta_m0p750mm
+  - delta_m0p500mm
+  - delta_m0p250mm
+  - delta_p0p000mm
+  terminal_pass_cases:
+  - delta_m1p000mm
+  - delta_m0p750mm
+  - delta_m0p500mm
+  - delta_m0p250mm
+  - delta_p0p000mm
+  path_geometry_pass_cases:
+  - delta_m1p000mm
+  - delta_m0p500mm
+  - delta_m0p250mm
+  - delta_p0p000mm
+  duration_recovered_cases:
+  - delta_m1p000mm@16.0
+  - delta_m0p500mm@15.0
+  - delta_m0p500mm@16.0
+  - delta_m0p250mm@15.0
+  - delta_m0p250mm@16.0
+  - delta_p0p000mm@15.0
+  - delta_p0p000mm@16.0
+  max_positive_terminal_pass_delta_mm: null
+  max_positive_recovered_delta_mm: null
+cases:
+- case: delta_m1p000mm
+  base_z_offset_delta_m: -0.001
+  base_z_offset_delta_mm: -1.0
+  start:
+    passed: true
+    force_error_N: 0.0019615624793152264
+    tangential_error_m: 0.0034757901579900124
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -0.00382995079485833
+    - -0.12042642914233553
+    - 0.16239548809635068
+    - -0.04389699823911278
+    - 0.00012907750842018877
+    - 0.016521133761834318
+  terminal:
+    passed: true
+    pass_count: 26
+    candidate_count: 515
+    best_seed: random_210
+    force_error_N: 0.0004179850770933413
+    tangential_error_m: 0.000981589951570489
+    orientation_error_rad: 0.047179212704768526
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -7.691006822316891e-09
+    - -0.03273351598991897
+    - -0.0005424303768681933
+    - 0.0004134773375896837
+    - 1.9081212402948586e-10
+    - 0.16021618155854966
+  path:
+    path_gate_passed: true
+    terminal_gate_passed: true
+    min_duration_s: 15.652271522331025
+    max_abs_qdot_rad_s: 0.15
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.0019615624793152264
+    max_scheduled_xy_error_m: 3.4664923105732207e-07
+    max_scheduled_orientation_error_rad: 3.6688328675344596e-05
+    path_csv: /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m1p000mm/path/path.csv
+  durations:
+  - stage_a_duration_s: 15.0
+    stitched_ran: false
+    stitched_passed: false
+    stage_a_passed: false
+    handoff_pass_count: 0
+    handoff_trajectory_count: 0
+    skipped_reason: path_min_duration_exceeds_stage_a_duration
+  - stage_a_duration_s: 16.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.14674004552188208
+    stage_a_terminal_force_error_N: 0.0004179850770933413
+    skipped_reason: null
+  status: recovered_at_tested_duration
+- case: delta_m0p750mm
+  base_z_offset_delta_m: -0.00075
+  base_z_offset_delta_mm: -0.75
+  start:
+    passed: true
+    force_error_N: 0.0009607235554192073
+    tangential_error_m: 0.001679201125048321
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - 0.0005375164070290701
+    - -0.11993324505155034
+    - 0.1624925365675374
+    - -0.04272405026266851
+    - -1.3960072597199845e-05
+    - 0.02206602264592008
+  terminal:
+    passed: true
+    pass_count: 28
+    candidate_count: 515
+    best_seed: random_201
+    force_error_N: 0.000507727237798683
+    tangential_error_m: 0.0011974659410293727
+    orientation_error_rad: 0.0555614106508681
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -4.0993350502878e-09
+    - -0.03064416151587838
+    - -0.0005211816392377036
+    - 0.0003834745775760979
+    - -9.132642299357745e-12
+    - 0.14975338316079212
+  path:
+    path_gate_passed: false
+    terminal_gate_passed: true
+    min_duration_s: 138.0288650739265
+    max_abs_qdot_rad_s: 0.15
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.001872753597179866
+    max_scheduled_xy_error_m: 0.0028504630410804335
+    max_scheduled_orientation_error_rad: 0.09627510687282123
+    path_csv: /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m0p750mm/path/path.csv
+  durations:
+  - stage_a_duration_s: 15.0
+    stitched_ran: false
+    stitched_passed: false
+    stage_a_passed: false
+    handoff_pass_count: 0
+    handoff_trajectory_count: 0
+    skipped_reason: path_gate_failed
+  - stage_a_duration_s: 16.0
+    stitched_ran: false
+    stitched_passed: false
+    stage_a_passed: false
+    handoff_pass_count: 0
+    handoff_trajectory_count: 0
+    skipped_reason: path_gate_failed
+  status: path_geometry_failed
+- case: delta_m0p500mm
+  base_z_offset_delta_m: -0.0005
+  base_z_offset_delta_mm: -0.5
+  start:
+    passed: true
+    force_error_N: 9.934128023569855e-05
+    tangential_error_m: 0.00017747149405042306
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - 0.004946928471340618
+    - -0.11893277014464315
+    - 0.16270755989239577
+    - -0.04136827321652618
+    - -9.664799752078914e-05
+    - 0.02159401929203307
+  terminal:
+    passed: true
+    pass_count: 31
+    candidate_count: 515
+    best_seed: random_491
+    force_error_N: 0.0006070100497499453
+    tangential_error_m: 0.001436897021855616
+    orientation_error_rad: 0.06415852510723632
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -1.86688577685584e-08
+    - -0.028472628565137964
+    - -0.0004997273401220977
+    - 0.0003524052138858048
+    - 1.4410062710253726e-10
+    - 0.13899435081826075
+  path:
+    path_gate_passed: true
+    terminal_gate_passed: true
+    min_duration_s: 14.625580232388335
+    max_abs_qdot_rad_s: 0.15
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.0006070100497499453
+    max_scheduled_xy_error_m: 0.00021607905641326118
+    max_scheduled_orientation_error_rad: 0.011580746036452625
+    path_csv: /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m0p500mm/path/path.csv
+  durations:
+  - stage_a_duration_s: 15.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.14625580232403276
+    stage_a_terminal_force_error_N: 0.0006070100497499453
+    skipped_reason: null
+  - stage_a_duration_s: 16.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.1371148146786674
+    stage_a_terminal_force_error_N: 0.0006070100497499453
+    skipped_reason: null
+  status: recovered_at_tested_duration
+- case: delta_m0p250mm
+  base_z_offset_delta_m: -0.00025
+  base_z_offset_delta_mm: -0.25
+  start:
+    passed: true
+    force_error_N: 1.1980613221496128e-06
+    tangential_error_m: 3.4354667548253115e-10
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - 8.205051749198143e-09
+    - -0.11060656207688477
+    - 0.15810487979699223
+    - -0.04617367004753453
+    - -1.541343834294509e-10
+    - 0.011365094220317689
+  terminal:
+    passed: true
+    pass_count: 33
+    candidate_count: 515
+    best_seed: random_227
+    force_error_N: 0.0007178839857182595
+    tangential_error_m: 0.0017043790768355737
+    orientation_error_rad: 0.0729704774221456
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -8.217844893082354e-09
+    - -0.02621232516728704
+    - -0.0004781078712492962
+    - 0.0003203395839038678
+    - -2.790745269808446e-11
+    - 0.12793254126660744
+  path:
+    path_gate_passed: true
+    terminal_gate_passed: true
+    min_duration_s: 14.37320363810477
+    max_abs_qdot_rad_s: 0.15
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.0007178839857182595
+    max_scheduled_xy_error_m: 8.799284589709732e-09
+    max_scheduled_orientation_error_rad: 3.7905935059018363e-07
+    path_csv: /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m0p250mm/path/path.csv
+  durations:
+  - stage_a_duration_s: 15.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.1437320363811954
+    stage_a_terminal_force_error_N: 0.0007178839857182595
+    skipped_reason: null
+  - stage_a_duration_s: 16.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.13474878410725802
+    stage_a_terminal_force_error_N: 0.0007178839857182595
+    skipped_reason: null
+  status: recovered_at_tested_duration
+- case: delta_p0p000mm
+  base_z_offset_delta_m: 0.0
+  base_z_offset_delta_mm: 0.0
+  start:
+    passed: true
+    force_error_N: 3.2605029787191597e-12
+    tangential_error_m: 0.0
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: true
+    pass_count: 1
+    candidate_count: 515
+    best_seed: extra_selected_stage_a_target_unoptimized
+    force_error_N: 0.005097546556703136
+    tangential_error_m: 0.0030075762251302427
+    orientation_error_rad: 0.07240605683117833
+    target_contact_count: 1
+    failed_criteria: []
+    q:
+    - -1.1745579135426345e-08
+    - -0.02440152369247043
+    - -0.00048297839388595083
+    - 0.0002982283198967393
+    - 2.405416739224147e-10
+    - 0.12671314216940235
+  path:
+    path_gate_passed: true
+    terminal_gate_passed: true
+    min_duration_s: 14.332635022800167
+    max_abs_qdot_rad_s: 0.15
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.005097546556703136
+    max_scheduled_xy_error_m: 8.729156782886492e-09
+    max_scheduled_orientation_error_rad: 3.761810174085662e-07
+    path_csv: /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_p0p000mm/path/path.csv
+  durations:
+  - stage_a_duration_s: 15.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.14332635022814824
+    stage_a_terminal_force_error_N: 0.005097546556703136
+    skipped_reason: null
+  - stage_a_duration_s: 16.0
+    stitched_ran: true
+    stitched_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.1343684533387775
+    stage_a_terminal_force_error_N: 0.005097546556703136
+    skipped_reason: null
+  status: recovered_at_tested_duration
+- case: delta_p0p050mm
+  base_z_offset_delta_m: 5.0e-05
+  base_z_offset_delta_mm: 0.05
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_164
+    force_error_N: 0.0008699274013377334
+    tangential_error_m: 0.0020703168129460998
+    orientation_error_rad: 0.0838175590896232
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -8.570499805313102e-09
+    - -0.023373849172367164
+    - -0.0004508658621282807
+    - 0.00027957173839832257
+    - 2.974134639201747e-10
+    - 0.11426050944059446
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p100mm
+  base_z_offset_delta_m: 0.0001
+  base_z_offset_delta_mm: 0.1
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_012
+    force_error_N: 0.0008976407522842678
+    tangential_error_m: 0.0021368298309197976
+    orientation_error_rad: 0.08565245135290023
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -8.11856619597856e-09
+    - -0.022886450623667755
+    - -0.0004465751968388975
+    - 0.00027266717252904285
+    - 2.3458590117003193e-10
+    - 0.11194083252919781
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p150mm
+  base_z_offset_delta_m: 0.00015
+  base_z_offset_delta_mm: 0.15
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_411
+    force_error_N: 0.0009261108784768268
+    tangential_error_m: 0.0022050853431446714
+    orientation_error_rad: 0.0874945141256073
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 9.69731649840358e-09
+    - -0.022395001142904707
+    - -0.0004421155495257384
+    - 0.0002656829255510863
+    - -3.005701891817745e-10
+    - 0.1096098448753927
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p200mm
+  base_z_offset_delta_m: 0.0002
+  base_z_offset_delta_mm: 0.2
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_328
+    force_error_N: 0.0009553704213711711
+    tangential_error_m: 0.0022751499985566013
+    orientation_error_rad: 0.08934348318237911
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -1.0364889012811563e-08
+    - -0.021899507700215776
+    - -0.00043741004332752896
+    - 0.0002585951092996044
+    - 2.5879245467048296e-10
+    - 0.10726776468598527
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p250mm
+  base_z_offset_delta_m: 0.00025
+  base_z_offset_delta_mm: 0.25
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_227
+    force_error_N: 0.000985454075132175
+    tangential_error_m: 0.0023470950296544148
+    orientation_error_rad: 0.09119904265401833
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -7.477657758674608e-09
+    - -0.021399661058702602
+    - -0.0004328252343050522
+    - 0.0002514219798896234
+    - 2.0296168521061363e-10
+    - 0.10491494689322009
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p500mm
+  base_z_offset_delta_m: 0.0005
+  base_z_offset_delta_mm: 0.5
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_269
+    force_error_N: 0.0011495443133044958
+    tangential_error_m: 0.002737670736385471
+    orientation_error_rad: 0.10056247728510045
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - -1.7023657755191496e-09
+    - -0.01883596373515915
+    - -0.0004095187254174353
+    - 0.00021475254364954372
+    - 2.876130095000642e-10
+    - 0.09300117786594672
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p0p750mm
+  base_z_offset_delta_m: 0.00075
+  base_z_offset_delta_mm: 0.75
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_153
+    force_error_N: 0.0013403179924091901
+    tangential_error_m: 0.003187388739474933
+    orientation_error_rad: 0.11002164736335575
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 3.185887962546853e-08
+    - -0.01616314345038177
+    - -0.00038596476219299994
+    - 0.000176506211527681
+    - -2.0597171121503152e-10
+    - 0.08088387987181599
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_184
+    force_error_N: 0.0015639424746973773
+    tangential_error_m: 0.0037081102250263293
+    orientation_error_rad: 0.11948560786548146
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 2.4301307228908532e-08
+    - -0.013382708679140294
+    - -0.00036297777643642904
+    - 0.00013685157798432314
+    - 9.345517764106481e-11
+    - 0.06865615224623349
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+warnings:
+- compact diagnostic-label simulation bracket only
+- not strict paper-equivalent feasibility
+- not contact-model calibration
+- not hardware-ready

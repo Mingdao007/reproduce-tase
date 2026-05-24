@@ -69,12 +69,13 @@ contact behavior regresses.
   result is still simulation-only, nominal, and diagnostic-label. v65 recovers
   the qdot/timing side with explicit margins. v66 recovers the `-1 mm` base-z
   side only with a rebalanced start, reoptimized path, and `16.0 s` Stage A
-  duration; `+1 mm` remains unresolved.
+  duration; `+1 mm` remains unresolved. v67 brackets the positive side and
+  shows start/terminal feasibility already fails at `+0.05 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should investigate the unresolved `+1 mm`
-base-z/contact side and the exact `15.0 s` `-1 mm` boundary unless a later
-decision changes the label.
+simulation controller prototype should investigate the positive-side
+contact-model/start-contact definition unless a later decision changes the
+label.

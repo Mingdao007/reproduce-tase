@@ -1,0 +1,1 @@
+/home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m0p500mm/stitched_15p0s

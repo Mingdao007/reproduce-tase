@@ -1,0 +1,22 @@
+# Git State
+
+- Branch: `exp/tase-ur10e-v67-base-z-bracket`
+- Commit: `3f280e2d35ea2d87abc9769a81c1ff0cf377415e`
+- Dirty tree: `True`
+- Status:
+
+```text
+M scripts/audit_stage_a_base_z_recovery.py
+ M src/tase_repro/base_z_recovery.py
+ M src/tase_repro/setup_terminal_ik.py
+ M tests/test_base_z_recovery.py
+ M tests/test_setup_terminal_ik.py
+?? runs/stage_a_base_z_bracket/
+?? scripts/audit_stage_a_base_z_bracket.py
+```
+
+- Command:
+
+```bash
+/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_stage_a_contact_path.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --setup-metrics runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml --stage-a-target-config configs/ur10e_adapted_stage_a_target.yaml --output-dir /home/andy/reproduce-tase/runs/stage_a_base_z_bracket/20260524T165411/cases/delta_m0p250mm/path --initial-q=8.2050517491981432e-09,-0.11060656207688477,0.15810487979699223,-0.046173670047534532,-1.5413438342945089e-10,0.011365094220317689 --initial-label delta_m0p250mm_perturbed_start_contact --target-q=-8.2178448930823544e-09,-0.02621232516728704,-0.0004781078712492962,0.0003203395839038678,-2.790745269808446e-11,0.12793254126660744 --target-label delta_m0p250mm_perturbed_terminal_target --base-z-offset-delta-m=-0.00025 --knot-count 128 --max-nfev 200 --qdot-limit-rad-s 0.15 --continuity-weight 0.02 --linear-posture-weight 0.002
+```
