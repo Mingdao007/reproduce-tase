@@ -828,3 +828,21 @@
   only. Future completion requires closing the paper-truth/model gaps or
   producing a separate paper-faithful reproduction line; real hardware remains
   blocked by the hardware gate.
+
+## D045: Section V z0 Is Verified Undefined In Simulation Text
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Remove `z0_source` from `pending_pdf_verify` and record Section V `z0` as
+  verified undefined in the simulation text.
+- Reason:
+  V40 layout and raw PDF extraction both show Section V states
+  `xpd = [0.2 cos(0.2t); 0.2 sin(0.2t); z0]` but does not define `z0` in the
+  simulation section. Section VI later defines experiment `z0` as the
+  anticipated z position equal to the initial manipulator position, but that
+  statement appears in the experimental verification section.
+- Consequence:
+  No `pending_pdf_verify` fields remain in `configs/paper_truth.yaml`. Future
+  Section V simulation code must choose an explicit adapted `z0` convention
+  instead of silently importing the Section VI experimental definition.

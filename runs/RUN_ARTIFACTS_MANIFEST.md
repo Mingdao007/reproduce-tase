@@ -1097,6 +1097,23 @@ Legacy source root:
 - Limit:
   Documentation-only audit. No new simulation run and no hardware work.
 
+## V40 Section V z0 Audit
+
+### PDF truth extraction cleanup
+
+- Artifact:
+  - `reports/section_v_z0_audit.md`
+- Scope:
+  Uses layout and raw `pdftotext` extraction to determine whether Section V
+  defines the `z0` in `xpd = [0.2 cos(0.2t); 0.2 sin(0.2t); z0]`.
+- Result:
+  Section V uses `z0` without defining it. Section VI defines experiment `z0`
+  separately. `configs/paper_truth.yaml` now has no `pending_pdf_verify`
+  fields.
+- Limit:
+  Documentation-only paper-truth audit. No new simulation run and no hardware
+  work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

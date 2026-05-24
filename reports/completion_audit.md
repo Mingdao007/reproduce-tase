@@ -40,15 +40,15 @@ The objective has two separate technical claim levels:
 | Requirement | Evidence | Status |
 |---|---|---|
 | Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37/v38 branches pushed and GitHub-verified | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v38-relaxed-setup-budget`; latest local audit branch `exp/tase-ur10e-v39-completion-audit` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v40-section-v-z0-audit`; latest local branch is `exp/tase-ur10e-v40-section-v-z0-audit` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
 | Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D043 before this audit | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
-| Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `configs/paper_truth.yaml` | Mostly done; Section V `z0_source` still pending |
+| Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v39 validation was `68 passed in 1.43s` | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v40 validation was `68 passed in 1.37s` | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65` | Not achieved |
@@ -80,8 +80,8 @@ Evidence:
 - Paper-faithful 7DOF Franka reproduction is not implemented as a separate
   executable line; current paper truth extraction and migrated MATLAB/synthetic
   evidence are not a full paper-platform reproduction.
-- Section V `z0_source` remains `pending_pdf_verify` in
-  `configs/paper_truth.yaml`.
+- Section V `z0` is now verified undefined in the simulation text; future code
+  still needs an explicit adapted convention if it implements Section V.
 - UR10e MJCF, 85 mm TCP guess, payload, CoG, and contact geometry remain
   approximate or unverified for hardware use.
 - OnRobot/RTDE force-source reconciliation remains unresolved.
@@ -101,7 +101,6 @@ Do not mark the active goal complete from the current evidence.
 
 Choose one of these before any real hardware work:
 
-- close the remaining PDF truth gap for Section V `z0_source`;
 - validate or replace the approximate TCP/contact model and rerun the terminal
   setup audit; or
 - create a separate paper-faithful 7DOF executable reproduction line so the

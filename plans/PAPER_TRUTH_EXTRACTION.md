@@ -9,7 +9,7 @@ experiment matrix from the TASE finite-time force-motion paper.
 
 - The PDF path is:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
-- Existing YAML values marked `pending_pdf_verify` are provisional.
+- No `pending_pdf_verify` fields remain after the V40 Section V `z0` audit.
 - Local MATLAB/RNN scripts are references only, not truth.
 
 ## Exact Files Touched
@@ -70,12 +70,12 @@ PDF extraction is later found wrong.
 - Section V gives a 2D orientation signal, while the orientation law defines a
   3D normalized force vector. V20 confirms this as a paper ambiguity rather
   than a hidden extraction omission.
-- Section V `z0` remains undefined in extracted text.
+- Section V `z0` is verified undefined in the simulation text. Do not silently
+  transfer the Section VI experimental `z0` definition into Section V.
 
 ## Next Executable Step
 
 Implement paper-orientation work from the Section III 3D force-normal contract,
 `u = F / ||F||`, not from an inferred Section V third component. Keep any
-Section V 2D orientation schedule as an explicitly adapted option with its own
-decision record and gates. The remaining PDF-truth extraction item is the
-Section V `z0` source.
+Section V 2D orientation schedule or Section V `z0` convention as an explicitly
+adapted option with its own decision record and gates.

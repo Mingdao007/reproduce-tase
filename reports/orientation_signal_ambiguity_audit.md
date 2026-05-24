@@ -95,16 +95,15 @@ labeled an adapted assumption.
 
 ## Remaining Paper-Truth Gap
 
-The only Section V `pending_pdf_verify` field left in `configs/paper_truth.yaml`
-should be `z0_source`.
-
-`z0` is explicitly defined in Section VI for experiments as the initial
-manipulator z position, but the extracted Section V simulation text does not
-state whether its `z0` is the same convention, a contact surface height, or
-another initial value.
+V40 closes the former Section V `z0_source` pending-verification field. The PDF
+evidence shows that `z0` is explicitly defined in Section VI for experiments
+as the initial manipulator z position, while Section V simulation text uses
+`z0` without defining it. This is now recorded as a verified Section V paper
+ambiguity, not a pending extraction field.
 
 ## Next Step
 
 Implement paper-orientation work from the 3D Section III force-normal contract,
-not from the 2D Section V signal. Keep any Section V 2D orientation schedule as
-an explicitly adapted option with separate gates and decision records.
+not from the 2D Section V signal. If future code needs a Section V simulation
+`z0`, choose and document an adapted convention rather than silently importing
+the Section VI experimental definition.

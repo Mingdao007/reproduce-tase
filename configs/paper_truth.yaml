@@ -1,6 +1,6 @@
 v1:
-  allow_pending_pdf_verify: true
-  note: "V20 records the Section V orientation-signal mismatch as a verified paper ambiguity. Only the Section V z0 source remains pending PDF verification."
+  allow_pending_pdf_verify: false
+  note: "V40 closes the last pending PDF extraction item: Section V uses z0 but does not define its source in the simulation text. This is recorded as verified undefined in Section V, not as a pending extraction field."
 
 paper:
   title: "Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientation Compliance"
@@ -13,6 +13,7 @@ paper:
     pdf_pages: 13
     truth_report: "reports/paper_truth_extraction.md"
     orientation_ambiguity_audit: "reports/orientation_signal_ambiguity_audit.md"
+    section_v_z0_audit: "reports/section_v_z0_audit.md"
   orientation_controller:
     force_normal_signal: "u = F / ||F||"
     force_normal_dimension: 3
@@ -33,13 +34,14 @@ paper:
     boundary_method: "escape-velocity joint position and velocity bounds"
     inner_loop: "finite-time recurrent neural network, Eq. (23)"
   section_v:
-    pending_pdf_verify:
-      - z0_source
+    pending_pdf_verify: []
     q0: [0.0, -0.7853981634, 0.0, -2.3561944902, 0.0, 1.5707963268, 0.7853981634]
     trajectory:
       x: "0.2*cos(0.2*t)"
       y: "0.2*sin(0.2*t)"
-      z: "z0_TBD"
+      z: "z0"
+    z0_source_status: "verified_undefined_in_section_v_text"
+    z0_source_note: "Layout and raw text extraction show Section V writes xpd = [0.2 cos(0.2t); 0.2 sin(0.2t); z0] and does not define z0 in that section. Section VI later defines experiment z0 as the anticipated z position equal to the initial manipulator position; do not silently transfer that definition into Section V simulation truth."
     orientation_signal_raw: "[cos(0.1*t), sin(0.1*t)]"
     orientation_signal_note: "PDF-verified raw Section V signal. The dimension mismatch is recorded as a known paper ambiguity, not a hidden PDF-extraction omission."
     orientation_signal_resolution_status: "verified_paper_ambiguity"

@@ -1450,3 +1450,38 @@
   Close the remaining PDF truth gap, validate or replace the approximate
   TCP/contact model, or create the separate paper-faithful 7DOF reproduction
   line before claiming the overall goal complete.
+
+## 2026-05-24 v40 Section V z0 Audit
+
+- Branch: `exp/tase-ur10e-v40-section-v-z0-audit`
+- Starting commit: `879696285b3e8f69ecf765cef8e9eb0004e09613`
+- Files added:
+  - `reports/section_v_z0_audit.md`
+- Files updated:
+  - `configs/paper_truth.yaml`
+  - `plans/PAPER_TRUTH_EXTRACTION.md`
+  - `reports/paper_truth_extraction.md`
+  - `reports/orientation_signal_ambiguity_audit.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `pdftotext -layout "<paper-pdf>" /tmp/tase_paper_v40_layout.txt`
+  - `rg -n -C 8 "z0|z_0|0\\.2 cos|0\\.2cos|cos\\(0\\.2|SIMULATION|V\\." /tmp/tase_paper_v40_layout.txt`
+  - `pdftotext -raw "<paper-pdf>" /tmp/tase_paper_v40_raw.txt`
+  - `rg -n -C 8 "z0|z_0|0\\.2 cos|0\\.2cos|cos\\(0\\.2|SIMULATION|V\\." /tmp/tase_paper_v40_raw.txt`
+  - `pdfinfo "<paper-pdf>"`
+- Result:
+  The final pending paper-truth extraction item is closed. Section V is now
+  recorded as using `z0` without defining its source; Section VI's experiment
+  `z0` definition remains separate. `configs/paper_truth.yaml` now has no
+  `pending_pdf_verify` fields.
+- Limit:
+  This is a paper-truth audit only. It does not implement a separate
+  paper-faithful 7DOF reproduction line and does not change UR10e hardware
+  readiness.
+- Next step:
+  Validate or replace the approximate TCP/contact model, or create the
+  separate paper-faithful 7DOF executable reproduction line before claiming
+  the overall goal complete.

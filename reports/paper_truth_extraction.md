@@ -6,6 +6,8 @@ Initial branch: `exp/tase-ur10e-v19-paper-orientation-truth`
 
 V20 update branch: `exp/tase-ur10e-v20-orientation-signal-audit`
 
+V40 update branch: `exp/tase-ur10e-v40-section-v-z0-audit`
+
 Source PDF:
 
 `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
@@ -33,11 +35,10 @@ orientation law rather than only the early UR10e orientation-hold substitute.
 
 It does not claim a full paper-faithful implementation. V20 reclassified the
 orientation-signal mismatch as a verified paper ambiguity after checking
-multiple extraction modes. One Section V PDF-verification item remains open:
-
-- Section V leaves `z0` undefined in the extracted text. Section VI defines
-  `z0` from the initial manipulator position, but that statement appears in
-  the experiment section, not the simulation section.
+multiple extraction modes. V40 closes the last pending PDF extraction field by
+recording that Section V uses `z0` without defining it in the simulation text.
+Section VI defines `z0` from the initial manipulator position, but that
+statement appears in the experiment section, not the simulation section.
 
 ## Control Objectives And Spaces
 
@@ -181,6 +182,7 @@ PDF-grounded Section V setup:
 | --- | --- | --- |
 | initial joint angle | `[0, -pi/4, 0, -3pi/4, 0, pi/2, pi/4]` | lines 457-461 |
 | desired trajectory | `[0.2 cos(0.2t), 0.2 sin(0.2t), z0]` | lines 460-461 |
+| `z0` source | used but not defined in Section V | lines 457-462; see `reports/section_v_z0_audit.md` |
 | orientation signal | `[cos(0.1t), sin(0.1t)]` | lines 461-462 |
 | joint angle limits | `[-2.5, 2.5] rad` | lines 462-466 |
 | joint velocity limits | `[-1.5, 1.5] rad/s` | lines 467-470 |
@@ -198,9 +200,10 @@ Fig.5 convergence times reported in text:
 
 Evidence: `/tmp/tase_paper_layout.txt:447-461`.
 
-Remaining Section V gaps:
+Section V verified ambiguities:
 
-- `z0` is not defined in the extracted Section V text.
+- `z0` is not defined in the extracted Section V text. V40 records this as
+  verified undefined in Section V, not pending PDF verification.
 - The Section V orientation signal is two-dimensional, while the orientation
   law in Section III requires a three-dimensional normalized force vector.
 
@@ -294,12 +297,10 @@ by the other comparison reductions.
   velocity limits, E1-E4 trajectory formulas, contact timings, convergence
   timings, and comparison values.
 
-After the V20 audit, the remaining `pending_pdf_verify` value should be:
-
-- `z0_source`
-
-The orientation-signal mismatch remains a known paper ambiguity, but it is no
-longer treated as a hidden or unverified extraction field.
+After the V40 audit, no `pending_pdf_verify` fields remain in
+`configs/paper_truth.yaml`. The Section V orientation-signal mismatch and the
+Section V undefined `z0` source remain known paper ambiguities, but neither is
+treated as a hidden or unverified extraction field.
 
 ## Implementation Consequences
 
