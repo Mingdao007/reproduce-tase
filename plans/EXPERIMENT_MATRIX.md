@@ -61,10 +61,14 @@ them rather than deleting them.
   yet pass the orientation gates without saturation.
 - Tilted-plane scalar gain/time-scale tuning fails the max-orientation-error
   gate from a flat initial orientation before trajectory timing can help.
+- Staged prealignment lets the following E1 trajectory pass the gates, but the
+  approach phase itself fails due to sustained qdot saturation and planar
+  drift.
 
 ## Next Executable Step
 
-Use `runs/tilted_orientation_gain_timing_sweep/20260524T091826` as negative
-evidence that scalar gain/time-scale tuning is insufficient. The next
-executable experiment is a staged tilted-plane orientation approach followed by
-paper-trajectory tracking under the same orientation and qdot gates.
+Use `runs/staged_orientation_force_motion/20260524T092927` as evidence that
+prealignment can unblock the trajectory phase, while keeping approach-phase
+failure separate. The next executable experiment is an approach-controller
+bracket that reduces planar drift and sustained qdot saturation before
+expanding staged checks to E2-E4.

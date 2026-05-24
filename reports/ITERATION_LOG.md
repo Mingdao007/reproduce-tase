@@ -833,3 +833,40 @@
   Implement a staged orientation approach/pre-alignment simulation before
   paper-trajectory tracking, or explicitly record a qdot-budget relaxation
   decision before further tilted orientation-gated claims.
+
+## 2026-05-24 v24 Staged Orientation Approach
+
+- Branch: `exp/tase-ur10e-v24-staged-orientation-approach`
+- Starting commit: `9059345767e6f2282013a2d6bc28d530b0e99440`
+- Files added:
+  - `src/tase_repro/staged_force_motion.py`
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `tests/test_staged_force_motion.py`
+  - `reports/staged_orientation_approach_report.md`
+  - `runs/staged_orientation_force_motion/20260524T092927`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/staged_force_motion.py scripts/run_staged_orientation_force_motion.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_force_motion/20260524T092927 --approach-duration-s 4.0 --trajectory-duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode weighted --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  Tests passed: `51 passed in 1.10s`. `git diff --check` passed. The approach
+  reached final orientation error `0.0020237968932491765 rad` and crossed the
+  `0.03 rad` threshold at `0.912 s`. The following E1 trajectory phase passed
+  all current gates with max orientation error `0.0020303573682621625 rad`,
+  qdot saturation fraction `0.003`, and no failed criteria.
+- Limit:
+  The approach phase itself is not a full feasibility pass. It has qdot
+  saturation fraction `0.961`, max planar drift `0.009738544642078033 m`, and
+  max angular slack `0.06085033484246333 rad/s`.
+- Next step:
+  Improve the approach phase to reduce planar drift and sustained qdot
+  saturation, or explicitly record a separate relaxed approach budget before
+  claiming a full staged maneuver pass.

@@ -654,6 +654,35 @@ Legacy source root:
   This is negative E1-only simulation evidence. It does not cover curved
   surfaces, E2-E4, torque dynamics, or hardware.
 
+## V24 Staged Orientation Approach
+
+### Tilted prealignment before E1 trajectory
+
+- Run root:
+  - `runs/staged_orientation_force_motion/20260524T092927`
+- Scope:
+  Two-phase tilted-plane check. Stage A uses a weighted force-normal
+  orientation approach with zero planar trajectory. Stage B runs E1 cycloid at
+  `paper_time_scale = 0.075` from the prealigned q using
+  `linear-primary` force-normal orientation.
+- Tracked lightweight artifacts:
+  root `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  per-phase `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation
+  plot, and angular-slack plot.
+- Ignored raw artifacts:
+  `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  The approach reaches final orientation error `0.0020237968932491765 rad` and
+  crosses `0.03 rad` at `0.912 s`. The trajectory phase passes all current
+  gates with max orientation error `0.0020303573682621625 rad`, qdot
+  saturation fraction `0.003`, and no failed criteria.
+- Limit:
+  The full staged maneuver is not a feasibility pass because the approach
+  phase has qdot saturation fraction `0.961`, max planar drift
+  `0.009738544642078033 m`, and max angular slack
+  `0.06085033484246333 rad/s`.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

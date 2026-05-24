@@ -473,3 +473,24 @@
   of the paper-trajectory run through an explicit approach/pre-alignment phase,
   or make a transparent decision to spend more joint-velocity budget. More
   unlabeled scalar gain sweeps are not enough evidence.
+
+## D029: Separate Approach-Phase Feasibility From Trajectory-Phase Feasibility
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Report staged tilted orientation runs with separate approach and trajectory
+  gates. A paper trajectory may be allowed to start after prealignment, but the
+  approach phase must not be hidden inside the trajectory pass/fail result.
+- Reason:
+  The v24 staged run shows that weighted prealignment can reduce tilted-normal
+  orientation error to `0.0020237968932491765 rad`, after which the E1
+  trajectory phase passes all current gates. The same approach phase fails the
+  ordinary feasibility gate because it has qdot saturation fraction `0.961`,
+  max planar drift `0.009738544642078033 m`, and max angular slack
+  `0.06085033484246333 rad/s`.
+- Consequence:
+  The repo can now distinguish "trajectory after approach passes" from "full
+  staged maneuver passes." The next controller work should reduce approach
+  drift and saturation, or explicitly document a separate relaxed approach
+  budget before trajectory tracking.

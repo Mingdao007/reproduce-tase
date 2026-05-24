@@ -725,3 +725,49 @@ stage B: start paper trajectory only after ||e_R|| <= gate
 If stage A is not added, the alternative is an explicit decision to relax the
 `0.15 rad/s` qdot budget or the max-error gate. That would be an adapted UR10e
 assumption, not a paper-faithful result.
+
+## V24 Staged Orientation Approach Transfer
+
+The first staged implementation separates the initial tilted-normal alignment
+from the paper trajectory:
+
+```text
+Stage A:
+  v_xy,desired = 0
+  v_normal = v_f n_tilt
+  omega_desired = k_o log(R_normal R_tcp^T)
+
+Stage B:
+  reset trajectory origin at Stage A terminal TCP pose
+  run paper x/y trajectory with force-normal orientation already near gate
+```
+
+This changes the meaning of the orientation gate. The Stage B gate is no
+longer dominated by the initial `0.174 rad` tilt mismatch, so the E1 trajectory
+phase can pass with:
+
+```text
+max ||e_R|| = 0.0020303573682621625 rad
+qdot saturation fraction = 0.003
+```
+
+However, Stage A uses a weighted orientation solve rather than the
+linear-primary trajectory solve. It reaches:
+
+```text
+final ||e_R|| = 0.0020237968932491765 rad
+first ||e_R|| <= 0.03 rad at 0.912 s
+```
+
+but also records:
+
+```text
+qdot saturation fraction = 0.961
+max planar drift = 0.009738544642078033 m
+max angular slack = 0.06085033484246333 rad/s
+```
+
+Therefore v24 is a useful decomposition, not a complete maneuver solution.
+The UR10e transfer now needs either an approach controller that reduces planar
+drift and sustained qdot saturation, or an explicit decision that approach and
+paper-trajectory tracking use different budgets/gates.

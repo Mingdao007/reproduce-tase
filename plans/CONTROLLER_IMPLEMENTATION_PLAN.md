@@ -77,10 +77,14 @@ smoke runs regress.
 - Tilted-plane gain/time-scale tuning cannot pass the existing max-orientation
   gate from a flat initial TCP orientation, because the initial error is about
   `0.174 rad`.
+- A staged weighted approach can make the following E1 trajectory pass, but
+  the approach phase currently uses sustained qdot saturation and about
+  `9.7 mm` planar drift.
 
 ## Next Executable Step
 
-Implement a simulation-only staged orientation approach phase for the tilted
-plane. Stage A should align TCP local z to the measured contact normal under
-the same qdot and angular-slack limits; Stage B should start paper-trajectory
-tracking only after the orientation gate is satisfied.
+Improve the simulation-only Stage A approach controller so it reaches the
+tilted force-normal orientation with less planar drift and without sustained
+qdot saturation. If that is not feasible under the current velocity-level
+controller, record a separate approach-budget decision before expanding the
+staged run to E2-E4.
