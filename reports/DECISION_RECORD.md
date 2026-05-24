@@ -2439,3 +2439,29 @@
   hardware motion/configuration. Future offline work should define the
   acceptance boundary for a named diagnostic weighted profile without changing
   the canonical claim boundary.
+
+## D115: Name Weighted Priority Only As A Diagnostic Profile
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v110 as the profile-boundary audit that supports the name
+  `weighted_zero_angular_stage_b_diagnostic` for the covered v107 and v109
+  diagnostic faces.
+- Reason:
+  V107 and v109 both reproduce a linear-primary E2 failure while recovering the
+  covered E1-E4 Stage B rows under weighted priority. V107 has one baseline
+  failed face and two weighted passes; v109 has two baseline failed duration
+  rows and four weighted passes. Across the covered faces, weighted priority
+  has maximum Stage B orientation `0.11956645203696047 rad`, maximum qdot
+  saturation `0.0`, and maximum tail qdot utilization
+  `0.520987929048311`.
+- Consequence:
+  The profile name may be used for diagnostic-label discussion of the covered
+  faces, but it is not a canonical controller default. V110 does not accept
+  the `0.12 rad` orientation gate as canonical, close any original v99 failed
+  cell, prove robustness, prove strict paper-equivalent feasibility, calibrate
+  contact geometry, establish hardware readiness, or authorize hardware
+  motion/configuration. Future offline work may restate the diagnostic
+  robustness matrix using this named profile only if those same boundaries are
+  preserved.

@@ -209,6 +209,10 @@ The objective has two separate technical claim levels:
 - `tests/test_relaxed_base_z_weighted_handoff.py`
 - `runs/relaxed_base_z_weighted_handoff/20260525T073012/metrics.yaml`
 - `reports/relaxed_base_z_weighted_handoff_report.md`
+- `scripts/audit_weighted_priority_profile_boundary.py`
+- `tests/test_weighted_priority_profile_boundary.py`
+- `runs/weighted_priority_profile_boundary/20260525T074100/metrics.yaml`
+- `reports/weighted_priority_profile_boundary_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -222,17 +226,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v109 branches pushed and GitHub-verified; v109 implementation branch push verified at `3a766ae641d7d4cda70864da4cfad366786e6515` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff`; latest local branch is `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v109 branches pushed and GitHub-verified; v110 branch push verification is pending implementation commit `V110_IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v110-weighted-priority-profile-boundary`; latest local branch is `exp/tase-ur10e-v110-weighted-priority-profile-boundary` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v110.md` include the short prompt, authoritative local clone, v95-v109 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D114 as of v109 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v111.md` include the short prompt, authoritative local clone, v95-v110 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D115 as of v110 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v109 focused validation: `python3 -m py_compile scripts/audit_relaxed_base_z_weighted_handoff.py` passed, `scripts/run_tests.sh tests/test_relaxed_base_z_weighted_handoff.py` reported `3 passed in 0.12s`, the v109 weighted handoff run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `156 passed in 6.93s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v110 focused validation: `python3 -m py_compile scripts/audit_weighted_priority_profile_boundary.py` passed, `scripts/run_tests.sh tests/test_weighted_priority_profile_boundary.py` reported `3 passed in 0.04s`, the v110 profile-boundary run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `159 passed in 6.93s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -1709,8 +1713,13 @@ are blocked by the current `0.08 rad` orientation gate, and the run-local
 handoff blocker using the v70 path and gate: the linear-primary baseline still
 fails E2 at Stage A durations `15.0 s` and `16.0 s`, while both weighted rows
 pass `4 / 4` at both durations. This is still diagnostic because neither the
-run-local `0.12 rad` gate nor weighted priority is accepted as canonical. The
-project still has not achieved strict paper-equivalent full staged
+run-local `0.12 rad` gate nor weighted priority is accepted as canonical. V110
+uses the v107 and v109 evidence to support naming
+`weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for the
+covered faces, but it keeps canonical controller/gate changes, failed-cell
+closure, robustness, strict paper-equivalent feasibility, contact calibration,
+and hardware readiness false. The project still has not achieved strict
+paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
@@ -1721,17 +1730,15 @@ Do not accept a replacement orientation gate from simulation metrics or current
 local records alone. The next executable step is to execute only safe read-only
 portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
 verifier after explicit user confirmation, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v109 blocker audits, the
-v99 planned experiment matrix, and the v100-v109 execution/probe audits. All
-v99 planned commands have now been executed; v107 shows the fast-timing face
-can recover under weighted priority, and v109 shows the relaxed base-z handoff
-can also recover under weighted priority. Weighted priority still needs an
-acceptance-boundary audit before any named diagnostic profile or canonical
-upgrade. The next offline probe can audit whether/how to promote weighted
-priority into a named diagnostic controller profile while keeping
-`canonical_controller_change`, `canonical_orientation_gate_change`,
-`failed_cell_closed`, and `robustness_claim` false. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v109
-diagnostic staged labels separate.
+simulation/paper-platform work identified by the v95-v110 blocker audits, the
+v99 planned experiment matrix, and the v100-v110 execution/probe audits. All
+v99 planned commands have now been executed; v110 names the weighted diagnostic
+profile for covered v107/v109 faces while preserving the canonical claim
+boundary. The next offline probe can audit whether the v98/v99 diagnostic
+robustness matrix can be restated with the named weighted diagnostic profile
+while keeping `canonical_controller_change`,
+`canonical_orientation_gate_change`, `failed_cell_closed`, and
+`robustness_claim` false. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v110 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

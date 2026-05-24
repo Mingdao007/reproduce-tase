@@ -3128,6 +3128,43 @@ Legacy source root:
   change, not a strict paper-equivalent claim, not a robustness proof, and not
   hardware authorization.
 
+## V110 Weighted Priority Profile-Boundary Audit
+
+### Named weighted priority as a diagnostic profile without canonical changes
+
+- Scripts:
+  - `scripts/audit_weighted_priority_profile_boundary.py`
+- Runs:
+  - `runs/weighted_priority_profile_boundary/20260525T074100`
+- Report:
+  - `reports/weighted_priority_profile_boundary_report.md`
+- Tests:
+  - `tests/test_weighted_priority_profile_boundary.py`
+- Command:
+  `python3 scripts/audit_weighted_priority_profile_boundary.py --output-dir runs/weighted_priority_profile_boundary/20260525T074100`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The post-hoc audit reads the verified v107 and v109 metrics and supports
+  naming `weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for
+  the covered faces. Across those faces, weighted rows recover all covered rows
+  and baseline failures are reproduced. The boundary keeps
+  `canonical_controller_change`, `canonical_orientation_gate_change`,
+  `failed_cell_closed`, `robustness_claim`, and `hardware_readiness` false.
+- Validation:
+  Focused tests passed with `3 passed in 0.04s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `159 passed in 6.93s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V110_IMPLEMENTATION_COMMIT_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is post-hoc diagnostic
+  bookkeeping over existing metrics and does not change the canonical
+  controller default, accept the `0.12 rad` orientation gate, close any
+  original v99 failed cell, prove robustness, prove strict paper-equivalent
+  feasibility, calibrate contact geometry, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

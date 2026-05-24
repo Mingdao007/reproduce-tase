@@ -4252,3 +4252,45 @@
   named diagnostic controller profile using v107 and v109, while keeping
   canonical controller, orientation-gate, failed-cell closure, and robustness
   boundaries false.
+
+## 2026-05-25 v110 Weighted Priority Profile-Boundary Audit
+
+### Name weighted priority as a diagnostic profile without changing canonical claims
+
+- Branch:
+  `exp/tase-ur10e-v110-weighted-priority-profile-boundary`
+- Runs:
+  - `runs/weighted_priority_profile_boundary/20260525T074100`
+- Report:
+  `reports/weighted_priority_profile_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_weighted_priority_profile_boundary.py`
+  - `scripts/run_tests.sh tests/test_weighted_priority_profile_boundary.py`
+  - `python3 scripts/audit_weighted_priority_profile_boundary.py --output-dir runs/weighted_priority_profile_boundary/20260525T074100`
+  - `rg -n "&id|\*id" runs/weighted_priority_profile_boundary/20260525T074100/metrics.yaml`
+  - `find runs/weighted_priority_profile_boundary/20260525T074100 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The post-hoc audit uses the verified v107 and v109 metrics. It supports
+  naming `weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for
+  the covered faces. Weighted rows recover both faces, and baseline failures
+  are reproduced in both faces. The profile boundary keeps
+  `canonical_controller_change = false`,
+  `canonical_orientation_gate_change = false`, `failed_cell_closed = false`,
+  `robustness_claim = false`, and `hardware_readiness = false`.
+- Limit:
+  This is post-hoc offline bookkeeping over existing metrics. It does not
+  rerun MuJoCo, change the canonical controller default, accept the `0.12 rad`
+  orientation gate, close any original v99 failed cell, prove robustness,
+  prove strict paper-equivalent feasibility, calibrate contact geometry, or
+  authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.04s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `159 passed in 6.93s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V110_IMPLEMENTATION_COMMIT_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next branch
+  can audit whether the v98/v99 diagnostic robustness matrix can be restated
+  with the named weighted diagnostic profile while keeping canonical
+  controller/gate changes, failed-cell closure, and robustness claims false.
