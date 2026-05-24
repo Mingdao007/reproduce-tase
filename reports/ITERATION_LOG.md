@@ -3312,3 +3312,32 @@
   TCP/contact point, KSM contact patch convention, plane normal in the robot
   base frame, force-source/frame reconciliation, and accepted orientation-gate
   semantics.
+
+## 2026-05-25 v87 Read-Only Calibration Measurement SOP
+
+### Define the safe measurement gates before live bench evidence collection
+
+- Branch:
+  `exp/tase-ur10e-v87-readonly-measurement-sop`
+- SOP:
+  `reports/read_only_calibration_measurement_sop.md`
+- Commands run:
+  - no live hardware commands
+- Result:
+  The SOP defines the required artifacts, pass/fail gates, and abort
+  conditions for mounted-stack TCP/contact point, KSM contact patch convention,
+  plane normal in robot base frame, force-source/frame reconciliation, and
+  orientation-gate semantics. It explicitly compares the required geometry and
+  normal evidence to the v85 `14.963398168061882 um` and
+  `0.03245531101442353 deg` margins.
+- Limit:
+  This is a planning/SOP artifact only. It was not executed, does not collect
+  new measurements, and does not authorize robot motion, configuration writes,
+  zeroing, force control, gate relaxation, calibrated contact-model claims, or
+  hardware readiness.
+- Validation:
+  Full tests passed with `115 passed in 2.65s`; `git diff --check` passed. No
+  live hardware commands were run.
+- Next step:
+  Execute only safe read-only portions of the SOP after explicit user
+  confirmation, or refine the SOP if any measurement path is ambiguous.

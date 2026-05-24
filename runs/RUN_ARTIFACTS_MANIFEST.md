@@ -2344,6 +2344,27 @@ Legacy source root:
   contact model, canonical controller default, strict paper-equivalent claim,
   robustness proof, hardware evidence, or hardware authorization.
 
+## V87 Read-Only Calibration Measurement SOP
+
+### Safety and evidence gates for future calibration measurements
+
+- Artifact:
+  - `reports/read_only_calibration_measurement_sop.md`
+- Command:
+  no live hardware command; documentation/SOP update only.
+- Result:
+  The SOP defines required artifacts, pass/fail gates, and abort conditions for
+  mounted-stack TCP/contact point, KSM contact patch convention, plane normal
+  in robot base frame, force-source/frame reconciliation, and orientation-gate
+  semantics. It compares the required evidence directly to the v85
+  `14.963398168061882 um` geometry margin and `0.03245531101442353 deg`
+  normal-orientation margin.
+- Limit:
+  This is a planning/SOP artifact only. It is not an executed measurement,
+  recovery, gate relaxation, calibrated contact model, canonical controller
+  default, strict paper-equivalent claim, robustness proof, hardware evidence,
+  or authorization for motion, writes, zeroing, or force control.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

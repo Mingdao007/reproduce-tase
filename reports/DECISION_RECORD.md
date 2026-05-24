@@ -1910,3 +1910,27 @@
   reconciliation, and accepted orientation-gate semantics. This is not a
   recovery, calibrated model, robustness proof, strict paper-equivalent
   feasibility, or hardware-ready control claim.
+
+## D092: Require A Read-Only Measurement SOP Before Calibration Claims
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v87 as the safety and evidence gate for collecting the measurements
+  missing after v86. No contact-model update, orientation-gate relaxation, or
+  hardware-readiness claim may proceed until the read-only SOP evidence is
+  collected and passes its gates.
+- Reason:
+  The v87 SOP at `reports/read_only_calibration_measurement_sop.md` defines
+  required artifacts, pass/fail gates, and abort conditions for mounted-stack
+  TCP/contact point, KSM contact patch convention, plane normal in the robot
+  base frame, force-source/frame reconciliation, and orientation-gate
+  semantics. It ties acceptance directly to the v85 margins:
+  `14.963398168061882 um` equivalent geometry and
+  `0.03245531101442353 deg` normal rotation.
+- Consequence:
+  The next work may only execute safe read-only portions of the SOP after
+  explicit user confirmation, or refine the SOP if a measurement path is
+  ambiguous. The SOP itself is not a recovery, executed calibration,
+  robustness proof, strict paper-equivalent feasibility, hardware-readiness
+  claim, or authorization for motion, writes, zeroing, or force control.
