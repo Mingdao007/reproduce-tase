@@ -1612,3 +1612,28 @@
   `orientation_gate_0p119` `+1.0 mm` limits remain unresolved. The project
   still must not claim robustness, strict paper-equivalent feasibility,
   contact-model calibration, or hardware readiness.
+
+## D081: Treat The Faster-Timing Failure As An E2 Orientation Boundary
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v76 as evidence that the v73 `paper_time_scale_0p0075` `+1.0 mm`
+  failure is first an E2 orientation-margin boundary under the current
+  diagnostic `0.12 rad` gate.
+- Reason:
+  The v76 run at `runs/positive_timing_boundary/20260524T200236` holds the v70
+  relaxed target/path setup, `stage_a_duration_s = 15.0`,
+  `qdot_limit_rad_s = 0.15`, and `max_orientation_error_rad = 0.12` fixed while
+  sweeping Stage B `paper_time_scale` for the hardest `+1.0 mm` row. Stage A
+  passes every timing case. Stitched recovery passes at `0.005` and `0.0052`,
+  then first fails at `0.0054` because E2 orientation reaches
+  `0.12001811086329595 rad`. Qdot saturation remains low at the first failing
+  scale and becomes severe only at `0.007` and above.
+- Consequence:
+  The faster-timing sensitivity limit is bounded but not recovered under the
+  current diagnostic gate. The next branch should either move to the separate
+  `orientation_gate_0p119` `+1.0 mm` limit or test a targeted Stage B
+  orientation-margin/control change without relaxing the diagnostic gate. The
+  project still must not claim robustness, strict paper-equivalent feasibility,
+  contact-model calibration, or hardware readiness.

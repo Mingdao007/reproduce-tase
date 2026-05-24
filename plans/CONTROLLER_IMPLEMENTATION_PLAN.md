@@ -273,13 +273,17 @@ smoke runs regress.
 - The v75 qdot012 positive stitched matrix uses `stage_a_duration_s = 18.035`
   and `qdot_limit_rad_s = 0.12` for all positive deltas. Stitched recovery
   passes `8 / 8` through `+1.0 mm`.
+- The v76 positive timing-boundary audit isolates the v73
+  `paper_time_scale_0p0075` `+1.0 mm` failure: Stage A passes all timing
+  cases, the row still passes at `paper_time_scale = 0.0052`, and `0.0054`
+  first fails on E2 orientation just above the `0.12 rad` diagnostic gate.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should move to
-the harder `+1.0 mm` faster-timing/orientation sensitivity limits unless the
-qdot012 branch is intentionally stopped at the recovered diagnostic matrix.
-Keep contact, drift, terminal orientation, force error, and qdot saturation
-visible together.
+the remaining `+1.0 mm` tightened-orientation sensitivity limit, or test a
+targeted Stage B orientation-margin/control change for the v76 timing boundary
+without relaxing the diagnostic gate. Keep contact, drift, terminal
+orientation, force error, and qdot saturation visible together.

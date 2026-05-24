@@ -2022,6 +2022,36 @@ Legacy source root:
   failures and is not a canonical-config change, strict paper-equivalent claim,
   robustness proof, contact-model calibration, or hardware evidence.
 
+## V76 Positive Timing Boundary Audit
+
+### Focused timing boundary for the v73 `+1.0 mm` faster-timing failure
+
+- Run:
+  - `runs/positive_timing_boundary/20260524T200236`
+- Command:
+  `scripts/audit_positive_timing_boundary.py`
+- Git state at run time:
+  parent commit `ee8a5199e22b009c1e8d82901444cb22c148e692` with dirty v76
+  report/code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-timing stitched metrics/summaries/commands under `cases/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `qdot_limit_rad_s = 0.15`, and the `0.12 rad` diagnostic orientation
+  gate fixed for the `+1.0 mm` cell. Stage A passes all nine timing cases.
+  Stitched recovery passes at `paper_time_scale = 0.005` and `0.0052`, then
+  first fails at `0.0054` on E2 orientation just above the gate. At `0.007`
+  and `0.0075`, the same E2 row also has severe qdot saturation and tail qdot
+  utilization failures.
+- Limit:
+  This is diagnostic-label timing-boundary evidence only. It bounds, but does
+  not recover, the v73 faster-timing `+1.0 mm` failure under the same
+  diagnostic orientation gate. It does not address the separate
+  `orientation_gate_0p119` `+1.0 mm` limit and is not a canonical-config
+  change, strict paper-equivalent claim, robustness proof, contact-model
+  calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

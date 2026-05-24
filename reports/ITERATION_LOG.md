@@ -2864,3 +2864,41 @@
   Move to the harder `+1.0 mm` faster-timing and tighter-orientation
   sensitivity limits unless the qdot012 branch is intentionally stopped at the
   recovered diagnostic matrix.
+
+## 2026-05-24 v76 Positive Timing Boundary Audit
+
+### Isolate the `+1.0 mm` faster-timing boundary
+
+- Branch:
+  `exp/tase-ur10e-v76-positive-timing-boundary`
+- Run:
+  `runs/positive_timing_boundary/20260524T200236`
+- Report:
+  `reports/positive_timing_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_timing_boundary.py`
+  - `scripts/audit_positive_timing_boundary.py`
+- Result:
+  The audit isolates the v73 `paper_time_scale_0p0075` `+1.0 mm` failing cell
+  while holding the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `qdot_limit_rad_s = 0.15`, and `max_orientation_error_rad = 0.12`
+  fixed. Stage A passes all nine timing cases. Stitched recovery passes at
+  `paper_time_scale = 0.005` and `0.0052`, then first fails at `0.0054` on E2
+  `max_orientation_error_rad = 0.12001811086329595 rad`. Larger timing scales
+  keep the same E2 orientation failure, and qdot saturation becomes severe at
+  `0.007` and `0.0075`.
+- Limit:
+  This is diagnostic-label timing-boundary evidence only. It bounds, but does
+  not recover, the faster-timing `+1.0 mm` sensitivity failure under the same
+  `0.12 rad` diagnostic gate. It does not address the separate
+  `orientation_gate_0p119` `+1.0 mm` failure and is not strict
+  paper-equivalent, robust, calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_timing_boundary.py` passed.
+  Full tests passed with `115 passed in 2.64s`; `git diff --check` passed.
+  The run artifact is lightweight: `67` files, `952K`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Move to the remaining `+1.0 mm` tightened-orientation sensitivity limit, or
+  test a targeted Stage B orientation-margin/control change for the v76 timing
+  boundary without relaxing the diagnostic gate.

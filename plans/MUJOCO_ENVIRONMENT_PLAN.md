@@ -90,12 +90,16 @@ contact behavior regresses.
   `orientation_gate_0p119` `+1.0 mm`. v74 isolates the qdot012 `+0.2 mm`
   failure as a narrow Stage A duration margin that recovers at `18.035 s`. v75
   folds that duration into all positive qdot012 rows and recovers `8 / 8`
-  stitched rows through `+1.0 mm`.
+  stitched rows through `+1.0 mm`. v76 isolates the `+1.0 mm` faster-timing
+  boundary: `paper_time_scale = 0.0052` still passes, while `0.0054` first
+  fails on E2 orientation just above the diagnostic `0.12 rad` gate; Stage A
+  passes every timing case.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should move to the harder `+1.0 mm`
-timing/orientation sensitivity limits unless the qdot012 branch is intentionally
-stopped at the recovered diagnostic matrix.
+simulation controller prototype should move to the remaining `+1.0 mm`
+tightened-orientation sensitivity limit, or test a targeted Stage B
+orientation-margin/control change for the v76 timing boundary without relaxing
+the diagnostic gate.

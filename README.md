@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v75-qdot012-positive-matrix`
+Current branch: `exp/tase-ur10e-v76-positive-timing-boundary`
 
 ## Scope
 
@@ -91,6 +91,11 @@ the `qdot012_stage_a18s` `+0.2 mm` miss and shows it is recovered by extending
 Stage A from `18.03 s` to `18.035 s`; Stage B remains `4 / 4` throughout that
 duration sweep. v75 folds that `18.035 s` margin back into the full positive
 qdot012 matrix and recovers all positive deltas `8 / 8` through `+1.0 mm`.
+v76 isolates the harder `paper_time_scale_0p0075` `+1.0 mm` timing boundary:
+the row still passes at `paper_time_scale = 0.0052` and first fails at
+`0.0054` on E2 orientation just above the `0.12 rad` diagnostic gate; Stage A
+passes every timing case, and qdot saturation becomes severe only at `0.007`
+and above.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

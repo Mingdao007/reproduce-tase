@@ -1,0 +1,390 @@
+run_id: 20260524T200236
+source: v76 focused +1.0 mm positive timing boundary audit
+source_run: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909
+relaxed_stage_a_target_config: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml
+base_z_offset_delta_m: 0.001
+base_z_offset_delta_mm: 1.0
+stage_a_duration_s: 15.0
+qdot_limit_rad_s: 0.15
+max_orientation_error_rad: 0.12
+trajectories:
+- e1-cycloid
+- e2-figure-eight
+- e3-circle
+- e4-cardioid
+aggregate:
+  case_count: 9
+  stitched_pass_count: 2
+  stitched_fail_count: 7
+  max_passing_paper_time_scale: 0.0052
+  min_failing_paper_time_scale: 0.0054
+  max_e2_orientation_error_rad: 0.12020305872871904
+  max_e2_qdot_saturation_fraction: 0.999
+  max_e2_tail_qdot_utilization: 1.0
+  stage_a_all_passed: true
+cases:
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: true
+  handoff_pass_count: 4
+  handoff_trajectory_count: 4
+  stage_b_failed_rows: []
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.006
+  stage_b_max_tail_qdot_utilization: 0.0014580486861575888
+  stage_b_max_orientation_error_rad: 0.1199788204275829
+  stage_b_max_tail_force_error_N: 0.0004859525136908127
+  stage_b_max_xy_error_m: 4.492792485707658e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.005
+  e2_passed: true
+  e2_failed_criteria: []
+  e2_orientation_error_rad: 0.1199788204275829
+  e2_qdot_saturation_fraction: 0.006
+  e2_tail_qdot_utilization: 0.0014580486861575888
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: true
+  handoff_pass_count: 4
+  handoff_trajectory_count: 4
+  stage_b_failed_rows: []
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.006
+  stage_b_max_tail_qdot_utilization: 0.0015159989338741078
+  stage_b_max_orientation_error_rad: 0.11999846384112321
+  stage_b_max_tail_force_error_N: 0.0005254797033216319
+  stage_b_max_xy_error_m: 4.6704502234182257e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0052
+  e2_passed: true
+  e2_failed_criteria: []
+  e2_orientation_error_rad: 0.11999846384112321
+  e2_qdot_saturation_fraction: 0.006
+  e2_tail_qdot_utilization: 0.0015159989338741078
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id001
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.006
+  stage_b_max_tail_qdot_utilization: 0.0015739339697212471
+  stage_b_max_orientation_error_rad: 0.12001811086329595
+  stage_b_max_tail_force_error_N: 0.0005665444643839868
+  stage_b_max_xy_error_m: 4.848112491332548e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0054
+  e2_passed: false
+  e2_failed_criteria: *id001
+  e2_orientation_error_rad: 0.12001811086329595
+  e2_qdot_saturation_fraction: 0.006
+  e2_tail_qdot_utilization: 0.0015739339697212471
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id002
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.006
+  stage_b_max_tail_qdot_utilization: 0.0016318411885509457
+  stage_b_max_orientation_error_rad: 0.12003776159897517
+  stage_b_max_tail_force_error_N: 0.000609145089495522
+  stage_b_max_xy_error_m: 5.025763964147301e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0056
+  e2_passed: false
+  e2_failed_criteria: *id002
+  e2_orientation_error_rad: 0.12003776159897517
+  e2_qdot_saturation_fraction: 0.006
+  e2_tail_qdot_utilization: 0.0016318411885509457
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id003
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.006
+  stage_b_max_tail_qdot_utilization: 0.001840488196324605
+  stage_b_max_orientation_error_rad: 0.12005741611102583
+  stage_b_max_tail_force_error_N: 0.0006548498789650913
+  stage_b_max_xy_error_m: 5.203404418886226e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0058
+  e2_passed: false
+  e2_failed_criteria: *id003
+  e2_orientation_error_rad: 0.12005741611102583
+  e2_qdot_saturation_fraction: 0.006
+  e2_tail_qdot_utilization: 0.001840488196324605
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id004
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.007
+  stage_b_max_tail_qdot_utilization: 0.001750886518560959
+  stage_b_max_orientation_error_rad: 0.12007703866232994
+  stage_b_max_tail_force_error_N: 0.00069861804463772
+  stage_b_max_xy_error_m: 5.389077972771109e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.006
+  e2_passed: false
+  e2_failed_criteria: *id004
+  e2_orientation_error_rad: 0.12007703866232994
+  e2_qdot_saturation_fraction: 0.007
+  e2_tail_qdot_utilization: 0.001750886518560959
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id005
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.008
+  stage_b_max_tail_qdot_utilization: 0.001898776739473921
+  stage_b_max_orientation_error_rad: 0.1201260838562
+  stage_b_max_tail_force_error_N: 0.000819317068647094
+  stage_b_max_xy_error_m: 5.878563461081095e-07
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0065
+  e2_passed: false
+  e2_failed_criteria: *id005
+  e2_orientation_error_rad: 0.1201260838562
+  e2_qdot_saturation_fraction: 0.008
+  e2_tail_qdot_utilization: 0.001898776739473921
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id006
+    - qdot_saturation_fraction
+    - tail_max_qdot_utilization
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.999
+  stage_b_max_tail_qdot_utilization: 1.0
+  stage_b_max_orientation_error_rad: 0.12015423656433318
+  stage_b_max_tail_force_error_N: 0.006253034586287889
+  stage_b_max_xy_error_m: 1.7529416759374159e-06
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.007
+  e2_passed: false
+  e2_failed_criteria: *id006
+  e2_orientation_error_rad: 0.12015423656433318
+  e2_qdot_saturation_fraction: 0.999
+  e2_tail_qdot_utilization: 1.0
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  stage_a_passed: true
+  stage_a_terminal_gate_passed: true
+  stage_a_terminal_failed_criteria: []
+  stage_a_failed_criteria: []
+  stage_a_gate_criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.14209391841232932
+    max_scheduled_xy_error_m: 1.9014565476188287e-08
+    max_scheduled_orientation_error_rad: 6.184330233673449e-07
+    max_abs_qdot_rad_s: 0.10018584837167505
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+  stitched_passed: false
+  handoff_pass_count: 3
+  handoff_trajectory_count: 4
+  stage_b_failed_rows:
+  - trajectory: e2-figure-eight
+    failed_criteria: &id007
+    - qdot_saturation_fraction
+    - tail_max_qdot_utilization
+    - max_orientation_error_rad
+  stage_a_max_qdot_rad_s: 0.10018584837167505
+  stage_a_qdot_saturation_fraction: 0.0
+  stage_a_final_tracking_error_norm_rad: 0.0
+  stage_a_terminal_force_error_N: 0.0015639424746973773
+  stage_a_terminal_xy_error_m: 0.0037081102250263293
+  stage_a_terminal_orientation_error_rad: 0.11948560786547915
+  stage_b_max_qdot_saturation_fraction: 0.999
+  stage_b_max_tail_qdot_utilization: 1.0
+  stage_b_max_orientation_error_rad: 0.12020305872871904
+  stage_b_max_tail_force_error_N: 0.006603888075066666
+  stage_b_max_xy_error_m: 1.7967958428040668e-06
+  source_path_csv: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv
+  paper_time_scale: 0.0075
+  e2_passed: false
+  e2_failed_criteria: *id007
+  e2_orientation_error_rad: 0.12020305872871904
+  e2_qdot_saturation_fraction: 0.999
+  e2_tail_qdot_utilization: 1.0
+warnings:
+- diagnostic-label +1.0 mm timing boundary audit only
+- uses the v70 run-local relaxed orientation target config
+- not a canonical config change
+- not strict paper-equivalent feasibility
+- not a formal robustness proof
+- not hardware-ready
