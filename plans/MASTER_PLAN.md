@@ -75,11 +75,14 @@ work exists only on that branch.
 ## Unresolved Risks
 
 - Paper truth is still not PDF-verified.
-- UR10e MJCF is approximate and not calibrated.
+- UR10e MJCF is approximate and not calibrated. v53 shows the current 85 mm
+  TCP site is the center of a colliding sphere, while the simulated contact
+  surface is about one sphere radius farther along the contact normal.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Continue on `exp/tase-ur10e-v1-math-contracts`: implement the first
-simulation-only controller path behind the existing math-contract tests.
+Create an explicit replacement UR10e TCP/contact model convention, or update
+the model from measured mounted-stack geometry, then rerun the terminal setup
+audit before any hardware gate.

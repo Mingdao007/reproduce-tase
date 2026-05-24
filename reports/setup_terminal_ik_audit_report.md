@@ -102,6 +102,35 @@ away from more phase scheduling and toward one of two decisions:
 - revisit model/TCP/contact geometry and run a broader terminal feasibility
   audit before designing another Stage A controller.
 
+## 2026-05-24 v53 Rerun After TCP/Contact Audit
+
+The v53 TCP/contact model audit found that the configured 85 mm TCP site is
+coincident with the center of the `contact_tip` sphere, while MuJoCo contact
+with the plane occurs one sphere radius away from that site. The relevant
+evidence is in `reports/tcp_contact_model_audit_report.md` and
+`runs/tcp_contact_model_audit/20260524T135607`.
+
+The terminal IK audit was rerun with the same command and model at:
+
+- `runs/setup_terminal_ik_audit/20260524T135619`
+
+The rerun reproduces the v37 result:
+
+- terminal candidates: `65`
+- terminal setup passes: `0 / 65`
+- initial force error: `3.3218849893046354e-09 N`
+- initial x/y error: `0.0 m`
+- initial orientation error: `0.17453292523412012 rad`
+- best force error: `0.004835673570861232 N`
+- best x/y error: `0.002178947478445584 m`
+- best orientation error: `0.05199834145021794 rad`
+- best failed criteria: `tangential_error_m;orientation_error_rad`
+
+This preserves the previous terminal-gate failure and adds a concrete model
+reason to avoid treating it as hardware evidence: the current MJCF has not
+resolved whether the 85 mm EOAT note denotes the physical contact point or the
+center/frame of a colliding proxy sphere.
+
 ## Verification
 
 - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`

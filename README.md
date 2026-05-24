@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v0-paper-audit`
+Current branch: `exp/tase-ur10e-v53-tcp-contact-model-audit`
 
 ## Scope
 
@@ -41,8 +41,11 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 
 ## Reproduction Claim
 
-UR10e results are "UR10e adapted reproduction" until a paper-faithful 7DOF
-line and the UR10e line are explicitly separated and verified.
+Current accepted claims are tracked in `reports/completion_audit.md`.
+UR10e results remain adapted simulation evidence, not hardware evidence. The
+v53 TCP/contact audit shows the current 85 mm site is the center of the
+colliding sphere, while the simulated contact surface is about one sphere
+radius farther along the contact normal.
 
 ## Test Command
 

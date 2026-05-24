@@ -196,6 +196,9 @@ smoke runs regress.
 - The v52 tuned Python candidate reproduces the legacy figure-match q7
   trajectory with explicit non-paper-faithful labels. This closes the tuned
   landmark implementation gap without changing the formula-faithful claim.
+- The v53 TCP/contact audit shows the UR10e adapted terminal setup failure is
+  still tied to an approximate model convention: the current 85 mm site is the
+  colliding sphere center, not the simulated contact surface.
 
 ## Next Executable Step
 
@@ -207,5 +210,7 @@ formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists, the formula candidate covers 30 s, and the tuned
 figure-match candidate is implemented separately. Future work should formalize
 split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. Keep contact, drift, terminal orientation, force error, and
-qdot saturation visible together.
+claim boundary. For the UR10e adapted line, replace or measure the TCP/contact
+model before treating another terminal setup result as meaningful. Keep
+contact, drift, terminal orientation, force error, and qdot saturation visible
+together.

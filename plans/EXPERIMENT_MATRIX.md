@@ -178,6 +178,10 @@ them rather than deleting them.
 - The v52 tuned Python candidate reproduces the legacy figure-match q7
   trajectory with q7@22 s delta `2.6201263381153694e-12 rad` and joint RMSE
   `6.081574510252252e-09 rad`; this is tuned landmark evidence only.
+- The v53 TCP/contact audit shows the current UR10e tilted-plane model places
+  the 85 mm TCP site at the center of the contact sphere. The simulated
+  contact surface is one `0.045 m` sphere radius away, and the terminal setup
+  rerun remains `0 / 65`.
 
 ## Next Executable Step
 
@@ -187,4 +191,5 @@ achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next paper-platform step
 should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by validating or replacing the approximate TCP/contact model.
+adapted work by replacing the approximate TCP/contact convention or updating
+it from measured mounted-stack geometry.

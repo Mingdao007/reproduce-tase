@@ -1111,3 +1111,29 @@
   Python. It still must not claim that the formula-faithful paper-platform
   line reproduces Fig.6 q-trajectory parity or that full paper-equivalent
   numerical parity is achieved.
+
+## D058: Treat Current UR10e TCP/Contact Geometry As Unresolved
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not treat the current tilted-plane UR10e MJCF TCP/contact convention as
+  hardware-ready. The model must be replaced with an explicit contact-point
+  convention or updated from measured mounted-stack geometry before any
+  hardware gate can use it.
+- Reason:
+  The v53 audit at `runs/tcp_contact_model_audit/20260524T135607` verifies
+  that the config TCP guess `[0, 0, -0.085]` matches both the MJCF body offset
+  and the EOAT note distance, but the TCP site is coincident with the center of
+  the colliding `contact_tip` sphere. MuJoCo plane contact therefore occurs
+  about one sphere radius away from the site: the site-to-sphere-surface
+  projection is `0.04500000000000001 m`, and the simulated parent-to-surface
+  distance in the audited posture is `0.12955222618906498 m`.
+- Consequence:
+  The v53 terminal setup rerun at
+  `runs/setup_terminal_ik_audit/20260524T135619` preserves the strict setup
+  failure (`0 / 65` passes). That failure should remain a simulation-model
+  result, not hardware evidence. Future UR10e adapted branches should first
+  decide whether the EOAT 85 mm note denotes a physical contact point or a
+  sphere-center/tool-frame point, then rerun the setup audit with that explicit
+  model.

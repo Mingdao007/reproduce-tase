@@ -1460,6 +1460,41 @@ Legacy source root:
   are both available, but full paper-equivalent numerical parity remains
   unclaimed.
 
+## V53 UR10e TCP/Contact Model Audit
+
+### TCP/contact convention audit
+
+- Run:
+  - `runs/tcp_contact_model_audit/20260524T135607`
+- Command:
+  `scripts/audit_tcp_contact_model.py`
+- Git state at run time:
+  commit `d8d9c26d36bf9b08169aee333b39d26460b5803c`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The config TCP guess and MJCF body offset both encode the EOAT note distance
+  of `0.085 m`, but the `tcp_site_unverified_85mm` site is coincident with the
+  center of the `contact_tip` sphere. The simulated plane-contact surface is
+  one sphere radius away from the site:
+  `site_to_sphere_surface_projection_on_normal_m = 0.04500000000000001` and
+  `parent_to_sphere_surface_distance_m = 0.12955222618906498`.
+
+### Terminal IK rerun after TCP/contact audit
+
+- Run:
+  - `runs/setup_terminal_ik_audit/20260524T135619`
+- Command:
+  `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane.yaml --random-seed-count 64 --random-seed-std-rad 0.15 --random-seed 37 --max-nfev 300 --posture-weight 0.0001`
+- Git state at run time:
+  commit `d8d9c26d36bf9b08169aee333b39d26460b5803c`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The strict terminal setup gate remains failed with `0 / 65` passing
+  candidates. The best candidate still fails x/y and orientation gates while
+  keeping force error low.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

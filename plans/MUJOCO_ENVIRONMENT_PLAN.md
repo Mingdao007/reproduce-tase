@@ -52,10 +52,13 @@ contact behavior regresses.
 
 ## Unresolved Risks
 
-- The current TCP guess is unverified.
+- The current TCP guess is unverified. v53 shows the 85 mm site is coincident
+  with the colliding sphere center, so the simulated contact surface is offset
+  by the `0.045 m` sphere radius.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
-Run the copied smoke script in this repo and record the result.
-
+Create a named replacement model convention for the EOAT contact point, or
+update the model from measured mounted-stack geometry, then rerun the terminal
+setup audit.

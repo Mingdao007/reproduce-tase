@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v52 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved because those are separate claim levels and the tuned line uses non-paper-faithful `admittance_proxy` plus q7 nullspace bias. Choose the next branch deliberately: continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v53 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v53 UR10e TCP/contact audit shows the current 85 mm TCP site is coincident with the colliding sphere center, while the simulated contact surface is about 45 mm farther along the contact normal, so the strict terminal setup audit still fails `0 / 65` and is not hardware evidence. Choose the next branch deliberately: create an explicit replacement TCP/contact model convention or update the model from measured mounted-stack geometry, then rerun the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v52` repository state. The project goal is to reproduce the T-ASE finite-time
+`v53` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v52-python-figure-match-candidate`
-- Current v52 code commit:
-  `2f65a5908528670868ed5d9e4ffab9f8443b77a2`
+  `exp/tase-ur10e-v53-tcp-contact-model-audit`
+- Current v53 code commit:
+  `d8d9c26d36bf9b08169aee333b39d26460b5803c`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -104,6 +104,10 @@ Current accepted claims:
 - `paper_platform_7dof_legacy_strict_all_checks`: still not a full
   paper-equivalent parity claim because formula convergence and tuned
   landmark reproduction are separate evidence lines.
+- `ur10e_tcp_contact_model_audit`: v53 verifies that the current 85 mm TCP
+  site matches the EOAT-note distance but is coincident with the center of the
+  colliding `contact_tip` sphere. The simulated contact surface is one sphere
+  radius away, so this model is not hardware-ready.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -113,8 +117,9 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by validating or replacing the approximate
-  UR10e TCP/contact model and rerunning the terminal setup audit.
+- Continue UR10e adapted work by creating an explicit replacement TCP/contact
+  model convention, or update the model from measured mounted-stack geometry,
+  then rerun the terminal setup audit.
 
 ## Safety Boundary
 

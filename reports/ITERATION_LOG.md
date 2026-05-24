@@ -1985,3 +1985,56 @@
   formula-faithful paper-equivalent parity.
 - Next step:
   Move to UR10e adapted TCP/contact model validation before any hardware gate.
+
+## 2026-05-24 v53 UR10e TCP/Contact Model Audit
+
+- Branch: `exp/tase-ur10e-v53-tcp-contact-model-audit`
+- Starting commit:
+  `936baee1b7ed1898bc889afdd944133ce3738aa3`
+- Code commit:
+  `d8d9c26d36bf9b08169aee333b39d26460b5803c`
+- Files added:
+  - `src/tase_repro/tcp_contact_model_audit.py`
+  - `scripts/audit_tcp_contact_model.py`
+  - `tests/test_tcp_contact_model_audit.py`
+  - `reports/tcp_contact_model_audit_report.md`
+  - `runs/tcp_contact_model_audit/20260524T135607/**`
+  - `runs/setup_terminal_ik_audit/20260524T135619/**`
+- Files updated:
+  - `reports/setup_terminal_ik_audit_report.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `docs/goal.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_tcp_contact_model_audit.py`
+  - `scripts/audit_tcp_contact_model.py`
+  - `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane.yaml --random-seed-count 64 --random-seed-std-rad 0.15 --random-seed 37 --max-nfev 300 --posture-weight 0.0001`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The TCP/contact audit verifies that the config TCP guess and MJCF body
+  offset both use the EOAT note distance of `0.085 m`, but the
+  `tcp_site_unverified_85mm` site is coincident with the center of the
+  colliding `contact_tip` sphere. The actual simulated plane-contact surface
+  is one sphere radius away from the site, with
+  `site_to_sphere_surface_projection_on_normal_m = 0.04500000000000001` and
+  `parent_to_sphere_surface_distance_m = 0.12955222618906498`.
+- Terminal setup rerun:
+  The v53 rerun preserves the strict terminal setup failure: `0 / 65` passes.
+  The best candidate has force error `0.004835673570861232 N`, x/y error
+  `0.002178947478445584 m`, orientation error
+  `0.05199834145021794 rad`, and failed criteria
+  `tangential_error_m;orientation_error_rad`.
+- Limit:
+  This validates the current model convention problem; it does not replace the
+  model or make the result hardware-ready. The 85 mm EOAT note is still
+  unverified as either a physical contact point or a sphere-center/tool-frame
+  point.
+- Validation:
+  Full tests passed with `87 passed in 2.25s`. `git diff --check` passed.
+- Next step:
+  Create an explicit replacement model variant with a named contact-point
+  convention, or measure the mounted EOAT stack and regenerate the MJCF/config
+  before rerunning the terminal setup audit.
