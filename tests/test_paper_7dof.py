@@ -73,3 +73,20 @@ def test_contact_stabilized_pinv_diagnostic_passes_tail_force_gate() -> None:
     assert metrics["tail_force_error_mean_N"] <= 1.0
     assert metrics["q_bound_violation_count"] == 0
     assert metrics["qdot_bound_violation_count"] == 0
+
+
+def test_capped_integral_kkt_diagnostic_passes_tail_force_gate() -> None:
+    config = PaperSectionV7DofConfig(
+        duration_s=5.0,
+        dt_s=0.002,
+        solver_mode="kkt_projection",
+        force_integral_limit=0.1,
+    )
+    result = simulate_paper_section_v_7dof(config)
+    metrics = summarize_paper_section_v_7dof(result)
+    assert metrics["execution_success"]
+    assert metrics["contact_force_tail_success"]
+    assert metrics["tail_contact_fraction"] == 1.0
+    assert metrics["tail_force_error_mean_N"] <= 1.0
+    assert metrics["q_bound_violation_count"] == 0
+    assert metrics["qdot_bound_violation_count"] == 0
