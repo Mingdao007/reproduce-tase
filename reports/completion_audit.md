@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v101-positive-fast-timing-execution`
+Branch: `exp/tase-ur10e-v102-positive-orientation-gate-execution`
 
 ## Objective Restatement
 
@@ -179,6 +179,9 @@ The objective has two separate technical claim levels:
 - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075/metrics.yaml`
 - `reports/positive_fast_timing_failed_cell_execution_report.md`
 - `runs/failed_diagnostic_robustness_experiment_audit/20260525T055322/metrics.yaml`
+- `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml`
+- `reports/positive_orientation_gate_failed_cell_execution_report.md`
+- `runs/failed_diagnostic_robustness_experiment_audit/20260525T060119/metrics.yaml`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -192,17 +195,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v101 branches pushed and GitHub-verified; v101 implementation branch push verified at `7bd28a07a3eb4fe9a1122b9397b156a25401d33f` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v101-positive-fast-timing-execution`; latest local branch is `exp/tase-ur10e-v101-positive-fast-timing-execution` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v102 branches pushed and GitHub-verified; v102 branch push verification pending final marker | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v102-positive-orientation-gate-execution`; latest local branch is `exp/tase-ur10e-v102-positive-orientation-gate-execution` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v102.md` include the short prompt, authoritative local clone, v95-v101 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D106 as of v101 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v103.md` include the short prompt, authoritative local clone, v95-v102 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D107 as of v102 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v101 validation: `python3 -m py_compile scripts/audit_failed_diagnostic_robustness_experiment_execution.py` passed, `scripts/run_tests.sh tests/test_failed_diagnostic_robustness_experiment_execution.py` reported `3 passed in 0.20s`, the v101 execution audit run was created, and `scripts/run_tests.sh` reported `139 passed in 5.89s`; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v102 validation: `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py scripts/audit_failed_diagnostic_robustness_experiment_execution.py` passed, `scripts/run_tests.sh tests/test_positive_orientation_gate_boundary.py tests/test_failed_diagnostic_robustness_experiment_execution.py` reported `6 passed in 0.48s`, the v102 execution audit run was created, and `scripts/run_tests.sh` reported `142 passed in 6.06s`; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -263,6 +266,7 @@ The objective has two separate technical claim levels:
 | Failed diagnostic robustness experiment matrix | `scripts/create_failed_diagnostic_robustness_experiment_matrix.py`, `tests/test_failed_diagnostic_robustness_experiment_matrix.py`, `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/metrics.yaml`, `reports/failed_diagnostic_robustness_experiment_matrix_report.md` | v99 converts the four failed v98 matrix cells into concrete offline commands. It reports `status = planned_not_executed`, `experiment_count = 4`, `planned_not_executed_count = 4`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `f81df802cede561528849dc886b303ad3d5e63dc` | Done |
 | Failed diagnostic robustness experiment execution | `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm/metrics.yaml`, `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`, `tests/test_failed_diagnostic_robustness_experiment_execution.py`, `runs/failed_diagnostic_robustness_experiment_audit/20260525T054646/metrics.yaml`, `reports/failed_diagnostic_robustness_experiment_execution_report.md` | v100 executes one planned v99 command and audits `base_z_plus1mm` as `executed_unresolved`: start pass `0`, terminal pass `0`, path geometry pass `0`, duration recovery `0`, closed cells `0 / 4`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `ce48bcef63a1fa5f3c3969530774cfe59c6275b9` | Done |
 | Positive fast-timing failed-cell execution | `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075/metrics.yaml`, `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`, `tests/test_failed_diagnostic_robustness_experiment_execution.py`, `runs/failed_diagnostic_robustness_experiment_audit/20260525T055322/metrics.yaml`, `reports/positive_fast_timing_failed_cell_execution_report.md` | v101 executes the planned `positive_fast_timing_0p0075` command and audits it as `executed_unresolved`: Stage A passes, stitched recovery fails, E2 fails on qdot saturation, tail qdot utilization, and orientation, closed cells remain `0 / 4`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `7bd28a07a3eb4fe9a1122b9397b156a25401d33f` | Done |
+| Positive orientation-gate failed-cell execution | `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml`, `scripts/audit_positive_orientation_gate_boundary.py`, `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`, `tests/test_positive_orientation_gate_boundary.py`, `tests/test_failed_diagnostic_robustness_experiment_execution.py`, `runs/failed_diagnostic_robustness_experiment_audit/20260525T060119/metrics.yaml`, `reports/positive_orientation_gate_failed_cell_execution_report.md` | v102 executes the planned `positive_orientation_gate_0p119` command and audits it as `executed_unresolved`: the current `0.119 rad` gate fails, the diagnostic boundary first passes at `0.11998 rad`, closed cells remain `0 / 4`, and `do_not_mark_goal_complete = true`; branch push verification pending final marker | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
@@ -1639,23 +1643,26 @@ unresolved: no start pass, terminal pass, path geometry pass, or duration
 recovery was found. V101 executes `positive_fast_timing_0p0075` and audits it
 as still unresolved: Stage A passes, but the stitched Stage B handoff remains
 `3 / 4` with E2 failing qdot saturation, tail qdot utilization, and
-orientation. The project still has not achieved strict paper-equivalent full
-staged feasibility, calibrated contact geometry, robustness, or hardware
-readiness.
+orientation. V102 executes `positive_orientation_gate_0p119` and audits it as
+still unresolved at the current `0.119 rad` gate: Stage A fails at the current
+gate, full stitched recovery first appears at the diagnostic `0.11998 rad`
+boundary, and that boundary is not an accepted replacement gate. The project
+still has not achieved strict paper-equivalent full staged feasibility,
+calibrated contact geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Treat the faster-timing diagnostic face as recovered under the `0.11995 rad`
-gate, but do not accept a replacement orientation gate from simulation metrics
-or current local records alone. The next executable step is to execute only
-safe read-only portions of the v87 SOP with the v93 scaffold, v91 finalizer,
-and v90/v93 verifier after explicit user confirmation, or continue only
-non-final offline simulation/paper-platform work identified by the v95-v101
-blocker audits, the v99 planned experiment matrix, and the v100 execution
-audit plus v101 update. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v101 diagnostic staged labels
-separate.
+Do not accept a replacement orientation gate from simulation metrics or current
+local records alone. The next executable step is to execute only safe read-only
+portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
+verifier after explicit user confirmation, or continue only non-final offline
+simulation/paper-platform work identified by the v95-v102 blocker audits, the
+v99 planned experiment matrix, and the v100-v102 execution audits. The
+clearest remaining offline matrix target is the
+`weighted_plus1mm_0p119_gate` planned command. Keep strict paper-equivalent
+setup, v38 trajectory-after-relaxed-setup, and v63-v102 diagnostic staged
+labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

@@ -2237,3 +2237,25 @@
   a comparison audit before it can affect the matrix. V101 does not prove
   robustness, strict paper-equivalent feasibility, contact calibration, gate
   acceptance, hardware readiness, or any hardware authorization.
+
+## D107: Keep Orientation-Gate Recovery Unresolved At Current Gate
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v102 as the focused execution and audit of the v99
+  `positive_orientation_gate_0p119` planned failed cell.
+- Reason:
+  V99 queued this row because the v98 diagnostic matrix still failed the
+  `+1.0 mm`, `0.119 rad` orientation-gate case. V102 runs the exact planned
+  orientation-gate sweep and extends the execution audit to compare the output
+  against closure criteria. The current `0.119 rad` gate still fails; the
+  diagnostic boundary first passes at `0.11998 rad`, which is not an accepted
+  replacement gate.
+- Consequence:
+  Do not upgrade the `positive_orientation_gate_0p119` failed cell, and do not
+  treat `0.11998 rad` as an accepted gate. The remaining planned cell is
+  `weighted_plus1mm_0p119_gate`, and every future executed command still needs
+  a comparison audit before it can affect the matrix. V102 does not prove
+  robustness, strict paper-equivalent feasibility, contact calibration, gate
+  acceptance, hardware readiness, or any hardware authorization.

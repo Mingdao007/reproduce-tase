@@ -1,0 +1,724 @@
+{
+  "run_id": "20260525T055948",
+  "source": "v77 focused +1.0 mm positive orientation-gate boundary audit",
+  "source_run": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909",
+  "base_z_offset_delta_m": 0.001,
+  "base_z_offset_delta_mm": 1.0,
+  "stage_a_duration_s": 15.0,
+  "paper_time_scale": 0.005,
+  "qdot_limit_rad_s": 0.15,
+  "orientation_gates_rad": [
+    0.119,
+    0.11925,
+    0.1195,
+    0.11975,
+    0.1199,
+    0.11995,
+    0.11997,
+    0.11998,
+    0.12
+  ],
+  "trajectories": [
+    "e1-cycloid",
+    "e2-figure-eight",
+    "e3-circle",
+    "e4-cardioid"
+  ],
+  "aggregate": {
+    "case_count": 9,
+    "stitched_pass_count": 2,
+    "stitched_fail_count": 7,
+    "min_passing_orientation_gate_rad": 0.11998,
+    "max_failing_orientation_gate_rad": 0.11997,
+    "max_stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+    "max_stage_b_orientation_error_rad": 0.1199788204275829,
+    "stage_a_all_passed": false
+  },
+  "cases": [
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": false,
+      "stage_a_terminal_gate_passed": false,
+      "stage_a_terminal_failed_criteria": [
+        "terminal_force_normal_orientation_error_rad"
+      ],
+      "stage_a_failed_criteria": [
+        "terminal_gate:terminal_force_normal_orientation_error_rad"
+      ],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": false
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 0,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e3-circle",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.119,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p119_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": false,
+      "stage_a_terminal_gate_passed": false,
+      "stage_a_terminal_failed_criteria": [
+        "terminal_force_normal_orientation_error_rad"
+      ],
+      "stage_a_failed_criteria": [
+        "terminal_gate:terminal_force_normal_orientation_error_rad"
+      ],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": false
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 0,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e3-circle",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.11925,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p11925_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.1195,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p1195_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.11975,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p11975_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.1199,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p1199_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.11995,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p11995_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.11997,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p11997_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": false,
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": true,
+      "handoff_pass_count": 4,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.11998,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p11998_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "stage_a_passed": true,
+      "stage_a_terminal_gate_passed": true,
+      "stage_a_terminal_failed_criteria": [],
+      "stage_a_failed_criteria": [],
+      "stage_a_gate_criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+        "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+        "max_abs_qdot_rad_s": 0.10018584837167505,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      },
+      "stitched_passed": true,
+      "handoff_pass_count": 4,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [],
+      "stage_a_max_qdot_rad_s": 0.10018584837167505,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_terminal_force_error_N": 0.0015639424746973773,
+      "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "stage_b_max_tail_qdot_utilization": 0.0014580486861575888,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_max_tail_force_error_N": 0.0004859525136908127,
+      "stage_b_max_xy_error_m": 4.492792485707658e-07,
+      "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv",
+      "orientation_gate_rad": 0.12,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/configs/orientation_gate_0p12_stage_a_target_config.yaml",
+      "stage_b_orientation_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "passed": true,
+          "failed_criteria": [],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "diagnostic-label +1.0 mm orientation-gate boundary audit only",
+    "uses run-local copied Stage A target configs",
+    "not a canonical config change",
+    "not strict paper-equivalent feasibility",
+    "not a formal robustness proof",
+    "not hardware-ready"
+  ]
+}

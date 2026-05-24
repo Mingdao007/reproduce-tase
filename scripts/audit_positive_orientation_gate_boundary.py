@@ -98,7 +98,7 @@ def stage_b_orientation_rows(metrics: dict[str, Any]) -> list[dict[str, Any]]:
             {
                 "trajectory": row["trajectory"],
                 "passed": bool(gate["feasibility_pass"]),
-                "failed_criteria": gate["failed_criteria"],
+                "failed_criteria": list(gate["failed_criteria"]),
                 "orientation_error_rad": float(target["max_orientation_error_rad"]),
             }
         )

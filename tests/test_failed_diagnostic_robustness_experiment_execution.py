@@ -35,14 +35,15 @@ def test_failed_experiment_execution_audit_preserves_claim_boundary(tmp_path) ->
     assert metrics["run_id"] == "TEST_FAILED_EXECUTION_AUDIT"
     assert metrics["status"] == "completed"
     assert metrics["summary"]["cell_count"] == 4
-    assert metrics["summary"]["executed_cell_count"] == 2
+    assert metrics["summary"]["executed_cell_count"] == 3
     assert metrics["summary"]["closed_cell_count"] == 0
-    assert metrics["summary"]["not_executed_cell_count"] == 2
+    assert metrics["summary"]["not_executed_cell_count"] == 1
     assert metrics["summary"]["all_failed_cells_closed"] is False
     assert metrics["summary"]["closed_cell_ids"] == []
     assert metrics["summary"]["unresolved_executed_cell_ids"] == [
         "base_z_plus1mm",
         "positive_fast_timing_0p0075",
+        "positive_orientation_gate_0p119",
     ]
 
     boundary = metrics["claim_boundary"]
@@ -83,7 +84,6 @@ def test_failed_experiment_execution_audit_reports_base_z_unresolved(tmp_path) -
     assert checks["duration_recovered"]["passed"] is False
     assert checks["terminal_target_recovered"]["orientation_error_rad"] == 0.11948560786548146
 
-    assert results["positive_orientation_gate_0p119"]["status"] == "not_executed"
     assert results["weighted_plus1mm_0p119_gate"]["status"] == "not_executed"
 
 
@@ -126,3 +126,36 @@ def test_failed_experiment_execution_audit_reports_fast_timing_unresolved(tmp_pa
     assert checks["tail_qdot_utilization_clear"]["passed"] is False
     assert checks["orientation_gate_clear"]["passed"] is False
     assert checks["orientation_gate_clear"]["stage_b_max_orientation_error_rad"] == 0.12020305872871904
+
+
+def test_failed_experiment_execution_audit_reports_orientation_gate_unresolved(tmp_path) -> None:
+    _, metrics = run_audit(tmp_path)
+
+    results = {item["cell_id"]: item for item in metrics["cell_results"]}
+    orientation = results["positive_orientation_gate_0p119"]
+
+    assert orientation["status"] == "executed_unresolved"
+    assert orientation["closure_passed"] is False
+    assert orientation["experiment_metrics"].endswith(
+        "runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml"
+    )
+    assert orientation["aggregate"]["case_count"] == 9
+    assert orientation["aggregate"]["stitched_pass_count"] == 2
+    assert orientation["aggregate"]["stitched_fail_count"] == 7
+    assert orientation["aggregate"]["min_passing_orientation_gate_rad"] == 0.11998
+    assert orientation["aggregate"]["max_failing_orientation_gate_rad"] == 0.11997
+    assert orientation["aggregate"]["max_stage_b_orientation_error_rad"] == 0.1199788204275829
+
+    checks = orientation["closure_checks"]
+    assert checks["planned_parameters_match"]["all_matched"] is True
+    assert checks["source_delta_present"]["passed"] is True
+    assert checks["current_gate_present"]["passed"] is True
+    assert checks["current_gate_stitched_recovered"]["passed"] is False
+    assert checks["current_gate_stitched_recovered"]["stage_a_passed"] is False
+    assert checks["current_gate_stitched_recovered"]["handoff_pass_count"] == 0
+    assert checks["current_gate_stitched_recovered"]["handoff_trajectory_count"] == 4
+    assert checks["boundary_identified"]["passed"] is True
+    assert checks["passes_at_or_below_current_gate"]["passed"] is False
+    assert checks["passes_at_or_below_current_gate"]["current_gate_rad"] == 0.119
+    assert checks["passes_at_or_below_current_gate"]["min_passing_orientation_gate_rad"] == 0.11998
+    assert checks["gate_relaxation_not_accepted"]["passed"] is True

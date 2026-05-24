@@ -3923,3 +3923,43 @@
   Without live approval, continue only non-final offline work. Candidate paths
   are to execute one of the two remaining v99 planned commands, or design
   narrower diagnostic probes for the unresolved `+1.0 mm` rows.
+
+## 2026-05-25 v102 Positive Orientation-Gate Failed-Cell Execution
+
+### Execute and audit the planned `positive_orientation_gate_0p119` command
+
+- Branch:
+  `exp/tase-ur10e-v102-positive-orientation-gate-execution`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T060119`
+- Report:
+  `reports/positive_orientation_gate_failed_cell_execution_report.md`
+- Commands run:
+  - `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_positive_orientation_gate_boundary.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119 --base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11975,0.1199,0.11995,0.11997,0.11998,0.12`
+  - `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  - `scripts/run_tests.sh tests/test_positive_orientation_gate_boundary.py tests/test_failed_diagnostic_robustness_experiment_execution.py`
+  - `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T060119`
+  - `rg -n "&id|\*id" runs/failed_diagnostic_robustness_experiment_audit/20260525T060119/metrics.yaml runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml`
+- Result:
+  Executed the v99 `positive_orientation_gate_0p119` command and extended the
+  execution audit to evaluate the cell. The executed cell is
+  `executed_unresolved`: the current `0.119 rad` gate fails, Stage A at that
+  gate fails with handoff `0 / 4`, and the diagnostic boundary first passes at
+  `0.11998 rad`.
+- Limit:
+  This is one additional offline diagnostic experiment plus a comparison
+  audit. The `0.11998 rad` boundary is not an accepted replacement gate. V102
+  does not execute the remaining v99 planned command, collect measurements,
+  execute the read-only SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  passed; focused execution-audit tests passed with `6 passed in 0.48s`; the
+  v102 execution audit run was created; the YAML anchor check found no
+  anchors; full tests passed with `142 passed in 6.06s`.
+- Next step:
+  Without live approval, continue only non-final offline work. Candidate paths
+  are to execute the remaining `weighted_plus1mm_0p119_gate` planned command,
+  or design narrower diagnostic probes for the unresolved `+1.0 mm` rows.

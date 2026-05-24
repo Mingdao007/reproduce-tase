@@ -2815,6 +2815,44 @@ Legacy source root:
   an accepted replacement orientation gate, not a strict paper-equivalent
   claim, not a robustness proof, and not hardware authorization.
 
+## V102 Positive Orientation-Gate Failed-Cell Execution
+
+### Executed `positive_orientation_gate_0p119` planned command and audit update
+
+- Scripts:
+  - `scripts/audit_positive_orientation_gate_boundary.py`
+  - `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T060119`
+- Report:
+  - `reports/positive_orientation_gate_failed_cell_execution_report.md`
+- Tests:
+  - `tests/test_positive_orientation_gate_boundary.py`
+  - `tests/test_failed_diagnostic_robustness_experiment_execution.py`
+- Executed command:
+  `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_positive_orientation_gate_boundary.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119 --base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11975,0.1199,0.11995,0.11997,0.11998,0.12`
+- Audit command:
+  `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T060119`
+- Tracked lightweight artifacts:
+  experiment metrics/summary/configs/git state, audit metrics/summary/git
+  state, report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The executed `positive_orientation_gate_0p119` cell remains unresolved. The
+  audit reports `executed_cell_count = 3`, `closed_cell_count = 0`,
+  `not_executed_cell_count = 1`, `all_failed_cells_closed = false`; the
+  current `0.119 rad` gate fails, while the diagnostic boundary first passes
+  at `0.11998 rad`, which is not an accepted replacement gate.
+- Validation:
+  Focused execution-audit tests passed with `6 passed in 0.48s`; YAML anchor
+  check found no anchors in the generated metrics; full tests passed with
+  `142 passed in 6.06s`.
+- Limit:
+  No live or physical measurement was collected. Three planned experiment
+  commands have now been executed. This is not a calibrated contact model, not
+  an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, not a robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

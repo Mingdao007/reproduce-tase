@@ -139,6 +139,30 @@ def planned_positive_sensitivity_args_match(
     }
 
 
+def planned_orientation_gate_args_match(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    command = list(plan["command"])
+    expected_delta = float(command_arg(command, "--base-z-delta-mm"))
+    expected_gates = parse_float_list(command_arg(command, "--orientation-gates"))
+    observed_delta = float(metrics["base_z_offset_delta_mm"])
+    observed_gates = [float(value) for value in metrics.get("orientation_gates_rad", [])]
+    return {
+        "base_z_delta_mm": {
+            "planned": expected_delta,
+            "observed": observed_delta,
+            "matched": expected_delta == observed_delta,
+        },
+        "orientation_gates_rad": {
+            "planned": expected_gates,
+            "observed": observed_gates,
+            "matched": expected_gates == observed_gates,
+        },
+        "all_matched": expected_delta == observed_delta and expected_gates == observed_gates,
+    }
+
+
 def evaluate_base_z_plus1mm(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
     aggregate = metrics["aggregate"]
     cases = metrics["cases"]
@@ -299,6 +323,93 @@ def evaluate_positive_fast_timing_0p0075(
     }
 
 
+def evaluate_positive_orientation_gate_0p119(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    aggregate = metrics["aggregate"]
+    current_gate_rad = 0.119
+    current_gate_case = next(
+        item for item in metrics["cases"] if item["orientation_gate_rad"] == current_gate_rad
+    )
+    min_passing_gate = aggregate["min_passing_orientation_gate_rad"]
+    max_failing_gate = aggregate["max_failing_orientation_gate_rad"]
+    boundary_identified = min_passing_gate is not None and max_failing_gate is not None
+    current_gate_passed = bool(current_gate_case["stitched_passed"])
+    min_passes_at_or_below_current = (
+        min_passing_gate is not None and float(min_passing_gate) <= current_gate_rad
+    )
+    closure_checks = {
+        "planned_parameters_match": planned_orientation_gate_args_match(plan, metrics),
+        "source_delta_present": {
+            "passed": float(metrics["base_z_offset_delta_mm"]) == 1.0,
+            "observed_base_z_offset_delta_mm": float(metrics["base_z_offset_delta_mm"]),
+        },
+        "current_gate_present": {
+            "passed": current_gate_case["orientation_gate_rad"] == current_gate_rad,
+            "orientation_gate_rad": current_gate_case["orientation_gate_rad"],
+        },
+        "current_gate_stitched_recovered": {
+            "passed": current_gate_passed,
+            "stage_a_passed": bool(current_gate_case["stage_a_passed"]),
+            "handoff_pass_count": int(current_gate_case["handoff_pass_count"]),
+            "handoff_trajectory_count": int(current_gate_case["handoff_trajectory_count"]),
+            "failed_rows": list(current_gate_case["stage_b_failed_rows"]),
+        },
+        "boundary_identified": {
+            "passed": boundary_identified,
+            "min_passing_orientation_gate_rad": min_passing_gate,
+            "max_failing_orientation_gate_rad": max_failing_gate,
+        },
+        "passes_at_or_below_current_gate": {
+            "passed": min_passes_at_or_below_current,
+            "current_gate_rad": current_gate_rad,
+            "min_passing_orientation_gate_rad": min_passing_gate,
+        },
+        "gate_relaxation_not_accepted": {
+            "passed": True,
+            "accepted_gate_rad": None,
+            "diagnostic_min_passing_gate_rad": min_passing_gate,
+        },
+    }
+    closure_passed = all(
+        [
+            closure_checks["planned_parameters_match"]["all_matched"],
+            closure_checks["source_delta_present"]["passed"],
+            closure_checks["current_gate_present"]["passed"],
+            closure_checks["current_gate_stitched_recovered"]["passed"],
+            closure_checks["boundary_identified"]["passed"],
+            closure_checks["passes_at_or_below_current_gate"]["passed"],
+        ]
+    )
+    return {
+        "cell_id": "positive_orientation_gate_0p119",
+        "status": "executed_closed" if closure_passed else "executed_unresolved",
+        "closure_passed": closure_passed,
+        "closure_checks": closure_checks,
+        "observed_status": "current_gate_passed" if current_gate_passed else "current_gate_failed",
+        "aggregate": {
+            "case_count": int(aggregate["case_count"]),
+            "stitched_pass_count": int(aggregate["stitched_pass_count"]),
+            "stitched_fail_count": int(aggregate["stitched_fail_count"]),
+            "min_passing_orientation_gate_rad": min_passing_gate,
+            "max_failing_orientation_gate_rad": max_failing_gate,
+            "max_stage_a_terminal_orientation_error_rad": float(
+                aggregate["max_stage_a_terminal_orientation_error_rad"]
+            ),
+            "max_stage_b_orientation_error_rad": float(
+                aggregate["max_stage_b_orientation_error_rad"]
+            ),
+            "stage_a_all_passed": bool(aggregate["stage_a_all_passed"]),
+        },
+        "interpretation": (
+            "The +1.0 mm positive orientation-gate cell remains unresolved at "
+            "the current 0.119 rad gate. The diagnostic boundary run first "
+            "passes at 0.11998 rad, which is not an accepted replacement gate."
+        ),
+    }
+
+
 def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[str, Any]:
     cell_id = str(plan["id"])
     metrics_path = experiment_root / cell_id / "metrics.yaml"
@@ -317,12 +428,14 @@ def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[s
         result = evaluate_base_z_plus1mm(plan, metrics)
     elif cell_id == "positive_fast_timing_0p0075":
         result = evaluate_positive_fast_timing_0p0075(plan, metrics)
+    elif cell_id == "positive_orientation_gate_0p119":
+        result = evaluate_positive_orientation_gate_0p119(plan, metrics)
     else:
         result = {
             "cell_id": cell_id,
             "status": "executed_not_evaluated",
             "closure_passed": False,
-            "interpretation": "This audit currently evaluates only the base_z_plus1mm cell.",
+            "interpretation": "This audit currently evaluates only the executed base-z, positive fast-timing, and positive orientation-gate cells.",
         }
     result["experiment_metrics"] = relative(metrics_path)
     result["source_failed_cell"] = dict(plan["source_failed_cell"])
@@ -351,7 +464,7 @@ def build_audit(
     ]
     not_executed = [item["cell_id"] for item in cell_results if item["status"] == "not_executed"]
     return {
-        "audit_source": "v101 failed diagnostic robustness experiment execution audit",
+        "audit_source": "v102 failed diagnostic robustness experiment execution audit",
         "run_id": run_id,
         "status": "completed",
         "source_files": {
@@ -387,7 +500,8 @@ def build_audit(
         "next_offline_actions": [
             "Do not upgrade the base_z_plus1mm cell; it remains unresolved under the executed command.",
             "Do not upgrade the positive_fast_timing_0p0075 cell; it remains unresolved under the executed command.",
-            "If continuing offline, run one of the remaining planned commands or design narrower probes for the unresolved +1.0 mm rows.",
+            "Do not upgrade the positive_orientation_gate_0p119 cell; it remains unresolved at the current 0.119 rad gate.",
+            "If continuing offline, run the remaining weighted planned command or design narrower probes for the unresolved +1.0 mm rows.",
             "Keep contact-model and gate interpretations blocked until approved read-only evidence exists.",
         ],
     }
