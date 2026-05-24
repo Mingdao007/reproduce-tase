@@ -2897,7 +2897,8 @@
   `python3 -m py_compile scripts/audit_positive_timing_boundary.py` passed.
   Full tests passed with `115 passed in 2.64s`; `git diff --check` passed.
   The run artifact is lightweight: `67` files, `952K`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `81ab8d6d04342e4be8dc78cabe29dc7c45c6967b`.
 - Next step:
   Move to the remaining `+1.0 mm` tightened-orientation sensitivity limit, or
   test a targeted Stage B orientation-margin/control change for the v76 timing
