@@ -98,15 +98,16 @@ work exists only on that branch.
   orientation as the audited blocker. v69 shows that, in the current
   contact-point model, force/x-y/contact passes all positive terminal cases,
   while orientation passes none; full-rotation and force-normal-only errors are
-  numerically identical, so yaw is not the limiter. This is still not robust,
-  paper-equivalent, or hardware evidence.
+  numerically identical, so yaw is not the limiter. v70 uses a run-local
+  `0.12 rad` diagnostic orientation envelope and recovers positive start,
+  terminal, and path feasibility through `+1.0 mm`, but stitched recovery still
+  fails because Stage B handoff is `3 / 4` with E2 qdot saturation. This is
+  still not robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Test positive-side path/stitched recovery only under an explicit justified
-`0.12 rad` terminal orientation envelope, or revisit the contact-point/terminal
-target definition if that envelope is unacceptable. Keep strict
-paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v69
-diagnostic staged labels separate.
+Combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot
+margin audit. Keep strict paper-equivalent setup, v38 relaxed
+trajectory-after-setup, and v63-v70 diagnostic staged labels separate.

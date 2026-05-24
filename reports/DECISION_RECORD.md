@@ -1473,3 +1473,27 @@
   contact-point model or terminal target definition before further path work.
   The legacy sphere-center model must remain a comparison only, not a
   hardware-ready fix.
+
+## D075: Treat Positive Relaxed-Orientation Recovery As Stage-B Limited
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v70 as evidence that a run-local `0.12 rad` diagnostic terminal
+  orientation envelope recovers positive-side start, terminal, and offline path
+  feasibility through `+1.0 mm`, but does not recover stitched Stage A plus
+  Stage B feasibility.
+- Reason:
+  The v70 run at
+  `runs/positive_relaxed_orientation_recovery/20260524T172909` evaluates eight
+  positive deltas in the current contact-point model. Start, terminal, and
+  path geometry pass `8 / 8`; all terminal orientation errors are within
+  `0.12 rad`, with `+1.0 mm` at `0.11948560786548146 rad`. However, stitched
+  recovery count is `0`; every tested `15.0 s` and `16.0 s` row has Stage A
+  passing and Stage B handoff `3 / 4`, with E2 failing on qdot saturation and
+  tail max qdot utilization.
+- Consequence:
+  The next branch should combine the v70 relaxed terminal/path setup with a
+  Stage B E2 timing or qdot margin audit. The project still must not claim
+  robustness, strict paper-equivalent feasibility, contact-model calibration,
+  or hardware readiness.

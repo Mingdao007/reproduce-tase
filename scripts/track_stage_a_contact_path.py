@@ -155,7 +155,7 @@ def evaluate_tracking(
 
 def write_tracking_csv(path: pathlib.Path, rows: list[dict[str, Any]], time_s: np.ndarray) -> None:
     with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
             [
                 "index",

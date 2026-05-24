@@ -235,6 +235,11 @@ them rather than deleting them.
   `0.08 rad` diagnostic orientation gate for `0 / 8`. Full-rotation and
   force-normal-only errors are numerically identical, so yaw handling is not
   the limiter.
+- The v70 positive relaxed-orientation recovery audit uses a run-local
+  `0.12 rad` diagnostic orientation envelope. It recovers positive start,
+  terminal, and path feasibility `8 / 8` through `+1.0 mm`, but stitched
+  recovery remains `0` because Stage B handoff is `3 / 4`, consistently
+  failing E2 on qdot saturation.
 
 ## Next Executable Step
 
@@ -245,9 +250,8 @@ policy before treating it as more than a nominal diagnostic staged pass. v64
 did the first stress test, v65 recovered the qdot/timing side, v66 recovered
 only the `-1 mm` base-z case with a `16.0 s` Stage A duration, v67 bracketed
 the positive side down to `+0.05 mm`, v68 separated positive-side start
-contact from terminal orientation, and v69 quantified the orientation margin.
-The next simulation gap is whether a justified `0.12 rad` terminal orientation
-envelope can support positive-side path/stitched recovery in the current
-contact-point model. If not, revisit the contact-point/terminal target
-definition. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v69 diagnostic staged labels separate.
+contact from terminal orientation, v69 quantified the orientation margin, and
+v70 recovered positive-side endpoints/path under an explicit `0.12 rad`
+diagnostic envelope. The next simulation gap is Stage B E2 qdot saturation
+after that relaxed setup. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v70 diagnostic staged labels separate.

@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v69-positive-terminal-orientation`
+Current branch: `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`
 
 ## Scope
 
@@ -72,6 +72,10 @@ v69 isolates that blocker: in the current contact-point model, force/x-y/contact
 passes `8 / 8` positive terminal cases, but orientation still passes `0 / 8`;
 full-rotation and force-normal-only errors are numerically identical, so yaw is
 not the limiting convention.
+v70 uses a run-local `0.12 rad` diagnostic orientation envelope and recovers
+positive start, terminal, and path feasibility through `+1.0 mm`, but stitched
+recovery remains `0`: Stage B handoff is `3 / 4`, consistently failing E2 on
+qdot saturation.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

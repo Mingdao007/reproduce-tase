@@ -1,0 +1,697 @@
+{
+  "run_id": "20260524T172909",
+  "source": "positive base-z recovery under relaxed diagnostic orientation threshold",
+  "base_z_deltas_mm": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "stage_a_durations_s": [
+    15.0,
+    16.0
+  ],
+  "source_stage_a_target_config": "/home/andy/reproduce-tase/configs/ur10e_adapted_stage_a_target.yaml",
+  "relaxed_stage_a_target_config": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml",
+  "relaxed_orientation_threshold_rad": 0.12,
+  "terminal_solver_orientation_threshold_rad": 0.08,
+  "diagnostic_gate": {
+    "max_terminal_tangential_error_m": 0.004,
+    "max_terminal_orientation_error_rad": 0.12,
+    "max_terminal_force_error_N": 0.25,
+    "min_target_contact_count": 1
+  },
+  "parameters": {
+    "joint_sweep_rad": 0.08,
+    "joint_sweep_count": 321,
+    "pair_sweep_rad": 0.04,
+    "pair_sweep_count": 161,
+    "pair_sweep_joints": "1:2,2:5,2:3,3:5",
+    "random_seed_count": 10000,
+    "random_seed_std_rad": 0.03,
+    "random_seed": 541,
+    "terminal_random_seed_count": 512,
+    "terminal_random_seed_std_rad": 0.15,
+    "terminal_random_seed": 37,
+    "terminal_max_nfev": 300,
+    "terminal_solver_orientation_threshold_rad": 0.08,
+    "knot_count": 128,
+    "path_max_nfev": 200,
+    "qdot_limit_rad_s": 0.15,
+    "stage_b_duration_s": 2.0,
+    "paper_time_scale": 0.01
+  },
+  "aggregate": {
+    "case_count": 8,
+    "start_pass_count": 8,
+    "terminal_pass_count": 8,
+    "path_geometry_pass_count": 8,
+    "duration_recovered_count": 0,
+    "start_pass_cases": [
+      "delta_p0p050mm",
+      "delta_p0p100mm",
+      "delta_p0p150mm",
+      "delta_p0p200mm",
+      "delta_p0p250mm",
+      "delta_p0p500mm",
+      "delta_p0p750mm",
+      "delta_p1p000mm"
+    ],
+    "terminal_pass_cases": [
+      "delta_p0p050mm",
+      "delta_p0p100mm",
+      "delta_p0p150mm",
+      "delta_p0p200mm",
+      "delta_p0p250mm",
+      "delta_p0p500mm",
+      "delta_p0p750mm",
+      "delta_p1p000mm"
+    ],
+    "path_geometry_pass_cases": [
+      "delta_p0p050mm",
+      "delta_p0p100mm",
+      "delta_p0p150mm",
+      "delta_p0p200mm",
+      "delta_p0p250mm",
+      "delta_p0p500mm",
+      "delta_p0p750mm",
+      "delta_p1p000mm"
+    ],
+    "duration_recovered_cases": [],
+    "max_positive_terminal_pass_delta_mm": 1.0,
+    "max_positive_recovered_delta_mm": null
+  },
+  "cases": [
+    {
+      "case": "delta_p0p050mm",
+      "base_z_offset_delta_m": 5e-05,
+      "base_z_offset_delta_mm": 0.05,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.0043113621525501244,
+        "tangential_error_m": 3.0003869991209083e-05,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.047,
+          0.0,
+          -0.009000000000000001
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 28,
+        "candidate_count": 515,
+        "best_seed": "random_164",
+        "force_error_N": 0.0008699274013377334,
+        "tangential_error_m": 0.0020703168129460998,
+        "orientation_error_rad": 0.0838175590896232,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          -8.570499805313102e-09,
+          -0.023373849172367164,
+          -0.0004508658621282807,
+          0.00027957173839832257,
+          2.974134639201747e-10,
+          0.11426050944059446
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 14.198707940657611,
+        "max_abs_qdot_rad_s": 0.15000000000000002,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.0043113621525501244,
+        "max_scheduled_xy_error_m": 8.616136842634396e-09,
+        "max_scheduled_orientation_error_rad": 7.904355137414299e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p050mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.1419870794067211,
+          "stage_a_terminal_force_error_N": 0.0008699274013377334,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.13311288694369047,
+          "stage_a_terminal_force_error_N": 0.0008699274013377334,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p100mm",
+      "base_z_offset_delta_m": 0.0001,
+      "base_z_offset_delta_mm": 0.1,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.020717782163206522,
+        "tangential_error_m": 0.00026250563903843817,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.045500000000000006,
+          0.0,
+          -0.012
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 28,
+        "candidate_count": 515,
+        "best_seed": "random_012",
+        "force_error_N": 0.0008976407522842678,
+        "tangential_error_m": 0.0021368298309197976,
+        "orientation_error_rad": 0.08565245135290023,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          -8.11856619597856e-09,
+          -0.022886450623667755,
+          -0.0004465751968388975,
+          0.00027266717252904285,
+          2.3458590117003193e-10,
+          0.11194083252919781
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 14.206784149197896,
+        "max_abs_qdot_rad_s": 0.15,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.020717782163206522,
+        "max_scheduled_xy_error_m": 8.578111377044505e-09,
+        "max_scheduled_orientation_error_rad": 7.793344015033563e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p100mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.14206784149212412,
+          "stage_a_terminal_force_error_N": 0.0008976407522842678,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.13318860139875716,
+          "stage_a_terminal_force_error_N": 0.0008976407522842678,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p150mm",
+      "base_z_offset_delta_m": 0.00015,
+      "base_z_offset_delta_mm": 0.15,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.0024986436865441775,
+        "tangential_error_m": 0.0004950068174480885,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.044000000000000004,
+          0.0,
+          -0.015
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 25,
+        "candidate_count": 515,
+        "best_seed": "random_411",
+        "force_error_N": 0.0009261108784768268,
+        "tangential_error_m": 0.0022050853431446714,
+        "orientation_error_rad": 0.0874945141256073,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          9.69731649840358e-09,
+          -0.022395001142904707,
+          -0.0004421155495257384,
+          0.0002656829255510863,
+          -3.005701891817745e-10,
+          0.1096098448753927
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 14.211524053903112,
+        "max_abs_qdot_rad_s": 0.15,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.0024986436865441775,
+        "max_scheduled_xy_error_m": 8.539452617260837e-09,
+        "max_scheduled_orientation_error_rad": 7.681705049620807e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p150mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.1421152405391769,
+          "stage_a_terminal_force_error_N": 0.0009261108784768268,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.1332330380053685,
+          "stage_a_terminal_force_error_N": 0.0009261108784768268,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p200mm",
+      "base_z_offset_delta_m": 0.0002,
+      "base_z_offset_delta_mm": 0.2,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.04426348783838385,
+        "tangential_error_m": 0.0005975372244772861,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.041,
+          0.0,
+          -0.0235
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 21,
+        "candidate_count": 515,
+        "best_seed": "random_328",
+        "force_error_N": 0.0009553704213711711,
+        "tangential_error_m": 0.0022751499985566013,
+        "orientation_error_rad": 0.08934348318237911,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          -1.0364889012811563e-08,
+          -0.021899507700215776,
+          -0.00043741004332752896,
+          0.0002585951092996044,
+          2.5879245467048296e-10,
+          0.10726776468598527
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 14.424277184724716,
+        "max_abs_qdot_rad_s": 0.15,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.04426348783838385,
+        "max_scheduled_xy_error_m": 8.453936625406201e-09,
+        "max_scheduled_orientation_error_rad": 7.534150528050841e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p200mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.14424277184739456,
+          "stage_a_terminal_force_error_N": 0.0009553704213711711,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.1352275986068202,
+          "stage_a_terminal_force_error_N": 0.0009553704213711711,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p250mm",
+      "base_z_offset_delta_m": 0.00025,
+      "base_z_offset_delta_mm": 0.25,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.02572023701773496,
+        "tangential_error_m": 0.000814917190296382,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.07800000000000001,
+          0.1215,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 23,
+        "candidate_count": 515,
+        "best_seed": "random_227",
+        "force_error_N": 0.000985454075132175,
+        "tangential_error_m": 0.0023470950296544148,
+        "orientation_error_rad": 0.09119904265401833,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          -7.477657758674608e-09,
+          -0.021399661058702602,
+          -0.0004328252343050522,
+          0.0002514219798896234,
+          2.0296168521061363e-10,
+          0.10491494689322009
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 11.996410618897185,
+        "max_abs_qdot_rad_s": 0.15,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.02572023701773496,
+        "max_scheduled_xy_error_m": 8.630406726515906e-09,
+        "max_scheduled_orientation_error_rad": 7.585804127380673e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p250mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.11996410618909473,
+          "stage_a_terminal_force_error_N": 0.000985454075132175,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.11246634955218325,
+          "stage_a_terminal_force_error_N": 0.000985454075132175,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p500mm",
+      "base_z_offset_delta_m": 0.0005,
+      "base_z_offset_delta_mm": 0.5,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.07328844161217152,
+        "tangential_error_m": 0.00031519335583544885,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.07300000000000001,
+          0.11699999999999999,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 19,
+        "candidate_count": 515,
+        "best_seed": "random_269",
+        "force_error_N": 0.0011495443133044958,
+        "tangential_error_m": 0.002737670736385471,
+        "orientation_error_rad": 0.10056247728510045,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          -1.7023657755191496e-09,
+          -0.01883596373515915,
+          -0.0004095187254174353,
+          0.00021475254364954372,
+          2.876130095000642e-10,
+          0.09300117786594672
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 11.224745619891337,
+        "max_abs_qdot_rad_s": 0.14999999999999997,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.07328844161217152,
+        "max_scheduled_xy_error_m": 8.597486673110686e-09,
+        "max_scheduled_orientation_error_rad": 7.136877402532296e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p500mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.11224745619902818,
+          "stage_a_terminal_force_error_N": 0.0011495443133044958,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.10523199018650169,
+          "stage_a_terminal_force_error_N": 0.0011495443133044958,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p0p750mm",
+      "base_z_offset_delta_m": 0.00075,
+      "base_z_offset_delta_mm": 0.75,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.07998720741366228,
+        "tangential_error_m": 0.0013526627224379568,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.0665,
+          0.11049999999999999,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 15,
+        "candidate_count": 515,
+        "best_seed": "random_153",
+        "force_error_N": 0.0013403179924091901,
+        "tangential_error_m": 0.003187388739474933,
+        "orientation_error_rad": 0.11002164736335575,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          3.185887962546853e-08,
+          -0.01616314345038177,
+          -0.00038596476219299994,
+          0.000176506211527681,
+          -2.0597171121503152e-10,
+          0.08088387987181599
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 10.367805178961204,
+        "max_abs_qdot_rad_s": 0.14999999999999997,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.07998720741366228,
+        "max_scheduled_xy_error_m": 8.559649885854467e-09,
+        "max_scheduled_orientation_error_rad": 6.669912255442434e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p750mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.10367805178971796,
+          "stage_a_terminal_force_error_N": 0.0013403179924091901,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.09719817355278002,
+          "stage_a_terminal_force_error_N": 0.0013403179924091901,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    },
+    {
+      "case": "delta_p1p000mm",
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "start": {
+        "passed": true,
+        "force_error_N": 0.14209391841232932,
+        "tangential_error_m": 0.0030145867556624815,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          0.0,
+          -0.0665,
+          0.11299999999999999,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "terminal": {
+        "passed": true,
+        "pass_count": 9,
+        "candidate_count": 515,
+        "best_seed": "random_184",
+        "force_error_N": 0.0015639424746973773,
+        "tangential_error_m": 0.0037081102250263293,
+        "orientation_error_rad": 0.11948560786548146,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "q": [
+          2.4301307228908532e-08,
+          -0.013382708679140294,
+          -0.00036297777643642904,
+          0.00013685157798432314,
+          9.345517764106481e-11,
+          0.06865615224623349
+        ]
+      },
+      "path": {
+        "path_gate_passed": true,
+        "terminal_gate_passed": true,
+        "min_duration_s": 10.018584837157274,
+        "max_abs_qdot_rad_s": 0.15,
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14209391841232932,
+        "max_scheduled_xy_error_m": 8.519566005389148e-09,
+        "max_scheduled_orientation_error_rad": 6.19010766744808e-07,
+        "path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv"
+      },
+      "durations": [
+        {
+          "stage_a_duration_s": 15.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.10018584837167505,
+          "stage_a_terminal_force_error_N": 0.0015639424746973773,
+          "skipped_reason": null
+        },
+        {
+          "stage_a_duration_s": 16.0,
+          "stitched_ran": true,
+          "stitched_passed": false,
+          "stage_a_passed": true,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_a_max_qdot_rad_s": 0.09392423284836762,
+          "stage_a_terminal_force_error_N": 0.0015639424746973773,
+          "skipped_reason": null
+        }
+      ],
+      "status": "stitched_failed"
+    }
+  ],
+  "warnings": [
+    "run-local relaxed diagnostic orientation gate only",
+    "not strict paper-equivalent feasibility",
+    "not robustness proof",
+    "not contact-model calibration",
+    "not hardware-ready"
+  ]
+}

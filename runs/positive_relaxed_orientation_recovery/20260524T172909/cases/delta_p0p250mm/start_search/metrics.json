@@ -1,0 +1,88 @@
+{
+  "case": "delta_p0p250mm",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "base_z_offset_nominal_m": -0.04612594095298278,
+  "base_z_offset_delta_m": 0.00025,
+  "base_z_offset_m": -0.04587594095298278,
+  "candidate_count": 115611,
+  "pass_count": 145,
+  "contact_candidate_count": 53648,
+  "joint_sweep_rad": 0.08,
+  "joint_sweep_count": 321,
+  "pair_sweep_rad": 0.04,
+  "pair_sweep_count": 161,
+  "pair_sweep_joints": [
+    [
+      1,
+      2
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      5
+    ]
+  ],
+  "random_seed_count": 10000,
+  "random_seed_std_rad": 0.03,
+  "random_seed": 541,
+  "thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.004
+  },
+  "best_candidate": {
+    "seed_label": "joint1_+0.022000__joint2_-0.028500",
+    "q": [
+      0.0,
+      -0.07800000000000001,
+      0.1215,
+      -0.05,
+      0.0,
+      0.0
+    ],
+    "tcp_m": [
+      0.005792846614239652,
+      0.0,
+      -0.00032195239827062516
+    ],
+    "force_N": 5.025720237017735,
+    "force_error_N": 0.02572023701773496,
+    "tangential_error_m": 0.000814917190296382,
+    "target_contact_count": 1,
+    "criteria": {
+      "force_error_N": {
+        "actual": 0.02572023701773496,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "tangential_error_m": {
+        "actual": 0.000814917190296382,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    },
+    "failed_criteria": [],
+    "passed": true,
+    "max_gate_ratio": 0.2037292975740955
+  },
+  "warnings": [
+    "start-contact candidate search only",
+    "not terminal, path, trajectory, robustness, or hardware evidence"
+  ]
+}

@@ -1,0 +1,71 @@
+case: delta_p0p100mm
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: 0.0001
+base_z_offset_m: -0.04602594095298278
+candidate_count: 515
+pass_count: 28
+extra_seed_labels:
+- selected_stage_a_target
+solver_thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.004
+  max_orientation_error_rad: 0.08
+relaxed_gate_thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.004
+  max_orientation_error_rad: 0.12
+best_candidate:
+  seed_label: random_012
+  q:
+  - -8.11856619597856e-09
+  - -0.022886450623667755
+  - -0.0004465751968388975
+  - 0.00027266717252904285
+  - 2.3458590117003193e-10
+  - 0.11194083252919781
+  cost: 0.7158470020149014
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 101
+  tcp_m:
+  - 0.002841099593023473
+  - 3.888671469154862e-11
+  - -0.00042203741753027435
+  force_N: 4.999102359247716
+  force_error_N: 0.0008976407522842678
+  tangential_error_m: 0.0021368298309197976
+  orientation_error_rad: 0.08565245135290023
+  target_contact_count: 1
+  failed_criteria: []
+  passed: true
+  max_gate_ratio: 0.7137704279408352
+best_relaxed_criteria:
+  force_error_N:
+    actual: 0.0008976407522842678
+    operator: <=
+    threshold: 0.25
+    passed: true
+  tangential_error_m:
+    actual: 0.0021368298309197976
+    operator: <=
+    threshold: 0.004
+    passed: true
+  orientation_error_rad:
+    actual: 0.08565245135290023
+    operator: <=
+    threshold: 0.12
+    passed: true
+  contact_present:
+    actual: 1
+    operator: '>='
+    threshold: 1
+    passed: true
+warnings:
+- terminal nonlinear least-squares uses solver thresholds but evaluates a relaxed
+  diagnostic gate
+- not a path or velocity-controller feasibility proof
+- simulation-only and not hardware-ready

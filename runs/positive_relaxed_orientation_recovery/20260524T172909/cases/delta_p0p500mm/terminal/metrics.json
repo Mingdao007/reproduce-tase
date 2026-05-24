@@ -1,0 +1,84 @@
+{
+  "case": "delta_p0p500mm",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "base_z_offset_nominal_m": -0.04612594095298278,
+  "base_z_offset_delta_m": 0.0005,
+  "base_z_offset_m": -0.04562594095298278,
+  "candidate_count": 515,
+  "pass_count": 19,
+  "extra_seed_labels": [
+    "selected_stage_a_target"
+  ],
+  "solver_thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.004,
+    "max_orientation_error_rad": 0.08
+  },
+  "relaxed_gate_thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.004,
+    "max_orientation_error_rad": 0.12
+  },
+  "best_candidate": {
+    "seed_label": "random_269",
+    "q": [
+      -1.7023657755191496e-09,
+      -0.01883596373515915,
+      -0.0004095187254174353,
+      0.00021475254364954372,
+      2.876130095000642e-10,
+      0.09300117786594672
+    ],
+    "cost": 1.02428777979244,
+    "success": true,
+    "status": 2,
+    "message": "`ftol` termination condition is satisfied.",
+    "nfev": 91,
+    "tcp_m": [
+      0.0022402586875578,
+      7.222348472979648e-11,
+      -0.0002559810361039555
+    ],
+    "force_N": 4.9988504556866955,
+    "force_error_N": 0.0011495443133044958,
+    "tangential_error_m": 0.002737670736385471,
+    "orientation_error_rad": 0.10056247728510045,
+    "target_contact_count": 1,
+    "failed_criteria": [],
+    "passed": true,
+    "max_gate_ratio": 0.8380206440425039
+  },
+  "best_relaxed_criteria": {
+    "force_error_N": {
+      "actual": 0.0011495443133044958,
+      "operator": "<=",
+      "threshold": 0.25,
+      "passed": true
+    },
+    "tangential_error_m": {
+      "actual": 0.002737670736385471,
+      "operator": "<=",
+      "threshold": 0.004,
+      "passed": true
+    },
+    "orientation_error_rad": {
+      "actual": 0.10056247728510045,
+      "operator": "<=",
+      "threshold": 0.12,
+      "passed": true
+    },
+    "contact_present": {
+      "actual": 1,
+      "operator": ">=",
+      "threshold": 1,
+      "passed": true
+    }
+  },
+  "warnings": [
+    "terminal nonlinear least-squares uses solver thresholds but evaluates a relaxed diagnostic gate",
+    "not a path or velocity-controller feasibility proof",
+    "simulation-only and not hardware-ready"
+  ]
+}

@@ -1858,6 +1858,33 @@ Legacy source root:
   strict paper-equivalent claim, path or stitched recovery, a robustness proof,
   contact-model calibration, or hardware evidence.
 
+## V70 Positive Relaxed Orientation Recovery Audit
+
+### Positive-side recovery with a run-local `0.12 rad` orientation gate
+
+- Run:
+  - `runs/positive_relaxed_orientation_recovery/20260524T172909`
+- Command:
+  `scripts/audit_positive_relaxed_orientation_recovery.py`
+- Git state at run time:
+  parent commit `d8232b91a3c6e2a00c7e5a8432928f5ba3fc6d43` with dirty v70
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, `git_state.md`, and
+  the run-local `relaxed_stage_a_target_config.yaml`, plus per-case start,
+  terminal, path, and stitched metrics/summaries/commands under `cases/*`.
+- Result:
+  The relaxed-orientation audit evaluates `8` positive base-z deltas from
+  `+0.05 mm` through `+1.0 mm`. With the run-local `0.12 rad` diagnostic
+  orientation gate, start contact passes `8 / 8`, terminal feasibility passes
+  `8 / 8`, and path geometry passes `8 / 8`. Stitched recovery remains `0 / 8`;
+  Stage A passes at `15.0 s` and `16.0 s`, but Stage B handoff is `3 / 4`
+  because `e2-figure-eight` fails qdot utilization criteria.
+- Limit:
+  This is diagnostic-label simulation evidence with a run-local relaxed target
+  config only. It is not a canonical-config change, strict paper-equivalent
+  claim, robustness proof, contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -141,7 +141,7 @@ def evaluate_path(
 
 def write_path_csv(path: pathlib.Path, rows: list[dict[str, Any]]) -> None:
     with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, lineterminator="\n")
         writer.writerow(
             [
                 "index",

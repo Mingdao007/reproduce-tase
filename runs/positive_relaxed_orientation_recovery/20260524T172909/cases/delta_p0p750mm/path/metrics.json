@@ -1,0 +1,1247 @@
+{
+  "run_id": "20260524T173042",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "stage_a_target_config": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml",
+  "selected_target_label": "delta_p0p750mm_perturbed_terminal_target",
+  "initial_label": "delta_p0p750mm_perturbed_start_contact",
+  "initial_source": "cli_initial_q",
+  "initial_q_rad": [
+    0.0,
+    -0.0665,
+    0.11049999999999999,
+    -0.05,
+    0.0,
+    0.0
+  ],
+  "target_source": "cli_target_q",
+  "target_q_rad": [
+    3.185887962546853e-08,
+    -0.01616314345038177,
+    -0.00038596476219299994,
+    0.000176506211527681,
+    -2.0597171121503152e-10,
+    0.08088387987181599
+  ],
+  "claim_scope": "offline_quasi_static_contact_path_not_online_controller_or_hardware",
+  "base_z_offset_nominal_m": -0.04612594095298278,
+  "base_z_offset_delta_m": 0.00075,
+  "base_z_offset_m": -0.04537594095298278,
+  "knot_count": 128,
+  "max_nfev": 200,
+  "continuity_weight": 0.02,
+  "linear_posture_weight": 0.002,
+  "target_force_N": 5.0,
+  "diagnostic_gate": {
+    "max_terminal_tangential_error_m": 0.004,
+    "max_terminal_orientation_error_rad": 0.12,
+    "max_terminal_force_error_N": 0.25,
+    "min_target_contact_count": 1
+  },
+  "timing": {
+    "knot_count": 128,
+    "qdot_limit_rad_s": 0.15,
+    "min_duration_s": 10.367805178961204,
+    "segment_duration_s": 0.08163626125166303,
+    "max_abs_segment_delta_rad": 0.012245439187749452,
+    "max_abs_qdot_rad_s": 0.14999999999999997,
+    "qdot_saturation_fraction": 0.007874015748031496,
+    "tail_max_qdot_utilization": 0.9999999999999998
+  },
+  "evaluation": {
+    "target_contact_present_fraction": 1.0,
+    "min_target_contact_count": 1,
+    "max_force_error_N": 0.07998720741366228,
+    "terminal_force_error_N": 0.0013403179924091901,
+    "max_scheduled_xy_error_m": 8.559649885854467e-09,
+    "max_reference_xy_error_m": 0.003187388739474933,
+    "terminal_reference_xy_error_m": 0.003187388739474933,
+    "max_scheduled_orientation_error_rad": 6.669912255442434e-07,
+    "max_force_normal_orientation_error_rad": 0.1805329252341198,
+    "terminal_force_normal_orientation_error_rad": 0.11002164736335086
+  },
+  "terminal_gate": {
+    "passed": true,
+    "failed_criteria": [],
+    "criteria": {
+      "terminal_force_error_N": {
+        "actual": 0.0013403179924091901,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "terminal_xy_error_m": {
+        "actual": 0.003187388739474933,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "terminal_force_normal_orientation_error_rad": {
+        "actual": 0.11002164736335086,
+        "operator": "<=",
+        "threshold": 0.12,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    }
+  },
+  "path_gate": {
+    "passed": true,
+    "criteria": {
+      "target_contact_present_fraction": 1.0,
+      "max_force_error_N": 0.07998720741366228,
+      "max_scheduled_xy_error_m": 8.559649885854467e-09,
+      "max_scheduled_orientation_error_rad": 6.669912255442434e-07,
+      "max_abs_qdot_rad_s": 0.14999999999999997,
+      "terminal_gate_passed": true
+    }
+  },
+  "solve_rows": [
+    {
+      "index": 1,
+      "alpha": 0.007874015748031496,
+      "success": true,
+      "cost": 1.0988307540974888e-10,
+      "nfev": 33,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 2,
+      "alpha": 0.015748031496062992,
+      "success": true,
+      "cost": 8.649696050199555e-11,
+      "nfev": 34,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 3,
+      "alpha": 0.023622047244094488,
+      "success": true,
+      "cost": 9.344615282018067e-11,
+      "nfev": 31,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 4,
+      "alpha": 0.031496062992125984,
+      "success": true,
+      "cost": 1.0317070653493089e-10,
+      "nfev": 32,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 5,
+      "alpha": 0.03937007874015748,
+      "success": true,
+      "cost": 1.1560684760428515e-10,
+      "nfev": 31,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 6,
+      "alpha": 0.047244094488188976,
+      "success": true,
+      "cost": 1.3069178450835376e-10,
+      "nfev": 32,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 7,
+      "alpha": 0.05511811023622047,
+      "success": true,
+      "cost": 1.4836316392841112e-10,
+      "nfev": 31,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 8,
+      "alpha": 0.06299212598425197,
+      "success": true,
+      "cost": 1.685590431276645e-10,
+      "nfev": 31,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 9,
+      "alpha": 0.07086614173228346,
+      "success": true,
+      "cost": 1.9121785997273873e-10,
+      "nfev": 30,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 10,
+      "alpha": 0.07874015748031496,
+      "success": true,
+      "cost": 2.162784031870376e-10,
+      "nfev": 33,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 11,
+      "alpha": 0.08661417322834646,
+      "success": true,
+      "cost": 2.436797846934297e-10,
+      "nfev": 33,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 12,
+      "alpha": 0.09448818897637795,
+      "success": true,
+      "cost": 2.7336141292192096e-10,
+      "nfev": 32,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 13,
+      "alpha": 0.10236220472440945,
+      "success": true,
+      "cost": 3.0526297308635804e-10,
+      "nfev": 30,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 14,
+      "alpha": 0.11023622047244094,
+      "success": true,
+      "cost": 3.3932439401076556e-10,
+      "nfev": 26,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 15,
+      "alpha": 0.11811023622047244,
+      "success": true,
+      "cost": 3.7548582711159697e-10,
+      "nfev": 30,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 16,
+      "alpha": 0.12598425196850394,
+      "success": true,
+      "cost": 4.13687630269765e-10,
+      "nfev": 26,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 17,
+      "alpha": 0.13385826771653542,
+      "success": true,
+      "cost": 4.5387033246814635e-10,
+      "nfev": 26,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 18,
+      "alpha": 0.14173228346456693,
+      "success": true,
+      "cost": 4.959746232856657e-10,
+      "nfev": 29,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 19,
+      "alpha": 0.14960629921259844,
+      "success": true,
+      "cost": 5.399413239784161e-10,
+      "nfev": 29,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 20,
+      "alpha": 0.15748031496062992,
+      "success": true,
+      "cost": 5.857113750147456e-10,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 21,
+      "alpha": 0.1653543307086614,
+      "success": true,
+      "cost": 6.332258121119847e-10,
+      "nfev": 26,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 22,
+      "alpha": 0.1732283464566929,
+      "success": true,
+      "cost": 6.824257328566639e-10,
+      "nfev": 29,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 23,
+      "alpha": 0.18110236220472442,
+      "success": true,
+      "cost": 7.332523184153985e-10,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 24,
+      "alpha": 0.1889763779527559,
+      "success": true,
+      "cost": 7.856467672871695e-10,
+      "nfev": 26,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 25,
+      "alpha": 0.19685039370078738,
+      "success": true,
+      "cost": 8.395502996356869e-10,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 26,
+      "alpha": 0.2047244094488189,
+      "success": true,
+      "cost": 8.949041422233793e-10,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 27,
+      "alpha": 0.2125984251968504,
+      "success": true,
+      "cost": 9.516495074122354e-10,
+      "nfev": 44,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 28,
+      "alpha": 0.2204724409448819,
+      "success": true,
+      "cost": 1.0097275703903251e-09,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 29,
+      "alpha": 0.22834645669291337,
+      "success": true,
+      "cost": 1.069079466302477e-09,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 30,
+      "alpha": 0.23622047244094488,
+      "success": true,
+      "cost": 1.1296462512769189e-09,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 31,
+      "alpha": 0.2440944881889764,
+      "success": true,
+      "cost": 1.1913689114147668e-09,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 32,
+      "alpha": 0.25196850393700787,
+      "success": true,
+      "cost": 1.2541883300280635e-09,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 33,
+      "alpha": 0.25984251968503935,
+      "success": true,
+      "cost": 1.318045275692404e-09,
+      "nfev": 45,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 34,
+      "alpha": 0.26771653543307083,
+      "success": true,
+      "cost": 1.3828803905505832e-09,
+      "nfev": 27,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 35,
+      "alpha": 0.2755905511811024,
+      "success": true,
+      "cost": 1.4486341695766684e-09,
+      "nfev": 31,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 36,
+      "alpha": 0.28346456692913385,
+      "success": true,
+      "cost": 1.5152469457314347e-09,
+      "nfev": 48,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 37,
+      "alpha": 0.29133858267716534,
+      "success": true,
+      "cost": 1.5826588805976735e-09,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 38,
+      "alpha": 0.2992125984251969,
+      "success": true,
+      "cost": 1.6508099435669208e-09,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 39,
+      "alpha": 0.30708661417322836,
+      "success": true,
+      "cost": 1.719639890895782e-09,
+      "nfev": 51,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 40,
+      "alpha": 0.31496062992125984,
+      "success": true,
+      "cost": 1.7890882605942108e-09,
+      "nfev": 28,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 41,
+      "alpha": 0.3228346456692913,
+      "success": true,
+      "cost": 1.8590943578957928e-09,
+      "nfev": 50,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 42,
+      "alpha": 0.3307086614173228,
+      "success": true,
+      "cost": 1.929597225847778e-09,
+      "nfev": 51,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 43,
+      "alpha": 0.33858267716535434,
+      "success": true,
+      "cost": 2.000535649456632e-09,
+      "nfev": 49,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 44,
+      "alpha": 0.3464566929133858,
+      "success": true,
+      "cost": 2.071848124176542e-09,
+      "nfev": 55,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 45,
+      "alpha": 0.3543307086614173,
+      "success": true,
+      "cost": 2.143472846534613e-09,
+      "nfev": 50,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 46,
+      "alpha": 0.36220472440944884,
+      "success": true,
+      "cost": 2.2153477010073847e-09,
+      "nfev": 51,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 47,
+      "alpha": 0.3700787401574803,
+      "success": true,
+      "cost": 2.2874102395635083e-09,
+      "nfev": 53,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 48,
+      "alpha": 0.3779527559055118,
+      "success": true,
+      "cost": 2.359597668617378e-09,
+      "nfev": 55,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 49,
+      "alpha": 0.3858267716535433,
+      "success": true,
+      "cost": 2.4318468303292193e-09,
+      "nfev": 54,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 50,
+      "alpha": 0.39370078740157477,
+      "success": true,
+      "cost": 2.504094190220441e-09,
+      "nfev": 56,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 51,
+      "alpha": 0.4015748031496063,
+      "success": true,
+      "cost": 2.5762758168286703e-09,
+      "nfev": 51,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 52,
+      "alpha": 0.4094488188976378,
+      "success": true,
+      "cost": 2.6483273663634603e-09,
+      "nfev": 54,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 53,
+      "alpha": 0.41732283464566927,
+      "success": true,
+      "cost": 2.7201840689837103e-09,
+      "nfev": 52,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 54,
+      "alpha": 0.4251968503937008,
+      "success": true,
+      "cost": 2.791780701405851e-09,
+      "nfev": 57,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 55,
+      "alpha": 0.4330708661417323,
+      "success": true,
+      "cost": 2.863051583216719e-09,
+      "nfev": 57,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 56,
+      "alpha": 0.4409448818897638,
+      "success": true,
+      "cost": 2.9339305455946373e-09,
+      "nfev": 57,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 57,
+      "alpha": 0.44881889763779526,
+      "success": true,
+      "cost": 3.0043509254149698e-09,
+      "nfev": 58,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 58,
+      "alpha": 0.45669291338582674,
+      "success": true,
+      "cost": 3.0742455351709653e-09,
+      "nfev": 56,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 59,
+      "alpha": 0.4645669291338583,
+      "success": true,
+      "cost": 3.1435466541462843e-09,
+      "nfev": 56,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 60,
+      "alpha": 0.47244094488188976,
+      "success": true,
+      "cost": 3.2121860013735092e-09,
+      "nfev": 65,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 61,
+      "alpha": 0.48031496062992124,
+      "success": true,
+      "cost": 3.2800947161243606e-09,
+      "nfev": 60,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 62,
+      "alpha": 0.4881889763779528,
+      "success": true,
+      "cost": 3.3472033482930847e-09,
+      "nfev": 51,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 63,
+      "alpha": 0.49606299212598426,
+      "success": true,
+      "cost": 3.4134418233806855e-09,
+      "nfev": 62,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 64,
+      "alpha": 0.5039370078740157,
+      "success": true,
+      "cost": 3.47873942963443e-09,
+      "nfev": 48,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 65,
+      "alpha": 0.5118110236220472,
+      "success": true,
+      "cost": 3.543024796389687e-09,
+      "nfev": 48,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 66,
+      "alpha": 0.5196850393700787,
+      "success": true,
+      "cost": 3.6062258711201265e-09,
+      "nfev": 33,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 67,
+      "alpha": 0.5275590551181102,
+      "success": true,
+      "cost": 3.6682698961233082e-09,
+      "nfev": 31,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 68,
+      "alpha": 0.5354330708661417,
+      "success": true,
+      "cost": 3.72908338837411e-09,
+      "nfev": 31,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 69,
+      "alpha": 0.5433070866141733,
+      "success": true,
+      "cost": 3.788592115603697e-09,
+      "nfev": 30,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 70,
+      "alpha": 0.5511811023622047,
+      "success": true,
+      "cost": 3.8467210752720585e-09,
+      "nfev": 30,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 71,
+      "alpha": 0.5590551181102362,
+      "success": true,
+      "cost": 3.903394466927201e-09,
+      "nfev": 33,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 72,
+      "alpha": 0.5669291338582677,
+      "success": true,
+      "cost": 3.958535675449634e-09,
+      "nfev": 36,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 73,
+      "alpha": 0.5748031496062992,
+      "success": true,
+      "cost": 4.012067240615612e-09,
+      "nfev": 36,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 74,
+      "alpha": 0.5826771653543307,
+      "success": true,
+      "cost": 4.063910841298672e-09,
+      "nfev": 43,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 75,
+      "alpha": 0.5905511811023622,
+      "success": true,
+      "cost": 4.113987271417495e-09,
+      "nfev": 36,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 76,
+      "alpha": 0.5984251968503937,
+      "success": true,
+      "cost": 4.16221639860476e-09,
+      "nfev": 38,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 77,
+      "alpha": 0.6062992125984252,
+      "success": true,
+      "cost": 4.208517180924306e-09,
+      "nfev": 39,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 78,
+      "alpha": 0.6141732283464567,
+      "success": true,
+      "cost": 4.252807613076289e-09,
+      "nfev": 40,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 79,
+      "alpha": 0.6220472440944882,
+      "success": true,
+      "cost": 4.29500475022781e-09,
+      "nfev": 41,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 80,
+      "alpha": 0.6299212598425197,
+      "success": true,
+      "cost": 4.335024606898807e-09,
+      "nfev": 47,
+      "status": 4,
+      "message": "Both `ftol` and `xtol` termination conditions are satisfied."
+    },
+    {
+      "index": 81,
+      "alpha": 0.6377952755905512,
+      "success": true,
+      "cost": 4.3727822493165004e-09,
+      "nfev": 47,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 82,
+      "alpha": 0.6456692913385826,
+      "success": true,
+      "cost": 4.408191719414566e-09,
+      "nfev": 49,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 83,
+      "alpha": 0.6535433070866141,
+      "success": true,
+      "cost": 4.44116604732931e-09,
+      "nfev": 47,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 84,
+      "alpha": 0.6614173228346456,
+      "success": true,
+      "cost": 4.471617248410234e-09,
+      "nfev": 50,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 85,
+      "alpha": 0.6692913385826772,
+      "success": true,
+      "cost": 4.499456359470835e-09,
+      "nfev": 55,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 86,
+      "alpha": 0.6771653543307087,
+      "success": true,
+      "cost": 4.52459340205578e-09,
+      "nfev": 53,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 87,
+      "alpha": 0.6850393700787402,
+      "success": true,
+      "cost": 4.546937474865794e-09,
+      "nfev": 67,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 88,
+      "alpha": 0.6929133858267716,
+      "success": true,
+      "cost": 4.566396750091202e-09,
+      "nfev": 64,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 89,
+      "alpha": 0.7007874015748031,
+      "success": true,
+      "cost": 4.5828785863619305e-09,
+      "nfev": 53,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 90,
+      "alpha": 0.7086614173228346,
+      "success": true,
+      "cost": 4.596289538856526e-09,
+      "nfev": 48,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 91,
+      "alpha": 0.7165354330708661,
+      "success": true,
+      "cost": 4.606535560678559e-09,
+      "nfev": 86,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 92,
+      "alpha": 0.7244094488188977,
+      "success": true,
+      "cost": 4.613522081290841e-09,
+      "nfev": 50,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 93,
+      "alpha": 0.7322834645669292,
+      "success": true,
+      "cost": 4.617154270192276e-09,
+      "nfev": 47,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 94,
+      "alpha": 0.7401574803149606,
+      "success": true,
+      "cost": 4.6173372761825825e-09,
+      "nfev": 78,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 95,
+      "alpha": 0.7480314960629921,
+      "success": true,
+      "cost": 4.613976519208873e-09,
+      "nfev": 86,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 96,
+      "alpha": 0.7559055118110236,
+      "success": true,
+      "cost": 4.606978131061353e-09,
+      "nfev": 48,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 97,
+      "alpha": 0.7637795275590551,
+      "success": true,
+      "cost": 4.596249464381996e-09,
+      "nfev": 77,
+      "status": 3,
+      "message": "`xtol` termination condition is satisfied."
+    },
+    {
+      "index": 98,
+      "alpha": 0.7716535433070866,
+      "success": true,
+      "cost": 4.581699805074171e-09,
+      "nfev": 52,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 99,
+      "alpha": 0.7795275590551181,
+      "success": true,
+      "cost": 4.563241279886806e-09,
+      "nfev": 89,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 100,
+      "alpha": 0.7874015748031495,
+      "success": true,
+      "cost": 4.5407898635398075e-09,
+      "nfev": 88,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 101,
+      "alpha": 0.7952755905511811,
+      "success": true,
+      "cost": 4.514266842902364e-09,
+      "nfev": 94,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 102,
+      "alpha": 0.8031496062992126,
+      "success": true,
+      "cost": 4.483600811697242e-09,
+      "nfev": 56,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 103,
+      "alpha": 0.8110236220472441,
+      "success": true,
+      "cost": 4.448729857394846e-09,
+      "nfev": 79,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 104,
+      "alpha": 0.8188976377952756,
+      "success": true,
+      "cost": 4.409604553509954e-09,
+      "nfev": 72,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 105,
+      "alpha": 0.8267716535433071,
+      "success": true,
+      "cost": 4.366192442617466e-09,
+      "nfev": 102,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 106,
+      "alpha": 0.8346456692913385,
+      "success": true,
+      "cost": 4.3184830391116416e-09,
+      "nfev": 101,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 107,
+      "alpha": 0.84251968503937,
+      "success": true,
+      "cost": 4.266495149903872e-09,
+      "nfev": 55,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 108,
+      "alpha": 0.8503937007874016,
+      "success": true,
+      "cost": 4.21028628270845e-09,
+      "nfev": 99,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 109,
+      "alpha": 0.8582677165354331,
+      "success": true,
+      "cost": 4.149965829782559e-09,
+      "nfev": 57,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 110,
+      "alpha": 0.8661417322834646,
+      "success": true,
+      "cost": 4.085712692936918e-09,
+      "nfev": 76,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 111,
+      "alpha": 0.8740157480314961,
+      "success": true,
+      "cost": 4.017800698797552e-09,
+      "nfev": 109,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 112,
+      "alpha": 0.8818897637795275,
+      "success": true,
+      "cost": 3.946633353587422e-09,
+      "nfev": 110,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 113,
+      "alpha": 0.889763779527559,
+      "success": true,
+      "cost": 3.872795217549952e-09,
+      "nfev": 93,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 114,
+      "alpha": 0.8976377952755905,
+      "success": true,
+      "cost": 3.797125991949144e-09,
+      "nfev": 63,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 115,
+      "alpha": 0.905511811023622,
+      "success": true,
+      "cost": 3.7208338994397587e-09,
+      "nfev": 95,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 116,
+      "alpha": 0.9133858267716535,
+      "success": true,
+      "cost": 3.645668602713711e-09,
+      "nfev": 93,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 117,
+      "alpha": 0.9212598425196851,
+      "success": true,
+      "cost": 3.574199196577777e-09,
+      "nfev": 62,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 118,
+      "alpha": 0.9291338582677166,
+      "success": true,
+      "cost": 3.510272149917671e-09,
+      "nfev": 88,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 119,
+      "alpha": 0.937007874015748,
+      "success": true,
+      "cost": 3.4598039527072203e-09,
+      "nfev": 65,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 120,
+      "alpha": 0.9448818897637795,
+      "success": true,
+      "cost": 3.432225591791361e-09,
+      "nfev": 107,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 121,
+      "alpha": 0.952755905511811,
+      "success": true,
+      "cost": 3.443296994157503e-09,
+      "nfev": 58,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 122,
+      "alpha": 0.9606299212598425,
+      "success": true,
+      "cost": 3.521068699234155e-09,
+      "nfev": 66,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 123,
+      "alpha": 0.968503937007874,
+      "success": true,
+      "cost": 3.720016299070136e-09,
+      "nfev": 90,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 124,
+      "alpha": 0.9763779527559056,
+      "success": true,
+      "cost": 4.160184036269851e-09,
+      "nfev": 62,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 125,
+      "alpha": 0.984251968503937,
+      "success": true,
+      "cost": 5.164686623820119e-09,
+      "nfev": 100,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "index": 126,
+      "alpha": 0.9921259842519685,
+      "success": true,
+      "cost": 8.001125263756152e-09,
+      "nfev": 85,
+      "status": 2,
+      "message": "`ftol` termination condition is satisfied."
+    }
+  ],
+  "warnings": [
+    "offline quasi-static contact-manifold path only",
+    "not an online Stage A controller",
+    "not strict paper-equivalent trajectory feasibility",
+    "not hardware-ready"
+  ]
+}

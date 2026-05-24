@@ -2658,3 +2658,37 @@
   Test positive-side path/stitched recovery only under an explicit justified
   `0.12 rad` terminal orientation envelope, or revisit the contact-point /
   terminal target definition if that envelope is unacceptable.
+
+## 2026-05-24 v70 Positive Relaxed Orientation Recovery Audit
+
+### Test positive-side path and stitched recovery under a 0.12 rad terminal gate
+
+- Branch:
+  `exp/tase-ur10e-v70-positive-relaxed-orientation-recovery`
+- Run:
+  `runs/positive_relaxed_orientation_recovery/20260524T172909`
+- Report:
+  `reports/positive_relaxed_orientation_recovery_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_relaxed_orientation_recovery.py`
+  - `scripts/audit_positive_relaxed_orientation_recovery.py`
+- Result:
+  The run-local relaxed target config sets
+  `max_terminal_orientation_error_rad = 0.12` without modifying the canonical
+  v58 target config. Positive start, terminal, and path geometry pass `8 / 8`
+  through `+1.0 mm`; max positive terminal/path delta is `+1.0 mm`. Stitched
+  recovery remains `0`: every tested row has Stage A passing but Stage B
+  handoff `3 / 4`, with `e2-figure-eight` failing on qdot saturation and tail
+  max qdot utilization.
+- Limit:
+  This is diagnostic-label simulation evidence only. It is not a strict
+  paper-equivalent claim, robustness proof, contact-model calibration, or
+  hardware readiness. The relaxed `0.12 rad` config is a run artifact, not a
+  canonical config change.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_relaxed_orientation_recovery.py scripts/audit_stage_a_contact_path.py scripts/track_stage_a_contact_path.py`
+  passed. Full tests passed with `115 passed in 2.44s`; `git diff --check`
+  passed.
+- Next step:
+  Combine the v70 relaxed terminal/path setup with a Stage B E2 timing or qdot
+  margin audit.
