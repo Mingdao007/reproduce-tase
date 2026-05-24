@@ -83,13 +83,15 @@ work exists only on that branch.
   terminal setup label only; v58 selects that label as the next Stage A
   simulation prototype target. v59 shows direct Stage B handoff from that
   target still fails `0 / 4` on qdot saturation. v60 shows a slowed low-gain
-  diagnostic handoff can pass `4 / 4`, but this is still not a Stage A path or
-  paper-equivalent trajectory claim.
+  diagnostic handoff can pass `4 / 4`. v61 finds an offline qdot-limited
+  contact path to the selected target, but this is still not an online
+  controller or paper-equivalent trajectory claim.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Implement a qdot-aware Stage A path to the selected
-`ur10e_adapted_terminal_setup_diagnostic` target, or keep v60 labeled as
-direct-target handoff evidence only.
+Track the v61 offline contact path with an online qdot-aware Stage A
+controller, then connect it to the v60 slowed handoff under one explicit timing
+and acceptance policy. Keep v61 labeled as offline path evidence until that
+controller exists.

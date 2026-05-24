@@ -1639,6 +1639,30 @@ Legacy source root:
   and target-pair force/contact accounting. This is direct-target handoff
   evidence only, not a Stage A path or paper-equivalent trajectory claim.
 
+## V61 Stage A Contact Path Audit
+
+### Offline quasi-static contact path to selected diagnostic target
+
+- Run:
+  - `runs/stage_a_contact_path_audit/20260524T151201`
+- Command:
+  `scripts/audit_stage_a_contact_path.py`
+- Git state at run time:
+  commit `878bb1649f876344f703a3a4d8156ece32847c12`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, `path.csv`, and
+  `git_state.md`.
+- Result:
+  The audit finds a 128-knot offline quasi-static contact path from the
+  ordinary initial q to the v58 selected diagnostic target. The path gate and
+  terminal diagnostic gate pass with target contact present throughout. The
+  qdot-limited minimum duration for `0.15 rad/s` is
+  `14.332635022800167 s`.
+- Limit:
+  This is offline path evidence only. It is not an online Stage A controller,
+  strict trajectory-feasibility claim, paper-equivalent claim, or hardware
+  claim.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

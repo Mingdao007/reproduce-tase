@@ -201,13 +201,16 @@ them rather than deleting them.
 - The v60 qdot-aware diagnostic handoff slows timing, lowers force gain, and
   holds the diagnostic orientation envelope. It reports `4 / 4` direct-target
   handoff passes, but it still does not implement a Stage A path.
+- The v61 contact path audit finds an offline 128-knot quasi-static path from
+  ordinary initial q to the selected diagnostic target with a qdot-limited
+  minimum duration of `14.332635022800167 s`, but it is not an online
+  controller.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
-achieved. Future UR10e experiment branches should implement a qdot-aware
-Stage A path to the selected `ur10e_adapted_terminal_setup_diagnostic` target
-before using v60 as more than direct-target handoff evidence. Keep strict
-paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
-labels.
+achieved. Future UR10e experiment branches should track the v61 offline path
+with an online qdot-aware Stage A controller before using v61 as more than
+offline path evidence. Keep strict paper-equivalent setup and v38
+trajectory-after-relaxed-setup as separate labels.

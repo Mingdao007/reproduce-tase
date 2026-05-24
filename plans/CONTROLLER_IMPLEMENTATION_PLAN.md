@@ -228,8 +228,8 @@ smoke runs regress.
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should
-implement a qdot-aware Stage A path to the selected
-`ur10e_adapted_terminal_setup_diagnostic` target, then reuse the v60 handoff
-parameters only under the direct-target claim boundary. Keep contact, drift,
-terminal orientation, force error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should track the
+v61 offline contact path with an online qdot-aware Stage A controller, then
+reuse the v60 handoff parameters only under one explicit timing and acceptance
+policy. Keep contact, drift, terminal orientation, force error, and qdot
+saturation visible together.

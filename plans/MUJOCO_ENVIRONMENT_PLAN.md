@@ -61,11 +61,12 @@ contact behavior regresses.
   for the next Stage A simulation prototype. v59 evaluates direct Stage B
   handoff from that target and keeps target contact, but qdot saturation still
   blocks a trajectory claim. v60 shows slowed low-gain direct-target handoff
-  can avoid saturation, but this does not make the model hardware-ready.
+  can avoid saturation, and v61 finds an offline qdot-limited contact path to
+  the selected target, but neither result makes the model hardware-ready.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should implement a qdot-aware path to the
-selected diagnostic terminal setup unless a later decision changes the label.
+simulation controller prototype should track the v61 qdot-aware offline path to
+the selected diagnostic terminal setup unless a later decision changes the label.

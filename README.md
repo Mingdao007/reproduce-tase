@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v58-stage-a-target-selection`
+Current branch: `exp/tase-ur10e-v61-contact-path-to-diagnostic-target`
 
 ## Scope
 
@@ -45,10 +45,11 @@ Current accepted claims are tracked in `reports/completion_audit.md`.
 UR10e results remain adapted simulation evidence, not hardware evidence. v58
 selects the v57 diagnostic terminal setup target for the next Stage A
 simulation prototype. v59 shows direct handoff from that target to Stage B
-keeps target contact but still fails all E1-E4 rows on qdot saturation. This
-is not a trajectory-feasibility or hardware claim. v60 adds a slowed,
-low-gain diagnostic handoff that passes `4 / 4` from the selected target, but
-it still does not implement a Stage A path to that target.
+keeps target contact but still fails all E1-E4 rows on qdot saturation. v60
+adds a slowed, low-gain diagnostic handoff that passes `4 / 4` from the
+selected target. v61 adds an offline 128-knot quasi-static contact path from
+the ordinary initial q to that target, but it is not an online controller,
+strict trajectory-feasibility claim, paper-equivalent claim, or hardware claim.
 
 ## Test Command
 

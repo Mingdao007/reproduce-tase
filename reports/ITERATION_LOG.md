@@ -2361,3 +2361,38 @@
 - Next step:
   Implement a qdot-aware Stage A path to the selected diagnostic terminal
   target, or keep v60 labeled as direct-target handoff evidence only.
+
+## 2026-05-24 v61 Contact Path To Diagnostic Target
+
+### Offline quasi-static Stage A path audit
+
+- Branch:
+  `exp/tase-ur10e-v61-contact-path-to-diagnostic-target`
+- Code commit:
+  `878bb1649f876344f703a3a4d8156ece32847c12`
+- Run:
+  `runs/stage_a_contact_path_audit/20260524T151201`
+- Report:
+  `reports/stage_a_contact_path_audit_report.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_stage_a_contact_path.py`
+  - `python3 -m py_compile src/tase_repro/stage_a_contact_path.py scripts/audit_stage_a_contact_path.py`
+  - `scripts/audit_stage_a_contact_path.py`
+- Result:
+  The audit finds an offline 128-knot quasi-static contact path from the
+  ordinary initial q to the selected diagnostic target. The path gate and
+  terminal diagnostic gate pass. Target contact is present throughout, max
+  force error is `0.005097546556703136 N`, and the minimum duration for the
+  `0.15 rad/s` qdot budget is `14.332635022800167 s`.
+- Limit:
+  This is offline path evidence only. It does not prove an online Stage A
+  controller can track the path, does not prove strict trajectory feasibility,
+  and does not authorize hardware use. The force-normal orientation error is
+  not under the terminal diagnostic threshold at every intermediate knot.
+- Validation:
+  Focused tests passed with `4 passed in 0.11s`. Full tests passed with
+  `100 passed in 2.55s`; `git diff --check` passed.
+- Next step:
+  Track the v61 offline path with an online qdot-aware Stage A controller, then
+  connect it to the v60 slowed handoff under one explicit timing and acceptance
+  policy.

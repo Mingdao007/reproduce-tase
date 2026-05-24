@@ -1285,3 +1285,22 @@
   trajectory feasibility, paper-equivalent feasibility, or hardware readiness
   until a controller reaches that target from an ordinary initial state under
   the same claim boundary.
+
+## D066: Treat The Contact Path As Offline Evidence Until An Online Tracker Exists
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record the v61 contact path audit as offline quasi-static path evidence only.
+- Reason:
+  The v61 run at `runs/stage_a_contact_path_audit/20260524T151201` optimizes a
+  128-knot contact-manifold path from the ordinary setup initial q to the v58
+  selected diagnostic terminal target. The path gate and terminal diagnostic
+  gate pass, target contact is present throughout, and the minimum duration for
+  the `0.15 rad/s` qdot budget is `14.332635022800167 s`.
+- Consequence:
+  The project can claim that an offline qdot-limited contact path exists for
+  the diagnostic target. It still must not claim an online Stage A controller,
+  strict trajectory feasibility, paper-equivalent feasibility, hardware
+  readiness, or all-knot force-normal diagnostic orientation compliance from
+  this result alone.
