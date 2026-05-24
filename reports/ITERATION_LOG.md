@@ -3099,8 +3099,8 @@
   `python3 -m py_compile scripts/audit_planar_priority_stress.py` passed. Full
   tests passed with `115 passed in 2.60s`; `git diff --check` passed. The run
   artifact is lightweight: `474` files, `7.2M`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
-  pending.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `6207d72c588802f2181234037e5c40301376d43a`.
 - Next step:
   Choose the next diagnostic branch from the v81 failure modes: redesign the
   faster-timing E2 qdot/tail-utilization behavior at `paper_time_scale =
