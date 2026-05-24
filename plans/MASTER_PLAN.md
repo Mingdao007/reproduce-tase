@@ -121,13 +121,17 @@ work exists only on that branch.
   still not robust, paper-equivalent, or hardware evidence. v77 isolates the
   tightened-orientation `+1.0 mm` boundary: Stage A passes once the gate reaches
   `0.1195 rad`, while full stitched recovery first passes at `0.11998 rad`
-  because E2 reaches `0.1199788204275829 rad` under v72 timing.
+  because E2 reaches `0.1199788204275829 rad` under v72 timing. v78 tests the
+  existing Stage B `orientation_kp` feedback hook on that localized E2 row and
+  finds `0 / 30` stitched probe passes: low gains miss orientation, while
+  orientation-correcting gains fail qdot saturation and/or tail qdot
+  utilization even up to `0.25 rad/s`.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Test a targeted Stage B orientation-margin/control change or revisit the
-terminal/contact model before claiming anything stronger than diagnostic
+Revisit the terminal/contact model or test a redesigned Stage B
+priority/posture formulation before claiming anything stronger than diagnostic
 recovery. Keep strict paper-equivalent setup, v38 relaxed
-trajectory-after-relaxed-setup, and v63-v77 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v78 diagnostic staged labels separate.

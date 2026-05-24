@@ -95,12 +95,16 @@ contact behavior regresses.
   fails on E2 orientation just above the diagnostic `0.12 rad` gate; Stage A
   passes every timing case. v77 isolates the tightened-orientation boundary:
   Stage A passes at `0.1195 rad`, but full stitched recovery first passes at
-  `0.11998 rad` because E2 reaches `0.1199788204275829 rad`.
+  `0.11998 rad` because E2 reaches `0.1199788204275829 rad`. v78 tests the
+  existing Stage B `orientation_kp` feedback hook at a `0.11995 rad` gate and
+  finds no feasible E2 cell: low gains miss orientation, while
+  orientation-correcting gains fail qdot saturation/tail utilization even with
+  qdot limits up to `0.25 rad/s`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should test a targeted Stage B
-orientation-margin/control change or revisit the terminal/contact model before
-claiming anything stronger than diagnostic recovery.
+simulation controller prototype should revisit the terminal/contact model or
+test a redesigned Stage B priority/posture formulation before claiming anything
+stronger than diagnostic recovery.

@@ -2941,3 +2941,42 @@
   Test a targeted Stage B orientation-margin/control change or revisit the
   terminal/contact model before claiming anything stronger than diagnostic
   recovery.
+
+## 2026-05-24 v78 Stage B Orientation Kp Probe
+
+### Test the existing Stage B orientation-feedback hook at the tightened gate
+
+- Branch:
+  `exp/tase-ur10e-v78-stage-b-orientation-kp-probe`
+- Run:
+  `runs/stage_b_orientation_kp_probe/20260524T222953`
+- Report:
+  `reports/stage_b_orientation_kp_probe_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_stage_b_orientation_kp_probe.py`
+  - `scripts/audit_stage_b_orientation_kp_probe.py`
+- Result:
+  The audit isolates the v77 tightened-orientation `+1.0 mm` E2 row at a
+  `0.11995 rad` Stage A/Stage B orientation gate while holding the v70 relaxed
+  target/path setup, `stage_a_duration_s = 15.0`, and
+  `paper_time_scale = 0.005` fixed. It sweeps qdot limits
+  `[0.15, 0.16, 0.18, 0.2, 0.25] rad/s` and `orientation_kp` values
+  `[0, 0.001, 0.002, 0.003, 0.005, 0.01]` for E2 only. Stage A passes every
+  case, but stitched recovery passes `0 / 30`. `13 / 30` rows get E2
+  orientation under `0.11995 rad`, but every orientation-correcting row fails
+  qdot saturation and/or tail qdot utilization.
+- Limit:
+  This is diagnostic-label E2 Stage B probe evidence only. It does not change
+  canonical controller defaults, does not prove full E1-E4 stitched recovery,
+  and is not strict paper-equivalent, robust, calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_stage_b_orientation_kp_probe.py`
+  passed. Full tests passed with `115 passed in 2.54s`; `git diff --check`
+  passed. The run artifact is lightweight: `215` files, `1.6M`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
+  pending.
+- Next step:
+  Move away from single-gain Stage B orientation feedback as the direct fix.
+  Revisit the terminal/contact model or test a redesigned Stage B
+  priority/posture formulation before claiming anything stronger than
+  diagnostic recovery.

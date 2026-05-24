@@ -1663,3 +1663,29 @@
   terminal/contact model before claiming anything beyond diagnostic recovery.
   The project still must not claim robustness, strict paper-equivalent
   feasibility, contact-model calibration, or hardware readiness.
+
+## D083: Reject Single-Gain Stage B Orientation Feedback As The Tightened-Gate Fix
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v78 as evidence that enabling the existing Stage B `orientation_kp`
+  feedback hook is not a clean recovery for the v77 tightened-orientation
+  `+1.0 mm` E2 boundary under the current linear-primary formulation.
+- Reason:
+  The v78 run at `runs/stage_b_orientation_kp_probe/20260524T222953` holds the
+  v70 relaxed target/path setup, `stage_a_duration_s = 15.0`,
+  `paper_time_scale = 0.005`, and a `0.11995 rad` Stage A/Stage B orientation
+  gate fixed while sweeping qdot limits `[0.15, 0.16, 0.18, 0.2, 0.25] rad/s`
+  and `orientation_kp` values `[0, 0.001, 0.002, 0.003, 0.005, 0.01]` for the
+  localized E2 row. Stage A passes all `30 / 30` cells, but stitched recovery
+  passes `0 / 30`. Low gains preserve qdot budget and still fail
+  `max_orientation_error_rad`; gains that reduce E2 orientation below the gate
+  fail qdot saturation and/or tail qdot utilization, even at relaxed qdot
+  limits up to `0.25 rad/s`.
+- Consequence:
+  The next branch should revisit the terminal/contact model or test a
+  redesigned Stage B priority/posture formulation that can create orientation
+  margin without driving qdot saturation. The project still must not claim
+  robustness, strict paper-equivalent feasibility, contact-model calibration,
+  or hardware readiness.

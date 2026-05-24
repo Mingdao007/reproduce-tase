@@ -281,13 +281,18 @@ smoke runs regress.
   `orientation_gate_0p119` `+1.0 mm` failure: Stage A passes once the gate is
   `0.1195 rad`, but full stitched recovery first passes at `0.11998 rad`
   because E2 reaches `0.1199788204275829 rad`.
+- The v78 Stage B orientation-kp probe tests the existing `orientation_kp`
+  feedback hook at a `0.11995 rad` gate on the localized E2 `+1.0 mm` row.
+  Stage A passes all `30 / 30` cells, but stitched recovery passes `0 / 30`:
+  low gains preserve qdot while missing orientation, and gains that meet the
+  orientation gate fail qdot saturation and/or tail qdot utilization.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should move to
-a targeted Stage B orientation-margin/control change or revisit the
-terminal/contact model before claiming anything stronger than diagnostic
+revisiting the terminal/contact model or testing a redesigned Stage B
+priority/posture formulation before claiming anything stronger than diagnostic
 recovery. Keep contact, drift, terminal orientation, force error, and qdot
 saturation visible together.

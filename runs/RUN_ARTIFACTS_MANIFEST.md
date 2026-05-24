@@ -2080,6 +2080,35 @@ Legacy source root:
   a canonical-config change, strict paper-equivalent claim, robustness proof,
   contact-model calibration, or hardware evidence.
 
+## V78 Stage B Orientation Kp Probe
+
+### E2 orientation-feedback probe at the tightened gate
+
+- Run:
+  - `runs/stage_b_orientation_kp_probe/20260524T222953`
+- Command:
+  `scripts/audit_stage_b_orientation_kp_probe.py`
+- Git state at run time:
+  parent commit `31e3dfdcced6807232931d2e94e7a6383befac7a` with dirty v78
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  a run-local copied Stage A target config under `configs/`, plus per-qdot and
+  per-`orientation_kp` E2 stitched metrics/summaries/commands under `cases/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, the `+1.0 mm` positive
+  cell, `stage_a_duration_s = 15.0`, `paper_time_scale = 0.005`, and a
+  `0.11995 rad` Stage A/Stage B orientation gate fixed. Stage A passes
+  `30 / 30` E2 probe cells, but stitched recovery passes `0 / 30`. Low
+  `orientation_kp` values preserve qdot while failing orientation; gains that
+  satisfy orientation fail qdot saturation and/or tail qdot utilization even
+  with qdot limits up to `0.25 rad/s`.
+- Limit:
+  This is diagnostic-label E2 Stage B probe evidence only. It is not a
+  canonical-config change, full E1-E4 stitched recovery, strict
+  paper-equivalent claim, robustness proof, contact-model calibration, or
+  hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

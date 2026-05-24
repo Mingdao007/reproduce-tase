@@ -269,6 +269,11 @@ them rather than deleting them.
   `orientation_gate_0p119` `+1.0 mm` failure. Stage A terminal orientation
   passes once the gate reaches `0.1195 rad`; full stitched recovery first
   passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad`.
+- The v78 Stage B orientation-kp probe tests the existing orientation-feedback
+  hook on the localized E2 `+1.0 mm` row at a `0.11995 rad` gate. Stage A
+  passes all `30 / 30` cells, but stitched recovery passes `0 / 30`: low gains
+  miss orientation, while orientation-correcting gains fail qdot saturation
+  and/or tail qdot utilization.
 
 ## Next Executable Step
 
@@ -289,5 +294,7 @@ with a `18.035 s` duration. v75 recovers the full qdot012 positive matrix at
 that duration. v76 brackets the `+1.0 mm` faster-timing failure at
 `paper_time_scale = 0.0052` pass versus `0.0054` first fail. v77 brackets the
 tightened-orientation boundary at `0.11997` fail versus `0.11998` first
-stitched pass. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v77 diagnostic staged labels separate.
+stitched pass. v78 rules out the current single-gain Stage B `orientation_kp`
+hook as a clean recovery for that boundary. Keep strict paper-equivalent setup,
+v38 trajectory-after-relaxed-setup, and v63-v78 diagnostic staged labels
+separate.

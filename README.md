@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v77-positive-orientation-gate-boundary`
+Current branch: `exp/tase-ur10e-v78-stage-b-orientation-kp-probe`
 
 ## Scope
 
@@ -99,6 +99,12 @@ and above. v77 isolates the tightened-orientation `+1.0 mm` boundary: Stage A
 passes once the gate reaches `0.1195 rad`, but full stitched recovery first
 passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad` under the
 v72 timing.
+v78 tests that proposed Stage B orientation-control direction directly: on the
+localized E2 `+1.0 mm` row with a `0.11995 rad` gate, Stage A passes all
+`30 / 30` probe cases but stitched recovery passes `0 / 30`. Low
+`orientation_kp` values preserve qdot budget while missing orientation; gains
+that meet orientation consume qdot budget, even with qdot limits up to
+`0.25 rad/s`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
