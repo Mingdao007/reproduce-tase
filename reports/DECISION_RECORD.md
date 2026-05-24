@@ -1958,3 +1958,25 @@
   read-only step. The template is not collected measurement evidence, not an
   accepted calibration, not a gate relaxation, and not authorization for robot
   motion, writes, zeroing, force control, or hardware claims.
+
+## D094: Require Offline Run-Audit Before Treating Read-Only Worksheets As Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v89 as an offline audit gate for read-only calibration measurement
+  run folders. A scaffolded or worksheet-filled run should be checked by
+  `scripts/audit_read_only_calibration_measurement_run.py` before it is cited
+  as evidence.
+- Reason:
+  The v89 audit at
+  `runs/read_only_calibration_measurement_run_audit/20260525T012835` verifies
+  required files, metrics YAML/JSON consistency, worksheet headers, non-executed
+  status, false execution flags, false hardware/gate/calibration verdicts,
+  false claim-boundary flags, expected missing-evidence statuses, and absence
+  of heavy payloads. The v88 scaffold run passed with no violations.
+- Consequence:
+  Passing the audit only proves that the run remains internally consistent and
+  claim-safe. It is not measurement evidence, not an accepted calibration, not
+  a gate relaxation, and not authorization for robot motion, writes, zeroing,
+  force control, or hardware claims.

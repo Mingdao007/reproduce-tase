@@ -2395,6 +2395,28 @@ Legacy source root:
   not an accepted replacement orientation gate, not a strict paper-equivalent
   claim, and not hardware authorization.
 
+## V89 Read-Only Calibration Measurement Run Audit
+
+### Offline claim-boundary verifier for measurement run folders
+
+- Script:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+- Run:
+  - `runs/read_only_calibration_measurement_run_audit/20260525T012835`
+- Command:
+  `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T012234 --run-id 20260525T012835`
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The v88 scaffold run passed the offline audit with `audit_passed = true` and
+  `violations = []`. The audit confirms no live hardware access, robot motion,
+  configuration writes, zeroing/biasing, force control, gate relaxation, or
+  hardware-readiness claim is present in the audited run.
+- Limit:
+  This is not collected measurement evidence, not a calibrated contact model,
+  not an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

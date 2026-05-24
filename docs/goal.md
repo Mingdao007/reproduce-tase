@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v89.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v88 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 finds current local records insufficient to accept that margin. v87 adds a read-only measurement/SOP artifact. v88 adds a reusable non-executed template/scaffold and run folder for future mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics evidence. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should execute only a safe read-only SOP subset after explicit user confirmation, or keep refining the template if any measurement path is ambiguous. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v88 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v90.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v89 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 finds current local records insufficient to accept that margin. v87 adds a read-only measurement/SOP artifact. v88 adds a reusable non-executed template/scaffold and run folder for future mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics evidence. v89 adds an offline run-audit gate for scaffolded measurement folders. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold and verifier, or keep refining the template/audit gates if any measurement path is ambiguous. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v89 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v88` repository state. The project goal is to reproduce the T-ASE finite-time
+`v89` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,19 +34,22 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v88-readonly-measurement-templates`
+  `exp/tase-ur10e-v89-readonly-run-audit`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
   `templates/read_only_calibration_measurement/`
   `scripts/create_read_only_calibration_measurement_run.py`
   `runs/read_only_calibration_measurement/20260525T012234`
+- Current v89 run-audit artifacts:
+  `scripts/audit_read_only_calibration_measurement_run.py`
+  `runs/read_only_calibration_measurement_run_audit/20260525T012835`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v89.md`
+  `docs/goal_handoff_v90.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -284,6 +287,10 @@ Current accepted claims:
   into reusable worksheets plus a scaffold command and template-only run. The
   run remains `scaffold_created_not_executed` and keeps all hardware, gate
   relaxation, calibration, and contact-model update claims false.
+- `ur10e_read_only_calibration_measurement_run_audit`: v89 adds an offline
+  verifier for read-only measurement run folders. The v88 scaffold run passed
+  with `audit_passed = true` and `violations = []`; this is consistency and
+  claim-boundary evidence only, not collected hardware evidence.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -294,10 +301,11 @@ precision. Future work must still keep these claim levels separate.
 Current next executable step:
 
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
-  after explicit user confirmation, using the v88 scaffold for evidence
-  capture; or refine the template if any measurement path is ambiguous. Keep
-  strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v88 diagnostic staged labels separate.
+  after explicit user confirmation, using the v88 scaffold and v89 verifier
+  for evidence capture; or refine the template/audit gates if any measurement
+  path is ambiguous. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63-v89 diagnostic staged labels
+  separate.
 
 ## Safety Boundary
 

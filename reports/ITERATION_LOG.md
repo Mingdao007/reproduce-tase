@@ -3379,3 +3379,39 @@
 - Next step:
   Use the scaffold only for an explicitly approved read-only SOP step, or keep
   refining the worksheets if the live measurement path is still ambiguous.
+
+## 2026-05-25 v89 Read-Only Run Audit
+
+### Add an offline claim-boundary verifier for scaffolded measurement runs
+
+- Branch:
+  `exp/tase-ur10e-v89-readonly-run-audit`
+- Run:
+  `runs/read_only_calibration_measurement_run_audit/20260525T012835`
+- Report:
+  `reports/read_only_calibration_measurement_run_audit_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T012234 --run-id 20260525T012835`
+- Result:
+  Added `scripts/audit_read_only_calibration_measurement_run.py`, which checks
+  required files, metrics YAML/JSON consistency, worksheet headers, non-executed
+  status, false execution flags, false hardware/gate/calibration verdicts,
+  false claim-boundary flags, expected missing-evidence statuses, and absence
+  of heavy payloads. The v88 scaffold run passed with no violations.
+- Limit:
+  This is an offline consistency and claim-boundary audit only. It does not
+  collect measurements, execute the SOP, calibrate the contact model, accept
+  any replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  passed; focused scaffold/audit tests passed with `3 passed in 0.63s`; full
+  tests passed with `118 passed in 3.22s`; `git diff --check` passed before
+  full-test validation. The generated audit artifact has `4` files, `20K`, and
+  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Use the verifier before any future worksheet-filled run is cited as evidence.
+  Live bench evidence still requires explicit approval for the exact read-only
+  SOP step.
