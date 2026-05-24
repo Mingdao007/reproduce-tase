@@ -3047,6 +3047,45 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V108 Base-Z Plus1mm Split Audit
+
+### Split start-contact, terminal-orientation, path, and handoff blockers
+
+- Scripts:
+  - `scripts/audit_base_z_plus1mm_split.py`
+- Runs:
+  - `runs/base_z_plus1mm_split/20260525T071440`
+- Report:
+  - `reports/base_z_plus1mm_split_report.md`
+- Tests:
+  - `tests/test_base_z_plus1mm_split.py`
+- Command:
+  `python3 scripts/audit_base_z_plus1mm_split.py --output-dir runs/base_z_plus1mm_split/20260525T071440`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The exact v99 `base_z_plus1mm` command remains `executed_unresolved`, but
+  the post-hoc split narrows the blockers. Broader seeds recover start contact
+  at `+1.0 mm`; terminal force/x-y/contact passes; terminal orientation
+  `0.11948560786548146 rad` exceeds the current `0.08 rad` diagnostic gate;
+  the run-local `0.12 rad` gate recovers terminal/path with minimum path
+  duration `10.018584837157274 s`; stitched Stage B remains unrecovered with
+  handoff counts `3 / 4` at both tested durations.
+- Validation:
+  Focused tests passed with `3 passed in 0.09s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `153 passed in 7.22s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V108_IMPLEMENTATION_COMMIT_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is post-hoc diagnostic
+  simulation bookkeeping over existing metrics and does not close the v99
+  `base_z_plus1mm` failed cell. It is not a calibrated contact model, not an
+  accepted replacement orientation gate, not a canonical config change, not a
+  strict paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -2382,3 +2382,32 @@
   acceptance boundary for promoting weighted priority into a named diagnostic
   controller profile, or switch to the `base_z_plus1mm` start-contact versus
   terminal-orientation split.
+
+## D113: Split Base-Z Plus1mm Without Closing The Failed Cell
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v108 as a post-hoc offline split audit for the unresolved
+  `base_z_plus1mm` failed cell.
+- Reason:
+  V100 executed the exact v99 `base_z_plus1mm` command and found no start
+  pass, terminal pass, path geometry pass, or duration recovery. V108 avoids
+  rerunning MuJoCo and reads the existing v100, v68, v69, and v70 metrics to
+  separate the failure modes. The exact planned start still fails, but the v68
+  broader seed search recovers `+1.0 mm` start contact. The v69 terminal row
+  passes force, x/y, and contact criteria, while orientation is
+  `0.11948560786548146 rad`, exceeding the current `0.08 rad` gate by
+  `0.039485607865481456 rad`. The v70 run-local `0.12 rad` gate recovers
+  terminal and path feasibility with minimum path duration
+  `10.018584837157274 s`, but stitched Stage B remains `3 / 4` at both tested
+  durations.
+- Consequence:
+  Treat the `base_z_plus1mm` start miss as local seed-limited, and treat
+  terminal/path recovery as orientation-gate limited under the current
+  contact-point model. Do not close the original v99 failed cell, accept
+  `0.12 rad` as a canonical gate, change canonical configs, prove robustness,
+  prove strict paper-equivalent feasibility, calibrate contact geometry,
+  establish hardware readiness, or authorize hardware motion/configuration.
+  Future offline work can target weighted-priority acceptance or the relaxed
+  `base_z_plus1mm` Stage B handoff blocker.

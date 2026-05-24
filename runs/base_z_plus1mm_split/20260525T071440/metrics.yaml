@@ -1,0 +1,154 @@
+run_source: v108 base_z_plus1mm start-contact terminal-orientation split
+source_files:
+  execution_audit: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_audit/20260525T061328/metrics.yaml
+  exact_base_z_plus1mm: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm/metrics.yaml
+  positive_base_z_start_contact: /home/andy/reproduce-tase/runs/positive_base_z_start_contact/20260524T170350/metrics.yaml
+  positive_terminal_orientation: /home/andy/reproduce-tase/runs/positive_terminal_orientation/20260524T171705/metrics.yaml
+  positive_relaxed_orientation_recovery: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/metrics.yaml
+case: delta_p1p000mm
+variant: contact_point
+base_z_offset_delta_m: 0.001
+base_z_offset_delta_mm: 1.0
+exact_planned_cell:
+  status: executed_unresolved
+  closure_passed: false
+  observed_status: start_and_terminal_not_found
+  planned_parameters_match: true
+  start_passed: false
+  start_failed_criteria:
+  - force_error_N
+  - target_contact_count
+  terminal_passed: false
+  terminal_failed_criteria:
+  - orientation_error_rad
+  path_recovered: false
+  duration_recovered_count: 0
+  diagnostic_orientation_gate_rad: 0.08
+broader_start_search:
+  passed: true
+  pass_count: 6
+  candidate_count: 115611
+  contact_candidate_count: 42290
+  best_seed: joint1_+0.033500__joint2_-0.037000
+  force_error_N: 0.14209391841232932
+  tangential_error_m: 0.0030145867556624815
+  target_contact_count: 1
+  failed_criteria: []
+terminal_orientation:
+  force_xy_contact_passed: true
+  diagnostic_passed: false
+  force_normal_only_passed: false
+  full_rotation_error_rad: 0.11948560786548146
+  force_normal_only_error_rad: 0.11948560786547915
+  full_minus_force_normal_abs_rad: 2.3037127760972e-15
+  orientation_excess_over_exact_gate_rad: 0.039485607865481456
+  orientation_margin_to_relaxed_gate_rad: 0.0005143921345185376
+  threshold_eval:
+    force_xy_contact_passed: true
+    orientation_thresholds_rad:
+      '0.080':
+        full_rotation_passed: false
+        force_normal_only_passed: false
+      '0.090':
+        full_rotation_passed: false
+        force_normal_only_passed: false
+      '0.100':
+        full_rotation_passed: false
+        force_normal_only_passed: false
+      '0.110':
+        full_rotation_passed: false
+        force_normal_only_passed: false
+      '0.120':
+        full_rotation_passed: true
+        force_normal_only_passed: true
+relaxed_gate_recovery:
+  relaxed_gate_rad: 0.12
+  terminal_solver_orientation_threshold_rad: 0.08
+  start_passed: true
+  terminal_passed: true
+  path_passed: true
+  path_min_duration_s: 10.018584837157274
+  path_max_abs_qdot_rad_s: 0.15
+  path_target_contact_present_fraction: 1.0
+  path_max_force_error_N: 0.14209391841232932
+  path_max_scheduled_xy_error_m: 8.519566005389148e-09
+  path_max_scheduled_orientation_error_rad: 6.19010766744808e-07
+  stitched_recovered: false
+  duration_rows:
+  - stage_a_duration_s: 15.0
+    stitched_ran: true
+    stitched_passed: false
+    stage_a_passed: true
+    handoff_pass_count: 3
+    handoff_trajectory_count: 4
+    handoff_count: 3/4
+    stage_a_max_qdot_rad_s: 0.10018584837167505
+    stage_a_terminal_force_error_N: 0.0015639424746973773
+  - stage_a_duration_s: 16.0
+    stitched_ran: true
+    stitched_passed: false
+    stage_a_passed: true
+    handoff_pass_count: 3
+    handoff_trajectory_count: 4
+    handoff_count: 3/4
+    stage_a_max_qdot_rad_s: 0.09392423284836762
+    stage_a_terminal_force_error_N: 0.0015639424746973773
+summary:
+  base_z_offset_delta_mm: 1.0
+  exact_planned_cell_status: executed_unresolved
+  exact_observed_status: start_and_terminal_not_found
+  exact_closure_passed: false
+  exact_start_passed: false
+  broader_start_search_passed: true
+  start_contact_is_local_seed_limited: true
+  terminal_force_xy_contact_passed: true
+  terminal_diagnostic_passed: false
+  terminal_orientation_error_rad: 0.11948560786548146
+  exact_orientation_gate_rad: 0.08
+  orientation_excess_over_exact_gate_rad: 0.039485607865481456
+  relaxed_gate_rad: 0.12
+  relaxed_gate_margin_rad: 0.0005143921345185376
+  relaxed_terminal_passed: true
+  relaxed_path_passed: true
+  relaxed_path_min_duration_s: 10.018584837157274
+  relaxed_stitched_recovered: false
+  relaxed_stage_b_handoff_pass_counts:
+  - 3/4
+  - 3/4
+  split_classification: start_seed_terminal_gate_limited_stage_a_with_stage_b_handoff_unresolved
+  terminal_path_are_gate_limited: true
+  stage_a_path_recovered_under_relaxed_gate: true
+  stage_b_handoff_remains_blocked: true
+  failed_cell_closed: false
+  canonical_orientation_gate_change_accepted: false
+claim_boundary:
+  post_hoc_offline_audit_only: true
+  failed_cell_closed: false
+  canonical_orientation_gate_change: false
+  canonical_config_change: false
+  robustness_claim: false
+  strict_paper_equivalent_feasibility: false
+  contact_calibration_claim: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+next_offline_actions:
+- Do not mark base_z_plus1mm closed from this split audit.
+- Keep the 0.12 rad orientation envelope run-local unless a separate gate acceptance
+  decision exists.
+- Treat the start-contact miss as local seed-limited, not a fundamental positive base-z
+  contact impossibility.
+- Treat terminal/path recovery as orientation-gate limited under the current contact-point
+  model.
+- Treat stitched recovery as still blocked by Stage B handoff timing/qdot margin.
+warnings:
+- post-hoc offline audit of existing metrics only
+- does not rerun MuJoCo or change controller defaults
+- does not accept a replacement orientation gate
+- does not change canonical configs
+- does not calibrate contact geometry or force frames
+- not strict paper-equivalent feasibility
+- not a robustness proof
+- not hardware-ready
+run_id: 20260525T065657

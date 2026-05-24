@@ -4163,3 +4163,47 @@
   weighted priority into a named diagnostic controller profile; the other clean
   target is the `base_z_plus1mm` start-contact versus terminal-orientation
   split.
+
+## 2026-05-25 v108 Base-Z Plus1mm Split Audit
+
+### Split start-contact, terminal-orientation, path, and handoff blockers
+
+- Branch:
+  `exp/tase-ur10e-v108-base-z-plus1mm-split`
+- Runs:
+  - `runs/base_z_plus1mm_split/20260525T071440`
+- Report:
+  `reports/base_z_plus1mm_split_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_base_z_plus1mm_split.py`
+  - `scripts/run_tests.sh tests/test_base_z_plus1mm_split.py`
+  - `python3 scripts/audit_base_z_plus1mm_split.py --output-dir runs/base_z_plus1mm_split/20260525T071440`
+  - `rg -n "&id|\*id" runs/base_z_plus1mm_split/20260525T071440/metrics.yaml`
+  - `find runs/base_z_plus1mm_split/20260525T071440 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The post-hoc split keeps the exact v99 `base_z_plus1mm` cell unresolved, but
+  separates the blockers. Broader seeds recover `+1.0 mm` start contact, so
+  the exact start miss is local seed-limited. Terminal force/x-y/contact
+  passes, but terminal orientation is `0.11948560786548146 rad`, which exceeds
+  the current `0.08 rad` diagnostic gate by `0.039485607865481456 rad`. The
+  run-local `0.12 rad` gate recovers terminal and path feasibility with
+  minimum path duration `10.018584837157274 s`, but stitched Stage B remains
+  unrecovered with handoff counts `3 / 4` at both tested durations.
+- Limit:
+  This is post-hoc offline bookkeeping over existing metrics. It does not
+  rerun MuJoCo, close the v99 `base_z_plus1mm` failed cell, accept the
+  `0.12 rad` gate as canonical, change canonical configs, calibrate contact
+  geometry, prove robustness, prove strict paper-equivalent feasibility, or
+  authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.09s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `153 passed in 7.22s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V108_IMPLEMENTATION_COMMIT_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. A next branch
+  can audit the acceptance boundary for promoting weighted priority into a
+  named diagnostic controller profile, or target the relaxed `base_z_plus1mm`
+  Stage B handoff timing/qdot blocker while keeping the relaxed orientation
+  gate non-canonical.
