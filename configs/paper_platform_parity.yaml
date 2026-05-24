@@ -1,9 +1,9 @@
 paper_platform_parity:
   claim: paper_platform_7dof_strict_parity
   candidate:
-    label: python_v43_capped_integral_kkt
-    metrics_path: runs/paper_7dof_section_v/20260524T114736/metrics.yaml
-    raw_npz_path: runs/paper_7dof_section_v/20260524T114736/paper_7dof_section_v_raw.npz
+    label: python_v45_30s_capped_integral_kkt
+    metrics_path: runs/paper_7dof_section_v/20260524T120439/metrics.yaml
+    raw_npz_path: runs/paper_7dof_section_v/20260524T120439/paper_7dof_section_v_raw.npz
   legacy_references:
     formula_faithful:
       label: paper_method_formula_faithful
