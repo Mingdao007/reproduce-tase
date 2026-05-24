@@ -2760,3 +2760,39 @@
 - Next step:
   Stress-test the v72 recovered positive stitched policy under a compact
   sensitivity matrix.
+
+## 2026-05-24 v73 Positive Stitched Sensitivity Audit
+
+### Bound the recovered positive stitched diagnostic policy
+
+- Branch:
+  `exp/tase-ur10e-v73-positive-stitched-sensitivity`
+- Run:
+  `runs/positive_stitched_sensitivity/20260524T193845`
+- Report:
+  `reports/positive_stitched_sensitivity_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_stitched_sensitivity.py`
+  - `scripts/audit_positive_stitched_sensitivity.py`
+- Result:
+  The audit reuses the v70 run-local relaxed terminal/path setup and tests five
+  compact sensitivity scenarios across the same eight positive deltas and all
+  E1-E4 Stage B trajectories. The matrix passes `37 / 40` stitched cells.
+  `nominal_v72` and `stage_a_14p5s` pass `8 / 8`. `qdot012_stage_a18s` passes
+  `7 / 8` and fails `+0.2 mm` on Stage A `final_tracking_error_norm_rad`, while
+  Stage B remains `4 / 4`. `paper_time_scale_0p0075` passes `7 / 8` and fails
+  `+1.0 mm` on E2 qdot saturation, tail qdot utilization, and orientation.
+  `orientation_gate_0p119` passes `7 / 8` and fails `+1.0 mm` on Stage A
+  terminal orientation plus all Stage B orientation rows.
+- Limit:
+  This is diagnostic-label simulation sensitivity evidence only. It bounds the
+  v72 recovery and is not a robustness proof, strict paper-equivalent claim,
+  contact-model calibration, or hardware readiness. The tightened orientation
+  config is run-local only.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_stitched_sensitivity.py`
+  passed. Full tests passed with `115 passed in 2.47s`; `git diff --check`
+  passed.
+- Next step:
+  Isolate the `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary
+  with a small Stage A duration/path-retiming margin audit.

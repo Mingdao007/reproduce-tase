@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v72-positive-full-stitched`
+Branch: `exp/tase-ur10e-v73-positive-stitched-sensitivity`
 
 ## Objective Restatement
 
@@ -100,6 +100,8 @@ The objective has two separate technical claim levels:
 - `runs/positive_stage_b_e2_margin/20260524T192129/metrics.yaml`
 - `reports/positive_full_stitched_recovery_report.md`
 - `runs/positive_full_stitched_recovery/20260524T192854/metrics.yaml`
+- `reports/positive_stitched_sensitivity_report.md`
+- `runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -110,17 +112,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v72 branches pushed and GitHub-verified; v72 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v72-positive-full-stitched`; latest local branch is `exp/tase-ur10e-v72-positive-full-stitched` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v73 branches pushed or ready to push; v73 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v73-positive-stitched-sensitivity`; latest local branch is `exp/tase-ur10e-v73-positive-stitched-sensitivity` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v72 branch/run, claim boundary, and next executable compact sensitivity target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D077 as of v72 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v73 branch/run, claim boundary, and next executable qdot012 Stage A tracking-boundary target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D078 as of v73 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v72 validation was `115 passed in 2.50s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v73 validation was `115 passed in 2.47s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -152,6 +154,7 @@ The objective has two separate technical claim levels:
 | Positive relaxed-orientation recovery audit | `scripts/audit_positive_relaxed_orientation_recovery.py`, `reports/positive_relaxed_orientation_recovery_report.md`, `runs/positive_relaxed_orientation_recovery/20260524T172909/metrics.yaml` | v70 uses a run-local `0.12 rad` diagnostic orientation envelope; positive start, terminal, and path geometry pass `8 / 8` through `+1.0 mm`, but stitched recovery is `0` because Stage B handoff is `3 / 4` with E2 qdot saturation |
 | Positive Stage B E2 margin audit | `scripts/audit_positive_stage_b_e2_margin.py`, `reports/positive_stage_b_e2_margin_report.md`, `runs/positive_stage_b_e2_margin/20260524T192129/metrics.yaml` | v71 reuses the v70 relaxed terminal/path setup and shows E2 passes `0 / 8` positive deltas at `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005`; qdot-limit-only relaxation on `+1.0 mm` at original timing still fails because orientation remains just above `0.12 rad` |
 | Positive full stitched recovery audit | `scripts/audit_positive_full_stitched_recovery.py`, `reports/positive_full_stitched_recovery_report.md`, `runs/positive_full_stitched_recovery/20260524T192854/metrics.yaml` | v72 combines the v70 relaxed terminal/path setup with `paper_time_scale = 0.005`; the full positive E1-E4 stitched matrix passes `8 / 8` through `+1.0 mm`, with Stage B handoff `4 / 4` for every row |
+| Positive stitched sensitivity audit | `scripts/audit_positive_stitched_sensitivity.py`, `reports/positive_stitched_sensitivity_report.md`, `runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml` | v73 stress-tests the v72 recovered policy across five scenarios and eight positive deltas; the compact matrix passes `37 / 40`, with failures at `qdot012_stage_a18s` `+0.2 mm`, `paper_time_scale_0p0075` `+1.0 mm`, and `orientation_gate_0p119` `+1.0 mm` |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -745,6 +748,29 @@ Evidence:
 - `reports/positive_full_stitched_recovery_report.md`
 - `runs/positive_full_stitched_recovery/20260524T192854/metrics.yaml`
 
+The positive stitched sensitivity audit can additionally claim:
+
+```text
+ur10e_positive_stitched_sensitivity:
+  source setup = v70 run-local relaxed terminal/path setup
+  nominal recovered policy = v72
+  scenario count = 5
+  matrix stitched pass count = 37 / 40
+  all-pass scenarios = nominal_v72, stage_a_14p5s
+  failing scenarios = qdot012_stage_a18s, paper_time_scale_0p0075, orientation_gate_0p119
+  qdot012_stage_a18s failure = +0.2 mm Stage A final_tracking_error_norm_rad
+  paper_time_scale_0p0075 failure = +1.0 mm E2 qdot/orientation
+  orientation_gate_0p119 failure = +1.0 mm Stage A terminal and Stage B orientation
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/positive_stitched_sensitivity_report.md`
+- `runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -855,6 +881,12 @@ Evidence:
   does not prove robustness, strict paper-equivalent feasibility, contact-model
   calibration, or hardware readiness. It depends on the run-local `0.12 rad`
   orientation gate and slowed `paper_time_scale = 0.005`.
+- The v73 positive stitched sensitivity audit stress-tests the v72 recovered
+  policy and passes `37 / 40` compact matrix cells. It preserves all eight
+  positive passes for nominal v72 and `stage_a_14p5s`, but fails
+  `qdot012_stage_a18s` at `+0.2 mm`, `paper_time_scale_0p0075` at `+1.0 mm`,
+  and `orientation_gate_0p119` at `+1.0 mm`. This bounds the v72 recovery and
+  still prevents a robustness claim.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -878,8 +910,10 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Stress-test the v72 recovered positive stitched policy under a compact
-sensitivity matrix. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v72 diagnostic staged labels separate.
-Any hardware work still requires measured mounted-stack geometry and a separate
-approved SOP.
+Isolate the v73 `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary
+with a small duration/path-retiming margin audit. Keep the
+`paper_time_scale_0p0075` and `orientation_gate_0p119` `+1.0 mm` failures as
+explicit sensitivity limits unless a separate model/control change is made.
+Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
+v63-v73 diagnostic staged labels separate. Any hardware work still requires
+measured mounted-stack geometry and a separate approved SOP.

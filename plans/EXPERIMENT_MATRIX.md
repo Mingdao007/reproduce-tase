@@ -248,6 +248,12 @@ them rather than deleting them.
 - The v72 positive full stitched recovery audit combines the v70 relaxed
   terminal/path setup with `paper_time_scale = 0.005`. It recovers the full
   positive E1-E4 stitched diagnostic matrix `8 / 8` through `+1.0 mm`.
+- The v73 positive stitched sensitivity audit stress-tests the v72 recovered
+  policy across five scenarios and eight positive deltas. It passes `37 / 40`
+  stitched cells: nominal v72 and `stage_a_14p5s` pass all positive deltas,
+  while `qdot012_stage_a18s` fails `+0.2 mm` on Stage A final tracking,
+  `paper_time_scale_0p0075` fails `+1.0 mm` on E2 qdot/orientation, and
+  `orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
 
 ## Next Executable Step
 
@@ -262,6 +268,8 @@ contact from terminal orientation, v69 quantified the orientation margin, and
 v70 recovered positive-side endpoints/path under an explicit `0.12 rad`
 diagnostic envelope, and v71 found that E2 recovers for all positive deltas at
 `paper_time_scale = 0.005`. v72 recovers the full positive E1-E4 stitched
-matrix at that timing. The next simulation gap is sensitivity around that exact
-relaxed diagnostic policy. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v72 diagnostic staged labels separate.
+matrix at that timing. v73 bounds sensitivity around that exact relaxed
+diagnostic policy and leaves the next simulation gap as the
+`qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking miss. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v73
+diagnostic staged labels separate.

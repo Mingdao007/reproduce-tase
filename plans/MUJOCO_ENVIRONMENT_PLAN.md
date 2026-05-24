@@ -84,11 +84,15 @@ contact behavior regresses.
   timing still fails the hardest `+1.0 mm` row because orientation remains
   just above `0.12 rad`. v72 combines that timing with the v70 relaxed
   terminal/path setup and recovers the full positive E1-E4 stitched diagnostic
-  matrix `8 / 8` through `+1.0 mm`.
+  matrix `8 / 8` through `+1.0 mm`. v73 stress-tests that recovered policy and
+  passes `37 / 40` compact sensitivity cells, with failures at
+  `qdot012_stage_a18s` `+0.2 mm`, `paper_time_scale_0p0075` `+1.0 mm`, and
+  `orientation_gate_0p119` `+1.0 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should stress-test the v72 recovered positive
-stitched policy under a compact sensitivity matrix.
+simulation controller prototype should isolate the v73 `qdot012_stage_a18s`
+`+0.2 mm` Stage A final-tracking boundary with a small duration/path-retiming
+margin audit.

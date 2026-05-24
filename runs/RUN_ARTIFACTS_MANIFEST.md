@@ -1941,6 +1941,34 @@ Legacy source root:
   canonical-config change, strict paper-equivalent claim, robustness proof,
   contact-model calibration, or hardware evidence.
 
+## V73 Positive Stitched Sensitivity Audit
+
+### Compact sensitivity around the recovered v72 positive stitched policy
+
+- Run:
+  - `runs/positive_stitched_sensitivity/20260524T193845`
+- Command:
+  `scripts/audit_positive_stitched_sensitivity.py`
+- Git state at run time:
+  parent commit `02a2e7ebd473cb05e0fd960df7bb38783e78b11a` with dirty v73
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, `git_state.md`, a
+  run-local tightened orientation config under `configs/`, and per-scenario
+  E1-E4 stitched metrics/summaries/commands under `scenarios/*/cases/*`.
+- Result:
+  The audit reuses the v70 run-local relaxed target config and positive path
+  CSV artifacts unless a scenario explicitly writes a run-local config copy.
+  The compact matrix passes `37 / 40` stitched cells. `nominal_v72` and
+  `stage_a_14p5s` pass all eight positive deltas. `qdot012_stage_a18s` fails
+  `+0.2 mm` on Stage A final tracking, `paper_time_scale_0p0075` fails
+  `+1.0 mm` on E2 qdot/orientation, and `orientation_gate_0p119` fails
+  `+1.0 mm` on orientation gates.
+- Limit:
+  This is diagnostic-label positive stitched sensitivity evidence only. It is
+  not a canonical-config change, strict paper-equivalent claim, robustness
+  proof, contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -1541,3 +1541,29 @@
   policy under a compact sensitivity matrix. This is still diagnostic-label
   simulation evidence, not a robustness proof, strict paper-equivalent
   feasibility, contact-model calibration, or hardware readiness.
+
+## D078: Treat Positive Stitched Sensitivity As A Boundary, Not Robustness
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v73 as evidence that the v72 positive stitched diagnostic recovery
+  survives nominal replay and a shorter `14.5 s` Stage A replay, but not the
+  full compact sensitivity matrix.
+- Reason:
+  The v73 run at `runs/positive_stitched_sensitivity/20260524T193845`
+  evaluates five scenarios across eight positive deltas. The compact matrix
+  passes `37 / 40` stitched cells. `nominal_v72` and `stage_a_14p5s` pass
+  `8 / 8`. `qdot012_stage_a18s` fails `+0.2 mm` because Stage A leaves a
+  `2.8323382178791726e-05 rad` final tracking residual while Stage B remains
+  `4 / 4`. `paper_time_scale_0p0075` fails `+1.0 mm` because E2 fails qdot
+  saturation, tail qdot utilization, and max orientation error. The tightened
+  `orientation_gate_0p119` case fails `+1.0 mm` on both Stage A terminal
+  orientation and all Stage B orientation rows.
+- Consequence:
+  The next branch should isolate the `qdot012_stage_a18s` `+0.2 mm` Stage A
+  final-tracking boundary with a small duration/path-retiming margin audit.
+  The faster-timing and tighter-orientation `+1.0 mm` failures remain explicit
+  sensitivity limits unless a separate model/control change is made. The
+  project still must not claim robustness, strict paper-equivalent feasibility,
+  contact-model calibration, or hardware readiness.

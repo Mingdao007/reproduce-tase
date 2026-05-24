@@ -262,12 +262,17 @@ smoke runs regress.
 - The v72 positive full stitched recovery audit uses the v70 relaxed
   terminal/path setup plus `paper_time_scale = 0.005` and recovers all positive
   E1-E4 stitched rows `8 / 8` through `+1.0 mm`.
+- The v73 positive stitched sensitivity audit passes `37 / 40` compact matrix
+  cells. Nominal v72 and `stage_a_14p5s` pass all positive deltas, while
+  `qdot012_stage_a18s` fails `+0.2 mm` on Stage A final tracking,
+  `paper_time_scale_0p0075` fails `+1.0 mm` on E2 qdot/orientation, and
+  `orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should
-stress-test the v72 recovered positive stitched policy under a compact
-sensitivity matrix. Keep contact, drift, terminal orientation, force error,
-and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should isolate
+the v73 `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary with a
+small duration/path-retiming margin audit. Keep contact, drift, terminal
+orientation, force error, and qdot saturation visible together.

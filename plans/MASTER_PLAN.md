@@ -107,12 +107,19 @@ work exists only on that branch.
   `+1.0 mm` case because orientation remains just above `0.12 rad`. v72
   combines the v70 relaxed terminal/path setup with `paper_time_scale = 0.005`
   and recovers the full positive E1-E4 stitched matrix `8 / 8` through
-  `+1.0 mm`. This is still not robust, paper-equivalent, or hardware evidence.
+  `+1.0 mm`. v73 stress-tests that recovered policy and passes `37 / 40`
+  compact sensitivity cells; only nominal v72 and `stage_a_14p5s` pass all
+  deltas. The remaining failures bound qdot-limited Stage A tracking, faster
+  Stage B timing, and tighter orientation gates. This is still not robust,
+  paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Stress-test the v72 recovered positive stitched policy under a compact
-sensitivity matrix. Keep strict paper-equivalent setup, v38 relaxed
-trajectory-after-setup, and v63-v72 diagnostic staged labels separate.
+Isolate the v73 `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary
+with a small duration/path-retiming margin audit. Keep the
+`paper_time_scale_0p0075` and `orientation_gate_0p119` `+1.0 mm` failures as
+explicit sensitivity limits unless a separate model/control change is made.
+Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
+v63-v73 diagnostic staged labels separate.

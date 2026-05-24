@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v72-positive-full-stitched`
+Current branch: `exp/tase-ur10e-v73-positive-stitched-sensitivity`
 
 ## Scope
 
@@ -82,7 +82,11 @@ probe at `+1.0 mm` still fails because orientation remains just above
 `0.12 rad`.
 v72 combines the v70 relaxed terminal/path setup with the v71 E2-safe timing
 and recovers the full positive E1-E4 stitched diagnostic matrix `8 / 8` through
-`+1.0 mm`.
+`+1.0 mm`. v73 stress-tests that recovered policy under a compact five-scenario
+matrix and passes `37 / 40` stitched cells: nominal v72 and `stage_a_14p5s`
+pass all positive deltas, while `qdot012_stage_a18s` fails `+0.2 mm` on Stage A
+final tracking, `paper_time_scale_0p0075` fails `+1.0 mm` on E2, and
+`orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
