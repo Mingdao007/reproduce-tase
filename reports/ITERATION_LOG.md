@@ -3584,3 +3584,47 @@
   step. If no live bench interaction is approved, define a separate
   non-default gate-acceptance review template that cannot be invoked by the
   read-only evidence finalizer.
+
+## 2026-05-25 v94 Gate-Acceptance Review Template
+
+### Create a separate non-default review path for future gate decisions
+
+- Branch:
+  `exp/tase-ur10e-v94-gate-acceptance-review-template`
+- Runs:
+  - `runs/orientation_gate_acceptance_review/20260525T020054`
+  - `runs/orientation_gate_acceptance_review_audit/20260525T020055`
+- Report:
+  `reports/orientation_gate_acceptance_review_template_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/create_orientation_gate_acceptance_review.py scripts/audit_orientation_gate_acceptance_review.py scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_orientation_gate_acceptance_review_template.py tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/create_orientation_gate_acceptance_review.py --review-id 20260525T020054`
+  - `python3 scripts/audit_orientation_gate_acceptance_review.py runs/orientation_gate_acceptance_review/20260525T020054 --run-id 20260525T020055`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `templates/orientation_gate_acceptance_review/`,
+  `scripts/create_orientation_gate_acceptance_review.py`, and
+  `scripts/audit_orientation_gate_acceptance_review.py`. The scaffold is
+  separate from read-only evidence finalization, defaults to
+  `review_scaffold_not_executed`, keeps source evidence null, keeps
+  `orientation_gate_acceptance.decision = not_accepted`, and rejects acceptance
+  drift. The new scaffold audit passed with `audit_passed = true`,
+  `violations = []`, 7 lightweight files, and no heavy payloads.
+- Limit:
+  This is a review-template/audit refinement only. It does not collect
+  measurements, execute the read-only SOP, calibrate the contact model, accept
+  any replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/create_orientation_gate_acceptance_review.py scripts/audit_orientation_gate_acceptance_review.py scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py`
+  passed; focused gate-review/read-only tests passed with
+  `11 passed in 2.03s`; the new gate-acceptance review scaffold audit passed;
+  full tests passed with `126 passed in 4.72s`; `git diff --check` passed
+  after full-test validation.
+- Next step:
+  Use the read-only measurement scaffold/finalizer/audit path only after the
+  user approves the exact read-only SOP step. Keep the gate-acceptance review
+  scaffold unused until a passed approved-read-only evidence run exists and a
+  separate review is explicitly authorized.

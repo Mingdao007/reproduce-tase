@@ -2064,3 +2064,24 @@
   Orientation evidence may be collected without implying gate relaxation.
   Accepting any replacement gate remains a separate future workflow and cannot
   be produced by the read-only evidence finalizer.
+
+## D099: Make Gate Acceptance A Separate Non-Default Review Path
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v94 as the separate orientation gate-acceptance review scaffold and
+  audit path.
+- Reason:
+  V93 made the read-only evidence path preserve `not_accepted`, but future
+  maintainers still need a place to review a possible gate without editing
+  evidence-run metrics by hand. V94 creates
+  `templates/orientation_gate_acceptance_review/` plus create/audit commands.
+  The scaffold is not invoked by the read-only finalizer, defaults to
+  `review_scaffold_not_executed`, keeps source evidence null, keeps the gate
+  decision `not_accepted`, and rejects acceptance drift.
+- Consequence:
+  Gate acceptance is structurally separate from evidence collection. The new
+  review scaffold still does not accept a gate, calibrate the contact model,
+  prove robustness, or authorize hardware motion, writes, zeroing, force
+  control, or hardware-readiness claims.

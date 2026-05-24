@@ -2542,6 +2542,40 @@ Legacy source root:
   contact model, not an accepted replacement orientation gate, not a strict
   paper-equivalent claim, and not hardware authorization.
 
+## V94 Orientation Gate-Acceptance Review Template
+
+### Separate non-default review path for future gate decisions
+
+- Template:
+  - `templates/orientation_gate_acceptance_review/`
+- Scripts:
+  - `scripts/create_orientation_gate_acceptance_review.py`
+  - `scripts/audit_orientation_gate_acceptance_review.py`
+- Runs:
+  - `runs/orientation_gate_acceptance_review/20260525T020054`
+  - `runs/orientation_gate_acceptance_review_audit/20260525T020055`
+- Command:
+  `python3 scripts/create_orientation_gate_acceptance_review.py --review-id 20260525T020054`
+- Audit command:
+  `python3 scripts/audit_orientation_gate_acceptance_review.py runs/orientation_gate_acceptance_review/20260525T020054 --run-id 20260525T020055`
+- Tracked lightweight artifacts:
+  review template files, scaffold review files, audit metrics/summary/git
+  state, scripts/tests/docs, and
+  `reports/orientation_gate_acceptance_review_template_report.md`.
+- Result:
+  The review scaffold is separate from read-only evidence finalization,
+  defaults to `review_scaffold_not_executed`, keeps source evidence null, keeps
+  `orientation_gate_acceptance.decision = not_accepted`, and preserves gate
+  relaxation and hardware readiness false. The audit passed with
+  `audit_passed = true`, `violations = []`, 7 lightweight files, and no heavy
+  payloads.
+- Validation:
+  Full tests passed with `126 passed in 4.72s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

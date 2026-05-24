@@ -1,0 +1,41 @@
+review_source: orientation gate acceptance review template
+review_id: 20260525T020054
+status: review_scaffold_not_executed
+template_source: templates/orientation_gate_acceptance_review
+v85_margin:
+  required_normal_rotation_deg: 0.03245531101442353
+  equivalent_geometry_um: 14.963398168061882
+source_evidence:
+  source_read_only_run: null
+  source_run_audit: null
+  approved_read_only_audit_passed: false
+  evidence_reviewed: false
+review_execution:
+  user_approved_gate_acceptance_review: false
+  live_hardware_accessed: false
+  robot_motion_commanded: false
+  configuration_written: false
+  zeroing_or_biasing_performed: false
+  force_control_run: false
+orientation_gate_acceptance:
+  decision: not_accepted
+  review_only: true
+  accepted_gate_type: null
+  accepted_gate_value_rad: null
+  accepted_normal_source: null
+  accepted_contact_datum_source: null
+  accepted_uncertainty_budget: null
+  reviewer: null
+  accepted_at_utc: null
+verdict:
+  supports_contact_model_update: false
+  supports_accepting_v85_margin: false
+  supports_gate_relaxation: false
+  supports_hardware_claim: false
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  gate_relaxation_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
+review_root: /home/andy/reproduce-tase/runs/orientation_gate_acceptance_review/20260525T020054
