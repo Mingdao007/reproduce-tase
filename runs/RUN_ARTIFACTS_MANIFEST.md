@@ -2578,6 +2578,38 @@ Legacy source root:
   contact model, not an accepted replacement orientation gate, not a strict
   paper-equivalent claim, and not hardware authorization.
 
+## V95 Offline Completion Blockers
+
+### Structured classification of remaining requirements
+
+- Script:
+  - `scripts/audit_offline_completion_blockers.py`
+- Run:
+  - `runs/offline_completion_blockers/20260525T020734`
+- Report:
+  - `reports/offline_completion_blockers_report.md`
+- Tests:
+  - `tests/test_offline_completion_blockers.py`
+- Command:
+  `python3 scripts/audit_offline_completion_blockers.py --run-id 20260525T020734`
+- Tracked lightweight artifacts:
+  metrics, JSON mirror, summary, git state, report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The audit reports `overall_goal_complete = false`,
+  `completion_blocked = true`, and `do_not_mark_goal_complete = true`. It marks
+  strict paper-equivalent full staged feasibility and robustness as non-final
+  offline-actionable, while approved read-only evidence, calibrated contact
+  geometry, orientation-gate acceptance, and hardware readiness remain blocked
+  on explicit approval/evidence.
+- Validation:
+  Full tests passed with `128 passed in 4.80s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

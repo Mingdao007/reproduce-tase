@@ -2085,3 +2085,22 @@
   review scaffold still does not accept a gate, calibrate the contact model,
   prove robustness, or authorize hardware motion, writes, zeroing, force
   control, or hardware-readiness claims.
+
+## D100: Classify Remaining Completion Work By Offline Versus Approval-Blocked
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v95 as the structured offline completion-blockers audit.
+- Reason:
+  After v94, most safety/evidence scaffolding exists, but it is easy to lose
+  track of which remaining items are still blocked on live approved read-only
+  evidence and which can continue offline. V95 adds
+  `scripts/audit_offline_completion_blockers.py`, which reads current run
+  metrics and emits machine-readable blocker classifications.
+- Consequence:
+  Future work should use the v95 audit before choosing the next branch. Strict
+  paper-equivalent feasibility and robustness can advance offline only as
+  non-final simulation/paper-platform work. Approved read-only evidence,
+  calibrated contact geometry, orientation-gate acceptance, and hardware
+  readiness remain blocked until explicit approval/evidence exists.

@@ -3629,3 +3629,45 @@
   user approves the exact read-only SOP step. Keep the gate-acceptance review
   scaffold unused until a passed approved-read-only evidence run exists and a
   separate review is explicitly authorized.
+
+## 2026-05-25 v95 Offline Completion Blockers
+
+### Classify remaining requirements by offline versus approval-blocked work
+
+- Branch:
+  `exp/tase-ur10e-v95-offline-completion-blockers`
+- Run:
+  `runs/offline_completion_blockers/20260525T020734`
+- Report:
+  `reports/offline_completion_blockers_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_offline_completion_blockers.py`
+  - `scripts/run_tests.sh tests/test_offline_completion_blockers.py`
+  - `python3 scripts/audit_offline_completion_blockers.py --run-id 20260525T020734`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `scripts/audit_offline_completion_blockers.py`, which reads the current
+  relaxed simulation, strict staged, robustness, measured-geometry, read-only
+  measurement, and gate-acceptance review metrics. The audit reports
+  `overall_goal_complete = false`, `completion_blocked = true`, and
+  `do_not_mark_goal_complete = true`. It classifies strict paper-equivalent
+  full staged feasibility and robustness as non-final offline-actionable, while
+  approved read-only calibration evidence, calibrated contact geometry,
+  orientation-gate acceptance, and hardware readiness remain blocked on
+  explicit approval/evidence.
+- Limit:
+  This is a blocker-classification audit only. It does not collect
+  measurements, execute the read-only SOP, calibrate the contact model, accept
+  any replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_offline_completion_blockers.py` passed;
+  focused blocker-audit tests passed with `2 passed in 0.19s`; the v95 blocker
+  audit run was created; full tests passed with `128 passed in 4.80s`;
+  `git diff --check` passed after full-test validation.
+- Next step:
+  Use the read-only measurement scaffold/finalizer/audit path only after the
+  user approves the exact read-only SOP step. Without live approval, continue
+  only non-final offline simulation or paper-platform work identified by the
+  v95 audit.

@@ -1,0 +1,193 @@
+audit_source: v95 offline completion blockers
+overall_goal_complete: false
+completion_blocked: true
+incomplete_requirement_ids:
+- strict_paper_equivalent_full_staged_feasibility
+- approved_read_only_calibration_evidence
+- calibrated_contact_geometry
+- orientation_gate_acceptance
+- robustness_to_contact_model_perturbations
+- hardware_readiness
+offline_actionable_nonfinal_requirement_ids:
+- strict_paper_equivalent_full_staged_feasibility
+- robustness_to_contact_model_perturbations
+live_or_explicit_approval_blocked_requirement_ids:
+- approved_read_only_calibration_evidence
+- calibrated_contact_geometry
+- orientation_gate_acceptance
+- hardware_readiness
+requirements:
+- id: ur10e_adapted_relaxed_simulation
+  success_criteria: Slowed UR10e adapted E1-E4 trajectory-after-relaxed-setup matrix
+    passes 4 / 4.
+  achieved: true
+  evidence:
+  - path: runs/relaxed_setup_budget_eval/20260524T111859/metrics.yaml
+    ur10e_adapted_trajectory_after_relaxed_setup_pass_count: 4
+    case_count: 4
+    strict_full_staged_feasibility_pass_count: 0
+  blocked_by: []
+  can_advance_offline: false
+  next_action: Preserve as scoped simulation evidence only; do not upgrade claim scope.
+- id: strict_paper_equivalent_full_staged_feasibility
+  success_criteria: Strict full staged feasibility passes every E1-E4 row under the
+    paper-equivalent gate.
+  achieved: false
+  evidence:
+  - path: runs/staged_orientation_e1e4_posture_regularized/20260524T102747/summary.yaml
+    full_staged_feasibility_pass_count: 0
+    case_count: 4
+  blocked_by:
+  - strict_setup_gate_failure
+  - paper_platform_parity_split_claim
+  can_advance_offline: true
+  next_action: Continue simulation or paper-platform parity work offline, but do not
+    claim completion until strict rows pass under the target claim definition.
+- id: approved_read_only_calibration_evidence
+  success_criteria: At least one read-only calibration measurement run is finalized
+    as approved_read_only_evidence.
+  achieved: false
+  evidence:
+  - run_count: 3
+    approved_read_only_run_count: 0
+    runs:
+    - run_id: 20260525T012234
+      path: runs/read_only_calibration_measurement/20260525T012234
+      status: scaffold_created_not_executed
+      user_confirmed_read_only_step: false
+      live_hardware_accessed: false
+      evidence_status:
+        mounted_stack_tcp_contact_point: not_collected
+        ksm_contact_patch_convention: not_collected
+        plane_normal_robot_base_frame: not_collected
+        force_source_frame_reconciliation: not_collected
+        orientation_gate_semantics: not_accepted
+      orientation_gate_decision: null
+      hardware_readiness: false
+    - run_id: 20260525T014755
+      path: runs/read_only_calibration_measurement/20260525T014755
+      status: scaffold_created_not_executed
+      user_confirmed_read_only_step: false
+      live_hardware_accessed: false
+      evidence_status:
+        mounted_stack_tcp_contact_point: not_collected
+        ksm_contact_patch_convention: not_collected
+        plane_normal_robot_base_frame: not_collected
+        force_source_frame_reconciliation: not_collected
+        orientation_gate_semantics: not_accepted
+      orientation_gate_decision: null
+      hardware_readiness: false
+    - run_id: 20260525T015400
+      path: runs/read_only_calibration_measurement/20260525T015400
+      status: scaffold_created_not_executed
+      user_confirmed_read_only_step: false
+      live_hardware_accessed: false
+      evidence_status:
+        mounted_stack_tcp_contact_point: not_collected
+        ksm_contact_patch_convention: not_collected
+        plane_normal_robot_base_frame: not_collected
+        force_source_frame_reconciliation: not_collected
+        orientation_gate_semantics: not_accepted
+      orientation_gate_decision: not_accepted
+      hardware_readiness: false
+  blocked_by:
+  - explicit_user_read_only_approval_missing
+  can_advance_offline: false
+  next_action: Wait for explicit approval for a specific read-only SOP step; then
+    collect worksheet rows, finalize, and audit with approved-read-only mode.
+- id: calibrated_contact_geometry
+  success_criteria: Mounted TCP/contact point, KSM contact patch, plane normal, and
+    force-source/frame evidence are measured or reconciled tightly enough for the
+    v85 margin.
+  achieved: false
+  evidence:
+  - path: runs/measured_geometry_readiness/20260525T000739/metrics.yaml
+    checks:
+      mounted_stack_tcp_contact_point:
+        status: insufficient_design_only
+        has_measured_record: false
+        constrains_v85_margin: false
+      contact_patch_convention:
+        status: insufficient_design_assumption
+        has_measured_record: false
+        constrains_v85_margin: false
+      plane_contact_normal:
+        status: insufficient_analytic_simulation_only
+        has_measured_record: false
+        constrains_v85_margin: false
+      force_source_frame:
+        status: unresolved_conflict
+        has_measured_record: true
+        constrains_v85_margin: false
+  blocked_by:
+  - approved_read_only_calibration_evidence_missing
+  can_advance_offline: false
+  next_action: Collect the v87/v93 read-only measurement worksheets after explicit
+    user approval.
+- id: orientation_gate_acceptance
+  success_criteria: A separate gate-acceptance review accepts a replacement gate from
+    passed approved-read-only evidence.
+  achieved: false
+  evidence:
+  - review_count: 1
+    accepted_review_count: 0
+    reviews:
+    - review_id: 20260525T020054
+      path: runs/orientation_gate_acceptance_review/20260525T020054
+      status: review_scaffold_not_executed
+      source_read_only_run: null
+      approved_read_only_audit_passed: false
+      decision: not_accepted
+      supports_gate_relaxation: false
+      hardware_readiness: false
+  blocked_by:
+  - approved_read_only_calibration_evidence_missing
+  - separate_gate_review_not_authorized
+  can_advance_offline: false
+  next_action: Keep gate acceptance review unused until approved-read-only evidence
+    exists and a separate review is authorized.
+- id: robustness_to_contact_model_perturbations
+  success_criteria: Robustness/stress matrix passes all declared perturbation cases
+    under the accepted claim model.
+  achieved: false
+  evidence:
+  - path: runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml
+    stitched_pass_count: 4
+    case_count: 9
+    all_cases_passed: false
+    failing_cases:
+    - base_z_minus_1mm
+    - base_z_plus_1mm
+    - stage_a_14s
+    - qdot_limit_0p12
+    - paper_time_scale_0p02
+  blocked_by:
+  - current_stress_failures
+  - calibrated_contact_geometry_missing
+  can_advance_offline: true
+  next_action: Additional simulation stress tests can continue offline, but final
+    robustness remains blocked until the contact/gate model is calibrated.
+- id: hardware_readiness
+  success_criteria: Hardware gate report exists and proves measured TCP/payload/CoG,
+    force source, logging readiness, and low-risk SOP.
+  achieved: false
+  evidence:
+  - path: reports/hardware_gate_report.md
+    exists: false
+    latest_read_only_runs_have_hardware_readiness: []
+    latest_gate_reviews_have_hardware_readiness: []
+  blocked_by:
+  - approved_read_only_calibration_evidence_missing
+  - force_source_frame_unresolved
+  - hardware_gate_report_missing
+  can_advance_offline: false
+  next_action: Do not prepare robot motion; collect/read-only evidence first and keep
+    hardware readiness false.
+claim_boundary:
+  do_not_mark_goal_complete: true
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  hardware_readiness_claim: false
+audit_run_id: 20260525T020734
+audit_root: /home/andy/reproduce-tase/runs/offline_completion_blockers/20260525T020734
