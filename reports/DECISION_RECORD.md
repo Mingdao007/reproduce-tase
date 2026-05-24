@@ -2546,3 +2546,29 @@
   controller, close failed cells, prove robustness, prove strict
   paper-equivalent feasibility, calibrate contact geometry, establish hardware
   readiness, or authorize hardware motion/configuration.
+
+## D119: Command Limiting Alone Does Not Recover Strict Stage A
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v114 as an offline command-limited Stage A probe, not as a strict
+  feasibility recovery.
+- Reason:
+  V113 showed that the tested instantaneous priority policies saturate setup
+  qdot and fail the strict setup gate. V114 changes command generation before
+  allocation by lowering finite-time normal-force gains, capping force-normal
+  angular commands, extending setup durations, and preserving strict qdot
+  limits. The four-case probe reports strict setup-chain pass `0 / 4`,
+  trajectory feasibility pass `2 / 4`, planned setup-then-trajectory pass
+  `0 / 4`, final x/y failures in `4 / 4`, setup qdot saturation failures in
+  `4 / 4`, and setup tail qdot utilization failures in `4 / 4`.
+- Consequence:
+  Do not continue treating strict Stage A as a command-limited instantaneous
+  velocity problem. Future offline strict-feasibility work should test an
+  explicit path or terminal constraint formulation that can hold x/y while
+  restoring force-normal orientation without setup qdot saturation. V114 does
+  not accept a replacement orientation gate, change the canonical controller,
+  close failed cells, prove robustness, prove strict paper-equivalent
+  feasibility, calibrate contact geometry, establish hardware readiness, or
+  authorize hardware motion/configuration.

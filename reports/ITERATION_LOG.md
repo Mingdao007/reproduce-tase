@@ -4424,3 +4424,45 @@
   instantaneous weighted or two-level velocity allocation, specifically to
   constrain x/y while restoring force-normal orientation without setup qdot
   saturation.
+
+## 2026-05-25 v114 Strict Command-Limited Stage A Probe
+
+### Test command-limited Stage A before velocity allocation
+
+- Branch:
+  `exp/tase-ur10e-v114-strict-command-limited-stage-a`
+- Runs:
+  - `runs/strict_command_limited_stage_a/20260525T074557`
+- Report:
+  `reports/strict_command_limited_stage_a_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_command_limited_stage_a.py`
+  - `scripts/run_tests.sh tests/test_strict_command_limited_stage_a.py`
+  - `python3 scripts/audit_strict_command_limited_stage_a.py --output-dir runs/strict_command_limited_stage_a/20260525T074557`
+  - `rg -n "&id|\*id" runs/strict_command_limited_stage_a/20260525T074557/metrics.yaml`
+  - `find runs/strict_command_limited_stage_a/20260525T074557 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline command-limited probe changes Stage A command generation before
+  allocation by lowering finite-time force gain, capping force-normal angular
+  commands, and extending setup durations. It reports strict setup-chain pass
+  `0 / 4`, trajectory feasibility pass `2 / 4`, and planned
+  setup-then-trajectory pass `0 / 4`. All four rows still fail final x/y,
+  setup qdot saturation, and setup tail qdot utilization. The best orientation
+  row reaches `0.0003898438945537693 rad` but still has x/y error
+  `0.008476991494629436 m` and setup qdot saturation `1.0`.
+- Limit:
+  This is offline simulation only. It does not prove strict paper-equivalent
+  feasibility, make a canonical controller change, accept a replacement
+  orientation gate, close failed cells, prove robustness, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `171 passed in 7.16s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next strict
+  feasibility branch should stop treating Stage A as a command-limited
+  instantaneous velocity problem and test an explicit path or terminal
+  constraint formulation.

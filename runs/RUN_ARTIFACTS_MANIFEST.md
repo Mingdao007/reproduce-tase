@@ -3279,6 +3279,43 @@ Legacy source root:
   cells, prove robustness, calibrate contact geometry, or authorize hardware
   work.
 
+## V114 Strict Command-Limited Stage A Probe
+
+### Tested command-limited Stage A before velocity allocation
+
+- Scripts:
+  - `scripts/audit_strict_command_limited_stage_a.py`
+- Runs:
+  - `runs/strict_command_limited_stage_a/20260525T074557`
+- Report:
+  - `reports/strict_command_limited_stage_a_report.md`
+- Tests:
+  - `tests/test_strict_command_limited_stage_a.py`
+- Command:
+  `python3 scripts/audit_strict_command_limited_stage_a.py --output-dir runs/strict_command_limited_stage_a/20260525T074557`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The offline command-limited probe changes Stage A command generation before
+  allocation by lowering finite-time force gain, capping force-normal angular
+  commands, and extending setup durations. It reports strict setup-chain pass
+  `0 / 4`, trajectory feasibility pass `2 / 4`, planned
+  setup-then-trajectory pass `0 / 4`, final x/y failures `4 / 4`, setup qdot
+  saturation failures `4 / 4`, and setup tail qdot utilization failures
+  `4 / 4`.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `171 passed in 7.16s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline simulation
+  evidence and does not prove strict paper-equivalent feasibility, accept a
+  replacement orientation gate, change the canonical controller, close failed
+  cells, prove robustness, calibrate contact geometry, or authorize hardware
+  work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
