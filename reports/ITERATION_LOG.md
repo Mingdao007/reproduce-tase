@@ -1961,22 +1961,28 @@
   - `runs/RUN_ARTIFACTS_MANIFEST.md`
 - Files added:
   - `reports/paper_7dof_tuned_figure_match_candidate_report.md`
+  - `reports/paper_7dof_tuned_figure_match_provenance_report.md`
   - `runs/paper_7dof_section_v/20260524T134441/**`
+  - `runs/paper_7dof_fig6_raw_provenance/20260524T134549/**`
 - Commands run:
   - `scripts/run_tests.sh tests/test_paper_7dof.py`
   - `scripts/run_tests.sh`
   - `scripts/run_paper_7dof_section_v.py --figure-match-preset --duration-s 30 --dt-s 0.001`
+  - `scripts/compare_paper_7dof_fig6_raw_provenance.py --python-label python_v52_tuned_figure_match --python-raw-npz runs/paper_7dof_section_v/20260524T134441/paper_7dof_section_v_raw.npz --python-metrics-yaml runs/paper_7dof_section_v/20260524T134441/metrics.yaml`
 - Result:
   The Python paper-platform runner now has an explicitly labeled
   `paper_platform_7dof_tuned_figure_match_candidate`. The formal run records
   `fig6_q7_at_22s_rad = 2.4999999999331863` and
-  `fig6_q7_abs_error_to_2p5_rad = 6.681366571115177e-11`.
+  `fig6_q7_abs_error_to_2p5_rad = 6.681366571115177e-11`. The provenance
+  comparison records legacy-vs-Python figure-match joint RMSE of
+  `6.081574510252252e-09 rad`.
 - Validation:
-  Full tests passed with `85 passed in 2.27s`.
+  Full tests passed with `85 passed in 2.25s`.
 - Limit:
   This is a tuned landmark reproduction candidate. It uses
   `admittance_proxy` and q7 nullspace bias and must not be relabeled as
   formula-faithful paper-equivalent parity.
 - Next step:
-  Run a raw-provenance comparison against the legacy figure-match `.mat`
-  arrays using this Python candidate.
+  Keep formula convergence and tuned landmark reproduction separate, then
+  either formalize the split evidence reporting structure or return to UR10e
+  adapted TCP/contact model validation.

@@ -175,6 +175,9 @@ them rather than deleting them.
 - The v51 split gate reports `paper_platform_formula_convergence_pass = true`
   while keeping `paper_platform_figure_match_landmark_pass = false` and the
   backward-compatible strict aggregate `paper_platform_parity_pass = false`.
+- The v52 tuned Python candidate reproduces the legacy figure-match q7
+  trajectory with q7@22 s delta `2.6201263381153694e-12 rad` and joint RMSE
+  `6.081574510252252e-09 rad`; this is tuned landmark evidence only.
 
 ## Next Executable Step
 
@@ -182,7 +185,6 @@ Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
-paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should intentionally implement the tuned figure-match line as a separate
-Python candidate if the landmark remains required, or proceed with UR10e
-adapted work using the formula-convergence claim boundary.
+paper-platform parity/model-provenance gaps. The next paper-platform step
+should formalize split evidence reporting. Otherwise proceed with UR10e
+adapted work by validating or replacing the approximate TCP/contact model.

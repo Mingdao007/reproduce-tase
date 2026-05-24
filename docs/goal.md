@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v51 claim boundary: Python paper-platform formula-convergence evidence passes, tuned Fig.6 q7 landmark reproduction fails, and legacy strict paper-equivalent parity fails. Choose the next branch deliberately: either implement a separately labeled Python tuned figure-match candidate if the q7 landmark is still required, or continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v52 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved because those are separate claim levels and the tuned line uses non-paper-faithful `admittance_proxy` plus q7 nullspace bias. Choose the next branch deliberately: formalize the split evidence reporting structure, or continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v51` repository state. The project goal is to reproduce the T-ASE finite-time
+`v52` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v51-split-paper-parity-claims`
-- Current v51 code commit:
-  `bddf1dad1645199de92458616162291b6881aa4c`
+  `exp/tase-ur10e-v52-python-figure-match-candidate`
+- Current v52 code commit:
+  `2f65a5908528670868ed5d9e4ffab9f8443b77a2`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -97,24 +97,26 @@ Current accepted claims:
 - `paper_platform_7dof_formula_convergence`: passes the v51 split gate.
   Evidence is `reports/paper_platform_split_claim_report.md` and
   `runs/paper_platform_parity_eval/20260524T124200/metrics.yaml`.
-- `paper_platform_7dof_figure_match_landmark`: fails because the current
-  Python candidate has q7 at 22 s of `1.6680622878116045 rad`, while the tuned
-  figure-match reference is `2.5 rad`.
-- `paper_platform_7dof_legacy_strict_all_checks`: fails. Do not call the
-  current Python 7DOF line full paper-equivalent numerical parity.
+- `paper_platform_7dof_tuned_figure_match_candidate`: the separate v52 Python
+  tuned candidate reproduces the legacy Fig.6 q7 landmark. Evidence is
+  `reports/paper_7dof_tuned_figure_match_candidate_report.md` and
+  `reports/paper_7dof_tuned_figure_match_provenance_report.md`.
+- `paper_platform_7dof_legacy_strict_all_checks`: still not a full
+  paper-equivalent parity claim because formula convergence and tuned
+  landmark reproduction are separate evidence lines.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
-bias, not the formula-faithful controller path. Future work must keep these
-claim levels separate.
+bias, not the formula-faithful controller path. v52 implements that tuned line
+in Python and matches the legacy figure-match raw trajectory to numerical
+precision. Future work must still keep these claim levels separate.
 
 Current next executable choice:
 
-- Implement a separately labeled Python tuned figure-match candidate if the
-  Fig.6 q7 landmark remains required; or
-- Continue UR10e adapted work using the formula-convergence boundary by
-  validating or replacing the approximate UR10e TCP/contact model and rerunning
-  the terminal setup audit.
+- Formalize the split evidence reporting structure so formula convergence and
+  tuned landmark evidence are not collapsed into one paper-equivalent claim; or
+- Continue UR10e adapted work by validating or replacing the approximate UR10e
+  TCP/contact model and rerunning the terminal setup audit.
 
 ## Safety Boundary
 

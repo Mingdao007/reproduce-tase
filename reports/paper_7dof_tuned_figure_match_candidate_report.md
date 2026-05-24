@@ -60,6 +60,19 @@ tail_position_error_mean_m = 0.0012460142796336512
 tail_orientation_error_mean_rad = 2.7169713442019066e-06
 ```
 
+## Raw Provenance Follow-Up
+
+The follow-up comparison at
+`runs/paper_7dof_fig6_raw_provenance/20260524T134549` shows the Python v52
+candidate matches the legacy `figure_match` raw trajectory to numerical
+precision:
+
+```text
+python_abs_delta_to_figure_q7_at_22_s_rad = 2.6201263381153694e-12
+legacy-vs-python figure-match joint RMSE = 6.081574510252252e-09 rad
+legacy-vs-python figure-match q7 RMSE = 2.337566316043061e-11 rad
+```
+
 ## Claim Boundary
 
 This result closes the Python implementation gap for the tuned figure-match
@@ -69,7 +82,6 @@ claim.
 
 ## Next Step
 
-Run a raw-provenance comparison against the legacy MATLAB/RNN
-`figure_match_fig6_results.mat` using this Python candidate, then update the
-completion audit and parity-claim reports with the measured q7 trajectory
-relationship.
+Keep formula convergence and tuned landmark reproduction as separate claim
+levels. The next branch should move back to UR10e adapted model validation or
+formalize the split evidence reporting structure.

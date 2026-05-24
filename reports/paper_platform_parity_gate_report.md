@@ -122,9 +122,18 @@ compatibility, and tail convergence against the formula-faithful legacy
 reference. It does not pass tuned figure-match landmark reproduction or full
 legacy strict aggregation.
 
+The v52 tuned candidate closes the separate landmark-reproduction gap. Run
+`runs/paper_7dof_section_v/20260524T134441` reaches
+`fig6_q7_at_22s_rad = 2.4999999999331863`, and the raw provenance comparison
+`runs/paper_7dof_fig6_raw_provenance/20260524T134549` shows legacy-vs-Python
+figure-match joint RMSE of `6.081574510252252e-09 rad`. This evidence belongs
+to the tuned figure-match claim level only because it depends on
+`admittance_proxy` and q7 nullspace bias.
+
 ## Next Step
 
-To pursue the tuned landmark, implement a separate Python figure-match
-candidate with explicit tuning labels. Otherwise continue UR10e adapted
-simulation work using the split formula-convergence boundary. Keep this path
-separate from hardware readiness claims.
+Keep the split reporting structure: formula-convergence evidence from the
+formula-faithful candidate, tuned landmark evidence from the v52 candidate,
+and no full paper-equivalent parity claim until a single justified claim
+definition covers both without hiding non-paper-faithful tuning. Otherwise
+continue UR10e adapted simulation work using the split claim boundary.

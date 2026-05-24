@@ -1430,6 +1430,26 @@ Legacy source root:
   `fig6_q7_abs_error_to_2p5_rad = 6.681366571115177e-11`, while explicitly
   labeling the non-paper-faithful tuning knobs.
 
+### Raw provenance comparison for tuned candidate
+
+- Run:
+  - `runs/paper_7dof_fig6_raw_provenance/20260524T134549`
+- Command:
+  `scripts/compare_paper_7dof_fig6_raw_provenance.py --python-label python_v52_tuned_figure_match --python-raw-npz runs/paper_7dof_section_v/20260524T134441/paper_7dof_section_v_raw.npz --python-metrics-yaml runs/paper_7dof_section_v/20260524T134441/metrics.yaml`
+- Git state at run time:
+  commit `e52d3885e5e4db76be8d0c36f1358e489279d8a7`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- External or ignored raw inputs:
+  ignored legacy `.mat` files plus ignored Python
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The Python v52 tuned candidate matches legacy `figure_match` with
+  q7@22 s delta `2.6201263381153694e-12 rad`, q7 RMSE
+  `2.337566316043061e-11 rad`, and joint RMSE
+  `6.081574510252252e-09 rad`.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

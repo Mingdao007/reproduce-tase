@@ -193,6 +193,9 @@ smoke runs regress.
 - The v51 split gate lets the Python paper-platform line claim formula
   convergence separately from tuned figure-match landmark reproduction. The
   legacy strict aggregate remains failed.
+- The v52 tuned Python candidate reproduces the legacy figure-match q7
+  trajectory with explicit non-paper-faithful labels. This closes the tuned
+  landmark implementation gap without changing the formula-faithful claim.
 
 ## Next Executable Step
 
@@ -201,9 +204,8 @@ continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
-The parity gate now exists and the current candidate covers 30 s; future
-paper-platform work should target the legacy `admittance_proxy` force-loop
-source as a separately labeled Python candidate only if the tuned landmark is
-still required. Otherwise continue UR10e adapted work using the split
-formula-convergence claim boundary. Keep contact, drift, terminal orientation,
-force error, and qdot saturation visible together.
+The parity gate now exists, the formula candidate covers 30 s, and the tuned
+figure-match candidate is implemented separately. Future work should formalize
+split evidence reporting or continue UR10e adapted work using the explicit
+claim boundary. Keep contact, drift, terminal orientation, force error, and
+qdot saturation visible together.

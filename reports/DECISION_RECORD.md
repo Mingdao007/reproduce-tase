@@ -1089,3 +1089,25 @@
   7DOF paper-platform line. They must not call it full paper-equivalent
   numerical parity, Fig.6 q-trajectory parity, or figure-match landmark
   reproduction unless the corresponding claim level passes.
+
+## D057: Keep Tuned Figure-Match Candidate Separate From Formula Parity
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Implement and report the Python v52 tuned figure-match candidate as a
+  separate landmark-reproduction line, not as a replacement for the
+  formula-faithful paper-platform candidate.
+- Reason:
+  The v52 run `runs/paper_7dof_section_v/20260524T134441` reproduces the
+  Fig.6 q7 landmark with `fig6_q7_at_22s_rad = 2.4999999999331863`. The raw
+  provenance comparison at
+  `runs/paper_7dof_fig6_raw_provenance/20260524T134549` shows
+  legacy-vs-Python figure-match joint RMSE of `6.081574510252252e-09 rad`.
+  The matching line uses `admittance_proxy`, `normal_only`, `pinv_bounded`,
+  `alpha = 20.0`, `kp = 25.0`, and `q7_nullspace_speed_rad_s = 0.35`.
+- Consequence:
+  The project can now claim tuned figure-match landmark reproduction in
+  Python. It still must not claim that the formula-faithful paper-platform
+  line reproduces Fig.6 q-trajectory parity or that full paper-equivalent
+  numerical parity is achieved.

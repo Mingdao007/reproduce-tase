@@ -1,0 +1,318 @@
+{
+  "run_id": "20260524T134549",
+  "git_commit": "e52d3885e5e4db76be8d0c36f1358e489279d8a7",
+  "git_status_short": "",
+  "legacy_root": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2",
+  "python_raw_npz": "runs/paper_7dof_section_v/20260524T134441/paper_7dof_section_v_raw.npz",
+  "python_metrics_yaml": "runs/paper_7dof_section_v/20260524T134441/metrics.yaml",
+  "source_files": {
+    "forward_panda_m": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/forward_panda.m",
+    "getJacobian_panda_m": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/getJacobian_panda.m",
+    "formula_fig6_mat": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_formula_faithful_figure_bundle/raw_runs/formula_faithful_fig6_results.mat",
+    "figure_match_fig6_mat": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_figure_match_figure_bundle/raw_runs/figure_match_fig6_results.mat"
+  },
+  "summary": {
+    "python_fk_matches_sampled_legacy_raw": true,
+    "legacy_formula_force_loop_mode": "paper_literal",
+    "legacy_figure_force_loop_mode": "admittance_proxy",
+    "python_force_loop_mode": "admittance_proxy",
+    "python_candidate_label": "python_v52_tuned_figure_match",
+    "legacy_figure_q7_at_22_s_rad": 2.4999999999358065,
+    "python_q7_at_22_s_rad": 2.4999999999331863,
+    "formula_q7_at_22_s_rad": 1.1241793710124022,
+    "python_abs_delta_to_figure_q7_at_22_s_rad": 2.6201263381153694e-12,
+    "python_abs_delta_to_formula_q7_at_22_s_rad": 1.3758206289207842,
+    "legacy_figure_q7_exact_upper_limit_count": 17829,
+    "legacy_figure_q7_first_near_upper_limit_time_s": 11.872999999998859,
+    "legacy_figure_acceptance_mode": "landmark"
+  },
+  "run_summaries": {
+    "legacy_formula_faithful": {
+      "source_path": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_formula_faithful_figure_bundle/raw_runs/formula_faithful_fig6_results.mat",
+      "metadata": {
+        "paper_method_variant": "formula_faithful",
+        "paper_method_acceptance_mode": "diagnostic",
+        "solver_mode": "kkt_projection",
+        "orientation_mode": "force_shortest_arc",
+        "force_loop_mode": "paper_literal",
+        "paper_method_notes": "Formula-first reproduction line. It keeps paper q0, trajectory, force target, joint bounds, velocity bounds, force-motion split, and KKT-style inner-loop semantics. The paper's Rd(F) expression is dimensionally ambiguous, so this line uses the least-invasive force-axis shortest-arc interpretation and reports the ambiguity."
+      },
+      "q7_summary": {
+        "duration_s": 29.99900000001368,
+        "sample_count": 30000,
+        "dt_median_s": 0.001000000000000334,
+        "sample_time_22_s": 22.000000000003904,
+        "q7_at_22_s_rad": 1.1241793710124022,
+        "q_at_22_s_rad": [
+          1.1832256429987795,
+          -1.9075253260093188,
+          -0.022445681120265994,
+          -2.215852108260394,
+          -0.06975628388069834,
+          0.3089428788265775,
+          1.1241793710124022
+        ],
+        "q7_min_rad": 0.2524565304499863,
+        "q7_max_rad": 1.2744226674993324,
+        "q7_final_rad": 1.2744226674993324,
+        "q7_near_upper_limit_count_gt_2p49": 0,
+        "q7_exact_upper_limit_count": 0,
+        "q7_first_near_upper_limit_time_s": null,
+        "max_abs_qdot_by_joint_rad_s": [
+          0.5112264999400946,
+          0.6352738656851102,
+          0.316101900528225,
+          0.23130018242145164,
+          0.15175026821123302,
+          0.4503313939187155,
+          0.7248589229338162
+        ],
+        "qdot_velocity_limit_hit_count": 0,
+        "tail_force_error_mean_abs_N": 0.03509717257708793
+      }
+    },
+    "legacy_figure_match": {
+      "source_path": "/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_figure_match_figure_bundle/raw_runs/figure_match_fig6_results.mat",
+      "metadata": {
+        "paper_method_variant": "figure_match",
+        "paper_method_acceptance_mode": "landmark",
+        "solver_mode": "pinv_bounded",
+        "orientation_mode": "normal_only",
+        "force_loop_mode": "admittance_proxy",
+        "paper_method_notes": "Figure-matching reproduction line. It preserves the paper scene contract but allows documented tuning to chase Fig. 5/6 timing landmarks, especially startup velocity saturation and q7 at 22 s."
+      },
+      "q7_summary": {
+        "duration_s": 29.99900000001368,
+        "sample_count": 30000,
+        "dt_median_s": 0.001000000000000334,
+        "sample_time_22_s": 22.000000000003904,
+        "q7_at_22_s_rad": 2.4999999999358065,
+        "q_at_22_s_rad": [
+          2.282753456296536,
+          -1.769457196167527,
+          0.3327139497771572,
+          -2.3369310641239283,
+          0.5693689911171181,
+          0.6359280489197279,
+          2.4999999999358065
+        ],
+        "q7_min_rad": 0.7853981633974483,
+        "q7_max_rad": 2.4999999999358065,
+        "q7_final_rad": 2.4999999999331863,
+        "q7_near_upper_limit_count_gt_2p49": 18127,
+        "q7_exact_upper_limit_count": 17829,
+        "q7_first_near_upper_limit_time_s": 11.872999999998859,
+        "max_abs_qdot_by_joint_rad_s": [
+          0.1697430034922034,
+          1.5,
+          0.0666206191536295,
+          1.4979907161627992,
+          0.18574068250048062,
+          1.5,
+          0.16887903884665306
+        ],
+        "qdot_velocity_limit_hit_count": 148,
+        "tail_force_error_mean_abs_N": 0.00046279812738245213
+      }
+    },
+    "python_v52_tuned_figure_match": {
+      "source_path": "runs/paper_7dof_section_v/20260524T134441/paper_7dof_section_v_raw.npz",
+      "metadata": {
+        "paper_method_variant": "20260524T134441",
+        "paper_method_acceptance_mode": "candidate",
+        "solver_mode": "pinv_bounded",
+        "orientation_mode": "normal_only",
+        "force_loop_mode": "admittance_proxy",
+        "z0_convention": "q0_forward_kinematics_height"
+      },
+      "q7_summary": {
+        "duration_s": 30.0,
+        "sample_count": 30001,
+        "dt_median_s": 0.001000000000000112,
+        "sample_time_22_s": 22.0,
+        "q7_at_22_s_rad": 2.4999999999331863,
+        "q_at_22_s_rad": [
+          2.2827534498125486,
+          -1.7694571848747227,
+          0.33271394024264916,
+          -2.3369310531561496,
+          0.5693689917763032,
+          0.6359280405339605,
+          2.4999999999331863
+        ],
+        "q7_min_rad": 0.7853981633974483,
+        "q7_max_rad": 2.4999999999358065,
+        "q7_final_rad": 2.4999999999358065,
+        "q7_near_upper_limit_count_gt_2p49": 18128,
+        "q7_exact_upper_limit_count": 17830,
+        "q7_first_near_upper_limit_time_s": 11.873000000000001,
+        "max_abs_qdot_by_joint_rad_s": [
+          0.1697430034922265,
+          1.5,
+          0.06663034535290346,
+          1.4979907161627992,
+          0.1857406828229193,
+          1.5,
+          0.16887903884664687
+        ],
+        "qdot_velocity_limit_hit_count": 148,
+        "tail_force_error_mean_abs_N": 0.0004628877188701459
+      }
+    }
+  },
+  "trajectory_comparisons": [
+    {
+      "reference": "legacy_formula_faithful",
+      "candidate": "python_v52_tuned_figure_match",
+      "common_start_s": 0.0,
+      "common_end_s": 29.99900000001368,
+      "sample_count": 30000,
+      "joint_rmse_rad": 0.6776166099207211,
+      "q7_rmse_rad": 1.2905082815607807,
+      "q7_max_abs_delta_rad": 1.5650874632463951,
+      "q7_delta_at_22_s_rad": 1.3758206289207842,
+      "q7_abs_delta_at_22_s_rad": 1.3758206289207842,
+      "q_delta_at_22_s_rad": [
+        1.0995278068139192,
+        0.1380681411344038,
+        0.35515962136273344,
+        -0.12107894489566595,
+        0.6391252756569199,
+        0.3269851617070602,
+        1.3758206289207842
+      ]
+    },
+    {
+      "reference": "legacy_figure_match",
+      "candidate": "python_v52_tuned_figure_match",
+      "common_start_s": 0.0,
+      "common_end_s": 29.99900000001368,
+      "sample_count": 30000,
+      "joint_rmse_rad": 6.081574510252252e-09,
+      "q7_rmse_rad": 2.337566316043061e-11,
+      "q7_max_abs_delta_rad": 5.706586314602191e-10,
+      "q7_delta_at_22_s_rad": -2.6201263381153694e-12,
+      "q7_abs_delta_at_22_s_rad": 2.6201263381153694e-12,
+      "q_delta_at_22_s_rad": [
+        -6.483837466930709e-09,
+        1.1292611956648102e-08,
+        -9.534689759949089e-09,
+        1.096786839127617e-08,
+        6.591034384939576e-10,
+        -8.386090155632075e-09,
+        -2.6201263381153694e-12
+      ]
+    },
+    {
+      "reference": "legacy_formula_faithful",
+      "candidate": "legacy_figure_match",
+      "common_start_s": 0.0,
+      "common_end_s": 29.99900000001368,
+      "sample_count": 30000,
+      "joint_rmse_rad": 0.6776166090314514,
+      "q7_rmse_rad": 1.2905082815516138,
+      "q7_max_abs_delta_rad": 1.5650874632339122,
+      "q7_delta_at_22_s_rad": 1.3758206289234043,
+      "q7_abs_delta_at_22_s_rad": 1.3758206289234043,
+      "q_delta_at_22_s_rad": [
+        1.0995278132977566,
+        0.13806812984179184,
+        0.3551596308974232,
+        -0.12107895586353434,
+        0.6391252749978165,
+        0.32698517009315037,
+        1.3758206289234043
+      ]
+    }
+  ],
+  "kinematics_source_checks": [
+    {
+      "legacy_run": "legacy_formula_faithful",
+      "sample_rows": [
+        {
+          "requested_time_s": 0.0,
+          "actual_time_s": 0.0,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 0.0,
+          "condition_number_error": 1.7763568394002505e-15
+        },
+        {
+          "requested_time_s": 5.0,
+          "actual_time_s": 5.000000000000004,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 0.0,
+          "condition_number_error": 8.881784197001252e-15
+        },
+        {
+          "requested_time_s": 10.0,
+          "actual_time_s": 9.999999999999897,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 1.1274399064233892e-16,
+          "condition_number_error": 2.6645352591003757e-15
+        },
+        {
+          "requested_time_s": 22.0,
+          "actual_time_s": 22.000000000003904,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 1.1102230246655462e-16,
+          "condition_number_error": 3.552713678800501e-15
+        },
+        {
+          "requested_time_s": 29.999,
+          "actual_time_s": 29.99900000001368,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 1.1102230253037031e-16,
+          "condition_number_error": 8.881784197001252e-16
+        }
+      ],
+      "max_position_error_m": 0.0,
+      "max_quaternion_delta_norm": 1.1274399064233892e-16,
+      "max_condition_number_error": 8.881784197001252e-15,
+      "passes_tight_fk_check": true
+    },
+    {
+      "legacy_run": "legacy_figure_match",
+      "sample_rows": [
+        {
+          "requested_time_s": 0.0,
+          "actual_time_s": 0.0,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 0.0,
+          "condition_number_error": 1.7763568394002505e-15
+        },
+        {
+          "requested_time_s": 5.0,
+          "actual_time_s": 5.000000000000004,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 0.0,
+          "condition_number_error": 0.0
+        },
+        {
+          "requested_time_s": 10.0,
+          "actual_time_s": 9.999999999999897,
+          "position_error_m": 0.0,
+          "quaternion_delta_norm": 0.0,
+          "condition_number_error": 6.217248937900877e-15
+        },
+        {
+          "requested_time_s": 22.0,
+          "actual_time_s": 22.000000000003904,
+          "position_error_m": 1.1102230246251565e-16,
+          "quaternion_delta_norm": 1.1485179310268942e-16,
+          "condition_number_error": 5.329070518200751e-15
+        },
+        {
+          "requested_time_s": 29.999,
+          "actual_time_s": 29.99900000001368,
+          "position_error_m": 1.3877787807814457e-17,
+          "quaternion_delta_norm": 8.326672684688674e-17,
+          "condition_number_error": 5.329070518200751e-15
+        }
+      ],
+      "max_position_error_m": 1.1102230246251565e-16,
+      "max_quaternion_delta_norm": 1.1485179310268942e-16,
+      "max_condition_number_error": 6.217248937900877e-15,
+      "passes_tight_fk_check": true
+    }
+  ]
+}

@@ -102,9 +102,12 @@ the decision record and revert only the affected controller commit.
 - The v51 split gate separates formula-convergence evidence from tuned
   figure-match landmark reproduction. This keeps the formula-faithful transfer
   from inheriting q7 nullspace bias as a hidden paper requirement.
+- The v52 tuned candidate reproduces the legacy figure-match q7 trajectory by
+  explicitly using q7 nullspace bias. This confirms that the bias belongs to a
+  tuned landmark line, not to the formula-faithful transfer.
 
 ## Next Executable Step
 
-For the paper-platform line, implement the tuned figure-match branch only as a
-separately labeled candidate if needed. Otherwise continue UR10e adapted
-controller iterations with the formula-convergence boundary explicit.
+For the paper-platform line, formalize split evidence reporting if needed.
+Otherwise continue UR10e adapted controller iterations with the
+formula-convergence and tuned-landmark boundary explicit.
