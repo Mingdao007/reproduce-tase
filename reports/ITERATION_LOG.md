@@ -4416,7 +4416,8 @@
   Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `168 passed in 7.11s`; `git diff --check` passed.
-  Branch push was verified at `BRANCH_PUSH_PENDING`.
+  Branch push was verified at
+  `98a6b3400901680ae2aeb51f9348963504606d9f`.
 - Next step:
   Without live approval, continue only non-final offline work. The next strict
   feasibility branch should change the Stage A formulation beyond the current

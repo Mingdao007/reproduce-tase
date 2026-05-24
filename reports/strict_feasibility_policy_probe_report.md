@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v113-strict-feasibility-policy-probe`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `98a6b3400901680ae2aeb51f9348963504606d9f`
 
 ## Objective
 
@@ -96,7 +96,7 @@ motion/configuration.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `98a6b3400901680ae2aeb51f9348963504606d9f`.
 
 ## Next Step
 

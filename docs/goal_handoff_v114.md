@@ -80,7 +80,7 @@ exp/tase-ur10e-v113-strict-feasibility-policy-probe
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+98a6b3400901680ae2aeb51f9348963504606d9f
 ```
 
 V113 strict-feasibility policy probe artifacts:
