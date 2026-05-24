@@ -1409,6 +1409,27 @@ Legacy source root:
   `paper_platform_parity_pass = false`. The old strict aggregate remains
   failed, while formula-convergence evidence is now separately reportable.
 
+## V52 Python Tuned Figure-Match Candidate
+
+### Tuned paper-platform Fig.6 q7 landmark candidate
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T134441`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --figure-match-preset --duration-s 30 --dt-s 0.001`
+- Git state at run time:
+  commit `2f65a5908528670868ed5d9e4ffab9f8443b77a2`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  Python tuned figure-match candidate reproduced the q7 landmark with
+  `fig6_q7_at_22s_rad = 2.4999999999331863` and
+  `fig6_q7_abs_error_to_2p5_rad = 6.681366571115177e-11`, while explicitly
+  labeling the non-paper-faithful tuning knobs.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

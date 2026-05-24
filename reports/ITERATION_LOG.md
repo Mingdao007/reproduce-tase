@@ -1944,3 +1944,39 @@
   Implement a separately labeled Python figure-match candidate if that
   landmark is still needed, or proceed with UR10e adapted work using the
   formula-convergence claim boundary.
+
+## 2026-05-24 v52 Python Tuned Figure-Match Candidate
+
+- Branch: `exp/tase-ur10e-v52-python-figure-match-candidate`
+- Starting commit:
+  `c7d3ebfd9c0d3c3a2558a711d3e20b952dbdd617`
+- Code commit:
+  `2f65a5908528670868ed5d9e4ffab9f8443b77a2`
+- Files updated:
+  - `src/tase_repro/paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py`
+  - `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+  - `tests/test_paper_7dof.py`
+  - `reports/ITERATION_LOG.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_7dof_tuned_figure_match_candidate_report.md`
+  - `runs/paper_7dof_section_v/20260524T134441/**`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_7dof.py`
+  - `scripts/run_tests.sh`
+  - `scripts/run_paper_7dof_section_v.py --figure-match-preset --duration-s 30 --dt-s 0.001`
+- Result:
+  The Python paper-platform runner now has an explicitly labeled
+  `paper_platform_7dof_tuned_figure_match_candidate`. The formal run records
+  `fig6_q7_at_22s_rad = 2.4999999999331863` and
+  `fig6_q7_abs_error_to_2p5_rad = 6.681366571115177e-11`.
+- Validation:
+  Full tests passed with `85 passed in 2.27s`.
+- Limit:
+  This is a tuned landmark reproduction candidate. It uses
+  `admittance_proxy` and q7 nullspace bias and must not be relabeled as
+  formula-faithful paper-equivalent parity.
+- Next step:
+  Run a raw-provenance comparison against the legacy figure-match `.mat`
+  arrays using this Python candidate.
