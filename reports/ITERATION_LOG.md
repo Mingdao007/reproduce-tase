@@ -2973,8 +2973,8 @@
   `python3 -m py_compile scripts/audit_stage_b_orientation_kp_probe.py`
   passed. Full tests passed with `115 passed in 2.54s`; `git diff --check`
   passed. The run artifact is lightweight: `215` files, `1.6M`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
-  pending.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `2b56ab4fd9b828fec54870afe1ae0b0792bec89a`.
 - Next step:
   Move away from single-gain Stage B orientation feedback as the direct fix.
   Revisit the terminal/contact model or test a redesigned Stage B
