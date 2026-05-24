@@ -26,6 +26,7 @@ scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode 
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
+scripts/compare_paper_7dof_fig6_raw_provenance.py
 scripts/evaluate_paper_platform_parity.py
 ```
 
@@ -47,6 +48,8 @@ scripts/evaluate_paper_platform_parity.py
 - Paper-platform q7 variant probe outputs showing whether the Fig.6 q7
   landmark changes across supported solver, orientation, and force-integral
   variants.
+- Paper-platform raw Fig.6 provenance outputs comparing Python raw arrays to
+  ignored local legacy MATLAB/RNN `.mat` arrays without committing raw data.
 
 ## Pass/Fail Criteria
 
@@ -154,6 +157,11 @@ them rather than deleting them.
   variants. Across eight 30 s rows, q7 remains in
   `1.661263839866546-1.6835894792145727 rad` and `0 / 8` rows meet the
   `2.5 rad` figure-match tolerance.
+- The v49 raw Fig.6 provenance audit shows Python Panda FK/Jacobian
+  conditioning matches sampled legacy raw states to numerical precision. The
+  `2.5 rad` q7 landmark comes from the legacy `admittance_proxy`
+  figure-match line with `landmark` acceptance and q7 upper-limit pinning, not
+  from the formula-faithful `paper_literal` line.
 
 ## Next Executable Step
 
@@ -162,5 +170,6 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should compare Python Panda kinematics and q trajectories against the legacy
-MATLAB/RNN Fig.6 raw data or audit the figure-match q7 landmark provenance.
+should audit the legacy `admittance_proxy` force loop and figure-match tuning
+source, then decide whether to implement it as a separate Python landmark
+candidate or revise the strict gate claim structure.

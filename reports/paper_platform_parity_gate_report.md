@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v48-paper-7dof-q7-mismatch-probe`
+Branch: `exp/tase-ur10e-v49-paper-fig6-raw-provenance-audit`
 
 ## Scope
 
@@ -28,6 +28,8 @@ paper-equivalent parity.
   `runs/paper_platform_parity_eval/20260524T121542`
 - q7 variant probe output:
   `runs/paper_7dof_q7_variant_probe/20260524T122345`
+- raw Fig.6 provenance output:
+  `runs/paper_7dof_fig6_raw_provenance/20260524T123130`
 
 ## Gate Definition
 
@@ -89,9 +91,18 @@ force-integral-cap variants without changing the gate. Across eight full
 `0 / 8` rows are within the `0.05 rad` tolerance of the `2.5 rad`
 figure-match reference.
 
+The v49 raw Fig.6 provenance audit checks whether this is a Python kinematics
+porting problem. Python Panda FK and Jacobian conditioning match sampled
+legacy raw states to numerical precision. The `2.5 rad` q7 landmark is
+instead tied to the legacy `figure_match` line, which uses `pinv_bounded`,
+`normal_only`, `admittance_proxy`, and `landmark` acceptance. That raw
+trajectory pins q7 at the upper limit for `17829` samples and first nears the
+upper limit at `11.872999999998859 s`.
+
 ## Next Step
 
-To pursue paper-platform parity, compare the Python Panda kinematics and q
-trajectory against the legacy MATLAB/RNN Fig.6 raw data or audit the
-figure-match q7 landmark provenance. Keep this path separate from UR10e
-adapted simulation and hardware readiness claims.
+To pursue paper-platform parity, audit the legacy `admittance_proxy` force
+loop and figure-match tuning source, then decide whether to implement it as a
+separate Python landmark candidate or revise the strict parity gate's claim
+structure. Keep this path separate from UR10e adapted simulation and hardware
+readiness claims.

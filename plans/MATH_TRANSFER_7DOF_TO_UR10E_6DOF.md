@@ -22,6 +22,7 @@ adapted formulation without relying on redundant null-space behavior.
 - `src/tase_repro/panda_kinematics.py`
 - `src/tase_repro/paper_7dof.py`
 - `scripts/run_paper_7dof_q7_variant_probe.py`
+- `scripts/compare_paper_7dof_fig6_raw_provenance.py`
 - Future controller code under `src/tase_repro/`
 
 ## Commands To Run
@@ -31,6 +32,7 @@ scripts/run_tests.sh tests/test_kinematics.py
 scripts/run_tests.sh tests/test_constraints.py
 scripts/run_tests.sh tests/test_panda_kinematics.py tests/test_paper_7dof.py
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
+scripts/compare_paper_7dof_fig6_raw_provenance.py
 ```
 
 ## Expected Outputs
@@ -87,9 +89,14 @@ the decision record and revert only the affected controller commit.
 - The v48 q7 variant probe shows the mismatch is insensitive to the current
   supported Python choices for KKT vs pseudoinverse, force-normal vs
   normal-only orientation, and uncapped vs `0.1` capped force integral.
+- The v49 raw Fig.6 provenance audit shows Python Panda FK/Jacobian
+  conditioning matches sampled legacy raw states. The q7 figure-match
+  landmark is tied to the legacy `admittance_proxy` line and upper-limit
+  pinning, not to a Python kinematics porting mismatch.
 
 ## Next Executable Step
 
-For the paper-platform line, verify the Panda/Franka DH model and compare the
-Python q trajectory against legacy MATLAB/RNN Fig.6 raw data before upgrading
-the claim. Keep this separate from UR10e adapted controller iterations.
+For the paper-platform line, audit the legacy `admittance_proxy` force loop
+and figure-match tuning source, then decide whether to implement that line in
+Python as a separate landmark candidate or revise the strict gate claim
+structure. Keep this separate from UR10e adapted controller iterations.

@@ -1818,3 +1818,46 @@
 - Next step:
   Compare Python Panda kinematics and q trajectories against legacy MATLAB
   Fig.6 raw data or audit the figure-match q7 landmark provenance.
+
+## 2026-05-24 v49 Paper Fig.6 Raw Provenance Audit
+
+- Branch: `exp/tase-ur10e-v49-paper-fig6-raw-provenance-audit`
+- Starting commit: `8228c1bd2b97dca7a170e73a9432e5709801b585`
+- Code commit:
+  `b5941061881fd5962e4b2504b40d1f0f61575704`
+- Files added:
+  - `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+  - `reports/paper_7dof_fig6_raw_provenance_report.md`
+  - `runs/paper_7dof_fig6_raw_provenance/20260524T123130/**`
+- Files updated:
+  - `tests/test_panda_kinematics.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_panda_kinematics.py`
+  - `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+- Result:
+  The Python Panda FK/Jacobian port matches sampled legacy formula-faithful
+  and figure-match raw Fig.6 states to numerical precision. The q7 landmark
+  mismatch is now tied to legacy figure-match provenance: the legacy
+  figure-match line uses `pinv_bounded`, `normal_only`, `admittance_proxy`,
+  and `landmark` acceptance, while the Python candidate uses `paper_literal`.
+  The legacy figure-match q7 trajectory is exactly at the upper limit for
+  `17829` samples and first nears the limit at `11.872999999998859 s`.
+- Validation:
+  Full tests passed with `82 passed in 2.20s`.
+- Limit:
+  This still does not pass the strict parity gate. It narrows the remaining
+  paper-platform issue to the claim structure around the figure-match
+  landmark or the need for a separate Python `admittance_proxy` figure-match
+  candidate.
+- Next step:
+  Audit the legacy `admittance_proxy` force loop and figure-match tuning
+  source, then decide whether to implement that line in Python or revise the
+  strict gate claim structure.

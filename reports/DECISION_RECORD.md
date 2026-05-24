@@ -1016,3 +1016,30 @@
   parity strategy. The next paper-platform branch should compare Python
   Panda kinematics and q trajectories against the legacy MATLAB/RNN raw Fig.6
   data or audit the provenance of the figure-match q7 landmark.
+
+## D054: Treat Fig.6 q7 Landmark As Figure-Match Provenance, Not FK Error
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat the remaining Fig.6 q7-at-22 s mismatch as a legacy figure-match
+  provenance issue, not as evidence of a Python Panda DH/FK/Jacobian porting
+  error.
+- Reason:
+  The v49 raw provenance comparison at
+  `runs/paper_7dof_fig6_raw_provenance/20260524T123130` evaluates the current
+  Python uncapped KKT candidate against the ignored local legacy Fig.6 `.mat`
+  files. Python Panda FK and Jacobian conditioning match sampled legacy raw
+  states to numerical precision. The legacy formula-faithful line uses
+  `kkt_projection`, `force_shortest_arc`, and `paper_literal`, while the
+  legacy figure-match line uses `pinv_bounded`, `normal_only`, and
+  `admittance_proxy` with `landmark` acceptance. The figure-match q7
+  trajectory is exactly at the upper limit for `17829` samples and first nears
+  the upper limit at `11.872999999998859 s`.
+- Consequence:
+  Future strict parity work should not treat the `2.5 rad` q7 landmark as a
+  validated formula-faithful target without preserving this provenance
+  boundary. The next choice is either to implement the legacy
+  `admittance_proxy` figure-match line in Python as a separate tuned landmark
+  candidate, or revise the parity gate so formula-faithful behavior is primary
+  and q7 figure-match remains labeled landmark evidence.

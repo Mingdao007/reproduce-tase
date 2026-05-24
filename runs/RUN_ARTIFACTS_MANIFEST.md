@@ -1343,6 +1343,31 @@ Legacy source root:
   from `1.661263839866546` to `1.6835894792145727 rad`; none are within the
   `0.05 rad` tolerance of the `2.5 rad` figure-match reference.
 
+## V49 Paper Fig.6 Raw Provenance Audit
+
+### Legacy raw Fig.6 and Python candidate comparison
+
+- Run:
+  - `runs/paper_7dof_fig6_raw_provenance/20260524T123130`
+- Command:
+  `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+- Git state at run time:
+  commit `b5941061881fd5962e4b2504b40d1f0f61575704`, clean before output
+  creation.
+- External raw inputs:
+  ignored local `.mat` files under
+  `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/`,
+  plus ignored Python raw `.npz` at
+  `runs/paper_7dof_section_v/20260524T121503/paper_7dof_section_v_raw.npz`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Result:
+  Python Panda FK and Jacobian conditioning match sampled legacy raw states to
+  numerical precision. The legacy figure-match q7 target comes from a
+  `pinv_bounded`/`normal_only`/`admittance_proxy` line with `landmark`
+  acceptance and q7 pinned at the upper limit for `17829` samples, not from
+  the formula-faithful `paper_literal` line.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

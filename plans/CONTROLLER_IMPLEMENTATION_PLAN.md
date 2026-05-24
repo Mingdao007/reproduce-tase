@@ -24,6 +24,7 @@ contracts are testable.
 - `scripts/run_controller_smoke.py`
 - `scripts/run_paper_7dof_section_v.py`
 - `scripts/run_paper_7dof_q7_variant_probe.py`
+- `scripts/compare_paper_7dof_fig6_raw_provenance.py`
 - `scripts/run_paper_trajectory_force_motion.py`
 - `scripts/run_timing_feasibility_sweep.py`
 - `tests/test_controller.py`
@@ -45,6 +46,7 @@ scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode 
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
+scripts/compare_paper_7dof_fig6_raw_provenance.py
 ```
 
 ## Expected Outputs
@@ -178,6 +180,10 @@ smoke runs regress.
   supported Python solver, orientation, and force-integral-cap variants. The
   eight-row q7 range is `0.02232563934802667 rad`, and the closest variant is
   still `0.8164105207854273 rad` away from the figure-match q7 reference.
+- The v49 raw Fig.6 provenance audit shows the Python Panda FK/Jacobian port
+  matches sampled legacy raw states. The figure-match q7 landmark is tied to a
+  legacy `admittance_proxy` force-loop and landmark-acceptance line with q7
+  upper-limit pinning, not to the formula-faithful `paper_literal` line.
 
 ## Next Executable Step
 
@@ -187,7 +193,7 @@ task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
-paper-platform work should target Panda/Franka model provenance, legacy Fig.6
-raw trajectory comparison, or figure-match tuning provenance rather than
-cycling the already-tested q7 variant knobs. Keep contact, drift, terminal
-orientation, force error, and qdot saturation visible together.
+paper-platform work should target the legacy `admittance_proxy` force-loop
+source and figure-match tuning provenance, or revise the strict parity gate's
+claim structure. Keep contact, drift, terminal orientation, force error, and
+qdot saturation visible together.
