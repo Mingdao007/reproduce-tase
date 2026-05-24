@@ -1,0 +1,327 @@
+audit_source: v97 robustness blockers
+overall_goal_complete: false
+robustness_complete: false
+completion_claim_allowed: false
+offline_actionable_from_v95: true
+strict_feasibility_complete_from_v96: false
+source_files:
+  offline_blockers_metrics: runs/offline_completion_blockers/20260525T020734/metrics.yaml
+  strict_blockers_metrics: runs/strict_feasibility_blockers/20260525T051640/metrics.yaml
+  stitched_sensitivity_metrics: runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml
+  timing_margin_metrics: runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml
+  base_z_recovery_metrics: runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml
+  base_z_bracket_metrics: runs/stage_a_base_z_bracket/20260524T165411/metrics.yaml
+  positive_sensitivity_metrics: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  qdot012_positive_metrics: runs/positive_full_stitched_recovery/20260524T195501/metrics.yaml
+  weighted_orientation_sensitivity_metrics: runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml
+  contact_margin_metrics: runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml
+baseline_sensitivity:
+  path: runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml
+  case_count: 9
+  stitched_pass_count: 4
+  stitched_fail_count: 5
+  stitched_pass_fraction: 0.4444444444444444
+  all_cases_passed: false
+  passing_cases:
+  - nominal
+  - stage_a_16s
+  - force_gain_5e-5
+  - force_gain_2e-4
+  failing_cases:
+  - base_z_minus_1mm
+  - base_z_plus_1mm
+  - stage_a_14s
+  - qdot_limit_0p12
+  - paper_time_scale_0p02
+  stage_a_failed_cases:
+  - base_z_minus_1mm
+  - base_z_plus_1mm
+  - stage_a_14s
+  - qdot_limit_0p12
+  stage_b_failed_criteria_counts:
+    contact_present_fraction: 4
+    max_angular_velocity_slack_rad_s: 4
+    qdot_saturation_fraction: 17
+    tail_max_qdot_utilization: 5
+    tail_mean_abs_force_error_N: 8
+  worst_case_snapshots:
+  - case: base_z_minus_1mm
+    stage_a_passed: false
+    stage_b_pass_count: 0
+    stage_b_trajectory_count: 4
+    stage_a_terminal_gate_passed: false
+    stage_a_terminal_force_error_N: 92.55645811468109
+    stage_a_terminal_xy_error_m: 0.0030075762251302427
+    stage_b_worst:
+      trajectory: e3-circle
+      max_tail_force_error_N: 4.80843116250581
+      max_xy_error_m: 9.58144430554789e-05
+      max_orientation_error_rad: 0.07230416166445983
+      max_qdot_saturation_fraction: 0.136
+      min_contact_present_fraction: 1.0
+  - case: base_z_plus_1mm
+    stage_a_passed: false
+    stage_b_pass_count: 0
+    stage_b_trajectory_count: 4
+    stage_a_terminal_gate_passed: false
+    stage_a_terminal_force_error_N: 5.0
+    stage_a_terminal_xy_error_m: 0.0030075762251302427
+    stage_b_worst:
+      trajectory: e1-cycloid
+      max_tail_force_error_N: 5.0
+      max_xy_error_m: 1.4236330898076285e-07
+      max_orientation_error_rad: 0.02753419451554103
+      max_qdot_saturation_fraction: 0.999
+      min_contact_present_fraction: 0.0
+  - case: stage_a_14s
+    stage_a_passed: false
+    stage_b_pass_count: 0
+    stage_b_trajectory_count: 4
+    stage_a_terminal_gate_passed: false
+    stage_a_terminal_force_error_N: 2.03704061425341
+    stage_a_terminal_xy_error_m: 0.00326792033555318
+    stage_b_worst:
+      trajectory: e2-figure-eight
+      max_tail_force_error_N: 0.005164775788000147
+      max_xy_error_m: 6.4708453060925745e-06
+      max_orientation_error_rad: 0.071999704472154
+      max_qdot_saturation_fraction: 0.011
+      min_contact_present_fraction: 1.0
+  - case: qdot_limit_0p12
+    stage_a_passed: false
+    stage_b_pass_count: 0
+    stage_b_trajectory_count: 4
+    stage_a_terminal_gate_passed: false
+    stage_a_terminal_force_error_N: 17.084553106115138
+    stage_a_terminal_xy_error_m: 0.004835468699319981
+    stage_b_worst:
+      trajectory: e3-circle
+      max_tail_force_error_N: 0.0035858309824553956
+      max_xy_error_m: 3.594750388367622e-05
+      max_orientation_error_rad: 0.06961504852018745
+      max_qdot_saturation_fraction: 0.039
+      min_contact_present_fraction: 1.0
+  - case: paper_time_scale_0p02
+    stage_a_passed: true
+    stage_b_pass_count: 3
+    stage_b_trajectory_count: 4
+    stage_a_terminal_gate_passed: true
+    stage_a_terminal_force_error_N: 0.005097546556703136
+    stage_a_terminal_xy_error_m: 0.0030075762251302427
+    stage_b_worst:
+      trajectory: e2-figure-eight
+      max_tail_force_error_N: 0.037200872609881336
+      max_xy_error_m: 3.940146505268642e-06
+      max_orientation_error_rad: 0.07383706545641958
+      max_qdot_saturation_fraction: 0.833
+      min_contact_present_fraction: 1.0
+timing_margin:
+  path: runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml
+  case_count: 7
+  stitched_pass_count: 4
+  stitched_fail_count: 3
+  all_cases_passed: false
+  passing_cases:
+  - nominal
+  - stage_a_14p5_recovery
+  - qdot012_stage_a_18p0_recovery
+  - paper_time_scale_0p012_recovery
+  failing_cases:
+  - stage_a_14s_reference_fail
+  - qdot012_stage_a_17p5_reference_fail
+  - paper_time_scale_0p0125_reference_fail
+  recovered_boundaries:
+    stage_a_duration_s:
+      last_failing_tested: 14.0
+      first_passing_tested: 14.5
+    qdot012_stage_a_duration_s:
+      last_failing_tested: 17.5
+      first_passing_tested: 18.0
+    paper_time_scale:
+      last_passing_tested: 0.012
+      first_failing_tested: 0.0125
+  claim_scope: diagnostic_label_sensitivity_audit_not_robustness_or_hardware_claim
+base_z_recovery:
+  path: runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml
+  case_count: 3
+  recovered_count: 1
+  recovered_cases:
+  - base_z_minus_1mm_stage_a_16s_recovery
+  unresolved_cases:
+  - base_z_minus_1mm
+  - base_z_plus_1mm
+  status_by_case:
+    base_z_minus_1mm:
+      status: path_gate_failed
+      recovered: false
+      base_z_offset_delta_m: -0.001
+      stage_a_duration_s: 15.0
+    base_z_minus_1mm_stage_a_16s_recovery:
+      status: recovered
+      recovered: true
+      base_z_offset_delta_m: -0.001
+      stage_a_duration_s: 16.0
+    base_z_plus_1mm:
+      status: start_and_terminal_not_found
+      recovered: false
+      base_z_offset_delta_m: 0.001
+      stage_a_duration_s: 15.0
+base_z_bracket:
+  path: runs/stage_a_base_z_bracket/20260524T165411/metrics.yaml
+  case_count: 13
+  start_pass_count: 5
+  terminal_pass_count: 5
+  path_geometry_pass_count: 4
+  duration_recovered_count: 7
+  duration_recovered_cases:
+  - delta_m1p000mm@16.0
+  - delta_m0p500mm@15.0
+  - delta_m0p500mm@16.0
+  - delta_m0p250mm@15.0
+  - delta_m0p250mm@16.0
+  - delta_p0p000mm@15.0
+  - delta_p0p000mm@16.0
+  max_positive_terminal_pass_delta_mm: null
+  max_positive_recovered_delta_mm: null
+  unresolved_cases:
+  - delta_m0p750mm
+  - delta_p0p050mm
+  - delta_p0p100mm
+  - delta_p0p150mm
+  - delta_p0p200mm
+  - delta_p0p250mm
+  - delta_p0p500mm
+  - delta_p0p750mm
+  - delta_p1p000mm
+  status_counts:
+    path_geometry_failed: 1
+    recovered_at_tested_duration: 4
+    start_and_terminal_not_found: 8
+positive_stitched_sensitivity:
+  path: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  scenario_count: 5
+  matrix_case_count: 40
+  matrix_stitched_pass_count: 37
+  matrix_stitched_fail_count: 3
+  matrix_stitched_pass_fraction: 0.925
+  all_scenarios_passed: false
+  failing_scenarios:
+  - qdot012_stage_a18s
+  - paper_time_scale_0p0075
+  - orientation_gate_0p119
+  failing_scenario_details:
+    qdot012_stage_a18s:
+      stitched_pass_count: 7
+      case_count: 8
+      failing_cases:
+      - delta_p0p200mm
+      max_positive_stitched_pass_delta_mm: 1.0
+      max_stage_b_qdot_saturation_fraction: 0.009
+      max_stage_b_tail_qdot_utilization: 0.4474846584870986
+      max_stage_b_orientation_error_rad: 0.11997895388586574
+    paper_time_scale_0p0075:
+      stitched_pass_count: 7
+      case_count: 8
+      failing_cases:
+      - delta_p1p000mm
+      max_positive_stitched_pass_delta_mm: 0.75
+      max_stage_b_qdot_saturation_fraction: 0.999
+      max_stage_b_tail_qdot_utilization: 1.0
+      max_stage_b_orientation_error_rad: 0.12020305872871904
+    orientation_gate_0p119:
+      stitched_pass_count: 7
+      case_count: 8
+      failing_cases:
+      - delta_p1p000mm
+      max_positive_stitched_pass_delta_mm: 0.75
+      max_stage_b_qdot_saturation_fraction: 0.006
+      max_stage_b_tail_qdot_utilization: 0.3579877267896789
+      max_stage_b_orientation_error_rad: 0.1199788204275829
+qdot012_positive_recovery:
+  path: runs/positive_full_stitched_recovery/20260524T195501/metrics.yaml
+  stage_a_duration_s: 18.035
+  qdot_limit_rad_s: 0.12
+  paper_time_scale: 0.005
+  max_orientation_error_rad: 0.12
+  case_count: 8
+  stitched_pass_count: 8
+  all_cases_passed: true
+  max_positive_stitched_pass_delta_mm: 1.0
+  max_stage_b_qdot_saturation_fraction: 0.001
+  claim_scope: diagnostic_positive_recovery_not_formal_robustness
+weighted_orientation_model_sensitivity:
+  path: runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml
+  orientation_gate_rad: 0.119
+  critical_row_count: 4
+  all_critical_rows_fail_plus1mm_gate: true
+  max_stage_b_excess_over_gate_rad: 0.0005664520369604714
+  max_stage_b_excess_over_gate_deg: 0.03245531101442353
+  max_excess_group: time0p01_gate0p119:weighted_kp0_normal1
+  failing_cases:
+  - weighted_kp0_normal1:time0p0075_gate0p119:delta1p000mm
+  - weighted_kp0_normal30:time0p0075_gate0p119:delta1p000mm
+  - weighted_kp0_normal1:time0p01_gate0p119:delta1p000mm
+  - weighted_kp0_normal30:time0p01_gate0p119:delta1p000mm
+  terminal_model_sensitivity:
+    contact_point_plus1mm_orientation_rad: 0.11948560786548146
+    legacy_center_plus1mm_orientation_rad: 0.09525838838593075
+    contact_point_minus_legacy_center_plus1mm_rad: 0.024227219479550713
+    contact_point_minus_legacy_center_plus1mm_deg: 1.3881174255153907
+    contact_point_high_end_slope_rad_per_mm: 0.03785584200850284
+    max_stage_b_excess_equivalent_base_z_mm: 0.014963398168061883
+    stage_a_terminal_excess_equivalent_base_z_mm: 0.012827818368757732
+contact_orientation_margin:
+  path: runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml
+  critical_row_count: 4
+  accepted_replacement_gate: false
+  contact_calibration_claim: false
+  hardest_row: time0p01_gate0p119:weighted_kp0_normal1
+  required_normal_rotation_rad: 0.0005664520369604714
+  required_normal_rotation_deg: 0.03245531101442353
+  equivalent_base_z_or_contact_point_um: 14.963398168061882
+  continuous_required_gate_rad: 0.11956645203696047
+blocker_summary:
+  primary_blocker: accepted_model_robustness_not_closed
+  unresolved_blocker_ids:
+  - base_z_plus_1mm_contact_or_terminal_orientation
+  - base_z_minus_path_duration_or_geometry_margin
+  - faster_timing_qdot_tail_utilization
+  - tightened_orientation_gate_plus1mm
+  - contact_model_calibration_missing
+  recovered_nonfinal_ids:
+  - nominal_diagnostic_stitched_policy
+  - stage_a_16s_minus1mm_recovery
+  - timing_margin_stage_a_14p5
+  - timing_margin_qdot012_stage_a_18p0
+  - positive_relaxed_full_matrix_qdot012_18p035
+  baseline_stitched_pass_count: 4
+  baseline_case_count: 9
+  positive_matrix_pass_count: 37
+  positive_matrix_case_count: 40
+  base_z_unresolved_cases:
+  - base_z_minus_1mm
+  - base_z_plus_1mm
+  positive_failing_scenarios:
+  - qdot012_stage_a18s
+  - paper_time_scale_0p0075
+  - orientation_gate_0p119
+claim_boundary:
+  do_not_mark_goal_complete: true
+  robustness_claim: false
+  paper_equivalent_feasibility: false
+  contact_calibration_claim: false
+  orientation_gate_acceptance: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  hardware_readiness_claim: false
+next_offline_actions:
+- Choose an accepted robustness matrix tied to the current claim scope before upgrading
+  diagnostic recoveries.
+- Resolve the positive +1.0 mm tightened-orientation margin only through calibrated
+  contact/gate evidence or a separately accepted model update.
+- Continue base-z perturbation work only as diagnostic simulation unless contact geometry
+  is calibrated.
+audit_run_id: 20260525T052457
+audit_root: /home/andy/reproduce-tase/runs/robustness_blockers/20260525T052457

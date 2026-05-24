@@ -2645,6 +2645,37 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V97 Robustness Blockers
+
+### Accepted-model robustness gap audit
+
+- Script:
+  - `scripts/audit_robustness_blockers.py`
+- Run:
+  - `runs/robustness_blockers/20260525T052457`
+- Report:
+  - `reports/robustness_blockers_report.md`
+- Tests:
+  - `tests/test_robustness_blockers.py`
+- Command:
+  `python3 scripts/audit_robustness_blockers.py --run-id 20260525T052457`
+- Tracked lightweight artifacts:
+  metrics, JSON mirror, summary, git state, report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The audit reports `robustness_complete = false`, baseline diagnostic
+  stitched sensitivity `4 / 9`, positive stitched sensitivity `37 / 40`,
+  `primary_blocker = accepted_model_robustness_not_closed`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Full tests passed with `132 passed in 5.44s`; `git diff --check` passed.
+  Branch push verification is pending.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

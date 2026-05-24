@@ -3713,3 +3713,45 @@
   Without live approval, continue only non-final offline work. Candidate paths
   are strict setup policy search across tangential/orientation/force/qdot gates
   or the separate robustness blocker from the v95 audit.
+
+## 2026-05-25 v97 Robustness Blockers
+
+### Quantify accepted-model robustness gaps
+
+- Branch:
+  `exp/tase-ur10e-v97-robustness-blockers`
+- Run:
+  `runs/robustness_blockers/20260525T052457`
+- Report:
+  `reports/robustness_blockers_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_robustness_blockers.py`
+  - `scripts/run_tests.sh tests/test_robustness_blockers.py`
+  - `python3 scripts/audit_robustness_blockers.py --run-id 20260525T052457`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `scripts/audit_robustness_blockers.py`, which reads the v64 baseline
+  stitched sensitivity, v65 timing-margin recovery, v66/v67 base-z recovery
+  and bracket, v73 positive stitched sensitivity, v75 qdot012 positive
+  recovery, v84 weighted orientation sensitivity, v85 contact margin, and the
+  v95/v96 blocker metrics. The audit reports `robustness_complete = false`,
+  baseline diagnostic stitched sensitivity `4 / 9`, positive stitched
+  sensitivity `37 / 40`, and `primary_blocker =
+  accepted_model_robustness_not_closed`.
+- Limit:
+  This is an offline blocker audit only. It does not collect measurements,
+  execute the read-only SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_robustness_blockers.py` passed;
+  focused robustness blocker tests passed with `2 passed in 0.38s`; the v97
+  blocker audit run was created; full tests passed with
+  `132 passed in 5.44s`; `git diff --check` passed after full-test
+  validation. Branch push verification is pending.
+- Next step:
+  Without live approval, continue only non-final offline work. Candidate paths
+  are defining and stress-testing one accepted diagnostic robustness matrix,
+  strict setup policy search, or paper-platform parity refinement without
+  upgrading claim scope.

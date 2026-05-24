@@ -2128,3 +2128,25 @@
   simultaneously, but v96 does not prove strict paper-equivalent feasibility,
   robustness, contact calibration, gate acceptance, hardware readiness, or any
   hardware authorization.
+
+## D102: Quantify Robustness As An Accepted-Model Blocker
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v97 as the robustness blocker audit for the non-final
+  offline-actionable robustness item identified by v95.
+- Reason:
+  The project has many diagnostic recovery runs, but they use different
+  perturbation sets, timing settings, qdot limits, and relaxed orientation
+  gates. V97 adds `scripts/audit_robustness_blockers.py`, which reads the
+  existing baseline sensitivity, timing-margin, base-z recovery/bracket,
+  positive sensitivity, qdot012 recovery, orientation sensitivity, and contact
+  margin metrics. It reports baseline diagnostic stitched sensitivity `4 / 9`,
+  positive stitched sensitivity `37 / 40`, and `robustness_complete = false`.
+- Consequence:
+  Treat recovered faces such as qdot012 positive recovery at `18.035 s` as
+  diagnostic non-final evidence until a single accepted robustness matrix and
+  accepted contact/gate model exist. V97 does not prove robustness, strict
+  paper-equivalent feasibility, contact calibration, gate acceptance, hardware
+  readiness, or any hardware authorization.
