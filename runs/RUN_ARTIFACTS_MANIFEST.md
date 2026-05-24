@@ -3242,6 +3242,42 @@ Legacy source root:
   strict paper-equivalent feasibility, calibrate contact geometry, or authorize
   hardware work.
 
+## V113 Strict Feasibility Policy Probe
+
+### Probed compact Stage A policies for the strict setup blocker
+
+- Scripts:
+  - `scripts/audit_strict_feasibility_policy_probe.py`
+- Runs:
+  - `runs/strict_feasibility_policy_probe/20260525T073519`
+- Report:
+  - `reports/strict_feasibility_policy_probe_report.md`
+- Tests:
+  - `tests/test_strict_feasibility_policy_probe.py`
+- Command:
+  `python3 scripts/audit_strict_feasibility_policy_probe.py --output-dir runs/strict_feasibility_policy_probe/20260525T073519`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The offline E2 policy probe tests eight Stage A policies and reports setup
+  terminal-state pass `0 / 8`, trajectory feasibility pass `4 / 8`, planned
+  setup-then-trajectory pass `0 / 8`, and full staged feasibility pass
+  `0 / 8`. All eight setup rows violate qdot saturation and tail qdot
+  utilization. The best x/y row still fails orientation, and the best
+  orientation rows still fail x/y and setup qdot criteria.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `168 passed in 7.11s`; `git diff --check` passed.
+  Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline simulation
+  evidence and does not prove strict paper-equivalent feasibility, accept a
+  replacement orientation gate, change the canonical controller, close failed
+  cells, prove robustness, calibrate contact geometry, or authorize hardware
+  work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

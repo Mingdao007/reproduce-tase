@@ -2519,3 +2519,30 @@
   canonical controller, close failed cells, prove robustness, prove strict
   paper-equivalent feasibility, calibrate contact geometry, establish hardware
   readiness, or authorize hardware motion/configuration.
+
+## D118: Keep Current Strict Stage A Priority Policies Nonfinal
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v113 as an offline strict-feasibility policy probe, not as a strict
+  feasibility recovery.
+- Reason:
+  V112 identified strict feasibility as the highest-priority blocker that can
+  advance offline without live approval. V113 runs an eight-case E2 Stage A
+  policy matrix over baseline, linear-primary recenter/settle, weighted
+  recenter/settle, and aggressive planar-retention variants. It reports setup
+  terminal-state pass `0 / 8`, trajectory feasibility pass `4 / 8`, planned
+  setup-then-trajectory pass `0 / 8`, full staged feasibility pass `0 / 8`,
+  qdot saturation failures in `8 / 8`, and tail qdot utilization failures in
+  `8 / 8`. The best x/y row still fails orientation, and the best orientation
+  rows still fail x/y and setup qdot criteria.
+- Consequence:
+  Do not promote the current instantaneous weighted or two-level Stage A
+  velocity allocation into a strict paper-equivalent setup policy. Future
+  offline strict-feasibility work needs a formulation that constrains setup
+  x/y while restoring force-normal orientation without qdot saturation. V113
+  does not accept a replacement orientation gate, change the canonical
+  controller, close failed cells, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, establish hardware
+  readiness, or authorize hardware motion/configuration.

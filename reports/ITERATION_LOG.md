@@ -4380,3 +4380,46 @@
   Without live approval, continue only non-final offline work. The next clean
   offline branch can target strict feasibility, because v112 identifies it as
   the highest-priority blocker that can advance offline without approval.
+
+## 2026-05-25 v113 Strict Feasibility Policy Probe
+
+### Probe compact Stage A policies for the strict setup blocker
+
+- Branch:
+  `exp/tase-ur10e-v113-strict-feasibility-policy-probe`
+- Runs:
+  - `runs/strict_feasibility_policy_probe/20260525T073519`
+- Report:
+  `reports/strict_feasibility_policy_probe_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_feasibility_policy_probe.py`
+  - `scripts/run_tests.sh tests/test_strict_feasibility_policy_probe.py`
+  - `python3 scripts/audit_strict_feasibility_policy_probe.py --output-dir runs/strict_feasibility_policy_probe/20260525T073519`
+  - `rg -n "&id|\*id" runs/strict_feasibility_policy_probe/20260525T073519/metrics.yaml`
+  - `find runs/strict_feasibility_policy_probe/20260525T073519 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline E2 policy probe tests eight Stage A policies over baseline,
+  linear-primary recenter/settle, weighted recenter/settle, and aggressive
+  planar-retention variants. It reports setup terminal-state pass `0 / 8`,
+  trajectory feasibility pass `4 / 8`, planned setup-then-trajectory pass
+  `0 / 8`, and full staged feasibility pass `0 / 8`. All eight setup rows
+  violate qdot saturation and tail qdot utilization. The best x/y row still
+  fails orientation, while the best orientation rows still fail x/y and setup
+  qdot criteria.
+- Limit:
+  This is offline simulation only. It does not prove strict paper-equivalent
+  feasibility, make a canonical controller change, accept a replacement
+  orientation gate, close failed cells, prove robustness, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `168 passed in 7.11s`; `git diff --check` passed.
+  Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next strict
+  feasibility branch should change the Stage A formulation beyond the current
+  instantaneous weighted or two-level velocity allocation, specifically to
+  constrain x/y while restoring force-normal orientation without setup qdot
+  saturation.
