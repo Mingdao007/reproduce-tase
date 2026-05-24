@@ -70,6 +70,12 @@ Expected branch:
 exp/tase-ur10e-v95-offline-completion-blockers
 ```
 
+Verified implementation commit:
+
+```text
+af1fa3f793219afefcf4b0c97bc825ef473adda4
+```
+
 V95 offline blocker artifacts:
 
 ```text

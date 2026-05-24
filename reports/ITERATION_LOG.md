@@ -3665,7 +3665,8 @@
   `python3 -m py_compile scripts/audit_offline_completion_blockers.py` passed;
   focused blocker-audit tests passed with `2 passed in 0.19s`; the v95 blocker
   audit run was created; full tests passed with `128 passed in 4.80s`;
-  `git diff --check` passed after full-test validation.
+  `git diff --check` passed after full-test validation. Branch push was
+  verified at `af1fa3f793219afefcf4b0c97bc825ef473adda4`.
 - Next step:
   Use the read-only measurement scaffold/finalizer/audit path only after the
   user approves the exact read-only SOP step. Without live approval, continue

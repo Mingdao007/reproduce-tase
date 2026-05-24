@@ -2604,6 +2604,8 @@ Legacy source root:
   on explicit approval/evidence.
 - Validation:
   Full tests passed with `128 passed in 4.80s`; `git diff --check` passed.
+  Branch push was verified at
+  `af1fa3f793219afefcf4b0c97bc825ef473adda4`.
 - Limit:
   No live or physical measurement was collected. This is not a calibrated
   contact model, not an accepted replacement orientation gate, not a strict
