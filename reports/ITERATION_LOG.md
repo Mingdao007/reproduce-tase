@@ -3707,7 +3707,8 @@
   focused strict-feasibility blocker tests passed with `2 passed in 0.18s`;
   the v96 blocker audit run was created; full tests passed with
   `130 passed in 5.04s`; `git diff --check` passed after full-test
-  validation. Branch push verification is pending.
+  validation. Branch push was verified at
+  `31bcca912b2623bd4f29850077ab86a76ec1ec4e`.
 - Next step:
   Without live approval, continue only non-final offline work. Candidate paths
   are strict setup policy search across tangential/orientation/force/qdot gates

@@ -74,6 +74,12 @@ Expected branch:
 exp/tase-ur10e-v96-strict-feasibility-blockers
 ```
 
+Verified implementation commit:
+
+```text
+31bcca912b2623bd4f29850077ab86a76ec1ec4e
+```
+
 V96 strict-feasibility blocker artifacts:
 
 ```text
