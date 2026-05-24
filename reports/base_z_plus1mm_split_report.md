@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v108-base-z-plus1mm-split`
 
-Implementation commit: `V108_IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `987e360d9244bf8c98ce549c21c7787ab163868a`
 
 ## Objective
 
@@ -88,7 +88,8 @@ establish hardware readiness, or authorize hardware motion/configuration.
   passed with `153 passed in 7.22s`.
 - `git diff --check`
   passed.
-- Branch push verification is pending the implementation commit.
+- Branch push was verified at
+  `987e360d9244bf8c98ce549c21c7787ab163868a`.
 
 ## Next Step
 

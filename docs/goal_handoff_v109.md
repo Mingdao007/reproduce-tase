@@ -91,7 +91,7 @@ exp/tase-ur10e-v108-base-z-plus1mm-split
 Verified implementation commit:
 
 ```text
-V108_IMPLEMENTATION_COMMIT_PENDING
+987e360d9244bf8c98ce549c21c7787ab163868a
 ```
 
 V108 split artifacts:
