@@ -35,12 +35,15 @@ def test_failed_experiment_execution_audit_preserves_claim_boundary(tmp_path) ->
     assert metrics["run_id"] == "TEST_FAILED_EXECUTION_AUDIT"
     assert metrics["status"] == "completed"
     assert metrics["summary"]["cell_count"] == 4
-    assert metrics["summary"]["executed_cell_count"] == 1
+    assert metrics["summary"]["executed_cell_count"] == 2
     assert metrics["summary"]["closed_cell_count"] == 0
-    assert metrics["summary"]["not_executed_cell_count"] == 3
+    assert metrics["summary"]["not_executed_cell_count"] == 2
     assert metrics["summary"]["all_failed_cells_closed"] is False
     assert metrics["summary"]["closed_cell_ids"] == []
-    assert metrics["summary"]["unresolved_executed_cell_ids"] == ["base_z_plus1mm"]
+    assert metrics["summary"]["unresolved_executed_cell_ids"] == [
+        "base_z_plus1mm",
+        "positive_fast_timing_0p0075",
+    ]
 
     boundary = metrics["claim_boundary"]
     assert boundary["do_not_mark_goal_complete"] is True
@@ -80,6 +83,46 @@ def test_failed_experiment_execution_audit_reports_base_z_unresolved(tmp_path) -
     assert checks["duration_recovered"]["passed"] is False
     assert checks["terminal_target_recovered"]["orientation_error_rad"] == 0.11948560786548146
 
-    assert results["positive_fast_timing_0p0075"]["status"] == "not_executed"
     assert results["positive_orientation_gate_0p119"]["status"] == "not_executed"
     assert results["weighted_plus1mm_0p119_gate"]["status"] == "not_executed"
+
+
+def test_failed_experiment_execution_audit_reports_fast_timing_unresolved(tmp_path) -> None:
+    _, metrics = run_audit(tmp_path)
+
+    results = {item["cell_id"]: item for item in metrics["cell_results"]}
+    fast_timing = results["positive_fast_timing_0p0075"]
+
+    assert fast_timing["status"] == "executed_unresolved"
+    assert fast_timing["closure_passed"] is False
+    assert fast_timing["experiment_metrics"].endswith(
+        "runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075/metrics.yaml"
+    )
+    assert fast_timing["aggregate"]["matrix_case_count"] == 1
+    assert fast_timing["aggregate"]["matrix_stitched_pass_count"] == 0
+    assert fast_timing["aggregate"]["matrix_stitched_fail_count"] == 1
+    assert fast_timing["aggregate"]["failing_scenarios"] == ["paper_time_scale_0p0075"]
+
+    checks = fast_timing["closure_checks"]
+    assert checks["planned_parameters_match"]["all_matched"] is True
+    assert checks["source_delta_present"]["passed"] is True
+    assert checks["scenario_present"]["passed"] is True
+    assert checks["stage_a_recovered"]["passed"] is True
+    assert checks["stitched_recovered"]["passed"] is False
+    assert checks["stitched_recovered"]["handoff_pass_count"] == 3
+    assert checks["stitched_recovered"]["handoff_trajectory_count"] == 4
+    assert checks["stage_b_all_rows_passed"]["passed"] is False
+    assert checks["stage_b_all_rows_passed"]["failed_rows"] == [
+        {
+            "trajectory": "e2-figure-eight",
+            "failed_criteria": [
+                "qdot_saturation_fraction",
+                "tail_max_qdot_utilization",
+                "max_orientation_error_rad",
+            ],
+        }
+    ]
+    assert checks["qdot_saturation_clear"]["passed"] is False
+    assert checks["tail_qdot_utilization_clear"]["passed"] is False
+    assert checks["orientation_gate_clear"]["passed"] is False
+    assert checks["orientation_gate_clear"]["stage_b_max_orientation_error_rad"] == 0.12020305872871904

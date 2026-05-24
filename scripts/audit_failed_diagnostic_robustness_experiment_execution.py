@@ -80,7 +80,13 @@ def parse_float_list(text: str | None) -> list[float] | None:
     return [float(part.strip()) for part in text.split(",") if part.strip()]
 
 
-def planned_args_match(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
+def parse_str_list(text: str | None) -> list[str] | None:
+    if text is None:
+        return None
+    return [part.strip() for part in text.split(",") if part.strip()]
+
+
+def planned_base_z_args_match(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
     command = list(plan["command"])
     expected_deltas = parse_float_list(command_arg(command, "--base-z-deltas-mm"))
     expected_durations = parse_float_list(command_arg(command, "--stage-a-durations-s"))
@@ -102,6 +108,37 @@ def planned_args_match(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[st
     }
 
 
+def planned_positive_sensitivity_args_match(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    command = list(plan["command"])
+    expected_deltas = parse_float_list(command_arg(command, "--base-z-deltas-mm"))
+    expected_scenarios = parse_str_list(command_arg(command, "--scenarios"))
+    observed_deltas = sorted(
+        {
+            float(case["base_z_offset_delta_mm"])
+            for scenario in metrics.get("scenarios", [])
+            for case in scenario.get("cases", [])
+        }
+    )
+    observed_scenarios = [str(item["scenario"]) for item in metrics.get("scenarios", [])]
+    return {
+        "base_z_deltas_mm": {
+            "planned": expected_deltas,
+            "observed": observed_deltas,
+            "matched": expected_deltas == observed_deltas,
+        },
+        "scenarios": {
+            "planned": expected_scenarios,
+            "observed": observed_scenarios,
+            "matched": expected_scenarios == observed_scenarios,
+        },
+        "all_matched": expected_deltas == observed_deltas
+        and expected_scenarios == observed_scenarios,
+    }
+
+
 def evaluate_base_z_plus1mm(plan: dict[str, Any], metrics: dict[str, Any]) -> dict[str, Any]:
     aggregate = metrics["aggregate"]
     cases = metrics["cases"]
@@ -111,7 +148,7 @@ def evaluate_base_z_plus1mm(plan: dict[str, Any], metrics: dict[str, Any]) -> di
     path_passed = bool(case["path"] and case["path"]["path_gate_passed"])
     duration_recovered = any(item["stitched_passed"] for item in case["durations"])
     closure_checks = {
-        "planned_parameters_match": planned_args_match(plan, metrics),
+        "planned_parameters_match": planned_base_z_args_match(plan, metrics),
         "source_delta_present": {
             "passed": case["base_z_offset_delta_mm"] == 1.0,
             "observed_base_z_offset_delta_mm": case["base_z_offset_delta_mm"],
@@ -168,6 +205,100 @@ def evaluate_base_z_plus1mm(plan: dict[str, Any], metrics: dict[str, Any]) -> di
     }
 
 
+def evaluate_positive_fast_timing_0p0075(
+    plan: dict[str, Any],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    aggregate = metrics["aggregate"]
+    scenario = next(
+        item for item in metrics["scenarios"] if item["scenario"] == "paper_time_scale_0p0075"
+    )
+    case = next(item for item in scenario["cases"] if item["case"] == "delta_p1p000mm")
+    failed_rows = list(case["stage_b_failed_rows"])
+    stitched_passed = bool(case["stitched_passed"])
+    handoff_all_passed = int(case["handoff_pass_count"]) == int(case["handoff_trajectory_count"])
+    no_stage_b_failures = not failed_rows
+    qdot_saturation_clear = float(case["stage_b_max_qdot_saturation_fraction"]) == 0.0
+    tail_qdot_clear = float(case["stage_b_max_tail_qdot_utilization"]) <= 1.0 and no_stage_b_failures
+    orientation_clear = float(case["stage_b_max_orientation_error_rad"]) <= float(
+        scenario["parameters"]["max_orientation_error_rad"]
+    )
+    closure_checks = {
+        "planned_parameters_match": planned_positive_sensitivity_args_match(plan, metrics),
+        "source_delta_present": {
+            "passed": case["base_z_offset_delta_mm"] == 1.0,
+            "observed_base_z_offset_delta_mm": case["base_z_offset_delta_mm"],
+        },
+        "scenario_present": {
+            "passed": scenario["scenario"] == "paper_time_scale_0p0075",
+            "observed_scenario": scenario["scenario"],
+        },
+        "stage_a_recovered": {
+            "passed": bool(case["stage_a_passed"]) and not case["stage_a_failed_criteria"],
+            "stage_a_passed": bool(case["stage_a_passed"]),
+            "stage_a_failed_criteria": list(case["stage_a_failed_criteria"]),
+        },
+        "stitched_recovered": {
+            "passed": stitched_passed,
+            "handoff_pass_count": int(case["handoff_pass_count"]),
+            "handoff_trajectory_count": int(case["handoff_trajectory_count"]),
+        },
+        "stage_b_all_rows_passed": {
+            "passed": handoff_all_passed and no_stage_b_failures,
+            "failed_rows": failed_rows,
+        },
+        "qdot_saturation_clear": {
+            "passed": qdot_saturation_clear,
+            "stage_b_max_qdot_saturation_fraction": float(
+                case["stage_b_max_qdot_saturation_fraction"]
+            ),
+        },
+        "tail_qdot_utilization_clear": {
+            "passed": tail_qdot_clear,
+            "stage_b_max_tail_qdot_utilization": float(case["stage_b_max_tail_qdot_utilization"]),
+        },
+        "orientation_gate_clear": {
+            "passed": orientation_clear,
+            "stage_b_max_orientation_error_rad": float(case["stage_b_max_orientation_error_rad"]),
+            "max_orientation_error_rad": float(scenario["parameters"]["max_orientation_error_rad"]),
+        },
+    }
+    closure_passed = all(
+        [
+            closure_checks["planned_parameters_match"]["all_matched"],
+            closure_checks["source_delta_present"]["passed"],
+            closure_checks["scenario_present"]["passed"],
+            closure_checks["stage_a_recovered"]["passed"],
+            closure_checks["stitched_recovered"]["passed"],
+            closure_checks["stage_b_all_rows_passed"]["passed"],
+            closure_checks["qdot_saturation_clear"]["passed"],
+            closure_checks["tail_qdot_utilization_clear"]["passed"],
+            closure_checks["orientation_gate_clear"]["passed"],
+        ]
+    )
+    return {
+        "cell_id": "positive_fast_timing_0p0075",
+        "status": "executed_closed" if closure_passed else "executed_unresolved",
+        "closure_passed": closure_passed,
+        "closure_checks": closure_checks,
+        "observed_status": "stitched_passed" if stitched_passed else "stitched_failed",
+        "aggregate": {
+            "scenario_count": int(aggregate["scenario_count"]),
+            "matrix_case_count": int(aggregate["matrix_case_count"]),
+            "matrix_stitched_pass_count": int(aggregate["matrix_stitched_pass_count"]),
+            "matrix_stitched_fail_count": int(aggregate["matrix_stitched_fail_count"]),
+            "scenario_all_pass_count": int(aggregate["scenario_all_pass_count"]),
+            "failing_scenarios": list(aggregate["failing_scenarios"]),
+            "all_scenarios_passed": bool(aggregate["all_scenarios_passed"]),
+        },
+        "interpretation": (
+            "The +1.0 mm positive fast-timing cell remains unresolved because "
+            "Stage A passes but the stitched Stage B handoff fails E2 on qdot "
+            "saturation, tail qdot utilization, and orientation."
+        ),
+    }
+
+
 def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[str, Any]:
     cell_id = str(plan["id"])
     metrics_path = experiment_root / cell_id / "metrics.yaml"
@@ -184,6 +315,8 @@ def evaluate_cell(plan: dict[str, Any], experiment_root: pathlib.Path) -> dict[s
     metrics = load_yaml(metrics_path)
     if cell_id == "base_z_plus1mm":
         result = evaluate_base_z_plus1mm(plan, metrics)
+    elif cell_id == "positive_fast_timing_0p0075":
+        result = evaluate_positive_fast_timing_0p0075(plan, metrics)
     else:
         result = {
             "cell_id": cell_id,
@@ -218,7 +351,7 @@ def build_audit(
     ]
     not_executed = [item["cell_id"] for item in cell_results if item["status"] == "not_executed"]
     return {
-        "audit_source": "v100 failed diagnostic robustness experiment execution audit",
+        "audit_source": "v101 failed diagnostic robustness experiment execution audit",
         "run_id": run_id,
         "status": "completed",
         "source_files": {
@@ -253,7 +386,8 @@ def build_audit(
         },
         "next_offline_actions": [
             "Do not upgrade the base_z_plus1mm cell; it remains unresolved under the executed command.",
-            "If continuing offline, run one of the remaining planned commands or design a narrower start-contact/terminal policy probe for the +1.0 mm row.",
+            "Do not upgrade the positive_fast_timing_0p0075 cell; it remains unresolved under the executed command.",
+            "If continuing offline, run one of the remaining planned commands or design narrower probes for the unresolved +1.0 mm rows.",
             "Keep contact-model and gate interpretations blocked until approved read-only evidence exists.",
         ],
     }

@@ -2777,6 +2777,43 @@ Legacy source root:
   replacement orientation gate, not a strict paper-equivalent claim, not a
   robustness proof, and not hardware authorization.
 
+## V101 Positive Fast-Timing Failed-Cell Execution
+
+### Executed `positive_fast_timing_0p0075` planned command and audit update
+
+- Scripts:
+  - `scripts/audit_positive_stitched_sensitivity.py`
+  - `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T055322`
+- Report:
+  - `reports/positive_fast_timing_failed_cell_execution_report.md`
+- Tests:
+  - `tests/test_failed_diagnostic_robustness_experiment_execution.py`
+- Executed command:
+  `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_positive_stitched_sensitivity.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075 --base-z-deltas-mm 1.0 --scenarios paper_time_scale_0p0075`
+- Audit command:
+  `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T055322`
+- Tracked lightweight artifacts:
+  experiment metrics/summary/git state, audit metrics/summary/git state,
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The executed `positive_fast_timing_0p0075` cell remains unresolved. The
+  audit reports `executed_cell_count = 2`, `closed_cell_count = 0`,
+  `not_executed_cell_count = 2`, `all_failed_cells_closed = false`; the fast
+  timing row has Stage A pass true, stitched pass false, and E2 fails qdot
+  saturation, tail qdot utilization, and orientation.
+- Validation:
+  Focused execution-audit tests passed with `3 passed in 0.20s`; YAML anchor
+  check found no anchors in the generated metrics; full tests passed with
+  `139 passed in 5.89s`.
+- Limit:
+  No live or physical measurement was collected. Two planned experiment
+  commands have now been executed. This is not a calibrated contact model, not
+  an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, not a robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

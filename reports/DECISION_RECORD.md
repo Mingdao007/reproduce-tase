@@ -2216,3 +2216,24 @@
   before it can affect the matrix. V100 does not prove robustness, strict
   paper-equivalent feasibility, contact calibration, gate acceptance, hardware
   readiness, or any hardware authorization.
+
+## D106: Keep Fast-Timing Recovery Unresolved After Focused Execution
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v101 as the focused execution and audit of the v99
+  `positive_fast_timing_0p0075` planned failed cell.
+- Reason:
+  V99 queued this row because the v98 diagnostic matrix still failed the
+  `+1.0 mm`, `paper_time_scale = 0.0075` fast-timing case. V101 runs the
+  exact planned command and extends the execution audit to compare the output
+  against closure criteria. Stage A passes, but stitched recovery remains
+  false: E2 fails qdot saturation, tail qdot utilization, and orientation.
+- Consequence:
+  Do not upgrade the `positive_fast_timing_0p0075` failed cell. The remaining
+  planned cells are `positive_orientation_gate_0p119` and
+  `weighted_plus1mm_0p119_gate`, and every future executed command still needs
+  a comparison audit before it can affect the matrix. V101 does not prove
+  robustness, strict paper-equivalent feasibility, contact calibration, gate
+  acceptance, hardware readiness, or any hardware authorization.

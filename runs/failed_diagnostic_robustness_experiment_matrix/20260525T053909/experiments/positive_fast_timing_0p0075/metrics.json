@@ -1,0 +1,112 @@
+{
+  "run_id": "20260525T055200",
+  "source": "v72 positive stitched recovery sensitivity around v70 relaxed terminal/path setup",
+  "source_run": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909",
+  "relaxed_stage_a_target_config": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml",
+  "default_parameters": {
+    "stage_a_duration_s": 15.0,
+    "paper_time_scale": 0.005,
+    "qdot_limit_rad_s": 0.15,
+    "max_orientation_error_rad": 0.12
+  },
+  "trajectories": [
+    "e1-cycloid",
+    "e2-figure-eight",
+    "e3-circle",
+    "e4-cardioid"
+  ],
+  "aggregate": {
+    "scenario_count": 1,
+    "matrix_case_count": 1,
+    "matrix_stitched_pass_count": 0,
+    "matrix_stitched_fail_count": 1,
+    "scenario_all_pass_count": 0,
+    "failing_scenarios": [
+      "paper_time_scale_0p0075"
+    ],
+    "all_scenarios_passed": false
+  },
+  "scenarios": [
+    {
+      "scenario": "paper_time_scale_0p0075",
+      "description": "Faster Stage B trajectory timing than the v72 recovery value.",
+      "parameters": {
+        "stage_a_duration_s": 15.0,
+        "paper_time_scale": 0.0075,
+        "qdot_limit_rad_s": 0.15,
+        "max_orientation_error_rad": 0.12
+      },
+      "stage_a_orientation_gate_rad": null,
+      "stage_a_target_config": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml",
+      "aggregate": {
+        "case_count": 1,
+        "stitched_pass_count": 0,
+        "stitched_fail_count": 1,
+        "stage_a_pass_count": 1,
+        "passing_cases": [],
+        "failing_cases": [
+          "delta_p1p000mm"
+        ],
+        "all_cases_passed": false,
+        "max_positive_stitched_pass_delta_mm": null,
+        "max_stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+        "max_stage_b_qdot_saturation_fraction": 0.999,
+        "max_stage_b_tail_qdot_utilization": 1.0,
+        "max_stage_b_orientation_error_rad": 0.12020305872871904
+      },
+      "cases": [
+        {
+          "case": "delta_p1p000mm",
+          "base_z_offset_delta_m": 0.001,
+          "base_z_offset_delta_mm": 1.0,
+          "stage_a_passed": true,
+          "stage_a_terminal_gate_passed": true,
+          "stage_a_terminal_failed_criteria": [],
+          "stage_a_failed_criteria": [],
+          "stage_a_gate_criteria": {
+            "target_contact_present_fraction": 1.0,
+            "max_force_error_N": 0.14209391841232932,
+            "max_scheduled_xy_error_m": 1.9014565476188287e-08,
+            "max_scheduled_orientation_error_rad": 6.184330233673449e-07,
+            "max_abs_qdot_rad_s": 0.10018584837167505,
+            "final_tracking_error_norm_rad": 0.0,
+            "terminal_gate_passed": true
+          },
+          "stitched_passed": false,
+          "handoff_pass_count": 3,
+          "handoff_trajectory_count": 4,
+          "stage_b_failed_rows": [
+            {
+              "trajectory": "e2-figure-eight",
+              "failed_criteria": [
+                "qdot_saturation_fraction",
+                "tail_max_qdot_utilization",
+                "max_orientation_error_rad"
+              ]
+            }
+          ],
+          "stage_a_max_qdot_rad_s": 0.10018584837167505,
+          "stage_a_qdot_saturation_fraction": 0.0,
+          "stage_a_final_tracking_error_norm_rad": 0.0,
+          "stage_a_terminal_force_error_N": 0.0015639424746973773,
+          "stage_a_terminal_xy_error_m": 0.0037081102250263293,
+          "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+          "stage_b_max_qdot_saturation_fraction": 0.999,
+          "stage_b_max_tail_qdot_utilization": 1.0,
+          "stage_b_max_orientation_error_rad": 0.12020305872871904,
+          "stage_b_max_tail_force_error_N": 0.006603888075066666,
+          "stage_b_max_xy_error_m": 1.7967958428040668e-06,
+          "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p1p000mm/path/path.csv"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "diagnostic-label positive stitched sensitivity audit only",
+    "uses the v70 run-local relaxed orientation target config or run-local copies",
+    "not a canonical config change",
+    "not strict paper-equivalent feasibility",
+    "not a formal robustness proof",
+    "not hardware-ready"
+  ]
+}
