@@ -2411,3 +2411,31 @@
   establish hardware readiness, or authorize hardware motion/configuration.
   Future offline work can target weighted-priority acceptance or the relaxed
   `base_z_plus1mm` Stage B handoff blocker.
+
+## D114: Keep Relaxed Base-Z Weighted Handoff Recovery Diagnostic
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v109 as a diagnostic weighted-priority handoff probe for the relaxed
+  `base_z_plus1mm` path.
+- Reason:
+  V108 showed that the run-local `0.12 rad` gate recovers `base_z_plus1mm`
+  Stage A endpoint/path evidence but leaves stitched Stage B at `3 / 4`. V109
+  reruns the v70 relaxed path at Stage A durations `15.0 s` and `16.0 s`,
+  comparing the linear-primary baseline with the two weighted priority rows.
+  The baseline reproduces the E2 blocker at both durations with max
+  orientation `0.12043140848858806 rad`, qdot saturation `0.997`, and tail
+  qdot utilization `1.0`. Both weighted rows pass `4 / 4` at both durations
+  with max orientation `0.11956645203696047 rad`, qdot saturation `0.0`, and
+  tail qdot utilization `0.520987929048311`.
+- Consequence:
+  Treat weighted priority as a diagnostic recovery candidate for both the v107
+  fast-timing face and the v109 relaxed base-z handoff, but do not close the
+  original v99 failed cells. Do not accept `0.12 rad` as a canonical gate,
+  accept weighted priority as a canonical controller default, change canonical
+  configs, prove robustness, prove strict paper-equivalent feasibility,
+  calibrate contact geometry, establish hardware readiness, or authorize
+  hardware motion/configuration. Future offline work should define the
+  acceptance boundary for a named diagnostic weighted profile without changing
+  the canonical claim boundary.

@@ -4207,3 +4207,48 @@
   named diagnostic controller profile, or target the relaxed `base_z_plus1mm`
   Stage B handoff timing/qdot blocker while keeping the relaxed orientation
   gate non-canonical.
+
+## 2026-05-25 v109 Relaxed Base-Z Weighted Handoff Probe
+
+### Test weighted priority on the relaxed `base_z_plus1mm` handoff blocker
+
+- Branch:
+  `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff`
+- Runs:
+  - `runs/relaxed_base_z_weighted_handoff/20260525T073012`
+- Report:
+  `reports/relaxed_base_z_weighted_handoff_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_relaxed_base_z_weighted_handoff.py`
+  - `scripts/run_tests.sh tests/test_relaxed_base_z_weighted_handoff.py`
+  - `python3 scripts/audit_relaxed_base_z_weighted_handoff.py --output-dir runs/relaxed_base_z_weighted_handoff/20260525T073012`
+  - `rg -n "&id|\*id" runs/relaxed_base_z_weighted_handoff/20260525T073012/metrics.yaml`
+  - `find runs/relaxed_base_z_weighted_handoff/20260525T073012 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The relaxed `base_z_plus1mm` handoff matrix keeps the v70 run-local
+  `0.12 rad` orientation gate, `paper_time_scale = 0.01`, and
+  `qdot_limit = 0.15 rad/s` fixed. The linear-primary baseline fails E2 at
+  both tested Stage A durations (`15.0 s`, `16.0 s`) with max orientation
+  `0.12043140848858806`, qdot saturation `0.997`, and tail qdot utilization
+  `1.0`. Both weighted scenarios pass `4 / 4` at both durations with maximum
+  Stage B orientation `0.11956645203696047`, qdot saturation `0.0`, and tail
+  qdot utilization `0.520987929048311`.
+- Limit:
+  This is diagnostic simulation using the run-local relaxed gate. It does not
+  close the original v99 `base_z_plus1mm` failed cell, accept the `0.12 rad`
+  gate as canonical, accept weighted priority as a canonical controller
+  default, change canonical configs, calibrate contact geometry, prove
+  robustness, prove strict paper-equivalent feasibility, or authorize hardware
+  motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `156 passed in 6.93s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V109_IMPLEMENTATION_COMMIT_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next branch
+  can audit the acceptance boundary for promoting weighted priority into a
+  named diagnostic controller profile using v107 and v109, while keeping
+  canonical controller, orientation-gate, failed-cell closure, and robustness
+  boundaries false.

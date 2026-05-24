@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v109.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v108 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script. V100 executes `base_z_plus1mm`, V101 executes `positive_fast_timing_0p0075`, V102 executes `positive_orientation_gate_0p119`, and V103 executes `weighted_plus1mm_0p119_gate`; all four remain unresolved. V104 classifies the four remaining `+1.0 mm` signatures. V105 isolates the `positive_fast_timing_0p0075` E2 qdot/usage blocker: at `paper_time_scale = 0.0075`, qdot-limit increases through `0.3 rad/s` remove qdot saturation but still fail orientation; the first tested E2 timing pass is `paper_time_scale = 0.0052`. V106 shows weighted priority clears the isolated E2 row at `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the fixed `0.12 rad` orientation gate. V107 reruns the exact full E1-E4 `+1.0 mm` fast-timing face: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4`; this remains diagnostic evidence and does not close the original failed cell because weighted priority has not been accepted as canonical. V108 splits `base_z_plus1mm`: broader seeds recover start contact, terminal force/x-y/contact passes, terminal/path are blocked by the current `0.08 rad` orientation gate, and the run-local `0.12 rad` gate recovers Stage A/path but not stitched Stage B. The current execution audit still has executed cells `4`, closed cells `0`, not-executed cells `0`, and all failed cells closed `false`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v108 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v108 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v110.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v109 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script. V100 executes `base_z_plus1mm`, V101 executes `positive_fast_timing_0p0075`, V102 executes `positive_orientation_gate_0p119`, and V103 executes `weighted_plus1mm_0p119_gate`; all four remain unresolved. V104 classifies the four remaining `+1.0 mm` signatures. V105 isolates the `positive_fast_timing_0p0075` E2 qdot/usage blocker: at `paper_time_scale = 0.0075`, qdot-limit increases through `0.3 rad/s` remove qdot saturation but still fail orientation; the first tested E2 timing pass is `paper_time_scale = 0.0052`. V106 shows weighted priority clears the isolated E2 row at `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the fixed `0.12 rad` orientation gate. V107 reruns the exact full E1-E4 `+1.0 mm` fast-timing face: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4`; this remains diagnostic evidence and does not close the original failed cell because weighted priority has not been accepted as canonical. V108 splits `base_z_plus1mm`: broader seeds recover start contact, terminal force/x-y/contact passes, terminal/path are blocked by the current `0.08 rad` orientation gate, and the run-local `0.12 rad` gate recovers Stage A/path but not stitched Stage B. V109 targets that relaxed handoff blocker: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4` at Stage A durations `15.0 s` and `16.0 s`; this remains diagnostic and does not close the original failed cell. The current execution audit still has executed cells `4`, closed cells `0`, not-executed cells `0`, and all failed cells closed `false`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v109 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v109 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v107` repository state. The project goal is to reproduce the T-ASE finite-time
+`v109` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v108-base-z-plus1mm-split`
+  `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -134,12 +134,17 @@ Read and audit these files before making assumptions:
   `tests/test_base_z_plus1mm_split.py`
   `runs/base_z_plus1mm_split/20260525T071440`
   `reports/base_z_plus1mm_split_report.md`
+- Current v109 relaxed `base_z_plus1mm` weighted handoff artifacts:
+  `scripts/audit_relaxed_base_z_weighted_handoff.py`
+  `tests/test_relaxed_base_z_weighted_handoff.py`
+  `runs/relaxed_base_z_weighted_handoff/20260525T073012`
+  `reports/relaxed_base_z_weighted_handoff_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v109.md`
+  `docs/goal_handoff_v110.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -477,6 +482,12 @@ Current accepted claims:
   passes, terminal/path recovery is blocked by the current `0.08 rad`
   orientation gate, and the run-local `0.12 rad` gate recovers Stage A/path
   but not stitched Stage B. The original failed cell remains open.
+- `ur10e_relaxed_base_z_weighted_handoff`: v109 targets the relaxed
+  `base_z_plus1mm` Stage B handoff blocker. The linear-primary baseline still
+  fails E2 at Stage A durations `15.0 s` and `16.0 s`, while
+  `weighted_kp0_normal1` and `weighted_kp0_normal30` each pass `4 / 4` at both
+  durations. This is a non-canonical diagnostic recovery candidate, not a
+  closed failed cell.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -489,13 +500,13 @@ Current next executable step:
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
   after explicit user confirmation, using the v93 scaffold, v91 finalizer, and
   v90/v93 verifier for evidence capture; or continue only non-final offline
-  simulation/paper-platform work identified by the v95-v108 blocker audits.
+  simulation/paper-platform work identified by the v95-v109 blocker audits.
   The next offline probe can audit the acceptance boundary for promoting
-  weighted priority into a named diagnostic controller profile, or target the
-  remaining relaxed `base_z_plus1mm` Stage B handoff timing/qdot blocker while
-  keeping the relaxed orientation gate non-canonical. Keep strict
-  paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v108
-  diagnostic staged labels separate.
+  weighted priority into a named diagnostic controller profile using v107 and
+  v109 evidence, while preserving canonical controller, gate, robustness, and
+  failed-cell closure boundaries. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63-v109 diagnostic staged labels
+  separate.
 
 ## Safety Boundary
 

@@ -3086,6 +3086,48 @@ Legacy source root:
   strict paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V109 Relaxed Base-Z Weighted Handoff Probe
+
+### Tested weighted priority on the relaxed `base_z_plus1mm` handoff blocker
+
+- Scripts:
+  - `scripts/audit_relaxed_base_z_weighted_handoff.py`
+- Runs:
+  - `runs/relaxed_base_z_weighted_handoff/20260525T073012`
+- Report:
+  - `reports/relaxed_base_z_weighted_handoff_report.md`
+- Tests:
+  - `tests/test_relaxed_base_z_weighted_handoff.py`
+- Command:
+  `python3 scripts/audit_relaxed_base_z_weighted_handoff.py --output-dir runs/relaxed_base_z_weighted_handoff/20260525T073012`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  per-scenario lightweight metrics and command logs; report, tests, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The relaxed `base_z_plus1mm` handoff matrix keeps the v70 run-local
+  `0.12 rad` orientation gate, `paper_time_scale = 0.01`, and
+  `qdot_limit = 0.15 rad/s` fixed. The linear-primary baseline fails E2 at
+  both tested Stage A durations with max orientation `0.12043140848858806`,
+  qdot saturation `0.997`, and tail qdot utilization `1.0`. Both weighted
+  scenarios pass `4 / 4` at both durations with maximum Stage B orientation
+  `0.11956645203696047`, qdot saturation `0.0`, tail qdot utilization
+  `0.520987929048311`, and tail mean absolute force error
+  `0.0008424456782388923 N`.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `156 passed in 6.93s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V109_IMPLEMENTATION_COMMIT_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is diagnostic simulation
+  using the run-local relaxed gate and does not close the v99
+  `base_z_plus1mm` failed cell. It is not a calibrated contact model, not an
+  accepted replacement orientation gate, not a canonical controller/config
+  change, not a strict paper-equivalent claim, not a robustness proof, and not
+  hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
