@@ -220,10 +220,10 @@ def audit_tcp_contact_model(
         if float(np.dot(contact_normal, normal)) < 0.0:
             contact_normal = -contact_normal
         contact_midpoint = contact.pos.copy()
-        sphere_surface = site_world - contact_geom_radius * contact_normal
+        sphere_surface = geom_center_world - contact_geom_radius * contact_normal
         site_to_contact = site_world - contact_midpoint
         site_to_contact_projection = float(np.dot(site_to_contact, contact_normal))
-        site_to_surface_projection = float(site_to_contact_projection + 0.5 * penetration)
+        site_to_surface_projection = float(np.dot(site_world - sphere_surface, contact_normal))
         parent_to_contact_distance = float(np.linalg.norm(contact_midpoint - parent_world))
         parent_to_surface_distance = float(np.linalg.norm(sphere_surface - parent_world))
         parent_to_site_axis_norm = float(np.linalg.norm(parent_to_site_world))

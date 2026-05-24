@@ -75,3 +75,7 @@ def test_tcp_contact_point_variant_offsets_sphere_center_from_tcp_site() -> None
     np.testing.assert_allclose(audit.normal_force_N, 5.0, atol=1e-6)
     assert audit.site_to_sphere_surface_projection_on_normal_m is not None
     assert audit.site_to_sphere_surface_projection_on_normal_m < 0.001
+    assert audit.parent_to_sphere_surface_distance_m is not None
+    assert audit.parent_to_sphere_surface_distance_m < 0.09
+    assert audit.surface_extension_beyond_declared_tcp_m is not None
+    assert abs(audit.surface_extension_beyond_declared_tcp_m) < 0.001
