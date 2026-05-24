@@ -46,7 +46,9 @@ UR10e results remain adapted simulation evidence, not hardware evidence. v58
 selects the v57 diagnostic terminal setup target for the next Stage A
 simulation prototype. v59 shows direct handoff from that target to Stage B
 keeps target contact but still fails all E1-E4 rows on qdot saturation. This
-is not a trajectory-feasibility or hardware claim.
+is not a trajectory-feasibility or hardware claim. v60 adds a slowed,
+low-gain diagnostic handoff that passes `4 / 4` from the selected target, but
+it still does not implement a Stage A path to that target.
 
 ## Test Command
 

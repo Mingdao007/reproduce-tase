@@ -1621,6 +1621,24 @@ Legacy source root:
   diagnostic orientation thresholds, but all rows fail qdot saturation gates.
   This is not a Stage A path or trajectory-feasibility claim.
 
+## V60 Qdot-Aware Diagnostic Handoff
+
+### Slowed low-gain handoff from selected diagnostic terminal target
+
+- Run:
+  - `runs/stage_a_target_handoff_eval/20260524T145433`
+- Command:
+  `scripts/evaluate_stage_a_target_handoff.py --orientation-kp 0.0 --paper-time-scale 0.01 --force-gain 1e-4`
+- Git state at run time:
+  commit `67b0f053f525cfbcf23db872ccc994d100ecca7f`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The qdot-aware diagnostic handoff reports `4 / 4` passes from the selected
+  target. It uses slowed timing, lower force gain, diagnostic-orientation hold,
+  and target-pair force/contact accounting. This is direct-target handoff
+  evidence only, not a Stage A path or paper-equivalent trajectory claim.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

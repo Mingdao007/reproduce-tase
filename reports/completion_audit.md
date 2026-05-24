@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v59-diagnostic-target-handoff`
+Branch: `exp/tase-ur10e-v60-qdot-aware-diagnostic-handoff`
 
 ## Objective Restatement
 
@@ -74,6 +74,8 @@ The objective has two separate technical claim levels:
 - `reports/stage_a_target_selection_report.md`
 - `reports/stage_a_target_handoff_report.md`
 - `runs/stage_a_target_handoff_eval/20260524T144654/metrics.yaml`
+- `reports/qdot_aware_diagnostic_handoff_report.md`
+- `runs/stage_a_target_handoff_eval/20260524T145433/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -84,17 +86,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v58 branches pushed and GitHub-verified; v59 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v59-diagnostic-target-handoff`; latest local branch is `exp/tase-ur10e-v59-diagnostic-target-handoff` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v59 branches pushed and GitHub-verified; v60 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v60-qdot-aware-diagnostic-handoff`; latest local branch is `exp/tase-ur10e-v60-qdot-aware-diagnostic-handoff` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v59 branch/code commit, claim boundary, and next executable controller target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D064 as of v59 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v60 branch/code commit, claim boundary, and next executable controller target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D065 as of v60 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v59 full-suite validation was `96 passed in 2.40s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v60 full-suite validation was `96 passed in 2.43s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -113,6 +115,7 @@ The objective has two separate technical claim levels:
 | Adapted terminal setup diagnostic gate | `configs/ur10e_adapted_acceptance.yaml`, `reports/adapted_terminal_setup_gate_report.md`, `runs/terminal_setup_gate_eval/20260524T143019/metrics.yaml` | v57 adds a diagnostic-only terminal setup label and finds `1 / 513` passing candidates; no path, trajectory, paper-equivalent, or hardware claim |
 | Stage A target selection | `configs/ur10e_adapted_stage_a_target.yaml`, `reports/stage_a_target_selection_report.md`, `reports/DECISION_RECORD.md` D063 | v58 selects `ur10e_adapted_terminal_setup_diagnostic` as the next Stage A simulation prototype target; not a controller, path, trajectory, paper-equivalent, or hardware claim |
 | Diagnostic target handoff audit | `src/tase_repro/stage_a_target_handoff.py`, `scripts/evaluate_stage_a_target_handoff.py`, `reports/stage_a_target_handoff_report.md`, `runs/stage_a_target_handoff_eval/20260524T144654/metrics.yaml` | v59 starts from the selected diagnostic q and finds `0 / 4` handoff passes; target contact, force, x/y, and diagnostic orientation stay within bounds, but qdot saturation gates fail |
+| Qdot-aware diagnostic handoff | `reports/qdot_aware_diagnostic_handoff_report.md`, `runs/stage_a_target_handoff_eval/20260524T145433/metrics.yaml` | v60 starts from the selected diagnostic q and finds `4 / 4` handoff passes with slowed timing, lower force gain, diagnostic-orientation hold, target-pair contact accounting, and no qdot saturation; still not a Stage A path |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -455,6 +458,29 @@ Evidence:
 - `reports/stage_a_target_handoff_report.md`
 - `runs/stage_a_target_handoff_eval/20260524T144654/metrics.yaml`
 
+The qdot-aware diagnostic handoff can additionally claim:
+
+```text
+ur10e_qdot_aware_diagnostic_handoff:
+  selected target label = ur10e_adapted_terminal_setup_diagnostic
+  trajectory count = 4
+  handoff pass count = 4 / 4
+  paper_time_scale = 0.01
+  force_gain = 1e-4
+  orientation_kp = 0.0
+  target contact present fraction = 1.0 for all rows
+  qdot saturation fraction = 0.0 for all rows
+  Stage A path feasibility = false
+  strict trajectory feasibility = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/qdot_aware_diagnostic_handoff_report.md`
+- `runs/stage_a_target_handoff_eval/20260524T145433/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -500,6 +526,10 @@ Evidence:
   therefore still does not implement a Stage A path. It also fails all E1-E4
   trajectory rows on qdot saturation, so it does not prove trajectory
   feasibility.
+- The v60 qdot-aware diagnostic handoff passes from the selected q, but it
+  still does not implement a Stage A path to that q and it uses slowed timing
+  plus lower force gain. It remains direct-target handoff evidence only, not a
+  strict trajectory or paper-equivalent claim.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -523,9 +553,8 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Implement a qdot-aware Stage A/Stage B prototype against
-`ur10e_adapted_terminal_setup_diagnostic`, or explicitly change trajectory
-timing/gates before making any trajectory-feasibility claim. Keep strict
-paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
-labels. Any hardware work still requires measured mounted-stack geometry and a
-separate approved SOP.
+Implement a qdot-aware Stage A path to
+`ur10e_adapted_terminal_setup_diagnostic`, or keep v60 labeled as
+direct-target handoff evidence only. Keep strict paper-equivalent setup and
+v38 trajectory-after-relaxed-setup as separate labels. Any hardware work still
+requires measured mounted-stack geometry and a separate approved SOP.

@@ -2319,3 +2319,45 @@
   Implement a qdot-aware Stage A/Stage B prototype against the diagnostic
   target, or explicitly change timing/gates before claiming trajectory
   feasibility.
+
+## 2026-05-24 v60 Qdot-Aware Diagnostic Handoff
+
+- Branch: `exp/tase-ur10e-v60-qdot-aware-diagnostic-handoff`
+- Starting commit:
+  `bfd60c8e7fbbd0f1cf56f73cb2e4f9875c6b0945`
+- Code commit:
+  `67b0f053f525cfbcf23db872ccc994d100ecca7f`
+- Files added:
+  - `reports/qdot_aware_diagnostic_handoff_report.md`
+  - `runs/stage_a_target_handoff_eval/20260524T145433/**`
+- Files updated:
+  - `scripts/evaluate_stage_a_target_handoff.py`
+  - `README.md`
+  - `docs/goal.md`
+  - `plans/MASTER_PLAN.md`
+  - `plans/MUJOCO_ENVIRONMENT_PLAN.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_stage_a_target_handoff.py`
+  - `python3 -m py_compile scripts/evaluate_stage_a_target_handoff.py src/tase_repro/stage_a_target_handoff.py`
+  - `scripts/evaluate_stage_a_target_handoff.py --orientation-kp 0.0 --paper-time-scale 0.01 --force-gain 1e-4`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The slowed low-gain diagnostic handoff reports `4 / 4` E1-E4 passes from
+  the selected target. All rows keep target contact, satisfy force/x-y/
+  diagnostic-orientation gates, and avoid qdot saturation.
+- Limit:
+  This is direct-target handoff evidence only. It does not implement a Stage A
+  path to the selected target and must not be used as paper-equivalent or
+  hardware evidence.
+- Validation:
+  Full tests passed with `96 passed in 2.43s`. `git diff --check` passed.
+- Next step:
+  Implement a qdot-aware Stage A path to the selected diagnostic terminal
+  target, or keep v60 labeled as direct-target handoff evidence only.

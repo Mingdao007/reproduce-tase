@@ -219,14 +219,17 @@ smoke runs regress.
   E1-E4 with target-pair force/contact accounting. It reports `0 / 4` passes:
   target contact, force, x/y, and diagnostic orientation remain acceptable,
   but every row fails qdot saturation gates.
+- The v60 qdot-aware diagnostic handoff starts from the same selected target,
+  slows the trajectory timing, lowers force gain, and holds the diagnostic
+  orientation envelope. It reports `4 / 4` passes without qdot saturation, but
+  it is direct-target handoff evidence only.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should
-implement a qdot-aware Stage A/Stage B prototype against the selected
-`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change
-trajectory timing/gates before any trajectory-feasibility claim. Keep contact,
-drift, terminal orientation, force error, and qdot saturation visible
-together.
+implement a qdot-aware Stage A path to the selected
+`ur10e_adapted_terminal_setup_diagnostic` target, then reuse the v60 handoff
+parameters only under the direct-target claim boundary. Keep contact, drift,
+terminal orientation, force error, and qdot saturation visible together.

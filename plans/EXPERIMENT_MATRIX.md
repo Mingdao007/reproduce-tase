@@ -198,14 +198,16 @@ them rather than deleting them.
   E1-E4. It keeps target contact and small force/x-y/diagnostic-orientation
   errors, but every row fails qdot saturation gates, so the handoff pass count
   is `0 / 4`.
+- The v60 qdot-aware diagnostic handoff slows timing, lowers force gain, and
+  holds the diagnostic orientation envelope. It reports `4 / 4` direct-target
+  handoff passes, but it still does not implement a Stage A path.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future UR10e experiment branches should implement a qdot-aware
-Stage A/Stage B prototype against the selected
-`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change
-trajectory timing/gates before any trajectory-feasibility claim. Keep strict
+Stage A path to the selected `ur10e_adapted_terminal_setup_diagnostic` target
+before using v60 as more than direct-target handoff evidence. Keep strict
 paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
 labels.

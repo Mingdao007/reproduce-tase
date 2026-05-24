@@ -82,13 +82,14 @@ work exists only on that branch.
   strict setup blocker is a gate-definition conflict. v57 adds a diagnostic
   terminal setup label only; v58 selects that label as the next Stage A
   simulation prototype target. v59 shows direct Stage B handoff from that
-  target still fails `0 / 4` on qdot saturation. This is not a path or
-  trajectory claim.
+  target still fails `0 / 4` on qdot saturation. v60 shows a slowed low-gain
+  diagnostic handoff can pass `4 / 4`, but this is still not a Stage A path or
+  paper-equivalent trajectory claim.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Implement a qdot-aware Stage A/Stage B prototype against the selected
-`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change timing
-or gates before making any trajectory-feasibility claim.
+Implement a qdot-aware Stage A path to the selected
+`ur10e_adapted_terminal_setup_diagnostic` target, or keep v60 labeled as
+direct-target handoff evidence only.

@@ -1266,3 +1266,22 @@
   change timing/gates before making any trajectory-feasibility claim. The v59
   result is a handoff audit only, not a Stage A path, trajectory, paper-
   equivalent, or hardware-readiness claim.
+
+## D065: Keep Qdot-Aware Diagnostic Handoff Separate From Stage A Path Feasibility
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record the v60 qdot-aware handoff as direct-target evidence only.
+- Reason:
+  The v60 run at `runs/stage_a_target_handoff_eval/20260524T145433` starts
+  directly from the v58 selected q and changes the handoff policy to
+  `paper_time_scale = 0.01`, `force_gain = 1e-4`, and `orientation_kp = 0.0`.
+  It reports `4 / 4` E1-E4 handoff passes with target-pair contact accounting
+  and zero qdot saturation.
+- Consequence:
+  The project can claim a qdot-aware slowed diagnostic handoff from the
+  selected target. It still must not claim Stage A path feasibility, strict
+  trajectory feasibility, paper-equivalent feasibility, or hardware readiness
+  until a controller reaches that target from an ordinary initial state under
+  the same claim boundary.
