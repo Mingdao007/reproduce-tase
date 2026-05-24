@@ -182,6 +182,8 @@ them rather than deleting them.
   the 85 mm TCP site at the center of the contact sphere. The simulated
   contact surface is one `0.045 m` sphere radius away, and the terminal setup
   rerun remains `0 / 65`.
+- The v54 contact-point model separates the 85 mm site from the colliding
+  sphere center, but the strict terminal setup rerun remains `0 / 65`.
 
 ## Next Executable Step
 
@@ -191,5 +193,5 @@ achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next paper-platform step
 should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by replacing the approximate TCP/contact convention or updating
-it from measured mounted-stack geometry.
+adapted work by running broader terminal feasibility or gate-definition audits
+on the v54 contact-point model.

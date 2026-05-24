@@ -1137,3 +1137,27 @@
   decide whether the EOAT 85 mm note denotes a physical contact point or a
   sphere-center/tool-frame point, then rerun the setup audit with that explicit
   model.
+
+## D059: Use A Separate Contact-Point Variant For The 85 mm TCP Convention
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the v53 center-site MJCF as historical evidence and add a separate v54
+  TCP contact-point MJCF/config variant instead of silently rewriting the old
+  model.
+- Reason:
+  The v54 variant
+  `assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml` keeps the EOAT
+  candidate TCP site at `85 mm` but moves the colliding `contact_tip` sphere
+  center to local `[0, 0, 0.045]`. The audit run
+  `runs/tcp_contact_model_audit/20260524T140535` reports
+  `site_coincident_with_contact_geom_center = false`,
+  `contact_surface_offset_requires_model_decision = false`, and
+  `surface_extension_beyond_declared_tcp_m = -0.00068365111445505`.
+- Consequence:
+  The named contact-point convention is now available for simulation, but it
+  is still not hardware-ready. The terminal setup rerun at
+  `runs/setup_terminal_ik_audit/20260524T140539` remains `0 / 65`, so the next
+  useful simulation step is broader terminal feasibility or gate-definition
+  analysis, not another scalar phase schedule.

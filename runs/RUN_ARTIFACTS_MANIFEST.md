@@ -1495,6 +1495,42 @@ Legacy source root:
   candidates. The best candidate still fails x/y and orientation gates while
   keeping force error low.
 
+## V54 TCP Contact-Point Model Variant
+
+### TCP/contact audit for contact-point variant
+
+- Run:
+  - `runs/tcp_contact_model_audit/20260524T140535`
+- Command:
+  `scripts/audit_tcp_contact_model.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml`
+- Git state at run time:
+  commit `1725f4c28796fc844dc1d350236755e6c4d59c28`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The contact-point model separates the 85 mm TCP site from the sphere center:
+  `site_coincident_with_contact_geom_center = false`,
+  `contact_surface_offset_requires_model_decision = false`, and
+  `contact_tip` local center is `[0.0, 0.0, 0.045]`. At the audited posture
+  the site-to-sphere-surface projection on the plane normal is
+  `0.0006836511144550518 m`.
+
+### Terminal IK rerun on contact-point variant
+
+- Run:
+  - `runs/setup_terminal_ik_audit/20260524T140539`
+- Command:
+  `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count 64 --random-seed-std-rad 0.15 --random-seed 37 --max-nfev 300 --posture-weight 0.0001`
+- Git state at run time:
+  commit `1725f4c28796fc844dc1d350236755e6c4d59c28`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The strict terminal setup gate remains failed with `0 / 65` passing
+  candidates. The best candidate fails x/y and orientation gates with force
+  error `0.0050975519688662985 N`, x/y error `0.0030075788240061675 m`, and
+  orientation error `0.07240603253666981 rad`.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

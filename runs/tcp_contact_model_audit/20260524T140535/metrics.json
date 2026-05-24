@@ -1,0 +1,96 @@
+{
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "run_id": "20260524T140535",
+  "model_path": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "site_name": "tcp_site_unverified_85mm",
+  "contact_geom_name": "contact_tip",
+  "parent_body_name": "onrobot_hex_v1_primitive",
+  "tcp_body_name": "eoat_v13_tcp_guess",
+  "plane_geom_name": "contact_plane",
+  "initial_q_rad": [
+    0.0,
+    -0.1,
+    0.15,
+    -0.05,
+    0.0,
+    0.0
+  ],
+  "base_z_offset_m": -0.04612594095298278,
+  "config_tcp_guess_m": [
+    0.0,
+    0.0,
+    -0.085
+  ],
+  "eoat_note_contact_distance_m": 0.085,
+  "model_tcp_body_offset_m": [
+    0.0,
+    0.0,
+    -0.085
+  ],
+  "model_site_local_pos_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "model_contact_geom_local_pos_m": [
+    0.0,
+    0.0,
+    0.045
+  ],
+  "contact_geom_radius_m": 0.045,
+  "tcp_guess_matches_model_body_offset": true,
+  "tcp_guess_matches_eoat_note_distance": true,
+  "site_coincident_with_contact_geom_center": false,
+  "contact_surface_offset_requires_model_decision": false,
+  "parent_to_site_distance_m": 0.085,
+  "normal_force_N": 4.9999999999967395,
+  "contact_count": 1,
+  "contact_pair": [
+    "contact_plane",
+    "contact_tip"
+  ],
+  "contact_distance_m": -1.7843686096072342e-05,
+  "penetration_m": 1.7843686096072342e-05,
+  "contact_normal_world": [
+    0.17364817766748877,
+    0.0,
+    0.9848077530121098
+  ],
+  "site_world_m": [
+    0.00497792942394327,
+    0.0,
+    -0.00020166468435967033
+  ],
+  "contact_geom_center_world_m": [
+    0.00497792942394327,
+    0.0,
+    0.04479833531564035
+  ],
+  "contact_midpoint_world_m": [
+    -0.0028346893093069963,
+    0.0,
+    0.000490772730300286
+  ],
+  "sphere_surface_point_world_m": [
+    -0.002836238571093724,
+    0.0,
+    0.00048198643009541436
+  ],
+  "site_to_contact_midpoint_m": [
+    0.007812618733250266,
+    0.0,
+    -0.0006924374146599563
+  ],
+  "site_to_contact_midpoint_projection_on_normal_m": 0.0006747292714070073,
+  "site_to_sphere_surface_projection_on_normal_m": 0.0006836511144550518,
+  "parent_to_contact_midpoint_distance_m": 0.08466877890079771,
+  "parent_to_sphere_surface_distance_m": 0.0846776706744086,
+  "parent_to_sphere_surface_projection_along_parent_to_site_m": 0.08431634888554496,
+  "surface_extension_beyond_declared_tcp_m": -0.00068365111445505,
+  "warnings": [
+    "simulation-only TCP/contact geometry audit",
+    "EOAT 85 mm contact point remains unverified for hardware",
+    "do not write this TCP/contact model to UR or ROS control settings"
+  ]
+}

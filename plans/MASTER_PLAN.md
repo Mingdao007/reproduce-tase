@@ -75,14 +75,14 @@ work exists only on that branch.
 ## Unresolved Risks
 
 - Paper truth is still not PDF-verified.
-- UR10e MJCF is approximate and not calibrated. v53 shows the current 85 mm
-  TCP site is the center of a colliding sphere, while the simulated contact
-  surface is about one sphere radius farther along the contact normal.
+- UR10e MJCF is approximate and not calibrated. v54 adds a contact-point
+  variant that separates the 85 mm TCP site from the colliding sphere center,
+  but the strict terminal setup gate still fails and the mounted stack is not
+  measured.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Create an explicit replacement UR10e TCP/contact model convention, or update
-the model from measured mounted-stack geometry, then rerun the terminal setup
-audit before any hardware gate.
+Run a broader terminal feasibility or gate-definition audit on the v54
+contact-point model before designing another Stage A controller.

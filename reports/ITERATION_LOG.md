@@ -2038,3 +2038,57 @@
   Create an explicit replacement model variant with a named contact-point
   convention, or measure the mounted EOAT stack and regenerate the MJCF/config
   before rerunning the terminal setup audit.
+
+## 2026-05-24 v54 TCP Contact-Point Model Variant
+
+- Branch: `exp/tase-ur10e-v54-tcp-contact-point-model`
+- Starting commit:
+  `9dca0b65a594dc70f4cd3fae0a0e565669e4ea0d`
+- Code commits:
+  - `1ee13f89d693f008fdb83079181472f8716f8341`
+  - `d504e3dcefcf5bb4bd5ac416a44eff62b2828c63`
+  - `1725f4c28796fc844dc1d350236755e6c4d59c28`
+- Files added:
+  - `assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml`
+  - `configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml`
+  - `reports/tcp_contact_point_model_variant_report.md`
+  - `runs/tcp_contact_model_audit/20260524T140535/**`
+  - `runs/setup_terminal_ik_audit/20260524T140539/**`
+- Files updated:
+  - `src/tase_repro/tcp_contact_model_audit.py`
+  - `scripts/audit_tcp_contact_model.py`
+  - `tests/test_tcp_contact_model_audit.py`
+  - `reports/setup_terminal_ik_audit_report.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `docs/goal.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_tcp_contact_model_audit.py`
+  - `scripts/audit_tcp_contact_model.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml`
+  - `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count 64 --random-seed-std-rad 0.15 --random-seed 37 --max-nfev 300 --posture-weight 0.0001`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The v54 model keeps the `85 mm` TCP site as the intended contact point and
+  moves the colliding sphere center to local `[0, 0, 0.045]`. The audit records
+  `site_coincident_with_contact_geom_center = false`,
+  `contact_surface_offset_requires_model_decision = false`,
+  `site_to_sphere_surface_projection_on_normal_m = 0.0006836511144550518`,
+  and `surface_extension_beyond_declared_tcp_m = -0.00068365111445505`.
+- Terminal setup rerun:
+  The strict terminal setup gate still fails with `0 / 65` passing candidates.
+  The best candidate has force error `0.0050975519688662985 N`, x/y error
+  `0.0030075788240061675 m`, orientation error
+  `0.07240603253666981 rad`, and failed criteria
+  `tangential_error_m;orientation_error_rad`.
+- Limit:
+  This resolves the simple center/site collision-proxy convention in
+  simulation only. It does not measure the mounted EOAT stack and does not
+  make the model hardware-ready.
+- Validation:
+  Full tests passed with `88 passed in 2.25s`. `git diff --check` passed.
+- Next step:
+  Run a broader terminal feasibility or gate-definition audit on the v54
+  contact-point model before designing another Stage A controller.

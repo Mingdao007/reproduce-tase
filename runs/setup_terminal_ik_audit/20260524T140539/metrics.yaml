@@ -1,0 +1,3790 @@
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+run_id: 20260524T140539
+base_z_offset_m: -0.04612594095298278
+target_force_N: 5.0
+site_name: tcp_site_unverified_85mm
+random_seed_count: 64
+random_seed_std_rad: 0.15
+random_seed: 37
+max_nfev: 300
+posture_weight: 0.0001
+reference_xy_m:
+- 0.00497792942394327
+- 0.0
+surface_normal_world:
+- 0.1736481777010905
+- 0.0
+- 0.9848077530061847
+initial_q:
+- 0.0
+- -0.1
+- 0.15
+- -0.05
+- 0.0
+- 0.0
+thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.002
+  max_orientation_error_rad: 0.03
+candidate_count: 65
+pass_count: 0
+initial_candidate:
+  seed_label: initial_unoptimized
+  q:
+  - 0.0
+  - -0.1
+  - 0.15
+  - -0.05
+  - 0.0
+  - 0.0
+  cost: null
+  success: true
+  status: 0
+  message: not optimized
+  nfev: 0
+  tcp_m:
+  - 0.00497792942394327
+  - 0.0
+  - -0.00020166468435967033
+  target_force_N: 5.0
+  force_N: 4.9999999999967395
+  force_error_N: 3.2605029787191597e-12
+  tangential_error_xy_m:
+  - 0.0
+  - 0.0
+  tangential_error_m: 0.0
+  orientation_error_rotvec:
+  - 0.0
+  - 0.17453292523412012
+  - 0.0
+  orientation_error_rad: 0.17453292523412012
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 3.2605029787191597e-12
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 0.17453292523412012
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 5.817764174470671
+best_candidate:
+  seed_label: random_006
+  q:
+  - -5.612828391105295e-09
+  - -0.0244015486035546
+  - -0.00048295196185264654
+  - 0.00029823595040922793
+  - 6.918721918024318e-11
+  - 0.12671315731244848
+  cost: 4.043473371517008
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 117
+  tcp_m:
+  - 0.0019703505999371027
+  - 7.194941801156928e-12
+  - -0.0003140167622614348
+  target_force_N: 5.0
+  force_N: 4.994902448031134
+  force_error_N: 0.0050975519688662985
+  tangential_error_xy_m:
+  - -0.0030075788240061675
+  - 7.194941801156928e-12
+  tangential_error_m: 0.0030075788240061675
+  orientation_error_rotvec:
+  - 1.3400365193244635e-10
+  - 0.0724060325366696
+  - 5.611179898204748e-09
+  orientation_error_rad: 0.07240603253666981
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 0.0050975519688662985
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0030075788240061675
+      operator: <=
+      threshold: 0.002
+      passed: false
+    orientation_error_rad:
+      actual: 0.07240603253666981
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.413534417888994
+candidates:
+- seed_label: random_006
+  q:
+  - -5.612828391105295e-09
+  - -0.0244015486035546
+  - -0.00048295196185264654
+  - 0.00029823595040922793
+  - 6.918721918024318e-11
+  - 0.12671315731244848
+  cost: 4.043473371517008
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 117
+  tcp_m:
+  - 0.0019703505999371027
+  - 7.194941801156928e-12
+  - -0.0003140167622614348
+  target_force_N: 5.0
+  force_N: 4.994902448031134
+  force_error_N: 0.0050975519688662985
+  tangential_error_xy_m:
+  - -0.0030075788240061675
+  - 7.194941801156928e-12
+  tangential_error_m: 0.0030075788240061675
+  orientation_error_rotvec:
+  - 1.3400365193244635e-10
+  - 0.0724060325366696
+  - 5.611179898204748e-09
+  orientation_error_rad: 0.07240603253666981
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 0.0050975519688662985
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0030075788240061675
+      operator: <=
+      threshold: 0.002
+      passed: false
+    orientation_error_rad:
+      actual: 0.07240603253666981
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.413534417888994
+- seed_label: initial
+  q:
+  - 4.8232952054525465e-09
+  - -0.024401631183028585
+  - -0.0004829152107945698
+  - 0.0002983595427408671
+  - 6.95173538044799e-10
+  - 0.1267130786304108
+  cost: 4.043473371524943
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 85
+  tcp_m:
+  - 0.001970350698159453
+  - 1.9291641884166972e-10
+  - -0.00031401677610679024
+  target_force_N: 5.0
+  force_N: 4.994902448069931
+  force_error_N: 0.005097551930068889
+  tangential_error_xy_m:
+  - -0.003007578725783817
+  - 1.9291641884166972e-10
+  tangential_error_m: 0.003007578725783823
+  orientation_error_rotvec:
+  - -8.698963373034219e-10
+  - 0.07240603345479156
+  - -4.813110495077359e-09
+  orientation_error_rad: 0.07240603345479173
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 0.005097551930068889
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.003007578725783823
+      operator: <=
+      threshold: 0.002
+      passed: false
+    orientation_error_rad:
+      actual: 0.07240603345479173
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.4135344484930576
+- seed_label: random_042
+  q:
+  - 3.8456026616443506e-09
+  - -0.024401982755625252
+  - -0.0004823966457099096
+  - 0.00029826070315576935
+  - -6.008428635401926e-12
+  - 0.12671298547941787
+  cost: 4.043473371556171
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 86
+  tcp_m:
+  - 0.0019703533722003046
+  - 5.991947480874647e-12
+  - -0.00031401718989496064
+  target_force_N: 5.0
+  force_N: 4.994902454175317
+  force_error_N: 0.005097545824683358
+  tangential_error_xy_m:
+  - -0.0030075760517429655
+  - 5.991947480874647e-12
+  tangential_error_m: 0.0030075760517429655
+  orientation_error_rotvec:
+  - -1.332131297267407e-10
+  - 0.07240605845288163
+  - -3.8439922362181804e-09
+  orientation_error_rad: 0.07240605845288173
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 0.005097545824683358
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0030075760517429655
+      operator: <=
+      threshold: 0.002
+      passed: false
+    orientation_error_rad:
+      actual: 0.07240605845288173
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.4135352817627242
+- seed_label: random_012
+  q:
+  - -8.046522177961297e-09
+  - -0.024401857586088673
+  - -0.00048263021632033074
+  - 0.0002983822028429082
+  - 2.549631746448672e-10
+  - 0.12671296946356983
+  cost: 4.043473371543279
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 87
+  tcp_m:
+  - 0.001970353684288226
+  - 5.1414347868313256e-11
+  - -0.0003140172248860956
+  target_force_N: 5.0
+  force_N: 4.994902454798922
+  force_error_N: 0.005097545201078191
+  tangential_error_xy_m:
+  - -0.003007575739655044
+  - 5.1414347868313256e-11
+  tangential_error_m: 0.0030075757396550444
+  orientation_error_rotvec:
+  - 3.6306818754034543e-11
+  - 0.07240606137011636
+  - 8.045968922598917e-09
+  orientation_error_rad: 0.0724060613701168
+  contact_present: true
+  criteria:
+    force_error_N:
+      actual: 0.005097545201078191
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0030075757396550444
+      operator: <=
+      threshold: 0.002
+      passed: false
+    orientation_error_rad:
+      actual: 0.0724060613701168
+      operator: <=
+      threshold: 0.03
+      passed: false
+    contact_present:
+      actual: true
+      operator: is
+      threshold: true
+      passed: true
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 2.4135353790038936
+- seed_label: random_009
+  q:
+  - -3.0431145206020395e-15
+  - -0.1702340618367241
+  - 0.15967103065286792
+  - 0.00813967417511227
+  - 4.424455841885366e-16
+  - 0.1769562822408157
+  cost: 200.0000000001986
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 8
+  tcp_m:
+  - 0.0049779294239282665
+  - 1.0109783533099801e-16
+  - 0.0032528666594999894
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.5003623343723405e-14
+  - 1.0109783533099801e-16
+  tangential_error_m: 1.5003963949991032e-14
+  orientation_error_rotvec:
+  - -4.4244428501999355e-16
+  - 2.0483059692821826e-12
+  - 3.0420423180445085e-15
+  orientation_error_rad: 2.0483082760110675e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.5003963949991032e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.0483082760110675e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_003
+  q:
+  - 2.476398927138766e-18
+  - -0.17546561386540152
+  - 0.1666610322776825
+  - 0.00784034009628978
+  - -9.169264620099027e-18
+  - 0.17549716672428178
+  cost: 200.00000000020063
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977928924634263
+  - -2.3971058094418487e-18
+  - 0.003392343142118018
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.993090073346362e-10
+  - -2.3971058094418487e-18
+  tangential_error_m: 4.993090073346362e-10
+  orientation_error_rotvec:
+  - 9.169260357482478e-18
+  - 1.2675416272145412e-12
+  - -2.4675575431220474e-18
+  orientation_error_rad: 1.2675416272501078e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.993090073346362e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.2675416272501078e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_061
+  q:
+  - 4.44438040754869e-16
+  - -0.14800810268876877
+  - 0.11626291253293716
+  - 0.0331478010284642
+  - -1.510794908757975e-17
+  - 0.17313031435895287
+  cost: 200.00000000020165
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977929082188564
+  - -1.75847595911982e-18
+  - 0.0027873888737949687
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -3.417547061318471e-10
+  - -1.75847595911982e-18
+  tangential_error_m: 3.417547061318471e-10
+  orientation_error_rotvec:
+  - 1.5107934225954423e-17
+  - 2.5346391652192324e-12
+  - -4.444592313215935e-16
+  orientation_error_rad: 2.5346392042331203e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 3.417547061318471e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.5346392042331203e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_049
+  q:
+  - -8.682643236810179e-18
+  - -0.16169859807583517
+  - 0.15798360263151007
+  - -0.00822007898218717
+  - 1.500712497987926e-17
+  - 0.18646799965657956
+  cost: 200.00000000020194
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977929208959021
+  - 3.895945346266106e-18
+  - 0.003036980962445604
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.1498424915278314e-10
+  - 3.895945346266106e-18
+  tangential_error_m: 2.149842491527832e-10
+  orientation_error_rotvec:
+  - -1.5006056140075586e-17
+  - 4.052785884667288e-12
+  - 8.503536335525414e-18
+  orientation_error_rad: 4.05278588470399e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.149842491527832e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.05278588470399e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_019
+  q:
+  - 1.6028222838913979e-13
+  - -0.13944706352849828
+  - 0.12149593313060172
+  - 0.004722118378871402
+  - -1.8516237012073758e-14
+  - 0.18776193725092222
+  cost: 200.0000000002031
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977929358204467
+  - -4.061741414947386e-15
+  - 0.0025417507493030456
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -6.573880328986093e-11
+  - -4.061741414947386e-15
+  tangential_error_m: 6.573880341534041e-11
+  orientation_error_rotvec:
+  - 1.8514616802210874e-14
+  - 2.222999562206951e-12
+  - -1.600372840118133e-13
+  orientation_error_rad: 2.2288296877243684e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 6.573880341534041e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2288296877243684e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_015
+  q:
+  - 1.374480624332008e-13
+  - -0.15524307720010808
+  - 0.10750526376889993
+  - 0.06467414480831622
+  - -1.3505350319347607e-14
+  - 0.15759659385505154
+  cost: 200.00000000021421
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929421639224
+  - -2.870442830793091e-15
+  - 0.0031447549512455403
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.3040458430045874e-12
+  - -2.870442830793091e-15
+  tangential_error_m: 2.3040476310416774e-12
+  orientation_error_rotvec:
+  - 1.3503413432756788e-14
+  - 1.960459572458717e-12
+  - -1.3767678258689824e-13
+  orientation_error_rad: 1.96533431605995e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.3040476310416774e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.96533431605995e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_032
+  q:
+  - 1.2516818987488898e-16
+  - -0.15166482266217718
+  - 0.16112607651427055
+  - -0.03634752843171844
+  - -2.19939449294974e-17
+  - 0.20141919981044282
+  cost: 200.00000000021785
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977928581596956
+  - -5.140844656005777e-18
+  - 0.0028818585368359656
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -8.423463142281928e-10
+  - -5.140844656005777e-18
+  tangential_error_m: 8.423463142281928e-10
+  orientation_error_rotvec:
+  - 2.1985996007297874e-17
+  - 3.302330631171913e-12
+  - -1.245769258731447e-16
+  orientation_error_rad: 3.3023306335948675e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 8.423463142281928e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 3.3023306335948675e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_057
+  q:
+  - -1.9784766130323714e-18
+  - -0.1918831597595885
+  - 0.1956522305426188
+  - -0.005345252767703894
+  - -8.355986636201583e-18
+  - 0.17610910721858533
+  cost: 200.00000000021802
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977927802942841
+  - -2.205444868198221e-18
+  - 0.0038653753407580926
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.621000429372077e-09
+  - -2.205444868198221e-18
+  tangential_error_m: 1.621000429372077e-09
+  orientation_error_rotvec:
+  - 8.355976256607707e-18
+  - 2.0838886172214188e-13
+  - 1.99164716317828e-18
+  orientation_error_rad: 2.0838886189918827e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.621000429372077e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.0838886189918827e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_026
+  q:
+  - 2.4737195645497086e-13
+  - -0.138150444388896
+  - 0.1461446768368005
+  - -0.04093952774434394
+  - -3.1360668047097783e-14
+  - 0.207478220527914
+  cost: 200.000000000223
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929378335496
+  - -6.981653274592043e-15
+  - 0.0026211756035195433
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.5607774501466025e-11
+  - -6.981653274592043e-15
+  tangential_error_m: 4.5607775035842925e-11
+  orientation_error_rotvec:
+  - 3.13436502694357e-14
+  - 2.6454949342280543e-12
+  - -2.4633895687750196e-13
+  orientation_error_rad: 2.657124150865745e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.5607775035842925e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.657124150865745e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_029
+  q:
+  - 6.4176881252352146e-18
+  - -0.14483546617775123
+  - 0.1604427153703305
+  - -0.05060649145234556
+  - 1.1813849629274606e-17
+  - 0.20953216748981973
+  cost: 200.0000000002307
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977927295033928
+  - 3.1251505901138427e-18
+  - 0.0028127054712640265
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.128909342216656e-09
+  - 3.1251505901138427e-18
+  tangential_error_m: 2.128909342216656e-09
+  orientation_error_rotvec:
+  - -1.1806614698280324e-17
+  - 4.066635916899487e-12
+  - -6.8310795012590426e-18
+  orientation_error_rad: 4.0666359169223634e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.128909342216656e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.0666359169223634e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_046
+  q:
+  - 1.1902709781140217e-13
+  - -0.10977993681651518
+  - 0.07480208839320837
+  - 0.01853101674450452
+  - -1.3970031173115024e-14
+  - 0.19097975691087837
+  cost: 200.0000000002346
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.0049779293531376
+  - -3.072720801083415e-15
+  - 0.0020652373255497652
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -7.080567035466778e-11
+  - -3.072720801083415e-15
+  tangential_error_m: 7.08056704213405e-11
+  orientation_error_rotvec:
+  - 1.3968141780936018e-14
+  - 2.04400385506176e-12
+  - -1.1879734541842904e-13
+  orientation_error_rad: 2.04750083706225e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 7.08056704213405e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.04750083706225e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_043
+  q:
+  - -4.480801023280957e-14
+  - -0.11346514213500859
+  - 0.11017703635498007
+  - -0.03444764870893566
+  - 8.08002574973029e-15
+  - 0.21226867972081867
+  cost: 200.00000000023536
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.0049779294238711455
+  - 1.891859615340621e-15
+  - 0.0021705394316983706
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -7.212459796068771e-14
+  - 1.891859615340621e-15
+  tangential_error_m: 7.214940584505873e-14
+  orientation_error_rotvec:
+  - -8.074273505834208e-15
+  - 2.2655766152013257e-12
+  - 4.450317672338416e-14
+  orientation_error_rad: 2.2660280505717965e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 7.214940584505873e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2660280505717965e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_025
+  q:
+  - -9.46062775113466e-15
+  - -0.19429986609718375
+  - 0.1371633796437493
+  - 0.1014810639278961
+  - 7.829014900265096e-16
+  - 0.130188347757765
+  cost: 200.00000000024477
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977929090859163
+  - 1.5941388713679698e-16
+  - 0.004591564009581134
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -3.3308410717081127e-10
+  - 1.5941388713679698e-16
+  tangential_error_m: 3.3308410717084943e-10
+  orientation_error_rotvec:
+  - -7.821318511404276e-16
+  - 1.893457612922589e-12
+  - 9.49533380973206e-15
+  orientation_error_rad: 1.893481582965332e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 3.3308410717084943e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.893481582965332e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_020
+  q:
+  - 1.4138900750973316e-14
+  - -0.10318942372718258
+  - 0.10358041099673986
+  - -0.04628011531010801
+  - -1.8848112974154413e-15
+  - 0.22042205327338463
+  cost: 200.00000000025443
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977927205117813
+  - -4.224802092423124e-16
+  - 0.0020938570287100944
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.2188254567012677e-09
+  - -4.224802092423124e-16
+  tangential_error_m: 2.218825456701308e-09
+  orientation_error_rotvec:
+  - 1.882827116443681e-15
+  - 1.286193374028244e-12
+  - -1.405243875692383e-14
+  orientation_error_rad: 1.2862715154535322e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.218825456701308e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.2862715154535322e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_010
+  q:
+  - -1.111109173340916e-15
+  - -0.1867613389889953
+  - 0.11865231743599364
+  - 0.11654092845935654
+  - 7.568986609568705e-17
+  - 0.12610101832590506
+  cost: 200.0000000002607
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929422227453
+  - 1.4439647496009876e-17
+  - 0.004571071150747438
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.7158167248121359e-12
+  - 1.4439647496009876e-17
+  tangential_error_m: 1.715816724872895e-12
+  orientation_error_rotvec:
+  - -7.560111249310772e-17
+  - 1.860150922183834e-12
+  - 1.1147735449420573e-15
+  orientation_error_rad: 1.8601512577575387e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.715816724872895e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.8601512577575387e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_024
+  q:
+  - 3.931994048504062e-19
+  - -0.10782255067176907
+  - 0.1321862233693854
+  - -0.0853955283357566
+  - -1.7934933826525007e-17
+  - 0.2355647808700779
+  cost: 200.00000000028564
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977928988756101
+  - -4.678979500870973e-18
+  - 0.002479941565977098
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.351871692870324e-10
+  - -4.678979500870973e-18
+  tangential_error_m: 4.351871692870324e-10
+  orientation_error_rotvec:
+  - 1.7901541389173548e-17
+  - 2.1825041773837484e-12
+  - 7.007234688121749e-19
+  orientation_error_rad: 2.1825041774572778e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.351871692870324e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.1825041774572778e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_014
+  q:
+  - 2.7488582360324886e-15
+  - -0.08024053940524215
+  - 0.02332548671398112
+  - 0.040855533319455975
+  - -1.0991232891556324e-14
+  - 0.1905924446037757
+  cost: 200.00000000030508
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929423926806
+  - -2.8701341312851976e-15
+  - 0.0018366568578357806
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.6464260510495876e-14
+  - -2.8701341312851976e-15
+  tangential_error_m: 1.6712556479756235e-14
+  orientation_error_rotvec:
+  - 1.0989815557676708e-14
+  - 2.1494472868255343e-12
+  - -2.5723519058011748e-15
+  orientation_error_rad: 2.1494769205278687e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.6712556479756235e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.1494769205278687e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_053
+  q:
+  - 9.980036016985969e-13
+  - -0.07449509447545441
+  - 0.08127525638870277
+  - -0.07262888759471742
+  - -1.4527143222897115e-13
+  - 0.24038165091491762
+  cost: 200.00000000031844
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977928512551534
+  - -3.292327937031115e-14
+  - 0.0020259210767980818
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -9.113917363856583e-10
+  - -3.292327937031115e-14
+  tangential_error_m: 9.113917369803215e-10
+  orientation_error_rotvec:
+  - 1.449565935800921e-13
+  - 6.715461520201416e-13
+  - -9.884445745820222e-13
+  orientation_error_rad: 1.203748032329041e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 9.113917369803215e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.203748032329041e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_016
+  q:
+  - 8.271869871790593e-15
+  - -0.21641769977568992
+  - 0.2619444893930914
+  - -0.06490195405537959
+  - -1.0071879136373651e-15
+  - 0.1939080896698831
+  cost: 200.00000000031955
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929424167004
+  - -2.229909853234195e-16
+  - 0.004943527029203823
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 2.2373422559063272e-13
+  - -2.229909853234195e-16
+  tangential_error_m: 2.2373433671571217e-13
+  orientation_error_rotvec:
+  - 1.006998871883049e-15
+  - 2.2150337120052654e-12
+  - -8.252356661265284e-15
+  orientation_error_rad: 2.2150493133916946e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.2373433671571217e-13
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2150493133916946e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_063
+  q:
+  - 3.4231593773112446e-14
+  - -0.07478264435428106
+  - 0.08625037702471344
+  - -0.08060842819626754
+  - -5.048029778546804e-15
+  - 0.24367362075954968
+  cost: 200.00000000032517
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977928559144045
+  - -1.14570191456831e-15
+  - 0.002105367483605333
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -8.647992252863723e-10
+  - -1.14570191456831e-15
+  tangential_error_m: 8.647992252871313e-10
+  orientation_error_rotvec:
+  - 5.035968693378475e-15
+  - 4.055367153199541e-13
+  - -3.388284749809682e-14
+  orientation_error_rad: 4.069808789215502e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 8.647992252871313e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.069808789215502e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_027
+  q:
+  - 4.742231944245775e-16
+  - -0.1457111062899395
+  - 0.05036620699923206
+  - 0.1420904627172095
+  - -4.81135596447651e-16
+  - 0.12778736180587816
+  cost: 200.00000000032622
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929423895692
+  - -1.2457144332492667e-16
+  - 0.003949396516175083
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.757826077561589e-14
+  - -1.2457144332492667e-16
+  tangential_error_m: 4.757842385448473e-14
+  orientation_error_rotvec:
+  - 4.806100159925889e-16
+  - 1.739886013041314e-12
+  - -4.967059588507711e-16
+  orientation_error_rad: 1.7398861503212205e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.757842385448473e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.7398861503212205e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_018
+  q:
+  - -1.0786070110114492e-16
+  - -0.20980344520141275
+  - 0.12533087825440112
+  - 0.15696198232938777
+  - 3.0448579153500767e-17
+  - 0.10204350984514154
+  cost: 200.00000000033035
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977926920009588
+  - 7.508984070638329e-18
+  - 0.006007748906567051
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.503933681924364e-09
+  - 7.508984070638329e-18
+  tangential_error_m: 2.503933681924364e-09
+  orientation_error_rotvec:
+  - -3.0368614870117347e-17
+  - 6.6023853051433434e-12
+  - 1.1006596827676379e-16
+  orientation_error_rad: 6.602385306130621e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.503933681924364e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 6.602385306130621e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_050
+  q:
+  - -2.113299144722878e-14
+  - -0.13097207558446122
+  - 0.18461342463109567
+  - -0.12388804352881107
+  - 3.119122057889804e-15
+  - 0.2447796197140629
+  cost: 200.00000000033768
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929383409159
+  - 7.078868990560775e-16
+  - 0.0033535919632207978
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.053411079008029e-11
+  - 7.078868990560775e-16
+  tangential_error_m: 4.0534110796261553e-11
+  orientation_error_rotvec:
+  - -3.111429415120848e-15
+  - 2.233851992272662e-12
+  - 2.0914063590187747e-14
+  orientation_error_rad: 2.2339520591161755e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.0534110796261553e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2339520591161755e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_044
+  q:
+  - -4.274872523643478e-13
+  - -0.12247573747969549
+  - 0.02572485659730823
+  - 0.13223249678923693
+  - 3.7408603087546086e-14
+  - 0.13905130932599785
+  cost: 200.00000000034268
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977928054223143
+  - 7.732923836600022e-15
+  - 0.0033431596619942217
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.3697201272505621e-09
+  - 7.732923836600022e-15
+  tangential_error_m: 1.3697201272723906e-09
+  orientation_error_rotvec:
+  - -3.738505786943976e-14
+  - 1.2725931419765857e-12
+  - 4.288142915649239e-13
+  orientation_error_rad: 1.3434182685255054e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.3697201272723906e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.3434182685255054e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_060
+  q:
+  - 7.481615639808379e-18
+  - -0.27407943019533826
+  - 0.23577912464714523
+  - 0.11027185205873648
+  - -9.94287010230007e-18
+  - 0.10256137872155395
+  cost: 200.00000000036962
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977927847538284
+  - -2.5900416903682163e-18
+  - 0.007836962970804537
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.5764049857147633e-09
+  - -2.5900416903682163e-18
+  tangential_error_m: 1.5764049857147633e-09
+  orientation_error_rotvec:
+  - 9.91712966239613e-18
+  - 2.0227153285645727e-12
+  - -8.196601744768037e-18
+  orientation_error_rad: 2.0227153286054915e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.5764049857147633e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.0227153286054915e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_005
+  q:
+  - -7.66163777108555e-15
+  - -0.12754557648829987
+  - 0.18946178874874237
+  - -0.14005494796820642
+  - 1.1209078771739404e-15
+  - 0.2526716609395186
+  cost: 200.00000000037133
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929421550863
+  - 2.5374078824319036e-16
+  - 0.003563548066842462
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.392407452700418e-12
+  - 2.5374078824319036e-16
+  tangential_error_m: 2.392407466156401e-12
+  orientation_error_rotvec:
+  - -1.117487675586936e-15
+  - 2.3654411762663585e-12
+  - 7.574140548263082e-15
+  orientation_error_rad: 2.365453566392738e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.392407466156401e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.365453566392738e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_040
+  q:
+  - 4.3707678385148904e-14
+  - -0.2801622944681475
+  - 0.2869502012206081
+  - 0.03519648373486997
+  - -3.658649634234743e-15
+  - 0.13254853474758915
+  cost: 200.00000000038042
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977928039200991
+  - -7.473150499723676e-16
+  - 0.007434675741054317
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.3847422791757324e-09
+  - -7.473150499723676e-16
+  tangential_error_m: 1.384742279175934e-09
+  orientation_error_rotvec:
+  - 3.655425577064078e-15
+  - -7.99638133486269e-13
+  - -4.386123943737091e-14
+  orientation_error_rad: 8.00848496899717e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.384742279175934e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 8.00848496899717e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_034
+  q:
+  - 9.128306092759765e-16
+  - -0.09197523180187989
+  - -0.005438379950606876
+  - 0.11719990071338983
+  - -8.679610189199972e-17
+  - 0.1547466362729948
+  cost: 200.0000000003807
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977928542290223
+  - -1.830657323128134e-17
+  - 0.002704946149891266
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -8.816530474436979e-10
+  - -1.830657323128134e-17
+  tangential_error_m: 8.816530474436981e-10
+  orientation_error_rotvec:
+  - 8.677911222942336e-17
+  - 2.2226664952995634e-13
+  - -9.145478699731153e-16
+  orientation_error_rad: 2.2226854798125e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 8.816530474436981e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2226854798125e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_055
+  q:
+  - 3.2513879891335496e-20
+  - -0.1557892787114319
+  - 0.04312294287549949
+  - 0.17738768633925545
+  - -4.211867050608605e-18
+  - 0.1098115747291499
+  cost: 200.00000000039157
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977928681886477
+  - -1.112304402400141e-18
+  - 0.00488757463810624
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -7.420567927490795e-10
+  - -1.112304402400141e-18
+  tangential_error_m: 7.420567927490795e-10
+  orientation_error_rotvec:
+  - 4.203048683080868e-18
+  - 1.6471268793338822e-12
+  - -3.049213314310986e-19
+  orientation_error_rad: 1.647126879339273e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 7.420567927490795e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.647126879339273e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_000
+  q:
+  - -9.069658038815964e-13
+  - -0.09183002726484403
+  - -0.009079710582436226
+  - 0.12317068550073063
+  - 8.879329107737838e-14
+  - 0.15227197757894886
+  cost: 200.00000000039276
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929422450372
+  - 1.886643351500907e-14
+  - 0.0027945657423617265
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.4928978192552123e-12
+  - 1.886643351500907e-14
+  tangential_error_m: 1.49301702637664e-12
+  orientation_error_rotvec:
+  - -8.877129123672769e-14
+  - 1.720817932593377e-12
+  - 9.089422634378662e-13
+  orientation_error_rad: 1.948145461085063e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.49301702637664e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.948145461085063e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_031
+  q:
+  - -1.2225605629228261e-13
+  - -0.19370823431959833
+  - 0.2662611056903506
+  - -0.12359067012731326
+  - 1.6803053142127783e-14
+  - 0.2255707239874138
+  cost: 200.00000000039302
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929878369725
+  - 3.782503668982708e-15
+  - 0.004888811432666909
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 4.54426454798984e-10
+  - 3.782503668982708e-15
+  tangential_error_m: 4.544264548147262e-10
+  orientation_error_rotvec:
+  - -1.678117311760056e-14
+  - 3.267219828018142e-12
+  - 1.2139883771596286e-13
+  orientation_error_rad: 3.26951750112534e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.544264548147262e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 3.26951750112534e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_017
+  q:
+  - 1.9467719335269272e-16
+  - -0.1788616958355125
+  - 0.26241991195177833
+  - -0.15045081227393467
+  - -3.03017284589904e-17
+  - 0.2414255213822312
+  cost: 200.00000000043872
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977933946903868
+  - -6.933440882192011e-18
+  - 0.004917952811578377
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 4.522960598066228e-09
+  - -6.933440882192011e-18
+  tangential_error_m: 4.522960598066228e-09
+  orientation_error_rotvec:
+  - 3.0233959382471045e-17
+  - 9.557771241119895e-12
+  - -1.9265174337670608e-16
+  orientation_error_rad: 9.55777124310931e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.522960598066228e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 9.55777124310931e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_004
+  q:
+  - -3.6717603889169886e-14
+  - -0.02597645192346375
+  - -0.03550563809074242
+  - 0.01985803701915132
+  - 1.5645264102332787e-14
+  - 0.21615697822687566
+  cost: 200.0000000004575
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929423926459
+  - 3.9104253876865494e-15
+  - 0.0016564349076013257
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.6811205205691238e-14
+  - 3.9104253876865494e-15
+  tangential_error_m: 1.726001295423974e-14
+  orientation_error_rotvec:
+  - -1.5631712865619034e-14
+  - 2.299271883998699e-12
+  - 3.6066572617061026e-14
+  orientation_error_rad: 2.2996078675840327e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.726001295423974e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2996078675840327e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_037
+  q:
+  - -4.675416400488302e-15
+  - -0.29850655512840674
+  - 0.2529265320332524
+  - 0.1354413126275316
+  - 2.304749845983671e-16
+  - 0.0846716357004064
+  cost: 200.0000000004578
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 5
+  tcp_m:
+  - 0.004977929413267013
+  - 3.768225492589472e-17
+  - 0.009441584701777861
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.0676256753661129e-11
+  - 3.768225492589472e-17
+  tangential_error_m: 1.067625675372763e-11
+  orientation_error_rotvec:
+  - -2.2954506194389354e-16
+  - 1.3364309658925322e-12
+  - 4.6960993176267846e-15
+  orientation_error_rad: 1.3364392364174971e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.067625675372763e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.3364392364174971e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_051
+  q:
+  - -8.925454211028109e-15
+  - -0.25475933636431763
+  - 0.32404674634294695
+  - -0.08617470810969798
+  - 1.053566310963574e-15
+  - 0.19142022336357567
+  cost: 200.00000000046094
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929428759506
+  - 2.3197450338347883e-16
+  - 0.006661745874474739
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 4.816235951721204e-12
+  - 2.3197450338347883e-16
+  tangential_error_m: 4.816235957307742e-12
+  orientation_error_rotvec:
+  - -1.0534160860647326e-15
+  - 1.6130707880535056e-12
+  - 8.907663168273748e-15
+  orientation_error_rad: 1.613095726675924e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.816235957307742e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.613095726675924e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_023
+  q:
+  - 6.883844002482164e-14
+  - -0.24535964756579304
+  - 0.14075638433592563
+  - 0.2103961388407395
+  - -6.603879601599495e-16
+  - 0.06874004962188071
+  cost: 200.00000000046873
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929423931129
+  - 1.678962310447953e-16
+  - 0.00859869076174409
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.2141329608361673e-14
+  - 1.678962310447953e-16
+  tangential_error_m: 1.2142490428379133e-14
+  orientation_error_rotvec:
+  - 6.566958308217659e-16
+  - 1.367267410401496e-12
+  - -6.890817411722787e-14
+  orientation_error_rad: 1.3690028996520047e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.2142490428379133e-14
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.3690028996520047e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_002
+  q:
+  - 7.363933608741189e-17
+  - -0.01633152539567477
+  - -0.007803809835826358
+  - -0.05004844861233341
+  - -6.024798296616563e-19
+  - 0.24871670907719584
+  cost: 200.00000000046893
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977928636888503
+  - 2.0960233649072032e-19
+  - 0.001837451926397421
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -7.870547668459293e-10
+  - 2.0960233649072032e-19
+  tangential_error_m: 7.870547668459293e-10
+  orientation_error_rotvec:
+  - 6.008227960863276e-19
+  - 7.587819261800632e-13
+  - -7.359468283648237e-17
+  orientation_error_rad: 7.587819297492959e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 7.870547668459293e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 7.587819297492959e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_054
+  q:
+  - 4.752437467333786e-17
+  - -0.06283354728619596
+  - 0.11933816250276122
+  - -0.165166860841354
+  - 6.941588993951271e-19
+  - 0.2831951708561149
+  cost: 200.00000000047993
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977926558753801
+  - 4.1651569605596035e-19
+  - 0.00336316729102476
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.86518946936154e-09
+  - 4.1651569605596035e-19
+  tangential_error_m: 2.86518946936154e-09
+  orientation_error_rotvec:
+  - -6.900647953446826e-19
+  - 2.793987263771669e-12
+  - -4.759965518826026e-17
+  orientation_error_rad: 2.793987264177219e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.86518946936154e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.793987264177219e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_058
+  q:
+  - -6.2588166885574215e-12
+  - -0.009605616583219883
+  - -0.024650232058840277
+  - -0.03608622164690862
+  - 9.28283196024164e-13
+  - 0.24487499552206604
+  cost: 200.00000000049675
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977924853754728
+  - 2.1082366015033728e-13
+  - 0.0018052796037681257
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.570188541844211e-09
+  - 2.1082366015033728e-13
+  tangential_error_m: 4.5701885467068785e-09
+  orientation_error_rotvec:
+  - -9.259875670133834e-13
+  - 1.022820717011541e-12
+  - 6.193573162046787e-12
+  orientation_error_rad: 6.3453891690768345e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.5701885467068785e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 6.3453891690768345e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_028
+  q:
+  - 1.9017410699658335e-15
+  - -0.186114136185055
+  - 0.05113245426611791
+  - 0.2319857829060023
+  - -9.346508152975001e-17
+  - 0.0775288242460517
+  cost: 200.00000000051722
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 8
+  tcp_m:
+  - 0.00497792405043691
+  - -1.5260814450796343e-17
+  - 0.007101550661965425
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -5.373506360359381e-09
+  - -1.5260814450796343e-17
+  tangential_error_m: 5.373506360359381e-09
+  orientation_error_rotvec:
+  - 9.302568258862523e-17
+  - 1.003169769475676e-12
+  - -1.9107933538823768e-15
+  orientation_error_rad: 1.0031715935845172e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 5.373506360359381e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.0031715935845172e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_059
+  q:
+  - 3.979349792516483e-17
+  - -0.0017838379774662329
+  - -0.00828149333548364
+  - -0.08225630755783164
+  - -6.2835081459369945e-18
+  - 0.2668545641053985
+  cost: 200.00000000053504
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977927900229705
+  - -1.434791907163435e-18
+  - 0.002215918460285099
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.5237135650436606e-09
+  - -1.434791907163435e-18
+  tangential_error_m: 1.5237135650436606e-09
+  orientation_error_rotvec:
+  - 6.256749094925068e-18
+  - -4.968803146709888e-13
+  - -3.921421786911712e-17
+  orientation_error_rad: 4.968803162577912e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.5237135650436606e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.968803162577912e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_033
+  q:
+  - 3.3197703119347956e-18
+  - -0.2547470127547845
+  - 0.34141017644027327
+  - -0.11626369868000785
+  - 8.129146533079927e-18
+  - 0.20413346025137047
+  cost: 200.00000000053564
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977933829541346
+  - 2.1462755539350567e-18
+  - 0.007047659774097312
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 4.405598075588046e-09
+  - 2.1462755539350567e-18
+  tangential_error_m: 4.405598075588046e-09
+  orientation_error_rotvec:
+  - -8.125585447820736e-18
+  - -2.2731289073263386e-11
+  - -3.560362260753029e-18
+  orientation_error_rad: 2.2731289073265118e-11
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.405598075588046e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.2731289073265118e-11
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_022
+  q:
+  - -3.1778274184535126e-16
+  - -0.027770565756245667
+  - 0.07220870323889757
+  - -0.16300698708567238
+  - 5.391821976816504e-17
+  - 0.2931017748372268
+  cost: 200.00000000054982
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977928760786067
+  - 1.237300268103364e-17
+  - 0.003312130213408357
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -6.631572027626653e-10
+  - 1.237300268103364e-17
+  tangential_error_m: 6.631572027626654e-10
+  orientation_error_rotvec:
+  - -5.35396569944873e-17
+  - -8.623657343775905e-14
+  - 3.1140468948728304e-16
+  orientation_error_rad: 8.623715230491737e-14
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 6.631572027626654e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 8.623715230491737e-14
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_036
+  q:
+  - 1.250947716499639e-13
+  - -0.1798303121338616
+  - 0.28758226419828486
+  - -0.19184596455940348
+  - -1.94968613635252e-14
+  - 0.2586269377274918
+  cost: 200.00000000056156
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929440370314
+  - -4.44993361002817e-15
+  - 0.005843149006052303
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 1.642704375304227e-11
+  - -4.44993361002817e-15
+  tangential_error_m: 1.6427044355765106e-11
+  orientation_error_rotvec:
+  - 1.9427963000026114e-14
+  - 1.6084911180769268e-12
+  - -1.2345713411551714e-13
+  orientation_error_rad: 1.6133390178888966e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.6427044355765106e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.6133390178888966e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_001
+  q:
+  - -6.091848108373128e-17
+  - -0.31397995219265024
+  - 0.24661146379734333
+  - 0.18117526493867042
+  - -3.0454232764840287e-18
+  - 0.060726148685631774
+  cost: 200.00000000056258
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977926173284741
+  - -1.1094709085329586e-18
+  - 0.011188777977523115
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -3.2506585288111234e-09
+  - -1.1094709085329586e-18
+  tangential_error_m: 3.2506585288111234e-09
+  orientation_error_rotvec:
+  - 3.025722419859938e-18
+  - 5.124761726094107e-12
+  - 6.057263896389585e-17
+  orientation_error_rad: 5.1247617264529725e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 3.2506585288111234e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 5.1247617264529725e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_045
+  q:
+  - 1.2627386444196263e-16
+  - -0.3196716737561789
+  - 0.3783695228693288
+  - -0.03463634590227119
+  - -2.0626393960680057e-17
+  - 0.15047142202159466
+  cost: 200.0000000006165
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.00497792871643424
+  - -4.8036173112898586e-18
+  - 0.009498479800396448
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -7.075090305286302e-10
+  - -4.8036173112898586e-18
+  tangential_error_m: 7.075090305286302e-10
+  orientation_error_rotvec:
+  - 2.062042336202466e-17
+  - 1.6467105456996478e-12
+  - -1.2677011859837715e-16
+  orientation_error_rad: 1.6467105507083803e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 7.075090305286302e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.6467105507083803e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_013
+  q:
+  - -1.716491448061603e-14
+  - -0.08289420834393264
+  - 0.1846386066947664
+  - -0.23296798344332292
+  - 3.1282474805770943e-15
+  - 0.3057565103267838
+  cost: 200.00000000064324
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 8
+  tcp_m:
+  - 0.004977926600766271
+  - 7.225018961869254e-16
+  - 0.00519330571396906
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -2.8231769994696565e-09
+  - 7.225018961869254e-16
+  tangential_error_m: 2.823176999469749e-09
+  orientation_error_rotvec:
+  - -3.1013524763668472e-15
+  - -1.7458257062230587e-13
+  - 1.6755591726448298e-14
+  orientation_error_rad: 1.7541220654897e-13
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 2.823176999469749e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.7541220654897e-13
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_047
+  q:
+  - -4.407053228081521e-15
+  - -0.03400958258625686
+  - 0.10838829238264847
+  - -0.21169200854216114
+  - 8.205329762872595e-16
+  - 0.31184622397665346
+  cost: 200.00000000064924
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 8
+  tcp_m:
+  - 0.00497792558447306
+  - 1.897648315704878e-16
+  - 0.0044515189887455175
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -3.839470210514895e-09
+  - 1.897648315704878e-16
+  tangential_error_m: 3.8394702105149e-09
+  orientation_error_rotvec:
+  - -8.1280957224712025e-16
+  - 3.236161338904253e-12
+  - 4.294736869403502e-15
+  orientation_error_rad: 3.2361642907681226e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 3.8394702105149e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 3.2361642907681226e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_008
+  q:
+  - 2.6487464898516785e-15
+  - -0.0978861984072205
+  - 0.21172150459733807
+  - -0.24591847847237316
+  - -4.908490798542799e-16
+  - 0.3066160975143725
+  cost: 200.0000000006811
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.004977928853478739
+  - -1.1357024918854628e-16
+  - 0.005729845815131113
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -5.704645315157686e-10
+  - -1.1357024918854628e-16
+  tangential_error_m: 5.7046453151578e-10
+  orientation_error_rotvec:
+  - 4.865736332650443e-16
+  - 2.0032031589067856e-12
+  - -2.5841019339906816e-15
+  orientation_error_rad: 2.0032048847261805e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 5.7046453151578e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.0032048847261805e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_007
+  q:
+  - -2.3946706522979327e-17
+  - -0.16884976136267138
+  - 0.0017689824889128025
+  - 0.278369852528296
+  - 5.4174764793860174e-18
+  - 0.06324385157257388
+  cost: 200.00000000069303
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977927751417765
+  - 1.3148558320042018e-18
+  - 0.00812183408757676
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.6725255052446597e-09
+  - 1.3148558320042018e-18
+  tangential_error_m: 1.6725255052446597e-09
+  orientation_error_rotvec:
+  - -5.383962668773761e-18
+  - 7.008782443307382e-12
+  - 2.454836870813609e-17
+  orientation_error_rad: 7.008782443352441e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.6725255052446597e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 7.008782443352441e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_039
+  q:
+  - 2.506444827730887e-18
+  - -0.011858868000049485
+  - 0.09232976924866416
+  - -0.23422275328664977
+  - -5.380808483905535e-18
+  - 0.3282847772687924
+  cost: 200.000000000764
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 8
+  tcp_m:
+  - 0.0049779294179994
+  - -1.3717712129261984e-18
+  - 0.005189078201346162
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -5.94387039587474e-12
+  - -1.3717712129261984e-18
+  tangential_error_m: 5.943870395874898e-12
+  orientation_error_rotvec:
+  - 5.317333509369383e-18
+  - 3.362726763711521e-12
+  - -1.6823912551019941e-18
+  orientation_error_rad: 3.3627267637161456e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 5.943870395874898e-12
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 3.3627267637161456e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_038
+  q:
+  - -2.9577796429637155e-14
+  - 0.04322426936379547
+  - -0.1451689575864317
+  - 0.05298631348224084
+  - 4.0224537574554296e-15
+  - 0.22349129998908265
+  cost: 200.0000000008436
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.0049779340170123376
+  - 9.042081207088561e-16
+  - 0.0025780545516986414
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 4.593069067443389e-09
+  - 9.042081207088561e-16
+  tangential_error_m: 4.593069067443478e-09
+  orientation_error_rotvec:
+  - -4.017633965634944e-15
+  - -1.4567208550531063e-11
+  - 2.9380942293854314e-14
+  orientation_error_rad: 1.4567238734084714e-11
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.593069067443478e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 1.4567238734084714e-11
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_062
+  q:
+  - -2.7468476970650182e-18
+  - 0.05149269771169616
+  - -0.1431798110587551
+  - 0.030818892910921193
+  - 4.4178595050388605e-18
+  - 0.23540114566690443
+  cost: 200.00000000085444
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977930794973738
+  - 1.1393922395000545e-18
+  - 0.002618647625668838
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 1.371030467975376e-09
+  - 1.1393922395000545e-18
+  tangential_error_m: 1.371030467975376e-09
+  orientation_error_rotvec:
+  - -4.409678078707803e-18
+  - 3.3534008903046697e-12
+  - 2.478106467653794e-18
+  orientation_error_rad: 3.3534008903084845e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.371030467975376e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 3.3534008903084845e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_021
+  q:
+  - -2.9959109607327485e-17
+  - -0.38699477252163395
+  - 0.3294879389334548
+  - 0.2009069968906377
+  - 1.4013569310535325e-17
+  - 0.03113276192880966
+  cost: 200.00000000089258
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977928789028542
+  - 3.563476891498471e-18
+  - 0.016202277971302317
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -6.349147284312462e-10
+  - 3.563476891498471e-18
+  tangential_error_m: 6.349147284312462e-10
+  orientation_error_rotvec:
+  - -1.3869731285015816e-17
+  - 2.851940905657102e-12
+  - 3.1961777553205186e-17
+  orientation_error_rad: 2.8519409058699262e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 6.349147284312462e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 2.8519409058699262e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_048
+  q:
+  - 1.8796418148867728e-15
+  - -0.21441790552004866
+  - 0.3715883291331295
+  - -0.2591726626256109
+  - -3.3130802667935294e-16
+  - 0.2765351642415975
+  cost: 200.00000000091254
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 9
+  tcp_m:
+  - 0.00497793132207363
+  - -7.661473760251459e-17
+  - 0.00886187454620585
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 1.898130359487271e-09
+  - -7.661473760251459e-17
+  tangential_error_m: 1.898130359487273e-09
+  orientation_error_rotvec:
+  - 3.295859805118106e-16
+  - 5.052624985069088e-12
+  - -1.8459062255321308e-15
+  orientation_error_rad: 5.052625333006705e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.898130359487273e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 5.052625333006705e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_011
+  q:
+  - -3.7628108498001073e-17
+  - -0.0856621980809208
+  - 0.23312739715830316
+  - -0.31083293228552195
+  - 1.6054003675751035e-17
+  - 0.33790065843362393
+  cost: 200.00000000094983
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977924370859308
+  - 3.935368542974944e-18
+  - 0.007895800186295349
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -5.053083961675808e-09
+  - 3.935368542974944e-18
+  tangential_error_m: 5.053083961675808e-09
+  orientation_error_rotvec:
+  - -1.5840246941249054e-17
+  - 8.63567550801747e-12
+  - 3.5017052991863674e-17
+  orientation_error_rad: 8.635675508102993e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 5.053083961675808e-09
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 8.635675508102993e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_030
+  q:
+  - -2.370446905315356e-16
+  - -0.10720432289962006
+  - 0.2691363722276808
+  - -0.3243337170004494
+  - 3.002671144129701e-17
+  - 0.33693459290645716
+  cost: 200.0000000010152
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 11
+  tcp_m:
+  - 0.004977928896885683
+  - 6.532279549868155e-18
+  - 0.008671055150580531
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -5.270575868104865e-10
+  - 6.532279549868155e-18
+  tangential_error_m: 5.270575868104866e-10
+  orientation_error_rotvec:
+  - -2.9631614182730456e-17
+  - 5.1514348342607276e-14
+  - 2.3218970949095864e-16
+  orientation_error_rad: 5.151488013435766e-14
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 5.270575868104866e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 5.151488013435766e-14
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_041
+  q:
+  - -2.1477168020678617e-13
+  - 0.015829884061245806
+  - 0.10086404791025086
+  - -0.31228540530363463
+  - 4.70154325425181e-14
+  - 0.37012439856209034
+  cost: 200.00000000110808
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 7
+  tcp_m:
+  - 0.004977929380760254
+  - 1.092832407585646e-14
+  - 0.008163337255480213
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -4.3183016190662116e-11
+  - 1.092832407585646e-14
+  tangential_error_m: 4.318301757347735e-11
+  orientation_error_rotvec:
+  - -4.611898412811673e-14
+  - 4.167666212140375e-12
+  - 2.0563438300743304e-13
+  orientation_error_rad: 4.172991027547071e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 4.318301757347735e-11
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.172991027547071e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_052
+  q:
+  - -2.547454827734356e-13
+  - 0.013215216985119101
+  - 0.1060698899674634
+  - -0.31537882207018286
+  - 5.576054637867565e-14
+  - 0.37062664034750226
+  cost: 200.00000000111268
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 6
+  tcp_m:
+  - 0.004977929268631446
+  - 1.2959453861952355e-14
+  - 0.008253686798712079
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -1.553118241653939e-10
+  - 1.2959453861952355e-14
+  tangential_error_m: 1.5531182470607214e-10
+  orientation_error_rotvec:
+  - -5.469190428533306e-14
+  - 4.21818135976082e-12
+  - 2.43881131065504e-13
+  orientation_error_rad: 4.225579628206974e-12
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 1.5531182470607214e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 4.225579628206974e-12
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_035
+  q:
+  - -9.043297995444528e-17
+  - 0.10895294409209641
+  - -0.2033881014018692
+  - 0.004948943384405866
+  - 9.948334551190602e-18
+  - 0.2640191391595826
+  cost: 200.00000000120642
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 10
+  tcp_m:
+  - 0.004977930038910753
+  - 2.136155149808651e-18
+  - 0.004056272421720311
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - 6.149674831867902e-10
+  - 2.136155149808651e-18
+  tangential_error_m: 6.149674831867902e-10
+  orientation_error_rotvec:
+  - -9.908529075057749e-18
+  - -9.559020242022598e-14
+  - 8.95439288247381e-17
+  orientation_error_rad: 9.559024487380453e-14
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 6.149674831867902e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 9.559024487380453e-14
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+- seed_label: random_056
+  q:
+  - 1.3306536676452531e-17
+  - -0.007341985021045545
+  - -0.20286684331979504
+  - 0.26665180103061825
+  - -1.9461144487232045e-17
+  - 0.11808995254424721
+  cost: 200.0000000012366
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 12
+  tcp_m:
+  - 0.0049779287628883995
+  - -5.071311357556138e-18
+  - 0.0062517723083561905
+  target_force_N: 5.0
+  force_N: 0.0
+  force_error_N: 5.0
+  tangential_error_xy_m:
+  - -6.610548705654473e-10
+  - -5.071311357556138e-18
+  tangential_error_m: 6.610548705654473e-10
+  orientation_error_rotvec:
+  - 1.9430152970052384e-17
+  - 9.517386878599154e-14
+  - -1.4404398376878628e-17
+  orientation_error_rad: 9.517387185940622e-14
+  contact_present: false
+  criteria:
+    force_error_N:
+      actual: 5.0
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 6.610548705654473e-10
+      operator: <=
+      threshold: 0.002
+      passed: true
+    orientation_error_rad:
+      actual: 9.517387185940622e-14
+      operator: <=
+      threshold: 0.03
+      passed: true
+    contact_present:
+      actual: false
+      operator: is
+      threshold: true
+      passed: false
+  failed_criteria:
+  - force_error_N
+  - contact_present
+  passed: false
+  max_gate_ratio: .inf
+warnings:
+- terminal nonlinear least-squares feasibility audit only
+- not a path or velocity-controller feasibility proof
+- uses approximate tilted-plane MuJoCo model and unverified 85 mm TCP
+- simulation-only and not hardware-ready

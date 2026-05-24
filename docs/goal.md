@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v53 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v53 UR10e TCP/contact audit shows the current 85 mm TCP site is coincident with the colliding sphere center, while the simulated contact surface is about 45 mm farther along the contact normal, so the strict terminal setup audit still fails `0 / 65` and is not hardware evidence. Choose the next branch deliberately: create an explicit replacement TCP/contact model convention or update the model from measured mounted-stack geometry, then rerun the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v54 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v54 UR10e TCP contact-point model separates the 85 mm site from the colliding sphere center, but the strict terminal setup audit still fails `0 / 65`; this is simulation-only and not hardware evidence. Choose the next branch deliberately: run a broader terminal feasibility or gate-definition audit on the v54 contact-point model before designing another Stage A controller. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v53` repository state. The project goal is to reproduce the T-ASE finite-time
+`v54` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v53-tcp-contact-model-audit`
-- Current v53 code commit:
-  `d8d9c26d36bf9b08169aee333b39d26460b5803c`
+  `exp/tase-ur10e-v54-tcp-contact-point-model`
+- Current v54 code commit:
+  `1725f4c28796fc844dc1d350236755e6c4d59c28`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -108,6 +108,10 @@ Current accepted claims:
   site matches the EOAT-note distance but is coincident with the center of the
   colliding `contact_tip` sphere. The simulated contact surface is one sphere
   radius away, so this model is not hardware-ready.
+- `ur10e_tcp_contact_point_model_variant`: v54 adds a separate simulation
+  model where the 85 mm site is the intended contact point and the colliding
+  sphere center is offset to local `[0, 0, 0.045]`. The strict terminal setup
+  audit still fails `0 / 65`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -117,9 +121,9 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by creating an explicit replacement TCP/contact
-  model convention, or update the model from measured mounted-stack geometry,
-  then rerun the terminal setup audit.
+- Continue UR10e adapted work with a broader terminal feasibility or
+  gate-definition audit on the v54 contact-point model before designing
+  another Stage A controller.
 
 ## Safety Boundary
 

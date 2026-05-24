@@ -199,6 +199,8 @@ smoke runs regress.
 - The v53 TCP/contact audit shows the UR10e adapted terminal setup failure is
   still tied to an approximate model convention: the current 85 mm site is the
   colliding sphere center, not the simulated contact surface.
+- The v54 contact-point model separates the 85 mm site from the colliding
+  sphere center, but the strict terminal setup rerun still fails `0 / 65`.
 
 ## Next Executable Step
 
@@ -210,7 +212,7 @@ formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists, the formula candidate covers 30 s, and the tuned
 figure-match candidate is implemented separately. Future work should formalize
 split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. For the UR10e adapted line, replace or measure the TCP/contact
-model before treating another terminal setup result as meaningful. Keep
-contact, drift, terminal orientation, force error, and qdot saturation visible
-together.
+claim boundary. For the UR10e adapted line, run a broader terminal feasibility
+or gate-definition audit on the v54 contact-point model before designing
+another Stage A controller. Keep contact, drift, terminal orientation, force
+error, and qdot saturation visible together.

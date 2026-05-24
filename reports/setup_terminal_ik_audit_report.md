@@ -131,6 +131,35 @@ reason to avoid treating it as hardware evidence: the current MJCF has not
 resolved whether the 85 mm EOAT note denotes the physical contact point or the
 center/frame of a colliding proxy sphere.
 
+## 2026-05-24 v54 Rerun With TCP Contact-Point Variant
+
+The v54 replacement model moves the `contact_tip` sphere center to local
+`[0, 0, 0.045]` while keeping `tcp_site_unverified_85mm` at the EOAT candidate
+contact point. This resolves the v53 site/center coincidence for a named
+simulation convention. Evidence is in
+`reports/tcp_contact_point_model_variant_report.md` and
+`runs/tcp_contact_model_audit/20260524T140535`.
+
+The terminal IK audit was rerun against:
+
+- `configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml`
+- `runs/setup_terminal_ik_audit/20260524T140539`
+
+The strict setup gate still fails:
+
+- terminal candidates: `65`
+- terminal setup passes: `0 / 65`
+- initial force error: `3.2605029787191597e-12 N`
+- initial x/y error: `0.0 m`
+- initial orientation error: `0.17453292523412012 rad`
+- best force error: `0.0050975519688662985 N`
+- best x/y error: `0.0030075788240061675 m`
+- best orientation error: `0.07240603253666981 rad`
+- best failed criteria: `tangential_error_m;orientation_error_rad`
+
+This closes the simple TCP/contact convention replacement step, but it does
+not provide a strict Stage A solution.
+
 ## Verification
 
 - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`
