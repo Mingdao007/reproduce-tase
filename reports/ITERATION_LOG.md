@@ -3180,7 +3180,8 @@
   `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py` passed.
   Full tests passed with `115 passed in 2.78s`; `git diff --check` passed. The
   run artifact is lightweight: `460` files, `7.0M`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `8c97fdafc5c0113a907c087c881e72f8fea4c1dd`.
 - Next step:
   Treat the faster-timing face as recovered under the `0.11995 rad` gate. The
   remaining simulation blocker is the `+1.0 mm`, `0.119 rad` orientation-gate
