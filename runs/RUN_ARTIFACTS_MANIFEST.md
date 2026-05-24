@@ -2500,6 +2500,8 @@ Legacy source root:
   `violations = []`, 14 lightweight files, and no heavy payloads.
 - Validation:
   Full tests passed with `122 passed in 4.26s`; `git diff --check` passed.
+  Branch push was verified at
+  `11bfa3ac02a06cf184343e119739e2392ae9cfbf`.
 - Limit:
   No live or physical measurement was collected. This is not a calibrated
   contact model, not an accepted replacement orientation gate, not a strict

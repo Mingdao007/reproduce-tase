@@ -71,6 +71,12 @@ Expected branch:
 exp/tase-ur10e-v92-readonly-worksheet-coverage
 ```
 
+Verified implementation commit:
+
+```text
+11bfa3ac02a06cf184343e119739e2392ae9cfbf
+```
+
 V92 worksheet artifacts:
 
 ```text
