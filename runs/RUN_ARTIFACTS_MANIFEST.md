@@ -3165,6 +3165,45 @@ Legacy source root:
   original v99 failed cell, prove robustness, prove strict paper-equivalent
   feasibility, calibrate contact geometry, or authorize hardware work.
 
+## V111 Weighted Profile Matrix Restatement
+
+### Restated the v98/v99 matrix with the named weighted profile
+
+- Scripts:
+  - `scripts/audit_weighted_profile_matrix_restatement.py`
+- Runs:
+  - `runs/weighted_profile_matrix_restatement/20260525T075040`
+- Report:
+  - `reports/weighted_profile_matrix_restatement_report.md`
+- Tests:
+  - `tests/test_weighted_profile_matrix_restatement.py`
+- Command:
+  `python3 scripts/audit_weighted_profile_matrix_restatement.py --output-dir runs/weighted_profile_matrix_restatement/20260525T075040`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The post-hoc audit reads the v98 matrix, v99 failed-cell plan, v100-v103
+  execution audit, and v110 profile boundary. It restates the matrix with
+  `weighted_zero_angular_stage_b_diagnostic` as a non-canonical overlay:
+  `base_z_plus1mm` and `positive_fast_timing_0p0075` have overlay support,
+  while `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate`
+  remain gate-acceptance blocked. Closed cells remain `0`, candidate matrix
+  complete remains `false`, and accepted-as-robustness-proof remains `false`.
+- Validation:
+  Focused tests passed with `3 passed in 0.04s`; YAML anchor check found no
+  anchors in the generated metrics after the no-alias YAML writer update;
+  raw/heavy artifact scan found no payloads; full tests passed with
+  `162 passed in 7.00s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V111_IMPLEMENTATION_COMMIT_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is post-hoc diagnostic
+  bookkeeping over existing metrics and does not change the canonical
+  controller default, accept the `0.12 rad` orientation gate, close any
+  original v99 failed cell, prove robustness, prove strict paper-equivalent
+  feasibility, calibrate contact geometry, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

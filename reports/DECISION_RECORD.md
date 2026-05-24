@@ -2465,3 +2465,30 @@
   motion/configuration. Future offline work may restate the diagnostic
   robustness matrix using this named profile only if those same boundaries are
   preserved.
+
+## D116: Restate Matrix With Weighted Profile Without Closing Cells
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v111 as the post-hoc restatement of the v98/v99 diagnostic robustness
+  matrix using `weighted_zero_angular_stage_b_diagnostic` as a non-canonical
+  overlay.
+- Reason:
+  V110 named the weighted diagnostic profile for the covered v107/v109 faces.
+  V111 maps that profile back onto the four v98 failed cells. The profile
+  overlay supports `base_z_plus1mm` through the relaxed base-z handoff face and
+  `positive_fast_timing_0p0075` through the fast-timing full E1-E4 face.
+  `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain
+  gate-acceptance blocked. The restatement has source cell count `12`, source
+  failed cell count `4`, profile overlay support count `2`, closed cells `0`,
+  candidate matrix complete `false`, and accepted-as-robustness-proof `false`.
+- Consequence:
+  Use the named profile only as non-canonical diagnostic matrix bookkeeping.
+  Do not close original v99 failed cells, accept weighted priority as
+  canonical, accept the `0.12 rad` orientation gate as canonical, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration. Future offline work should prioritize remaining
+  non-profile-covered blockers: orientation gate acceptance, contact
+  calibration, strict feasibility, and hardware-readiness evidence.

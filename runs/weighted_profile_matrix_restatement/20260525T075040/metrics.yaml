@@ -1,0 +1,183 @@
+run_source: v111 weighted profile matrix restatement
+source_files:
+  v98_diagnostic_robustness_matrix: /home/andy/reproduce-tase/runs/diagnostic_robustness_matrix_candidate/20260525T053101/metrics.yaml
+  v99_failed_experiment_matrix: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/metrics.yaml
+  v103_execution_audit: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_audit/20260525T061328/metrics.yaml
+  v110_weighted_profile_boundary: /home/andy/reproduce-tase/runs/weighted_priority_profile_boundary/20260525T074100/metrics.yaml
+profile_summary:
+  profile_name: weighted_zero_angular_stage_b_diagnostic
+  diagnostic_profile_naming_supported: true
+  covered_faces:
+  - positive_fast_timing_full_e1e4
+  - relaxed_base_z_plus1mm_handoff
+  weighted_all_faces_recovered: true
+  baseline_failure_reproduced_all_faces: true
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  failed_cell_closed: false
+  robustness_claim: false
+  hardware_readiness: false
+restated_matrix:
+  source_cell_count: 12
+  source_status_counts:
+    failed: 4
+    passed_diagnostic: 7
+    passed_diagnostic_nonfinal: 1
+  source_failed_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  v99_planned_failed_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  executed_failed_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  unresolved_executed_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  profile_overlay_supported_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  profile_overlay_supported_count: 2
+  gate_acceptance_blocked_cell_ids:
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  closed_cell_count: 0
+  restated_failed_cell_count: 4
+  restatement_supported: true
+  restatement_complete: true
+  candidate_matrix_complete: false
+  accepted_as_robustness_proof: false
+  all_failed_cells_closed: false
+failed_cell_restatement_rows:
+- cell_id: base_z_plus1mm
+  original_status: failed
+  planned_in_v99: true
+  executed_in_v100_v103: true
+  unresolved_after_execution: true
+  blocker_ids:
+  - base_z_plus_1mm_contact_or_terminal_orientation
+  profile_overlay_face: relaxed_base_z_plus1mm_handoff
+  profile_overlay_status: profile_component_recovered_noncanonical
+  profile_overlay_supported: true
+  profile_overlay_reason: V108/V109 recover the relaxed Stage A/path/handoff components,
+    but the original 0.08 rad exact failed cell is still open.
+  restated_status: failed_with_noncanonical_profile_overlay
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+- cell_id: positive_fast_timing_0p0075
+  original_status: failed
+  planned_in_v99: true
+  executed_in_v100_v103: true
+  unresolved_after_execution: true
+  blocker_ids:
+  - faster_timing_qdot_tail_utilization
+  profile_overlay_face: positive_fast_timing_full_e1e4
+  profile_overlay_status: profile_recovered_noncanonical
+  profile_overlay_supported: true
+  profile_overlay_reason: V107 recovers the full E1-E4 face under the named weighted
+    profile, but the controller/gate are not canonical.
+  restated_status: failed_with_noncanonical_profile_overlay
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+- cell_id: positive_orientation_gate_0p119
+  original_status: failed
+  planned_in_v99: true
+  executed_in_v100_v103: true
+  unresolved_after_execution: true
+  blocker_ids:
+  - tightened_orientation_gate_plus1mm
+  - contact_model_calibration_missing
+  profile_overlay_face: null
+  profile_overlay_status: not_profile_recovered_gate_acceptance_blocked
+  profile_overlay_supported: false
+  profile_overlay_reason: This row remains an orientation-gate acceptance blocker.
+  restated_status: failed_without_profile_overlay
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+- cell_id: weighted_plus1mm_0p119_gate
+  original_status: failed
+  planned_in_v99: true
+  executed_in_v100_v103: true
+  unresolved_after_execution: true
+  blocker_ids:
+  - tightened_orientation_gate_plus1mm
+  - contact_model_calibration_missing
+  profile_overlay_face: null
+  profile_overlay_status: not_profile_recovered_current_gate_blocked
+  profile_overlay_supported: false
+  profile_overlay_reason: The named profile uses the run-local 0.12 rad gate; this
+    row is still the current 0.119 rad weighted gate failure.
+  restated_status: failed_without_profile_overlay
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+summary:
+  profile_name: weighted_zero_angular_stage_b_diagnostic
+  restatement_supported: true
+  restatement_complete: true
+  source_cell_count: 12
+  source_failed_cell_count: 4
+  profile_overlay_supported_count: 2
+  profile_overlay_supported_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  gate_acceptance_blocked_cell_ids:
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  closed_cell_count: 0
+  candidate_matrix_complete: false
+  accepted_as_robustness_proof: false
+  all_failed_cells_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  hardware_readiness: false
+  do_not_mark_goal_complete: true
+claim_boundary:
+  post_hoc_offline_audit_only: true
+  can_restate_matrix_with_named_profile: true
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  strict_paper_equivalent_feasibility: false
+  contact_calibration_claim: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+next_offline_actions:
+- Do not convert the profile restatement into a robustness proof.
+- Keep all original v99 failed cells open until canonical gate/controller/contact
+  evidence exists.
+- Treat gate-acceptance-blocked rows as requiring approved evidence or a separate
+  accepted gate review.
+- Keep live read-only SOP work blocked until explicit user approval exists for the
+  exact step.
+warnings:
+- post-hoc offline audit of existing metrics only
+- does not rerun MuJoCo
+- does not accept weighted priority as canonical
+- does not accept the 0.12 rad orientation gate as canonical
+- does not close original v99 failed cells
+- not strict paper-equivalent feasibility
+- not a robustness proof
+- not contact-model calibration
+- not hardware-ready
+run_id: 20260525T071654

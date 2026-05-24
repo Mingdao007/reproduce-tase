@@ -4294,3 +4294,47 @@
   can audit whether the v98/v99 diagnostic robustness matrix can be restated
   with the named weighted diagnostic profile while keeping canonical
   controller/gate changes, failed-cell closure, and robustness claims false.
+
+## 2026-05-25 v111 Weighted Profile Matrix Restatement
+
+### Restate the v98/v99 matrix with the named weighted profile
+
+- Branch:
+  `exp/tase-ur10e-v111-weighted-profile-matrix-restatement`
+- Runs:
+  - `runs/weighted_profile_matrix_restatement/20260525T075040`
+- Report:
+  `reports/weighted_profile_matrix_restatement_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_weighted_profile_matrix_restatement.py`
+  - `scripts/run_tests.sh tests/test_weighted_profile_matrix_restatement.py`
+  - `python3 scripts/audit_weighted_profile_matrix_restatement.py --output-dir runs/weighted_profile_matrix_restatement/20260525T075040`
+  - `rg -n "&id|\*id" runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml`
+  - `find runs/weighted_profile_matrix_restatement/20260525T075040 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The post-hoc audit restates the v98/v99 matrix with
+  `weighted_zero_angular_stage_b_diagnostic` as a non-canonical overlay. The
+  source matrix still has `12` cells and `4` failed cells. The profile overlay
+  supports `base_z_plus1mm` and `positive_fast_timing_0p0075`;
+  `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain
+  gate-acceptance blocked. Closed cells remain `0`, candidate matrix complete
+  remains `false`, accepted-as-robustness-proof remains `false`, and
+  `do_not_mark_goal_complete` remains `true`.
+- Limit:
+  This is post-hoc offline bookkeeping over existing metrics. It does not
+  rerun MuJoCo, change the canonical controller default, accept the `0.12 rad`
+  orientation gate, close any original v99 failed cell, prove robustness,
+  prove strict paper-equivalent feasibility, calibrate contact geometry, or
+  authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.04s`; YAML anchor check found no
+  anchors in the generated metrics after the no-alias YAML writer update;
+  raw/heavy artifact scan found no payloads; full tests passed with
+  `162 passed in 7.00s`; `git diff --check` passed.
+  Branch push verification is pending implementation commit
+  `V111_IMPLEMENTATION_COMMIT_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next branch
+  can prioritize remaining non-profile-covered blockers: orientation gate
+  acceptance, contact calibration, strict feasibility, and hardware-readiness
+  evidence.
