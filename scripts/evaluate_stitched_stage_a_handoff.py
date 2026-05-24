@@ -195,6 +195,12 @@ def main() -> int:
     parser.add_argument("--orientation-kp", type=float, default=0.0)
     parser.add_argument("--max-orientation-error-rad", type=float, default=0.08)
     parser.add_argument("--max-angular-slack-rad-s", type=float, default=0.03)
+    parser.add_argument(
+        "--base-z-offset-delta-m",
+        type=float,
+        default=0.0,
+        help="Additive diagnostic perturbation to the setup-derived base z offset.",
+    )
     parser.add_argument("--trajectories", default=",".join(TRAJECTORY_ORDER))
     args = parser.parse_args()
 
@@ -213,7 +219,7 @@ def main() -> int:
 
     model_path = (ROOT / cfg["ur10e_mujoco"]["mjcf_path"]).resolve()
     dt_s = float(cfg["ur10e_mujoco"]["timestep_s"])
-    base_z_offset = float(setup["base_z_offset_m"])
+    base_z_offset = float(setup["base_z_offset_m"]) + float(args.base_z_offset_delta_m)
     qdot_limit = abs(float(args.qdot_limit_rad_s))
     target_force = float(args.target_force_N)
 
@@ -386,6 +392,7 @@ def main() -> int:
         "claim_scope": "stitched_diagnostic_stage_a_tracking_and_stage_b_handoff_not_paper_or_hardware",
         "target_force_N": target_force,
         "base_z_offset_m": base_z_offset,
+        "base_z_offset_delta_m": float(args.base_z_offset_delta_m),
         "qdot_limit_rad_s": qdot_limit,
         "stage_a_duration_s": float(args.stage_a_duration_s),
         "stage_b_duration_s": float(args.stage_b_duration_s),
