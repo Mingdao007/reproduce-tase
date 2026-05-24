@@ -45,6 +45,12 @@ class PaperSectionV7DofConfig:
     max_contact_force_N: float = 50.0
     force_integral_limit: float = float("inf")
     force_integral_leak: float = 0.0
+    normal_track_gain: float = 20.0
+    max_normal_command_velocity_m_s: float = 0.12
+    max_normal_state_velocity_m_s: float = 0.12
+    max_normal_target_offset_m: float = 0.05
+    normal_target_restore_rate: float = 6.0
+    q7_nullspace_speed_rad_s: float = 0.0
     force_min_norm_N: float = 1.0e-6
     orientation_mode: str = "force_shortest_arc"
     solver_mode: str = "kkt_projection"
@@ -169,9 +175,29 @@ def _projection_target(
     lambda_1: np.ndarray,
     *,
     solver_mode: str,
+    q_rad: np.ndarray | None = None,
+    q_min_rad: np.ndarray | None = None,
+    q_max_rad: np.ndarray | None = None,
+    dt_s: float | None = None,
+    q7_nullspace_speed_rad_s: float = 0.0,
 ) -> np.ndarray:
     if solver_mode == "pinv_bounded":
-        return np.linalg.pinv(jacobian) @ command
+        jacobian_pinv = np.linalg.pinv(jacobian)
+        target = jacobian_pinv @ command
+        if q7_nullspace_speed_rad_s != 0.0:
+            if q_rad is None or q_min_rad is None or q_max_rad is None or dt_s is None:
+                raise ValueError("q7 nullspace bias requires q, bounds, and dt")
+            null_projector = np.eye(jacobian.shape[1]) - jacobian_pinv @ jacobian
+            bias = np.zeros(jacobian.shape[1], dtype=float)
+            speed = float(q7_nullspace_speed_rad_s)
+            if speed > 0.0:
+                q7_margin = max(float(q_max_rad[6] - q_rad[6]), 0.0)
+                bias[6] = min(speed, q7_margin / max(float(dt_s), np.finfo(float).eps))
+            else:
+                q7_margin = max(float(q_rad[6] - q_min_rad[6]), 0.0)
+                bias[6] = max(speed, -q7_margin / max(float(dt_s), np.finfo(float).eps))
+            target = target + null_projector @ bias
+        return target
     if solver_mode == "kkt_projection":
         return -jacobian.T @ lambda_1
     raise ValueError("solver_mode must be 'pinv_bounded' or 'kkt_projection'")
@@ -201,8 +227,8 @@ def simulate_paper_section_v_7dof(config: PaperSectionV7DofConfig) -> PaperSecti
         raise ValueError("duration_s must be nonnegative")
     if config.dt_s <= 0.0:
         raise ValueError("dt_s must be positive")
-    if config.force_loop_mode != "paper_literal":
-        raise ValueError("only paper_literal force_loop_mode is implemented")
+    if config.force_loop_mode not in {"paper_literal", "admittance_proxy"}:
+        raise ValueError("force_loop_mode must be 'paper_literal' or 'admittance_proxy'")
 
     q_min = np.full(7, config.q_min_rad, dtype=float)
     q_max = np.full(7, config.q_max_rad, dtype=float)
@@ -249,6 +275,8 @@ def simulate_paper_section_v_7dof(config: PaperSectionV7DofConfig) -> PaperSecti
     }
 
     force_integral = 0.0
+    normal_target_position = desired_signed_distance
+    normal_target_velocity = 0.0
     xdot_p_delay = np.zeros(3, dtype=float)
     for idx, t_s in enumerate(t_values):
         desired_position = paper_section_v_desired_position(
@@ -266,7 +294,7 @@ def simulate_paper_section_v_7dof(config: PaperSectionV7DofConfig) -> PaperSecti
         jacobian = panda_geometric_jacobian(q)
         actual_task_velocity = jacobian @ dq
         xdot_p_actual = actual_task_velocity[:3]
-        penetration, measured_force, contact_active, _signed_distance, _normal_velocity = plane_contact(
+        penetration, measured_force, contact_active, signed_distance, _normal_velocity = plane_contact(
             pose.position_m,
             xdot_p_actual,
             plane_z_m=plane_z,
@@ -296,11 +324,41 @@ def simulate_paper_section_v_7dof(config: PaperSectionV7DofConfig) -> PaperSecti
             config.force_integral_limit,
         )
         xdot_motion = phi_o @ (desired_velocity + config.kp * position_error)
-        xdd_p = (
-            -((force_error + config.kf * force_integral) / config.md_kg) * plane_normal
-            - (config.bd_N_s_m / config.md_kg) * (phi_bar_o @ xdot_p_delay)
-        )
-        xdot_force = phi_bar_o @ (xdot_p_delay + xdd_p * config.communication_delay_s)
+        if config.force_loop_mode == "admittance_proxy":
+            normal_target_accel = (
+                -force_error - config.kf * force_integral - config.bd_N_s_m * normal_target_velocity
+            ) / config.md_kg
+            normal_target_velocity = _saturate_scalar(
+                normal_target_velocity + config.dt_s * normal_target_accel,
+                config.max_normal_state_velocity_m_s,
+            )
+            normal_target_position = desired_signed_distance + _saturate_scalar(
+                (
+                    normal_target_position
+                    + config.dt_s
+                    * (
+                        normal_target_velocity
+                        - config.normal_target_restore_rate * (normal_target_position - desired_signed_distance)
+                    )
+                )
+                - desired_signed_distance,
+                config.max_normal_target_offset_m,
+            )
+            normal_command_velocity = normal_target_velocity + config.normal_track_gain * (
+                normal_target_position - signed_distance
+            )
+            normal_command_velocity = _saturate_scalar(
+                normal_command_velocity,
+                config.max_normal_command_velocity_m_s,
+            )
+            xdd_p = normal_target_accel * plane_normal
+            xdot_force = phi_bar_o @ (normal_command_velocity * plane_normal)
+        else:
+            xdd_p = (
+                -((force_error + config.kf * force_integral) / config.md_kg) * plane_normal
+                - (config.bd_N_s_m / config.md_kg) * (phi_bar_o @ xdot_p_delay)
+            )
+            xdot_force = phi_bar_o @ (xdot_p_delay + xdd_p * config.communication_delay_s)
         xdot_p_cmd = xdot_motion + xdot_force
         xdot_o_cmd = _saturate_norm(config.ko * orientation_error, config.max_angular_speed_rad_s)
         xdot_c = np.concatenate([xdot_p_cmd, xdot_o_cmd])
@@ -319,6 +377,11 @@ def simulate_paper_section_v_7dof(config: PaperSectionV7DofConfig) -> PaperSecti
             xdot_c,
             lambda_1,
             solver_mode=config.solver_mode,
+            q_rad=q,
+            q_min_rad=q_min,
+            q_max_rad=q_max,
+            dt_s=config.dt_s,
+            q7_nullspace_speed_rad_s=config.q7_nullspace_speed_rad_s,
         )
         qdot_proj = np.minimum(np.maximum(qdot_proj_raw, qdot_lower), qdot_upper)
         qddot = -(1.0 / config.epsilon) * np.asarray(sigr(dq - qdot_proj, config.finite_time_power), dtype=float)
@@ -402,13 +465,23 @@ def summarize_paper_section_v_7dof(result: PaperSectionV7DofResult) -> dict[str,
     metrics: dict[str, float | int | bool | str] = {
         "execution_success": bool(all_finite and q_bound_violation_count == 0 and qdot_bound_violation_count == 0),
         "contact_force_tail_success": contact_force_tail_success,
-        "claim_level": "paper_platform_7dof_executable_diagnostic",
+        "claim_level": (
+            "paper_platform_7dof_tuned_figure_match_candidate"
+            if result.config.force_loop_mode == "admittance_proxy"
+            else "paper_platform_7dof_executable_diagnostic"
+        ),
         "duration_s": float(result.t_s[-1]) if result.t_s.size else 0.0,
         "dt_s": float(result.config.dt_s),
         "sample_count": int(result.t_s.size),
         "solver_mode": result.config.solver_mode,
         "orientation_mode": result.config.orientation_mode,
         "force_loop_mode": result.config.force_loop_mode,
+        "force_integral_limit": float(result.config.force_integral_limit),
+        "force_integral_leak": float(result.config.force_integral_leak),
+        "q7_nullspace_speed_rad_s": float(result.config.q7_nullspace_speed_rad_s),
+        "escape_velocity_alpha": float(result.config.escape_velocity_alpha),
+        "kp": float(result.config.kp),
+        "max_angular_speed_rad_s": float(result.config.max_angular_speed_rad_s),
         "z0_convention": result.config.z0_convention,
         "z0_m": float(result.z0_m),
         "plane_z_m": float(result.plane_z_m),

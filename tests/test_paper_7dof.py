@@ -100,6 +100,36 @@ def test_capped_integral_kkt_diagnostic_passes_tail_force_gate() -> None:
     assert metrics["qdot_bound_violation_count"] == 0
 
 
+def test_tuned_figure_match_candidate_records_explicit_nonpaper_knobs() -> None:
+    config = PaperSectionV7DofConfig(
+        duration_s=0.1,
+        dt_s=0.004,
+        solver_mode="pinv_bounded",
+        orientation_mode="normal_only",
+        force_loop_mode="admittance_proxy",
+        force_integral_limit=5.0,
+        force_integral_leak=1.5,
+        escape_velocity_alpha=20.0,
+        kp=25.0,
+        max_angular_speed_rad_s=1.5,
+        q7_nullspace_speed_rad_s=0.35,
+    )
+    result = simulate_paper_section_v_7dof(config)
+    metrics = summarize_paper_section_v_7dof(result)
+    assert metrics["execution_success"]
+    assert metrics["claim_level"] == "paper_platform_7dof_tuned_figure_match_candidate"
+    assert metrics["force_loop_mode"] == "admittance_proxy"
+    assert metrics["solver_mode"] == "pinv_bounded"
+    assert metrics["orientation_mode"] == "normal_only"
+    assert metrics["force_integral_limit"] == 5.0
+    assert metrics["force_integral_leak"] == 1.5
+    assert metrics["q7_nullspace_speed_rad_s"] == 0.35
+    assert metrics["escape_velocity_alpha"] == 20.0
+    assert metrics["kp"] == 25.0
+    assert metrics["max_angular_speed_rad_s"] == 1.5
+    assert result.q_rad[-1, 6] > config.q0_rad[6]
+
+
 def test_summary_records_fig6_q7_landmark_when_duration_covers_22s() -> None:
     q_rad = np.zeros((3, 7), dtype=float)
     q_rad[1, 6] = 1.675

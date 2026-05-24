@@ -309,6 +309,7 @@ def main() -> int:
     parser.add_argument("--legacy-root", default=str(DEFAULT_LEGACY_ROOT))
     parser.add_argument("--python-raw-npz", default=str(DEFAULT_PYTHON_RAW))
     parser.add_argument("--python-metrics-yaml", default=str(DEFAULT_PYTHON_METRICS))
+    parser.add_argument("--python-label", default="python_v47_uncapped_kkt")
     parser.add_argument("--output-dir", default=None)
     args = parser.parse_args()
 
@@ -342,7 +343,8 @@ def main() -> int:
     figure = load_legacy_run(figure_path)
     figure["name"] = "legacy_figure_match"
     python = load_python_run(python_raw_path, python_metrics_path)
-    python["name"] = "python_v47_uncapped_kkt"
+    python_label = args.python_label
+    python["name"] = python_label
 
     runs = [formula, figure, python]
     run_summaries = {
@@ -366,21 +368,22 @@ def main() -> int:
         "legacy_formula_force_loop_mode": formula["metadata"]["force_loop_mode"],
         "legacy_figure_force_loop_mode": figure["metadata"]["force_loop_mode"],
         "python_force_loop_mode": python["metadata"]["force_loop_mode"],
+        "python_candidate_label": python_label,
         "legacy_figure_q7_at_22_s_rad": run_summaries["legacy_figure_match"]["q7_summary"][
             "q7_at_22_s_rad"
         ],
-        "python_q7_at_22_s_rad": run_summaries["python_v47_uncapped_kkt"]["q7_summary"][
+        "python_q7_at_22_s_rad": run_summaries[python_label]["q7_summary"][
             "q7_at_22_s_rad"
         ],
         "formula_q7_at_22_s_rad": run_summaries["legacy_formula_faithful"]["q7_summary"][
             "q7_at_22_s_rad"
         ],
         "python_abs_delta_to_figure_q7_at_22_s_rad": abs(
-            run_summaries["python_v47_uncapped_kkt"]["q7_summary"]["q7_at_22_s_rad"]
+            run_summaries[python_label]["q7_summary"]["q7_at_22_s_rad"]
             - run_summaries["legacy_figure_match"]["q7_summary"]["q7_at_22_s_rad"]
         ),
         "python_abs_delta_to_formula_q7_at_22_s_rad": abs(
-            run_summaries["python_v47_uncapped_kkt"]["q7_summary"]["q7_at_22_s_rad"]
+            run_summaries[python_label]["q7_summary"]["q7_at_22_s_rad"]
             - run_summaries["legacy_formula_faithful"]["q7_summary"]["q7_at_22_s_rad"]
         ),
         "legacy_figure_q7_exact_upper_limit_count": run_summaries["legacy_figure_match"][

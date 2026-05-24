@@ -96,9 +96,15 @@ def main() -> int:
     parser.add_argument("--dt-s", type=float, default=0.002)
     parser.add_argument("--solver-mode", choices=["kkt_projection", "pinv_bounded"], default="kkt_projection")
     parser.add_argument("--orientation-mode", choices=["force_shortest_arc", "normal_only"], default="force_shortest_arc")
+    parser.add_argument("--force-loop-mode", choices=["paper_literal", "admittance_proxy"], default="paper_literal")
     parser.add_argument("--communication-delay-s", type=float, default=0.032)
     parser.add_argument("--force-integral-limit", type=float, default=float("inf"))
     parser.add_argument("--force-integral-leak", type=float, default=0.0)
+    parser.add_argument("--escape-velocity-alpha", type=float, default=2.0)
+    parser.add_argument("--kp", type=float, default=4.0)
+    parser.add_argument("--max-angular-speed-rad-s", type=float, default=1.0)
+    parser.add_argument("--q7-nullspace-speed-rad-s", type=float, default=0.0)
+    parser.add_argument("--figure-match-preset", action="store_true")
     parser.add_argument("--output-dir", default=None)
     args = parser.parse_args()
 
@@ -112,15 +118,35 @@ def main() -> int:
     git_status_short = git_value(["status", "--short"])
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    config = PaperSectionV7DofConfig(
-        duration_s=args.duration_s,
-        dt_s=args.dt_s,
-        solver_mode=args.solver_mode,
-        orientation_mode=args.orientation_mode,
-        communication_delay_s=args.communication_delay_s,
-        force_integral_limit=args.force_integral_limit,
-        force_integral_leak=args.force_integral_leak,
-    )
+    config_kwargs = {
+        "duration_s": args.duration_s,
+        "dt_s": args.dt_s,
+        "solver_mode": args.solver_mode,
+        "orientation_mode": args.orientation_mode,
+        "force_loop_mode": args.force_loop_mode,
+        "communication_delay_s": args.communication_delay_s,
+        "force_integral_limit": args.force_integral_limit,
+        "force_integral_leak": args.force_integral_leak,
+        "escape_velocity_alpha": args.escape_velocity_alpha,
+        "kp": args.kp,
+        "max_angular_speed_rad_s": args.max_angular_speed_rad_s,
+        "q7_nullspace_speed_rad_s": args.q7_nullspace_speed_rad_s,
+    }
+    if args.figure_match_preset:
+        config_kwargs.update(
+            {
+                "solver_mode": "pinv_bounded",
+                "orientation_mode": "normal_only",
+                "force_loop_mode": "admittance_proxy",
+                "force_integral_limit": 5.0,
+                "force_integral_leak": 1.5,
+                "escape_velocity_alpha": 20.0,
+                "kp": 25.0,
+                "max_angular_speed_rad_s": 1.5,
+                "q7_nullspace_speed_rad_s": 0.35,
+            }
+        )
+    config = PaperSectionV7DofConfig(**config_kwargs)
     result = simulate_paper_section_v_7dof(config)
     metrics = summarize_paper_section_v_7dof(result)
     payload = {
