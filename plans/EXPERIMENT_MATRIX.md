@@ -71,11 +71,14 @@ them rather than deleting them.
 - Longer low-gain Stage A probes do not fix the approach either. They reduce
   angular slack but still exceed the qdot saturation and planar-drift budgets,
   and none make the following trajectory pass.
+- Angular-command caps are respected and reduce weighted saturation, but still
+  do not produce a Stage A pass. The remaining issue appears to be task
+  structure, not just requested angular-rate magnitude.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_long_approach_probe/20260524T094156` as negative
-evidence for simply extending low-gain Stage A. The next executable experiment
-should add an orientation-rate-limited approach schedule, or the project should
-record a separate relaxed-budget prealignment decision before expanding staged
-checks to E2-E4.
+Use `runs/staged_orientation_rate_cap_probe/20260524T094752` as evidence that
+angular-command capping alone is insufficient. The next executable experiment
+should test a contact/position-first Stage A task structure, or the project
+should record a separate relaxed-budget prealignment decision before expanding
+staged checks to E2-E4.

@@ -71,3 +71,73 @@ def test_first_orientation_threshold_index_rejects_negative_threshold() -> None:
         assert "threshold_rad" in str(exc)
     else:
         raise AssertionError("negative threshold should raise ValueError")
+
+
+def test_staged_approach_angular_command_cap_limits_command_norm() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+    cap_rad_s = 0.01
+    staged = simulate_orientation_prealign_then_planar_force_motion(
+        TILTED_MODEL_PATH,
+        initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=5.0,
+        planar_trajectory=lambda t_s: paper_e1_cycloid_planar_state(t_s, time_scale=0.075),
+        approach_duration_s=0.02,
+        trajectory_duration_s=0.02,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.5,
+        slack_axis_weights=np.array([1.0, 1.0, 10000.0]),
+        slack_constraint_weight=1000.0,
+        normal_velocity_mode="contact_normal",
+        approach_orientation_priority_mode="weighted",
+        approach_orientation_kp=2.0,
+        approach_max_angular_command_rad_s=cap_rad_s,
+        trajectory_orientation_priority_mode="linear_primary",
+        trajectory_orientation_kp=0.1,
+        angular_axis_weights=np.ones(3),
+        angular_slack_axis_weights=np.ones(3),
+    )
+    commanded_norm = np.linalg.norm(staged.approach.commanded_angular_velocity, axis=1)
+    assert np.max(commanded_norm) <= cap_rad_s + 1e-12
+
+
+def test_staged_approach_angular_command_cap_rejects_negative_value() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+    try:
+        simulate_orientation_prealign_then_planar_force_motion(
+            TILTED_MODEL_PATH,
+            initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+            base_z_offset_m=-0.0011631221220595766,
+            target_force_N=5.0,
+            planar_trajectory=lambda t_s: paper_e1_cycloid_planar_state(t_s, time_scale=0.075),
+            approach_duration_s=0.02,
+            trajectory_duration_s=0.02,
+            dt_s=0.002,
+            qdot_min=qdot_min,
+            qdot_max=qdot_max,
+            force_gain=5e-4,
+            r=0.5,
+            planar_kp=0.5,
+            slack_axis_weights=np.array([1.0, 1.0, 10000.0]),
+            slack_constraint_weight=1000.0,
+            normal_velocity_mode="contact_normal",
+            approach_orientation_priority_mode="weighted",
+            approach_orientation_kp=2.0,
+            approach_max_angular_command_rad_s=-0.01,
+            trajectory_orientation_priority_mode="linear_primary",
+            trajectory_orientation_kp=0.1,
+            angular_axis_weights=np.ones(3),
+            angular_slack_axis_weights=np.ones(3),
+        )
+    except ValueError as exc:
+        assert "max_angular_command_rad_s" in str(exc)
+    else:
+        raise AssertionError("negative angular command cap should raise ValueError")

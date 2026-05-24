@@ -260,6 +260,7 @@ def simulate_planar_force_motion(
     orientation_mode: str = "none",
     orientation_priority_mode: str = "weighted",
     orientation_kp: float = 1.0,
+    max_angular_command_rad_s: float | None = None,
     angular_axis_weights: np.ndarray | None = None,
     angular_slack_axis_weights: np.ndarray | None = None,
     site_name: str = "tcp_site_unverified_85mm",
@@ -272,6 +273,9 @@ def simulate_planar_force_motion(
     if normal_velocity_mode not in {"world_z", "contact_normal"}:
         raise ValueError("normal_velocity_mode must be 'world_z' or 'contact_normal'")
     orientation_task_enabled = orientation_mode != "none"
+    angular_command_cap = None if max_angular_command_rad_s is None else float(max_angular_command_rad_s)
+    if angular_command_cap is not None and angular_command_cap < 0.0:
+        raise ValueError("max_angular_command_rad_s must be nonnegative when set")
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
     data = make_data(model)
@@ -398,6 +402,10 @@ def simulate_planar_force_motion(
         else:
             desired_rotation = current_rotation
             angular_command = None
+        if angular_command is not None and angular_command_cap is not None:
+            angular_command_norm = np.linalg.norm(angular_command)
+            if angular_command_norm > angular_command_cap and angular_command_norm > 0.0:
+                angular_command = (angular_command_cap / angular_command_norm) * angular_command
         step = solve_site_linear_velocity_step(
             model,
             data,

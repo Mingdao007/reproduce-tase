@@ -278,8 +278,10 @@ def main() -> int:
     parser.add_argument("--normal-velocity-mode", choices=["world-z", "contact-normal"], default="contact-normal")
     parser.add_argument("--approach-orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--approach-orientation-kp", type=float, default=2.0)
+    parser.add_argument("--approach-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument("--trajectory-orientation-priority-mode", choices=["weighted", "linear-primary"], default="linear-primary")
     parser.add_argument("--trajectory-orientation-kp", type=float, default=0.1)
+    parser.add_argument("--trajectory-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
     parser.add_argument("--approach-orientation-threshold-rad", type=float, default=0.03)
@@ -322,8 +324,10 @@ def main() -> int:
         normal_velocity_mode=args.normal_velocity_mode.replace("-", "_"),
         approach_orientation_priority_mode=args.approach_orientation_priority_mode.replace("-", "_"),
         approach_orientation_kp=args.approach_orientation_kp,
+        approach_max_angular_command_rad_s=args.approach_max_angular_command_rad_s,
         trajectory_orientation_priority_mode=args.trajectory_orientation_priority_mode.replace("-", "_"),
         trajectory_orientation_kp=args.trajectory_orientation_kp,
+        trajectory_max_angular_command_rad_s=args.trajectory_max_angular_command_rad_s,
         angular_axis_weights=np.full(3, args.angular_axis_weight, dtype=float),
         angular_slack_axis_weights=np.full(3, args.angular_slack_weight, dtype=float),
         approach_orientation_threshold_rad=args.approach_orientation_threshold_rad,
@@ -374,6 +378,7 @@ def main() -> int:
         {
             "orientation_priority_mode": args.approach_orientation_priority_mode,
             "orientation_kp": float(args.approach_orientation_kp),
+            "max_angular_command_rad_s": args.approach_max_angular_command_rad_s,
             "orientation_threshold_rad": float(args.approach_orientation_threshold_rad),
             "reached_threshold": bool(staged.approach_reached_threshold),
             "first_threshold_index": staged.approach_first_threshold_index,
@@ -400,6 +405,7 @@ def main() -> int:
             "paper_time_scale": float(args.paper_time_scale),
             "orientation_priority_mode": args.trajectory_orientation_priority_mode,
             "orientation_kp": float(args.trajectory_orientation_kp),
+            "max_angular_command_rad_s": args.trajectory_max_angular_command_rad_s,
             "initial_q": [float(x) for x in staged.trajectory_initial_q],
             "feasibility_gate": trajectory_gate,
         }

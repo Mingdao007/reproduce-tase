@@ -841,3 +841,31 @@ derivation should add an explicit orientation-rate-limited schedule or another
 mechanism that caps desired angular velocity before the hard joint-velocity
 solve, while separately tracking position hold, contact force, and terminal
 orientation.
+
+## V27 Angular-Command Cap Implication
+
+The v27 controller surface adds a command-level angular rate cap:
+
+```text
+omega_cmd = k_o e_R
+if ||omega_cmd|| > omega_max:
+    omega_cmd = omega_max omega_cmd / ||omega_cmd||
+```
+
+This cap is applied before the hard joint-velocity solve and is recorded
+separately from actual angular velocity. The probe confirms that the cap is
+respected, but it does not remove the Stage A conflict:
+
+```text
+uncapped weighted qdot saturation fraction = 0.961
+best capped weighted qdot saturation fraction = 0.46366666666666667
+best capped weighted planar drift >= 0.007554701332091872 m
+linear-primary capped final ||e_R|| = 0.07416203560682781 rad
+```
+
+Thus the remaining blocker is not only excessive requested angular velocity.
+The UR10e 6DOF approach has a structural task conflict between contact-normal
+force regulation, planar position hold, force-normal orientation alignment,
+and the `0.15 rad/s` joint-velocity budget. The next derivation should assign
+explicit priority or acceptance gates to those contracts instead of continuing
+to tune `omega_cmd` magnitude alone.

@@ -738,6 +738,34 @@ Legacy source root:
   This is negative E1-only tilted-plane simulation evidence. It does not cover
   curved surfaces, E2-E4 staged trajectories, torque dynamics, or hardware.
 
+## V27 Approach Rate Cap Probe
+
+### Tilted Stage A angular-command cap probe
+
+- Run root:
+  - `runs/staged_orientation_rate_cap_probe/20260524T094752`
+- Scope:
+  Six E1 tilted-plane staged runs testing the new Stage A
+  `approach_max_angular_command_rad_s` option across weighted and
+  `linear-primary` approach modes.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Command cap respected count `6 / 6`, approach terminal-orientation pass
+  count `5 / 6`, approach terminal-budget pass count `0 / 6`,
+  trajectory-after-approach pass count `3 / 6`, and full staged-feasibility
+  pass count `0 / 6`.
+- Limit:
+  This is negative E1-only tilted-plane simulation evidence for command
+  capping as a Stage A fix. It does not cover curved surfaces, E2-E4 staged
+  trajectories, torque dynamics, or hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

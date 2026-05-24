@@ -537,3 +537,24 @@
   orientation-rate-limited approach schedule, or an explicit relaxed-budget
   prealignment decision. More duration/gain probes with the same objective are
   unlikely to produce useful evidence.
+
+## D032: Keep Angular-Command Cap As Instrumentation, Not Stage A Fix
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the v27 angular-command cap API and CLI surface, but do not claim that
+  angular-command capping solves the tilted Stage A approach.
+- Reason:
+  The v27 rate-cap probe shows that the cap is respected in all six cases.
+  Weighted capped cases reduce qdot saturation compared with the uncapped
+  baseline, but still fail the terminal approach budget. The best capped
+  weighted qdot saturation fraction is `0.46366666666666667`, and planar drift
+  remains above `0.0075 m`. The capped `linear-primary` reference preserves
+  planar position but stalls at about `0.074 rad`, above the `0.03 rad`
+  terminal threshold.
+- Consequence:
+  Further Stage A work should change task structure or explicitly define a
+  relaxed approach budget. Candidate next steps are position-hold constraints,
+  a documented relaxed-budget prealignment state, or a task-priority approach
+  that gives contact/position first claim on the velocity budget.

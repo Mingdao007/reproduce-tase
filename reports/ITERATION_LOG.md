@@ -934,3 +934,40 @@
   Implement or test an orientation-rate-limited approach schedule, or record a
   relaxed-budget approach decision. Do not keep extending the same low-gain
   Stage A probe without a controller change.
+
+## 2026-05-24 v27 Approach Rate Cap
+
+- Branch: `exp/tase-ur10e-v27-approach-rate-cap`
+- Starting commit: `5bf5cb829744625a52905d82e996b20515049f84`
+- Files added:
+  - `reports/approach_rate_cap_report.md`
+  - `runs/staged_orientation_rate_cap_probe/20260524T094752`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+  - `src/tase_repro/staged_force_motion.py`
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `tests/test_staged_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/force_feedback.py src/tase_repro/staged_force_motion.py scripts/run_staged_orientation_force_motion.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_rate_cap_probe/20260524T094752/<case> --approach-duration-s <duration> --trajectory-duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode <mode> --approach-orientation-kp 2.0 --approach-max-angular-command-rad-s <cap> --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  The cap was respected in all six probe cases. Approach terminal-orientation
+  pass count was `5 / 6`, trajectory-after-approach pass count was `3 / 6`,
+  and full staged-feasibility pass count was `0 / 6`. The best capped weighted
+  qdot saturation fraction was `0.46366666666666667`, still above the current
+  `0.01` budget, and weighted planar drift remained above `0.0075 m`.
+- Limit:
+  This is E1-only tilted-plane simulation evidence. It adds useful command
+  limiting instrumentation but does not solve Stage A.
+- Next step:
+  Stop changing only orientation command magnitude. Test a position-hold or
+  contact/position-first task structure, or record a relaxed-budget
+  prealignment decision before expanding staged checks to E2-E4.

@@ -89,12 +89,15 @@ smoke runs regress.
   terminal orientation threshold, but none pass the terminal approach budget
   or make the following trajectory pass; qdot saturation remains above
   `0.526` in the low-gain weighted cases.
+- The v27 angular-command cap is respected and reduces weighted qdot
+  saturation, but it does not make Stage A feasible. Weighted capped cases
+  still fail qdot and planar-drift budgets, while capped linear-primary stalls
+  above the orientation threshold.
 
 ## Next Executable Step
 
-Implement or test a simulation-only orientation-rate-limited Stage A approach
-schedule. The candidate should cap desired angular velocity before the hard
-joint-velocity solve, then report terminal orientation, position drift, contact
-fraction, force error, qdot saturation, and whether the following E1
-trajectory can pass. If that still fails, record a separate relaxed
-approach-budget decision before expanding staged checks to E2-E4.
+Test a Stage A structure that changes task priority instead of only changing
+orientation command magnitude. The next candidate should preserve contact and
+planar position first, then use remaining velocity budget for orientation; if
+that still fails, record a separate relaxed approach-budget decision before
+expanding staged checks to E2-E4.
