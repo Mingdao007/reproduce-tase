@@ -81,13 +81,14 @@ work exists only on that branch.
   intended `contact_plane` / `contact_tip` force pair. v56 shows the remaining
   strict setup blocker is a gate-definition conflict. v57 adds a diagnostic
   terminal setup label only; v58 selects that label as the next Stage A
-  simulation prototype target. This is not a path or trajectory claim.
+  simulation prototype target. v59 shows direct Stage B handoff from that
+  target still fails `0 / 4` on qdot saturation. This is not a path or
+  trajectory claim.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Implement or evaluate the next Stage A controller prototype against the v58
-selected `ur10e_adapted_terminal_setup_diagnostic` target while keeping strict
-paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
-labels.
+Implement a qdot-aware Stage A/Stage B prototype against the selected
+`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change timing
+or gates before making any trajectory-feasibility claim.

@@ -1602,6 +1602,25 @@ Legacy source root:
   in the config. This is a target-selection artifact only, not a controller or
   feasibility run.
 
+## V59 Diagnostic Target Handoff Audit
+
+### Stage B handoff from selected diagnostic terminal target
+
+- Run:
+  - `runs/stage_a_target_handoff_eval/20260524T144654`
+- Command:
+  `scripts/evaluate_stage_a_target_handoff.py`
+- Git state at run time:
+  commit `7763394662bebd9376994d39ebdf7be524f1f04c`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The handoff audit starts directly from the v58 selected diagnostic terminal
+  q and evaluates E1-E4 with target-pair force/contact accounting. It reports
+  `0 / 4` passes. All rows keep target contact and satisfy force, x/y, and
+  diagnostic orientation thresholds, but all rows fail qdot saturation gates.
+  This is not a Stage A path or trajectory-feasibility claim.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -1246,3 +1246,23 @@
   This target remains simulation-only and must not be relabeled as path
   feasibility, trajectory feasibility, paper-equivalent feasibility, or
   hardware readiness.
+
+## D064: Treat Diagnostic Target Handoff As Qdot-Blocked
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not treat the v58 selected diagnostic terminal target as trajectory
+  feasible by itself.
+- Reason:
+  The v59 handoff evaluation at
+  `runs/stage_a_target_handoff_eval/20260524T144654` starts directly from the
+  selected q and evaluates E1-E4 using target-pair force/contact accounting.
+  All rows keep target contact and satisfy force, x/y, and diagnostic
+  orientation thresholds, but the pass count is `0 / 4` because every row
+  fails `qdot_saturation_fraction` and `tail_max_qdot_utilization`.
+- Consequence:
+  The next controller branch must be qdot-budget aware, or it must explicitly
+  change timing/gates before making any trajectory-feasibility claim. The v59
+  result is a handoff audit only, not a Stage A path, trajectory, paper-
+  equivalent, or hardware-readiness claim.

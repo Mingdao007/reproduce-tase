@@ -215,14 +215,18 @@ smoke runs regress.
   `ur10e_adapted_terminal_setup_diagnostic` for the next Stage A simulation
   prototype. This removes the label ambiguity before another controller
   experiment, but it is still not a controller or feasibility claim.
+- The v59 handoff audit starts directly from the selected target and evaluates
+  E1-E4 with target-pair force/contact accounting. It reports `0 / 4` passes:
+  target contact, force, x/y, and diagnostic orientation remain acceptable,
+  but every row fails qdot saturation gates.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should
-implement or evaluate a Stage A prototype against the v58 selected
-`ur10e_adapted_terminal_setup_diagnostic` target, while preserving the strict
-paper-equivalent setup and v38 trajectory-after-relaxed-setup labels as
-separate claims. Keep contact, drift, terminal orientation, force error, and
-qdot saturation visible together.
+implement a qdot-aware Stage A/Stage B prototype against the selected
+`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change
+trajectory timing/gates before any trajectory-feasibility claim. Keep contact,
+drift, terminal orientation, force error, and qdot saturation visible
+together.

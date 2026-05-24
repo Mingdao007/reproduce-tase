@@ -58,12 +58,13 @@ contact behavior regresses.
   `contact_plane` / `contact_tip` force pair in terminal setup audits, and
   v56 identifies the strict setup blocker as a gate-definition conflict. v57
   adds a diagnostic terminal setup gate, and v58 selects that diagnostic target
-  for the next Stage A simulation prototype. This does not make the model
-  hardware-ready.
+  for the next Stage A simulation prototype. v59 evaluates direct Stage B
+  handoff from that target and keeps target contact, but qdot saturation still
+  blocks a trajectory claim. This does not make the model hardware-ready.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should target the v58 selected diagnostic
-terminal setup unless a later decision changes the label.
+simulation controller prototype should be qdot-aware and target the selected
+diagnostic terminal setup unless a later decision changes the label.

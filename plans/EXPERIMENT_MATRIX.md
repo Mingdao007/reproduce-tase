@@ -194,13 +194,18 @@ them rather than deleting them.
 - The v58 target-selection decision chooses the v57 diagnostic terminal setup
   as the next Stage A simulation prototype target. This is not a controller or
   trajectory-feasibility claim.
+- The v59 diagnostic-target handoff starts from that target and evaluates
+  E1-E4. It keeps target contact and small force/x-y/diagnostic-orientation
+  errors, but every row fails qdot saturation gates, so the handoff pass count
+  is `0 / 4`.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
-achieved. Future UR10e experiment branches should implement or evaluate a
-Stage A controller prototype against the v58 selected
-`ur10e_adapted_terminal_setup_diagnostic` target, while keeping strict
+achieved. Future UR10e experiment branches should implement a qdot-aware
+Stage A/Stage B prototype against the selected
+`ur10e_adapted_terminal_setup_diagnostic` target, or explicitly change
+trajectory timing/gates before any trajectory-feasibility claim. Keep strict
 paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
 labels.

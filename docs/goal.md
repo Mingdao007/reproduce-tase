@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v58 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates under explicitly relaxed diagnostic thresholds, and v58 selects that diagnostic terminal target for the next Stage A simulation prototype. This is not paper-equivalent, not path or trajectory feasibility, not a controller implementation, and not hardware-ready. The next branch should implement or evaluate a Stage A controller prototype only against `ur10e_adapted_terminal_setup_diagnostic`, unless a later decision changes the target label. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v59 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates under explicitly relaxed diagnostic thresholds, v58 selects that diagnostic terminal target, and v59 shows direct Stage B handoff from that target passes target-contact/force/x-y/diagnostic-orientation checks but fails `0 / 4` rows on qdot saturation. This is not paper-equivalent, not path or trajectory feasibility, not a Stage A path controller, and not hardware-ready. The next branch should implement a qdot-aware Stage A/Stage B prototype against `ur10e_adapted_terminal_setup_diagnostic`, or explicitly change timing/gates before claiming trajectory feasibility. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v58` repository state. The project goal is to reproduce the T-ASE finite-time
+`v59` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v58-stage-a-target-selection`
-- Current v58 starting commit:
-  `6209be0a09a525bb01b43d8a9e4d01521768d131`
+  `exp/tase-ur10e-v59-diagnostic-target-handoff`
+- Current v59 code commit:
+  `7763394662bebd9376994d39ebdf7be524f1f04c`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -128,6 +128,11 @@ Current accepted claims:
   prototype target. The selected q target is recorded in
   `configs/ur10e_adapted_stage_a_target.yaml`; this is still not a controller,
   path, trajectory, paper-equivalent, or hardware-readiness claim.
+- `ur10e_diagnostic_target_handoff`: v59 starts directly from the selected
+  target and evaluates E1-E4 Stage B handoff with target-pair force/contact
+  accounting. It reports `0 / 4` handoff passes: target contact, force, x/y,
+  and diagnostic orientation stay within bounds, but all rows fail qdot
+  saturation gates.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -137,11 +142,11 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by implementing or evaluating a Stage A
-  controller prototype against the selected
-  `ur10e_adapted_terminal_setup_diagnostic` target, while preserving strict
-  paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
-  labels.
+- Continue UR10e adapted work by implementing a qdot-aware Stage A/Stage B
+  prototype against `ur10e_adapted_terminal_setup_diagnostic`, or explicitly
+  changing trajectory timing/gates before any trajectory-feasibility claim.
+  Keep strict paper-equivalent setup and v38 trajectory-after-relaxed-setup as
+  separate labels.
 
 ## Safety Boundary
 

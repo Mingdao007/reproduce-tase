@@ -2273,3 +2273,49 @@
   Implement or evaluate the next Stage A controller prototype against the v58
   selected diagnostic terminal setup target, while preserving the claim
   boundary.
+
+## 2026-05-24 v59 Diagnostic Target Handoff Audit
+
+- Branch: `exp/tase-ur10e-v59-diagnostic-target-handoff`
+- Starting commit:
+  `2aebf1bb10769a20349d6af69103ded12a0c09bc`
+- Code commit:
+  `7763394662bebd9376994d39ebdf7be524f1f04c`
+- Files added:
+  - `src/tase_repro/stage_a_target_handoff.py`
+  - `scripts/evaluate_stage_a_target_handoff.py`
+  - `tests/test_stage_a_target_handoff.py`
+  - `reports/stage_a_target_handoff_report.md`
+  - `runs/stage_a_target_handoff_eval/20260524T144654/**`
+- Files updated:
+  - `README.md`
+  - `docs/goal.md`
+  - `plans/MASTER_PLAN.md`
+  - `plans/MUJOCO_ENVIRONMENT_PLAN.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_stage_a_target_handoff.py`
+  - `python3 -m py_compile src/tase_repro/stage_a_target_handoff.py scripts/evaluate_stage_a_target_handoff.py`
+  - `scripts/evaluate_stage_a_target_handoff.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Starting directly from the v58 selected diagnostic terminal q, E1-E4 keep
+  target-pair contact and satisfy force, x/y, and diagnostic orientation
+  thresholds, but the handoff pass count is `0 / 4`. Every row fails
+  `qdot_saturation_fraction` and `tail_max_qdot_utilization`.
+- Limit:
+  This is a handoff audit only. It does not implement a Stage A path
+  controller and is not path, trajectory, paper-equivalent, or hardware
+  feasibility.
+- Validation:
+  Full tests passed with `96 passed in 2.40s`. `git diff --check` passed.
+- Next step:
+  Implement a qdot-aware Stage A/Stage B prototype against the diagnostic
+  target, or explicitly change timing/gates before claiming trajectory
+  feasibility.

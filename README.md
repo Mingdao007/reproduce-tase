@@ -44,8 +44,9 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 Current accepted claims are tracked in `reports/completion_audit.md`.
 UR10e results remain adapted simulation evidence, not hardware evidence. v58
 selects the v57 diagnostic terminal setup target for the next Stage A
-simulation prototype. This is not a controller implementation or feasibility
-claim.
+simulation prototype. v59 shows direct handoff from that target to Stage B
+keeps target contact but still fails all E1-E4 rows on qdot saturation. This
+is not a trajectory-feasibility or hardware claim.
 
 ## Test Command
 
