@@ -1828,3 +1828,28 @@
   Stage B qdot tuning. This is not a canonical controller default, robustness
   proof, strict paper-equivalent feasibility, contact-model calibration, or
   hardware-readiness evidence.
+
+## D089: Attribute The Remaining Tightened-Gate Miss To Orientation Model Margin
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v84 as evidence that the remaining `+1.0 mm`, `0.119 rad` weighted
+  failure is a small orientation-model/gate-margin issue, not a faster-timing
+  qdot saturation issue.
+- Reason:
+  The v84 run at
+  `runs/weighted_orientation_model_sensitivity/20260524T233945` reads the v83
+  weighted gate/time matrix and the v69 positive terminal orientation audit.
+  The critical v83 weighted rows exceed the `0.119 rad` gate by less than
+  `0.00057 rad` (`0.033 deg`) while reporting `0.0` qdot saturation. The v69
+  current contact-point versus legacy sphere-center geometry convention shifts
+  the +1.0 mm terminal orientation by `0.024227219479550713 rad`, much larger
+  than the residual v83 miss.
+- Consequence:
+  Do not treat more Stage B qdot tuning as the next primary path for the
+  `0.119 rad` row. The next work should tighten terminal/contact orientation
+  definition, mounted-stack/contact geometry, plane/contact normal calibration,
+  or the accepted diagnostic gate. This is not a recovery, calibrated model,
+  robustness proof, strict paper-equivalent feasibility, or hardware-ready
+  control claim.

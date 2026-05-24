@@ -2260,6 +2260,31 @@ Legacy source root:
   strict paper-equivalent claim, robustness proof, contact-model calibration,
   or hardware evidence.
 
+## V84 Weighted Orientation Model Sensitivity
+
+### Attribute the remaining `0.119 rad` row
+
+- Run:
+  - `runs/weighted_orientation_model_sensitivity/20260524T233945`
+- Command:
+  `python3 scripts/audit_weighted_orientation_model_sensitivity.py`
+- Git state at run time:
+  parent commit `79c2dd7fae6f16532fa269a2eb75235cbf4f81a1` with dirty v84
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The audit reads the v83 weighted gate/time matrix and the v69 positive
+  terminal orientation audit. Critical weighted rows exceed the `0.119 rad`
+  gate by less than `0.00057 rad` with `0.0` qdot saturation. The
+  contact-point versus legacy sphere-center geometry convention changes the
+  +1.0 mm terminal orientation by `0.024227219479550713 rad`.
+- Limit:
+  This is diagnostic sensitivity evidence only. It is not a recovery of the
+  `+1.0 mm`, `0.119 rad` gate, calibrated contact model, canonical controller
+  default, strict paper-equivalent claim, robustness proof, or hardware
+  evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

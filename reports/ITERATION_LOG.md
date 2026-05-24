@@ -3187,3 +3187,44 @@
   remaining simulation blocker is the `+1.0 mm`, `0.119 rad` orientation-gate
   row, so revisit the terminal/contact orientation definition or model
   calibration before more Stage B qdot tuning.
+
+## 2026-05-24 v84 Weighted Orientation Model Sensitivity
+
+### Attribute the remaining `0.119 rad` miss before more qdot tuning
+
+- Branch:
+  `exp/tase-ur10e-v84-orientation-model-sensitivity`
+- Run:
+  `runs/weighted_orientation_model_sensitivity/20260524T233945`
+- Report:
+  `reports/weighted_orientation_model_sensitivity_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_weighted_orientation_model_sensitivity.py`
+  - `python3 scripts/audit_weighted_orientation_model_sensitivity.py`
+- Result:
+  The audit reads the v83 weighted gate/time matrix and the v69 positive
+  terminal orientation audit. The critical `0.119 rad` weighted rows exceed
+  the gate by less than `0.00057 rad` (`0.033 deg`) and have `0.0` qdot
+  saturation. The contact-point +1.0 mm terminal orientation is
+  `0.11948560786548146 rad`; the legacy sphere-center +1.0 mm terminal
+  orientation is `0.09525838838593075 rad`, so the geometry convention shifts
+  the terminal orientation by `0.024227219479550713 rad`.
+- Limit:
+  This is diagnostic sensitivity evidence only. It does not recover the
+  `+1.0 mm`, `0.119 rad` gate, calibrate the contact model, change controller
+  defaults, prove robustness, prove strict paper-equivalent feasibility, or
+  authorize hardware motion/configuration.
+- Validation:
+  - `python3 -m py_compile scripts/audit_weighted_orientation_model_sensitivity.py`
+    passed.
+  - `scripts/run_tests.sh`: `115 passed in 2.72s`.
+  - `git diff --check` passed.
+  - Current-script reproducibility check: rerunning the audit to
+    `/tmp/reproduce-tase-v84-verify.S4rN7N` produced identical `metrics.yaml`
+    and `metrics.json`; `summary.md` differed only by the run-root path.
+  - Artifact audit: `4` files, `28K`, no `.npz/.npy/.mat/.tar/.gz/.zip`
+    payloads under `runs/weighted_orientation_model_sensitivity/20260524T233945`.
+- Next step:
+  Tighten terminal/contact orientation definition, measured mounted-stack
+  geometry, contact point convention, and plane/contact normal calibration
+  before more Stage B qdot tuning for the `0.119 rad` row.

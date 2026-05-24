@@ -1,0 +1,144 @@
+{
+  "run_source": "v84 weighted orientation model sensitivity",
+  "v83_metrics": "/home/andy/reproduce-tase/runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml",
+  "v69_metrics": "/home/andy/reproduce-tase/runs/positive_terminal_orientation/20260524T171705/metrics.yaml",
+  "orientation_gate_rad": 0.119,
+  "critical_full_rows": [
+    {
+      "group": "time0p0075_gate0p119:weighted_kp0_normal1",
+      "paper_time_scale": 0.0075,
+      "scenario": "weighted_kp0_normal1",
+      "gate_rad": 0.119,
+      "stitched_pass_count": 7,
+      "case_count": 8,
+      "max_positive_stitched_pass_delta_mm": 0.75,
+      "stage_a_all_passed": false,
+      "stage_a_terminal_orientation_rad": 0.11948560786547915,
+      "stage_b_max_orientation_rad": 0.11954627160547111,
+      "stage_a_excess_over_gate_rad": 0.00048560786547915957,
+      "stage_b_excess_over_gate_rad": 0.0005462716054711186,
+      "stage_b_minus_stage_a_rad": 6.0663739991959065e-05,
+      "stage_a_excess_over_gate_deg": 0.02782328119031247,
+      "stage_b_excess_over_gate_deg": 0.03129905746133071,
+      "stage_b_minus_stage_a_deg": 0.003475776271018241,
+      "failing_cases": [
+        "weighted_kp0_normal1:time0p0075_gate0p119:delta1p000mm"
+      ],
+      "max_stage_b_qdot_saturation_fraction": 0.0,
+      "max_stage_b_tail_qdot_utilization": 0.5177926211135458,
+      "max_stage_b_tail_force_error_N": 0.0009911909058976187
+    },
+    {
+      "group": "time0p0075_gate0p119:weighted_kp0_normal30",
+      "paper_time_scale": 0.0075,
+      "scenario": "weighted_kp0_normal30",
+      "gate_rad": 0.119,
+      "stitched_pass_count": 7,
+      "case_count": 8,
+      "max_positive_stitched_pass_delta_mm": 0.75,
+      "stage_a_all_passed": false,
+      "stage_a_terminal_orientation_rad": 0.11948560786547915,
+      "stage_b_max_orientation_rad": 0.11954627160547111,
+      "stage_a_excess_over_gate_rad": 0.00048560786547915957,
+      "stage_b_excess_over_gate_rad": 0.0005462716054711186,
+      "stage_b_minus_stage_a_rad": 6.0663739991959065e-05,
+      "stage_a_excess_over_gate_deg": 0.02782328119031247,
+      "stage_b_excess_over_gate_deg": 0.03129905746133071,
+      "stage_b_minus_stage_a_deg": 0.003475776271018241,
+      "failing_cases": [
+        "weighted_kp0_normal30:time0p0075_gate0p119:delta1p000mm"
+      ],
+      "max_stage_b_qdot_saturation_fraction": 0.0,
+      "max_stage_b_tail_qdot_utilization": 0.5177926211135458,
+      "max_stage_b_tail_force_error_N": 0.0009911909058976187
+    },
+    {
+      "group": "time0p01_gate0p119:weighted_kp0_normal1",
+      "paper_time_scale": 0.01,
+      "scenario": "weighted_kp0_normal1",
+      "gate_rad": 0.119,
+      "stitched_pass_count": 7,
+      "case_count": 8,
+      "max_positive_stitched_pass_delta_mm": 0.75,
+      "stage_a_all_passed": false,
+      "stage_a_terminal_orientation_rad": 0.11948560786547915,
+      "stage_b_max_orientation_rad": 0.11956645203696047,
+      "stage_a_excess_over_gate_rad": 0.00048560786547915957,
+      "stage_b_excess_over_gate_rad": 0.0005664520369604714,
+      "stage_b_minus_stage_a_rad": 8.084417148131184e-05,
+      "stage_a_excess_over_gate_deg": 0.02782328119031247,
+      "stage_b_excess_over_gate_deg": 0.03245531101442353,
+      "stage_b_minus_stage_a_deg": 0.004632029824111062,
+      "failing_cases": [
+        "weighted_kp0_normal1:time0p01_gate0p119:delta1p000mm"
+      ],
+      "max_stage_b_qdot_saturation_fraction": 0.0,
+      "max_stage_b_tail_qdot_utilization": 0.520987929048311,
+      "max_stage_b_tail_force_error_N": 0.000991190904368784
+    },
+    {
+      "group": "time0p01_gate0p119:weighted_kp0_normal30",
+      "paper_time_scale": 0.01,
+      "scenario": "weighted_kp0_normal30",
+      "gate_rad": 0.119,
+      "stitched_pass_count": 7,
+      "case_count": 8,
+      "max_positive_stitched_pass_delta_mm": 0.75,
+      "stage_a_all_passed": false,
+      "stage_a_terminal_orientation_rad": 0.11948560786547915,
+      "stage_b_max_orientation_rad": 0.11956645203696047,
+      "stage_a_excess_over_gate_rad": 0.00048560786547915957,
+      "stage_b_excess_over_gate_rad": 0.0005664520369604714,
+      "stage_b_minus_stage_a_rad": 8.084417148131184e-05,
+      "stage_a_excess_over_gate_deg": 0.02782328119031247,
+      "stage_b_excess_over_gate_deg": 0.03245531101442353,
+      "stage_b_minus_stage_a_deg": 0.004632029824111062,
+      "failing_cases": [
+        "weighted_kp0_normal30:time0p01_gate0p119:delta1p000mm"
+      ],
+      "max_stage_b_qdot_saturation_fraction": 0.0,
+      "max_stage_b_tail_qdot_utilization": 0.520987929048311,
+      "max_stage_b_tail_force_error_N": 0.000991190904368784
+    }
+  ],
+  "gate_boundary_rows": [
+    {
+      "group": "gate_boundary_plus1mm_time_0p0075",
+      "paper_time_scale": 0.0075,
+      "min_passing_orientation_gate_rad": 0.11955,
+      "max_failing_orientation_gate_rad": 0.1195,
+      "max_stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "max_stage_b_orientation_error_rad": 0.11954627160547111,
+      "min_passing_minus_0p119_rad": 0.0005500000000000088,
+      "min_passing_minus_0p119_deg": 0.031512678732195785
+    },
+    {
+      "group": "gate_boundary_plus1mm_time_0p01",
+      "paper_time_scale": 0.01,
+      "min_passing_orientation_gate_rad": 0.1196,
+      "max_failing_orientation_gate_rad": 0.11955,
+      "max_stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "max_stage_b_orientation_error_rad": 0.11956645203696047,
+      "min_passing_minus_0p119_rad": 0.0006000000000000033,
+      "min_passing_minus_0p119_deg": 0.034377467707849586
+    }
+  ],
+  "terminal_model_sensitivity": {
+    "contact_point_plus1mm_orientation_rad": 0.11948560786548146,
+    "legacy_center_plus1mm_orientation_rad": 0.09525838838593075,
+    "contact_point_minus_legacy_center_plus1mm_rad": 0.024227219479550713,
+    "contact_point_minus_legacy_center_plus1mm_deg": 1.3881174255153907,
+    "contact_point_high_end_slope_rad_per_mm": 0.03785584200850284,
+    "max_stage_b_excess_equivalent_base_z_mm": 0.014963398168061883,
+    "stage_a_terminal_excess_equivalent_base_z_mm": 0.012827818368757732
+  },
+  "warnings": [
+    "post-hoc sensitivity/attribution audit only",
+    "does not rerun MuJoCo with a calibrated physical model",
+    "does not change controller defaults",
+    "does not recover the 0.119 rad gate",
+    "not strict paper-equivalent feasibility",
+    "not contact-model calibration",
+    "not hardware-ready"
+  ]
+}

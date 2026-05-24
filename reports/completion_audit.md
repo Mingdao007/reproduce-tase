@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v83-weighted-gate-time-matrix`
+Branch: `exp/tase-ur10e-v84-orientation-model-sensitivity`
 
 ## Objective Restatement
 
@@ -122,6 +122,8 @@ The objective has two separate technical claim levels:
 - `runs/weighted_timing_recovery/20260524T231454/metrics.yaml`
 - `reports/weighted_gate_time_matrix_report.md`
 - `runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml`
+- `reports/weighted_orientation_model_sensitivity_report.md`
+- `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -132,17 +134,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v83 branches pushed and GitHub-verified; v83 branch push verified at `8c97fdafc5c0113a907c087c881e72f8fea4c1dd` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v83-weighted-gate-time-matrix`; latest local branch is `exp/tase-ur10e-v83-weighted-gate-time-matrix` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v83 branches pushed and GitHub-verified; v84 branch is active locally and pending final push verification | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v84-orientation-model-sensitivity`; latest local branch is `exp/tase-ur10e-v84-orientation-model-sensitivity` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v83 branch/run, claim boundary, and next executable orientation-model target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D088 as of v83 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v84 branch/run, claim boundary, and next executable calibration/measurement target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D089 as of v84 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v83 validation was `115 passed in 2.78s`; `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py` and `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v84 validation: `python3 -m py_compile scripts/audit_weighted_orientation_model_sensitivity.py` passed, `scripts/run_tests.sh` reported `115 passed in 2.72s`, `git diff --check` passed, current-script rerun reproduced identical `metrics.yaml`/`metrics.json`, and the v84 run artifact audit found `4` files / `28K` with no `.npz/.npy/.mat/.tar/.gz/.zip` payloads | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -185,6 +187,7 @@ The objective has two separate technical claim levels:
 | Planar-priority timing/orientation stress | `scripts/audit_planar_priority_stress.py`, `reports/planar_priority_stress_report.md`, `runs/planar_priority_stress/20260524T230109/metrics.yaml` | v81 stress-tests both v80 candidates; total stitched pass count is `35 / 66`, focused `+1.0 mm` timing passes through `0.0065` and first fails at `0.007`, full `paper_time_scale = 0.0075` stress fails `0 / 16`, and the `0.119 rad` gate still fails at `+1.0 mm` |
 | Weighted timing recovery | `scripts/audit_weighted_timing_recovery.py`, `reports/weighted_timing_recovery_report.md`, `runs/weighted_timing_recovery/20260524T231454/metrics.yaml` | v82 shows weighted zero-angular-command priority recovers the faster-timing face: `weighted_kp0_normal1` and `weighted_kp0_normal30` each pass `8 / 8` full positive-delta cells at `paper_time_scale = 0.0075`, and `weighted_kp0_normal1` passes the focused `+1.0 mm` timing sweep through `paper_time_scale = 0.01` |
 | Weighted gate/time matrix | `scripts/audit_weighted_gate_time_matrix.py`, `reports/weighted_gate_time_matrix_report.md`, `runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml` | v83 shows both weighted scenarios pass the full positive-delta `paper_time_scale = 0.01`, `0.11995 rad` matrix `8 / 8`; the `0.119 rad` gate still only passes through `+0.75 mm` and fails at `+1.0 mm`, with the focused `+1.0 mm` row first passing at `0.11955 rad` for `0.0075` timing and `0.1196 rad` for `0.01` timing |
+| Weighted orientation model sensitivity | `scripts/audit_weighted_orientation_model_sensitivity.py`, `reports/weighted_orientation_model_sensitivity_report.md`, `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml` | v84 attributes the remaining `+1.0 mm`, `0.119 rad` miss to a small orientation-model margin: critical rows exceed the gate by less than `0.00057 rad` with `0.0` qdot saturation, while contact-point versus legacy-center geometry shifts +1.0 mm terminal orientation by `0.024227219479550713 rad` |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1054,6 +1057,29 @@ Evidence:
 - `reports/weighted_gate_time_matrix_report.md`
 - `runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml`
 
+The weighted orientation model sensitivity audit can additionally claim:
+
+```text
+ur10e_weighted_orientation_model_sensitivity:
+  source evidence = v83 weighted gate/time matrix + v69 positive terminal orientation
+  remaining critical gate = 0.119 rad
+  max critical Stage B excess over gate = 0.0005664520369604714 rad
+  max critical Stage B excess deg = 0.03245531101442353 deg
+  qdot saturation in critical weighted rows = 0.0
+  contact-point +1.0 mm terminal orientation = 0.11948560786548146 rad
+  legacy-center +1.0 mm terminal orientation = 0.09525838838593075 rad
+  contact-point minus legacy-center orientation delta = 0.024227219479550713 rad
+  recovery claim = false
+  contact calibration claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/weighted_orientation_model_sensitivity_report.md`
+- `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -1241,6 +1267,13 @@ Evidence:
   `paper_time_scale = 0.0075` and `0.1196 rad` for `0.01`, leaving the
   remaining blocker at terminal/contact orientation definition or model
   calibration rather than faster-timing qdot pressure.
+- The v84 weighted orientation model sensitivity audit attributes the
+  remaining `+1.0 mm`, `0.119 rad` miss to a small orientation-model margin:
+  the critical weighted rows exceed the gate by less than `0.00057 rad` with
+  `0.0` qdot saturation, while the contact-point versus legacy-center geometry
+  convention changes the +1.0 mm terminal orientation by about `0.024 rad`.
+  This supports model/measurement/gate-definition work before more Stage B
+  qdot tuning, but it is not itself a recovery or calibration.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1266,8 +1299,10 @@ Do not mark the active goal complete from the current evidence.
 
 Treat the faster-timing diagnostic face as recovered under the `0.11995 rad`
 gate. The remaining simulation blocker is the `+1.0 mm`, `0.119 rad`
-orientation-gate row, so the next work should revisit the terminal/contact
-orientation definition or model calibration before more Stage B qdot tuning.
-Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-v63-v83 diagnostic staged labels separate. Any hardware work still requires
-measured mounted-stack geometry and a separate approved SOP.
+orientation-gate row, and v84 shows it is a small orientation-model margin
+rather than qdot saturation. The next work should tighten terminal/contact
+orientation definition, measured mounted-stack/contact geometry, plane/contact
+normal calibration, or the accepted diagnostic gate before more Stage B qdot
+tuning. Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup,
+and v63-v84 diagnostic staged labels separate. Any hardware work still
+requires measured mounted-stack geometry and a separate approved SOP.

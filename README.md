@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v83-weighted-gate-time-matrix`
+Current branch: `exp/tase-ur10e-v84-orientation-model-sensitivity`
 
 ## Scope
 
@@ -124,7 +124,11 @@ generalizes to the full positive-delta `paper_time_scale = 0.01`,
 `0.11995 rad` matrix (`8 / 8` for both tested weighted scenarios), but the
 tighter `0.119 rad` gate still fails at `+1.0 mm` and only passes through
 `+0.75 mm`; the `+1.0 mm` row needs about `0.11955 rad` at
-`paper_time_scale = 0.0075` and `0.1196 rad` at `0.01`.
+`paper_time_scale = 0.0075` and `0.1196 rad` at `0.01`. v84 attributes that
+remaining miss to a small orientation-model margin rather than qdot: the
+critical weighted rows exceed `0.119 rad` by less than `0.00057 rad` with
+`0.0` qdot saturation, while the earlier contact-point versus legacy-center
+geometry convention changes +1.0 mm terminal orientation by about `0.024 rad`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

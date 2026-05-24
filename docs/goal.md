@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v83 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v82 showed weighted zero-angular-command priority recovers the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix and passes a focused `+1.0 mm` timing sweep through `paper_time_scale = 0.01`. v83 shows that full positive-delta `paper_time_scale = 0.01`, `0.11995 rad` matrix also passes `8 / 8` for both tested weighted scenarios, but the tighter `0.119 rad` gate still only passes through `+0.75 mm` and fails the `+1.0 mm` row; that row first passes near `0.11955 rad` at `paper_time_scale = 0.0075` and `0.1196 rad` at `0.01`. This is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should revisit the terminal/contact orientation definition or model calibration for the `+1.0 mm`, `0.119 rad` row before more Stage B qdot tuning. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v83 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v84 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v82 showed weighted zero-angular-command priority recovers the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix and passes a focused `+1.0 mm` timing sweep through `paper_time_scale = 0.01`. v83 shows that full positive-delta `paper_time_scale = 0.01`, `0.11995 rad` matrix also passes `8 / 8` for both tested weighted scenarios, but the tighter `0.119 rad` gate still only passes through `+0.75 mm` and fails the `+1.0 mm` row. v84 attributes that remaining miss to a small orientation-model margin rather than qdot: critical weighted rows exceed `0.119 rad` by less than `0.00057 rad` with `0.0` qdot saturation, while contact-point versus legacy-center geometry convention shifts +1.0 mm terminal orientation by about `0.024 rad`. This is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should tighten terminal/contact orientation definition, measured geometry, or contact/normal calibration before more Stage B qdot tuning. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v84 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v83` repository state. The project goal is to reproduce the T-ASE finite-time
+`v84` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v83-weighted-gate-time-matrix`
-- Current v83 formal run:
-  `runs/weighted_gate_time_matrix/20260524T232637`
+  `exp/tase-ur10e-v84-orientation-model-sensitivity`
+- Current v84 formal run:
+  `runs/weighted_orientation_model_sensitivity/20260524T233945`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -249,6 +249,11 @@ Current accepted claims:
   The tighter `0.119 rad` gate still only passes through `+0.75 mm` and fails
   `+1.0 mm`; the focused `+1.0 mm` row first passes at `0.11955 rad` for
   `paper_time_scale = 0.0075` and `0.1196 rad` for `0.01`.
+- `ur10e_weighted_orientation_model_sensitivity`: v84 attributes the remaining
+  `+1.0 mm`, `0.119 rad` miss to a small orientation-model margin. Critical
+  weighted rows exceed the gate by less than `0.00057 rad` with `0.0` qdot
+  saturation, while the contact-point versus legacy-center geometry convention
+  shifts +1.0 mm terminal orientation by about `0.024 rad`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -258,11 +263,11 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by revisiting the terminal/contact orientation
-  definition or model calibration for the `+1.0 mm`, `0.119 rad` row before
-  more Stage B qdot tuning. Keep strict paper-equivalent setup, v38
-  trajectory-after-relaxed-setup, and v63-v83 diagnostic staged labels
-  separate.
+- Continue UR10e adapted work by tightening terminal/contact orientation
+  definition, measured geometry, or contact/normal calibration for the
+  `+1.0 mm`, `0.119 rad` row before more Stage B qdot tuning. Keep strict
+  paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v84
+  diagnostic staged labels separate.
 
 ## Safety Boundary
 
