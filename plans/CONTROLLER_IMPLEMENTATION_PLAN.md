@@ -85,11 +85,16 @@ smoke runs regress.
   gate. Trajectory-enabling weighted cases still saturate qdot for most of the
   approach, while the linear-primary approach stalls above the orientation
   threshold.
+- Longer low-gain Stage A probes also fail. Three weighted cases reach the
+  terminal orientation threshold, but none pass the terminal approach budget
+  or make the following trajectory pass; qdot saturation remains above
+  `0.526` in the low-gain weighted cases.
 
 ## Next Executable Step
 
-Design a new simulation-only Stage A approach strategy instead of continuing
-simple scalar/slack bracketing. The next candidate should explicitly schedule
-orientation alignment and position hold under the qdot budget, or else record
-a separate relaxed approach-budget decision before expanding staged checks to
-E2-E4.
+Implement or test a simulation-only orientation-rate-limited Stage A approach
+schedule. The candidate should cap desired angular velocity before the hard
+joint-velocity solve, then report terminal orientation, position drift, contact
+fraction, force error, qdot saturation, and whether the following E1
+trajectory can pass. If that still fails, record a separate relaxed
+approach-budget decision before expanding staged checks to E2-E4.

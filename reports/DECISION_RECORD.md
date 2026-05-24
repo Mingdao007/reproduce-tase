@@ -516,3 +516,24 @@
   scheduled longer approach with approach-specific gates, or a transparent
   decision to treat prealignment as a separate relaxed-budget maneuver. More
   unlabeled scalar slack bracketing is not enough evidence.
+
+## D031: Stop Longer Low-Gain Stage A Probes Under Same Controller
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not continue longer low-gain Stage A probes under the same weighted or
+  linear-primary controller formulation.
+- Reason:
+  The v26 probe tested six longer approaches from 4 to 18 seconds. Three
+  weighted cases reached the terminal orientation threshold, but no case
+  passed the terminal approach budget, ordinary approach feasibility, the
+  trajectory-after-approach gate, or full staged feasibility. Low-gain
+  weighted cases still had qdot saturation fractions above `0.526` and planar
+  drift above `0.0039 m`. The long linear-primary reference preserved planar
+  position but stalled at about `0.074 rad`.
+- Consequence:
+  Further Stage A progress requires a controller change, such as an
+  orientation-rate-limited approach schedule, or an explicit relaxed-budget
+  prealignment decision. More duration/gain probes with the same objective are
+  unlikely to produce useful evidence.

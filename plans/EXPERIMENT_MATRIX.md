@@ -68,11 +68,14 @@ them rather than deleting them.
   feasibility pass. The best trajectory-enabling cases still rely on sustained
   qdot saturation, and the planar-preserving linear-primary case does not
   reach the tilted-normal orientation threshold.
+- Longer low-gain Stage A probes do not fix the approach either. They reduce
+  angular slack but still exceed the qdot saturation and planar-drift budgets,
+  and none make the following trajectory pass.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_approach_bracket/20260524T093536` as negative
-evidence for simple Stage A scalar/slack tuning. The next executable
-experiment should be a redesigned approach schedule/controller, or the project
-should record a separate relaxed-budget prealignment decision before expanding
-staged checks to E2-E4.
+Use `runs/staged_orientation_long_approach_probe/20260524T094156` as negative
+evidence for simply extending low-gain Stage A. The next executable experiment
+should add an orientation-rate-limited approach schedule, or the project should
+record a separate relaxed-budget prealignment decision before expanding staged
+checks to E2-E4.

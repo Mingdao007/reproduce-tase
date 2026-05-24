@@ -810,3 +810,34 @@ velocity-level objective. The next derivation step needs an explicit approach
 schedule or a different approach controller that treats position hold,
 force-normal alignment, contact maintenance, and qdot budget as separate
 contracts.
+
+## V26 Longer Approach Implication
+
+Longer lower-gain approaches test the hypothesis that the v25 issue is only a
+duration problem. The tested weighted schedules were:
+
+```text
+(k_o, T_A) in {(0.50, 4s), (0.35, 6s), (0.25, 8s), (0.15, 12s), (0.10, 18s)}
+```
+
+Only the first three reached the terminal orientation threshold, and none
+passed the terminal approach budget:
+
+```text
+qdot saturation fraction remains >= 0.5261111111111111
+tail max qdot utilization remains 1.0
+max planar drift remains >= 0.0039015944234095656 m
+```
+
+The long `linear-primary` reference preserves planar position but does not
+solve orientation alignment:
+
+```text
+final ||e_R|| = 0.07416325057807228 rad
+```
+
+Therefore the Stage A problem is not just scalar timing. The next controller
+derivation should add an explicit orientation-rate-limited schedule or another
+mechanism that caps desired angular velocity before the hard joint-velocity
+solve, while separately tracking position hold, contact force, and terminal
+orientation.

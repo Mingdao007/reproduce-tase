@@ -903,3 +903,34 @@
   Stop simple Stage A scalar/slack bracketing. Choose a redesigned approach
   controller, a longer scheduled approach with explicit approach-specific
   gates, or a documented relaxed-budget prealignment decision.
+
+## 2026-05-24 v26 Long Approach Probe
+
+- Branch: `exp/tase-ur10e-v26-long-approach-probe`
+- Starting commit: `2b2f515988ed1f703f26fbba73a850fa40780edd`
+- Files added:
+  - `reports/long_approach_probe_report.md`
+  - `runs/staged_orientation_long_approach_probe/20260524T094156`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_long_approach_probe/20260524T094156/<case> --approach-duration-s <duration> --trajectory-duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode <mode> --approach-orientation-kp <gain> --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The probe covered six longer Stage A cases from `4 s` to `18 s`. Approach
+  terminal-orientation pass count was `3 / 6`, terminal approach-budget pass
+  count was `0 / 6`, trajectory-after-approach pass count was `0 / 6`, and
+  full staged-feasibility pass count was `0 / 6`.
+- Limit:
+  This is E1-only tilted-plane simulation evidence. It does not introduce a
+  new controller and does not validate hardware.
+- Next step:
+  Implement or test an orientation-rate-limited approach schedule, or record a
+  relaxed-budget approach decision. Do not keep extending the same low-gain
+  Stage A probe without a controller change.

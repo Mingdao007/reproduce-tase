@@ -711,6 +711,33 @@ Legacy source root:
   it does not cover curved surfaces, E2-E4 staged trajectories, torque
   dynamics, or hardware.
 
+## V26 Long Approach Probe
+
+### Longer low-gain tilted Stage A probe
+
+- Run root:
+  - `runs/staged_orientation_long_approach_probe/20260524T094156`
+- Scope:
+  Six E1 tilted-plane staged runs varying Stage A duration and orientation
+  gain, including one long `linear-primary` reference, while keeping the Stage
+  B E1 trajectory settings from v24/v25.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `3 / 6`, terminal approach-budget
+  pass count `0 / 6`, approach ordinary-feasibility pass count `0 / 6`,
+  trajectory-after-approach pass count `0 / 6`, and full staged-feasibility
+  pass count `0 / 6`.
+- Limit:
+  This is negative E1-only tilted-plane simulation evidence. It does not cover
+  curved surfaces, E2-E4 staged trajectories, torque dynamics, or hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
