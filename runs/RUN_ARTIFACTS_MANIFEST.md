@@ -2388,7 +2388,8 @@ Legacy source root:
   The run is a template-only scaffold with status
   `scaffold_created_not_executed`. It records no live hardware access, no
   robot motion, no configuration writes, no zeroing/biasing, no force control,
-  no gate relaxation, and no hardware-readiness claim.
+  no gate relaxation, and no hardware-readiness claim. Branch push was
+  verified at `67b486ef5b7b42c14ecf30e22dc1bb89014ec4c9`.
 - Limit:
   This is not collected measurement evidence, not a calibrated contact model,
   not an accepted replacement orientation gate, not a strict paper-equivalent

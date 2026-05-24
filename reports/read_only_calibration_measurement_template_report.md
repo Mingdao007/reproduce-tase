@@ -65,6 +65,8 @@ feasibility, or make a hardware-readiness claim.
 - Artifact audit: `12` files, `52K`, no
   `.npz/.npy/.mat/.tar/.gz/.zip` payloads under
   `runs/read_only_calibration_measurement/20260525T012234`.
+- Branch push was verified at
+  `67b486ef5b7b42c14ecf30e22dc1bb89014ec4c9`.
 
 ## Next Step
 

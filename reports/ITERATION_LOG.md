@@ -3374,7 +3374,8 @@
   passed; focused scaffold test passed with `1 passed in 0.19s`; full tests
   passed with `116 passed in 2.82s`; `git diff --check` passed before
   full-test validation. The generated run artifact has `12` files, `52K`, and
-  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `67b486ef5b7b42c14ecf30e22dc1bb89014ec4c9`.
 - Next step:
   Use the scaffold only for an explicitly approved read-only SOP step, or keep
   refining the worksheets if the live measurement path is still ambiguous.
