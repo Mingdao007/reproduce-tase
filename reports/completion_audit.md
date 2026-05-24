@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v40-section-v-z0-audit`
+Branch: `exp/tase-ur10e-v41-paper-7dof-line`
 
 ## Objective Restatement
 
@@ -32,6 +32,8 @@ The objective has two separate technical claim levels:
 - `runs/relaxed_setup_budget_eval/20260524T111859/metrics.yaml`
 - `configs/paper_truth.yaml`
 - `reports/section_v_z0_audit.md`
+- `reports/paper_7dof_executable_diagnostic_report.md`
+- `runs/paper_7dof_section_v/20260524T113608/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
 - `reports/DECISION_RECORD.md`
 - `runs/RUN_ARTIFACTS_MANIFEST.md`
@@ -40,18 +42,19 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v40 branches pushed and GitHub-verified | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v40-section-v-z0-audit`; latest local branch is `exp/tase-ur10e-v40-section-v-z0-audit` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v40 branches pushed and GitHub-verified; v41 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v41-paper-7dof-line`; latest local branch is `exp/tase-ur10e-v41-paper-7dof-line` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D045 as of v40 | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D046 as of v41 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v40 validation was `68 passed in 1.37s` | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v41 validation was `74 passed in 1.44s` | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
+| Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 run `20260524T113608` | Diagnostic line exists; not paper-faithful parity |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -78,9 +81,9 @@ Evidence:
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
-- Paper-faithful 7DOF Franka reproduction is not implemented as a separate
-  executable line; current paper truth extraction and migrated MATLAB/synthetic
-  evidence are not a full paper-platform reproduction.
+- Paper-platform 7DOF Franka/Panda reproduction now has a separate executable
+  diagnostic line, but it is not paper-faithful parity: v41 tail contact
+  fraction is `0.0` and tail force error is `5.0 N`.
 - Section V `z0` is now verified undefined in the simulation text; future code
   still needs an explicit adapted convention if it implements Section V.
 - UR10e MJCF, 85 mm TCP guess, payload, CoG, and contact geometry remain
@@ -89,6 +92,8 @@ Evidence:
 - Hardware gate report is not produced, and no real robot motion is authorized.
 - The relaxed setup budget is an explicit adapted-simulation label, not a
   mathematical solution to the strict Stage A setup gate.
+- The v41 paper-platform line inherits unverified Panda DH parameters and a
+  documented force-normal orientation interpretation.
 
 ## Audit Conclusion
 
@@ -102,7 +107,7 @@ Do not mark the active goal complete from the current evidence.
 
 Choose one of these before any real hardware work:
 
-- validate or replace the approximate TCP/contact model and rerun the terminal
-  setup audit; or
-- create a separate paper-faithful 7DOF executable reproduction line so the
-  UR10e adapted result is not carrying the paper-platform claim.
+- debug the paper-platform 7DOF normal-force/contact loop until tail contact
+  and force error pass without hard-bound violations; or
+- validate or replace the approximate UR10e TCP/contact model and rerun the
+  terminal setup audit.

@@ -1114,6 +1114,30 @@ Legacy source root:
   Documentation-only paper-truth audit. No new simulation run and no hardware
   work.
 
+## V41 Paper 7DOF Executable Diagnostic
+
+### Separate paper-platform Section V line
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T113608`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc`
+- Git state at run time:
+  branch `exp/tase-ur10e-v41-paper-7dof-line`, code commit
+  `bf7209d52476d951e99f6ed7cbce1c7acc3db0e8`, clean before output creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The separate 7DOF diagnostic executed successfully with no q or qdot bound
+  violations. It did not maintain force/contact in the tail:
+  `contact_force_tail_success = false`, `tail_contact_fraction = 0.0`, and
+  `tail_force_error_mean_N = 5.0`.
+- Limit:
+  This is a paper-platform executable diagnostic, not paper-faithful numerical
+  parity, not a UR10e adapted result, and not hardware readiness evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -22,6 +22,7 @@ Define staged simulation experiments before any hardware motion is considered.
 python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
 python3 scripts/run_full_article_experiment_sim.py --config configs/full_article_experiments.yaml
+scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
 ```
 
 ## Expected Outputs
@@ -35,6 +36,8 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 - Orientation-hold E1-E4 matrix with angular residual and slack metrics.
 - Force-normal orientation smoke and tilted/curved-surface checks with
   contact-normal velocity mapping.
+- Separate paper-platform 7DOF Section V diagnostics with execution, contact,
+  force-error, bound, and residual metrics.
 
 ## Pass/Fail Criteria
 
@@ -114,11 +117,14 @@ them rather than deleting them.
   to the v33 slowed tilted-plane E1-E4 matrix: `4 / 4` relaxed setup passes,
   `4 / 4` trajectory feasibility passes, and `0 / 4` strict full staged
   feasibility passes.
+- The v41 paper-platform 7DOF diagnostic provides a separate executable line,
+  but force/contact behavior does not pass: tail contact fraction is `0.0`
+  and tail mean force error is `5.0 N`.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
-validation or a genuinely different Stage A formulation, not another duration
-bracket.
+validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
+contact-force tail failure, not another duration bracket.

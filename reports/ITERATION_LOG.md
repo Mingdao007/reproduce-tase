@@ -1485,3 +1485,46 @@
   Validate or replace the approximate TCP/contact model, or create the
   separate paper-faithful 7DOF executable reproduction line before claiming
   the overall goal complete.
+
+## 2026-05-24 v41 Paper 7DOF Executable Diagnostic
+
+- Branch: `exp/tase-ur10e-v41-paper-7dof-line`
+- Starting commit: `d298cb020f5e7e91d44c9becacd4003abf54dd26`
+- Code commit:
+  `bf7209d52476d951e99f6ed7cbce1c7acc3db0e8`
+- Files added:
+  - `src/tase_repro/panda_kinematics.py`
+  - `src/tase_repro/paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py`
+  - `tests/test_panda_kinematics.py`
+  - `tests/test_paper_7dof.py`
+  - `reports/paper_7dof_executable_diagnostic_report.md`
+  - `runs/paper_7dof_section_v/20260524T113608/metrics.yaml`
+  - `runs/paper_7dof_section_v/20260524T113608/metrics.json`
+  - `runs/paper_7dof_section_v/20260524T113608/summary.md`
+- Files updated:
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_panda_kinematics.py tests/test_paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc`
+- Result:
+  Created the first separate paper-platform 7DOF executable diagnostic path.
+  The recorded run executes from a clean code commit, respects joint and qdot
+  bounds, and remains finite. It does not pass force/contact behavior:
+  `contact_force_tail_success = false`, `tail_contact_fraction = 0.0`, and
+  `tail_force_error_mean_N = 5.0`.
+- Validation:
+  Targeted v41 tests passed with `6 passed in 0.08s`; full suite passed with
+  `74 passed in 1.44s`.
+- Limit:
+  This is a diagnostic 7DOF executable line, not paper-faithful Fig.5/Fig.6
+  parity and not hardware readiness.
+- Next step:
+  Debug the paper-platform normal-force/contact loop, or return to the UR10e
+  TCP/contact model validation path. Do not claim the overall goal complete.

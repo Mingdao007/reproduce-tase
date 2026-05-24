@@ -10,12 +10,17 @@ adapted formulation without relying on redundant null-space behavior.
 - Paper platform is 7DOF; UR10e is 6DOF.
 - UR10e adapted reproduction must be labeled separately from paper-faithful
   reproduction.
-- The current derivation is preliminary until paper truth extraction closes.
+- Paper truth extraction has no remaining `pending_pdf_verify` fields, but
+  Section V orientation and `z0` remain paper ambiguities.
+- The v41 paper-platform executable is diagnostic until contact/force behavior
+  and Panda DH provenance are verified.
 
 ## Exact Files Touched
 
 - `reports/math_derivation_ur10e_transfer.md`
 - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+- `src/tase_repro/panda_kinematics.py`
+- `src/tase_repro/paper_7dof.py`
 - Future controller code under `src/tase_repro/`
 
 ## Commands To Run
@@ -23,6 +28,7 @@ adapted formulation without relying on redundant null-space behavior.
 ```bash
 scripts/run_tests.sh tests/test_kinematics.py
 scripts/run_tests.sh tests/test_constraints.py
+scripts/run_tests.sh tests/test_panda_kinematics.py tests/test_paper_7dof.py
 ```
 
 ## Expected Outputs
@@ -54,9 +60,12 @@ the decision record and revert only the affected controller commit.
 - Contact normal estimation and force sign convention remain unverified.
 - Orientation compliance may need dimensional reduction under UR10e task
   saturation.
+- The v41 paper-platform line executes, but its paper-literal normal-force
+  loop loses tail contact and cannot support a paper-equivalent claim yet.
 
 ## Next Executable Step
 
-Use the passing tests in `tests/test_kinematics.py`, `tests/test_contact.py`,
-and `tests/test_constraints.py` as the contract for the first controller
-implementation.
+For the paper-platform line, debug the v41 normal-force/contact loop until the
+tail contact and force-error metrics pass without violating Section V hard
+joint or velocity bounds. Keep this separate from UR10e adapted controller
+iterations.

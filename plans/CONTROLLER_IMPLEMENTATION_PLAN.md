@@ -19,12 +19,17 @@ contracts are testable.
 - `src/tase_repro/force_feedback.py`
 - `src/tase_repro/staged_force_motion.py`
 - `src/tase_repro/kinematics.py`
+- `src/tase_repro/panda_kinematics.py`
+- `src/tase_repro/paper_7dof.py`
 - `scripts/run_controller_smoke.py`
+- `scripts/run_paper_7dof_section_v.py`
 - `scripts/run_paper_trajectory_force_motion.py`
 - `scripts/run_timing_feasibility_sweep.py`
 - `tests/test_controller.py`
 - `tests/test_force_motion.py`
 - `tests/test_kinematics.py`
+- `tests/test_panda_kinematics.py`
+- `tests/test_paper_7dof.py`
 - Future: `src/tase_repro/contact.py`
 - Future: `src/tase_repro/metrics.py`
 - Future: `tests/*`
@@ -35,6 +40,7 @@ contracts are testable.
 scripts/run_tests.sh
 python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
+scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
 ```
 
 ## Expected Outputs
@@ -54,6 +60,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
   velocity/joint bounds and recorded in staged run metrics.
 - Planar-primary orientation priority preserves x/y TCP velocity rows before
   optimizing contact-normal and angular rows as secondary tasks.
+- Separate paper-platform 7DOF diagnostics record execution success separately
+  from contact-force tail success.
 
 ## Pass/Fail Criteria
 
@@ -138,12 +146,16 @@ smoke runs regress.
   label. It gives the v33 slowed E1-E4 matrix `4 / 4` UR10e adapted
   trajectory-after-relaxed-setup passes while preserving `0 / 4` strict full
   staged feasibility.
+- The v41 paper-platform 7DOF diagnostic executes with hard bounds respected,
+  but its paper-literal force loop loses tail contact. It is a separate
+  executable line, not paper-faithful numerical parity.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. Any future controller experiment should either revisit the
-model/TCP/contact geometry or introduce a genuinely different Stage A
-formulation, while keeping contact, drift, terminal orientation, and qdot
+model/TCP/contact geometry, introduce a genuinely different Stage A
+formulation, or debug the separate paper-platform 7DOF normal-force/contact
+loop. Keep contact, drift, terminal orientation, force error, and qdot
 saturation visible together.

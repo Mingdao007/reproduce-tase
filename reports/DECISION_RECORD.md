@@ -846,3 +846,23 @@
   No `pending_pdf_verify` fields remain in `configs/paper_truth.yaml`. Future
   Section V simulation code must choose an explicit adapted `z0` convention
   instead of silently importing the Section VI experimental definition.
+
+## D046: Keep The Paper 7DOF Line Separate And Diagnostic
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add a separate paper-platform 7DOF executable diagnostic line, but do not
+  treat it as paper-faithful numerical parity or as a UR10e adapted result.
+- Reason:
+  The v41 executable uses 7 joint Panda/Franka-style kinematics, a 6x7
+  Jacobian, Section V q0, circle trajectory, 5 N normal-force target, joint
+  limits, velocity limits, and the finite-time KKT-projection update. The
+  recorded run at `runs/paper_7dof_section_v/20260524T113608` executes with
+  no joint or qdot bound violations, but contact is not maintained in the tail:
+  `tail_contact_fraction = 0.0` and `tail_force_error_mean_N = 5.0`.
+- Consequence:
+  The repo now has an executable paper-platform line to iterate on separately
+  from UR10e. Any paper-equivalent claim remains blocked until the 7DOF line
+  maintains the force/contact behavior and the inherited Panda DH model and
+  force-normal orientation interpretation are verified.
