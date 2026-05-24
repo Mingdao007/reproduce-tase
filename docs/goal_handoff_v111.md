@@ -95,7 +95,7 @@ exp/tase-ur10e-v110-weighted-priority-profile-boundary
 Verified implementation commit:
 
 ```text
-V110_IMPLEMENTATION_COMMIT_PENDING
+f48240c72188e8d4fd4e18bd69fe37c38e1e1d90
 ```
 
 V110 weighted-priority profile-boundary artifacts:
