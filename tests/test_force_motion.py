@@ -336,6 +336,45 @@ def test_planar_force_motion_force_normal_orientation_records_metrics() -> None:
     np.testing.assert_allclose(result.desired_tcp_rotation[:, :, 2], expected_normals, atol=1e-9)
 
 
+def test_planar_force_motion_accepts_planar_primary_orientation_priority() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+    result = simulate_planar_force_motion(
+        TILTED_MODEL_PATH,
+        initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=5.0,
+        planar_trajectory=paper_e1_cycloid_planar_state,
+        duration_s=0.02,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.5,
+        slack_axis_weights=np.array([1.0, 1.0, 10000.0]),
+        slack_constraint_weight=1000.0,
+        normal_velocity_mode="contact_normal",
+        orientation_mode="force_normal",
+        orientation_priority_mode="planar_primary",
+        orientation_kp=1.0,
+        angular_axis_weights=np.ones(3),
+    )
+    summary = summarize_force_motion(
+        result,
+        target_force_N=5.0,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert result.orientation_task_enabled
+    assert summary["solver_success_fraction"] == 1.0
+    assert result.task_slack_linear_velocity.shape == result.actual_linear_velocity.shape
+
+
 def test_planar_force_motion_force_normal_orientation_tracks_tilted_plane_normal() -> None:
     model = load_model(TILTED_MODEL_PATH)
     q_min, q_max = joint_ranges(model)

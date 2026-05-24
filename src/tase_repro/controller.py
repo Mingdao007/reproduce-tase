@@ -11,6 +11,7 @@ from tase_repro.constraints import (
     solve_constrained_velocity_least_squares,
     solve_constrained_velocity_least_squares_with_slack,
     solve_linear_primary_angular_secondary_with_slack,
+    solve_primary_secondary_with_slack,
 )
 from tase_repro.kinematics import site_jacobian
 
@@ -101,8 +102,8 @@ def solve_site_linear_velocity_step(
             raise ValueError("angular velocity command must have shape (3,)")
     else:
         desired_angular = np.zeros(3, dtype=float)
-    if command.angular_priority_mode not in {"weighted", "linear_primary"}:
-        raise ValueError("angular_priority_mode must be 'weighted' or 'linear_primary'")
+    if command.angular_priority_mode not in {"weighted", "linear_primary", "planar_primary"}:
+        raise ValueError("angular_priority_mode must be 'weighted', 'linear_primary', or 'planar_primary'")
 
     weight = float(command.weight)
     if command.axis_weights is None:
@@ -136,10 +137,10 @@ def solve_site_linear_velocity_step(
     )
     if (
         angular_task_enabled
-        and command.angular_priority_mode == "linear_primary"
+        and command.angular_priority_mode in {"linear_primary", "planar_primary"}
         and command.slack_axis_weights is None
     ):
-        raise ValueError("slack_axis_weights are required for linear_primary angular priority")
+        raise ValueError("slack_axis_weights are required for primary/secondary angular priority")
     if not use_slack:
         row_weights = weight * task_axis_weights
         solve: VelocitySolveResult | SlackVelocitySolveResult = solve_constrained_velocity_least_squares(
@@ -177,6 +178,25 @@ def solve_site_linear_velocity_step(
                 qdot_max=np.asarray(qdot_max, dtype=float),
                 linear_slack_weights=slack_weights,
                 angular_axis_weights=angular_axis_weights,
+                primary_constraint_weight=float(command.slack_constraint_weight),
+                damping=damping_value,
+                damping_target=solve_damping_target,
+                secondary_damping=solve_damping,
+            )
+        elif angular_task_enabled and command.angular_priority_mode == "planar_primary":
+            solve = solve_primary_secondary_with_slack(
+                jacp[:2, :],
+                desired[:2],
+                np.vstack([jacp[2:3, :], jacr]),
+                np.concatenate([desired[2:3], desired_angular]),
+                q=q_array,
+                dt=dt,
+                q_min=np.asarray(q_min, dtype=float),
+                q_max=np.asarray(q_max, dtype=float),
+                qdot_min=np.asarray(qdot_min, dtype=float),
+                qdot_max=np.asarray(qdot_max, dtype=float),
+                primary_slack_weights=slack_weights[:2],
+                secondary_axis_weights=np.concatenate([axis_weights[2:3], angular_axis_weights]),
                 primary_constraint_weight=float(command.slack_constraint_weight),
                 damping=damping_value,
                 damping_target=solve_damping_target,

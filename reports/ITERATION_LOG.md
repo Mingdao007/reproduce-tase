@@ -1201,3 +1201,54 @@
   either define an accepted relaxed approach budget or redesign the approach
   task priority so contact, drift, terminal orientation, and qdot saturation
   can pass together.
+
+## 2026-05-24 v34 Planar-Primary Approach Priority
+
+- Branch: `exp/tase-ur10e-v34-planar-primary-approach`
+- Starting commit: `9973dd16cfb445487c02d843854e40fb3892af42`
+- Files added:
+  - `reports/planar_primary_approach_report.md`
+  - `runs/staged_orientation_planar_primary_approach/20260524T103539`
+  - `runs/staged_orientation_planar_primary_normal_weight/20260524T103646`
+- Files updated:
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `src/tase_repro/constraints.py`
+  - `src/tase_repro/controller.py`
+  - `src/tase_repro/force_feedback.py`
+  - `tests/test_constraints.py`
+  - `tests/test_controller.py`
+  - `tests/test_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 - <<'PY' ... planar-primary approach bracket and summary aggregation ... PY`
+  - `python3 - <<'PY' ... planar-primary normal-weight bracket and summary aggregation ... PY`
+  - `python3 - <<'PY' ... summary aggregate checks ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py ... --approach-orientation-priority-mode planar-primary ...`
+- Result:
+  Added a general primary/secondary bounded solver and a `planar-primary`
+  orientation priority mode. The first six-case bracket produced `6 / 6`
+  terminal-orientation passes, `0 / 6` terminal-budget passes, `1 / 6`
+  trajectory-after-approach passes, and `0 / 6` full staged passes. The
+  planar-primary rows reduced x/y drift below `3e-5 m`, but lost contact and
+  force tracking under default normal secondary weighting. The five-case
+  normal-weight follow-up produced `1 / 5` terminal-orientation passes,
+  `0 / 5` terminal-budget passes, `0 / 5` trajectory-after-approach passes,
+  and `0 / 5` full staged passes. Strong normal weighting preserved force
+  better but stalled orientation near `0.07 rad`. Validation passed with
+  `61 passed in 1.26s`, `git diff --check`, and aggregate checks `6 0 1 0`
+  and `5 0 0 0`.
+- Limit:
+  This is E1-only tilted-plane simulation evidence for Stage A structure. It
+  does not establish a full approach solution or hardware readiness.
+- Next step:
+  Stop treating two-level planar-primary velocity priority as the fix. The
+  next Stage A iteration should either define an explicit relaxed approach
+  budget, or test a planned prealignment path with separately verified
+  contact-maintenance and terminal-state gates.

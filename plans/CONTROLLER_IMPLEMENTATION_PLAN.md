@@ -52,6 +52,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
   measured contact normal instead of only along world z.
 - Optional joint-velocity posture targets are solved inside the hard
   velocity/joint bounds and recorded in staged run metrics.
+- Planar-primary orientation priority preserves x/y TCP velocity rows before
+  optimizing contact-normal and angular rows as secondary tasks.
 
 ## Pass/Fail Criteria
 
@@ -117,10 +119,14 @@ smoke runs regress.
 - The v33 matrix carries the moderate trajectory posture objective into E1-E4
   and all four Stage B trajectories pass after prealignment. The remaining
   controller problem is now the Stage A approach formulation.
+- The v34 planar-primary Stage A mode controls drift but either loses
+  contact/force or stalls orientation when normal weighting is increased.
+  It is diagnostic, not an accepted approach solution.
 
 ## Next Executable Step
 
-Redesign Stage A with explicit task priority/acceptance gates, or define an
-accepted relaxed approach budget. The next approach experiment must report
-contact, drift, terminal orientation, and qdot saturation together so posture
-shaping cannot hide a force or drift regression.
+Define an accepted relaxed approach budget, or test a planned prealignment
+path with separate contact-maintenance and terminal-state gates. The next
+approach experiment must report contact, drift, terminal orientation, and qdot
+saturation together so posture shaping cannot hide a force or drift
+regression.

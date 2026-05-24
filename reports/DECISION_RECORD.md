@@ -684,3 +684,26 @@
   tilted-plane matrix. The next useful work should focus on Stage A approach
   feasibility or on explicitly defining and justifying a relaxed approach
   budget.
+
+## D039: Planar-Primary Priority Is Diagnostic, Not The Stage A Fix
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep `planar-primary` orientation priority as a diagnostic controller mode,
+  but do not use it as the accepted Stage A approach solution.
+- Reason:
+  The v34 planar-primary bracket preserves x/y position very well: the
+  planar-primary rows reduce Stage A drift from the weighted reference
+  `0.008347977658392892 m` to below `3e-5 m`, with planar velocity slack near
+  zero. However, default normal secondary weighting loses contact and force
+  tracking. Raising normal secondary weight restores force quality only by
+  stalling terminal orientation near `0.07 rad`, matching the earlier
+  linear-primary failure mode. No tested row passes the terminal approach
+  budget, and sustained qdot saturation remains above the gate in the
+  normal-weight follow-up.
+- Consequence:
+  Stage A is no longer just an x/y drift problem. The remaining task is to
+  define either an explicit relaxed approach budget or a planned prealignment
+  path/task formulation with separate contact-maintenance and terminal-state
+  gates.

@@ -405,3 +405,169 @@ def solve_linear_primary_angular_secondary_with_slack(
         residual_norm=residual,
         active_bound_count=active,
     )
+
+
+def solve_primary_secondary_with_slack(
+    primary_A: np.ndarray,
+    primary_b: np.ndarray,
+    secondary_A: np.ndarray,
+    secondary_b: np.ndarray,
+    *,
+    q: np.ndarray,
+    dt: float,
+    q_min: np.ndarray,
+    q_max: np.ndarray,
+    qdot_min: np.ndarray,
+    qdot_max: np.ndarray,
+    primary_slack_weights: np.ndarray,
+    secondary_axis_weights: np.ndarray,
+    primary_constraint_weight: float = 1e3,
+    damping: float = 1e-8,
+    damping_target: np.ndarray | None = None,
+    secondary_damping: float | None = None,
+    margin: float = 0.0,
+) -> SlackVelocitySolveResult:
+    """Preserve primary task rows while optimizing secondary weighted rows."""
+    primary_A = np.asarray(primary_A, dtype=float)
+    primary_b = np.asarray(primary_b, dtype=float)
+    secondary_A = np.asarray(secondary_A, dtype=float)
+    secondary_b = np.asarray(secondary_b, dtype=float)
+    primary_slack_weights = np.asarray(primary_slack_weights, dtype=float)
+    secondary_axis_weights = np.asarray(secondary_axis_weights, dtype=float)
+    if primary_A.ndim != 2 or secondary_A.ndim != 2:
+        raise ValueError("primary_A and secondary_A must be matrices")
+    if primary_b.shape != (primary_A.shape[0],):
+        raise ValueError("primary_b must have one entry per primary task row")
+    if secondary_b.shape != (secondary_A.shape[0],):
+        raise ValueError("secondary_b must have one entry per secondary task row")
+    if primary_A.shape[1] != secondary_A.shape[1]:
+        raise ValueError("primary_A and secondary_A must have the same number of columns")
+    if primary_slack_weights.shape != (primary_A.shape[0],):
+        raise ValueError("primary_slack_weights must have one entry per primary task row")
+    if np.any(primary_slack_weights < 0.0):
+        raise ValueError("primary_slack_weights must be nonnegative")
+    if secondary_axis_weights.shape != (secondary_A.shape[0],):
+        raise ValueError("secondary_axis_weights must have one entry per secondary task row")
+    if np.any(secondary_axis_weights < 0.0):
+        raise ValueError("secondary_axis_weights must be nonnegative")
+    damping_value = float(damping)
+    if damping_value < 0.0:
+        raise ValueError("damping must be nonnegative")
+    secondary_damping_value = damping_value if secondary_damping is None else float(secondary_damping)
+    if secondary_damping_value < 0.0:
+        raise ValueError("secondary_damping must be nonnegative")
+    if damping_target is None:
+        solve_damping_target = None
+    else:
+        solve_damping_target = np.asarray(damping_target, dtype=float)
+        if solve_damping_target.shape != (primary_A.shape[1],):
+            raise ValueError("damping_target must have one entry per velocity variable")
+
+    primary = solve_constrained_velocity_least_squares_with_slack(
+        primary_A,
+        primary_b,
+        q=q,
+        dt=dt,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        slack_weights=primary_slack_weights,
+        constraint_weight=primary_constraint_weight,
+        damping=damping_value,
+        margin=margin,
+    )
+    if not primary.success:
+        slack = np.concatenate([primary.slack, np.full(secondary_A.shape[0], np.nan)])
+        return SlackVelocitySolveResult(
+            qdot=primary.qdot,
+            slack=slack,
+            success=False,
+            status=primary.status,
+            message=f"primary failed: {primary.message}",
+            residual_norm=primary.residual_norm,
+            active_bound_count=primary.active_bound_count,
+        )
+
+    lower, upper = step_velocity_bounds(
+        np.asarray(q, dtype=float),
+        dt=dt,
+        q_min=np.asarray(q_min, dtype=float),
+        q_max=np.asarray(q_max, dtype=float),
+        qdot_min=np.asarray(qdot_min, dtype=float),
+        qdot_max=np.asarray(qdot_max, dtype=float),
+        margin=margin,
+    )
+    if np.any(lower > upper):
+        slack = np.concatenate([primary.slack, np.full(secondary_A.shape[0], np.nan)])
+        return SlackVelocitySolveResult(
+            qdot=primary.qdot,
+            slack=slack,
+            success=False,
+            status=-1,
+            message="secondary infeasible bounds",
+            residual_norm=float("nan"),
+            active_bound_count=primary.active_bound_count,
+        )
+
+    target_primary_velocity = primary_A @ primary.qdot
+    secondary_weight_sq = secondary_axis_weights * secondary_axis_weights
+    secondary_damping_target = primary.qdot if solve_damping_target is None else solve_damping_target
+
+    def objective(x: np.ndarray) -> float:
+        secondary_error = secondary_A @ x - secondary_b
+        damping_error = x - secondary_damping_target
+        return float(
+            np.sum(secondary_weight_sq * secondary_error * secondary_error)
+            + secondary_damping_value * np.dot(damping_error, damping_error)
+        )
+
+    def jacobian(x: np.ndarray) -> np.ndarray:
+        secondary_error = secondary_A @ x - secondary_b
+        return 2.0 * (secondary_A.T @ (secondary_weight_sq * secondary_error)) + 2.0 * secondary_damping_value * (
+            x - secondary_damping_target
+        )
+
+    result = minimize(
+        objective,
+        primary.qdot,
+        jac=jacobian,
+        method="SLSQP",
+        bounds=Bounds(lower, upper),
+        constraints=[
+            LinearConstraint(primary_A, target_primary_velocity, target_primary_velocity),
+        ],
+        options={"ftol": 1e-12, "maxiter": 200},
+    )
+    qdot = np.asarray(
+        result.x if np.all(np.isfinite(result.x)) else primary.qdot,
+        dtype=float,
+    )
+    primary_slack = primary_b - primary_A @ qdot
+    secondary_slack = secondary_b - secondary_A @ qdot
+    slack = np.concatenate([primary_slack, secondary_slack])
+    active = int(
+        np.sum(
+            np.isclose(qdot, lower, atol=1e-8)
+            | np.isclose(qdot, upper, atol=1e-8)
+        )
+    )
+    residual = float(
+        np.linalg.norm(
+            np.concatenate(
+                [
+                    primary_A @ qdot + primary_slack - primary_b,
+                    secondary_A @ qdot + secondary_slack - secondary_b,
+                ]
+            )
+        )
+    )
+    return SlackVelocitySolveResult(
+        qdot=qdot,
+        slack=slack,
+        success=bool(result.success),
+        status=int(result.status),
+        message=f"primary: {primary.message}; secondary: {result.message}",
+        residual_norm=residual,
+        active_bound_count=active,
+    )

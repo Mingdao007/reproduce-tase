@@ -6,6 +6,7 @@ from tase_repro.constraints import (
     is_velocity_feasible,
     solve_constrained_velocity_least_squares,
     solve_linear_primary_angular_secondary_with_slack,
+    solve_primary_secondary_with_slack,
     step_velocity_bounds,
 )
 
@@ -134,3 +135,23 @@ def test_linear_primary_angular_secondary_uses_damping_target_in_secondary_nulls
     assert result.success
     np.testing.assert_allclose(result.qdot, [0.1, 0.25], atol=1e-7)
     np.testing.assert_allclose(np.array([[1.0, 0.0]]) @ result.qdot, [0.1], atol=1e-7)
+
+
+def test_primary_secondary_solver_preserves_primary_rows_and_optimizes_secondary() -> None:
+    result = solve_primary_secondary_with_slack(
+        np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]),
+        np.array([0.1, -0.2]),
+        np.array([[0.0, 0.0, 1.0]]),
+        np.array([0.3]),
+        q=np.zeros(3),
+        dt=0.01,
+        q_min=np.full(3, -1.0),
+        q_max=np.full(3, 1.0),
+        qdot_min=np.full(3, -1.0),
+        qdot_max=np.full(3, 1.0),
+        primary_slack_weights=np.ones(2),
+        secondary_axis_weights=np.ones(1),
+    )
+    assert result.success
+    np.testing.assert_allclose(result.qdot, [0.1, -0.2, 0.3], atol=1e-7)
+    np.testing.assert_allclose(result.slack, np.zeros(3), atol=1e-7)

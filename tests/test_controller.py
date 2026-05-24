@@ -278,3 +278,65 @@ def test_controller_joint_velocity_target_biases_linear_primary_nullspace() -> N
         atol=1e-7,
     )
     assert biased.qdot[-1] > linear_only.qdot[-1] + 1e-3
+
+
+def test_controller_planar_primary_angular_priority_preserves_planar_solution() -> None:
+    model = load_model(MODEL_PATH)
+    data = make_data(model)
+    q = np.array([0.1, -0.4, 0.3, -0.2, 0.15, 0.0])
+    set_qpos(model, data, q)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.5)
+    qdot_max = np.full(model.nv, 0.5)
+    desired_linear = np.array([0.002, -0.001, -0.0002])
+
+    planar_only = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            desired_linear[:2].tolist() + [0.0],
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    hierarchical = solve_site_linear_velocity_step(
+        model,
+        data,
+        site_name=SITE,
+        q=q,
+        command=CartesianVelocityCommand(
+            desired_linear,
+            slack_axis_weights=np.array([1.0, 1.0, 100.0]),
+            angular_velocity_rad_s=np.array([0.01, -0.02, 0.015]),
+            angular_axis_weights=np.ones(3),
+            angular_priority_mode="planar_primary",
+        ),
+        dt=0.002,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    assert planar_only.solver_success
+    assert hierarchical.solver_success
+    np.testing.assert_allclose(
+        hierarchical.actual_linear_velocity_m_s[:2],
+        planar_only.actual_linear_velocity_m_s[:2],
+        atol=1e-7,
+    )
+    np.testing.assert_allclose(
+        hierarchical.task_slack_linear_velocity_m_s,
+        hierarchical.desired_linear_velocity_m_s - hierarchical.actual_linear_velocity_m_s,
+        atol=1e-6,
+    )
+    np.testing.assert_allclose(
+        hierarchical.task_slack_angular_velocity_rad_s,
+        hierarchical.desired_angular_velocity_rad_s - hierarchical.actual_angular_velocity_rad_s,
+        atol=1e-6,
+    )

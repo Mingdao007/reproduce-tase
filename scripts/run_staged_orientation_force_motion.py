@@ -291,10 +291,18 @@ def main() -> int:
     parser.add_argument("--normal-slack-weight", type=float, default=10000.0)
     parser.add_argument("--slack-constraint-weight", type=float, default=1000.0)
     parser.add_argument("--normal-velocity-mode", choices=["world-z", "contact-normal"], default="contact-normal")
-    parser.add_argument("--approach-orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
+    parser.add_argument(
+        "--approach-orientation-priority-mode",
+        choices=["weighted", "linear-primary", "planar-primary"],
+        default="weighted",
+    )
     parser.add_argument("--approach-orientation-kp", type=float, default=2.0)
     parser.add_argument("--approach-max-angular-command-rad-s", type=float, default=None)
-    parser.add_argument("--trajectory-orientation-priority-mode", choices=["weighted", "linear-primary"], default="linear-primary")
+    parser.add_argument(
+        "--trajectory-orientation-priority-mode",
+        choices=["weighted", "linear-primary", "planar-primary"],
+        default="linear-primary",
+    )
     parser.add_argument("--trajectory-orientation-kp", type=float, default=0.1)
     parser.add_argument("--trajectory-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)

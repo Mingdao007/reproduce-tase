@@ -273,8 +273,8 @@ def simulate_planar_force_motion(
     """Run an x/y trajectory while regulating normal force."""
     if orientation_mode not in {"none", "hold", "force_normal"}:
         raise ValueError("orientation_mode must be 'none', 'hold', or 'force_normal'")
-    if orientation_priority_mode not in {"weighted", "linear_primary"}:
-        raise ValueError("orientation_priority_mode must be 'weighted' or 'linear_primary'")
+    if orientation_priority_mode not in {"weighted", "linear_primary", "planar_primary"}:
+        raise ValueError("orientation_priority_mode must be 'weighted', 'linear_primary', or 'planar_primary'")
     if normal_velocity_mode not in {"world_z", "contact_normal"}:
         raise ValueError("normal_velocity_mode must be 'world_z' or 'contact_normal'")
     orientation_task_enabled = orientation_mode != "none"

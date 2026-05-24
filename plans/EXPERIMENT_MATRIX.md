@@ -95,11 +95,15 @@ them rather than deleting them.
   matrix makes all four Stage B trajectories pass after weighted
   prealignment. The remaining full-staged failure is Stage A ordinary
   feasibility.
+- Planar-primary Stage A priority controls x/y drift but does not solve the
+  approach. Default normal secondary weighting loses contact/force; high
+  normal weighting restores force but stalls orientation near `0.07 rad`.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_e1e4_posture_regularized/20260524T102747` as
-evidence that Stage B after prealignment passes for slowed E1-E4. The next
-executable experiment should target Stage A directly: either define an
-accepted relaxed approach budget or change the approach task structure so it
-does not rely on sustained qdot saturation and unbounded drift.
+Use `runs/staged_orientation_planar_primary_approach/20260524T103539` and
+`runs/staged_orientation_planar_primary_normal_weight/20260524T103646` as
+evidence that two-level planar-primary velocity priority is not sufficient.
+The next executable experiment should either define an accepted relaxed
+approach budget or test a planned prealignment path with separate
+contact-maintenance and terminal-state gates.

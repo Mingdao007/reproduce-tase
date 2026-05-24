@@ -941,6 +941,37 @@ Legacy source root:
   prealignment. It does not establish an accepted Stage A approach or full
   staged feasibility.
 
+## V34 Planar-Primary Approach Priority
+
+### Stage A x/y-primary diagnostic controller
+
+- Run roots:
+  - `runs/staged_orientation_planar_primary_approach/20260524T103539`
+  - `runs/staged_orientation_planar_primary_normal_weight/20260524T103646`
+- Scope:
+  Simulation-only E1 staged runs testing `planar-primary` approach priority.
+  The first run compares a weighted reference with planar-primary qdot/gain
+  and angular-cap variants. The second run increases normal secondary weights
+  to test whether force/contact can be restored without losing terminal
+  orientation.
+- Tracked lightweight artifacts:
+  each root has `summary.csv`, `summary.json`, `summary.yaml`, and
+  `summary.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  The first bracket has `0 / 6` terminal-budget passes and `1 / 6`
+  trajectory-after-approach passes. The normal-weight follow-up has `0 / 5`
+  terminal-budget passes and `0 / 5` trajectory-after-approach passes.
+  Planar-primary priority controls x/y drift but either loses contact/force
+  or stalls terminal orientation when normal weighting is increased.
+- Limit:
+  This is E1-only tilted-plane Stage A evidence. It does not establish a full
+  approach solution or hardware readiness.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

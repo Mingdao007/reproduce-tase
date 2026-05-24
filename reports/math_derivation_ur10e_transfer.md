@@ -1082,3 +1082,41 @@ It is to formulate a Stage A approach contract that is internally consistent
 for a nonredundant 6DOF arm: contact-normal force regulation, planar drift,
 force-normal orientation alignment, and hard qdot bounds cannot all remain
 implicit weighted objectives if the result is expected to be called feasible.
+
+## V34 Planar-Primary Approach Implication
+
+The v34 controller adds a two-level primary/secondary velocity solve:
+
+```text
+primary:   J_xy qdot + s_xy = v_xy
+secondary: minimize ||W_s (J_secondary qdot - v_secondary)||^2
+subject to J_xy qdot = J_xy qdot_primary
+```
+
+For the tested Stage A use, `J_secondary` contains contact-normal linear
+velocity and force-normal angular velocity. This directly tests the hypothesis
+that the approach failure is mainly x/y drift caused by weighted competition.
+
+The result is negative but useful. With default normal secondary weight,
+planar-primary control keeps drift very small:
+
+```text
+max x/y drift < 3e-5 m
+planar velocity slack ~= 0
+terminal orientation error ~= 1e-4 rad
+```
+
+but it loses contact and force tracking. Increasing the normal secondary
+weight reverses the tradeoff:
+
+```text
+normal weight 1000: tail force error = 0.009879165281529831 N
+normal weight 1000: final orientation error = 0.07398431554093947 rad
+```
+
+This shows that the Stage A issue is not reducible to planar drift alone. For
+the current 6DOF UR10e mapping, planar hold, contact-normal force, tilted
+force-normal orientation, and qdot budget still conflict under a two-level
+instantaneous velocity formulation. The next mathematical option is either an
+explicit relaxed prealignment budget or a planned approach path that separates
+contact-maintenance intervals from the terminal orientation state.
