@@ -71,6 +71,12 @@ Expected branch:
 exp/tase-ur10e-v91-readonly-evidence-finalizer
 ```
 
+Verified implementation commit:
+
+```text
+0121ea3c6815eacdddcad6c0f877d44f2dc7fe73
+```
+
 V91 finalizer artifacts:
 
 ```text

@@ -3488,7 +3488,8 @@
   `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
   passed; focused scaffold/finalizer/audit tests passed with
   `6 passed in 1.34s`; full tests passed with `121 passed in 4.01s`;
-  `git diff --check` passed after full-test validation.
+  `git diff --check` passed after full-test validation. Branch push was
+  verified at `0121ea3c6815eacdddcad6c0f877d44f2dc7fe73`.
 - Next step:
   Use the finalizer only after the user approves the exact read-only SOP step
   and approved worksheet rows exist. If no live bench interaction is approved,

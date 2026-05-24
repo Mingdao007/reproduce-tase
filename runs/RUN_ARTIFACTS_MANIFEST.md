@@ -2456,6 +2456,8 @@ Legacy source root:
   `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
 - Validation:
   Full tests passed with `121 passed in 4.01s`; `git diff --check` passed.
+  Branch push was verified at
+  `0121ea3c6815eacdddcad6c0f877d44f2dc7fe73`.
 - Tracked lightweight artifacts:
   script, report, tests, updated decision/iteration/completion documentation,
   and `docs/goal_handoff_v92.md`.
