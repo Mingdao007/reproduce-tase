@@ -130,7 +130,7 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v81 branches pushed and GitHub-verified; v82 is the current iteration branch pending push | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v82 branches pushed and GitHub-verified; v82 branch push verified at `484490292ba2a4b612896ec4b38f3026fe605d51` | Done |
 | Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v82-weighted-timing-recovery`; latest local branch is `exp/tase-ur10e-v82-weighted-timing-recovery` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
 | Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v82 branch/run, claim boundary, and next executable weighted-gate/full-timing target | Done |

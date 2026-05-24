@@ -3140,8 +3140,8 @@
   `python3 -m py_compile scripts/audit_weighted_timing_recovery.py` passed.
   Full tests passed with `115 passed in 2.66s`; `git diff --check` passed. The
   run artifact is lightweight: `355` files, `5.4M`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
-  pending.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `484490292ba2a4b612896ec4b38f3026fe605d51`.
 - Next step:
   Stress the weighted zero-angular-command candidate against the `0.119 rad`
   orientation gate and decide whether a full positive-delta
