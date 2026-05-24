@@ -2330,3 +2330,29 @@
   start-contact versus terminal-orientation split. V105 does not prove
   robustness, strict paper-equivalent feasibility, contact calibration, gate
   acceptance, hardware readiness, or any hardware authorization.
+
+## D111: Treat Weighted Fast E2 Recovery As Diagnostic Scope Only
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v106 as an E2-only orientation-margin priority probe for the
+  `positive_fast_timing_0p0075` failed cell.
+- Reason:
+  V105 showed the fast E2 row is not recovered by qdot-limit increases alone.
+  V106 keeps `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the
+  run-local `0.12 rad` orientation gate fixed, then compares a compact Stage B
+  priority matrix. The weighted rows pass E2 with
+  `max_orientation_error_rad = 0.11954627160547111`, qdot saturation `0.0`,
+  and tail qdot utilization `0.5177926211135458`; the linear and planar
+  probes still fail some combination of qdot, tail-qdot, orientation, or force
+  gates.
+- Consequence:
+  Do not claim the `positive_fast_timing_0p0075` failed cell is closed from
+  v106. The probe is E2-only and does not rerun the full E1-E4 audit, make
+  `weighted` canonical, accept a replacement orientation gate, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration. Future offline work may run the full E1-E4 failed-cell
+  audit with weighted priority at the fixed `0.12 rad` gate, or switch to the
+  `base_z_plus1mm` start-contact versus terminal-orientation split.

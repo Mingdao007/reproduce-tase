@@ -4080,3 +4080,42 @@
   qdot-limit escalation for this row; either probe orientation-margin
   reduction at `paper_time_scale = 0.0075` without gate relaxation or switch to
   the `base_z_plus1mm` start-contact versus terminal-orientation split.
+
+## 2026-05-25 v106 Positive Fast E2 Orientation-Margin Probe
+
+### Probe fixed-gate priority recovery on the `+1.0 mm` fast E2 row
+
+- Branch:
+  `exp/tase-ur10e-v106-positive-fast-e2-orientation-margin`
+- Runs:
+  - `runs/positive_fast_e2_orientation_margin/20260525T063817`
+- Report:
+  `reports/positive_fast_e2_orientation_margin_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_fast_e2_orientation_margin.py`
+  - `scripts/run_tests.sh tests/test_positive_fast_e2_orientation_margin.py`
+  - `python3 scripts/audit_positive_fast_e2_orientation_margin.py --output-dir runs/positive_fast_e2_orientation_margin/20260525T063817`
+  - `rg -n "&id|\*id" runs/positive_fast_e2_orientation_margin/20260525T063817/metrics.yaml`
+- Result:
+  The E2-only priority matrix keeps `paper_time_scale = 0.0075`,
+  `qdot_limit = 0.15 rad/s`, and the `0.12 rad` orientation gate fixed.
+  Weighted rows pass E2 (`2 / 6` scenarios) with
+  `max_orientation_error_rad = 0.11954627160547111`, qdot saturation `0.0`,
+  and tail qdot utilization `0.5177926211135458`. The linear-primary baseline
+  still fails qdot saturation, tail qdot utilization, and orientation.
+- Limit:
+  This is E2-only diagnostic simulation. It does not rerun the full E1-E4
+  failed-cell audit, close the v99 `positive_fast_timing_0p0075` failed cell,
+  make `weighted` a canonical controller default, accept a relaxed orientation
+  gate, calibrate contact geometry, prove robustness, prove strict
+  paper-equivalent feasibility, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `1 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `148 passed in 6.81s`; `git diff --check` passed.
+  Branch-push validation is pending before finalizing v106.
+- Next step:
+  Without live approval, continue only non-final offline work. The next
+  positive-fast probe can rerun the full E1-E4 failed-cell audit with weighted
+  priority while keeping the `0.12 rad` gate fixed; the other clean target is
+  the `base_z_plus1mm` start-contact versus terminal-orientation split.
