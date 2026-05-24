@@ -2150,3 +2150,25 @@
   accepted contact/gate model exist. V97 does not prove robustness, strict
   paper-equivalent feasibility, contact calibration, gate acceptance, hardware
   readiness, or any hardware authorization.
+
+## D103: Keep The Diagnostic Robustness Matrix Candidate Non-Final
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v98 as a diagnostic robustness matrix candidate, not an accepted
+  robustness proof.
+- Reason:
+  V97 showed that robustness evidence was scattered across baseline
+  sensitivity, timing-margin, base-z recovery, positive-delta recovery, and
+  orientation-sensitivity runs. V98 adds
+  `scripts/audit_diagnostic_robustness_matrix_candidate.py`, which assembles a
+  single 12-cell candidate matrix from current evidence. The matrix has 7
+  diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells.
+- Consequence:
+  Future work can target the failed candidate cells directly. Passing a
+  diagnostic matrix is still not enough for completion unless strict
+  feasibility, approved read-only evidence, contact calibration, and gate
+  acceptance are also closed. V98 does not prove robustness, strict
+  paper-equivalent feasibility, contact calibration, gate acceptance, hardware
+  readiness, or any hardware authorization.

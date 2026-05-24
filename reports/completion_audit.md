@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v97-robustness-blockers`
+Branch: `exp/tase-ur10e-v98-diagnostic-robustness-matrix`
 
 ## Objective Restatement
 
@@ -164,6 +164,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_robustness_blockers.py`
 - `reports/robustness_blockers_report.md`
 - `runs/robustness_blockers/20260525T052457/metrics.yaml`
+- `scripts/audit_diagnostic_robustness_matrix_candidate.py`
+- `reports/diagnostic_robustness_matrix_candidate_report.md`
+- `runs/diagnostic_robustness_matrix_candidate/20260525T053101/metrics.yaml`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -177,17 +180,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v97 branches pushed and GitHub-verified; v97 branch push verified at `f74c3719d4770e21604ae0087d8b27cc22e4b7d9` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v97-robustness-blockers`; latest local branch is `exp/tase-ur10e-v97-robustness-blockers` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v98 branches pushed and GitHub-verified; v98 branch push verification pending until commit/push | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v98-diagnostic-robustness-matrix`; latest local branch is `exp/tase-ur10e-v98-diagnostic-robustness-matrix` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v98.md` include the short prompt, authoritative local clone, v95-v97 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D102 as of v97 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v99.md` include the short prompt, authoritative local clone, v95-v98 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D103 as of v98 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v97 validation: `python3 -m py_compile scripts/audit_robustness_blockers.py` passed, `scripts/run_tests.sh tests/test_robustness_blockers.py` reported `2 passed in 0.38s`, the v97 blocker audit ran, `scripts/run_tests.sh` reported `132 passed in 5.44s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v98 validation: `python3 -m py_compile scripts/audit_diagnostic_robustness_matrix_candidate.py` passed, `scripts/run_tests.sh tests/test_diagnostic_robustness_matrix_candidate.py` reported `2 passed in 0.18s`, the v98 candidate matrix audit ran, `scripts/run_tests.sh` reported `134 passed in 5.59s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -244,6 +247,7 @@ The objective has two separate technical claim levels:
 | Offline completion blockers audit | `scripts/audit_offline_completion_blockers.py`, `tests/test_offline_completion_blockers.py`, `runs/offline_completion_blockers/20260525T020734/metrics.yaml`, `reports/offline_completion_blockers_report.md` | v95 maps the remaining completion requirements to concrete evidence. It reports `overall_goal_complete = false`, `completion_blocked = true`, offline-actionable non-final items are strict paper-equivalent full staged feasibility and robustness, and live/approval-blocked items are approved read-only evidence, calibrated contact geometry, orientation gate acceptance, and hardware readiness; branch push verified at `af1fa3f793219afefcf4b0c97bc825ef473adda4` | Done |
 | Strict feasibility blocker audit | `scripts/audit_strict_feasibility_blockers.py`, `tests/test_strict_feasibility_blockers.py`, `runs/strict_feasibility_blockers/20260525T051640/metrics.yaml`, `reports/strict_feasibility_blockers_report.md` | v96 quantifies the strict setup blocker from the existing strict staged and three-phase settle summaries. It reports `strict_feasibility_complete = false`, `strict_setup_gate_complete = false`, strict full staged feasibility `0 / 4`, three-phase setup terminal state `0 / 10`, three-phase trajectory feasibility `8 / 10`, `primary_blocker = strict_setup_terminal_tradeoff`, and `do_not_mark_goal_complete = true`; branch push verified at `31bcca912b2623bd4f29850077ab86a76ec1ec4e` | Done |
 | Robustness blocker audit | `scripts/audit_robustness_blockers.py`, `tests/test_robustness_blockers.py`, `runs/robustness_blockers/20260525T052457/metrics.yaml`, `reports/robustness_blockers_report.md` | v97 quantifies the robustness blocker from existing sensitivity and recovery summaries. It reports `robustness_complete = false`, baseline diagnostic stitched sensitivity `4 / 9`, positive stitched sensitivity `37 / 40`, `primary_blocker = accepted_model_robustness_not_closed`, and `do_not_mark_goal_complete = true`; branch push verified at `f74c3719d4770e21604ae0087d8b27cc22e4b7d9` | Done |
+| Diagnostic robustness matrix candidate | `scripts/audit_diagnostic_robustness_matrix_candidate.py`, `tests/test_diagnostic_robustness_matrix_candidate.py`, `runs/diagnostic_robustness_matrix_candidate/20260525T053101/metrics.yaml`, `reports/diagnostic_robustness_matrix_candidate_report.md` | v98 defines a single candidate matrix over current diagnostic robustness evidence. It reports `candidate_matrix_complete = false`, `accepted_as_robustness_proof = false`, 12 cells total, 7 diagnostic passes, 1 non-final diagnostic recovery, 4 failed cells, and `do_not_mark_goal_complete = true`; branch push verification pending until commit/push | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
@@ -1566,6 +1570,12 @@ Evidence:
   sensitivity `37 / 40`. Some later faces recover under diagnostic assumptions,
   including qdot012 positive recovery at `18.035 s`, but those results are not
   a formal robustness proof or accepted contact/gate model.
+- The v98 diagnostic robustness matrix candidate turns those scattered
+  recovered/failing faces into one candidate matrix. It has 12 cells: 7
+  diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells
+  (`base_z_plus1mm`, `positive_fast_timing_0p0075`,
+  `positive_orientation_gate_0p119`, and `weighted_plus1mm_0p119_gate`).
+  The matrix is not complete and is not accepted as a robustness proof.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1604,9 +1614,11 @@ setup gate. Strict full staged feasibility remains `0 / 4`, three-phase setup
 terminal state remains `0 / 10`, and three-phase trajectory feasibility is
 `8 / 10`. V97 quantifies the robustness blocker and confirms the current
 diagnostic matrices still do not close robustness: baseline stitched
-sensitivity is `4 / 9` and positive stitched sensitivity is `37 / 40`. The
-project still has not achieved strict paper-equivalent full staged
-feasibility, calibrated contact geometry, robustness, or hardware readiness.
+sensitivity is `4 / 9` and positive stitched sensitivity is `37 / 40`. V98
+defines a single diagnostic robustness matrix candidate and keeps it
+incomplete with 4 failed cells plus unresolved claim dependencies. The project
+still has not achieved strict paper-equivalent full staged feasibility,
+calibrated contact geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
@@ -1617,8 +1629,8 @@ gate, but do not accept a replacement orientation gate from simulation metrics
 or current local records alone. The next executable step is to execute only
 safe read-only portions of the v87 SOP with the v93 scaffold, v91 finalizer,
 and v90/v93 verifier after explicit user confirmation, or continue only
-non-final offline simulation/paper-platform work identified by the v95-v97
+non-final offline simulation/paper-platform work identified by the v95-v98
 blocker audits. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v97 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v98 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

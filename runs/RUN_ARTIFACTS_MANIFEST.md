@@ -2677,6 +2677,37 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V98 Diagnostic Robustness Matrix Candidate
+
+### Candidate matrix over current diagnostic robustness evidence
+
+- Script:
+  - `scripts/audit_diagnostic_robustness_matrix_candidate.py`
+- Run:
+  - `runs/diagnostic_robustness_matrix_candidate/20260525T053101`
+- Report:
+  - `reports/diagnostic_robustness_matrix_candidate_report.md`
+- Tests:
+  - `tests/test_diagnostic_robustness_matrix_candidate.py`
+- Command:
+  `python3 scripts/audit_diagnostic_robustness_matrix_candidate.py --run-id 20260525T053101`
+- Tracked lightweight artifacts:
+  metrics, JSON mirror, summary, git state, report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The audit reports `candidate_matrix_complete = false`,
+  `accepted_as_robustness_proof = false`, 12 cells total, 7 diagnostic passes,
+  1 non-final diagnostic recovery, 4 failed cells, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Full tests passed with `134 passed in 5.59s`; `git diff --check` passed.
+  Branch push verification is pending.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

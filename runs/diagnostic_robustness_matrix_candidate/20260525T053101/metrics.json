@@ -1,0 +1,268 @@
+{
+  "audit_source": "v98 diagnostic robustness matrix candidate",
+  "overall_goal_complete": false,
+  "candidate_matrix_complete": false,
+  "accepted_as_robustness_proof": false,
+  "completion_claim_allowed": false,
+  "offline_actionable_from_v95": true,
+  "source_files": {
+    "offline_blockers_metrics": "runs/offline_completion_blockers/20260525T020734/metrics.yaml",
+    "strict_blockers_metrics": "runs/strict_feasibility_blockers/20260525T051640/metrics.yaml",
+    "robustness_blockers_metrics": "runs/robustness_blockers/20260525T052457/metrics.yaml"
+  },
+  "matrix_definition": {
+    "scope": "diagnostic_candidate_only",
+    "description": "A single bookkeeping matrix over the currently recovered and failing diagnostic robustness faces. It is not an accepted robustness proof.",
+    "cells": [
+      {
+        "id": "baseline_nominal",
+        "source": "runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "case": "nominal",
+          "passing_cases": [
+            "nominal",
+            "stage_a_16s",
+            "force_gain_5e-5",
+            "force_gain_2e-4"
+          ]
+        },
+        "blocker_ids": [],
+        "note": "Nominal stitched diagnostic policy passes in the v64 baseline sensitivity set."
+      },
+      {
+        "id": "baseline_force_gain_low",
+        "source": "runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "case": "force_gain_5e-5",
+          "passing_cases": [
+            "nominal",
+            "stage_a_16s",
+            "force_gain_5e-5",
+            "force_gain_2e-4"
+          ]
+        },
+        "blocker_ids": [],
+        "note": "Lower force-gain perturbation passes in the v64 baseline sensitivity set."
+      },
+      {
+        "id": "baseline_force_gain_high",
+        "source": "runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "case": "force_gain_2e-4",
+          "passing_cases": [
+            "nominal",
+            "stage_a_16s",
+            "force_gain_5e-5",
+            "force_gain_2e-4"
+          ]
+        },
+        "blocker_ids": [],
+        "note": "Higher force-gain perturbation passes in the v64 baseline sensitivity set."
+      },
+      {
+        "id": "stage_a_duration_14p5",
+        "source": "runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "last_failing_tested": 14.0,
+          "first_passing_tested": 14.5
+        },
+        "blocker_ids": [],
+        "note": "The 14.0 s Stage A reference fails, while the tested 14.5 s recovery passes."
+      },
+      {
+        "id": "qdot012_stage_a_18p0",
+        "source": "runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "last_failing_tested": 17.5,
+          "first_passing_tested": 18.0
+        },
+        "blocker_ids": [],
+        "note": "The qdot012 Stage A row recovers at the tested 18.0 s timing-margin point."
+      },
+      {
+        "id": "paper_time_scale_0p012",
+        "source": "runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "last_passing_tested": 0.012,
+          "first_failing_tested": 0.0125
+        },
+        "blocker_ids": [],
+        "note": "The tested paper_time_scale 0.012 row passes; 0.0125 remains failing."
+      },
+      {
+        "id": "base_z_minus1mm_stage_a_16s",
+        "source": "runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml",
+        "status": "passed_diagnostic",
+        "evidence": {
+          "recovered_cases": [
+            "base_z_minus_1mm_stage_a_16s_recovery"
+          ]
+        },
+        "blocker_ids": [],
+        "note": "The -1.0 mm base-z row recovers only in the tested 16.0 s Stage A variant."
+      },
+      {
+        "id": "base_z_plus1mm",
+        "source": "runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml",
+        "status": "failed",
+        "evidence": {
+          "status": "start_and_terminal_not_found",
+          "recovered": false,
+          "base_z_offset_delta_m": 0.001,
+          "stage_a_duration_s": 15.0
+        },
+        "blocker_ids": [
+          "base_z_plus_1mm_contact_or_terminal_orientation"
+        ],
+        "note": "The +1.0 mm base-z row has no start/terminal recovery in the v66 audit."
+      },
+      {
+        "id": "positive_qdot012_full_matrix_18p035",
+        "source": "runs/positive_full_stitched_recovery/20260524T195501/metrics.yaml",
+        "status": "passed_diagnostic_nonfinal",
+        "evidence": {
+          "case_count": 8,
+          "stitched_pass_count": 8,
+          "stage_a_duration_s": 18.035,
+          "qdot_limit_rad_s": 0.12
+        },
+        "blocker_ids": [],
+        "note": "The v75 positive qdot012 matrix passes, but its own claim scope is diagnostic non-final."
+      },
+      {
+        "id": "positive_fast_timing_0p0075",
+        "source": "runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml",
+        "status": "failed",
+        "evidence": {
+          "stitched_pass_count": 7,
+          "case_count": 8,
+          "failing_cases": [
+            "delta_p1p000mm"
+          ],
+          "max_positive_stitched_pass_delta_mm": 0.75,
+          "max_stage_b_qdot_saturation_fraction": 0.999,
+          "max_stage_b_tail_qdot_utilization": 1.0,
+          "max_stage_b_orientation_error_rad": 0.12020305872871904
+        },
+        "blocker_ids": [
+          "faster_timing_qdot_tail_utilization"
+        ],
+        "note": "The positive paper_time_scale 0.0075 scenario still fails the +1.0 mm row."
+      },
+      {
+        "id": "positive_orientation_gate_0p119",
+        "source": "runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml",
+        "status": "failed",
+        "evidence": {
+          "stitched_pass_count": 7,
+          "case_count": 8,
+          "failing_cases": [
+            "delta_p1p000mm"
+          ],
+          "max_positive_stitched_pass_delta_mm": 0.75,
+          "max_stage_b_qdot_saturation_fraction": 0.006,
+          "max_stage_b_tail_qdot_utilization": 0.3579877267896789,
+          "max_stage_b_orientation_error_rad": 0.1199788204275829
+        },
+        "blocker_ids": [
+          "tightened_orientation_gate_plus1mm",
+          "contact_model_calibration_missing"
+        ],
+        "note": "The +1.0 mm row still fails the 0.119 rad orientation gate without accepted calibration."
+      },
+      {
+        "id": "weighted_plus1mm_0p119_gate",
+        "source": "runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml",
+        "status": "failed",
+        "evidence": {
+          "max_stage_b_excess_over_gate_rad": 0.0005664520369604714,
+          "max_stage_b_excess_over_gate_deg": 0.03245531101442353,
+          "failing_cases": [
+            "weighted_kp0_normal1:time0p0075_gate0p119:delta1p000mm",
+            "weighted_kp0_normal30:time0p0075_gate0p119:delta1p000mm",
+            "weighted_kp0_normal1:time0p01_gate0p119:delta1p000mm",
+            "weighted_kp0_normal30:time0p01_gate0p119:delta1p000mm"
+          ]
+        },
+        "blocker_ids": [
+          "tightened_orientation_gate_plus1mm",
+          "contact_model_calibration_missing"
+        ],
+        "note": "All critical weighted +1.0 mm rows fail the current 0.119 rad orientation gate."
+      }
+    ]
+  },
+  "matrix_summary": {
+    "cell_count": 12,
+    "status_counts": {
+      "failed": 4,
+      "passed_diagnostic": 7,
+      "passed_diagnostic_nonfinal": 1
+    },
+    "passed_or_recovered_cell_ids": [
+      "baseline_nominal",
+      "baseline_force_gain_low",
+      "baseline_force_gain_high",
+      "stage_a_duration_14p5",
+      "qdot012_stage_a_18p0",
+      "paper_time_scale_0p012",
+      "base_z_minus1mm_stage_a_16s",
+      "positive_qdot012_full_matrix_18p035"
+    ],
+    "nonfinal_recovered_cell_ids": [
+      "positive_qdot012_full_matrix_18p035"
+    ],
+    "failed_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075",
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "blocker_counts": {
+      "base_z_plus_1mm_contact_or_terminal_orientation": 1,
+      "contact_model_calibration_missing": 2,
+      "faster_timing_qdot_tail_utilization": 1,
+      "tightened_orientation_gate_plus1mm": 2
+    },
+    "all_cells_passed": false
+  },
+  "claim_dependencies": {
+    "strict_feasibility_complete": false,
+    "robustness_complete_from_v97": false,
+    "approved_read_only_calibration_evidence": false,
+    "orientation_gate_acceptance": false,
+    "contact_calibration_claim": false
+  },
+  "blocking_dependencies": [
+    "strict_feasibility_complete",
+    "robustness_complete_from_v97",
+    "approved_read_only_calibration_evidence",
+    "orientation_gate_acceptance",
+    "contact_calibration_claim"
+  ],
+  "claim_boundary": {
+    "do_not_mark_goal_complete": true,
+    "robustness_claim": false,
+    "paper_equivalent_feasibility": false,
+    "contact_calibration_claim": false,
+    "orientation_gate_acceptance": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "hardware_readiness_claim": false
+  },
+  "next_offline_actions": [
+    "Convert failed cells into a concrete offline experiment matrix before adding more recovery variants.",
+    "Keep positive qdot012 recovery separate from an accepted robustness proof until all cells and dependencies pass.",
+    "Do not accept the 0.119 rad orientation gate or contact-model correction without approved read-only evidence."
+  ],
+  "audit_run_id": "20260525T053101",
+  "audit_root": "/home/andy/reproduce-tase/runs/diagnostic_robustness_matrix_candidate/20260525T053101"
+}

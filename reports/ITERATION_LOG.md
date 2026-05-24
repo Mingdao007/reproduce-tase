@@ -3756,3 +3756,42 @@
   are defining and stress-testing one accepted diagnostic robustness matrix,
   strict setup policy search, or paper-platform parity refinement without
   upgrading claim scope.
+
+## 2026-05-25 v98 Diagnostic Robustness Matrix Candidate
+
+### Assemble current robustness faces into one candidate matrix
+
+- Branch:
+  `exp/tase-ur10e-v98-diagnostic-robustness-matrix`
+- Run:
+  `runs/diagnostic_robustness_matrix_candidate/20260525T053101`
+- Report:
+  `reports/diagnostic_robustness_matrix_candidate_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_diagnostic_robustness_matrix_candidate.py`
+  - `scripts/run_tests.sh tests/test_diagnostic_robustness_matrix_candidate.py`
+  - `python3 scripts/audit_diagnostic_robustness_matrix_candidate.py --run-id 20260525T053101`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `scripts/audit_diagnostic_robustness_matrix_candidate.py`, which reads
+  the v95 offline blockers, v96 strict blockers, and v97 robustness blockers
+  metrics. The audit defines a 12-cell diagnostic robustness matrix candidate:
+  7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells
+  (`base_z_plus1mm`, `positive_fast_timing_0p0075`,
+  `positive_orientation_gate_0p119`, and `weighted_plus1mm_0p119_gate`).
+- Limit:
+  This is an offline candidate-matrix audit only. It does not collect
+  measurements, execute the read-only SOP, calibrate the contact model, accept
+  any replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_diagnostic_robustness_matrix_candidate.py`
+  passed; focused matrix-candidate tests passed with `2 passed in 0.18s`; the
+  v98 candidate matrix audit run was created; full tests passed with
+  `134 passed in 5.59s`; `git diff --check` passed after full-test
+  validation. Branch push verification is pending.
+- Next step:
+  Without live approval, continue only non-final offline work. The clearest
+  target is to convert the four failed v98 matrix cells into executable
+  offline experiment cases.
