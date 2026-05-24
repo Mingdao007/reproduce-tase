@@ -208,6 +208,9 @@ smoke runs regress.
   gate-definition conflict: x/y+force, x/y+orientation, and force+orientation
   cannot all satisfy the current thresholds together in the audited local
   contact neighborhoods.
+- The v57 adapted terminal setup gate is diagnostic-only and passes `1 / 513`
+  terminal candidates. It must not be used as a path, trajectory,
+  paper-equivalent, or hardware-readiness claim.
 
 ## Next Executable Step
 
@@ -219,7 +222,8 @@ formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists, the formula candidate covers 30 s, and the tuned
 figure-match candidate is implemented separately. Future work should formalize
 split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. For the UR10e adapted line, explicitly relax or redefine the
-setup gate, or change the setup target definition, before designing another
-Stage A controller. Keep contact, drift, terminal orientation, force error, and
-qdot saturation visible together.
+claim boundary. For the UR10e adapted line, choose which setup label the next
+Stage A controller should target before implementation: strict
+paper-equivalent setup, v38 relaxed trajectory-after-setup budget, or v57
+diagnostic terminal setup. Keep contact, drift, terminal orientation, force
+error, and qdot saturation visible together.

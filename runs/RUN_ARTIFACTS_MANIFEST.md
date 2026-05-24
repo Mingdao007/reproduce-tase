@@ -1567,6 +1567,24 @@ Legacy source root:
   error, `xy_orientation` loses target contact/force, and `force_orientation`
   requires centimeter-scale x/y drift.
 
+## V57 Adapted Terminal Setup Diagnostic Gate
+
+### Diagnostic terminal setup gate evaluation
+
+- Run:
+  - `runs/terminal_setup_gate_eval/20260524T143019`
+- Command:
+  `scripts/evaluate_terminal_setup_gate.py --setup-metrics runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml --acceptance-config configs/ur10e_adapted_acceptance.yaml`
+- Git state at run time:
+  commit `167ca325dd71c2d25281ebe1c86a7e7e27c85d94`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The v57 diagnostic terminal setup gate reports `1 / 513` passing candidates
+  from the v55 broad terminal run. This is a diagnostic setup label only, not
+  path feasibility, trajectory feasibility, paper-equivalent feasibility, or
+  hardware readiness.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

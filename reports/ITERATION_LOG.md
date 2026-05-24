@@ -2190,3 +2190,44 @@
 - Next step:
   Explicitly relax or redefine the UR10e adapted setup gate, or change the
   setup target definition, before designing another Stage A controller.
+
+## 2026-05-24 v57 Adapted Terminal Setup Diagnostic Gate
+
+- Branch: `exp/tase-ur10e-v57-adapted-terminal-gate`
+- Starting commit:
+  `e93a0509f4b5e0f2a3858cfba4db3d45e7f43b10`
+- Code commit:
+  `167ca325dd71c2d25281ebe1c86a7e7e27c85d94`
+- Files added:
+  - `src/tase_repro/terminal_setup_gate.py`
+  - `scripts/evaluate_terminal_setup_gate.py`
+  - `tests/test_terminal_setup_gate.py`
+  - `reports/adapted_terminal_setup_gate_report.md`
+  - `runs/terminal_setup_gate_eval/20260524T143019/**`
+- Files updated:
+  - `configs/ur10e_adapted_acceptance.yaml`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `docs/goal.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_terminal_setup_gate.py`
+  - `python3 -m py_compile src/tase_repro/terminal_setup_gate.py scripts/evaluate_terminal_setup_gate.py`
+  - `scripts/evaluate_terminal_setup_gate.py --setup-metrics runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml --acceptance-config configs/ur10e_adapted_acceptance.yaml`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `ur10e_adapted_terminal_setup_diagnostic_gate` with x/y threshold
+  `0.004 m`, orientation threshold `0.08 rad`, force threshold `0.25 N`, and
+  target contact count `>= 1`. The v57 evaluation reports `1 / 513` passing
+  terminal candidates under this diagnostic-only gate.
+- Limit:
+  This is not a path, trajectory, paper-equivalent, or hardware-readiness
+  claim.
+- Validation:
+  Full tests passed with `92 passed in 2.41s`. `git diff --check` passed.
+- Next step:
+  Before any new Stage A controller work, choose which setup label the
+  controller targets: strict paper-equivalent setup, v38 relaxed
+  trajectory-after-setup budget, or v57 diagnostic terminal setup.

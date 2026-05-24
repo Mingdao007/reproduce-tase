@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v56-contact-manifold-gate-audit`
+Current branch: `exp/tase-ur10e-v57-adapted-terminal-gate`
 
 ## Scope
 
@@ -43,9 +43,8 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 
 Current accepted claims are tracked in `reports/completion_audit.md`.
 UR10e results remain adapted simulation evidence, not hardware evidence. The
-v56 shows the strict setup gate is a gate-definition conflict in the current
-UR10e adapted simulation: x/y, target force, and force-normal orientation are
-not jointly satisfied by the audited contact-neighborhood solves.
+v57 adds a diagnostic-only adapted terminal setup gate. It is not
+paper-equivalent, not a path or trajectory claim, and not hardware-ready.
 
 ## Test Command
 

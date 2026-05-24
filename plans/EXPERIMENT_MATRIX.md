@@ -189,6 +189,8 @@ them rather than deleting them.
   passes.
 - The v56 contact-manifold audit shows the remaining strict setup blocker is a
   gate-definition conflict rather than a broad-seed contact discovery issue.
+- The v57 adapted terminal setup gate passes `1 / 513` terminal candidates as
+  a diagnostic-only label, with no path or trajectory claim.
 
 ## Next Executable Step
 
@@ -198,5 +200,5 @@ achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next paper-platform step
 should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by explicitly relaxing or redefining the setup gate, or changing
-the setup target definition, before designing another Stage A controller.
+adapted work by choosing the target setup label before designing another Stage
+A controller.

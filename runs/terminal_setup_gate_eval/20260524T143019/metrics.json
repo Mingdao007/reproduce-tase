@@ -1,0 +1,126 @@
+{
+  "run_id": "20260524T143019",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "acceptance_config": "/home/andy/reproduce-tase/configs/ur10e_adapted_acceptance.yaml",
+  "source_run_id": "20260524T141321",
+  "source_run_config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "source_model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "source_candidate_count": 513,
+  "gate": {
+    "max_terminal_tangential_error_m": 0.004,
+    "max_terminal_orientation_error_rad": 0.08,
+    "max_terminal_force_error_N": 0.25,
+    "min_target_contact_count": 1,
+    "claim_scope": "ur10e_adapted_terminal_setup_diagnostic_only"
+  },
+  "pass_count": 1,
+  "passed_seed_labels": [
+    "initial"
+  ],
+  "best_candidate": {
+    "seed_label": "initial",
+    "q": [
+      -1.1745579135426345e-08,
+      -0.02440152369247043,
+      -0.00048297839388595083,
+      0.0002982283198967393,
+      2.405416739224147e-10,
+      0.12671314216940235
+    ],
+    "tcp_m": [
+      0.001970353198813028,
+      4.032096983994156e-11,
+      -0.00031401714282958126
+    ],
+    "criteria": {
+      "force_error_N": {
+        "actual": 0.005097546556703136,
+        "operator": "<=",
+        "threshold": 0.25,
+        "passed": true
+      },
+      "tangential_error_m": {
+        "actual": 0.0030075762251302427,
+        "operator": "<=",
+        "threshold": 0.004,
+        "passed": true
+      },
+      "orientation_error_rad": {
+        "actual": 0.07240605683117833,
+        "operator": "<=",
+        "threshold": 0.08,
+        "passed": true
+      },
+      "target_contact_count": {
+        "actual": 1,
+        "operator": ">=",
+        "threshold": 1,
+        "passed": true
+      }
+    },
+    "failed_criteria": [],
+    "passed": true,
+    "max_gate_ratio": 0.9050757103897291,
+    "source_force_error_N": 0.005097546556703136,
+    "source_tangential_error_m": 0.0030075762251302427,
+    "source_orientation_error_rad": 0.07240605683117833,
+    "source_target_contact_count": 1
+  },
+  "passed_candidates": [
+    {
+      "seed_label": "initial",
+      "q": [
+        -1.1745579135426345e-08,
+        -0.02440152369247043,
+        -0.00048297839388595083,
+        0.0002982283198967393,
+        2.405416739224147e-10,
+        0.12671314216940235
+      ],
+      "tcp_m": [
+        0.001970353198813028,
+        4.032096983994156e-11,
+        -0.00031401714282958126
+      ],
+      "criteria": {
+        "force_error_N": {
+          "actual": 0.005097546556703136,
+          "operator": "<=",
+          "threshold": 0.25,
+          "passed": true
+        },
+        "tangential_error_m": {
+          "actual": 0.0030075762251302427,
+          "operator": "<=",
+          "threshold": 0.004,
+          "passed": true
+        },
+        "orientation_error_rad": {
+          "actual": 0.07240605683117833,
+          "operator": "<=",
+          "threshold": 0.08,
+          "passed": true
+        },
+        "target_contact_count": {
+          "actual": 1,
+          "operator": ">=",
+          "threshold": 1,
+          "passed": true
+        }
+      },
+      "failed_criteria": [],
+      "passed": true,
+      "max_gate_ratio": 0.9050757103897291,
+      "source_force_error_N": 0.005097546556703136,
+      "source_tangential_error_m": 0.0030075762251302427,
+      "source_orientation_error_rad": 0.07240605683117833,
+      "source_target_contact_count": 1
+    }
+  ],
+  "warnings": [
+    "diagnostic terminal setup gate only",
+    "not paper-equivalent full staged feasibility",
+    "not a path or trajectory feasibility claim",
+    "not hardware-ready"
+  ]
+}

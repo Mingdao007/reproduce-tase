@@ -56,10 +56,12 @@ contact behavior regresses.
   the 85 mm site is separated from the `0.045 m` colliding sphere center, but
   this is still an unmeasured simulation proxy. v55 enforces the intended
   `contact_plane` / `contact_tip` force pair in terminal setup audits, and
-  v56 identifies the strict setup blocker as a gate-definition conflict.
+  v56 identifies the strict setup blocker as a gate-definition conflict. v57
+  adds a diagnostic terminal setup gate but does not make the model
+  hardware-ready.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
-Define the next adapted setup gate or setup target convention, while keeping
-hardware use blocked until mounted-stack geometry is measured.
+Choose the next controller target label while keeping hardware use blocked
+until mounted-stack geometry is measured.

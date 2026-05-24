@@ -1204,3 +1204,26 @@
   Future UR10e adapted setup work should explicitly relax or redefine the
   setup gate, or change the setup target definition, before another Stage A
   controller is designed. Full strict staged feasibility remains unachieved.
+
+## D062: Add A Diagnostic-Only Adapted Terminal Setup Gate
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add `ur10e_adapted_terminal_setup_diagnostic_gate` as a separate diagnostic
+  label. This gate is not paper-equivalent, not path-feasible, not trajectory-
+  feasible, and not hardware-ready.
+- Reason:
+  v56 showed the strict setup gate is a gate-definition conflict. The v57
+  diagnostic gate rounds the best terminal candidate into explicit thresholds:
+  `max_terminal_tangential_error_m = 0.004`,
+  `max_terminal_orientation_error_rad = 0.08`,
+  `max_terminal_force_error_N = 0.25`, and
+  `min_target_contact_count = 1`. The evaluation run
+  `runs/terminal_setup_gate_eval/20260524T143019` reports `1 / 513` passing
+  candidates.
+- Consequence:
+  Future UR10e adapted controller work must name which setup label it targets:
+  strict paper-equivalent setup, v38 relaxed trajectory-after-setup budget, or
+  v57 diagnostic terminal setup. These labels must not be merged into a single
+  paper-equivalent claim.
