@@ -1884,3 +1884,29 @@
   calibration facts before more controller tuning. This is not a recovery,
   calibrated model, robustness proof, strict paper-equivalent feasibility, or
   hardware-ready control claim.
+
+## D091: Reject Current Local Records As Sufficient Calibration Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v86 as evidence that current local hardware, EOAT, CAD, config, and
+  MJCF records are not sufficient to accept the v85 calibration margin or any
+  replacement orientation gate.
+- Reason:
+  The v86 run at `runs/measured_geometry_readiness/20260525T000739` inspects
+  the lab-vault hardware state, EOAT TCP note, v13 EOAT verification metadata,
+  contact-point config/MJCF, and v85 metrics. The records show a CAD/design
+  `85.0 mm` contact-point candidate, a temporary UR TCP readback
+  `[0, 0, 0.12254, 0, 0, 0]` not validated for contact, an unverified KSM
+  contact-patch/ball datum, an analytic MuJoCo `10 deg` plane normal rather
+  than a measured robot-base-frame normal, and an unresolved force-source
+  disagreement where direct TCP DAQ `READFT` reports about `-32.7 N` while
+  RTDE/PolyScope force values are near zero.
+- Consequence:
+  Do not relax the orientation gate or claim hardware readiness from the v85
+  margin. The next work should be a read-only measurement/SOP for mounted-stack
+  TCP/contact point, KSM contact patch convention, plane normal, force-source
+  reconciliation, and accepted orientation-gate semantics. This is not a
+  recovery, calibrated model, robustness proof, strict paper-equivalent
+  feasibility, or hardware-ready control claim.

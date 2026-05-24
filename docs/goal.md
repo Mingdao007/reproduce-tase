@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v85 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v83 shows that the weighted zero-angular-command candidate passes the full positive-delta `paper_time_scale = 0.01`, `0.11995 rad` matrix `8 / 8` for both tested weighted scenarios, but the tighter `0.119 rad` gate still only passes through `+0.75 mm` and fails the `+1.0 mm` row. v84 attributes that remaining miss to a small orientation-model margin rather than qdot. v85 quantifies the physical/modeling correction needed to close the hardest row: `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to about `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. Existing metrics show recovery at `0.11955`, `0.1196`, and `0.11995 rad` in specific diagnostic scopes, but they do not justify accepting a replacement gate without measured geometry/contact-normal evidence. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should collect or define measured mounted-stack TCP/contact point, contact patch convention, plane normal, force-source/frame reconciliation, and an accepted orientation-gate definition before more Stage B qdot tuning. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v85 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v86 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 audits existing local geometry/CAD/hardware records and finds they are insufficient to support accepting that margin: the `85.0 mm` contact point is design metadata, the current UR TCP `[0, 0, 0.12254, 0, 0, 0]` is temporary and not contact-validated, the MuJoCo plane normal is analytic rather than measured in robot base frame, and direct TCP DAQ force values still disagree with RTDE/PolyScope by about `32 N`. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should turn the v86 checklist into a read-only measurement/SOP for mounted TCP/contact point, KSM contact patch convention, plane normal, force-source/frame reconciliation, and accepted orientation-gate semantics before more Stage B qdot tuning. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v86 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v85` repository state. The project goal is to reproduce the T-ASE finite-time
+`v86` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,15 +34,15 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v85-contact-orientation-calibration`
-- Current v85 formal run:
-  `runs/contact_orientation_calibration_margin/20260524T235723`
+  `exp/tase-ur10e-v86-measured-geometry-readiness`
+- Current v86 formal run:
+  `runs/measured_geometry_readiness/20260525T000739`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v86.md`
+  `docs/goal_handoff_v87.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -263,6 +263,12 @@ Current accepted claims:
   slope proxy. Existing metrics show recovery at `0.11955`, `0.1196`, and
   `0.11995 rad` in specific diagnostic scopes, but no replacement gate is
   accepted without calibrated geometry/contact-normal evidence.
+- `ur10e_measured_geometry_readiness`: v86 inspects current lab-vault and
+  simulation records read-only. It finds no measured mounted-stack
+  TCP/contact point, no verified KSM contact patch convention, no measured
+  robot-base-frame plane normal, and no reconciled force source/frame. The
+  existing records do not constrain the v85 `0.03246 deg` / `14.96 um` margin
+  tightly enough to support gate relaxation or a hardware claim.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -272,12 +278,12 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by collecting or defining measured mounted-stack
-  TCP/contact point, contact patch convention, plane normal in robot base
-  frame, force-source/frame reconciliation, and an accepted orientation-gate
-  definition before more Stage B qdot tuning. Keep strict paper-equivalent
-  setup, v38 trajectory-after-relaxed-setup, and v63-v85 diagnostic staged
-  labels separate.
+- Continue UR10e adapted work by turning the v86 checklist into a read-only
+  measurement/SOP for mounted-stack TCP/contact point, KSM contact patch
+  convention, plane normal in robot base frame, force-source/frame
+  reconciliation, and accepted orientation-gate semantics. Keep strict
+  paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v86
+  diagnostic staged labels separate.
 
 ## Safety Boundary
 

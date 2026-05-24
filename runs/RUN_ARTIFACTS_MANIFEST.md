@@ -2314,6 +2314,35 @@ Legacy source root:
   calibrated contact model, canonical controller default, strict
   paper-equivalent claim, robustness proof, or hardware evidence.
 
+## V86 Measured Geometry Readiness
+
+### Read-only local-record audit for the v85 calibration margin
+
+- Run:
+  - `runs/measured_geometry_readiness/20260525T000739`
+- Command:
+  `python3 scripts/audit_measured_geometry_readiness.py`
+- Git state at run time:
+  parent commit `3a97eac42688c09c1d26d253c6fa8630163716c9` with dirty v86
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Source records inspected read-only:
+  local lab-vault hardware state, EOAT TCP note, v13 EOAT verification JSON,
+  contact-point config/MJCF, and v85 metrics.
+- Result:
+  Existing records do not support accepting the v85 `0.03246 deg` /
+  `14.96 um` correction as calibrated evidence. The `85.0 mm` contact point is
+  design metadata, the current UR TCP readback is temporary and not
+  contact-validated, the KSM contact patch convention is unverified, the plane
+  normal is analytic simulation geometry, and direct TCP DAQ force values still
+  disagree with RTDE/PolyScope by about `32 N`.
+- Limit:
+  This is read-only local-record readiness evidence only. It is not a recovery
+  of the `+1.0 mm`, `0.119 rad` row, accepted gate relaxation, calibrated
+  contact model, canonical controller default, strict paper-equivalent claim,
+  robustness proof, hardware evidence, or hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

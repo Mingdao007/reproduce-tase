@@ -3273,3 +3273,41 @@
   convention, plane normal in the robot base frame, force-source/frame
   reconciliation, and accepted orientation-gate semantics before more Stage B
   qdot tuning.
+
+## 2026-05-25 v86 Measured Geometry Readiness
+
+### Audit whether existing records support the v85 calibration margin
+
+- Branch:
+  `exp/tase-ur10e-v86-measured-geometry-readiness`
+- Run:
+  `runs/measured_geometry_readiness/20260525T000739`
+- Report:
+  `reports/measured_geometry_readiness_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_measured_geometry_readiness.py`
+  - `python3 scripts/audit_measured_geometry_readiness.py`
+- Result:
+  The audit inspects current lab-vault hardware state, EOAT TCP notes, v13 EOAT
+  verification metadata, the contact-point config/MJCF, and the v85 margin.
+  Existing records do not support accepting the v85 `0.03246 deg` /
+  `14.96 um` correction as calibrated evidence. The `85.0 mm` contact point is
+  design metadata, the current UR TCP `[0, 0, 0.12254, 0, 0, 0]` is temporary
+  and not contact-validated, the KSM contact patch convention is unverified,
+  the plane normal is analytic simulation geometry, and direct TCP DAQ still
+  disagrees with RTDE/PolyScope force values by about `32 N`.
+- Limit:
+  This is read-only local-record evidence only. It does not recover the
+  `+1.0 mm`, `0.119 rad` row, accept a replacement gate, calibrate the contact
+  model, prove robustness, prove strict paper-equivalent feasibility, or
+  authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_measured_geometry_readiness.py` passed.
+  Full tests passed with `115 passed in 2.64s`; `git diff --check` passed.
+  The run artifact is lightweight: `4` files, `44K`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Turn the v86 checklist into a read-only measurement/SOP for mounted-stack
+  TCP/contact point, KSM contact patch convention, plane normal in the robot
+  base frame, force-source/frame reconciliation, and accepted orientation-gate
+  semantics.

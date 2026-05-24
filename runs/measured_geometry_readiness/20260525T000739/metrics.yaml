@@ -1,0 +1,289 @@
+run_source: v86 measured geometry contact-normal readiness
+source_records:
+  current_hardware_state:
+    path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md
+    exists: true
+    is_file: true
+    size_bytes: 10029
+    sha256: 8712d0802d2acd33b5d4f8f3973f1f7af08eae9bce613f386c2025247d661b3e
+  eoat_tcp_note:
+    path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md
+    exists: true
+    is_file: true
+    size_bytes: 1420
+    sha256: 77e564d628bc90ac80ef75d53ad341aa1a600b508d37a70a4cf0219f6f5613fb
+  eoat_readme:
+    path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/README.md
+    exists: true
+    is_file: true
+    size_bytes: 2309
+    sha256: aa8ae61465cc49084382db91154f48d3ec1df0747ba000b187d8c0dddfd1da34
+  eoat_verification_json:
+    path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json
+    exists: true
+    is_file: true
+    size_bytes: 5450
+    sha256: 999a6bb19d27ae34db984e648754be819f243202bc91376e59e0f95ff0551120
+  contact_config:
+    path: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+    exists: true
+    is_file: true
+    size_bytes: 1620
+    sha256: 8c716e485867cee341c09bcca7d63498331dc06e8128fde6c25efd0c153cd44d
+  contact_mjcf:
+    path: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+    exists: true
+    is_file: true
+    size_bytes: 3320
+    sha256: c32d929650a87c2607e5caef731497eb1b5c8665ff027b80da2ca9a51a3d25f4
+  v85_metrics:
+    path: /home/andy/reproduce-tase/runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml
+    exists: true
+    is_file: true
+    size_bytes: 12566
+    sha256: e9dc8769087ba2f89d4d3efdcf05619bfd7a2f29eed79a0d86d5ea369873d7d4
+source_cad_files:
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_assembly.step
+  size_bytes: 57826
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_assembly.stl
+  size_bytes: 4340990
+  suffix: .stl
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_body.step
+  size_bytes: 57826
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_body.stl
+  size_bytes: 4340990
+  suffix: .stl
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_flange_fitcheck.step
+  size_bytes: 13041
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_flange_fitcheck.stl
+  size_bytes: 1626300
+  suffix: .stl
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_ksm_placeholder.step
+  size_bytes: 6418
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_ksm_placeholder.stl
+  size_bytes: 2832351
+  suffix: .stl
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_onepiece_preview.step
+  size_bytes: 57826
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_onepiece_preview.stl
+  size_bytes: 4340990
+  suffix: .stl
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_receiver_fitcheck.step
+  size_bytes: 27532
+  suffix: .step
+- path: /home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/ur5e_ksm8n_ball_transfer_tool_v13_receiver_fitcheck.stl
+  size_bytes: 975584
+  suffix: .stl
+v85_margin:
+  required_normal_rotation_rad: 0.0005664520369604714
+  required_normal_rotation_deg: 0.03245531101442353
+  equivalent_base_z_or_contact_point_mm: 0.014963398168061883
+  equivalent_base_z_or_contact_point_um: 14.963398168061882
+  accepted_replacement_gate: false
+  support_more_stage_b_qdot_tuning: false
+extracted_facts:
+  hardware:
+    current_ur_tcp_offset_m_rad:
+    - 0.0
+    - 0.0
+    - 0.12254
+    - 0.0
+    - 0.0
+    - 0.0
+    current_payload_kg: 0.44
+    use_ur_default_tcp_configuration_selected: true
+    set_from_sensor_flange_not_selected: true
+    temporary_tcp_not_validated_for_contact: true
+    direct_tcp_daq_fz_mean_stopped_N: -32.7114
+    direct_tcp_daq_fz_mean_program_running_N: -32.6699
+    rtde_actual_tcp_force_fz_observed_N: 0.3
+    force_source_discrepancy_recorded: true
+  eoat_design:
+    design_contact_point_from_flange_face_mm: 85.0
+    tcp_on_centerline: true
+    ksm_placeholder_excluded_from_printable_outputs: true
+    ksm_assumptions_to_confirm:
+    - 'KSM-8N dimensions follow the local product image: 8 mm ball, 15 mm housing,
+      11.1 mm total housing-to-ball-top height, and 12 mm M6 thread.'
+    - The KSM-8N thread should engage a metal captive nut; hot glue is only to retain
+      the nut after assembly.
+    - The 5.3 mm side nut window assumes the user's measured M6 nut height is about
+      4.8 mm; print receiver_fitcheck first to confirm insertion is not too tight.
+    - The receiver_fitcheck should be printed before the full body to confirm nut
+      insertion, nut anti-rotation, KSM engagement, and glue clearance.
+    - Run only a low-speed no-contact posture sweep before any force-contact experiment.
+    note_says_design_candidate_not_verified: true
+    note_says_not_mounted_when_prepared: true
+    readme_contact_module_purchased_ksm: true
+    readme_contact_point_from_flange_face_mm: 85.0
+  simulation:
+    model_status: v54_tilted_plane_tcp_contact_point_simulation_variant_not_calibrated_for_hardware
+    tcp_status: unverified_85mm_site_as_contact_point_convention
+    surface: single_material_analytic_plane_tilted_10deg_about_y
+    plane_tilt_rad_about_y: 0.1745329252
+    expected_normal_world:
+    - 0.1736481777
+    - 0.0
+    - 0.984807753
+    tcp_guess_m:
+    - 0.0
+    - 0.0
+    - -0.085
+    contact_model_convention: tcp_site_is_intended_contact_point_when_tcp_local_z_aligns_surface_normal
+    contact_tip_sphere_radius_m: 0.045
+    contact_tip_sphere_center_local_m:
+    - 0.0
+    - 0.0
+    - 0.045
+    mjcf_extract:
+      model_name: ur10e_tilted_plane_10deg_tcp_contact_point_v1_approx
+      contact_plane_euler: 0 0.1745329252 0
+      contact_plane_type: plane
+      contact_tip_type: sphere
+      contact_tip_pos:
+      - 0.0
+      - 0.0
+      - 0.045
+      contact_tip_radius_m: 0.045
+      tcp_site_pos:
+      - 0.0
+      - 0.0
+      - 0.0
+readiness_checks:
+- name: mounted_stack_tcp_contact_point
+  status: insufficient_design_only
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence:
+  - EOAT design candidate contact point = 85.0 mm from design flange face.
+  - Current UR TCP readback = [0.0, 0.0, 0.12254, 0.0, 0.0, 0.0]; hardware note says
+    this is temporary and not validated for contact.
+  - OnRobot FT setup photo evidence has UR default TCP selected, not sensor flange
+    TCP.
+  blockers:
+  - No measured flange-to-contact point for the assembled UR10e + OnRobot + EOAT stack.
+  - No measured uncertainty budget comparable to the v85 14.96 um equivalent margin.
+  required_next:
+  - Measure mounted flange/sensor/tool stack contact point in the robot TCP convention.
+  - Record measurement method, repeatability, datum, sign, and uncertainty.
+- name: contact_patch_convention
+  status: insufficient_design_assumption
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence:
+  - EOAT verification treats the KSM-8N dimensions as assumptions to confirm.
+  - Printable assembly excludes the purchased KSM placeholder.
+  - Simulation uses a 45 mm sphere behind the TCP site as a contact-point convention
+    variant.
+  blockers:
+  - No mounted KSM-8N seating verification tied to the actual contact patch.
+  - No measurement of whether the physical contact datum is ball top, sphere center,
+    or another loaded patch.
+  required_next:
+  - Verify KSM seating, protrusion, loaded contact patch, and centerline alignment
+    after assembly.
+  - Decide and document whether the gate uses contact point, ball center, or another
+    physical datum.
+- name: plane_contact_normal
+  status: insufficient_analytic_simulation_only
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence:
+  - MuJoCo config uses a single analytic plane tilted 10 deg about y.
+  - Expected normal is taken from config, not a measured robot-base-frame plane normal.
+  blockers:
+  - No measured plane normal in the robot base frame.
+  - No normal-angle uncertainty budget comparable to the v85 0.03246 deg required
+    correction.
+  required_next:
+  - Measure plane pose/normal in robot base frame with a repeatable read-only or fixture-based
+    method.
+  - Record normal uncertainty and compare directly to 0.03246 deg.
+- name: force_source_frame
+  status: unresolved_conflict
+  has_measured_record: true
+  constrains_v85_margin: false
+  evidence:
+  - Direct TCP DAQ stopped-state Fz mean = -32.7114 N.
+  - Program-running direct TCP DAQ Fz mean = -32.6699 N.
+  - RTDE actual_TCP_force Fz was observed around 0.3 N.
+  - Hardware note says direct TCP DAQ and PolyScope/RTDE force values use different
+    zero/reference/compensation until proven otherwise.
+  blockers:
+  - Force source and frame are not reconciled.
+  - Direct TCP DAQ READFT cannot be used as control truth from the current evidence.
+  required_next:
+  - Map PolyScope OnRobot variables to RTDE output registers in a no-motion program.
+  - Compare URCap variables, RTDE, and direct TCP DAQ under the same zero/frame state.
+- name: orientation_gate_semantics
+  status: not_accepted
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence:
+  - V85 shows scoped recovery at larger gates but marks accepted_replacement_gate
+    false.
+  - V69 found full-rotation and force-normal-only errors numerically equal for the
+    audited terminal cases.
+  blockers:
+  - No accepted definition replacing the current 0.119 rad diagnostic gate.
+  - No calibrated normal/contact geometry supporting a relaxed gate.
+  required_next:
+  - Define whether the diagnostic gate is force-normal-only or full-frame rotation.
+  - Tie any replacement gate to measured geometry and normal uncertainty.
+measurement_checklist:
+- Measure mounted stack TCP/contact point from a named flange/sensor/tool datum.
+- Measure or verify the physical KSM-8N contact datum and loaded contact patch convention.
+- Measure the contact plane normal in the robot base frame and record angle uncertainty.
+- Reconcile OnRobot URCap variables, UR RTDE, and direct TCP DAQ force frames/zeroing
+  without motion.
+- Define the diagnostic orientation gate semantics and uncertainty budget before relaxing
+  any gate.
+- Only after the read-only evidence is accepted, update simulation geometry or gate
+  definitions in a separate branch.
+v86_objective_answers:
+- question: 1. Is there a measured mounted-stack TCP/contact point?
+  answer: No. Existing records provide a design 85.0 mm candidate and a temporary
+    UR TCP readback, not a measured mounted-stack contact point.
+- question: 2. Is the 85.0 mm EOAT datum a surface, sphere center, or design-reference
+    point?
+  answer: It is a design contact-point candidate from CAD metadata. The actual mounted
+    KSM contact patch/ball datum is not verified.
+- question: 3. Is the plane/contact normal measured in robot base frame?
+  answer: No. The current normal is an analytic MuJoCo 10 deg tilted-plane assumption.
+- question: 4. Is the force source/frame reconciled?
+  answer: No. Existing records show a persistent direct TCP DAQ versus RTDE/PolyScope
+    force-value disagreement around 32 N.
+- question: 5. Is any existing uncertainty small enough for the v85 correction?
+  answer: No accepted measurement uncertainty exists for the 0.03246 deg or 14.96
+    um v85 correction.
+- question: 6. What measurement/SOP is required before a gate relaxation or hardware
+    claim?
+  answer: Mounted TCP/contact measurement, contact patch convention verification,
+    plane-normal measurement, force-source reconciliation, and accepted orientation-gate
+    semantics.
+- question: 7. Does this support more Stage B qdot tuning?
+  answer: No. The missing evidence is geometry/normal/force-frame readiness, and v85
+    already showed the hard row has 0.0 qdot saturation.
+verdict:
+  records_sufficient_for_v85_margin: false
+  supports_accepting_v85_margin: false
+  supports_gate_relaxation: false
+  supports_hardware_claim: false
+  supports_more_stage_b_qdot_tuning: false
+  next_step: read-only measurement/SOP definition before model or gate changes
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  gate_relaxation_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
+  real_robot_motion_or_configuration: false
+safety:
+  robot_motion_commanded: false
+  tcp_payload_urcap_or_onrobot_write: false
+  hardware_access_mode: read-only local record inspection
