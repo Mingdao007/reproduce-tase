@@ -1757,6 +1757,32 @@ Legacy source root:
   1 mm base-z/contact perturbation failures and is not a strict
   paper-equivalent claim, a robustness proof, or hardware evidence.
 
+## V66 Stage A Base-Z Recovery Audit
+
+### Perturbation-aware start/target/path recovery for base-z cases
+
+- Run:
+  - `runs/stage_a_base_z_recovery/20260524T163746`
+- Command:
+  `scripts/audit_stage_a_base_z_recovery.py`
+- Git state at run time:
+  base commit `a50628bb7351b12d59320e69ec85bce0acca1e96` with dirty v66
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-case start, terminal, path, and stitched metrics/summaries/commands
+  under `cases/*`.
+- Result:
+  The recovery matrix reports `1 / 3` recovered cases. The recovered case is
+  `base_z_minus_1mm_stage_a_16s_recovery`. The exact `15.0 s`
+  `base_z_minus_1mm` reference remains qdot-limited, and `base_z_plus_1mm`
+  remains unresolved with no passing start plus terminal target pair under this
+  diagnostic search.
+- Limit:
+  This is a diagnostic-label base-z recovery audit only. It is not a strict
+  paper-equivalent claim, a robustness proof, contact-model calibration, or
+  hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

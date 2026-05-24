@@ -1,0 +1,169 @@
+run_id: 20260524T163746
+source: perturbation-aware Stage A base-z terminal/path/stitch recovery audit
+case_specs:
+- name: base_z_minus_1mm
+  base_z_offset_delta_m: -0.001
+  stage_a_duration_s: 15.0
+- name: base_z_minus_1mm_stage_a_16s_recovery
+  base_z_offset_delta_m: -0.001
+  stage_a_duration_s: 16.0
+- name: base_z_plus_1mm
+  base_z_offset_delta_m: 0.001
+  stage_a_duration_s: 15.0
+case_count: 3
+diagnostic_gate:
+  max_terminal_tangential_error_m: 0.004
+  max_terminal_orientation_error_rad: 0.08
+  max_terminal_force_error_N: 0.25
+  min_target_contact_count: 1
+parameters:
+  start_max_nfev: 300
+  start_posture_weight: 0.01
+  random_seed_count: 512
+  random_seed_std_rad: 0.15
+  random_seed: 37
+  terminal_max_nfev: 300
+  posture_weight: 0.0001
+  knot_count: 128
+  path_max_nfev: 200
+  stage_a_duration_s: 15.0
+  stage_b_duration_s: 2.0
+  target_force_N: 5.0
+  force_gain: 0.0001
+  qdot_limit_rad_s: 0.15
+  paper_time_scale: 0.01
+aggregate:
+  case_count: 3
+  start_pass_count: 2
+  terminal_pass_count: 2
+  path_pass_count: 1
+  stitched_pass_count: 1
+  recovered_count: 1
+  start_pass_cases:
+  - base_z_minus_1mm
+  - base_z_minus_1mm_stage_a_16s_recovery
+  terminal_pass_cases:
+  - base_z_minus_1mm
+  - base_z_minus_1mm_stage_a_16s_recovery
+  path_pass_cases:
+  - base_z_minus_1mm_stage_a_16s_recovery
+  stitched_pass_cases:
+  - base_z_minus_1mm_stage_a_16s_recovery
+  recovered_cases:
+  - base_z_minus_1mm_stage_a_16s_recovery
+  unresolved_cases:
+  - base_z_minus_1mm
+  - base_z_plus_1mm
+cases:
+- case: base_z_minus_1mm
+  base_z_offset_delta_m: -0.001
+  stage_a_duration_s: 15.0
+  status: path_gate_failed
+  recovered: false
+  start:
+    passed: true
+    force_error_N: 0.0019615624793152264
+    tangential_error_m: 0.0034757901579900124
+    target_contact_count: 1
+    force_normal_orientation_error_rad: 0.15994043789349663
+    failed_criteria: []
+  terminal:
+    pass_count: 25
+    candidate_count: 513
+    best_passed: true
+    best_seed: random_210
+    best_failed_criteria: []
+    best_force_error_N: 0.0004179850770933413
+    best_tangential_error_m: 0.000981589951570489
+    best_orientation_error_rad: 0.047179212704768526
+    best_max_gate_ratio: 0.5897401588096066
+  path:
+    path_gate_passed: false
+    terminal_gate_passed: true
+    min_duration_s: 15.652271522331025
+    max_abs_qdot_rad_s: 0.15652271522331024
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.0019615624793152264
+    max_scheduled_xy_error_m: 3.4664923105732207e-07
+    max_scheduled_orientation_error_rad: 3.6688328675344596e-05
+  stitched:
+    stitched_gate_passed: false
+    stage_a_passed: false
+    handoff_pass_count: 0
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.15
+    stage_a_terminal_force_error_N: 3.9528282635771568
+    stage_a_terminal_xy_error_m: 0.0014923047618446445
+    stage_a_terminal_orientation_error_rad: 0.04640953230841753
+- case: base_z_minus_1mm_stage_a_16s_recovery
+  base_z_offset_delta_m: -0.001
+  stage_a_duration_s: 16.0
+  status: recovered
+  recovered: true
+  start:
+    passed: true
+    force_error_N: 0.0019615624793152264
+    tangential_error_m: 0.0034757901579900124
+    target_contact_count: 1
+    force_normal_orientation_error_rad: 0.15994043789349663
+    failed_criteria: []
+  terminal:
+    pass_count: 25
+    candidate_count: 513
+    best_passed: true
+    best_seed: random_210
+    best_failed_criteria: []
+    best_force_error_N: 0.0004179850770933413
+    best_tangential_error_m: 0.000981589951570489
+    best_orientation_error_rad: 0.047179212704768526
+    best_max_gate_ratio: 0.5897401588096066
+  path:
+    path_gate_passed: true
+    terminal_gate_passed: true
+    min_duration_s: 15.652271522331025
+    max_abs_qdot_rad_s: 0.14674004552185335
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.0019615624793152264
+    max_scheduled_xy_error_m: 3.4664923105732207e-07
+    max_scheduled_orientation_error_rad: 3.6688328675344596e-05
+  stitched:
+    stitched_gate_passed: true
+    stage_a_passed: true
+    handoff_pass_count: 4
+    handoff_trajectory_count: 4
+    stage_a_max_qdot_rad_s: 0.14674004552188208
+    stage_a_terminal_force_error_N: 0.0004179850770933413
+    stage_a_terminal_xy_error_m: 0.000981589951570489
+    stage_a_terminal_orientation_error_rad: 0.04717921270476678
+- case: base_z_plus_1mm
+  base_z_offset_delta_m: 0.001
+  stage_a_duration_s: 15.0
+  status: start_and_terminal_not_found
+  recovered: false
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    force_normal_orientation_error_rad: 0.17453292523411995
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+  terminal:
+    pass_count: 0
+    candidate_count: 513
+    best_passed: false
+    best_seed: random_184
+    best_failed_criteria:
+    - orientation_error_rad
+    best_force_error_N: 0.0015639424746973773
+    best_tangential_error_m: 0.0037081102250263293
+    best_orientation_error_rad: 0.11948560786548146
+    best_max_gate_ratio: 1.4935700983185183
+  path: null
+  stitched: null
+warnings:
+- diagnostic-label simulation recovery audit only
+- not strict paper-equivalent feasibility
+- not a formal robustness proof
+- not hardware-ready

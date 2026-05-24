@@ -1383,3 +1383,24 @@
   feasibility, or hardware readiness. The next branch should focus on
   perturbation-aware Stage A path reoptimization for `base_z_minus_1mm` and
   `base_z_plus_1mm`.
+
+## D071: Treat Base-Z Recovery As One-Sided And Margin-Bounded
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v66 as one-sided diagnostic recovery evidence for `-1 mm` base-z only
+  under an explicit Stage A timing margin, not as base-z/contact robustness.
+- Reason:
+  The v66 run at `runs/stage_a_base_z_recovery/20260524T163746` evaluates
+  perturbation-aware start rebalance, terminal search, contact path
+  reoptimization, and stitched handoff for three base-z cases. It recovers
+  `base_z_minus_1mm_stage_a_16s_recovery` with `16.0 s` Stage A and Stage B
+  `4 / 4`, while the exact `15.0 s` `base_z_minus_1mm` reference remains
+  qdot-limited and `base_z_plus_1mm` has no passing start plus terminal target
+  pair under this diagnostic search.
+- Consequence:
+  The project can claim a narrow diagnostic simulation recovery for the `-1 mm`
+  base-z side only with an explicit `16.0 s` Stage A margin. It still must not
+  claim robustness, strict paper-equivalent feasibility, contact-model
+  calibration, hardware readiness, or recovery of the `+1 mm` perturbation.

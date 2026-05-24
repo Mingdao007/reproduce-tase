@@ -67,13 +67,14 @@ contact behavior regresses.
   to the slowed handoff. v64 sensitivity passes only `4 / 9` cases, failing
   1 mm base-z/contact perturbations and tighter timing/qdot cases, so the
   result is still simulation-only, nominal, and diagnostic-label. v65 recovers
-  the qdot/timing side with explicit margins but does not recover the 1 mm
-  base-z/contact perturbations.
+  the qdot/timing side with explicit margins. v66 recovers the `-1 mm` base-z
+  side only with a rebalanced start, reoptimized path, and `16.0 s` Stage A
+  duration; `+1 mm` remains unresolved.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should test perturbation-aware Stage A path
-reoptimization for the remaining v64 base-z/contact sensitivity failures unless
-a later decision changes the label.
+simulation controller prototype should investigate the unresolved `+1 mm`
+base-z/contact side and the exact `15.0 s` `-1 mm` boundary unless a later
+decision changes the label.

@@ -88,15 +88,16 @@ work exists only on that branch.
   joint replay, and v63 stitches the tracker to the slowed handoff with `4 / 4`
   Stage B passes. v64 stress-tests the stitched policy and passes only `4 / 9`
   sensitivity cases, so this is still nominal diagnostic-label simulation
-  evidence. v65 recovers the qdot/timing side with explicit margins but leaves
-  1 mm base-z/contact perturbations unresolved. This is still not robust,
+  evidence. v65 recovers the qdot/timing side with explicit margins. v66
+  recovers only the `-1 mm` base-z side with a rebalanced start, reoptimized
+  path, and `16.0 s` Stage A duration; the exact `15.0 s` `-1 mm` reference
+  and `+1 mm` case remain unresolved. This is still not robust,
   paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Test perturbation-aware Stage A path reoptimization for the v64
-`base_z_minus_1mm` and `base_z_plus_1mm` failures while keeping strict
-paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v65
-diagnostic staged labels separate.
+Investigate the unresolved `+1 mm` base-z/contact case and the exact `15.0 s`
+`-1 mm` boundary while keeping strict paper-equivalent setup, v38 relaxed
+trajectory-after-setup, and v63-v66 diagnostic staged labels separate.

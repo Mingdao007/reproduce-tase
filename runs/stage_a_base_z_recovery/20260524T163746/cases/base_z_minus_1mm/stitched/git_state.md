@@ -1,0 +1,22 @@
+# Git State
+
+- Branch: `exp/tase-ur10e-v66-base-z-path-recovery`
+- Commit: `a50628bb7351b12d59320e69ec85bce0acca1e96`
+- Dirty tree: `True`
+- Status:
+
+```text
+M scripts/audit_stage_a_contact_path.py
+ M src/tase_repro/stage_a_contact_path.py
+ M tests/test_stage_a_contact_path.py
+?? runs/stage_a_base_z_recovery/
+?? scripts/audit_stage_a_base_z_recovery.py
+?? src/tase_repro/base_z_recovery.py
+?? tests/test_base_z_recovery.py
+```
+
+- Command:
+
+```bash
+/usr/bin/python3 /home/andy/reproduce-tase/scripts/evaluate_stitched_stage_a_handoff.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --setup-metrics runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml --stage-a-target-config configs/ur10e_adapted_stage_a_target.yaml --source-path-csv /home/andy/reproduce-tase/runs/stage_a_base_z_recovery/20260524T163746/cases/base_z_minus_1mm/path/path.csv --output-dir /home/andy/reproduce-tase/runs/stage_a_base_z_recovery/20260524T163746/cases/base_z_minus_1mm/stitched --base-z-offset-delta-m -0.001 --stage-a-duration-s 15.0 --stage-b-duration-s 2.0 --target-force-N 5.0 --force-gain 0.0001 --r 0.5 --qdot-limit-rad-s 0.15 --planar-kp 0.5 --paper-time-scale 0.01 --orientation-kp 0.0 --max-orientation-error-rad 0.08 --max-angular-slack-rad-s 0.03
+```

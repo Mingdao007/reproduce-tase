@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v65-stitched-timing-margin`
+Current branch: `exp/tase-ur10e-v66-base-z-path-recovery`
 
 ## Scope
 
@@ -59,8 +59,10 @@ base-z/contact perturbations, shorter Stage A timing, a tighter qdot limit, and
 faster Stage B timing. v65 recovers the timing/qdot side with explicit margins:
 `14.5 s` Stage A passes at the nominal `0.15 rad/s` limit, `18.0 s` passes at a
 `0.12 rad/s` limit, and Stage B passes up to `paper_time_scale = 0.012` but not
-`0.0125`. The 1 mm base-z/contact failures remain unresolved. This is still not
-strict paper-equivalent, robust, or hardware evidence.
+`0.0125`. v66 adds perturbation-aware endpoint and path reoptimization for the
+base-z cases: `base_z_minus_1mm_stage_a_16s_recovery` passes, but the exact
+`15.0 s` `base_z_minus_1mm` reference and `base_z_plus_1mm` remain unresolved.
+This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
 

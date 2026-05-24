@@ -2527,3 +2527,36 @@
 - Next step:
   Test perturbation-aware Stage A path reoptimization for `base_z_minus_1mm`
   and `base_z_plus_1mm`.
+
+## 2026-05-24 v66 Stage A Base-Z Recovery Audit
+
+### Perturbation-aware endpoint/path recovery for base-z cases
+
+- Branch:
+  `exp/tase-ur10e-v66-base-z-path-recovery`
+- Run:
+  `runs/stage_a_base_z_recovery/20260524T163746`
+- Report:
+  `reports/stage_a_base_z_recovery_report.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/base_z_recovery.py scripts/audit_stage_a_base_z_recovery.py scripts/audit_stage_a_contact_path.py`
+  - `scripts/run_tests.sh tests/test_stage_a_contact_path.py tests/test_base_z_recovery.py`
+  - `scripts/audit_stage_a_base_z_recovery.py`
+- Result:
+  The base-z recovery case set passes `1 / 3` cases. The recovered case is
+  `base_z_minus_1mm_stage_a_16s_recovery`, which uses a rebalanced start,
+  perturbed terminal target, reoptimized 128-knot path, and `16.0 s` Stage A
+  duration. The exact `15.0 s` `base_z_minus_1mm` reference remains failing
+  because the path requires `15.652271522331025 s` at `0.15 rad/s`.
+  `base_z_plus_1mm` remains unresolved with no passing start plus terminal
+  target pair under this diagnostic search.
+- Limit:
+  This is diagnostic-label simulation recovery evidence only. It is not a
+  strict paper-equivalent claim, robustness proof, contact-model calibration,
+  or hardware readiness.
+- Validation:
+  Focused tests passed with `7 passed in 0.05s`. Full tests passed with
+  `110 passed in 2.40s`; `git diff --check` passed.
+- Next step:
+  Investigate the unresolved `+1 mm` base-z/contact side and the exact
+  `15.0 s` `-1 mm` boundary.

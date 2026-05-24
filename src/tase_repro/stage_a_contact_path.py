@@ -31,6 +31,15 @@ class ContactPathTiming:
         }
 
 
+def parse_joint_vector(text: str, *, expected_size: int | None = None) -> np.ndarray:
+    values = np.asarray([float(part.strip()) for part in text.split(",") if part.strip()], dtype=float)
+    if values.ndim != 1 or len(values) == 0:
+        raise ValueError("joint vector must contain at least one value")
+    if expected_size is not None and len(values) != int(expected_size):
+        raise ValueError(f"joint vector must contain {int(expected_size)} values")
+    return values
+
+
 def rotation_slerp_path(start_rotation: np.ndarray, target_rotation: np.ndarray, alphas: np.ndarray) -> np.ndarray:
     start = np.asarray(start_rotation, dtype=float)
     target = np.asarray(target_rotation, dtype=float)

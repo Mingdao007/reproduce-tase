@@ -31,6 +31,7 @@ from tase_repro.kinematics import (
 )
 from tase_repro.stage_a_contact_path import (
     contact_path_timing,
+    parse_joint_vector,
     path_passes_diagnostic_terminal,
     rotation_slerp_path,
 )
@@ -187,6 +188,24 @@ def main() -> int:
     parser.add_argument("--duration-s", type=float, default=None)
     parser.add_argument("--continuity-weight", type=float, default=0.02)
     parser.add_argument("--linear-posture-weight", type=float, default=0.002)
+    parser.add_argument(
+        "--base-z-offset-delta-m",
+        type=float,
+        default=0.0,
+        help="Additive diagnostic perturbation to the setup-derived base z offset.",
+    )
+    parser.add_argument(
+        "--target-q",
+        default=None,
+        help="Comma-separated diagnostic terminal target q override. Defaults to the selected Stage A target config.",
+    )
+    parser.add_argument("--target-label", default=None, help="Label to record when --target-q is provided.")
+    parser.add_argument(
+        "--initial-q",
+        default=None,
+        help="Comma-separated Stage A start q override. Defaults to the setup metrics initial_q.",
+    )
+    parser.add_argument("--initial-label", default=None, help="Label to record when --initial-q is provided.")
     args = parser.parse_args()
 
     config_path = (ROOT / args.config).resolve()
@@ -202,15 +221,31 @@ def main() -> int:
 
     model_path = (ROOT / cfg["ur10e_mujoco"]["mjcf_path"]).resolve()
     model = load_model(model_path)
-    apply_base_z_offset(model, float(setup["base_z_offset_m"]))
+    base_z_offset_nominal = float(setup["base_z_offset_m"])
+    base_z_offset = base_z_offset_nominal + float(args.base_z_offset_delta_m)
+    apply_base_z_offset(model, base_z_offset)
     data = make_data(model)
     q_min, q_max = joint_ranges(model)
     site_name = str(setup["site_name"])
     plane_geom_name = str(setup["plane_geom_name"])
     contact_geom_name = str(setup["contact_geom_name"])
     target_force = float(setup["target_force_N"])
-    q_initial = np.asarray(setup["initial_q"], dtype=float)
-    q_target = np.asarray(target["q_rad"], dtype=float)
+    if args.initial_q is None:
+        q_initial = np.asarray(setup["initial_q"], dtype=float)
+        initial_source = str(setup_path)
+        initial_label = "setup_metrics_initial_q"
+    else:
+        q_initial = parse_joint_vector(str(args.initial_q), expected_size=model.nq)
+        initial_source = "cli_initial_q"
+        initial_label = args.initial_label or "manual_cli_initial_q"
+    if args.target_q is None:
+        q_target = np.asarray(target["q_rad"], dtype=float)
+        target_source = str(target_config_path)
+        target_label = str(target["label"])
+    else:
+        q_target = parse_joint_vector(str(args.target_q), expected_size=model.nq)
+        target_source = "cli_target_q"
+        target_label = args.target_label or "manual_cli_terminal_target"
     reference_xy = np.asarray(setup["reference_xy_m"], dtype=float)
     surface_normal = np.asarray(setup["surface_normal_world"], dtype=float)
 
@@ -338,8 +373,16 @@ def main() -> int:
         "model": str(model_path),
         "setup_metrics": str(setup_path),
         "stage_a_target_config": str(target_config_path),
-        "selected_target_label": target["label"],
+        "selected_target_label": target_label,
+        "initial_label": initial_label,
+        "initial_source": initial_source,
+        "initial_q_rad": [float(x) for x in q_initial],
+        "target_source": target_source,
+        "target_q_rad": [float(x) for x in q_target],
         "claim_scope": "offline_quasi_static_contact_path_not_online_controller_or_hardware",
+        "base_z_offset_nominal_m": base_z_offset_nominal,
+        "base_z_offset_delta_m": float(args.base_z_offset_delta_m),
+        "base_z_offset_m": base_z_offset,
         "knot_count": knot_count,
         "max_nfev": int(args.max_nfev),
         "continuity_weight": float(args.continuity_weight),
@@ -367,7 +410,11 @@ def main() -> int:
         "",
         f"Run root: `{out_dir}`",
         "",
-        f"- Selected label: `{target['label']}`",
+        f"- Initial label: `{initial_label}`",
+        f"- Selected label: `{target_label}`",
+        f"- Initial source: `{initial_source}`",
+        f"- Target source: `{target_source}`",
+        f"- Base-z offset delta m: `{args.base_z_offset_delta_m}`",
         f"- Knot count: `{knot_count}`",
         f"- Path gate pass: `{path_gate['passed']}`",
         f"- Terminal diagnostic gate pass: `{terminal_gate['passed']}`",

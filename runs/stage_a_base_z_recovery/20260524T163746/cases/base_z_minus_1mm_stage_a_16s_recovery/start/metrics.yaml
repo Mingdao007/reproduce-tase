@@ -1,0 +1,112 @@
+case: base_z_minus_1mm_stage_a_16s_recovery
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: -0.001
+base_z_offset_m: -0.04712594095298278
+target_force_N: 5.0
+site_name: tcp_site_unverified_85mm
+contact_geom_name: contact_tip
+plane_geom_name: contact_plane
+start_max_nfev: 300
+start_posture_weight: 0.01
+thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.004
+candidate_count: 2
+pass_count: 1
+initial_candidate: &id001
+  seed_label: initial_unoptimized
+  q:
+  - 0.0
+  - -0.1
+  - 0.15
+  - -0.05
+  - 0.0
+  - 0.0
+  cost: null
+  success: true
+  status: 0
+  message: not optimized
+  nfev: 0
+  tcp_m:
+  - 0.00497792942394327
+  - 0.0
+  - -0.0012016646843597822
+  target_force_N: 5.0
+  force_N: 99.25913350230987
+  force_error_N: 94.25913350230987
+  tangential_error_m: 0.0
+  force_normal_orientation_error_rad: 0.17453292523411995
+  target_contact_count: 1
+  criteria:
+    force_error_N:
+      actual: 94.25913350230987
+      operator: <=
+      threshold: 0.25
+      passed: false
+    tangential_error_m:
+      actual: 0.0
+      operator: <=
+      threshold: 0.004
+      passed: true
+    target_contact_count:
+      actual: 1
+      operator: '>='
+      threshold: 1
+      passed: true
+  failed_criteria:
+  - force_error_N
+  passed: false
+  max_gate_ratio: 377.03653400923946
+best_candidate: &id002
+  seed_label: least_squares_start_rebalance
+  q:
+  - -0.00382995079485833
+  - -0.12042642914233553
+  - 0.16239548809635068
+  - -0.04389699823911278
+  - 0.00012907750842018877
+  - 0.016521133761834318
+  cost: 0.3775657398066048
+  success: false
+  status: 0
+  message: The maximum number of function evaluations is exceeded.
+  nfev: 300
+  tcp_m:
+  - 0.008453719102421821
+  - 1.8257497650319731e-06
+  - -0.000907415499718206
+  target_force_N: 5.0
+  force_N: 5.001961562479315
+  force_error_N: 0.0019615624793152264
+  tangential_error_m: 0.0034757901579900124
+  force_normal_orientation_error_rad: 0.15994043789349663
+  target_contact_count: 1
+  criteria:
+    force_error_N:
+      actual: 0.0019615624793152264
+      operator: <=
+      threshold: 0.25
+      passed: true
+    tangential_error_m:
+      actual: 0.0034757901579900124
+      operator: <=
+      threshold: 0.004
+      passed: true
+    target_contact_count:
+      actual: 1
+      operator: '>='
+      threshold: 1
+      passed: true
+  failed_criteria: []
+  passed: true
+  max_gate_ratio: 0.8689475394975031
+candidates:
+- *id001
+- *id002
+warnings:
+- start contact rebalance only
+- orientation is recorded but not gated for the Stage A start endpoint
+- simulation-only and not hardware-ready

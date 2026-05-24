@@ -237,12 +237,15 @@ smoke runs regress.
   `14.5 s`, the `0.12 rad/s` qdot limit passes at `18.0 s`, and Stage B passes
   at `paper_time_scale = 0.012` but not `0.0125`. It does not recover 1 mm
   base-z/contact perturbations.
+- The v66 base-z recovery audit recovers `base_z_minus_1mm` only when Stage A
+  is extended to `16.0 s` and the start/terminal endpoints are reoptimized.
+  The exact `15.0 s` boundary and `base_z_plus_1mm` remain unresolved.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should test
-perturbation-aware Stage A path reoptimization against the remaining v64
-base-z/contact failure cases. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should focus on
+the unresolved `+1 mm` contact side and the exact `15.0 s` `-1 mm` boundary.
+Keep contact, drift, terminal orientation, force error, and qdot saturation
+visible together.

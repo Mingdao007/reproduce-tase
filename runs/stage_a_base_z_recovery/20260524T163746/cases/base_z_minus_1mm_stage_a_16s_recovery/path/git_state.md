@@ -1,0 +1,22 @@
+# Git State
+
+- Branch: `exp/tase-ur10e-v66-base-z-path-recovery`
+- Commit: `a50628bb7351b12d59320e69ec85bce0acca1e96`
+- Dirty tree: `True`
+- Status:
+
+```text
+M scripts/audit_stage_a_contact_path.py
+ M src/tase_repro/stage_a_contact_path.py
+ M tests/test_stage_a_contact_path.py
+?? runs/stage_a_base_z_recovery/
+?? scripts/audit_stage_a_base_z_recovery.py
+?? src/tase_repro/base_z_recovery.py
+?? tests/test_base_z_recovery.py
+```
+
+- Command:
+
+```bash
+/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_stage_a_contact_path.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --setup-metrics runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml --stage-a-target-config configs/ur10e_adapted_stage_a_target.yaml --output-dir /home/andy/reproduce-tase/runs/stage_a_base_z_recovery/20260524T163746/cases/base_z_minus_1mm_stage_a_16s_recovery/path --initial-q=-0.0038299507948583301,-0.12042642914233553,0.16239548809635068,-0.043896998239112778,0.00012907750842018877,0.016521133761834318 --initial-label base_z_minus_1mm_stage_a_16s_recovery_perturbed_start_contact --target-q=-7.6910068223168909e-09,-0.032733515989918971,-0.00054243037686819333,0.00041347733758968368,1.9081212402948586e-10,0.16021618155854966 --target-label base_z_minus_1mm_stage_a_16s_recovery_perturbed_terminal_target --base-z-offset-delta-m=-0.001 --knot-count 128 --max-nfev 200 --qdot-limit-rad-s 0.15 --duration-s 16.0 --continuity-weight 0.02 --linear-posture-weight 0.002
+```

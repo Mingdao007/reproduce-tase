@@ -6,6 +6,7 @@ from scipy.spatial.transform import Rotation
 
 from tase_repro.stage_a_contact_path import (
     contact_path_timing,
+    parse_joint_vector,
     path_passes_diagnostic_terminal,
     qdot_for_path_duration,
     rotation_slerp_path,
@@ -23,6 +24,15 @@ def test_rotation_slerp_path_returns_start_midpoint_and_target() -> None:
     np.testing.assert_allclose(rotations[-1], target)
     midpoint_angle = Rotation.from_matrix(rotations[1]).as_euler("zyx", degrees=True)[0]
     assert midpoint_angle == pytest.approx(45.0)
+
+
+def test_parse_joint_vector_validates_expected_size() -> None:
+    q = parse_joint_vector("0.0, -0.1, 0.2", expected_size=3)
+
+    np.testing.assert_allclose(q, np.array([0.0, -0.1, 0.2]))
+
+    with pytest.raises(ValueError, match="3 values"):
+        parse_joint_vector("0.0, 0.1", expected_size=3)
 
 
 def test_contact_path_timing_reports_min_duration_and_qdot_utilization() -> None:
