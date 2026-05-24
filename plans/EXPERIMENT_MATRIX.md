@@ -25,6 +25,7 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
+scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 scripts/evaluate_paper_platform_parity.py
 ```
 
@@ -43,6 +44,9 @@ scripts/evaluate_paper_platform_parity.py
   force-error, bound, and residual metrics.
 - Paper-platform parity gate outputs comparing the Python 7DOF candidate to
   the migrated legacy MATLAB/RNN verification reports.
+- Paper-platform q7 variant probe outputs showing whether the Fig.6 q7
+  landmark changes across supported solver, orientation, and force-integral
+  variants.
 
 ## Pass/Fail Criteria
 
@@ -145,6 +149,11 @@ them rather than deleting them.
 - The v47 uncapped 30 s KKT candidate passes the strict gate's
   paper-assumption compatibility check. Strict parity now fails only on the
   q7-at-22 s landmark.
+- The v48 q7 variant probe shows the q7 landmark mismatch is not explained by
+  the current supported Python solver, orientation, or force-integral-cap
+  variants. Across eight 30 s rows, q7 remains in
+  `1.661263839866546-1.6835894792145727 rad` and `0 / 8` rows meet the
+  `2.5 rad` figure-match tolerance.
 
 ## Next Executable Step
 
@@ -153,4 +162,5 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should target the measured q7-at-22 s mismatch directly.
+should compare Python Panda kinematics and q trajectories against the legacy
+MATLAB/RNN Fig.6 raw data or audit the figure-match q7 landmark provenance.

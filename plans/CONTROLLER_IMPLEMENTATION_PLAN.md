@@ -23,6 +23,7 @@ contracts are testable.
 - `src/tase_repro/paper_7dof.py`
 - `scripts/run_controller_smoke.py`
 - `scripts/run_paper_7dof_section_v.py`
+- `scripts/run_paper_7dof_q7_variant_probe.py`
 - `scripts/run_paper_trajectory_force_motion.py`
 - `scripts/run_timing_feasibility_sweep.py`
 - `tests/test_controller.py`
@@ -43,6 +44,7 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
+scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 ```
 
 ## Expected Outputs
@@ -172,6 +174,10 @@ smoke runs regress.
 - The v47 uncapped KKT candidate passes force/contact, hard bounds, and the
   strict gate's paper-assumption compatibility check. q7 at 22 s remains
   mismatched at `1.6680622878116045 rad`.
+- The v48 q7 variant probe shows the mismatch persists across the current
+  supported Python solver, orientation, and force-integral-cap variants. The
+  eight-row q7 range is `0.02232563934802667 rad`, and the closest variant is
+  still `0.8164105207854273 rad` away from the figure-match q7 reference.
 
 ## Next Executable Step
 
@@ -181,6 +187,7 @@ task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
-paper-platform work should target the q7 landmark mismatch directly. Keep
-contact, drift, terminal orientation, force error, and qdot saturation visible
-together.
+paper-platform work should target Panda/Franka model provenance, legacy Fig.6
+raw trajectory comparison, or figure-match tuning provenance rather than
+cycling the already-tested q7 variant knobs. Keep contact, drift, terminal
+orientation, force error, and qdot saturation visible together.

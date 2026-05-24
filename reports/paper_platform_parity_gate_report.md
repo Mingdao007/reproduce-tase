@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v47-paper-7dof-q7-variant-probe`
+Branch: `exp/tase-ur10e-v48-paper-7dof-q7-mismatch-probe`
 
 ## Scope
 
@@ -26,6 +26,8 @@ paper-equivalent parity.
   `configs/paper_platform_parity.yaml`
 - Gate output:
   `runs/paper_platform_parity_eval/20260524T121542`
+- q7 variant probe output:
+  `runs/paper_7dof_q7_variant_probe/20260524T122345`
 
 ## Gate Definition
 
@@ -81,8 +83,15 @@ r-sweep coverage is present. It no longer relies on the finite force-integral
 cap. It still cannot be called paper-equivalent numerical parity because the
 strict gate fails on the Fig.6 q7 landmark.
 
+The v48 q7 variant probe checks the supported Python solver, orientation, and
+force-integral-cap variants without changing the gate. Across eight full
+30 s rows, q7 at 22 s remains in `1.661263839866546-1.6835894792145727 rad`;
+`0 / 8` rows are within the `0.05 rad` tolerance of the `2.5 rad`
+figure-match reference.
+
 ## Next Step
 
-To pursue paper-platform parity, investigate why q7 at 22 s is far from the
-figure-match reference. Keep this path separate from UR10e adapted simulation
-and hardware readiness claims.
+To pursue paper-platform parity, compare the Python Panda kinematics and q
+trajectory against the legacy MATLAB/RNN Fig.6 raw data or audit the
+figure-match q7 landmark provenance. Keep this path separate from UR10e
+adapted simulation and hardware readiness claims.

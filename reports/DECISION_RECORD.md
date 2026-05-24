@@ -994,3 +994,25 @@
   The finite force-integral cap is no longer a strict-gate blocker for the
   current Python 7DOF line. Future paper-platform work should focus on the
   q7-at-22 s mismatch and model/provenance or redundancy differences.
+
+## D053: Treat q7 Mismatch As Variant-Insensitive Across Current Python Modes
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record the v48 q7 variant probe as evidence that the Fig.6 q7-at-22 s
+  mismatch is not explained by the current supported Python solver,
+  orientation, or force-integral-cap variants.
+- Reason:
+  The probe at `runs/paper_7dof_q7_variant_probe/20260524T122345` covers all
+  eight combinations of `kkt_projection`/`pinv_bounded`,
+  `force_shortest_arc`/`normal_only`, and uncapped/`0.1` force integral over
+  the full 30 s Fig.6 window. All rows execute successfully and expose q7 at
+  22 s. The q7 range is only `0.02232563934802667 rad`, the closest variant is
+  still `0.8164105207854273 rad` away from the `2.5 rad` figure-match
+  reference, and `figure_match_pass_count = 0`.
+- Consequence:
+  Do not keep cycling through these local Python knobs as the primary q7
+  parity strategy. The next paper-platform branch should compare Python
+  Panda kinematics and q trajectories against the legacy MATLAB/RNN raw Fig.6
+  data or audit the provenance of the figure-match q7 landmark.

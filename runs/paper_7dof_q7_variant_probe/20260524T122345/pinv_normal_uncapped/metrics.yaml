@@ -1,0 +1,83 @@
+run_id: 20260524T122345
+git_commit: 48683797d62c4bbee0d8e1dbaeaacd5a4c545b68
+git_status_short: ''
+variant_label: pinv_normal_uncapped
+metrics:
+  execution_success: true
+  contact_force_tail_success: true
+  claim_level: paper_platform_7dof_q7_variant_probe
+  duration_s: 30.0
+  dt_s: 0.002
+  sample_count: 15001
+  solver_mode: pinv_bounded
+  orientation_mode: normal_only
+  force_loop_mode: paper_literal
+  z0_convention: q0_forward_kinematics_height
+  z0_m: 0.4868820523028392
+  plane_z_m: 0.4870070523028392
+  max_abs_q_rad: 2.499787333434461
+  max_abs_qdot_rad_s: 1.2568222553378272
+  q_bound_violation_count: 0
+  qdot_bound_violation_count: 0
+  velocity_clamp_fraction: 0.0919938670755283
+  contact_fraction: 0.8900739950669956
+  tail_contact_fraction: 1.0
+  desired_rotation_valid_fraction: 1.0
+  task_residual_rms: 0.04502953017910463
+  tail_position_error_mean_m: 3.057721258257113e-06
+  tail_orientation_error_mean_rad: 7.569367112835938e-07
+  tail_force_error_mean_N: 0.006717510310330816
+  final_position_error_norm_m: 2.9837902949689704e-06
+  final_orientation_error_norm_rad: 1.3727625449258312e-06
+  final_force_error_N: 0.006791196921454912
+  max_condition_number: 8.187543676935332
+  fig6_q7_sample_time_s: 22.0
+  fig6_q7_at_22s_rad: 1.661263839866546
+  fig6_q7_abs_error_to_2p5_rad: 0.838736160133454
+  variant_label: pinv_normal_uncapped
+  force_integral_limit: .inf
+  force_integral_slug: uncapped
+  fig6_q7_available: true
+  fig6_q7_reference_figure_match_rad: 2.5
+  fig6_q7_reference_formula_faithful_rad: 1.124179
+  fig6_q7_abs_error_to_figure_match_rad: 0.838736160133454
+  fig6_q7_abs_error_to_formula_faithful_rad: 0.537084839866546
+  fig6_q7_matches_figure_match_tolerance: false
+config:
+  duration_s: 30.0
+  dt_s: 0.002
+  q0_rad:
+  - 0.0
+  - -0.7853981633974483
+  - 0.0
+  - -2.356194490192345
+  - 0.0
+  - 1.5707963267948966
+  - 0.7853981633974483
+  radius_m: 0.2
+  omega_rad_s: 0.2
+  desired_force_N: 5.0
+  epsilon: 0.022
+  kp: 4.0
+  ko: 5.0
+  kf: 1.0
+  md_kg: 12.0
+  bd_N_s_m: 550.0
+  finite_time_power: 0.6666666666666666
+  q_min_rad: -2.5
+  q_max_rad: 2.5
+  qdot_min_rad_s: -1.5
+  qdot_max_rad_s: 1.5
+  escape_velocity_alpha: 2.0
+  communication_delay_s: 0.032
+  max_angular_speed_rad_s: 1.0
+  contact_stiffness_N_m: 40000.0
+  contact_damping_N_s_m: 220.0
+  max_contact_force_N: 50.0
+  force_integral_limit: .inf
+  force_integral_leak: 0.0
+  force_min_norm_N: 1.0e-06
+  orientation_mode: normal_only
+  solver_mode: pinv_bounded
+  force_loop_mode: paper_literal
+  z0_convention: q0_forward_kinematics_height

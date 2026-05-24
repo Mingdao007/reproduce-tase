@@ -21,6 +21,7 @@ adapted formulation without relying on redundant null-space behavior.
 - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
 - `src/tase_repro/panda_kinematics.py`
 - `src/tase_repro/paper_7dof.py`
+- `scripts/run_paper_7dof_q7_variant_probe.py`
 - Future controller code under `src/tase_repro/`
 
 ## Commands To Run
@@ -29,6 +30,7 @@ adapted formulation without relying on redundant null-space behavior.
 scripts/run_tests.sh tests/test_kinematics.py
 scripts/run_tests.sh tests/test_constraints.py
 scripts/run_tests.sh tests/test_panda_kinematics.py tests/test_paper_7dof.py
+scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 ```
 
 ## Expected Outputs
@@ -82,9 +84,12 @@ the decision record and revert only the affected controller commit.
   force-integral cap remains an adapted assumption.
 - The v47 uncapped KKT candidate closes the force-integral-cap assumption gap.
   Strict parity still fails because q7 at 22 s remains mismatched.
+- The v48 q7 variant probe shows the mismatch is insensitive to the current
+  supported Python choices for KKT vs pseudoinverse, force-normal vs
+  normal-only orientation, and uncapped vs `0.1` capped force integral.
 
 ## Next Executable Step
 
-For the paper-platform line, investigate the q7-at-22 s mismatch or verify the
-Panda/Franka DH model before upgrading the claim. Keep this separate from
-UR10e adapted controller iterations.
+For the paper-platform line, verify the Panda/Franka DH model and compare the
+Python q trajectory against legacy MATLAB/RNN Fig.6 raw data before upgrading
+the claim. Keep this separate from UR10e adapted controller iterations.

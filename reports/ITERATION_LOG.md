@@ -1778,3 +1778,43 @@
   `2.5 rad`.
 - Next step:
   Investigate the q7 landmark mismatch directly.
+
+## 2026-05-24 v48 Paper 7DOF q7 Mismatch Probe
+
+- Branch: `exp/tase-ur10e-v48-paper-7dof-q7-mismatch-probe`
+- Starting commit: `5a6888ae76edf448ed61135941b50199d2bcf8af`
+- Code commit:
+  `48683797d62c4bbee0d8e1dbaeaacd5a4c545b68`
+- Files added:
+  - `scripts/run_paper_7dof_q7_variant_probe.py`
+  - `reports/paper_7dof_q7_variant_probe_report.md`
+  - `runs/paper_7dof_q7_variant_probe/20260524T122345/**`
+- Files updated:
+  - `tests/test_paper_7dof.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_7dof.py`
+  - `scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0`
+  - `scripts/run_tests.sh`
+- Result:
+  Added a reusable q7 variant probe and recorded a full 30 s, eight-variant
+  matrix. All variants executed successfully, all exposed q7 at 22 s, q7
+  stayed within `1.661263839866546-1.6835894792145727 rad`, and
+  `figure_match_pass_count = 0`.
+- Validation:
+  Full tests passed with `81 passed in 2.32s`.
+- Limit:
+  This does not pass strict paper-platform parity. It narrows the remaining
+  q7 mismatch away from the tested solver/orientation/cap knobs and toward
+  model provenance, redundancy/nullspace behavior, or legacy figure-match
+  tuning.
+- Next step:
+  Compare Python Panda kinematics and q trajectories against legacy MATLAB
+  Fig.6 raw data or audit the figure-match q7 landmark provenance.

@@ -1321,6 +1321,28 @@ Legacy source root:
   `paper_assumption_compatibility`; the only remaining strict-gate failure is
   `fig6_q7_22s_landmark`.
 
+## V48 Paper 7DOF q7 Mismatch Probe
+
+### Supported Python variant matrix for q7 at 22 s
+
+- Run:
+  - `runs/paper_7dof_q7_variant_probe/20260524T122345`
+- Command:
+  `scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0`
+- Git state at run time:
+  commit `48683797d62c4bbee0d8e1dbaeaacd5a4c545b68`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  top-level `summary.yaml`, `summary.json`, `summary.md`, plus per-variant
+  `metrics.yaml`, `metrics.json`, and `summary.md` under
+  `kkt_force_uncapped`, `kkt_force_cap0p1`, `kkt_normal_uncapped`,
+  `kkt_normal_cap0p1`, `pinv_force_uncapped`, `pinv_force_cap0p1`,
+  `pinv_normal_uncapped`, and `pinv_normal_cap0p1`.
+- Result:
+  All eight variants execute successfully and expose q7 at 22 s. q7 ranges
+  from `1.661263839866546` to `1.6835894792145727 rad`; none are within the
+  `0.05 rad` tolerance of the `2.5 rad` figure-match reference.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
