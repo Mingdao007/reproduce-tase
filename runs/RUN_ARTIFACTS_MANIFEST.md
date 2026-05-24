@@ -1585,6 +1585,23 @@ Legacy source root:
   path feasibility, trajectory feasibility, paper-equivalent feasibility, or
   hardware readiness.
 
+## V58 Stage A Target Selection
+
+### Selected diagnostic terminal setup target
+
+- Config:
+  - `configs/ur10e_adapted_stage_a_target.yaml`
+- Report:
+  - `reports/stage_a_target_selection_report.md`
+- Source evidence:
+  - `runs/terminal_setup_gate_eval/20260524T143019/metrics.yaml`
+  - `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml`
+- Result:
+  The next Stage A simulation prototype target label is explicitly selected as
+  `ur10e_adapted_terminal_setup_diagnostic`. The selected q target is recorded
+  in the config. This is a target-selection artifact only, not a controller or
+  feasibility run.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

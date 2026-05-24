@@ -191,14 +191,16 @@ them rather than deleting them.
   gate-definition conflict rather than a broad-seed contact discovery issue.
 - The v57 adapted terminal setup gate passes `1 / 513` terminal candidates as
   a diagnostic-only label, with no path or trajectory claim.
+- The v58 target-selection decision chooses the v57 diagnostic terminal setup
+  as the next Stage A simulation prototype target. This is not a controller or
+  trajectory-feasibility claim.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
-achieved. Future experiment branches should target model/TCP/contact
-validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
-paper-platform parity/model-provenance gaps. The next paper-platform step
-should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by choosing the target setup label before designing another Stage
-A controller.
+achieved. Future UR10e experiment branches should implement or evaluate a
+Stage A controller prototype against the v58 selected
+`ur10e_adapted_terminal_setup_diagnostic` target, while keeping strict
+paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
+labels.

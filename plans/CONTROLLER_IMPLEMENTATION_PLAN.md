@@ -211,19 +211,18 @@ smoke runs regress.
 - The v57 adapted terminal setup gate is diagnostic-only and passes `1 / 513`
   terminal candidates. It must not be used as a path, trajectory,
   paper-equivalent, or hardware-readiness claim.
+- The v58 target-selection decision chooses
+  `ur10e_adapted_terminal_setup_diagnostic` for the next Stage A simulation
+  prototype. This removes the label ambiguity before another controller
+  experiment, but it is still not a controller or feasibility claim.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. Any future controller experiment should either revisit the
-model/TCP/contact geometry, introduce a genuinely different Stage A
-formulation, or feed the paper-platform parity gate with a stronger candidate.
-The parity gate now exists, the formula candidate covers 30 s, and the tuned
-figure-match candidate is implemented separately. Future work should formalize
-split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. For the UR10e adapted line, choose which setup label the next
-Stage A controller should target before implementation: strict
-paper-equivalent setup, v38 relaxed trajectory-after-setup budget, or v57
-diagnostic terminal setup. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should
+implement or evaluate a Stage A prototype against the v58 selected
+`ur10e_adapted_terminal_setup_diagnostic` target, while preserving the strict
+paper-equivalent setup and v38 trajectory-after-relaxed-setup labels as
+separate claims. Keep contact, drift, terminal orientation, force error, and
+qdot saturation visible together.

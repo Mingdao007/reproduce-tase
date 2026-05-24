@@ -80,12 +80,14 @@ work exists only on that branch.
   but v55 still finds `0 / 513` strict terminal passes after enforcing the
   intended `contact_plane` / `contact_tip` force pair. v56 shows the remaining
   strict setup blocker is a gate-definition conflict. v57 adds a diagnostic
-  terminal setup label only; it is not a path or trajectory claim.
+  terminal setup label only; v58 selects that label as the next Stage A
+  simulation prototype target. This is not a path or trajectory claim.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Choose which setup label the next Stage A controller should target: strict
-paper-equivalent setup, v38 relaxed trajectory-after-setup budget, or v57
-diagnostic terminal setup.
+Implement or evaluate the next Stage A controller prototype against the v58
+selected `ur10e_adapted_terminal_setup_diagnostic` target while keeping strict
+paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
+labels.

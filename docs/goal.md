@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v57 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates under explicitly relaxed diagnostic thresholds, but it is not paper-equivalent, not path or trajectory feasibility, and not hardware-ready. Choose the next branch deliberately: decide which setup label the next Stage A controller should target, then implement or evaluate that controller only against the named label. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v58 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates under explicitly relaxed diagnostic thresholds, and v58 selects that diagnostic terminal target for the next Stage A simulation prototype. This is not paper-equivalent, not path or trajectory feasibility, not a controller implementation, and not hardware-ready. The next branch should implement or evaluate a Stage A controller prototype only against `ur10e_adapted_terminal_setup_diagnostic`, unless a later decision changes the target label. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v57` repository state. The project goal is to reproduce the T-ASE finite-time
+`v58` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v57-adapted-terminal-gate`
-- Current v57 code commit:
-  `167ca325dd71c2d25281ebe1c86a7e7e27c85d94`
+  `exp/tase-ur10e-v58-stage-a-target-selection`
+- Current v58 starting commit:
+  `6209be0a09a525bb01b43d8a9e4d01521768d131`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -123,6 +123,11 @@ Current accepted claims:
 - `ur10e_adapted_terminal_setup_diagnostic`: v57 adds a diagnostic-only
   terminal setup gate and evaluates the v55 terminal run at `1 / 513` passes.
   This is not a path, trajectory, paper-equivalent, or hardware claim.
+- `ur10e_stage_a_target_selection`: v58 selects
+  `ur10e_adapted_terminal_setup_diagnostic` as the next Stage A simulation
+  prototype target. The selected q target is recorded in
+  `configs/ur10e_adapted_stage_a_target.yaml`; this is still not a controller,
+  path, trajectory, paper-equivalent, or hardware-readiness claim.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -132,9 +137,11 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by choosing which setup label the next Stage A
-  controller should target: strict paper-equivalent setup, v38 relaxed
-  trajectory-after-setup budget, or v57 diagnostic terminal setup.
+- Continue UR10e adapted work by implementing or evaluating a Stage A
+  controller prototype against the selected
+  `ur10e_adapted_terminal_setup_diagnostic` target, while preserving strict
+  paper-equivalent setup and v38 trajectory-after-relaxed-setup as separate
+  labels.
 
 ## Safety Boundary
 

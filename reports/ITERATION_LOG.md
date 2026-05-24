@@ -2231,3 +2231,45 @@
   Before any new Stage A controller work, choose which setup label the
   controller targets: strict paper-equivalent setup, v38 relaxed
   trajectory-after-setup budget, or v57 diagnostic terminal setup.
+
+## 2026-05-24 v58 Stage A Target Selection
+
+- Branch: `exp/tase-ur10e-v58-stage-a-target-selection`
+- Starting commit:
+  `6209be0a09a525bb01b43d8a9e4d01521768d131`
+- Files added:
+  - `configs/ur10e_adapted_stage_a_target.yaml`
+  - `reports/stage_a_target_selection_report.md`
+- Files updated:
+  - `README.md`
+  - `docs/goal.md`
+  - `plans/MASTER_PLAN.md`
+  - `plans/MUJOCO_ENVIRONMENT_PLAN.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `tests/test_terminal_setup_gate.py`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_terminal_setup_gate.py`
+  - `python3 -m py_compile src/tase_repro/terminal_setup_gate.py scripts/evaluate_terminal_setup_gate.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The next Stage A simulation prototype target label is now explicitly
+  selected as `ur10e_adapted_terminal_setup_diagnostic`. The selected target
+  comes from `runs/terminal_setup_gate_eval/20260524T143019/metrics.yaml` and
+  uses q =
+  `[-1.1745579135426345e-08, -0.02440152369247043, -0.00048297839388595083, 0.0002982283198967393, 2.405416739224147e-10, 0.12671314216940235]`.
+- Limit:
+  This is a target-selection decision only. It is not a controller
+  implementation and not a path, trajectory, paper-equivalent, or hardware
+  readiness claim.
+- Validation:
+  Full tests passed with `93 passed in 2.49s`. `git diff --check` passed.
+- Next step:
+  Implement or evaluate the next Stage A controller prototype against the v58
+  selected diagnostic terminal setup target, while preserving the claim
+  boundary.

@@ -1227,3 +1227,22 @@
   strict paper-equivalent setup, v38 relaxed trajectory-after-setup budget, or
   v57 diagnostic terminal setup. These labels must not be merged into a single
   paper-equivalent claim.
+
+## D063: Target V57 Diagnostic Terminal Setup For The Next Stage A Prototype
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use `ur10e_adapted_terminal_setup_diagnostic` as the target label for the
+  next Stage A simulation prototype.
+- Reason:
+  Strict paper-equivalent setup remains blocked, and v38 relaxed
+  trajectory-after-setup is an existing trajectory-label claim rather than a
+  terminal target. The v57 diagnostic gate supplies one explicit terminal
+  target candidate, recorded in `configs/ur10e_adapted_stage_a_target.yaml`.
+- Consequence:
+  Any next Stage A controller work must evaluate against the selected
+  diagnostic terminal target unless a later decision changes the target label.
+  This target remains simulation-only and must not be relabeled as path
+  feasibility, trajectory feasibility, paper-equivalent feasibility, or
+  hardware readiness.
