@@ -1853,3 +1853,34 @@
   or the accepted diagnostic gate. This is not a recovery, calibrated model,
   robustness proof, strict paper-equivalent feasibility, or hardware-ready
   control claim.
+
+## D090: Treat The Remaining 0.119 Rad Miss As A Calibration-Definition Margin
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v85 as evidence that the remaining weighted `+1.0 mm`,
+  `0.119 rad` diagnostic miss is small enough to be treated as a
+  contact-orientation calibration/definition margin, not a reason for more
+  Stage B qdot tuning.
+- Reason:
+  The v85 run at
+  `runs/contact_orientation_calibration_margin/20260524T235723` reads the v84
+  sensitivity audit, v83 weighted gate/time matrix, v69 positive terminal
+  orientation audit, v77 focused orientation-gate boundary, and current
+  contact/acceptance configs. The hardest remaining weighted row exceeds the
+  `0.119 rad` gate by `0.0005664520369604714 rad`
+  (`0.03245531101442353 deg`) with `0.0` qdot saturation. Under the v84
+  high-end terminal slope proxy, that corresponds to
+  `0.014963398168061883 mm` (`14.963398168061882 um`) of equivalent base-z or
+  contact-point correction. The contact-point versus legacy-center convention
+  shift is `0.024227219479550713 rad`, about `42.77` times larger than the
+  remaining required rotation.
+- Consequence:
+  Existing metrics show scoped recovery at `0.11955`, `0.1196`, and
+  `0.11995 rad`, but those gates are not accepted replacements without
+  calibrated TCP/contact point, contact patch convention, plane normal, and
+  force-frame evidence. The next work should collect or define those
+  calibration facts before more controller tuning. This is not a recovery,
+  calibrated model, robustness proof, strict paper-equivalent feasibility, or
+  hardware-ready control claim.

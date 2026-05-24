@@ -3230,3 +3230,45 @@
   Tighten terminal/contact orientation definition, measured mounted-stack
   geometry, contact point convention, and plane/contact normal calibration
   before more Stage B qdot tuning for the `0.119 rad` row.
+
+## 2026-05-24 v85 Contact Orientation Calibration Margin
+
+### Quantify the physical/modeling correction for the remaining row
+
+- Branch:
+  `exp/tase-ur10e-v85-contact-orientation-calibration`
+- Run:
+  `runs/contact_orientation_calibration_margin/20260524T235723`
+- Report:
+  `reports/contact_orientation_calibration_margin_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_contact_orientation_calibration_margin.py`
+  - `python3 scripts/audit_contact_orientation_calibration_margin.py`
+  - `scripts/run_tests.sh`
+- Result:
+  The audit reads the v84 weighted orientation model sensitivity metrics, v83
+  weighted gate/time matrix, v69 positive terminal orientation metrics, v77
+  orientation-gate boundary metrics, and current contact/acceptance configs.
+  The hardest remaining row is the `paper_time_scale = 0.01`,
+  `0.119 rad` weighted `+1.0 mm` row. It needs
+  `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of
+  normal-orientation margin to close the current gate, equivalent to
+  `0.014963398168061883 mm` (`14.963398168061882 um`) under the v84 terminal
+  slope proxy. Existing metrics show scoped recovery at `0.11955`, `0.1196`,
+  and `0.11995 rad`, but v85 does not accept any of those as replacement gates
+  without calibrated geometry/contact-normal evidence.
+- Limit:
+  This is a diagnostic calibration/definition margin audit only. It does not
+  recover the `+1.0 mm`, `0.119 rad` gate, accept a relaxed gate, calibrate the
+  contact model, change controller defaults, prove robustness, prove strict
+  paper-equivalent feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_contact_orientation_calibration_margin.py`
+  passed. Full tests passed with `115 passed in 2.69s`. The run artifact is
+  lightweight: `4` files, `48K`, with no `.npz/.npy/.mat/.tar/.gz/.zip`
+  payloads. `git diff --check` passed.
+- Next step:
+  Collect or define measured mounted-stack TCP/contact point, contact patch
+  convention, plane normal in the robot base frame, force-source/frame
+  reconciliation, and accepted orientation-gate semantics before more Stage B
+  qdot tuning.

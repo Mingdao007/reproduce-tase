@@ -124,6 +124,8 @@ The objective has two separate technical claim levels:
 - `runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml`
 - `reports/weighted_orientation_model_sensitivity_report.md`
 - `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml`
+- `reports/contact_orientation_calibration_margin_report.md`
+- `runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -188,6 +190,7 @@ The objective has two separate technical claim levels:
 | Weighted timing recovery | `scripts/audit_weighted_timing_recovery.py`, `reports/weighted_timing_recovery_report.md`, `runs/weighted_timing_recovery/20260524T231454/metrics.yaml` | v82 shows weighted zero-angular-command priority recovers the faster-timing face: `weighted_kp0_normal1` and `weighted_kp0_normal30` each pass `8 / 8` full positive-delta cells at `paper_time_scale = 0.0075`, and `weighted_kp0_normal1` passes the focused `+1.0 mm` timing sweep through `paper_time_scale = 0.01` |
 | Weighted gate/time matrix | `scripts/audit_weighted_gate_time_matrix.py`, `reports/weighted_gate_time_matrix_report.md`, `runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml` | v83 shows both weighted scenarios pass the full positive-delta `paper_time_scale = 0.01`, `0.11995 rad` matrix `8 / 8`; the `0.119 rad` gate still only passes through `+0.75 mm` and fails at `+1.0 mm`, with the focused `+1.0 mm` row first passing at `0.11955 rad` for `0.0075` timing and `0.1196 rad` for `0.01` timing |
 | Weighted orientation model sensitivity | `scripts/audit_weighted_orientation_model_sensitivity.py`, `reports/weighted_orientation_model_sensitivity_report.md`, `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml` | v84 attributes the remaining `+1.0 mm`, `0.119 rad` miss to a small orientation-model margin: critical rows exceed the gate by less than `0.00057 rad` with `0.0` qdot saturation, while contact-point versus legacy-center geometry shifts +1.0 mm terminal orientation by `0.024227219479550713 rad` |
+| Contact orientation calibration margin | `scripts/audit_contact_orientation_calibration_margin.py`, `reports/contact_orientation_calibration_margin_report.md`, `runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml` | v85 quantifies the hardest remaining weighted row as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) over the `0.119 rad` gate, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the v84 terminal slope proxy; existing recovered gates are not accepted replacement gates without calibrated geometry/normal evidence |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1080,6 +1083,30 @@ Evidence:
 - `reports/weighted_orientation_model_sensitivity_report.md`
 - `runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml`
 
+The contact orientation calibration margin audit can additionally claim:
+
+```text
+ur10e_contact_orientation_calibration_margin:
+  source evidence = v84 + v83 + v69 + v77 metrics
+  hardest row = time0p01_gate0p119:weighted_kp0_normal1
+  current gate = 0.119 rad
+  required normal rotation = 0.0005664520369604714 rad
+  required normal rotation deg = 0.03245531101442353 deg
+  equivalent base-z/contact-point correction = 0.014963398168061883 mm
+  equivalent base-z/contact-point correction = 14.963398168061882 um
+  existing gate recovery evidence = 0.11955, 0.1196, and 0.11995 rad in scoped diagnostic metrics
+  accepted replacement gate = false
+  recovery claim = false
+  contact calibration claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/contact_orientation_calibration_margin_report.md`
+- `runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -1274,6 +1301,14 @@ Evidence:
   convention changes the +1.0 mm terminal orientation by about `0.024 rad`.
   This supports model/measurement/gate-definition work before more Stage B
   qdot tuning, but it is not itself a recovery or calibration.
+- The v85 contact orientation calibration margin audit quantifies the
+  physical/modeling correction needed for the hardest remaining weighted row:
+  `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation
+  margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`)
+  under the v84 terminal slope proxy. It confirms that existing metrics show
+  scoped recovery at `0.11955`, `0.1196`, and `0.11995 rad`, but do not justify
+  accepting any of those as replacement gates without calibrated geometry and
+  contact-normal evidence.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1289,20 +1324,22 @@ Evidence:
 
 ## Audit Conclusion
 
-The overall goal is not complete. The repository is now in a strong
-simulation-audit state for a UR10e adapted result, but it has not achieved
-strict paper-equivalent full staged feasibility or hardware readiness.
+The overall goal is not complete. The repository is now in a stronger
+simulation-audit state for a UR10e adapted result, and v85 quantifies the
+remaining `0.119 rad` row as a calibration/definition margin. It still has not
+achieved strict paper-equivalent full staged feasibility, calibrated contact
+geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
 Treat the faster-timing diagnostic face as recovered under the `0.11995 rad`
-gate. The remaining simulation blocker is the `+1.0 mm`, `0.119 rad`
-orientation-gate row, and v84 shows it is a small orientation-model margin
-rather than qdot saturation. The next work should tighten terminal/contact
-orientation definition, measured mounted-stack/contact geometry, plane/contact
-normal calibration, or the accepted diagnostic gate before more Stage B qdot
-tuning. Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup,
-and v63-v84 diagnostic staged labels separate. Any hardware work still
-requires measured mounted-stack geometry and a separate approved SOP.
+gate, but do not accept a replacement orientation gate from simulation metrics
+alone. The remaining `+1.0 mm`, `0.119 rad` row needs measured or explicitly
+defined mounted-stack TCP/contact point, contact patch convention, plane normal
+in the robot base frame, force-source/frame reconciliation, and orientation
+gate semantics before more Stage B qdot tuning. Keep strict paper-equivalent
+setup, v38 trajectory-after-relaxed-setup, and v63-v85 diagnostic staged
+labels separate. Any hardware work still requires measured mounted-stack
+geometry and a separate approved SOP.

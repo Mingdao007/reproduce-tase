@@ -1,0 +1,256 @@
+run_source: v85 contact orientation calibration margin
+source_runs:
+  weighted_orientation_model_sensitivity:
+    path: /home/andy/reproduce-tase/runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml
+    run_id: null
+    source: v84 weighted orientation model sensitivity
+  weighted_gate_time_matrix:
+    path: /home/andy/reproduce-tase/runs/weighted_gate_time_matrix/20260524T232637/metrics.yaml
+    run_id: 20260524T232637
+    source: v83 weighted zero-angular-command gate/time matrix
+  positive_terminal_orientation:
+    path: /home/andy/reproduce-tase/runs/positive_terminal_orientation/20260524T171705/metrics.yaml
+    run_id: 20260524T171705
+    source: positive terminal orientation gate/model diagnostic audit
+  positive_orientation_gate_boundary:
+    path: /home/andy/reproduce-tase/runs/positive_orientation_gate_boundary/20260524T221842/metrics.yaml
+    run_id: 20260524T221842
+    source: v77 focused +1.0 mm positive orientation-gate boundary audit
+source_configs:
+  ur10e_adapted_acceptance: /home/andy/reproduce-tase/configs/ur10e_adapted_acceptance.yaml
+  ur10e_adapted_stage_a_target: /home/andy/reproduce-tase/configs/ur10e_adapted_stage_a_target.yaml
+  mujoco_ur10e_tilted_plane_tcp_contact_point: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+config_extracts:
+  terminal_setup_diagnostic_gate:
+    description: Diagnostic-only terminal gate derived from v56 contact-manifold evidence;
+      not paper-equivalent and not hardware-ready.
+    source_evidence:
+    - reports/contact_manifold_gate_audit_report.md
+    - runs/contact_manifold_gate_audit/20260524T142404/metrics.yaml
+    - runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+    max_terminal_tangential_error_m: 0.004
+    max_terminal_orientation_error_rad: 0.08
+    max_terminal_force_error_N: 0.25
+    min_target_contact_count: 1
+    qdot_saturation_policy: not_evaluated_terminal_only
+    claim_scope: ur10e_adapted_terminal_setup_diagnostic_only
+  selected_stage_a_target_diagnostic_gate:
+    max_terminal_tangential_error_m: 0.004
+    max_terminal_orientation_error_rad: 0.08
+    max_terminal_force_error_N: 0.25
+    min_target_contact_count: 1
+  contact_model_convention: tcp_site_is_intended_contact_point_when_tcp_local_z_aligns_surface_normal
+  contact_tip_sphere_radius_m: 0.045
+  contact_tip_sphere_center_local_m:
+  - 0.0
+  - 0.0
+  - 0.045
+  expected_normal_world:
+  - 0.1736481777
+  - 0.0
+  - 0.984807753
+current_gate_rad: 0.119
+critical_rows:
+- group: time0p0075_gate0p119:weighted_kp0_normal1
+  paper_time_scale: 0.0075
+  scenario: weighted_kp0_normal1
+  base_z_offset_delta_mm: 1.0
+  gate_rad: 0.119
+  stitched_pass_count: 7
+  case_count: 8
+  stage_a_all_passed: false
+  stage_a_terminal_orientation_rad: 0.11948560786547915
+  stage_a_excess_over_gate_rad: 0.00048560786547915957
+  stage_a_excess_over_gate_deg: 0.02782328119031247
+  stage_b_max_orientation_rad: 0.11954627160547111
+  stage_b_excess_over_gate_rad: 0.0005462716054711186
+  stage_b_excess_over_gate_deg: 0.03129905746133071
+  stage_b_minus_stage_a_rad: 6.0663739991959065e-05
+  stage_b_minus_stage_a_deg: 0.003475776271018241
+  failing_cases:
+  - weighted_kp0_normal1:time0p0075_gate0p119:delta1p000mm
+  max_stage_b_qdot_saturation_fraction: 0.0
+  max_stage_b_tail_qdot_utilization: 0.5177926211135458
+  max_stage_b_tail_force_error_N: 0.0009911909058976187
+- group: time0p0075_gate0p119:weighted_kp0_normal30
+  paper_time_scale: 0.0075
+  scenario: weighted_kp0_normal30
+  base_z_offset_delta_mm: 1.0
+  gate_rad: 0.119
+  stitched_pass_count: 7
+  case_count: 8
+  stage_a_all_passed: false
+  stage_a_terminal_orientation_rad: 0.11948560786547915
+  stage_a_excess_over_gate_rad: 0.00048560786547915957
+  stage_a_excess_over_gate_deg: 0.02782328119031247
+  stage_b_max_orientation_rad: 0.11954627160547111
+  stage_b_excess_over_gate_rad: 0.0005462716054711186
+  stage_b_excess_over_gate_deg: 0.03129905746133071
+  stage_b_minus_stage_a_rad: 6.0663739991959065e-05
+  stage_b_minus_stage_a_deg: 0.003475776271018241
+  failing_cases:
+  - weighted_kp0_normal30:time0p0075_gate0p119:delta1p000mm
+  max_stage_b_qdot_saturation_fraction: 0.0
+  max_stage_b_tail_qdot_utilization: 0.5177926211135458
+  max_stage_b_tail_force_error_N: 0.0009911909058976187
+- group: time0p01_gate0p119:weighted_kp0_normal1
+  paper_time_scale: 0.01
+  scenario: weighted_kp0_normal1
+  base_z_offset_delta_mm: 1.0
+  gate_rad: 0.119
+  stitched_pass_count: 7
+  case_count: 8
+  stage_a_all_passed: false
+  stage_a_terminal_orientation_rad: 0.11948560786547915
+  stage_a_excess_over_gate_rad: 0.00048560786547915957
+  stage_a_excess_over_gate_deg: 0.02782328119031247
+  stage_b_max_orientation_rad: 0.11956645203696047
+  stage_b_excess_over_gate_rad: 0.0005664520369604714
+  stage_b_excess_over_gate_deg: 0.03245531101442353
+  stage_b_minus_stage_a_rad: 8.084417148131184e-05
+  stage_b_minus_stage_a_deg: 0.004632029824111062
+  failing_cases:
+  - weighted_kp0_normal1:time0p01_gate0p119:delta1p000mm
+  max_stage_b_qdot_saturation_fraction: 0.0
+  max_stage_b_tail_qdot_utilization: 0.520987929048311
+  max_stage_b_tail_force_error_N: 0.000991190904368784
+- group: time0p01_gate0p119:weighted_kp0_normal30
+  paper_time_scale: 0.01
+  scenario: weighted_kp0_normal30
+  base_z_offset_delta_mm: 1.0
+  gate_rad: 0.119
+  stitched_pass_count: 7
+  case_count: 8
+  stage_a_all_passed: false
+  stage_a_terminal_orientation_rad: 0.11948560786547915
+  stage_a_excess_over_gate_rad: 0.00048560786547915957
+  stage_a_excess_over_gate_deg: 0.02782328119031247
+  stage_b_max_orientation_rad: 0.11956645203696047
+  stage_b_excess_over_gate_rad: 0.0005664520369604714
+  stage_b_excess_over_gate_deg: 0.03245531101442353
+  stage_b_minus_stage_a_rad: 8.084417148131184e-05
+  stage_b_minus_stage_a_deg: 0.004632029824111062
+  failing_cases:
+  - weighted_kp0_normal30:time0p01_gate0p119:delta1p000mm
+  max_stage_b_qdot_saturation_fraction: 0.0
+  max_stage_b_tail_qdot_utilization: 0.520987929048311
+  max_stage_b_tail_force_error_N: 0.000991190904368784
+hardest_row: time0p01_gate0p119:weighted_kp0_normal1
+positive_orientation_gate_boundary_reference:
+  v77_min_passing_orientation_gate_rad: 0.11998
+  v77_max_stage_b_orientation_error_rad: 0.1199788204275829
+  v77_scope: v72 timing focused +1.0 mm boundary; not the v83 weighted timing row
+equivalent_corrections:
+  required_normal_rotation_rad: 0.0005664520369604714
+  required_normal_rotation_deg: 0.03245531101442353
+  required_gate_increase_rad: 0.0005664520369604714
+  continuous_required_gate_rad: 0.11956645203696047
+  discrete_v83_min_passing_gate_rad: 0.1196
+  stage_a_required_normal_rotation_rad: 0.00048560786547915957
+  stage_a_required_normal_rotation_deg: 0.02782328119031247
+  terminal_slope_rad_per_mm: 0.03785584200850284
+  equivalent_base_z_or_contact_point_mm: 0.014963398168061883
+  equivalent_base_z_or_contact_point_um: 14.963398168061882
+  stage_a_equivalent_base_z_or_contact_point_mm: 0.012827818368696876
+  stage_a_equivalent_base_z_or_contact_point_um: 12.827818368696876
+  contact_point_plus1mm_orientation_rad: 0.11948560786548146
+  legacy_center_plus1mm_orientation_rad: 0.09525838838593075
+  contact_point_vs_legacy_center_delta_rad: 0.024227219479550713
+  contact_point_vs_legacy_center_delta_deg: 1.3881174255153907
+  contact_convention_shift_to_required_rotation_ratio: 42.77011626536238
+gate_options:
+  current_0p119:
+    gate_rad: 0.119
+    recovered: false
+    evidence_scope: full positive-delta weighted matrix at +1.0 mm
+    evidence: critical v83/v84 rows pass 7 / 8 and fail the +1.0 mm row
+    accepted_as_replacement_gate: false
+    replacement_gate_justified_by_existing_metrics: false
+  v83_min_passing_time0p0075:
+    gate_rad: 0.11955
+    recovered: true
+    evidence_scope: focused +1.0 mm gate-boundary row at paper_time_scale = 0.0075
+    evidence: v83 boundary row first passes at this discrete gate
+    accepted_as_replacement_gate: false
+    replacement_gate_justified_by_existing_metrics: false
+  v83_min_passing_time0p01:
+    gate_rad: 0.1196
+    recovered: true
+    evidence_scope: focused +1.0 mm gate-boundary row at paper_time_scale = 0.01
+    evidence: v83 boundary row first passes at this discrete gate
+    accepted_as_replacement_gate: false
+    replacement_gate_justified_by_existing_metrics: false
+  diagnostic_0p11995:
+    gate_rad: 0.11995
+    recovered: true
+    evidence_scope: full positive-delta weighted matrix at paper_time_scale = 0.01
+    evidence: v83 weighted_kp0_normal1 and weighted_kp0_normal30 each pass 8 / 8 and
+      8 / 8
+    accepted_as_replacement_gate: false
+    replacement_gate_justified_by_existing_metrics: false
+calibration_scale_interpretation:
+  accepted_measurement_noise_budget_exists: false
+  required_rotation_is_below_unmeasured_model_convention_shift: true
+  required_rotation_fraction_of_contact_convention_shift: 0.023380810886638986
+  required_equivalent_mm_fraction_of_plus1mm_perturbation: 0.014963398168061883
+  plausibility_statement: The required correction is small relative to the already
+    observed uncalibrated contact-convention sensitivity, so it is plausibly a calibration/definition
+    margin. It is not an accepted noise-budget claim because no measured TCP, contact
+    patch, plane normal, or force-frame calibration has been recorded.
+  model_change_statement: Any accepted recovery must update the measured geometry/normal/gate
+    definition or produce a calibrated model; the legacy sphere-center convention
+    is only a sensitivity comparison and is not an acceptable model change by itself.
+next_measurements:
+- measured mounted-stack TCP/contact point from robot flange or design flange datum
+- verified contact sphere/patch convention and whether the 85 mm EOAT datum is center
+  or surface
+- plane/contact normal measured in the robot base frame
+- force sensor zero, frame, compensation, and UR RTDE versus OnRobot source reconciliation
+- accepted diagnostic orientation definition that states whether force-normal-only
+  or full frame rotation is the gate
+v85_objective_answers:
+- question: 1. What exact orientation margin remains at the hardest currently known
+    row?
+  answer: 0.0005664520369604714 rad (0.03245531101442353 deg) over the 0.119 rad gate
+    at time0p01_gate0p119:weighted_kp0_normal1.
+- question: 2. How large a contact normal angular correction would close that margin?
+  answer: At least 0.0005664520369604714 rad (0.03245531101442353 deg), assuming the
+    correction acts in the error-reducing direction.
+- question: 3. What equivalent contact-point/TCP/base-z correction is implied?
+  answer: 0.014963398168061883 mm (14.963398168061882 um) using the v84 high-end terminal
+    slope proxy of 0.03785584200850284 rad/mm.
+- question: 4. Which correction sizes are plausibly below measurement/calibration
+    noise?
+  answer: The 0.0325 deg normal correction and 15 um equivalent geometry correction
+    are small relative to the current unmeasured model-convention ambiguity, but no
+    accepted measurement noise budget exists yet.
+- question: 5. Which physical measurements are required before a hardware claim?
+  answer: measured mounted-stack TCP/contact point from robot flange or design flange
+    datum; verified contact sphere/patch convention and whether the 85 mm EOAT datum
+    is center or surface; plane/contact normal measured in the robot base frame; force
+    sensor zero, frame, compensation, and UR RTDE versus OnRobot source reconciliation;
+    accepted diagnostic orientation definition that states whether force-normal-only
+    or full frame rotation is the gate
+- question: 6. Do existing metrics justify accepting 0.119, 0.11955, 0.1196, or 0.11995
+    rad?
+  answer: They show which rows recover at those gates, but they do not justify a replacement
+    diagnostic gate without calibrated geometry/normal evidence.
+- question: 7. Does this support more Stage B qdot tuning?
+  answer: No. The hardest weighted rows report 0.0 qdot saturation and miss only by
+    a small orientation margin.
+support_more_stage_b_qdot_tuning: false
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
+  accepted_replacement_gate: false
+  canonical_controller_default: false
+warnings:
+- post-hoc calibration/definition margin audit only
+- does not rerun MuJoCo with a calibrated physical model
+- does not recover the 0.119 rad gate
+- does not accept 0.11955, 0.1196, or 0.11995 rad as replacement gates
+- not strict paper-equivalent feasibility
+- not contact-model calibration
+- not hardware-ready

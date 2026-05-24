@@ -2285,6 +2285,34 @@ Legacy source root:
   default, strict paper-equivalent claim, robustness proof, or hardware
   evidence.
 
+## V85 Contact Orientation Calibration Margin
+
+### Physical/modeling correction size for the remaining orientation row
+
+- Run:
+  - `runs/contact_orientation_calibration_margin/20260524T235723`
+- Command:
+  `python3 scripts/audit_contact_orientation_calibration_margin.py`
+- Git state at run time:
+  parent commit `49083e145d0ff5b3741c40139527b772cd9345a7` with dirty v85
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The audit reads v84, v83, v69, and v77 source metrics plus the current
+  contact/acceptance configs. The hardest remaining weighted `+1.0 mm`,
+  `0.119 rad` row needs `0.0005664520369604714 rad`
+  (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to
+  `0.014963398168061883 mm` (`14.963398168061882 um`) under the v84 terminal
+  slope proxy. Existing metrics show scoped recovery at `0.11955`, `0.1196`,
+  and `0.11995 rad`, but v85 does not accept any as replacement diagnostic
+  gates.
+- Limit:
+  This is diagnostic calibration/definition margin evidence only. It is not a
+  recovery of the `+1.0 mm`, `0.119 rad` gate, accepted gate relaxation,
+  calibrated contact model, canonical controller default, strict
+  paper-equivalent claim, robustness proof, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
