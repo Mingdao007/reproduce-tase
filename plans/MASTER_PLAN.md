@@ -129,13 +129,19 @@ work exists only on that branch.
   formulation and locally recovers the `+1.0 mm`, `0.11995 rad` tightened-gate
   E1-E4 row with planar-primary priority and normal-axis weight `30`. v80
   carries both v79 passing candidates across all eight positive deltas and
-  passes `16 / 16` stitched cells through `+1.0 mm`.
+  passes `16 / 16` stitched cells through `+1.0 mm`. v81 stress-tests those
+  candidates: both pass the focused `+1.0 mm` timing sweep through
+  `paper_time_scale = 0.0065` and first fail at `0.007`, both fail the full
+  positive-delta `paper_time_scale = 0.0075` stress, and both still fail the
+  `+1.0 mm`, `0.119 rad` gate row.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Stress the recovered planar-primary formulation against faster timing and the
-tighter `0.119 rad` orientation gate before claiming anything stronger than
-diagnostic recovery. Keep strict paper-equivalent setup, v38 relaxed
-trajectory-after-relaxed-setup, and v63-v80 diagnostic staged labels separate.
+Choose the next diagnostic branch from the v81 failure modes: either redesign
+faster-timing E2 qdot/tail-utilization at `paper_time_scale = 0.0075`, or
+revisit the terminal/contact model and orientation gate before trying to force
+the `+1.0 mm`, `0.119 rad` case through Stage B tuning. Keep strict
+paper-equivalent setup, v38 relaxed trajectory-after-relaxed-setup, and
+v63-v81 diagnostic staged labels separate.

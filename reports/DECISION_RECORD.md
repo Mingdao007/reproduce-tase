@@ -1743,3 +1743,31 @@
   paper-equivalent feasibility, contact-model calibration, or hardware
   readiness. The next branch should stress the recovered formulation against
   faster timing and the tighter `0.119 rad` orientation gate.
+
+## D086: Keep V81 Planar-Priority Stress As Boundary Evidence, Not Robustness
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v81 as evidence that planar-primary priority improves the focused
+  faster-timing and tightened-gate boundaries, but does not recover the full
+  unresolved v73 stress faces.
+- Reason:
+  The v81 run at `runs/planar_priority_stress/20260524T230109` holds the v70
+  relaxed target/path setup, `stage_a_duration_s = 15.0`, and
+  `qdot_limit_rad_s = 0.15` fixed while testing both v80 candidates. Both
+  candidates pass the focused `+1.0 mm` timing sweep through
+  `paper_time_scale = 0.0065` and first fail at `0.007`. The focused
+  tightened-gate sweep first passes at `0.1198 rad` for
+  `orientation_kp = 0.001` and `0.1197 rad` for `orientation_kp = 0.002`.
+  However, the full positive-delta `paper_time_scale = 0.0075`,
+  `orientation_gate = 0.11995` stress fails `0 / 16` stitched cells across the
+  two candidates, and the `orientation_gate = 0.119` stress still fails the
+  `+1.0 mm` row for both candidates.
+- Consequence:
+  The planar-primary formulation is a useful diagnostic recovery, but it is
+  still not a robustness, strict paper-equivalent, contact-calibrated, or
+  hardware-ready control claim. The next branch should either redesign the E2
+  faster-timing qdot/tail-utilization behavior at `paper_time_scale = 0.0075`,
+  or revisit the terminal/contact model and orientation gate before further
+  Stage B tuning of the `+1.0 mm`, `0.119 rad` case.

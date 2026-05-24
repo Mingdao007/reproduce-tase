@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v80-planar-priority-positive-matrix`
+Branch: `exp/tase-ur10e-v81-planar-priority-stress`
 
 ## Objective Restatement
 
@@ -116,6 +116,8 @@ The objective has two separate technical claim levels:
 - `runs/stage_b_priority_recovery/20260524T224404/metrics.yaml`
 - `reports/positive_planar_priority_matrix_report.md`
 - `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml`
+- `reports/planar_priority_stress_report.md`
+- `runs/planar_priority_stress/20260524T230109/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -126,17 +128,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v80 branches pushed and GitHub-verified; v80 branch push verified at `8e7832eedb85cc3642a3cb89047325969e1cb3d0` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v80-planar-priority-positive-matrix`; latest local branch is `exp/tase-ur10e-v80-planar-priority-positive-matrix` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v80 branches pushed and GitHub-verified; v81 is the current iteration branch pending push | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v81-planar-priority-stress`; latest local branch is `exp/tase-ur10e-v81-planar-priority-stress` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v80 branch/run, claim boundary, and next executable faster-timing/tighter-gate stress target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D085 as of v80 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v81 branch/run, claim boundary, and next executable v81 failure-mode target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D086 as of v81 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v80 validation was `115 passed in 2.55s`; `python3 -m py_compile scripts/audit_positive_planar_priority_matrix.py` and `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v81 validation was `115 passed in 2.60s`; `python3 -m py_compile scripts/audit_planar_priority_stress.py` and `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -176,6 +178,7 @@ The objective has two separate technical claim levels:
 | Stage B orientation-kp probe | `scripts/audit_stage_b_orientation_kp_probe.py`, `reports/stage_b_orientation_kp_probe_report.md`, `runs/stage_b_orientation_kp_probe/20260524T222953/metrics.yaml` | v78 tests existing Stage B `orientation_kp` feedback on the localized E2 `+1.0 mm` tightened-orientation row; Stage A passes all `30 / 30` cells, but stitched recovery passes `0 / 30` because low gains miss orientation while higher gains fail qdot saturation and/or tail qdot utilization |
 | Stage B priority recovery | `scripts/evaluate_stitched_stage_a_handoff.py`, `scripts/audit_stage_b_priority_recovery.py`, `reports/stage_b_priority_recovery_report.md`, `runs/stage_b_priority_recovery/20260524T224404/metrics.yaml` | v79 recovers the localized `+1.0 mm`, `0.11995 rad` tightened-gate E1-E4 row with planar-primary Stage B priority and normal-axis weight `30`; passing scenarios are `planar_normal30_kp0p001` and `planar_normal30_kp0p002`, each with Stage B `4 / 4` |
 | Positive planar-priority matrix | `scripts/audit_positive_planar_priority_matrix.py`, `reports/positive_planar_priority_matrix_report.md`, `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml` | v80 carries both v79 passing planar-primary candidates across all eight positive deltas; both scenarios pass `8 / 8`, for `16 / 16` stitched passes through `+1.0 mm` under the `0.11995 rad` gate |
+| Planar-priority timing/orientation stress | `scripts/audit_planar_priority_stress.py`, `reports/planar_priority_stress_report.md`, `runs/planar_priority_stress/20260524T230109/metrics.yaml` | v81 stress-tests both v80 candidates; total stitched pass count is `35 / 66`, focused `+1.0 mm` timing passes through `0.0065` and first fails at `0.007`, full `paper_time_scale = 0.0075` stress fails `0 / 16`, and the `0.119 rad` gate still fails at `+1.0 mm` |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -965,6 +968,33 @@ Evidence:
 - `reports/positive_planar_priority_matrix_report.md`
 - `runs/positive_planar_priority_matrix/20260524T225138/metrics.yaml`
 
+The planar-priority stress audit can additionally claim:
+
+```text
+ur10e_planar_priority_stress:
+  source setup = v70 run-local relaxed terminal/path setup
+  inherited recovery = v80 planar-primary full positive matrix
+  Stage A duration = 15.0 s
+  qdot limit = 0.15 rad/s
+  scenarios = [planar_normal30_kp0p001, planar_normal30_kp0p002]
+  total stress case count = 66
+  total stitched pass count = 35 / 66
+  focused +1.0 mm timing max passing paper_time_scale = 0.0065
+  focused +1.0 mm timing first failing paper_time_scale = 0.007
+  full paper_time_scale 0.0075 stress pass count = 0 / 16
+  focused +1.0 mm min passing orientation gate = 0.1198 rad (kp0p001), 0.1197 rad (kp0p002)
+  orientation_gate 0.119 rad full-delta stress pass count = 14 / 16
+  orientation_gate 0.119 rad +1.0 mm recovery = false
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/planar_priority_stress_report.md`
+- `runs/planar_priority_stress/20260524T230109/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -1131,6 +1161,13 @@ Evidence:
   formulation, but it still does not prove faster-timing recovery, qdot012
   tightened-gate recovery, robustness, contact calibration, strict
   paper-equivalent feasibility, or hardware readiness.
+- The v81 planar-priority stress audit improves but does not close the
+  remaining faster-timing and tighter-gate gaps. Both candidates pass the
+  focused `+1.0 mm` timing sweep through `paper_time_scale = 0.0065` and first
+  fail at `0.007`; both fail the full positive-delta
+  `paper_time_scale = 0.0075` stress `0 / 8`; both pass the `0.119 rad` gate
+  through `+0.75 mm` but still fail at `+1.0 mm`. This prevents any stronger
+  robustness, strict paper-equivalent, or hardware-readiness claim.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1154,9 +1191,10 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Stress the recovered planar-primary formulation against faster timing and the
-tighter `0.119 rad` orientation gate before claiming anything stronger than
-diagnostic recovery. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v80 diagnostic staged labels separate.
-Any hardware work still requires measured mounted-stack geometry and a separate
-approved SOP.
+Choose the next diagnostic branch from the v81 failure modes: either redesign
+faster-timing E2 qdot/tail-utilization at `paper_time_scale = 0.0075`, or
+revisit the terminal/contact model and orientation gate before trying to force
+the `+1.0 mm`, `0.119 rad` case through Stage B tuning. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v81
+diagnostic staged labels separate. Any hardware work still requires measured
+mounted-stack geometry and a separate approved SOP.

@@ -3064,3 +3064,45 @@
   Stress the recovered planar-primary formulation against the v73/v76
   faster-timing boundary and the tighter `0.119 rad` orientation gate before
   claiming anything stronger than diagnostic recovery.
+
+## 2026-05-24 v81 Planar-Priority Stress
+
+### Stress the recovered planar-primary formulation against timing and gate limits
+
+- Branch:
+  `exp/tase-ur10e-v81-planar-priority-stress`
+- Run:
+  `runs/planar_priority_stress/20260524T230109`
+- Report:
+  `reports/planar_priority_stress_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_planar_priority_stress.py`
+  - `scripts/audit_planar_priority_stress.py`
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, and `qdot_limit_rad_s = 0.15` fixed while testing the two v80
+  planar-primary candidates against focused `+1.0 mm` timing/gate sweeps and
+  full positive-delta stress rows. Total stitched pass count is `35 / 66`.
+  Both candidates pass the focused `+1.0 mm` timing sweep through
+  `paper_time_scale = 0.0065` and first fail at `0.007`. The focused
+  orientation-gate sweep first passes at `0.1198 rad` for
+  `planar_normal30_kp0p001` and `0.1197 rad` for
+  `planar_normal30_kp0p002`. Full `paper_time_scale = 0.0075` stress fails
+  `0 / 16` stitched cells across both candidates. The `0.119 rad` gate stress
+  passes through `+0.75 mm` but still fails `+1.0 mm` for both candidates.
+- Limit:
+  This is diagnostic-label stress evidence only. It improves the focused
+  boundary margins but does not recover the full faster-timing stress, does
+  not recover the `+1.0 mm`, `0.119 rad` gate, and is not strict
+  paper-equivalent, robust, contact-calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_planar_priority_stress.py` passed. Full
+  tests passed with `115 passed in 2.60s`; `git diff --check` passed. The run
+  artifact is lightweight: `474` files, `7.2M`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
+  pending.
+- Next step:
+  Choose the next diagnostic branch from the v81 failure modes: redesign the
+  faster-timing E2 qdot/tail-utilization behavior at `paper_time_scale =
+  0.0075`, or revisit the terminal/contact model and orientation gate before
+  trying to force the `+1.0 mm`, `0.119 rad` case through Stage B tuning.

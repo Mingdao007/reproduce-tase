@@ -1,0 +1,63 @@
+v58_scope:
+  description: Stage A target selection for the next UR10e adapted simulation prototype.
+  status: simulation_only_not_hardware_ready
+  paper_equivalent_claim: false
+available_setup_labels:
+  strict_paper_equivalent_setup:
+    status: blocked
+    evidence:
+    - runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+    - runs/contact_manifold_gate_audit/20260524T142404/metrics.yaml
+    reason: strict x/y, force, and force-normal orientation gates remain mutually
+      in tension
+  ur10e_adapted_trajectory_after_relaxed_setup:
+    status: already_used_for_v38_trajectory_label
+    evidence:
+    - runs/relaxed_setup_budget_eval/20260524T111859/metrics.yaml
+    reason: applies to slowed E1-E4 trajectory-after-setup evidence, not a terminal
+      target for a new controller
+  ur10e_adapted_terminal_setup_diagnostic:
+    status: selected_for_next_stage_a_simulation_prototype
+    evidence:
+    - runs/terminal_setup_gate_eval/20260524T143019/metrics.yaml
+    reason: explicit diagnostic terminal gate with one passing target-contact candidate
+selected_stage_a_target:
+  label: ur10e_adapted_terminal_setup_diagnostic
+  claim_scope: terminal_target_for_simulation_controller_prototype_only
+  source_metrics: runs/terminal_setup_gate_eval/20260524T143019/metrics.yaml
+  source_setup_ik_metrics: runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+  q_rad:
+  - -1.1745579135426345e-08
+  - -0.02440152369247043
+  - -0.00048297839388595083
+  - 0.0002982283198967393
+  - 2.405416739224147e-10
+  - 0.12671314216940235
+  tcp_m:
+  - 0.001970353198813028
+  - 4.032096983994156e-11
+  - -0.00031401714282958126
+  source_errors:
+    force_error_N: 0.005097546556703136
+    tangential_error_m: 0.0030075762251302427
+    orientation_error_rad: 0.07240605683117833
+    target_contact_count: 1
+  diagnostic_gate:
+    max_terminal_tangential_error_m: 0.004
+    max_terminal_orientation_error_rad: 0.1198
+    max_terminal_force_error_N: 0.25
+    min_target_contact_count: 1
+limits:
+- not paper-equivalent
+- not path feasible yet
+- not trajectory feasible yet
+- not hardware-ready
+- does not change v38 relaxed trajectory-after-setup label
+v70_relaxed_orientation_scope:
+  description: Run-local diagnostic gate relaxation for positive-side recovery audit.
+  max_terminal_orientation_error_rad: 0.1198
+  claim_scope: simulation_only_not_hardware_ready_not_paper_equivalent
+v81_planar_priority_stress_scope:
+  source_config: /home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/relaxed_stage_a_target_config.yaml
+  max_terminal_orientation_error_rad: 0.1198
+  claim_scope: run-local planar-priority timing/orientation stress config only

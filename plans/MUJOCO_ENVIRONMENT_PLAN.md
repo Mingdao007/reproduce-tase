@@ -102,12 +102,17 @@ contact behavior regresses.
   qdot limits up to `0.25 rad/s`. v79 locally recovers the `+1.0 mm`,
   `0.11995 rad` tightened-gate E1-E4 row using planar-primary Stage B priority
   with normal-axis weight `30`. v80 carries that formulation across all eight
-  positive deltas and passes `16 / 16` stitched cells through `+1.0 mm`.
+  positive deltas and passes `16 / 16` stitched cells through `+1.0 mm`. v81
+  stress-tests the formulation and shows the focused `+1.0 mm` timing boundary
+  now passes through `paper_time_scale = 0.0065`, but the full
+  `paper_time_scale = 0.0075` stress still fails `0 / 16` and the
+  `0.119 rad` gate still fails at `+1.0 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should stress the recovered planar-primary
-formulation against faster timing and the tighter `0.119 rad` orientation gate
-before claiming anything stronger than diagnostic recovery.
+simulation controller prototype should choose between redesigning faster-timing
+E2 qdot/tail-utilization at `paper_time_scale = 0.0075` and revisiting the
+terminal/contact model plus orientation gate before trying to force the
+`+1.0 mm`, `0.119 rad` case through Stage B tuning.

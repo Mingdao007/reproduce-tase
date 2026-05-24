@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v80-planar-priority-positive-matrix`
+Current branch: `exp/tase-ur10e-v81-planar-priority-stress`
 
 ## Scope
 
@@ -110,7 +110,12 @@ but planar-primary priority with normal-axis weight `30` recovers E1-E4
 stitched recovery `4 / 4` at `qdot_limit_rad_s = 0.15` for
 `orientation_kp = 0.001` and `0.002`. v80 carries both v79 passing candidates
 across the full positive-delta matrix at the same tightened `0.11995 rad`
-gate; both pass `8 / 8` positive deltas through `+1.0 mm`.
+gate; both pass `8 / 8` positive deltas through `+1.0 mm`. v81 stress-tests
+those candidates against the remaining faster-timing and tighter-gate faces:
+both pass the focused `+1.0 mm` timing sweep through `paper_time_scale =
+0.0065` but fail at `0.007`, both fail every full positive-delta cell at
+`paper_time_scale = 0.0075`, and both still fail the `+1.0 mm` row at the
+`0.119 rad` orientation gate.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

@@ -2169,6 +2169,37 @@ Legacy source root:
   strict paper-equivalent claim, robustness proof, contact-model calibration,
   or hardware evidence.
 
+## V81 Planar-Priority Stress
+
+### Timing and tightened-gate stress for the recovered planar-primary formulation
+
+- Run:
+  - `runs/planar_priority_stress/20260524T230109`
+- Command:
+  `scripts/audit_planar_priority_stress.py`
+- Git state at run time:
+  parent commit `44a8c70c61e07dd5f3e48beb55fc0043032adca5` with dirty v81
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  run-local copied Stage A target configs under `configs/`, plus per-group,
+  per-scenario, and per-delta E1-E4 stitched metrics/summaries/commands under
+  `groups/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, and `qdot_limit_rad_s = 0.15` fixed while testing the two v80
+  planar-primary candidates. Total stitched pass count is `35 / 66`. Both
+  candidates pass the focused `+1.0 mm` timing sweep through
+  `paper_time_scale = 0.0065` and first fail at `0.007`. The full
+  `paper_time_scale = 0.0075` stress fails `0 / 16` across both candidates.
+  The `0.119 rad` gate stress passes through `+0.75 mm` but still fails
+  `+1.0 mm` for both candidates.
+- Limit:
+  This is diagnostic-label stress evidence only. It is not a canonical config
+  change, faster-timing recovery at `0.0075`, recovery of the `+1.0 mm`,
+  `0.119 rad` gate, strict paper-equivalent claim, robustness proof,
+  contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

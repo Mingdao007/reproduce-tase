@@ -293,13 +293,19 @@ smoke runs regress.
 - The v80 positive planar-priority matrix carries both v79 passing candidates
   across all eight positive deltas. Both scenarios pass `8 / 8`, for `16 / 16`
   stitched cells through `+1.0 mm` under the `0.11995 rad` gate.
+- The v81 planar-priority stress audit shows that both v80 candidates improve
+  the focused faster-timing boundary to `paper_time_scale = 0.0065` pass versus
+  `0.007` first fail, but neither recovers the full positive-delta
+  `paper_time_scale = 0.0075` stress. Both candidates also pass the
+  `0.119 rad` gate through `+0.75 mm` but still fail at `+1.0 mm`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should move to
-stress-testing the recovered planar-primary formulation against faster timing
-and the tighter `0.119 rad` orientation gate before claiming anything stronger
-than diagnostic recovery. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should choose
+between redesigning faster-timing E2 qdot/tail-utilization at
+`paper_time_scale = 0.0075` and revisiting the terminal/contact model plus
+orientation gate before trying to force the `+1.0 mm`, `0.119 rad` case
+through Stage B tuning. Keep contact, drift, terminal orientation, force error,
+and qdot saturation visible together.
