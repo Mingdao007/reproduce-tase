@@ -28,12 +28,13 @@ def test_parse_formula_faithful_legacy_verification() -> None:
     assert metrics.tail_force_error_mean_N == 0.0476436
 
 
-def test_current_v43_candidate_fails_strict_paper_platform_parity() -> None:
+def test_current_v45_candidate_fails_remaining_strict_parity_checks() -> None:
     result = evaluate_paper_platform_parity(ROOT / "configs/paper_platform_parity.yaml", ROOT)
     assert not result["paper_platform_parity_pass"]
     assert result["checks"]["candidate_execution_contact_bounds"]["pass"]
     assert result["checks"]["tail_force_error_against_formula"]["pass"]
-    assert not result["checks"]["duration_coverage"]["pass"]
+    assert result["checks"]["duration_coverage"]["pass"]
+    assert not result["checks"]["fig6_q7_22s_landmark"]["pass"]
     assert not result["checks"]["fig5_r_sweep_coverage"]["pass"]
     assert not result["checks"]["paper_assumption_compatibility"]["pass"]
 

@@ -1217,6 +1217,42 @@ Legacy source root:
   This artifact defines and applies the gate. It is not a paper-equivalent
   numerical parity pass.
 
+## V45 Paper 7DOF 30 s Candidate
+
+### Full-duration capped-integral KKT paper-platform diagnostic
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T120439`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --duration-s 30.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Git state at run time:
+  code commit `51f76512449051d278abe8f8a75cd96ed45480c8`, clean before
+  output creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The 30 s candidate passed execution/contact/bounds and recorded
+  `fig6_q7_at_22s_rad = 1.6755097668200787`.
+
+### Parity gate on the 30 s candidate
+
+- Run:
+  - `runs/paper_platform_parity_eval/20260524T120503`
+- Command:
+  `scripts/evaluate_paper_platform_parity.py`
+- Git state at run time:
+  commit `2f40029bc7b320359582ae464b70b0610741c523`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Result:
+  `paper_platform_parity_pass = false`. Duration coverage and
+  formula-faithful tail convergence checks pass. Remaining failures are
+  Fig.6 q7-at-22 s mismatch, missing Python Fig.5 r-sweep coverage, and the
+  finite force-integral cap.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

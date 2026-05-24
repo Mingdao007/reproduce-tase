@@ -163,6 +163,10 @@ smoke runs regress.
   Tail convergence agrees with the formula-faithful reference within the gate
   tolerances, but strict parity fails on duration, Fig.6 q7-at-22 s, missing
   Python Fig.5 r-sweep coverage, and the capped force integral.
+- The v45 30 s Python 7DOF candidate records q7 at 22 s and covers the full
+  legacy Fig.6 duration. Tail convergence still agrees with the
+  formula-faithful reference, but q7 at 22 s is `1.6755097668200787 rad`
+  rather than the figure-match `2.5 rad`.
 
 ## Next Executable Step
 
@@ -171,7 +175,7 @@ continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
-The parity gate now exists; future paper-platform work should feed it a 30 s
-7DOF candidate with Fig.5/Fig.6 landmarks and an uncapped or paper-justified
-force loop. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+The parity gate now exists and the current candidate covers 30 s; future
+paper-platform work should target the q7 landmark mismatch, Fig.5 r-sweep
+coverage, and an uncapped or paper-justified force loop. Keep contact, drift,
+terminal orientation, force error, and qdot saturation visible together.

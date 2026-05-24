@@ -79,7 +79,8 @@ This still does not prove paper-equivalent numerical parity:
 - The desired orientation remains based on the documented force-normal
   shortest-arc interpretation of an ambiguous paper equation.
 - At v43, no Fig.5/Fig.6 parity gate had been defined for the Python 7DOF
-  line. v44 adds that gate and records it as failing for this candidate.
+  line. v44 adds that gate and v45 feeds it a 30 s candidate that still fails
+  strict parity.
 
 The correct claim after v43 is:
 
@@ -93,6 +94,6 @@ paper_platform_7dof_capped_integral_kkt_contact_diagnostic:
 
 ## Next Step
 
-Use the v44 paper-platform parity gate with a 30 s Python candidate, or
-separately audit the Panda/Franka DH model against a vendor/manual source
+Investigate the v45 q7-at-22 s mismatch, add Python Fig.5 r-sweep coverage,
+or separately audit the Panda/Franka DH model against a vendor/manual source
 before using the Python 7DOF line for stronger paper-platform claims.

@@ -135,6 +135,10 @@ them rather than deleting them.
   legacy formula-faithful tail convergence tolerances, but strict parity fails
   on 30 s duration coverage, Fig.6 q7-at-22 s, missing Python Fig.5 r-sweep
   coverage, and the capped-integral assumption.
+- The v45 30 s Python 7DOF candidate passes duration coverage and
+  formula-faithful tail convergence tolerances, but strict parity still fails
+  on the Fig.6 q7-at-22 s landmark, missing Python Fig.5 r-sweep coverage,
+  and the capped-integral assumption.
 
 ## Next Executable Step
 
@@ -143,5 +147,5 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should be a 30 s Python candidate with q7-at-22 s and Fig.5 r-sweep coverage,
-not another short contact-tail recovery run.
+should target the measured q7-at-22 s mismatch, add Fig.5 r-sweep coverage,
+or remove/justify the capped-integral force loop assumption.

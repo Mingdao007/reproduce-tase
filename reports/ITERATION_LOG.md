@@ -1651,3 +1651,51 @@
   Run or implement a 30 s Python 7DOF candidate with q7-at-22 s and Fig.5
   r-sweep outputs, then address the capped-integral assumption or verify
   Panda/Franka model provenance.
+
+## 2026-05-24 v45 Paper 7DOF 30 s Candidate
+
+- Branch: `exp/tase-ur10e-v45-paper-7dof-30s-candidate`
+- Starting commit: `7c7985c80adc40ccd115587d0db3df36930603e6`
+- Code commit:
+  `51f76512449051d278abe8f8a75cd96ed45480c8`
+- Files updated:
+  - `src/tase_repro/paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py`
+  - `scripts/evaluate_paper_platform_parity.py`
+  - `tests/test_paper_7dof.py`
+  - `tests/test_paper_platform_parity.py`
+  - `configs/paper_platform_parity.yaml`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_7dof_30s_candidate_report.md`
+  - `runs/paper_7dof_section_v/20260524T120439/metrics.yaml`
+  - `runs/paper_7dof_section_v/20260524T120439/metrics.json`
+  - `runs/paper_7dof_section_v/20260524T120439/summary.md`
+  - `runs/paper_platform_parity_eval/20260524T120503/metrics.yaml`
+  - `runs/paper_platform_parity_eval/20260524T120503/metrics.json`
+  - `runs/paper_platform_parity_eval/20260524T120503/summary.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_7dof.py tests/test_paper_platform_parity.py`
+  - `scripts/run_paper_7dof_section_v.py --duration-s 30.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+  - `scripts/evaluate_paper_platform_parity.py`
+- Result:
+  Added tracked q7-at-22 s metrics for long Python 7DOF runs and recorded a
+  clean 30 s capped-integral KKT candidate. The candidate passes
+  execution/contact/bounds and formula-faithful tail convergence tolerances.
+  The strict parity gate now passes duration coverage but still fails
+  `fig6_q7_22s_landmark`, `fig5_r_sweep_coverage`, and
+  `paper_assumption_compatibility`.
+- Validation:
+  Targeted tests passed with `10 passed in 0.81s`.
+- Limit:
+  This is stronger paper-platform diagnostic evidence, not paper-equivalent
+  numerical parity. The q7 landmark mismatch is now measured rather than
+  missing.
+- Next step:
+  Investigate the Fig.6 q7 landmark mismatch, add Python Fig.5 r-sweep
+  coverage, or remove/justify the force-integral cap before making stronger
+  paper-platform claims.

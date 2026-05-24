@@ -69,13 +69,18 @@ the decision record and revert only the affected controller commit.
   force error using `kkt_projection`, but the integral cap is not yet
   PDF-verified paper truth.
 - The v44 strict parity gate formalizes the comparison against the legacy
-  MATLAB/RNN outputs. The current Python 7DOF candidate has tail convergence
-  agreement with the formula-faithful reference but fails strict parity on
-  duration, Fig.5/Fig.6 landmark coverage, and capped-integral assumptions.
+  MATLAB/RNN outputs. The then-current Python 7DOF candidate has tail
+  convergence agreement with the formula-faithful reference but fails strict
+  parity on duration, Fig.5/Fig.6 landmark coverage, and capped-integral
+  assumptions.
+- The v45 30 s Python 7DOF candidate closes the duration-coverage gap and
+  records q7 at 22 s. It still fails strict parity because q7 at 22 s is
+  `1.6755097668200787 rad` rather than `2.5 rad`, Fig.5 r-sweep coverage is
+  missing, and the force-integral cap remains an adapted assumption.
 
 ## Next Executable Step
 
-For the paper-platform line, feed the v44 parity gate with a 30 s Python 7DOF
-candidate that records q7 at 22 s and Fig.5 r-sweep outputs, or verify the
+For the paper-platform line, investigate the q7-at-22 s mismatch, add Fig.5
+r-sweep outputs, remove or justify the force-integral cap, or verify the
 Panda/Franka DH model before upgrading the claim. Keep this separate from
 UR10e adapted controller iterations.

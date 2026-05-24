@@ -932,3 +932,24 @@
   must not call it paper-equivalent numerical parity until the strict gate
   passes, including duration, Fig.5/Fig.6 landmarks, and assumption
   compatibility.
+
+## D050: Treat The 30 s Python 7DOF Candidate As Partial Parity Evidence
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Use the v45 30 s capped-integral KKT run as the current Python candidate for
+  `paper_platform_7dof_strict_parity`, while keeping the strict parity result
+  failed.
+- Reason:
+  The run at `runs/paper_7dof_section_v/20260524T120439` is generated from a
+  clean code commit, covers `30.0 s`, passes execution/contact/bounds, and
+  records `fig6_q7_at_22s_rad = 1.6755097668200787`. The gate evaluation at
+  `runs/paper_platform_parity_eval/20260524T120503` now passes duration and
+  formula-faithful tail convergence checks, but fails the Fig.6 q7 landmark
+  by `0.8244902331799213 rad`, still lacks Python Fig.5 r-sweep coverage, and
+  still uses `force_integral_limit = 0.1`.
+- Consequence:
+  Future parity work should focus on the q7 landmark mismatch, Fig.5 r-sweep
+  coverage, and paper justification or removal of the integral cap. The v45
+  run is not paper-equivalent numerical parity and not hardware readiness.
