@@ -2458,3 +2458,37 @@
   Full tests passed with `104 passed in 2.43s`; `git diff --check` passed.
 - Next step:
   Run a sensitivity audit around the v63 stitched policy.
+
+## 2026-05-24 v64 Stitched Handoff Sensitivity Audit
+
+### Sensitivity boundary around the v63 diagnostic stitched policy
+
+- Branch:
+  `exp/tase-ur10e-v64-stitched-sensitivity-audit`
+- Code commit:
+  `1e15d9828145cc30b93c274d77eb99d2206a670f`
+- Run:
+  `runs/stitched_stage_a_handoff_sensitivity/20260524T161111`
+- Report:
+  `reports/stitched_stage_a_handoff_sensitivity_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py scripts/audit_stitched_stage_a_handoff_sensitivity.py src/tase_repro/stitched_sensitivity.py`
+  - `scripts/run_tests.sh tests/test_stitched_sensitivity.py tests/test_stage_a_contact_path_tracking.py tests/test_stage_a_target_handoff.py`
+  - `scripts/run_tests.sh`
+  - `scripts/audit_stitched_stage_a_handoff_sensitivity.py`
+  - `git diff --check`
+- Result:
+  The sensitivity matrix passes `4 / 9` stitched cases. Passing cases are
+  nominal, `stage_a_16s`, `force_gain_5e-5`, and `force_gain_2e-4`. Failing
+  cases are `base_z_minus_1mm`, `base_z_plus_1mm`, `stage_a_14s`,
+  `qdot_limit_0p12`, and `paper_time_scale_0p02`.
+- Limit:
+  This is diagnostic-label simulation sensitivity evidence only. It is not
+  strict paper-equivalent feasibility, a robustness proof, or hardware
+  readiness.
+- Validation:
+  Focused tests passed with `10 passed in 0.20s`. Full tests passed with
+  `107 passed in 2.50s`; `git diff --check` passed before the formal run.
+- Next step:
+  Test whether perturbation-aware Stage A path reoptimization or margin-aware
+  timing can recover the v64 base-z/contact and qdot failures.

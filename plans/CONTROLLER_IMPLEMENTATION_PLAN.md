@@ -229,11 +229,16 @@ smoke runs regress.
 - The v63 stitched diagnostic run connects the v62 Stage A tracker to the v60
   slowed handoff and reports `4 / 4` Stage B passes in one script. It is still
   diagnostic-label simulation evidence only.
+- The v64 sensitivity audit passes only `4 / 9` stitched cases. It preserves
+  the nominal pass under slower Stage A timing and two force-gain changes, but
+  fails 1 mm base-z/contact perturbations, shorter Stage A timing, lower qdot
+  limit, and faster Stage B timing.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should run a
-sensitivity audit around the v63 stitched policy. Keep contact, drift, terminal
-orientation, force error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should test
+perturbation-aware Stage A path reoptimization or margin-aware timing against
+the v64 failure cases. Keep contact, drift, terminal orientation, force error,
+and qdot saturation visible together.

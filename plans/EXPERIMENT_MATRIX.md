@@ -210,12 +210,17 @@ them rather than deleting them.
   and a passing terminal diagnostic gate, but it is not connected to Stage B.
 - The v63 stitched run executes the v62 Stage A tracker and v60 slowed handoff
   in one script and reports a passing stitched gate with Stage B `4 / 4`.
+- The v64 stitched sensitivity audit passes `4 / 9` cases. It fails 1 mm
+  base-z/contact perturbations, `stage_a_14s`, `qdot_limit_0p12`, and
+  `paper_time_scale_0p02`, so the v63 result remains nominal diagnostic
+  evidence only.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future UR10e experiment branches should stress-test the v63 stitched
-policy before treating it as more than a nominal diagnostic staged pass. Keep
-strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63
-diagnostic staged labels separate.
+policy before treating it as more than a nominal diagnostic staged pass. v64
+has done the first stress test and shows the main gaps are base-z/contact and
+qdot/timing margin. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63/v64 diagnostic staged labels separate.

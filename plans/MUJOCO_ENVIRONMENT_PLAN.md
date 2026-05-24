@@ -64,12 +64,14 @@ contact behavior regresses.
   can avoid saturation, and v61 finds an offline qdot-limited contact path to
   the selected target. v62 tracks that path with qdot-limited joint replay, but
   this still does not make the model hardware-ready. v63 stitches the tracker
-  to the slowed handoff, but the result is still simulation-only and
-  diagnostic-label.
+  to the slowed handoff. v64 sensitivity passes only `4 / 9` cases, failing
+  1 mm base-z/contact perturbations and tighter timing/qdot cases, so the
+  result is still simulation-only, nominal, and diagnostic-label.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should stress-test the v63 stitched policy
+simulation controller prototype should test whether perturbation-aware path
+reoptimization or margin-aware timing can recover the v64 sensitivity failures
 unless a later decision changes the label.

@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v63-stitched-stage-a-handoff`
+Current branch: `exp/tase-ur10e-v64-stitched-sensitivity-audit`
 
 ## Scope
 
@@ -53,8 +53,11 @@ strict trajectory-feasibility claim, paper-equivalent claim, or hardware claim.
 v62 tracks that path with a qdot-limited joint-path replay prototype over
 `15.0 s`, but it still does not connect Stage A tracking to Stage B handoff in
 one staged trajectory run. v63 stitches the v62 tracker to the v60 slowed
-handoff and passes `4 / 4` E1-E4 under the diagnostic label, but this is still
-not strict paper-equivalent or hardware evidence.
+handoff and passes `4 / 4` E1-E4 under the diagnostic label. v64 stress-tests
+that stitched policy and passes only `4 / 9` sensitivity cases, failing 1 mm
+base-z/contact perturbations, shorter Stage A timing, a tighter qdot limit, and
+faster Stage B timing. This is still not strict paper-equivalent, robust, or
+hardware evidence.
 
 ## Test Command
 

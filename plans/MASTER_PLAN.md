@@ -86,13 +86,15 @@ work exists only on that branch.
   diagnostic handoff can pass `4 / 4`. v61 finds an offline qdot-limited
   contact path to the selected target, v62 tracks that path with a qdot-limited
   joint replay, and v63 stitches the tracker to the slowed handoff with `4 / 4`
-  Stage B passes. This is still diagnostic-label simulation evidence, not
-  paper-equivalent or hardware evidence.
+  Stage B passes. v64 stress-tests the stitched policy and passes only `4 / 9`
+  sensitivity cases, so this is still nominal diagnostic-label simulation
+  evidence, not robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run a sensitivity audit around the v63 stitched policy while keeping strict
-paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63 diagnostic
-staged labels separate.
+Test whether perturbation-aware Stage A path reoptimization or margin-aware
+timing can recover the v64 base-z/contact and qdot failures while keeping
+strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63/v64
+diagnostic staged labels separate.

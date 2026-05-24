@@ -1341,3 +1341,24 @@
   selected UR10e target. It still must not claim strict paper-equivalent
   feasibility, robustness to contact/model perturbations, or hardware readiness
   until those gates are explicitly evaluated.
+
+## D069: Treat The Stitched Sensitivity Audit As A Robustness Boundary
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v64 as a sensitivity boundary around the v63 stitched diagnostic
+  policy, not as a robustness pass.
+- Reason:
+  The v64 run at
+  `runs/stitched_stage_a_handoff_sensitivity/20260524T161111` evaluates nine
+  cases around the v63 Stage A tracker plus Stage B handoff. The stitched gate
+  passes `4 / 9` cases: nominal, `stage_a_16s`, `force_gain_5e-5`, and
+  `force_gain_2e-4`. It fails 1 mm base-z/contact perturbations, `stage_a_14s`,
+  `qdot_limit_0p12`, and `paper_time_scale_0p02`.
+- Consequence:
+  The project can claim only that the nominal diagnostic stitched policy has
+  limited audited margin. It must not claim robustness, strict
+  paper-equivalent feasibility, or hardware readiness. The next controller
+  branch should test perturbation-aware path reoptimization or margin-aware
+  timing against these failure cases.

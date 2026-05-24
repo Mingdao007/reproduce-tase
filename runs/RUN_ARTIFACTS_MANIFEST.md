@@ -1707,6 +1707,30 @@ Legacy source root:
   paper-equivalent feasibility, perturbation robustness evidence, or hardware
   evidence.
 
+## V64 Stitched Handoff Sensitivity Audit
+
+### Sensitivity matrix around the v63 diagnostic staged policy
+
+- Run:
+  - `runs/stitched_stage_a_handoff_sensitivity/20260524T161111`
+- Command:
+  `scripts/audit_stitched_stage_a_handoff_sensitivity.py`
+- Git state at run time:
+  commit `1e15d9828145cc30b93c274d77eb99d2206a670f`.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-case metrics, summaries, git state, and command stdout/stderr under
+  `cases/*`.
+- Result:
+  The sensitivity matrix reports a stitched pass count of `4 / 9`. Passing
+  cases are nominal, `stage_a_16s`, `force_gain_5e-5`, and `force_gain_2e-4`.
+  Failing cases are `base_z_minus_1mm`, `base_z_plus_1mm`, `stage_a_14s`,
+  `qdot_limit_0p12`, and `paper_time_scale_0p02`.
+- Limit:
+  This is a sensitivity boundary for diagnostic-label simulation only. It is
+  not a strict paper-equivalent claim, a robustness proof, or hardware
+  evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
