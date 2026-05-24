@@ -78,6 +78,12 @@ Expected branch:
 exp/tase-ur10e-v94-gate-acceptance-review-template
 ```
 
+Verified implementation commit:
+
+```text
+777e3b2c86ca51394c03aea74220cca0f3be284a
+```
+
 V94 orientation gate-acceptance review artifacts:
 
 ```text

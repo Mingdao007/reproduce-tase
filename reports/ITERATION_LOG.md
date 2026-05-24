@@ -3622,7 +3622,8 @@
   passed; focused gate-review/read-only tests passed with
   `11 passed in 2.03s`; the new gate-acceptance review scaffold audit passed;
   full tests passed with `126 passed in 4.72s`; `git diff --check` passed
-  after full-test validation.
+  after full-test validation. Branch push was verified at
+  `777e3b2c86ca51394c03aea74220cca0f3be284a`.
 - Next step:
   Use the read-only measurement scaffold/finalizer/audit path only after the
   user approves the exact read-only SOP step. Keep the gate-acceptance review
