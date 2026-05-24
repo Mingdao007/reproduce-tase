@@ -161,6 +161,7 @@ def main() -> int:
     ]
     for case in result.cases:
         best = case.best_candidate
+        best_opt = case.best_optimized_candidate
         summary_lines.extend(
             [
                 f"### {case.name}",
@@ -171,6 +172,10 @@ def main() -> int:
                 f"- Best force error N: `{best.force_error_N}`",
                 f"- Best x/y error m: `{best.tangential_error_m}`",
                 f"- Best orientation error rad: `{best.orientation_error_rad}`",
+                f"- Best optimized failed criteria: `{';'.join(best_opt.failed_criteria) or 'none'}`",
+                f"- Best optimized force error N: `{best_opt.force_error_N}`",
+                f"- Best optimized x/y error m: `{best_opt.tangential_error_m}`",
+                f"- Best optimized orientation error rad: `{best_opt.orientation_error_rad}`",
                 "",
             ]
         )
