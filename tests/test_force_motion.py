@@ -12,10 +12,11 @@ from tase_repro.force_feedback import (
 )
 from tase_repro.contact_ladder import positive_contact_normal_force_vector
 from tase_repro.kinematics import joint_ranges, load_model, make_data, set_qpos
-from tase_repro.trajectories import paper_e1_cycloid_planar_state
+from tase_repro.trajectories import PlanarTrajectoryState, paper_e1_cycloid_planar_state
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = ROOT / "assets" / "mjcf" / "ur10e_nominal.xml"
+TILTED_MODEL_PATH = ROOT / "assets" / "mjcf" / "ur10e_tilted_plane_10deg.xml"
 
 
 def test_tangential_force_motion_holds_contact_and_moves_x() -> None:
@@ -210,6 +211,55 @@ def test_positive_contact_normal_force_vector_uses_world_contact_normal() -> Non
     np.testing.assert_allclose(force_vector[:2], np.zeros(2), atol=1e-12)
 
 
+def test_tilted_plane_contact_normal_force_vector_matches_expected_normal() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    apply_base_z_offset(model, -0.0011631221220595766)
+    data = make_data(model)
+    set_qpos(model, data, np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]))
+    force_vector = positive_contact_normal_force_vector(model, data)
+    normal = force_vector / np.linalg.norm(force_vector)
+    np.testing.assert_allclose(
+        normal,
+        np.array([0.1736481777, 0.0, 0.9848077530]),
+        atol=1e-9,
+    )
+
+
+def test_contact_normal_velocity_mode_commands_along_tilted_normal() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+
+    def stationary_planar_state(_: float) -> PlanarTrajectoryState:
+        return PlanarTrajectoryState(
+            displacement_m=np.zeros(2, dtype=float),
+            velocity_m_s=np.zeros(2, dtype=float),
+        )
+
+    result = simulate_planar_force_motion(
+        TILTED_MODEL_PATH,
+        initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=4.0,
+        planar_trajectory=stationary_planar_state,
+        duration_s=0.002,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.0,
+        normal_velocity_mode="contact_normal",
+    )
+    commanded = result.commanded_linear_velocity[0]
+    commanded_direction = commanded / np.linalg.norm(commanded)
+    np.testing.assert_allclose(
+        commanded_direction,
+        np.array([0.1736481777, 0.0, 0.9848077530]),
+        atol=1e-9,
+    )
+
+
 def test_planar_force_motion_force_normal_orientation_records_metrics() -> None:
     model = load_model(MODEL_PATH)
     q_min, q_max = joint_ranges(model)
@@ -246,4 +296,46 @@ def test_planar_force_motion_force_normal_orientation_records_metrics() -> None:
     assert summary["orientation_task_enabled"] is True
     assert summary["contact_present_fraction"] == 1.0
     expected_normals = np.tile(np.array([0.0, 0.0, 1.0]), (result.desired_tcp_rotation.shape[0], 1))
+    np.testing.assert_allclose(result.desired_tcp_rotation[:, :, 2], expected_normals, atol=1e-9)
+
+
+def test_planar_force_motion_force_normal_orientation_tracks_tilted_plane_normal() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.15)
+    qdot_max = np.full(model.nv, 0.15)
+    result = simulate_planar_force_motion(
+        TILTED_MODEL_PATH,
+        initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=5.0,
+        planar_trajectory=paper_e1_cycloid_planar_state,
+        duration_s=0.1,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.5,
+        slack_axis_weights=np.array([1.0, 1.0, 10000.0]),
+        slack_constraint_weight=1000.0,
+        normal_velocity_mode="contact_normal",
+        orientation_mode="force_normal",
+        orientation_priority_mode="linear_primary",
+        orientation_kp=1.0,
+    )
+    summary = summarize_force_motion(
+        result,
+        target_force_N=5.0,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    expected_normals = np.tile(
+        np.array([0.1736481777, 0.0, 0.9848077530]),
+        (result.desired_tcp_rotation.shape[0], 1),
+    )
+    assert summary["orientation_task_enabled"] is True
+    assert summary["contact_present_fraction"] == 1.0
     np.testing.assert_allclose(result.desired_tcp_rotation[:, :, 2], expected_normals, atol=1e-9)

@@ -753,3 +753,50 @@
   Add or configure a tilted/curved MuJoCo contact surface so the force-normal
   orientation target is nontrivial, then rerun orientation-gated smoke before
   revisiting full-speed E2/E3 claims.
+
+## 2026-05-24 v22 Tilted Force-Normal Orientation
+
+- Branch: `exp/tase-ur10e-v22-tilted-force-normal`
+- Starting commit: `8745c0d284058a2c42185d17d25276c449d405c9`
+- Files added:
+  - `assets/mjcf/ur10e_tilted_plane_10deg.xml`
+  - `configs/mujoco_ur10e_tilted_plane.yaml`
+  - `reports/tilted_force_normal_orientation_report.md`
+  - `runs/tilted_force_normal_orientation_smoke/20260524T050139`
+  - `runs/tilted_force_normal_orientation_smoke/20260524T050139_kp0p1`
+- Files updated:
+  - `src/tase_repro/force_feedback.py`
+  - `scripts/run_paper_trajectory_force_motion.py`
+  - `scripts/run_timing_feasibility_sweep.py`
+  - `scripts/run_posture_feasibility_sweep.py`
+  - `tests/test_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/force_feedback.py scripts/run_paper_trajectory_force_motion.py scripts/run_timing_feasibility_sweep.py scripts/run_posture_feasibility_sweep.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/tilted_force_normal_orientation_smoke/20260524T050139 --duration-s 1.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --use-slack-solve --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --orientation-mode force-normal --orientation-priority-mode linear-primary --orientation-kp 5.0 --angular-axis-weight 1.0 --angular-slack-weight 1.0`
+  - `python3 scripts/run_paper_trajectory_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/tilted_force_normal_orientation_smoke/20260524T050139_kp0p1 --duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --use-slack-solve --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --orientation-mode force-normal --orientation-priority-mode linear-primary --orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight 1.0`
+- Result:
+  Tests passed: `49 passed in 0.54s`. `git diff --check` passed. The tilted
+  plane has expected world normal `[0.1736481777, 0.0, 0.9848077530]`, and
+  both tilted smokes reached solver success fraction `1.0` and contact present
+  fraction `1.0`. The `kp = 5.0` run reached tail mean absolute force error
+  `0.003091381344228328 N` and tail mean orientation error
+  `0.07593713278249946 rad`, but saturated qdot for the whole run. The
+  `kp = 0.1` comparison avoided qdot saturation and reached tail mean absolute
+  force error `0.00017028171203874897 N`, but still had tail mean orientation
+  error `0.14577470816672422 rad`.
+- Limit:
+  This is a single tilted analytic plane, not a curved unknown surface. Neither
+  gain is an orientation-gated pass: one saturates qdot, the other leaves large
+  orientation error.
+- Next step:
+  Run a small tilted-plane orientation-gain/timing sweep with the existing
+  gates. If no case passes without qdot saturation, record an explicit
+  orientation approach-phase or qdot-budget decision.

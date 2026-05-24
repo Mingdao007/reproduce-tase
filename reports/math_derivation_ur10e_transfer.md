@@ -653,3 +653,41 @@ This makes the orientation target testable without pretending the Section V
 smoke has `u_force = [0, 0, 1]`, so it verifies the data path and constraints.
 A tilted or curved contact surface is still needed to validate nontrivial
 force-normal orientation adaptation.
+
+## V22 Tilted-Plane Normal Mapping
+
+The tilted-plane model rotates the analytic MuJoCo plane 10 degrees about the
+world y-axis, so the expected contact normal is:
+
+```text
+n_tilt = [sin(10 deg), 0, cos(10 deg)]
+       = [0.1736481777, 0.0, 0.9848077530]
+```
+
+The scalar finite-time force correction remains a one-dimensional normal-force
+task. On the tilted surface, however, the scalar correction should be mapped
+along the measured contact-normal direction rather than hard-coded to world z:
+
+```text
+v_normal = v_f n_tilt
+v_cmd = v_tangent + v_normal
+```
+
+where `v_f` is the force feedback scalar and `v_tangent` is the x/y paper
+trajectory command. This is implemented as `normal_velocity_mode =
+"contact_normal"` while retaining the older `world_z` default for historical
+flat-plane runs.
+
+The same measured force-normal vector drives the v21 orientation target:
+
+```text
+R_desired[:, 2] = normalize(F_contact) ~= n_tilt
+```
+
+The first tilted smokes show that the geometric mapping works but the
+orientation transition is now constrained by the UR10e velocity budget. A high
+orientation gain reduces the error faster but saturates the `0.15 rad/s` qdot
+limit; a low gain preserves qdot margin but leaves the TCP orientation far from
+the tilted normal over the tested duration. The next derivation/controller
+decision should therefore be a staged orientation approach or an explicit
+velocity-budget relaxation, not an unlabeled scalar-gain tweak.

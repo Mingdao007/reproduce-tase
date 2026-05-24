@@ -33,7 +33,8 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 - Contact trajectories.
 - Article-level E1-E4 simulation matrix.
 - Orientation-hold E1-E4 matrix with angular residual and slack metrics.
-- Force-normal orientation smoke and later tilted/curved-surface checks.
+- Force-normal orientation smoke and tilted/curved-surface checks with
+  contact-normal velocity mapping.
 
 ## Pass/Fail Criteria
 
@@ -56,12 +57,13 @@ them rather than deleting them.
 - Orientation-hold is not yet paper-faithful orientation compliance.
 - Full-speed E2/E3 do not pass the combined force-motion and provisional
   orientation gates under the current linear-primary controller.
-- Force-normal orientation is wired on a flat plane, but nontrivial surface
-  normal tracking still needs tilted or curved MuJoCo contact geometry.
+- Tilted-plane force-normal smokes expose the qdot/gain tradeoff but do not
+  yet pass the orientation gates without saturation.
 
 ## Next Executable Step
 
-Use `runs/force_normal_orientation_smoke/20260524T045559` as the first
-force-normal orientation wiring check. The next executable experiment is a
-tilted or curved MuJoCo contact surface where the measured contact normal is
-not `[0, 0, 1]`.
+Use `runs/tilted_force_normal_orientation_smoke/20260524T050139` and
+`runs/tilted_force_normal_orientation_smoke/20260524T050139_kp0p1` as the
+first nontrivial surface-normal checks. The next executable experiment is a
+small tilted-plane orientation-gain/timing sweep with the existing orientation
+and qdot gates.

@@ -7,7 +7,7 @@ from typing import Callable
 import mujoco
 import numpy as np
 
-from tase_repro.contact import finite_time_normal_velocity_command
+from tase_repro.contact import finite_time_normal_velocity_command, unit_vector
 from tase_repro.contact_ladder import positive_contact_normal_force, positive_contact_normal_force_vector
 from tase_repro.controller import CartesianVelocityCommand, solve_site_linear_velocity_step
 from tase_repro.kinematics import (
@@ -207,6 +207,7 @@ def simulate_tangential_force_motion(
     slack_constraint_weight: float = 1e3,
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
+    normal_velocity_mode: str = "world_z",
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run a low-speed tangential motion while regulating normal force."""
@@ -231,6 +232,7 @@ def simulate_tangential_force_motion(
         slack_constraint_weight=slack_constraint_weight,
         normal_guard_force_fraction=normal_guard_force_fraction,
         normal_guard_min_planar_scale=normal_guard_min_planar_scale,
+        normal_velocity_mode=normal_velocity_mode,
         site_name=site_name,
     )
 
@@ -254,6 +256,7 @@ def simulate_planar_force_motion(
     slack_constraint_weight: float = 1e3,
     normal_guard_force_fraction: float | None = None,
     normal_guard_min_planar_scale: float = 0.0,
+    normal_velocity_mode: str = "world_z",
     orientation_mode: str = "none",
     orientation_priority_mode: str = "weighted",
     orientation_kp: float = 1.0,
@@ -266,6 +269,8 @@ def simulate_planar_force_motion(
         raise ValueError("orientation_mode must be 'none', 'hold', or 'force_normal'")
     if orientation_priority_mode not in {"weighted", "linear_primary"}:
         raise ValueError("orientation_priority_mode must be 'weighted' or 'linear_primary'")
+    if normal_velocity_mode not in {"world_z", "contact_normal"}:
+        raise ValueError("normal_velocity_mode must be 'world_z' or 'contact_normal'")
     orientation_task_enabled = orientation_mode != "none"
     model = load_model(model_path)
     apply_base_z_offset(model, base_z_offset_m)
@@ -369,7 +374,12 @@ def simulate_planar_force_motion(
             gain=force_gain,
             r=r,
         )
-        command = np.array([tangential_cmd[0], tangential_cmd[1], command_vz])
+        if normal_velocity_mode == "contact_normal" and np.linalg.norm(force_vector) > 1e-9:
+            normal_direction = unit_vector(force_vector)
+            normal_command = command_vz * normal_direction
+        else:
+            normal_command = np.array([0.0, 0.0, command_vz], dtype=float)
+        command = np.array([tangential_cmd[0], tangential_cmd[1], 0.0]) + normal_command
         if orientation_mode == "hold":
             desired_rotation = start_rotation
             pre_step_orientation_error = orientation_error_rotvec(desired_rotation, current_rotation)

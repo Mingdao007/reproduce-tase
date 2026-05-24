@@ -146,6 +146,8 @@ def run_case(
         str(args.normal_slack_weight),
         "--slack-constraint-weight",
         str(args.slack_constraint_weight),
+        "--normal-velocity-mode",
+        args.normal_velocity_mode,
         "--orientation-mode",
         args.orientation_mode,
         "--orientation-priority-mode",
@@ -356,6 +358,7 @@ def main() -> int:
     parser.add_argument("--planar-slack-weight", type=float, default=1.0)
     parser.add_argument("--normal-slack-weight", type=float, default=10000.0)
     parser.add_argument("--slack-constraint-weight", type=float, default=1000.0)
+    parser.add_argument("--normal-velocity-mode", choices=["world-z", "contact-normal"], default="world-z")
     parser.add_argument("--orientation-mode", choices=["none", "hold", "force-normal"], default="none")
     parser.add_argument("--orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--orientation-kp", type=float, default=1.0)

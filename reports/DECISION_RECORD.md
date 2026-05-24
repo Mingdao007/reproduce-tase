@@ -429,3 +429,25 @@
   initial-orientation hold mode. Results must still be labeled UR10e adapted
   simulation because the yaw convention, MuJoCo force source, and kinematic
   velocity-level controller are not the paper's full torque/RNN system.
+
+## D027: Add Tilted Plane And Contact-Normal Force Correction
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Add a 10 degree tilted MuJoCo plane and a `normal_velocity_mode =
+  "contact_normal"` controller option. Keep the previous `world_z` normal
+  correction as the default for backward-compatible flat-plane runs.
+- Reason:
+  The v21 force-normal orientation smoke used a flat plane, so the measured
+  force normal was `[0, 0, 1]` and did not test nontrivial surface-normal
+  alignment. On a tilted plane, applying the scalar force correction only in
+  world z is geometrically inconsistent with the measured contact-normal
+  direction.
+- Consequence:
+  The tilted-plane smoke exposes a controller tradeoff: high orientation gain
+  pulls the TCP toward the tilted normal but saturates the `0.15 rad/s` qdot
+  budget, while low gain avoids saturation but leaves large orientation error.
+  Further progress needs a small gain/timing sweep and then an explicit
+  orientation approach-phase or qdot-budget decision if scalar gain tuning does
+  not pass the existing gates.

@@ -46,6 +46,8 @@ python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yam
   before optimizing angular velocity.
 - Force-normal orientation runs align TCP local z to the simulated 3D contact
   normal and record the same angular metrics.
+- Tilted-surface force-normal runs can map scalar force correction along the
+  measured contact normal instead of only along world z.
 
 ## Pass/Fail Criteria
 
@@ -70,12 +72,12 @@ smoke runs regress.
 - Paper finite-time law details remain pending PDF verification.
 - Full-speed E2/E3 orientation-gated runs remain qdot-budget limited under the
   current `0.15 rad/s` cap.
-- The first force-normal orientation smoke uses a flat MuJoCo plane, so it
-  does not yet validate nontrivial curved-surface normal tracking.
+- Tilted-plane force-normal smokes expose a qdot/gain tradeoff but do not yet
+  pass orientation gates without saturation.
 
 ## Next Executable Step
 
-Use the v21 force-normal orientation mode on a tilted or curved MuJoCo contact
-surface before revisiting full-speed orientation claims. Keep the v18
-linear-primary `paper_time_scale = 0.075` matrix as the current flat-surface
-orientation-gated fallback.
+Run a small tilted-plane orientation-gain/timing sweep with
+`normal_velocity_mode = contact_normal`. If no case passes the existing
+orientation and qdot gates, record a controller decision for either a staged
+orientation approach phase or an explicit qdot-budget tradeoff.

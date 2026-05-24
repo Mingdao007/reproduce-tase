@@ -138,6 +138,7 @@ def main() -> int:
     parser.add_argument("--slack-constraint-weight", type=float, default=1e3)
     parser.add_argument("--normal-guard-force-fraction", type=float, default=None)
     parser.add_argument("--normal-guard-min-planar-scale", type=float, default=0.0)
+    parser.add_argument("--normal-velocity-mode", choices=["world-z", "contact-normal"], default="world-z")
     parser.add_argument("--orientation-mode", choices=["none", "hold", "force-normal"], default="none")
     parser.add_argument("--orientation-priority-mode", choices=["weighted", "linear-primary"], default="weighted")
     parser.add_argument("--orientation-kp", type=float, default=1.0)
@@ -188,6 +189,7 @@ def main() -> int:
         slack_constraint_weight=args.slack_constraint_weight,
         normal_guard_force_fraction=args.normal_guard_force_fraction,
         normal_guard_min_planar_scale=args.normal_guard_min_planar_scale,
+        normal_velocity_mode=args.normal_velocity_mode.replace("-", "_"),
         orientation_mode=args.orientation_mode.replace("-", "_"),
         orientation_priority_mode=args.orientation_priority_mode.replace("-", "_"),
         orientation_kp=args.orientation_kp,
@@ -269,6 +271,7 @@ def main() -> int:
         if args.normal_guard_force_fraction is None
         else float(args.normal_guard_force_fraction),
         "normal_guard_min_planar_scale": float(args.normal_guard_min_planar_scale),
+        "normal_velocity_mode": args.normal_velocity_mode,
         "orientation_mode": args.orientation_mode,
         "orientation_priority_mode": args.orientation_priority_mode,
         "orientation_kp": float(args.orientation_kp),

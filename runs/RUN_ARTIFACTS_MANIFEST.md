@@ -598,6 +598,35 @@ Legacy source root:
   The current MuJoCo surface normal is `[0, 0, 1]`, so this validates wiring
   and metadata rather than nontrivial curved-surface alignment.
 
+## V22 Tilted Force-Normal Orientation Smokes
+
+### First nontrivial tilted-plane normal checks
+
+- Run roots:
+  - `runs/tilted_force_normal_orientation_smoke/20260524T050139`
+  - `runs/tilted_force_normal_orientation_smoke/20260524T050139_kp0p1`
+- Scope:
+  E1 cycloid smokes at `paper_time_scale = 0.075` on a 10 degree tilted
+  analytic plane using `orientation_mode = force-normal`,
+  `orientation_priority_mode = linear-primary`, and `normal_velocity_mode =
+  contact-normal`.
+- Tracked lightweight artifacts:
+  per-run `metrics.yaml`, `metrics.json`, `git_state.md`, force plot, xy plot,
+  orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-run `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  Both runs maintained solver success fraction `1.0` and contact present
+  fraction `1.0`. The `kp = 5.0` run reached tail mean absolute force error
+  `0.003091381344228328 N` and tail mean orientation error
+  `0.07593713278249946 rad`, but qdot saturation fraction was `1.0`. The
+  `kp = 0.1` comparison avoided qdot saturation and reached tail mean absolute
+  force error `0.00017028171203874897 N`, but tail mean orientation error
+  remained `0.14577470816672422 rad`.
+- Limit:
+  This validates nontrivial tilted-plane normal plumbing, not curved-surface
+  adaptation or a full orientation-gated pass.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
