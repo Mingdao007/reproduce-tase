@@ -140,6 +140,8 @@ This audit is read-only local-record evidence. It is not:
 - `git diff --check` passed.
 - Artifact audit: `4` files, `44K`, no `.npz/.npy/.mat/.tar/.gz/.zip`
   payloads under `runs/measured_geometry_readiness/20260525T000739`.
+- Branch push was verified at
+  `70a1b35cf6436b284ed8bc8d1fcf936f9b0724a1`.
 
 ## Next Executable Step
 

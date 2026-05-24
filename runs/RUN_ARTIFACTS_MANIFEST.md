@@ -2336,7 +2336,8 @@ Legacy source root:
   design metadata, the current UR TCP readback is temporary and not
   contact-validated, the KSM contact patch convention is unverified, the plane
   normal is analytic simulation geometry, and direct TCP DAQ force values still
-  disagree with RTDE/PolyScope by about `32 N`.
+  disagree with RTDE/PolyScope by about `32 N`. Branch push was verified at
+  `70a1b35cf6436b284ed8bc8d1fcf936f9b0724a1`.
 - Limit:
   This is read-only local-record readiness evidence only. It is not a recovery
   of the `+1.0 mm`, `0.119 rad` row, accepted gate relaxation, calibrated

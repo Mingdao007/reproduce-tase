@@ -3305,7 +3305,8 @@
   `python3 -m py_compile scripts/audit_measured_geometry_readiness.py` passed.
   Full tests passed with `115 passed in 2.64s`; `git diff --check` passed.
   The run artifact is lightweight: `4` files, `44K`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `70a1b35cf6436b284ed8bc8d1fcf936f9b0724a1`.
 - Next step:
   Turn the v86 checklist into a read-only measurement/SOP for mounted-stack
   TCP/contact point, KSM contact patch convention, plane normal in the robot
