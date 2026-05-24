@@ -55,3 +55,21 @@ def test_short_paper_7dof_diagnostic_executes_with_hard_bounds() -> None:
     assert metrics["q_bound_violation_count"] == 0
     assert metrics["qdot_bound_violation_count"] == 0
     assert metrics["contact_fraction"] > 0.0
+
+
+def test_contact_stabilized_pinv_diagnostic_passes_tail_force_gate() -> None:
+    config = PaperSectionV7DofConfig(
+        duration_s=3.0,
+        dt_s=0.004,
+        solver_mode="pinv_bounded",
+        communication_delay_s=0.032,
+        force_integral_limit=0.1,
+    )
+    result = simulate_paper_section_v_7dof(config)
+    metrics = summarize_paper_section_v_7dof(result)
+    assert metrics["execution_success"]
+    assert metrics["contact_force_tail_success"]
+    assert metrics["tail_contact_fraction"] == 1.0
+    assert metrics["tail_force_error_mean_N"] <= 1.0
+    assert metrics["q_bound_violation_count"] == 0
+    assert metrics["qdot_bound_violation_count"] == 0

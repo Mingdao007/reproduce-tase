@@ -92,6 +92,9 @@ def main() -> int:
     parser.add_argument("--dt-s", type=float, default=0.002)
     parser.add_argument("--solver-mode", choices=["kkt_projection", "pinv_bounded"], default="kkt_projection")
     parser.add_argument("--orientation-mode", choices=["force_shortest_arc", "normal_only"], default="force_shortest_arc")
+    parser.add_argument("--communication-delay-s", type=float, default=0.032)
+    parser.add_argument("--force-integral-limit", type=float, default=float("inf"))
+    parser.add_argument("--force-integral-leak", type=float, default=0.0)
     parser.add_argument("--output-dir", default=None)
     args = parser.parse_args()
 
@@ -106,6 +109,9 @@ def main() -> int:
         dt_s=args.dt_s,
         solver_mode=args.solver_mode,
         orientation_mode=args.orientation_mode,
+        communication_delay_s=args.communication_delay_s,
+        force_integral_limit=args.force_integral_limit,
+        force_integral_leak=args.force_integral_leak,
     )
     result = simulate_paper_section_v_7dof(config)
     metrics = summarize_paper_section_v_7dof(result)
