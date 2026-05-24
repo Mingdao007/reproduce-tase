@@ -8,7 +8,7 @@ import numpy as np
 from scipy.optimize import least_squares
 
 from tase_repro.contact import unit_vector
-from tase_repro.contact_ladder import positive_contact_normal_force
+from tase_repro.contact_ladder import positive_contact_normal_force, positive_contact_normal_force_between
 from tase_repro.force_feedback import apply_base_z_offset
 from tase_repro.kinematics import (
     joint_ranges,
@@ -48,12 +48,14 @@ class SetupTerminalCandidate:
     tcp_m: np.ndarray
     target_force_N: float
     force_N: float
+    total_normal_force_N: float
     force_error_N: float
     tangential_error_xy_m: np.ndarray
     tangential_error_m: float
     orientation_error_rotvec: np.ndarray
     orientation_error_rad: float
     contact_present: bool
+    target_contact_count: int
     criteria: dict
     failed_criteria: list[str]
     passed: bool
@@ -79,12 +81,14 @@ class SetupTerminalCandidate:
             "tcp_m": [float(x) for x in self.tcp_m],
             "target_force_N": float(self.target_force_N),
             "force_N": float(self.force_N),
+            "total_normal_force_N": float(self.total_normal_force_N),
             "force_error_N": float(self.force_error_N),
             "tangential_error_xy_m": [float(x) for x in self.tangential_error_xy_m],
             "tangential_error_m": float(self.tangential_error_m),
             "orientation_error_rotvec": [float(x) for x in self.orientation_error_rotvec],
             "orientation_error_rad": float(self.orientation_error_rad),
             "contact_present": bool(self.contact_present),
+            "target_contact_count": int(self.target_contact_count),
             "criteria": criteria,
             "failed_criteria": list(self.failed_criteria),
             "passed": bool(self.passed),
@@ -147,6 +151,8 @@ def evaluate_setup_terminal_candidate(
     message: str,
     nfev: int,
     site_name: str,
+    contact_geom_name: str = "contact_tip",
+    plane_geom_name: str = "contact_plane",
     reference_xy_m: np.ndarray,
     desired_rotation: np.ndarray,
     target_force_N: float,
@@ -157,7 +163,13 @@ def evaluate_setup_terminal_candidate(
     mujoco.mj_forward(model, data)
     tcp = site_position(model, data, site_name)
     rotation = site_rotation_matrix(model, data, site_name)
-    force = positive_contact_normal_force(model, data)
+    total_force = positive_contact_normal_force(model, data)
+    force, target_contact_count = positive_contact_normal_force_between(
+        model,
+        data,
+        geom_a_name=plane_geom_name,
+        geom_b_name=contact_geom_name,
+    )
     force_error = abs(float(force) - float(target_force_N))
     tangential_error_xy = tcp[:2] - np.asarray(reference_xy_m, dtype=float)
     tangential_error = float(np.linalg.norm(tangential_error_xy))
@@ -169,9 +181,10 @@ def evaluate_setup_terminal_candidate(
         "orientation_error_rad": _criterion(orientation_error_norm, thresholds.max_orientation_error_rad),
         "contact_present": {
             "actual": bool(data.ncon > 0),
+            "target_contact_count": int(target_contact_count),
             "operator": "is",
             "threshold": True,
-            "passed": bool(data.ncon > 0),
+            "passed": bool(target_contact_count > 0),
         },
     }
     failed = [name for name, criterion in criteria.items() if not criterion["passed"]]
@@ -179,7 +192,7 @@ def evaluate_setup_terminal_candidate(
         force_error / thresholds.max_force_error_N,
         tangential_error / thresholds.max_tangential_error_m,
         orientation_error_norm / thresholds.max_orientation_error_rad,
-        0.0 if data.ncon > 0 else float("inf"),
+        0.0 if target_contact_count > 0 else float("inf"),
     ]
     return SetupTerminalCandidate(
         seed_label=seed_label,
@@ -192,12 +205,14 @@ def evaluate_setup_terminal_candidate(
         tcp_m=tcp.copy(),
         target_force_N=float(target_force_N),
         force_N=float(force),
+        total_normal_force_N=float(total_force),
         force_error_N=float(force_error),
         tangential_error_xy_m=tangential_error_xy.copy(),
         tangential_error_m=tangential_error,
         orientation_error_rotvec=orientation_error.copy(),
         orientation_error_rad=orientation_error_norm,
-        contact_present=bool(data.ncon > 0),
+        contact_present=bool(target_contact_count > 0),
+        target_contact_count=int(target_contact_count),
         criteria=criteria,
         failed_criteria=failed,
         passed=not failed,
@@ -214,6 +229,8 @@ def solve_setup_terminal_ik(
     thresholds: SetupTerminalThresholds,
     surface_normal_world: np.ndarray,
     site_name: str = "tcp_site_unverified_85mm",
+    contact_geom_name: str = "contact_tip",
+    plane_geom_name: str = "contact_plane",
     random_seed_count: int = 32,
     random_seed_std_rad: float = 0.15,
     random_seed: int = 37,
@@ -266,6 +283,8 @@ def solve_setup_terminal_ik(
         message="not optimized",
         nfev=0,
         site_name=site_name,
+        contact_geom_name=contact_geom_name,
+        plane_geom_name=plane_geom_name,
         reference_xy_m=reference_xy,
         desired_rotation=desired_rotation,
         target_force_N=target_force_N,
@@ -283,7 +302,12 @@ def solve_setup_terminal_ik(
         mujoco.mj_forward(model, data)
         tcp = site_position(model, data, site_name)
         rotation = site_rotation_matrix(model, data, site_name)
-        force = positive_contact_normal_force(model, data)
+        force, _target_contact_count = positive_contact_normal_force_between(
+            model,
+            data,
+            geom_a_name=plane_geom_name,
+            geom_b_name=contact_geom_name,
+        )
         orientation_error = orientation_error_rotvec(desired_rotation, rotation)
         return np.concatenate(
             [
@@ -316,6 +340,8 @@ def solve_setup_terminal_ik(
             message=str(result.message),
             nfev=int(result.nfev),
             site_name=site_name,
+            contact_geom_name=contact_geom_name,
+            plane_geom_name=plane_geom_name,
             reference_xy_m=reference_xy,
             desired_rotation=desired_rotation,
             target_force_N=target_force_N,

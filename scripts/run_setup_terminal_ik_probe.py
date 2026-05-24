@@ -58,6 +58,8 @@ def main() -> int:
     parser.add_argument("--target-force-N", type=float, default=5.0)
     parser.add_argument("--surface-normal-world", default=None)
     parser.add_argument("--site-name", default="tcp_site_unverified_85mm")
+    parser.add_argument("--contact-geom-name", default="contact_tip")
+    parser.add_argument("--plane-geom-name", default="contact_plane")
     parser.add_argument("--max-force-error-N", type=float, default=0.25)
     parser.add_argument("--max-tangential-error-m", type=float, default=0.002)
     parser.add_argument("--max-orientation-error-rad", type=float, default=0.03)
@@ -104,6 +106,8 @@ def main() -> int:
         thresholds=thresholds,
         surface_normal_world=surface_normal,
         site_name=args.site_name,
+        contact_geom_name=args.contact_geom_name,
+        plane_geom_name=args.plane_geom_name,
         random_seed_count=args.random_seed_count,
         random_seed_std_rad=args.random_seed_std_rad,
         random_seed=args.random_seed,
@@ -117,6 +121,8 @@ def main() -> int:
         "base_z_offset_m": base_z_offset,
         "target_force_N": float(args.target_force_N),
         "site_name": args.site_name,
+        "contact_geom_name": args.contact_geom_name,
+        "plane_geom_name": args.plane_geom_name,
         "random_seed_count": int(args.random_seed_count),
         "random_seed_std_rad": float(args.random_seed_std_rad),
         "random_seed": int(args.random_seed),

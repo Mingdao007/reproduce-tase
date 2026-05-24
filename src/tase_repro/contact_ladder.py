@@ -33,6 +33,34 @@ def positive_contact_normal_force(model: mujoco.MjModel, data: mujoco.MjData) ->
     return total
 
 
+def positive_contact_normal_force_between(
+    model: mujoco.MjModel,
+    data: mujoco.MjData,
+    *,
+    geom_a_name: str,
+    geom_b_name: str,
+) -> tuple[float, int]:
+    """Return positive normal force for a named unordered geom pair."""
+    geom_a_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, geom_a_name)
+    geom_b_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, geom_b_name)
+    if geom_a_id < 0:
+        raise ValueError(f"geom not found: {geom_a_name}")
+    if geom_b_id < 0:
+        raise ValueError(f"geom not found: {geom_b_name}")
+    target_pair = {int(geom_a_id), int(geom_b_id)}
+    total = 0.0
+    count = 0
+    for contact_idx in range(data.ncon):
+        contact = data.contact[contact_idx]
+        if {int(contact.geom[0]), int(contact.geom[1])} != target_pair:
+            continue
+        wrench = np.zeros(6)
+        mujoco.mj_contactForce(model, data, contact_idx, wrench)
+        total += max(0.0, float(wrench[0]))
+        count += 1
+    return total, count
+
+
 def positive_contact_normal_force_vector(model: mujoco.MjModel, data: mujoco.MjData) -> np.ndarray:
     """Return the summed positive contact-normal force vector in world frame."""
     total = np.zeros(3, dtype=float)
