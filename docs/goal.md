@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v99.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v98 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 finds current local records insufficient to accept that margin. v87 adds a read-only measurement/SOP artifact. v88 adds a reusable non-executed template/scaffold and run folder for future mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics evidence. v89 adds an offline run-audit gate for scaffolded measurement folders. v90 splits that gate into scaffold and approved-read-only modes without allowing motion, writes, zeroing, force control, gate relaxation, or hardware claims. v91 adds an offline finalizer that requires the exact read-only approval phrase, approved step ID, operator, explicit live-read metadata flag, and worksheet rows before converting a scaffold to approved read-only evidence. v92 adds explicit KSM contact-patch and orientation-gate-semantics worksheet CSVs plus optional-row audit/finalizer support. v93 makes orientation-gate acceptance an explicit not-accepted boundary in metrics, finalizer output, and audit checks. v94 adds a separate non-default orientation gate-acceptance review scaffold and audit path. v95 adds a structured offline completion-blockers audit that marks only strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. v96 audits strict feasibility and confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. v97 audits robustness and confirms baseline diagnostic stitched sensitivity remains `4 / 9` and positive stitched sensitivity remains `37 / 40`, with recovered faces still diagnostic non-final evidence. v98 defines a single diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v98 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v98 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v100.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v99 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script; it does not run the experiments or prove robustness. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v99 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v99 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v98` repository state. The project goal is to reproduce the T-ASE finite-time
+`v99` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v98-diagnostic-robustness-matrix`
+  `exp/tase-ur10e-v99-failed-robustness-experiment-matrix`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -86,12 +86,17 @@ Read and audit these files before making assumptions:
   `tests/test_diagnostic_robustness_matrix_candidate.py`
   `runs/diagnostic_robustness_matrix_candidate/20260525T053101`
   `reports/diagnostic_robustness_matrix_candidate_report.md`
+- Current v99 failed-cell experiment matrix artifacts:
+  `scripts/create_failed_diagnostic_robustness_experiment_matrix.py`
+  `tests/test_failed_diagnostic_robustness_experiment_matrix.py`
+  `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909`
+  `reports/failed_diagnostic_robustness_experiment_matrix_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v96.md`
+  `docs/goal_handoff_v100.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -374,6 +379,10 @@ Current accepted claims:
   robustness matrix candidate from current evidence. It has 12 cells: 7
   diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. It
   is not an accepted robustness proof.
+- `ur10e_failed_diagnostic_robustness_experiment_matrix`: v99 converts the
+  four failed v98 cells into planned offline experiment commands. The run
+  status is `planned_not_executed`; no experiments were run and no robustness
+  claim is made.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -386,9 +395,9 @@ Current next executable step:
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
   after explicit user confirmation, using the v93 scaffold, v91 finalizer, and
   v90/v93 verifier for evidence capture; or continue only non-final offline
-  simulation/paper-platform work identified by the v95-v98 blocker audits. Keep
+  simulation/paper-platform work identified by the v95-v99 blocker audits. Keep
   strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v98 diagnostic staged labels
+  v63-v99 diagnostic staged labels
   separate.
 
 ## Safety Boundary

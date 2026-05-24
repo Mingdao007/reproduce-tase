@@ -1,0 +1,184 @@
+audit_source: v99 failed diagnostic robustness experiment matrix
+run_id: 20260525T053909
+status: planned_not_executed
+source_files:
+  diagnostic_robustness_matrix_candidate: runs/diagnostic_robustness_matrix_candidate/20260525T053101/metrics.yaml
+source_failed_cell_ids:
+- base_z_plus1mm
+- positive_fast_timing_0p0075
+- positive_orientation_gate_0p119
+- weighted_plus1mm_0p119_gate
+experiments:
+- id: base_z_plus1mm
+  title: Focused +1.0 mm base-z start/terminal/path bracket
+  status: planned_not_executed
+  execution_scope: offline_simulation_only
+  source_failed_cell:
+    id: base_z_plus1mm
+    status: failed
+    blocker_ids:
+    - base_z_plus_1mm_contact_or_terminal_orientation
+    source: runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml
+  command:
+  - /usr/bin/python3
+  - /home/andy/reproduce-tase/scripts/audit_stage_a_base_z_bracket.py
+  - --output-dir
+  - /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm
+  - --base-z-deltas-mm
+  - '1.0'
+  - --stage-a-durations-s
+  - 15.0,16.0,18.0
+  command_shell: /usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_stage_a_base_z_bracket.py
+    --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm
+    --base-z-deltas-mm 1.0 --stage-a-durations-s 15.0,16.0,18.0
+  output_dir: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm
+  closure_criteria:
+  - delta_p1p000mm has start, terminal, path geometry, and duration recovery in the
+    generated metrics.
+  - Any recovered result remains diagnostic until contact geometry and gate acceptance
+    are closed.
+  expected_artifacts:
+  - metrics.yaml
+  - metrics.json
+  - summary.md
+  - git_state.md
+  notes:
+  - Targets the v98 base_z_plus1mm failed cell.
+  - Extends tested Stage A durations but does not alter accepted claim scope.
+- id: positive_fast_timing_0p0075
+  title: Focused +1.0 mm positive fast-timing stitched sensitivity
+  status: planned_not_executed
+  execution_scope: offline_simulation_only
+  source_failed_cell:
+    id: positive_fast_timing_0p0075
+    status: failed
+    blocker_ids:
+    - faster_timing_qdot_tail_utilization
+    source: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  command:
+  - /usr/bin/python3
+  - /home/andy/reproduce-tase/scripts/audit_positive_stitched_sensitivity.py
+  - --output-dir
+  - /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075
+  - --base-z-deltas-mm
+  - '1.0'
+  - --scenarios
+  - paper_time_scale_0p0075
+  command_shell: /usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_positive_stitched_sensitivity.py
+    --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075
+    --base-z-deltas-mm 1.0 --scenarios paper_time_scale_0p0075
+  output_dir: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075
+  closure_criteria:
+  - paper_time_scale_0p0075 at delta_p1p000mm has stitched_passed = true.
+  - Qdot saturation and tail qdot utilization remain within the diagnostic gate for
+    all four trajectories.
+  expected_artifacts:
+  - metrics.yaml
+  - metrics.json
+  - summary.md
+  - git_state.md
+  notes:
+  - Targets the v98 positive_fast_timing_0p0075 failed cell.
+  - Does not make the faster timing a canonical controller default.
+- id: positive_orientation_gate_0p119
+  title: Focused +1.0 mm positive orientation-gate boundary
+  status: planned_not_executed
+  execution_scope: offline_simulation_only
+  source_failed_cell:
+    id: positive_orientation_gate_0p119
+    status: failed
+    blocker_ids:
+    - tightened_orientation_gate_plus1mm
+    - contact_model_calibration_missing
+    source: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  command:
+  - /usr/bin/python3
+  - /home/andy/reproduce-tase/scripts/audit_positive_orientation_gate_boundary.py
+  - --output-dir
+  - /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119
+  - --base-z-delta-mm
+  - '1.0'
+  - --orientation-gates
+  - 0.119,0.11925,0.1195,0.11975,0.1199,0.11995,0.11997,0.11998,0.12
+  command_shell: /usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_positive_orientation_gate_boundary.py
+    --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119
+    --base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11975,0.1199,0.11995,0.11997,0.11998,0.12
+  output_dir: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119
+  closure_criteria:
+  - The boundary run identifies whether the +1.0 mm row can pass at or below 0.119
+    rad.
+  - Any gate above 0.119 rad remains not accepted without approved calibration evidence.
+  expected_artifacts:
+  - metrics.yaml
+  - metrics.json
+  - summary.md
+  - git_state.md
+  notes:
+  - Targets the v98 positive_orientation_gate_0p119 failed cell.
+  - This is a boundary measurement, not gate acceptance.
+- id: weighted_plus1mm_0p119_gate
+  title: Focused weighted +1.0 mm gate/time boundary
+  status: planned_not_executed
+  execution_scope: offline_simulation_only
+  source_failed_cell:
+    id: weighted_plus1mm_0p119_gate
+    status: failed
+    blocker_ids:
+    - tightened_orientation_gate_plus1mm
+    - contact_model_calibration_missing
+    source: runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml
+  command:
+  - /usr/bin/python3
+  - /home/andy/reproduce-tase/scripts/audit_weighted_gate_time_matrix.py
+  - --output-dir
+  - /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate
+  - --base-z-deltas-mm
+  - '1.0'
+  - --boundary-base-z-delta-mm
+  - '1.0'
+  - --orientation-gates
+  - 0.119,0.11925,0.1195,0.11955,0.1196,0.1197,0.11995
+  command_shell: /usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_weighted_gate_time_matrix.py
+    --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate
+    --base-z-deltas-mm 1.0 --boundary-base-z-delta-mm 1.0 --orientation-gates 0.119,0.11925,0.1195,0.11955,0.1196,0.1197,0.11995
+  output_dir: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate
+  closure_criteria:
+  - Both weighted scenarios pass the +1.0 mm row at the current 0.119 rad gate, or
+    the run reports the minimum passing diagnostic gate.
+  - Any gate relaxation remains not accepted without approved calibration evidence.
+  expected_artifacts:
+  - metrics.yaml
+  - metrics.json
+  - summary.md
+  - git_state.md
+  notes:
+  - Targets the v98 weighted_plus1mm_0p119_gate failed cell.
+  - Runs the weighted matrix machinery on a focused +1.0 mm slice.
+experiment_summary:
+  experiment_count: 4
+  planned_not_executed_count: 4
+  cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  all_expected_scripts_exist: true
+  all_commands_have_output_dirs: true
+claim_boundary:
+  do_not_mark_goal_complete: true
+  robustness_claim: false
+  paper_equivalent_feasibility: false
+  contact_calibration_claim: false
+  orientation_gate_acceptance: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  hardware_readiness_claim: false
+next_offline_actions:
+- Run one planned experiment command at a time if offline compute budget is available.
+- After any command runs, add a separate audit that compares its metrics against the
+  failed v98 cell closure criteria.
+- Keep all gate-relaxation or contact-model interpretations blocked until approved
+  read-only evidence exists.
+audit_root: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909

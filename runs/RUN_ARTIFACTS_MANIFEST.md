@@ -2709,6 +2709,37 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V99 Failed Diagnostic Robustness Experiment Matrix
+
+### Planned offline commands for failed v98 cells
+
+- Script:
+  - `scripts/create_failed_diagnostic_robustness_experiment_matrix.py`
+- Run:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909`
+- Report:
+  - `reports/failed_diagnostic_robustness_experiment_matrix_report.md`
+- Tests:
+  - `tests/test_failed_diagnostic_robustness_experiment_matrix.py`
+- Command:
+  `python3 scripts/create_failed_diagnostic_robustness_experiment_matrix.py --run-id 20260525T053909`
+- Tracked lightweight artifacts:
+  metrics, JSON mirror, summary, executable `commands.sh`, git state, report,
+  tests, and updated planning/decision/manifest documentation.
+- Result:
+  The run reports `status = planned_not_executed`, `experiment_count = 4`,
+  and `planned_not_executed_count = 4`. It maps the four failed v98 cells to
+  focused offline commands and preserves `do_not_mark_goal_complete = true`.
+- Validation:
+  Full tests passed with `136 passed in 5.75s`; YAML anchor check found no
+  anchors in the generated metrics. Branch push verification is pending final
+  marker.
+- Limit:
+  No live or physical measurement was collected. No planned experiment command
+  was executed. This is not a calibrated contact model, not an accepted
+  replacement orientation gate, not a strict paper-equivalent claim, not a
+  robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

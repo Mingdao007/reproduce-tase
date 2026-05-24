@@ -2172,3 +2172,25 @@
   acceptance are also closed. V98 does not prove robustness, strict
   paper-equivalent feasibility, contact calibration, gate acceptance, hardware
   readiness, or any hardware authorization.
+
+## D104: Plan Failed Robustness Cells Before Running Heavy Experiments
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v99 as a planned-not-executed offline experiment matrix for the four
+  failed v98 diagnostic robustness cells.
+- Reason:
+  V98 identified the remaining failed cells, but immediately running every
+  recovery search would mix planning, execution, and claim interpretation. V99
+  adds `scripts/create_failed_diagnostic_robustness_experiment_matrix.py`,
+  which verifies the expected failed cells and writes a concrete `commands.sh`
+  with one focused offline command per cell. The run remains
+  `planned_not_executed`, so future work can execute and audit each cell
+  independently.
+- Consequence:
+  Treat the v99 run as an execution queue, not evidence that any failed cell
+  recovered. Running one command still needs a separate comparison audit
+  before it can affect the diagnostic matrix. V99 does not prove robustness,
+  strict paper-equivalent feasibility, contact calibration, gate acceptance,
+  hardware readiness, or any hardware authorization.

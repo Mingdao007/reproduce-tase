@@ -3796,3 +3796,42 @@
   Without live approval, continue only non-final offline work. The clearest
   target is to convert the four failed v98 matrix cells into executable
   offline experiment cases.
+
+## 2026-05-25 v99 Failed Diagnostic Robustness Experiment Matrix
+
+### Convert failed candidate cells into planned offline commands
+
+- Branch:
+  `exp/tase-ur10e-v99-failed-robustness-experiment-matrix`
+- Run:
+  `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909`
+- Report:
+  `reports/failed_diagnostic_robustness_experiment_matrix_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/create_failed_diagnostic_robustness_experiment_matrix.py`
+  - `scripts/run_tests.sh tests/test_failed_diagnostic_robustness_experiment_matrix.py`
+  - `python3 scripts/create_failed_diagnostic_robustness_experiment_matrix.py --run-id 20260525T053909`
+  - `rg -n "&id|\*id" runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/metrics.yaml`
+  - `scripts/run_tests.sh`
+- Result:
+  Added `scripts/create_failed_diagnostic_robustness_experiment_matrix.py`,
+  which reads the v98 candidate matrix and verifies the four expected failed
+  cells: `base_z_plus1mm`, `positive_fast_timing_0p0075`,
+  `positive_orientation_gate_0p119`, and `weighted_plus1mm_0p119_gate`. The
+  generated run is `planned_not_executed`, contains four concrete offline
+  commands in `commands.sh`, and creates no experiment output directories.
+- Limit:
+  This is an offline planning artifact only. It does not execute the planned
+  experiments, collect measurements, execute the read-only SOP, calibrate the
+  contact model, accept any replacement gate, prove robustness, prove strict
+  paper-equivalent feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/create_failed_diagnostic_robustness_experiment_matrix.py`
+  passed; focused failed-cell matrix tests passed with `2 passed in 0.13s`;
+  the v99 planned experiment matrix run was created; the YAML anchor check
+  found no anchors; full tests passed with `136 passed in 5.75s`.
+- Next step:
+  Without live approval, continue only non-final offline work. The clearest
+  target is to execute at most one planned v99 command at a time and add a
+  separate audit that compares the output metrics against the failed-cell
+  closure criteria.
