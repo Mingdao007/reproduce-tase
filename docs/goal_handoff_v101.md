@@ -87,7 +87,7 @@ exp/tase-ur10e-v100-base-z-failed-cell-execution
 Verified implementation commit:
 
 ```text
-PENDING_IMPLEMENTATION_COMMIT
+ce48bcef63a1fa5f3c3969530774cfe59c6275b9
 ```
 
 V100 failed-cell execution artifacts:

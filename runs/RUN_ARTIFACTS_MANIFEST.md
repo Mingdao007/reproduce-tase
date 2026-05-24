@@ -2769,8 +2769,8 @@ Legacy source root:
   and duration recovery count `0`.
 - Validation:
   Full tests passed with `138 passed in 5.87s`; YAML anchor check found no
-  anchors in the generated metrics. Branch push verification is pending final
-  marker.
+  anchors in the generated metrics; `git diff --check` passed. Branch push
+  was verified at `ce48bcef63a1fa5f3c3969530774cfe59c6275b9`.
 - Limit:
   No live or physical measurement was collected. Only one planned experiment
   command was executed. This is not a calibrated contact model, not an accepted
