@@ -3449,7 +3449,8 @@
   passed; focused scaffold/audit-mode tests passed with `4 passed in 0.86s`;
   full tests passed with `119 passed in 3.50s`; `git diff --check` passed
   before full-test validation. The generated audit artifact has `4` files,
-  `20K`, and no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  `20K`, and no `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was
+  verified at `aa4f48f8cb87d5af1f0051f65768fbc09e3c06ab`.
 - Next step:
   Use `--audit-mode approved-read-only` only after the user approves the exact
   read-only SOP step and the run folder records that approval. Otherwise keep

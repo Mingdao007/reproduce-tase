@@ -2435,7 +2435,8 @@ Legacy source root:
   The v88 scaffold run passed in scaffold mode with `audit_passed = true` and
   `violations = []`. The approved-read-only path is covered by tests and still
   forbids robot motion, configuration writes, zeroing/biasing, force control,
-  gate relaxation, and hardware-readiness claims.
+  gate relaxation, and hardware-readiness claims. Branch push was verified at
+  `aa4f48f8cb87d5af1f0051f65768fbc09e3c06ab`.
 - Limit:
   This is not collected measurement evidence, not a calibrated contact model,
   not an accepted replacement orientation gate, not a strict paper-equivalent
