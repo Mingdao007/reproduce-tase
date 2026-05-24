@@ -1,0 +1,83 @@
+run_id: 20260525T054504
+source: compact base-z perturbation bracket around v66 recovery gaps
+base_z_deltas_mm:
+- 1.0
+stage_a_durations_s:
+- 15.0
+- 16.0
+- 18.0
+diagnostic_gate:
+  max_terminal_tangential_error_m: 0.004
+  max_terminal_orientation_error_rad: 0.08
+  max_terminal_force_error_N: 0.25
+  min_target_contact_count: 1
+parameters:
+  random_seed_count: 512
+  random_seed_std_rad: 0.15
+  random_seed: 37
+  start_max_nfev: 300
+  terminal_max_nfev: 300
+  extra_terminal_seed_labels:
+  - selected_stage_a_target
+  knot_count: 128
+  path_max_nfev: 200
+  qdot_limit_rad_s: 0.15
+  stage_b_duration_s: 2.0
+  paper_time_scale: 0.01
+aggregate:
+  case_count: 1
+  start_pass_count: 0
+  terminal_pass_count: 0
+  path_geometry_pass_count: 0
+  duration_recovered_count: 0
+  start_pass_cases: []
+  terminal_pass_cases: []
+  path_geometry_pass_cases: []
+  duration_recovered_cases: []
+  max_positive_terminal_pass_delta_mm: null
+  max_positive_recovered_delta_mm: null
+cases:
+- case: delta_p1p000mm
+  base_z_offset_delta_m: 0.001
+  base_z_offset_delta_mm: 1.0
+  start:
+    passed: false
+    force_error_N: 5.0
+    tangential_error_m: 0.0
+    target_contact_count: 0
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    q:
+    - 0.0
+    - -0.1
+    - 0.15
+    - -0.05
+    - 0.0
+    - 0.0
+  terminal:
+    passed: false
+    pass_count: 0
+    candidate_count: 515
+    best_seed: random_184
+    force_error_N: 0.0015639424746973773
+    tangential_error_m: 0.0037081102250263293
+    orientation_error_rad: 0.11948560786548146
+    target_contact_count: 1
+    failed_criteria:
+    - orientation_error_rad
+    q:
+    - 2.4301307228908532e-08
+    - -0.013382708679140294
+    - -0.00036297777643642904
+    - 0.00013685157798432314
+    - 9.345517764106481e-11
+    - 0.06865615224623349
+  path: null
+  durations: []
+  status: start_and_terminal_not_found
+warnings:
+- compact diagnostic-label simulation bracket only
+- not strict paper-equivalent feasibility
+- not contact-model calibration
+- not hardware-ready

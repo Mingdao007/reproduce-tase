@@ -1,0 +1,141 @@
+audit_source: v100 failed diagnostic robustness experiment execution audit
+run_id: 20260525T054646
+status: completed
+source_files:
+  planned_experiment_matrix: runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/metrics.yaml
+  experiment_root: runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments
+cell_results:
+- cell_id: base_z_plus1mm
+  status: executed_unresolved
+  closure_passed: false
+  closure_checks:
+    planned_parameters_match:
+      base_z_deltas_mm:
+        planned:
+        - 1.0
+        observed:
+        - 1.0
+        matched: true
+      stage_a_durations_s:
+        planned:
+        - 15.0
+        - 16.0
+        - 18.0
+        observed:
+        - 15.0
+        - 16.0
+        - 18.0
+        matched: true
+      all_matched: true
+    source_delta_present:
+      passed: true
+      observed_base_z_offset_delta_mm: 1.0
+    start_contact_recovered:
+      passed: false
+      failed_criteria:
+      - force_error_N
+      - target_contact_count
+    terminal_target_recovered:
+      passed: false
+      failed_criteria:
+      - orientation_error_rad
+      orientation_error_rad: 0.11948560786548146
+    path_geometry_recovered:
+      passed: false
+      path_summary: null
+    duration_recovered:
+      passed: false
+      tested_stage_a_durations_s:
+      - 15.0
+      - 16.0
+      - 18.0
+      duration_rows: []
+  observed_status: start_and_terminal_not_found
+  aggregate:
+    case_count: 1
+    start_pass_count: 0
+    terminal_pass_count: 0
+    path_geometry_pass_count: 0
+    duration_recovered_count: 0
+    max_positive_terminal_pass_delta_mm: null
+    max_positive_recovered_delta_mm: null
+  interpretation: The +1.0 mm base-z failed cell remains unresolved because the exact
+    planned command did not recover start contact, terminal feasibility, path geometry,
+    or any tested Stage A duration.
+  experiment_metrics: runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm/metrics.yaml
+  source_failed_cell:
+    id: base_z_plus1mm
+    status: failed
+    blocker_ids:
+    - base_z_plus_1mm_contact_or_terminal_orientation
+    source: runs/stage_a_base_z_recovery/20260524T163746/metrics.yaml
+- cell_id: positive_fast_timing_0p0075
+  status: not_executed
+  closure_passed: false
+  experiment_metrics: null
+  source_failed_cell:
+    id: positive_fast_timing_0p0075
+    status: failed
+    blocker_ids:
+    - faster_timing_qdot_tail_utilization
+    source: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  interpretation: No experiment metrics exist for this planned cell.
+- cell_id: positive_orientation_gate_0p119
+  status: not_executed
+  closure_passed: false
+  experiment_metrics: null
+  source_failed_cell:
+    id: positive_orientation_gate_0p119
+    status: failed
+    blocker_ids:
+    - tightened_orientation_gate_plus1mm
+    - contact_model_calibration_missing
+    source: runs/positive_stitched_sensitivity/20260524T193845/metrics.yaml
+  interpretation: No experiment metrics exist for this planned cell.
+- cell_id: weighted_plus1mm_0p119_gate
+  status: not_executed
+  closure_passed: false
+  experiment_metrics: null
+  source_failed_cell:
+    id: weighted_plus1mm_0p119_gate
+    status: failed
+    blocker_ids:
+    - tightened_orientation_gate_plus1mm
+    - contact_model_calibration_missing
+    source: runs/weighted_orientation_model_sensitivity/20260524T233945/metrics.yaml
+  interpretation: No experiment metrics exist for this planned cell.
+summary:
+  cell_count: 4
+  status_counts:
+    executed_unresolved: 1
+    not_executed: 3
+  closed_cell_ids: []
+  unresolved_executed_cell_ids:
+  - base_z_plus1mm
+  not_executed_cell_ids:
+  - positive_fast_timing_0p0075
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  executed_cell_count: 1
+  closed_cell_count: 0
+  not_executed_cell_count: 3
+  all_failed_cells_closed: false
+claim_boundary:
+  do_not_mark_goal_complete: true
+  robustness_claim: false
+  paper_equivalent_feasibility: false
+  contact_calibration_claim: false
+  orientation_gate_acceptance: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  hardware_readiness_claim: false
+next_offline_actions:
+- Do not upgrade the base_z_plus1mm cell; it remains unresolved under the executed
+  command.
+- If continuing offline, run one of the remaining planned commands or design a narrower
+  start-contact/terminal policy probe for the +1.0 mm row.
+- Keep contact-model and gate interpretations blocked until approved read-only evidence
+  exists.
+audit_root: /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_audit/20260525T054646

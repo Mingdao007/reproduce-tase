@@ -2740,6 +2740,43 @@ Legacy source root:
   replacement orientation gate, not a strict paper-equivalent claim, not a
   robustness proof, and not hardware authorization.
 
+## V100 Base-Z Failed-Cell Execution Audit
+
+### Executed `base_z_plus1mm` planned command and comparison audit
+
+- Scripts:
+  - `scripts/audit_stage_a_base_z_bracket.py`
+  - `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T054646`
+- Report:
+  - `reports/failed_diagnostic_robustness_experiment_execution_report.md`
+- Tests:
+  - `tests/test_failed_diagnostic_robustness_experiment_execution.py`
+- Executed command:
+  `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_stage_a_base_z_bracket.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm --base-z-deltas-mm 1.0 --stage-a-durations-s 15.0,16.0,18.0`
+- Audit command:
+  `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T054646`
+- Tracked lightweight artifacts:
+  experiment metrics/summary/git state, audit metrics/summary/git state,
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The executed `base_z_plus1mm` cell remains unresolved. The audit reports
+  `executed_cell_count = 1`, `closed_cell_count = 0`,
+  `not_executed_cell_count = 3`, `all_failed_cells_closed = false`,
+  start pass count `0`, terminal pass count `0`, path geometry pass count `0`,
+  and duration recovery count `0`.
+- Validation:
+  Full tests passed with `138 passed in 5.87s`; YAML anchor check found no
+  anchors in the generated metrics. Branch push verification is pending final
+  marker.
+- Limit:
+  No live or physical measurement was collected. Only one planned experiment
+  command was executed. This is not a calibrated contact model, not an accepted
+  replacement orientation gate, not a strict paper-equivalent claim, not a
+  robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

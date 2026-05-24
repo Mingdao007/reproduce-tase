@@ -3837,3 +3837,45 @@
   target is to execute at most one planned v99 command at a time and add a
   separate audit that compares the output metrics against the failed-cell
   closure criteria.
+
+## 2026-05-25 v100 Base-Z Failed-Cell Execution Audit
+
+### Execute and audit the planned `base_z_plus1mm` command
+
+- Branch:
+  `exp/tase-ur10e-v100-base-z-failed-cell-execution`
+- Runs:
+  - `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm`
+  - `runs/failed_diagnostic_robustness_experiment_audit/20260525T054646`
+- Report:
+  `reports/failed_diagnostic_robustness_experiment_execution_report.md`
+- Commands run:
+  - `/usr/bin/python3 /home/andy/reproduce-tase/scripts/audit_stage_a_base_z_bracket.py --output-dir /home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm --base-z-deltas-mm 1.0 --stage-a-durations-s 15.0,16.0,18.0`
+  - `python3 -m py_compile scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  - `scripts/run_tests.sh tests/test_failed_diagnostic_robustness_experiment_execution.py`
+  - `python3 scripts/audit_failed_diagnostic_robustness_experiment_execution.py --run-id 20260525T054646`
+  - `rg -n "&id|\*id" runs/failed_diagnostic_robustness_experiment_audit/20260525T054646/metrics.yaml runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm/metrics.yaml`
+  - `scripts/run_tests.sh`
+- Result:
+  Executed the v99 `base_z_plus1mm` command and added
+  `scripts/audit_failed_diagnostic_robustness_experiment_execution.py` to
+  compare the output against the failed-cell closure criteria. The executed
+  cell is `executed_unresolved`: start pass count `0`, terminal pass count
+  `0`, path geometry pass count `0`, duration recovery count `0`, and
+  terminal orientation error `0.11948560786548146 rad`.
+- Limit:
+  This is one offline diagnostic experiment plus a comparison audit. It does
+  not execute the other three v99 planned commands, collect measurements,
+  execute the read-only SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  passed; focused execution-audit tests passed with `2 passed in 0.12s`; the
+  v100 execution audit run was created; the YAML anchor check found no
+  anchors; full tests passed with `138 passed in 5.87s`.
+- Next step:
+  Without live approval, continue only non-final offline work. Candidate paths
+  are to execute one remaining v99 planned command at a time, or design a
+  narrower diagnostic probe for the unresolved `base_z_plus1mm` start-contact
+  and terminal-orientation failure.

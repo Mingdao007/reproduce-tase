@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v100.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v99 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script; it does not run the experiments or prove robustness. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v99 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v99 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v101.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v100 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script. V100 executes the `base_z_plus1mm` planned command and audits it as still unresolved: start `0 / 1`, terminal `0 / 1`, path `0 / 1`, duration recovery `0 / 1`, and all failed cells closed `false`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v100 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v100 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v99` repository state. The project goal is to reproduce the T-ASE finite-time
+`v100` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v99-failed-robustness-experiment-matrix`
+  `exp/tase-ur10e-v100-base-z-failed-cell-execution`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -91,12 +91,18 @@ Read and audit these files before making assumptions:
   `tests/test_failed_diagnostic_robustness_experiment_matrix.py`
   `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909`
   `reports/failed_diagnostic_robustness_experiment_matrix_report.md`
+- Current v100 failed-cell execution artifacts:
+  `scripts/audit_failed_diagnostic_robustness_experiment_execution.py`
+  `tests/test_failed_diagnostic_robustness_experiment_execution.py`
+  `runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm`
+  `runs/failed_diagnostic_robustness_experiment_audit/20260525T054646`
+  `reports/failed_diagnostic_robustness_experiment_execution_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v100.md`
+  `docs/goal_handoff_v101.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -383,6 +389,10 @@ Current accepted claims:
   four failed v98 cells into planned offline experiment commands. The run
   status is `planned_not_executed`; no experiments were run and no robustness
   claim is made.
+- `ur10e_failed_diagnostic_robustness_experiment_execution`: v100 executes the
+  planned `base_z_plus1mm` command and audits it as `executed_unresolved`.
+  Start, terminal, path geometry, and duration recovery all remain `0`; the
+  other three failed v98 cells remain not executed.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -395,9 +405,9 @@ Current next executable step:
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
   after explicit user confirmation, using the v93 scaffold, v91 finalizer, and
   v90/v93 verifier for evidence capture; or continue only non-final offline
-  simulation/paper-platform work identified by the v95-v99 blocker audits. Keep
+  simulation/paper-platform work identified by the v95-v100 blocker audits. Keep
   strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v99 diagnostic staged labels
+  v63-v100 diagnostic staged labels
   separate.
 
 ## Safety Boundary

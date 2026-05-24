@@ -2194,3 +2194,25 @@
   before it can affect the diagnostic matrix. V99 does not prove robustness,
   strict paper-equivalent feasibility, contact calibration, gate acceptance,
   hardware readiness, or any hardware authorization.
+
+## D105: Audit Executed Failed-Cell Commands Before Upgrading Status
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v100 as the first execution/audit pass over one v99 planned failed
+  robustness cell, `base_z_plus1mm`.
+- Reason:
+  V99 deliberately separated experiment planning from execution. V100 runs the
+  exact planned `base_z_plus1mm` command, then adds
+  `scripts/audit_failed_diagnostic_robustness_experiment_execution.py` so the
+  output is compared against the closure criteria instead of interpreted by
+  prose alone. The executed row remains unresolved: start pass, terminal pass,
+  path geometry pass, and duration recovery are all zero.
+- Consequence:
+  Do not upgrade the v98/v99 base-z failed cell. Future offline work may run
+  one remaining planned command at a time or create a narrower base-z
+  diagnostic probe, but every executed command still needs a comparison audit
+  before it can affect the matrix. V100 does not prove robustness, strict
+  paper-equivalent feasibility, contact calibration, gate acceptance, hardware
+  readiness, or any hardware authorization.
