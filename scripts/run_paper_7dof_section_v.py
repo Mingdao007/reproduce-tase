@@ -71,8 +71,12 @@ def write_summary(out_dir: pathlib.Path, run_id: str, metrics: dict, config: Pap
         "tail_position_error_mean_m",
         "tail_orientation_error_mean_rad",
         "tail_force_error_mean_N",
+        "fig6_q7_sample_time_s",
+        "fig6_q7_at_22s_rad",
+        "fig6_q7_abs_error_to_2p5_rad",
     ]:
-        lines.append(f"| `{key}` | `{metrics[key]}` |")
+        if key in metrics:
+            lines.append(f"| `{key}` | `{metrics[key]}` |")
     lines.extend(
         [
             "",
@@ -98,10 +102,14 @@ def main() -> int:
     parser.add_argument("--output-dir", default=None)
     args = parser.parse_args()
 
-    run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
+    if args.output_dir:
+        out_dir = pathlib.Path(args.output_dir)
+        run_id = out_dir.name
+    else:
+        run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
+        out_dir = ROOT / "runs" / "paper_7dof_section_v" / run_id
     git_commit = git_value(["rev-parse", "HEAD"])
     git_status_short = git_value(["status", "--short"])
-    out_dir = pathlib.Path(args.output_dir) if args.output_dir else ROOT / "runs" / "paper_7dof_section_v" / run_id
     out_dir.mkdir(parents=True, exist_ok=True)
 
     config = PaperSectionV7DofConfig(

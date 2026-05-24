@@ -86,6 +86,8 @@ def _check_detail(check: dict) -> str:
         "required_duration_s",
         "candidate_q7_rad",
         "reference_q7_rad",
+        "abs_delta_rad",
+        "tolerance_rad",
         "missing_r_values",
         "force_integral_limit",
         "reason",
@@ -102,8 +104,12 @@ def main() -> int:
     parser.add_argument("--fail-on-parity-failure", action="store_true")
     args = parser.parse_args()
 
-    run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
-    out_dir = pathlib.Path(args.output_dir) if args.output_dir else ROOT / "runs" / "paper_platform_parity_eval" / run_id
+    if args.output_dir:
+        out_dir = pathlib.Path(args.output_dir)
+        run_id = out_dir.name
+    else:
+        run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
+        out_dir = ROOT / "runs" / "paper_platform_parity_eval" / run_id
     out_dir.mkdir(parents=True, exist_ok=True)
     result = evaluate_paper_platform_parity(ROOT / args.config, ROOT)
     payload = {

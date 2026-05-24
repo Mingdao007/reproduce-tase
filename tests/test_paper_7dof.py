@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 
 from tase_repro.paper_7dof import (
+    PaperSectionV7DofResult,
     PaperSectionV7DofConfig,
     escape_velocity_bounds,
     paper_section_v_desired_position,
@@ -90,3 +91,37 @@ def test_capped_integral_kkt_diagnostic_passes_tail_force_gate() -> None:
     assert metrics["tail_force_error_mean_N"] <= 1.0
     assert metrics["q_bound_violation_count"] == 0
     assert metrics["qdot_bound_violation_count"] == 0
+
+
+def test_summary_records_fig6_q7_landmark_when_duration_covers_22s() -> None:
+    q_rad = np.zeros((3, 7), dtype=float)
+    q_rad[1, 6] = 1.675
+    result = PaperSectionV7DofResult(
+        config=PaperSectionV7DofConfig(duration_s=30.0),
+        t_s=np.array([0.0, 22.0, 30.0], dtype=float),
+        q_rad=q_rad,
+        qdot_rad_s=np.zeros((3, 7), dtype=float),
+        qddot_rad_s2=np.zeros((3, 7), dtype=float),
+        lambda_1=np.zeros((3, 6), dtype=float),
+        position_m=np.zeros((3, 3), dtype=float),
+        desired_position_m=np.zeros((3, 3), dtype=float),
+        position_error_m=np.zeros((3, 3), dtype=float),
+        orientation_error_rad=np.zeros((3, 3), dtype=float),
+        task_residual_norm=np.zeros(3, dtype=float),
+        force_error_N=np.zeros(3, dtype=float),
+        measured_force_N=np.full(3, 5.0, dtype=float),
+        contact_active=np.ones(3, dtype=bool),
+        penetration_m=np.zeros(3, dtype=float),
+        commanded_task_velocity=np.zeros((3, 6), dtype=float),
+        projected_qdot_raw=np.zeros((3, 7), dtype=float),
+        projected_qdot=np.zeros((3, 7), dtype=float),
+        velocity_clamp_active=np.zeros((3, 7), dtype=bool),
+        condition_number=np.ones(3, dtype=float),
+        desired_rotation_valid=np.ones(3, dtype=bool),
+        z0_m=0.0,
+        plane_z_m=0.0,
+    )
+    metrics = summarize_paper_section_v_7dof(result)
+    assert metrics["fig6_q7_sample_time_s"] == 22.0
+    assert metrics["fig6_q7_at_22s_rad"] == 1.675
+    np.testing.assert_allclose(metrics["fig6_q7_abs_error_to_2p5_rad"], 0.825)

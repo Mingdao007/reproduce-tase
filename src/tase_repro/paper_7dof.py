@@ -399,7 +399,7 @@ def summarize_paper_section_v_7dof(result: PaperSectionV7DofResult) -> dict[str,
     tail_contact_fraction = float(np.mean(result.contact_active[tail]))
     tail_force_error_mean_N = float(np.mean(np.abs(result.force_error_N[tail])))
     contact_force_tail_success = bool(tail_contact_fraction >= 0.99 and tail_force_error_mean_N <= 1.0)
-    return {
+    metrics: dict[str, float | int | bool | str] = {
         "execution_success": bool(all_finite and q_bound_violation_count == 0 and qdot_bound_violation_count == 0),
         "contact_force_tail_success": contact_force_tail_success,
         "claim_level": "paper_platform_7dof_executable_diagnostic",
@@ -429,3 +429,15 @@ def summarize_paper_section_v_7dof(result: PaperSectionV7DofResult) -> dict[str,
         "final_force_error_N": float(result.force_error_N[-1]),
         "max_condition_number": float(np.max(result.condition_number)),
     }
+    fig6_q7_sample_time_s = 22.0
+    if result.t_s.size and float(result.t_s[-1]) + 0.5 * float(result.config.dt_s) >= fig6_q7_sample_time_s:
+        q7_index = int(np.argmin(np.abs(result.t_s - fig6_q7_sample_time_s)))
+        q7_at_sample_rad = float(result.q_rad[q7_index, 6])
+        metrics.update(
+            {
+                "fig6_q7_sample_time_s": float(result.t_s[q7_index]),
+                "fig6_q7_at_22s_rad": q7_at_sample_rad,
+                "fig6_q7_abs_error_to_2p5_rad": abs(q7_at_sample_rad - 2.5),
+            }
+        )
+    return metrics
