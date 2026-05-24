@@ -28,7 +28,12 @@ paper_platform_parity:
       - 0.6
       - 0.8
       - 1.0
-    metrics_paths: {}
+    metrics_paths:
+      0.2: runs/paper_7dof_fig5_r_sweep/20260524T121033/r_0p2/metrics.yaml
+      0.4: runs/paper_7dof_fig5_r_sweep/20260524T121033/r_0p4/metrics.yaml
+      0.6: runs/paper_7dof_fig5_r_sweep/20260524T121033/r_0p6/metrics.yaml
+      0.8: runs/paper_7dof_fig5_r_sweep/20260524T121033/r_0p8/metrics.yaml
+      1.0: runs/paper_7dof_fig5_r_sweep/20260524T121033/r_1p0/metrics.yaml
   thresholds:
     tail_force_error_abs_N: 1.0
     tail_position_error_abs_m: 0.002
