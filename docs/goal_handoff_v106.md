@@ -83,7 +83,7 @@ exp/tase-ur10e-v105-positive-fast-e2-qdot-isolation
 Verified implementation commit:
 
 ```text
-TBD_AFTER_V105_IMPLEMENTATION_COMMIT
+6cc6733a3ac78b93090d4079b62480ade57e82a7
 ```
 
 V105 E2 qdot isolation artifacts:

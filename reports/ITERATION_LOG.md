@@ -4073,8 +4073,8 @@
 - Validation:
   Focused tests passed with `1 passed in 0.12s`; YAML anchor check found no
   anchors in the generated metrics; full tests passed with
-  `147 passed in 6.86s`; `git diff --check` passed. Final push verification
-  is pending.
+  `147 passed in 6.86s`; `git diff --check` passed. Branch push was verified
+  at `6cc6733a3ac78b93090d4079b62480ade57e82a7`.
 - Next step:
   Without live approval, continue only non-final offline work. Avoid pure
   qdot-limit escalation for this row; either probe orientation-margin
