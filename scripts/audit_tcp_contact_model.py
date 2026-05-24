@@ -112,6 +112,25 @@ def main() -> int:
     with (out_dir / "metrics.json").open("w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
+    if audit.site_coincident_with_contact_geom_center:
+        interpretation_lines = [
+            "The current model places the TCP site at the center of the colliding",
+            "sphere. If the 85 mm EOAT note is intended to be the actual contact",
+            "point, then this model adds a contact-surface offset of roughly the",
+            "sphere radius. If it is intended to be the sphere center, the physical",
+            "contact point is not the configured TCP. This remains simulation-only",
+            "and is not hardware-ready.",
+        ]
+    else:
+        interpretation_lines = [
+            "The current model separates the TCP site from the colliding sphere",
+            "center. This resolves the v53 center/site coincidence for a",
+            "contact-point convention, but it remains an approximate simulation",
+            "proxy. Any residual site-to-surface projection reflects the current",
+            "posture and plane-normal alignment; hardware use still requires",
+            "mounted-stack measurement and explicit approval.",
+        ]
+
     summary_lines = [
         "# TCP Contact Model Audit Summary",
         "",
@@ -124,6 +143,7 @@ def main() -> int:
         f"- Site coincident with contact geom center: `{audit.site_coincident_with_contact_geom_center}`",
         f"- Contact surface offset requires model decision: `{audit.contact_surface_offset_requires_model_decision}`",
         f"- Parent-to-site distance m: `{audit.parent_to_site_distance_m}`",
+        f"- Contact geom local pos m: `{audit.model_contact_geom_local_pos_m.tolist()}`",
         f"- Contact geom radius m: `{audit.contact_geom_radius_m}`",
         f"- Contact count: `{audit.contact_count}`",
         f"- Normal force N: `{audit.normal_force_N}`",
@@ -133,12 +153,7 @@ def main() -> int:
         "",
         "## Interpretation",
         "",
-        "The current model places the TCP site at the center of the colliding",
-        "sphere. If the 85 mm EOAT note is intended to be the actual contact",
-        "point, then this model adds a contact-surface offset of roughly the",
-        "sphere radius. If it is intended to be the sphere center, the physical",
-        "contact point is not the configured TCP. This remains simulation-only",
-        "and is not hardware-ready.",
+        *interpretation_lines,
         "",
     ]
     (out_dir / "summary.md").write_text("\n".join(summary_lines), encoding="utf-8")
