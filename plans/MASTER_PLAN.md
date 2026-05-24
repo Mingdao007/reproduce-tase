@@ -110,16 +110,17 @@ work exists only on that branch.
   `+1.0 mm`. v73 stress-tests that recovered policy and passes `37 / 40`
   compact sensitivity cells; only nominal v72 and `stage_a_14p5s` pass all
   deltas. The remaining failures bound qdot-limited Stage A tracking, faster
-  Stage B timing, and tighter orientation gates. This is still not robust,
-  paper-equivalent, or hardware evidence.
+  Stage B timing, and tighter orientation gates. v74 isolates the
+  `qdot012_stage_a18s` `+0.2 mm` failure as a narrow Stage A duration margin:
+  `18.03 s` still fails, while `18.035 s` passes with Stage B `4 / 4`.
+  This is still not robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Isolate the v73 `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary
-with a small duration/path-retiming margin audit. Keep the
-`paper_time_scale_0p0075` and `orientation_gate_0p119` `+1.0 mm` failures as
-explicit sensitivity limits unless a separate model/control change is made.
-Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v73 diagnostic staged labels separate.
+Decide whether to fold the `18.035 s` qdot012 duration margin into a compact
+positive stitched recovery matrix, or move to the harder
+`paper_time_scale_0p0075` and `orientation_gate_0p119` `+1.0 mm` sensitivity
+limits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup,
+and v63-v74 diagnostic staged labels separate.

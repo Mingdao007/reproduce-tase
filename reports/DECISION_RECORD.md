@@ -1567,3 +1567,25 @@
   sensitivity limits unless a separate model/control change is made. The
   project still must not claim robustness, strict paper-equivalent feasibility,
   contact-model calibration, or hardware readiness.
+
+## D079: Treat Qdot012 Positive Failure As A Narrow Stage A Margin
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v74 as evidence that the v73 `qdot012_stage_a18s` `+0.2 mm` failure
+  is a narrow Stage A replay duration margin, not a Stage B handoff failure.
+- Reason:
+  The v74 run at `runs/qdot012_stage_a_margin/20260524T194817` holds the v70
+  relaxed terminal/path setup, `qdot_limit_rad_s = 0.12`, `paper_time_scale =
+  0.005`, and `max_orientation_error_rad = 0.12` fixed while sweeping Stage A
+  duration for the `+0.2 mm` cell. Stage B passes `4 / 4` at every duration.
+  Stage A final tracking fails through `18.03 s` with residual
+  `3.2284410533080015e-07 rad`, then passes at `18.035 s` with zero final
+  tracking error and max Stage A qdot `0.1199690367457867 rad/s`.
+- Consequence:
+  The project may either fold the `18.035 s` qdot012 duration margin into a
+  compact positive stitched recovery matrix or move to the harder `+1.0 mm`
+  faster-timing/orientation sensitivity limits. This remains diagnostic-label
+  simulation evidence only, not a robustness proof, strict paper-equivalent
+  feasibility, contact-model calibration, or hardware readiness.

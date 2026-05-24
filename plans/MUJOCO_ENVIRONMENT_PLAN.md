@@ -87,12 +87,13 @@ contact behavior regresses.
   matrix `8 / 8` through `+1.0 mm`. v73 stress-tests that recovered policy and
   passes `37 / 40` compact sensitivity cells, with failures at
   `qdot012_stage_a18s` `+0.2 mm`, `paper_time_scale_0p0075` `+1.0 mm`, and
-  `orientation_gate_0p119` `+1.0 mm`.
+  `orientation_gate_0p119` `+1.0 mm`. v74 isolates the qdot012 `+0.2 mm`
+  failure as a narrow Stage A duration margin that recovers at `18.035 s`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should isolate the v73 `qdot012_stage_a18s`
-`+0.2 mm` Stage A final-tracking boundary with a small duration/path-retiming
-margin audit.
+simulation controller prototype should decide whether to fold the `18.035 s`
+qdot012 duration margin into a compact positive stitched recovery matrix or
+move to the harder `+1.0 mm` timing/orientation sensitivity limits.

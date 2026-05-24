@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v73-positive-stitched-sensitivity`
+Current branch: `exp/tase-ur10e-v74-qdot012-stage-a-margin`
 
 ## Scope
 
@@ -86,7 +86,10 @@ and recovers the full positive E1-E4 stitched diagnostic matrix `8 / 8` through
 matrix and passes `37 / 40` stitched cells: nominal v72 and `stage_a_14p5s`
 pass all positive deltas, while `qdot012_stage_a18s` fails `+0.2 mm` on Stage A
 final tracking, `paper_time_scale_0p0075` fails `+1.0 mm` on E2, and
-`orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
+`orientation_gate_0p119` fails `+1.0 mm` on orientation gates. v74 isolates
+the `qdot012_stage_a18s` `+0.2 mm` miss and shows it is recovered by extending
+Stage A from `18.03 s` to `18.035 s`; Stage B remains `4 / 4` throughout that
+duration sweep.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

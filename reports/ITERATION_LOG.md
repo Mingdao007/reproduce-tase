@@ -2796,3 +2796,37 @@
 - Next step:
   Isolate the `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary
   with a small Stage A duration/path-retiming margin audit.
+
+## 2026-05-24 v74 Qdot012 Stage A Margin Audit
+
+### Isolate the positive qdot012 duration boundary
+
+- Branch:
+  `exp/tase-ur10e-v74-qdot012-stage-a-margin`
+- Run:
+  `runs/qdot012_stage_a_margin/20260524T194817`
+- Report:
+  `reports/qdot012_stage_a_margin_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_qdot012_stage_a_margin.py`
+  - `scripts/audit_qdot012_stage_a_margin.py`
+- Result:
+  The audit isolates the v73 `qdot012_stage_a18s` `+0.2 mm` failing cell while
+  holding the v70 relaxed target/path setup, `qdot_limit_rad_s = 0.12`,
+  `paper_time_scale = 0.005`, and `max_orientation_error_rad = 0.12` fixed.
+  Stage B handoff passes `4 / 4` for all seven tested durations. Stage A final
+  tracking fails through `18.03 s`; `18.035 s`, `18.04 s`, and `18.05 s` pass.
+  The first passing case has max Stage A qdot `0.1199690367457867 rad/s`.
+- Limit:
+  This is diagnostic-label Stage A duration margin evidence only. It does not
+  recover the v73 faster-timing or tighter-orientation `+1.0 mm` sensitivity
+  failures and is not strict paper-equivalent, robust, calibrated, or
+  hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_qdot012_stage_a_margin.py scripts/audit_positive_stitched_sensitivity.py`
+  passed. Full tests passed with `115 passed in 2.55s`; `git diff --check`
+  passed.
+- Next step:
+  Decide whether to fold the `18.035 s` qdot012 duration margin into a compact
+  positive stitched recovery matrix or move to the harder `+1.0 mm`
+  timing/orientation sensitivity limits.

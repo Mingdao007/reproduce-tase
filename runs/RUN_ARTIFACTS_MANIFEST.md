@@ -1969,6 +1969,32 @@ Legacy source root:
   not a canonical-config change, strict paper-equivalent claim, robustness
   proof, contact-model calibration, or hardware evidence.
 
+## V74 Qdot012 Stage A Margin Audit
+
+### Focused duration margin for the v73 qdot012 +0.2 mm failure
+
+- Run:
+  - `runs/qdot012_stage_a_margin/20260524T194817`
+- Command:
+  `scripts/audit_qdot012_stage_a_margin.py`
+- Git state at run time:
+  parent commit `b0da94bddc277914dd4f7d58639327522ae6bfa5` with dirty v74
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-duration E1-E4 stitched metrics/summaries/commands under `cases/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, `qdot_limit_rad_s = 0.12`,
+  `paper_time_scale = 0.005`, and the `0.12 rad` orientation gate fixed for
+  the `+0.2 mm` cell. Stage B passes `4 / 4` for every tested duration. Stage A
+  final tracking fails through `18.03 s` and first passes at `18.035 s`.
+- Limit:
+  This is diagnostic-label qdot012 Stage A duration margin evidence only. It
+  does not recover the v73 faster-timing or tighter-orientation `+1.0 mm`
+  sensitivity failures and is not a canonical-config change, strict
+  paper-equivalent claim, robustness proof, contact-model calibration, or
+  hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

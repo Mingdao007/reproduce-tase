@@ -267,12 +267,16 @@ smoke runs regress.
   `qdot012_stage_a18s` fails `+0.2 mm` on Stage A final tracking,
   `paper_time_scale_0p0075` fails `+1.0 mm` on E2 qdot/orientation, and
   `orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
+- The v74 qdot012 Stage A margin audit shows the `qdot012_stage_a18s`
+  `+0.2 mm` failure is recovered by extending Stage A from `18.03 s` to
+  `18.035 s`; Stage B is `4 / 4` for every tested duration.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should isolate
-the v73 `qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking boundary with a
-small duration/path-retiming margin audit. Keep contact, drift, terminal
-orientation, force error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should decide
+whether the `18.035 s` qdot012 duration margin should be folded into a compact
+positive stitched recovery matrix, or whether work should move to the harder
+`+1.0 mm` faster-timing/orientation sensitivity limits. Keep contact, drift,
+terminal orientation, force error, and qdot saturation visible together.

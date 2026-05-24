@@ -254,6 +254,9 @@ them rather than deleting them.
   while `qdot012_stage_a18s` fails `+0.2 mm` on Stage A final tracking,
   `paper_time_scale_0p0075` fails `+1.0 mm` on E2 qdot/orientation, and
   `orientation_gate_0p119` fails `+1.0 mm` on orientation gates.
+- The v74 qdot012 Stage A margin audit isolates the `qdot012_stage_a18s`
+  `+0.2 mm` failure. Stage B passes `4 / 4` for every tested duration; Stage A
+  final tracking fails through `18.03 s` and recovers at `18.035 s`.
 
 ## Next Executable Step
 
@@ -269,7 +272,6 @@ v70 recovered positive-side endpoints/path under an explicit `0.12 rad`
 diagnostic envelope, and v71 found that E2 recovers for all positive deltas at
 `paper_time_scale = 0.005`. v72 recovers the full positive E1-E4 stitched
 matrix at that timing. v73 bounds sensitivity around that exact relaxed
-diagnostic policy and leaves the next simulation gap as the
-`qdot012_stage_a18s` `+0.2 mm` Stage A final-tracking miss. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v73
-diagnostic staged labels separate.
+diagnostic policy, and v74 recovers the qdot012 `+0.2 mm` Stage A tracking miss
+with a `18.035 s` duration. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v74 diagnostic staged labels separate.
