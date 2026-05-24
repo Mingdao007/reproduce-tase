@@ -89,7 +89,7 @@ exp/tase-ur10e-v106-positive-fast-e2-orientation-margin
 Verified implementation commit:
 
 ```text
-TBD after v106 branch push verification
+716ecde74a428c15ce17445018ca7028b1db9527
 ```
 
 V106 E2 orientation-margin artifacts:

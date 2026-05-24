@@ -2995,7 +2995,8 @@ Legacy source root:
   Focused tests passed with `1 passed in 0.12s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `148 passed in 6.81s`; `git diff --check` passed.
-  Branch-push validation is pending before finalizing v106.
+  Branch push was verified at
+  `716ecde74a428c15ce17445018ca7028b1db9527`.
 - Limit:
   No live or physical measurement was collected. This is E2-only diagnostic
   simulation and does not close the v99 `positive_fast_timing_0p0075` failed
