@@ -20,6 +20,7 @@ from audit_read_only_calibration_measurement_run import (
     EXPECTED_CSV_HEADERS,
     EXPECTED_EVIDENCE_STATUS,
     HARD_FALSE_FIELDS,
+    ORIENTATION_ACCEPTANCE_NULL_FIELDS,
     OPTIONAL_CSV_HEADERS,
     REQUIRED_FILES,
     audit_run,
@@ -147,6 +148,18 @@ def derive_evidence_status(row_counts: dict[str, int]) -> dict[str, str]:
     return evidence_status
 
 
+def orientation_gate_acceptance_boundary(row_counts: dict[str, int]) -> dict[str, Any]:
+    boundary: dict[str, Any] = {
+        "decision": "not_accepted",
+        "evidence_only": True,
+        "requires_separate_gate_audit": True,
+        "orientation_semantics_rows": row_counts.get("orientation_gate_semantics.csv", 0),
+    }
+    for field in ORIENTATION_ACCEPTANCE_NULL_FIELDS:
+        boundary[field] = None
+    return boundary
+
+
 def finalize_metrics(
     metrics: dict[str, Any],
     *,
@@ -165,6 +178,7 @@ def finalize_metrics(
         finalized.setdefault(group, {})
         finalized[group][key] = False
     finalized["evidence_status"] = derive_evidence_status(row_counts)
+    finalized["orientation_gate_acceptance"] = orientation_gate_acceptance_boundary(row_counts)
     finalized["read_only_evidence_finalization"] = {
         "confirmation_phrase_matched": True,
         "approved_step_id": approved_step_id,
@@ -199,6 +213,8 @@ def write_summary(
         f"Operator: `{operator}`",
         f"Finalized at UTC: `{finalized_at_utc}`",
         f"Live hardware accessed: `{live_hardware_accessed}`",
+        "Orientation gate decision: `not_accepted`",
+        "Orientation evidence only: `True`",
         "",
         "Worksheet row counts:",
         "",

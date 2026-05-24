@@ -79,6 +79,14 @@ APPROVED_READ_ONLY_EVIDENCE_STATUSES = {
 
 HEAVY_EXTENSIONS = {".npz", ".npy", ".mat", ".tar", ".gz", ".zip"}
 
+ORIENTATION_ACCEPTANCE_NULL_FIELDS = [
+    "accepted_gate_type",
+    "accepted_gate_value_rad",
+    "accepted_normal_source",
+    "accepted_contact_datum_source",
+    "accepted_uncertainty_budget",
+]
+
 
 def load_yaml(path: pathlib.Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
@@ -142,6 +150,41 @@ def artifact_audit(run_dir: pathlib.Path) -> dict[str, Any]:
     }
 
 
+def audit_orientation_gate_acceptance(
+    metrics_yaml: dict[str, Any],
+    evidence_status: dict[str, Any],
+    violations: list[str],
+) -> dict[str, Any]:
+    orientation_gate_acceptance = metrics_yaml.get("orientation_gate_acceptance")
+    orientation_evidence_changed = (
+        evidence_status.get("orientation_gate_semantics")
+        != EXPECTED_EVIDENCE_STATUS["orientation_gate_semantics"]
+    )
+    if orientation_gate_acceptance is None and orientation_evidence_changed:
+        violations.append(
+            "orientation_gate_acceptance is required when orientation_gate_semantics evidence changes"
+        )
+        return {}
+    if orientation_gate_acceptance is None:
+        return {}
+    if not isinstance(orientation_gate_acceptance, dict):
+        violations.append("orientation_gate_acceptance is not a mapping")
+        return {}
+    if orientation_gate_acceptance.get("decision") != "not_accepted":
+        violations.append("orientation_gate_acceptance.decision is not not_accepted")
+    if orientation_gate_acceptance.get("evidence_only") is not True:
+        violations.append("orientation_gate_acceptance.evidence_only is not true")
+    if orientation_gate_acceptance.get("requires_separate_gate_audit") is not True:
+        violations.append("orientation_gate_acceptance.requires_separate_gate_audit is not true")
+    for field in ORIENTATION_ACCEPTANCE_NULL_FIELDS:
+        if orientation_gate_acceptance.get(field) is not None:
+            violations.append(f"orientation_gate_acceptance.{field} is not null")
+    row_count = orientation_gate_acceptance.get("orientation_semantics_rows")
+    if row_count is not None and not isinstance(row_count, int):
+        violations.append("orientation_gate_acceptance.orientation_semantics_rows is not integer")
+    return orientation_gate_acceptance
+
+
 def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
     violations: list[str] = []
     present_files = {path.name for path in run_dir.iterdir() if path.is_file()} if run_dir.exists() else set()
@@ -201,6 +244,10 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
         if not changed_evidence_fields:
             violations.append("approved read-only mode requires at least one evidence_status field to change")
 
+    orientation_gate_acceptance = audit_orientation_gate_acceptance(
+        metrics_yaml, evidence_status, violations
+    )
+
     csv_headers = {**EXPECTED_CSV_HEADERS, **OPTIONAL_CSV_HEADERS}
     for csv_name, expected_header in csv_headers.items():
         csv_path = run_dir / csv_name
@@ -211,6 +258,12 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
                 violations.append(f"{csv_name} header changed")
             if audit_mode == "scaffold" and len(rows) > 1:
                 violations.append(f"{csv_name} contains rows in scaffold mode")
+
+    orientation_decision_path = run_dir / "orientation_gate_decision.md"
+    if orientation_decision_path.exists():
+        orientation_decision = orientation_decision_path.read_text(encoding="utf-8")
+        if "Decision status: `not_accepted`" not in orientation_decision:
+            violations.append("orientation_gate_decision.md does not preserve not_accepted decision status")
 
     summary_path = run_dir / "summary.md"
     if summary_path.exists():
@@ -235,6 +288,7 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
         "run_id": metrics_yaml.get("run_id"),
         "execution": metrics_yaml.get("execution", {}),
         "evidence_status": evidence_status,
+        "orientation_gate_acceptance": orientation_gate_acceptance,
         "verdict": metrics_yaml.get("verdict", {}),
         "claim_boundary": metrics_yaml.get("claim_boundary", {}),
         "artifact_audit": artifacts,
@@ -262,6 +316,8 @@ def write_summary(out_dir: pathlib.Path, payload: dict[str, Any]) -> None:
         f"- Configuration written: `{payload['execution'].get('configuration_written')}`",
         f"- Force control run: `{payload['execution'].get('force_control_run')}`",
         f"- Supports gate relaxation: `{payload['verdict'].get('supports_gate_relaxation')}`",
+        f"- Orientation gate decision: `{payload['orientation_gate_acceptance'].get('decision')}`",
+        f"- Orientation evidence only: `{payload['orientation_gate_acceptance'].get('evidence_only')}`",
         f"- Supports hardware claim: `{payload['verdict'].get('supports_hardware_claim')}`",
         f"- Hardware readiness: `{payload['claim_boundary'].get('hardware_readiness')}`",
         "",

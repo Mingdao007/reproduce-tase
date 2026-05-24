@@ -1,6 +1,6 @@
 run_source: read-only calibration measurement template
-run_id: TEMPLATE
-status: template_not_executed
+run_id: 20260525T015400
+status: scaffold_created_not_executed
 source_sop: reports/read_only_calibration_measurement_sop.md
 v85_margin:
   required_normal_rotation_deg: 0.03245531101442353
@@ -40,3 +40,5 @@ claim_boundary:
   gate_relaxation_claim: false
   paper_equivalent_feasibility: false
   hardware_readiness: false
+template_source: templates/read_only_calibration_measurement
+run_root: /home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T015400

@@ -2507,6 +2507,39 @@ Legacy source root:
   contact model, not an accepted replacement orientation gate, not a strict
   paper-equivalent claim, and not hardware authorization.
 
+## V93 Read-Only Calibration Measurement Orientation Acceptance Boundary
+
+### Evidence-only orientation semantics and not-accepted gate state
+
+- Template files:
+  - `templates/read_only_calibration_measurement/metrics.yaml`
+  - `templates/read_only_calibration_measurement/orientation_gate_decision.md`
+- Scripts:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+- Runs:
+  - `runs/read_only_calibration_measurement/20260525T015400`
+  - `runs/read_only_calibration_measurement_run_audit/20260525T015401`
+- Command:
+  `python3 scripts/create_read_only_calibration_measurement_run.py --run-id 20260525T015400`
+- Audit command:
+  `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T015400 --audit-mode scaffold --run-id 20260525T015401`
+- Tracked lightweight artifacts:
+  updated metrics template, orientation decision artifact, scaffold run files,
+  audit metrics/summary/git state, updated scripts/tests/docs, and
+  `reports/read_only_calibration_measurement_orientation_acceptance_boundary_report.md`.
+- Result:
+  The updated scaffold includes `orientation_gate_acceptance` with
+  `decision = not_accepted`, `evidence_only = true`, and accepted-gate fields
+  null. The scaffold audit passed with `audit_passed = true`,
+  `violations = []`, 14 lightweight files, and no heavy payloads.
+- Validation:
+  Full tests passed with `123 passed in 4.43s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

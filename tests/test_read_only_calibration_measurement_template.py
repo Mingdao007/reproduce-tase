@@ -56,6 +56,10 @@ def test_create_read_only_calibration_measurement_run_keeps_claims_false(tmp_pat
     assert metrics["verdict"]["supports_gate_relaxation"] is False
     assert metrics["verdict"]["supports_hardware_claim"] is False
     assert metrics["claim_boundary"]["hardware_readiness"] is False
+    assert metrics["orientation_gate_acceptance"]["decision"] == "not_accepted"
+    assert metrics["orientation_gate_acceptance"]["evidence_only"] is True
+    assert metrics["orientation_gate_acceptance"]["requires_separate_gate_audit"] is True
+    assert metrics["orientation_gate_acceptance"]["accepted_gate_value_rad"] is None
 
 
 def test_audit_read_only_calibration_measurement_run_accepts_scaffold(tmp_path) -> None:
@@ -101,6 +105,7 @@ def test_audit_read_only_calibration_measurement_run_accepts_scaffold(tmp_path) 
     assert audit["violations"] == []
     assert audit["run_status"] == "scaffold_created_not_executed"
     assert audit["execution"]["live_hardware_accessed"] is False
+    assert audit["orientation_gate_acceptance"]["decision"] == "not_accepted"
     assert audit["verdict"]["supports_hardware_claim"] is False
     assert audit["claim_boundary"]["hardware_readiness"] is False
 
@@ -275,6 +280,72 @@ def test_audit_read_only_calibration_measurement_run_rejects_claim_drift(tmp_pat
     assert "expected false field is not false: verdict.supports_hardware_claim" in audit["violations"]
 
 
+def test_audit_read_only_calibration_measurement_run_rejects_orientation_acceptance_drift(
+    tmp_path,
+) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    audit_dir = tmp_path / "audit"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    metrics["status"] = "approved_read_only_evidence"
+    metrics["execution"]["user_confirmed_read_only_step"] = True
+    metrics["execution"]["live_hardware_accessed"] = False
+    metrics["evidence_status"]["orientation_gate_semantics"] = "collected_read_only"
+    metrics["orientation_gate_acceptance"]["decision"] = "accepted"
+    metrics["orientation_gate_acceptance"]["accepted_gate_value_rad"] = 0.119
+    (run_dir / "metrics.yaml").write_text(yaml.safe_dump(metrics, sort_keys=False), encoding="utf-8")
+    (run_dir / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
+    gate_path = run_dir / "orientation_gate_semantics.csv"
+    gate_path.write_text(
+        gate_path.read_text(encoding="utf-8")
+        + "g1,normal_alignment,0.119,plane_normal_fixture,contact_fixture,0.03,14.0,unresolved,pytest,synthetic test row\n",
+        encoding="utf-8",
+    )
+    (run_dir / "summary.md").write_text(
+        "# Read-Only Calibration Measurement Summary\n\n"
+        "Status: `approved_read_only_evidence`\n\n"
+        "All hardware-readiness claims remain false.\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/audit_read_only_calibration_measurement_run.py",
+            str(run_dir),
+            "--audit-mode",
+            "approved-read-only",
+            "--output-dir",
+            str(audit_dir),
+            "--run-id",
+            "TEST_AUDIT",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 1
+    audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert audit["audit_passed"] is False
+    assert "orientation_gate_acceptance.decision is not not_accepted" in audit["violations"]
+    assert "orientation_gate_acceptance.accepted_gate_value_rad is not null" in audit["violations"]
+
+
 def test_finalize_read_only_calibration_measurement_evidence_derives_status(tmp_path) -> None:
     run_dir = tmp_path / "readonly_measurement"
     audit_dir = tmp_path / "audit"
@@ -348,6 +419,11 @@ def test_finalize_read_only_calibration_measurement_evidence_derives_status(tmp_
     assert metrics["evidence_status"]["ksm_contact_patch_convention"] == "collected_read_only"
     assert metrics["evidence_status"]["plane_normal_robot_base_frame"] == "not_collected"
     assert metrics["evidence_status"]["orientation_gate_semantics"] == "collected_read_only"
+    assert metrics["orientation_gate_acceptance"]["decision"] == "not_accepted"
+    assert metrics["orientation_gate_acceptance"]["evidence_only"] is True
+    assert metrics["orientation_gate_acceptance"]["requires_separate_gate_audit"] is True
+    assert metrics["orientation_gate_acceptance"]["accepted_gate_value_rad"] is None
+    assert metrics["orientation_gate_acceptance"]["orientation_semantics_rows"] == 1
     assert metrics["verdict"]["supports_hardware_claim"] is False
     assert metrics["claim_boundary"]["hardware_readiness"] is False
     assert metrics["read_only_evidence_finalization"]["approved_step_id"] == "TEST_READ_ONLY_STEP"

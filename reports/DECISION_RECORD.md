@@ -2045,3 +2045,22 @@
   A collected orientation semantics row is still evidence collection, not gate
   acceptance. Gate relaxation, contact-model update, hardware readiness, and
   robot motion remain disallowed until separately approved and audited.
+
+## D098: Keep Orientation Evidence Separate From Gate Acceptance
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v93 as the explicit not-accepted orientation-gate boundary for
+  read-only calibration measurement runs.
+- Reason:
+  V92 made orientation-gate semantics collectable as structured read-only
+  evidence. Without a separate acceptance boundary, a worksheet row could be
+  misread as a replacement orientation gate. V93 adds
+  `orientation_gate_acceptance` metrics, keeps `decision = not_accepted`, marks
+  the row as evidence-only, requires a separate gate audit, keeps accepted-gate
+  fields null, and teaches the audit/finalizer to reject acceptance drift.
+- Consequence:
+  Orientation evidence may be collected without implying gate relaxation.
+  Accepting any replacement gate remains a separate future workflow and cannot
+  be produced by the read-only evidence finalizer.
