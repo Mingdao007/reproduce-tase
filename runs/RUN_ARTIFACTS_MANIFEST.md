@@ -910,6 +910,37 @@ Legacy source root:
   prealignment. It does not establish an accepted Stage A approach or full
   staged feasibility.
 
+## V33 Staged E1-E4 With Trajectory Posture Regularization
+
+### Slowed Section VI trajectory family after posture-conditioned Stage B
+
+- Run root:
+  - `runs/staged_orientation_e1e4_posture_regularized/20260524T102747`
+- Scope:
+  Four staged tilted-plane runs. Stage A repeats the weighted prealignment
+  setup. Stage B runs E1-E4 for `8 s` at `paper_time_scale = 0.075`, with the
+  v32 trajectory posture objective set to target
+  `q = [0, -0.1, 0.15, -0.05, 0, 0]`, `kp = 1.0`, weight `0.001`, and max
+  posture velocity `0.05 rad/s`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, and `summary.md`;
+  per-case root `metrics.yaml`, `metrics.json`, `summary.md`, and
+  `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `4 / 4`, approach
+  ordinary-feasibility pass count `0 / 4`, trajectory-after-approach pass
+  count `4 / 4`, trajectory-feasibility pass count `4 / 4`, and full
+  staged-feasibility pass count `0 / 4`. All four Stage B trajectories have
+  no failed criteria and qdot saturation fraction `0.0`.
+- Limit:
+  This confirms the slowed Stage B family after the current weighted
+  prealignment. It does not establish an accepted Stage A approach or full
+  staged feasibility.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

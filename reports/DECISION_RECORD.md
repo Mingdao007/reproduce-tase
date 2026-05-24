@@ -661,3 +661,26 @@
   staged tests. The next unresolved problem is Stage A task structure or an
   explicitly documented approach budget; approach posture weighting alone is
   not enough.
+
+## D038: Treat Slowed E1-E4 Stage B After Prealignment As Solved With Posture Regularization
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat the slowed E1-E4 trajectory-after-prealignment matrix as passing under
+  the v32 moderate trajectory posture objective. Do not claim full staged
+  feasibility.
+- Reason:
+  The v33 matrix ran E1-E4 with the same weighted Stage A prealignment as v29
+  and added trajectory-phase posture regularization with target
+  `q = [0, -0.1, 0.15, -0.05, 0, 0]`, `kp = 1.0`, weight `0.001`, and max
+  posture velocity `0.05 rad/s`. All four Stage B trajectories passed:
+  `trajectory_after_approach_pass_count = 4 / 4`, qdot saturation fraction
+  `0.0` in every trajectory, and no failed trajectory criteria. The full
+  staged pass count remains `0 / 4` because Stage A ordinary feasibility still
+  fails in every row.
+- Consequence:
+  Further Stage B E2 tuning is no longer the immediate blocker for the slowed
+  tilted-plane matrix. The next useful work should focus on Stage A approach
+  feasibility or on explicitly defining and justifying a relaxed approach
+  budget.

@@ -1164,3 +1164,40 @@
   Preserve the moderate trajectory posture objective and retest the staged
   E1-E4 matrix, or focus directly on a new Stage A task structure that avoids
   sustained qdot saturation and unbounded drift.
+
+## 2026-05-24 v33 Staged E1-E4 With Trajectory Posture Regularization
+
+- Branch: `exp/tase-ur10e-v33-e1e4-posture-regularized`
+- Starting commit: `5892c29ae030c19b518eaddafdf0185726fbc04d`
+- Files added:
+  - `reports/staged_e1e4_posture_regularized_report.md`
+  - `runs/staged_orientation_e1e4_posture_regularized/20260524T102747`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 - <<'PY' ... v33 E1-E4 posture-regularized matrix and summary aggregation ... PY`
+  - `python3 - <<'PY' ... summary aggregate check ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_e1e4_posture_regularized/20260524T102747/<trajectory> --approach-duration-s 4.0 --trajectory-duration-s 8.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --approach-qdot-limit-rad-s 0.25 --trajectory-qdot-limit-rad-s 0.15 --trajectory <trajectory> --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode weighted --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.10 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --trajectory-posture-target-q 0,-0.1,0.15,-0.05,0,0 --trajectory-posture-kp 1.0 --trajectory-posture-weight 0.001 --trajectory-max-posture-velocity-rad-s 0.05 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  The four-case E1-E4 matrix produced `4 / 4` approach terminal-orientation
+  passes, `0 / 4` approach ordinary-feasibility passes, `4 / 4`
+  trajectory-after-approach passes, and `0 / 4` full staged-feasibility
+  passes. Every Stage B trajectory has no failed criteria and qdot saturation
+  fraction `0.0`. Validation passed with `58 passed in 1.22s`,
+  `git diff --check`, and aggregate check `4 0 4 0`.
+- Limit:
+  This is slowed tilted-plane simulation evidence after the current weighted
+  prealignment. It confirms Stage B after prealignment, not full staged
+  feasibility.
+- Next step:
+  Stop tuning Stage B for the slowed E1-E4 matrix and focus on Stage A:
+  either define an accepted relaxed approach budget or redesign the approach
+  task priority so contact, drift, terminal orientation, and qdot saturation
+  can pass together.

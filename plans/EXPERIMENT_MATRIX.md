@@ -91,12 +91,15 @@ them rather than deleting them.
   Stage B qdot blocker after weighted prealignment, but it does not fix Stage
   A. In v32, four trajectory-after-approach rows passed, while all ten rows
   still failed ordinary approach feasibility.
+- Carrying the moderate trajectory posture objective into the slowed E1-E4
+  matrix makes all four Stage B trajectories pass after weighted
+  prealignment. The remaining full-staged failure is Stage A ordinary
+  feasibility.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_e2_posture_regularization/20260524T102224` as
-evidence that E2 Stage B can pass with moderate trajectory posture
-regularization. The next executable experiment should either rerun the staged
-E1-E4 matrix with that Stage B posture objective or change the Stage A task
-structure so the approach phase no longer relies on sustained qdot
-saturation.
+Use `runs/staged_orientation_e1e4_posture_regularized/20260524T102747` as
+evidence that Stage B after prealignment passes for slowed E1-E4. The next
+executable experiment should target Stage A directly: either define an
+accepted relaxed approach budget or change the approach task structure so it
+does not rely on sustained qdot saturation and unbounded drift.

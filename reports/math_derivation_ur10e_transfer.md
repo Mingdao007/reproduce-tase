@@ -1049,3 +1049,36 @@ The next derivation work should therefore keep trajectory posture
 regularization as a Stage B tool while treating Stage A as a separate task
 priority problem: contact-normal force, bounded planar drift, terminal
 orientation, and qdot saturation must be assigned explicit acceptance gates.
+
+## V33 Stage B Family Implication
+
+The v33 matrix applies the v32 moderate trajectory posture objective to the
+slowed E1-E4 family after the same weighted tilted-normal prealignment:
+
+```text
+trajectory posture weight = 0.001
+trajectory qdot cap = 0.15 rad/s
+paper_time_scale = 0.075
+```
+
+All four trajectory phases pass:
+
+```text
+trajectory-after-approach pass count = 4 / 4
+trajectory qdot saturation fraction = 0.0 for E1, E2, E3, E4
+```
+
+This is an important separation in the UR10e 6DOF transfer. The slowed
+trajectory family is no longer blocked by the post-prealignment tangent
+velocity allocation. The remaining failure is entirely at the staged level:
+
+```text
+approach ordinary-feasibility pass count = 0 / 4
+full staged-feasibility pass count = 0 / 4
+```
+
+Therefore the next mathematical problem is not another Stage B gain bracket.
+It is to formulate a Stage A approach contract that is internally consistent
+for a nonredundant 6DOF arm: contact-normal force regulation, planar drift,
+force-normal orientation alignment, and hard qdot bounds cannot all remain
+implicit weighted objectives if the result is expected to be called feasible.

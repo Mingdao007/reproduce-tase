@@ -114,11 +114,13 @@ smoke runs regress.
   blocker for moderate trajectory posture weights, but all tested cases still
   fail ordinary Stage A feasibility. Strong approach posture weighting can
   also break contact/force tracking.
+- The v33 matrix carries the moderate trajectory posture objective into E1-E4
+  and all four Stage B trajectories pass after prealignment. The remaining
+  controller problem is now the Stage A approach formulation.
 
 ## Next Executable Step
 
-Carry the moderate trajectory posture objective into the next staged E1-E4
-matrix, or redesign Stage A with explicit task priority/acceptance gates. The
-next approach experiment must report contact, drift, terminal orientation,
-and qdot saturation together so posture shaping cannot hide a force or drift
-regression.
+Redesign Stage A with explicit task priority/acceptance gates, or define an
+accepted relaxed approach budget. The next approach experiment must report
+contact, drift, terminal orientation, and qdot saturation together so posture
+shaping cannot hide a force or drift regression.
