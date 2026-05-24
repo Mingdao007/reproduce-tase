@@ -3204,6 +3204,43 @@ Legacy source root:
   original v99 failed cell, prove robustness, prove strict paper-equivalent
   feasibility, calibrate contact geometry, or authorize hardware work.
 
+## V112 Remaining Blocker Prioritization
+
+### Ranked the remaining blockers using existing offline evidence
+
+- Scripts:
+  - `scripts/audit_remaining_blocker_prioritization.py`
+- Runs:
+  - `runs/remaining_blocker_prioritization/20260525T072557`
+- Report:
+  - `reports/remaining_blocker_prioritization_report.md`
+- Tests:
+  - `tests/test_remaining_blocker_prioritization.py`
+- Command:
+  `python3 scripts/audit_remaining_blocker_prioritization.py --output-dir runs/remaining_blocker_prioritization/20260525T072557`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The post-hoc audit reads existing v95-v111 metrics and ranks the six
+  remaining blockers. The top blocker is
+  `approved_read_only_calibration_evidence`. Four blockers require approval or
+  live evidence, two blockers can advance offline only as non-final evidence,
+  profile-overlay supported cells remain `2`, gate-acceptance blocked cells
+  remain `2`, closed cells remain `0`, and `do_not_mark_goal_complete` remains
+  `true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.16s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `165 passed in 7.13s`; `git diff --check` passed.
+  Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is post-hoc bookkeeping
+  over existing metrics and does not accept a replacement orientation gate,
+  change the canonical controller, close failed cells, prove robustness, prove
+  strict paper-equivalent feasibility, calibrate contact geometry, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

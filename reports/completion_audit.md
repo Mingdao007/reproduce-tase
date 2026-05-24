@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v107-positive-fast-weighted-full-cell`
+Branch: `exp/tase-ur10e-v112-remaining-blocker-prioritization`
 
 ## Objective Restatement
 
@@ -217,6 +217,10 @@ The objective has two separate technical claim levels:
 - `tests/test_weighted_profile_matrix_restatement.py`
 - `runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml`
 - `reports/weighted_profile_matrix_restatement_report.md`
+- `scripts/audit_remaining_blocker_prioritization.py`
+- `tests/test_remaining_blocker_prioritization.py`
+- `runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml`
+- `reports/remaining_blocker_prioritization_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -230,17 +234,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v111 branches pushed and GitHub-verified; v111 implementation branch push verified at `7900d441e3d072026bdf0f874da98b322cf9628d` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v111-weighted-profile-matrix-restatement`; latest local branch is `exp/tase-ur10e-v111-weighted-profile-matrix-restatement` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v112 branches pushed and GitHub-verified; v112 implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v112-remaining-blocker-prioritization`; latest local branch is `exp/tase-ur10e-v112-remaining-blocker-prioritization` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v112.md` include the short prompt, authoritative local clone, v95-v111 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D116 as of v111 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v113.md` include the short prompt, authoritative local clone, v95-v112 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D117 as of v112 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v111 focused validation: `python3 -m py_compile scripts/audit_weighted_profile_matrix_restatement.py` passed, `scripts/run_tests.sh tests/test_weighted_profile_matrix_restatement.py` reported `3 passed in 0.04s`, the v111 matrix-restatement run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `162 passed in 7.00s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v112 focused validation: `python3 -m py_compile scripts/audit_remaining_blocker_prioritization.py` passed, `scripts/run_tests.sh tests/test_remaining_blocker_prioritization.py` reported `3 passed in 0.16s`, the v112 remaining-blocker prioritization run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `165 passed in 7.13s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -307,6 +311,11 @@ The objective has two separate technical claim levels:
 | Positive fast-timing E2 qdot isolation | `scripts/audit_positive_stage_b_e2_margin.py`, `tests/test_positive_stage_b_e2_margin.py`, `runs/positive_fast_timing_e2_qdot_isolation/20260525T063019/metrics.yaml`, `reports/positive_fast_timing_e2_qdot_isolation_report.md` | v105 isolates the `positive_fast_timing_0p0075` E2 row: the first tested timing pass is `paper_time_scale = 0.0052`, and qdot-limit-only probes at `paper_time_scale = 0.0075` fail `0 / 5` through `0.3 rad/s` because orientation remains above `0.12 rad`; implementation branch push verified at `6cc6733a3ac78b93090d4079b62480ade57e82a7` | Done |
 | Positive fast E2 orientation-margin probe | `scripts/audit_positive_fast_e2_orientation_margin.py`, `tests/test_positive_fast_e2_orientation_margin.py`, `runs/positive_fast_e2_orientation_margin/20260525T063817/metrics.yaml`, `reports/positive_fast_e2_orientation_margin_report.md` | v106 keeps `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the `0.12 rad` orientation gate fixed, then shows weighted rows pass the isolated E2 row with `max_orientation_error_rad = 0.11954627160547111`, qdot saturation `0.0`, and tail qdot utilization `0.5177926211135458`; this remains E2-only and does not close the full `positive_fast_timing_0p0075` failed cell; implementation branch push verified at `716ecde74a428c15ce17445018ca7028b1db9527` | Done |
 | Positive fast weighted full-cell probe | `scripts/audit_positive_fast_weighted_full_cell.py`, `tests/test_positive_fast_weighted_full_cell.py`, `runs/positive_fast_weighted_full_cell/20260525T064719/metrics.yaml`, `reports/positive_fast_weighted_full_cell_report.md` | v107 keeps `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the `0.12 rad` orientation gate fixed across the full `+1.0 mm` E1-E4 face. The linear-primary baseline still fails E2, while `weighted_kp0_normal1` and `weighted_kp0_normal30` pass `4 / 4`; this is a diagnostic recovery candidate and does not close the original failed cell because weighted priority is not accepted as canonical; implementation branch push verified at `2e94f4bbd9ac25228c819bdc789eb6bc1f75f719` | Done |
+| Base-z plus1mm split | `scripts/audit_base_z_plus1mm_split.py`, `tests/test_base_z_plus1mm_split.py`, `runs/base_z_plus1mm_split/20260525T071440/metrics.yaml`, `reports/base_z_plus1mm_split_report.md` | v108 splits the unresolved `base_z_plus1mm` cell: broader seeds recover start, terminal force/x-y/contact passes, terminal/path remain blocked by the current `0.08 rad` gate, and the run-local `0.12 rad` gate recovers Stage A/path but not stitched Stage B; implementation branch push verified at `987e360d9244bf8c98ce549c21c7787ab163868a` | Done |
+| Relaxed base-z weighted handoff | `scripts/audit_relaxed_base_z_weighted_handoff.py`, `tests/test_relaxed_base_z_weighted_handoff.py`, `runs/relaxed_base_z_weighted_handoff/20260525T073012/metrics.yaml`, `reports/relaxed_base_z_weighted_handoff_report.md` | v109 targets the relaxed Stage B handoff: the linear-primary baseline still fails E2 at Stage A durations `15.0 s` and `16.0 s`, while both weighted rows pass `4 / 4` at both durations; this remains diagnostic and does not close original failed cells; implementation branch push verified at `3a766ae641d7d4cda70864da4cfad366786e6515` | Done |
+| Weighted priority profile boundary | `scripts/audit_weighted_priority_profile_boundary.py`, `tests/test_weighted_priority_profile_boundary.py`, `runs/weighted_priority_profile_boundary/20260525T074100/metrics.yaml`, `reports/weighted_priority_profile_boundary_report.md` | v110 supports naming `weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for covered v107/v109 faces, while keeping canonical controller/gate changes, failed-cell closure, robustness, strict feasibility, contact calibration, and hardware readiness false; implementation branch push verified at `f48240c72188e8d4fd4e18bd69fe37c38e1e1d90` | Done |
+| Weighted profile matrix restatement | `scripts/audit_weighted_profile_matrix_restatement.py`, `tests/test_weighted_profile_matrix_restatement.py`, `runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml`, `reports/weighted_profile_matrix_restatement_report.md` | v111 restates the v98/v99 matrix with the named profile as a non-canonical overlay. Overlay support covers `base_z_plus1mm` and `positive_fast_timing_0p0075`; `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain gate-acceptance blocked; closed cells remain `0`; implementation branch push verified at `7900d441e3d072026bdf0f874da98b322cf9628d` | Done |
+| Remaining blocker prioritization | `scripts/audit_remaining_blocker_prioritization.py`, `tests/test_remaining_blocker_prioritization.py`, `runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml`, `reports/remaining_blocker_prioritization_report.md` | v112 ranks the remaining blockers without running MuJoCo or hardware: top priority is `approved_read_only_calibration_evidence`, remaining blockers count is `6`, live/approval-blocked count is `4`, offline-actionable non-final count is `2`, gate-acceptance blocked cells are `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate`, closed cells remain `0`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
@@ -1727,10 +1736,15 @@ profile as a non-canonical overlay: `base_z_plus1mm` and
 `positive_fast_timing_0p0075` have profile overlay support, while
 `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain
 gate-acceptance blocked. Closed cells remain `0`, the candidate matrix is not
-complete, and it is not accepted as a robustness proof. The project still has
-not achieved strict
-paper-equivalent full staged
-feasibility, calibrated contact geometry, robustness, or hardware readiness.
+complete, and it is not accepted as a robustness proof. V112 then prioritizes
+the remaining blockers without running MuJoCo or hardware. It reports top
+priority blocker `approved_read_only_calibration_evidence`, remaining blocker
+count `6`, live/approval-blocked count `4`, offline-actionable non-final count
+`2`, profile-overlay supported cells `2`, gate-acceptance blocked cells `2`,
+closed cells `0`, candidate matrix complete false, accepted-as-robustness-proof
+false, and `do_not_mark_goal_complete = true`. The project still has not
+achieved strict paper-equivalent full staged feasibility, calibrated contact
+geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
@@ -1740,14 +1754,14 @@ Do not accept a replacement orientation gate from simulation metrics or current
 local records alone. The next executable step is to execute only safe read-only
 portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
 verifier after explicit user confirmation, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v111 blocker audits, the
-v99 planned experiment matrix, and the v100-v111 execution/probe audits. All
+simulation/paper-platform work identified by the v95-v112 blocker audits, the
+v99 planned experiment matrix, and the v100-v112 execution/probe audits. All
 v99 planned commands have now been executed; v111 restates the diagnostic
-matrix with the named weighted profile as a non-canonical overlay while
-preserving the canonical claim boundary. The next offline probe can prioritize
-remaining non-profile-covered blockers: orientation gate acceptance, contact
-calibration, strict feasibility, and hardware-readiness evidence. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v111
-diagnostic staged labels separate.
+matrix with the named weighted profile as a non-canonical overlay, and v112
+prioritizes the remaining blockers while preserving the canonical claim
+boundary. Without read-only approval, the highest-priority offline-actionable
+next probe is strict-feasibility policy work; it remains non-final evidence.
+Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
+v63-v112 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

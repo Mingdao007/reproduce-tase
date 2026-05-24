@@ -4338,3 +4338,44 @@
   can prioritize remaining non-profile-covered blockers: orientation gate
   acceptance, contact calibration, strict feasibility, and hardware-readiness
   evidence.
+
+## 2026-05-25 v112 Remaining Blocker Prioritization
+
+### Rank remaining blockers using existing offline evidence
+
+- Branch:
+  `exp/tase-ur10e-v112-remaining-blocker-prioritization`
+- Runs:
+  - `runs/remaining_blocker_prioritization/20260525T072557`
+- Report:
+  `reports/remaining_blocker_prioritization_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_remaining_blocker_prioritization.py`
+  - `scripts/run_tests.sh tests/test_remaining_blocker_prioritization.py`
+  - `python3 scripts/audit_remaining_blocker_prioritization.py --output-dir runs/remaining_blocker_prioritization/20260525T072557`
+  - `rg -n "&id|\*id" runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml`
+  - `find runs/remaining_blocker_prioritization/20260525T072557 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The post-hoc audit ranks the current remaining blockers without running
+  MuJoCo or touching hardware. The top priority blocker is
+  `approved_read_only_calibration_evidence`; remaining blocker count is `6`;
+  live/approval-blocked count is `4`; offline-actionable non-final count is
+  `2`; profile-overlay supported cell count is `2`; gate-acceptance blocked
+  cell count is `2`; closed cells remain `0`; candidate matrix complete is
+  `false`; accepted-as-robustness-proof is `false`; and
+  `do_not_mark_goal_complete` remains `true`.
+- Limit:
+  This is post-hoc offline bookkeeping over existing metrics. It does not
+  rerun MuJoCo, accept a replacement orientation gate, change the canonical
+  controller, close failed cells, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, establish hardware
+  readiness, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.16s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `165 passed in 7.13s`; `git diff --check` passed.
+  Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The next clean
+  offline branch can target strict feasibility, because v112 identifies it as
+  the highest-priority blocker that can advance offline without approval.

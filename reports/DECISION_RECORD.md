@@ -2492,3 +2492,30 @@
   motion/configuration. Future offline work should prioritize remaining
   non-profile-covered blockers: orientation gate acceptance, contact
   calibration, strict feasibility, and hardware-readiness evidence.
+
+## D117: Prioritize Remaining Blockers Before More Offline Work
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v112 as the post-hoc remaining-blocker prioritization audit over the
+  current v95-v111 evidence stack.
+- Reason:
+  V111 restated the v98/v99 matrix with the named weighted diagnostic profile
+  but still left closed cells at `0` and the gate-acceptance rows blocked. V112
+  reads the existing completion, strict-feasibility, robustness, matrix
+  restatement, geometry-readiness, read-only audit, and orientation review
+  metrics without rerunning MuJoCo or touching hardware. It ranks
+  `approved_read_only_calibration_evidence` as the top prerequisite blocker,
+  reports `remaining_blocker_count = 6`, `live_or_approval_blocked_count = 4`,
+  `offline_actionable_nonfinal_count = 2`,
+  `profile_overlay_supported_cell_count = 2`,
+  `gate_acceptance_blocked_cell_count = 2`, and `closed_cell_count = 0`.
+- Consequence:
+  The highest-priority overall path remains an explicitly approved read-only
+  evidence run. Without that approval, strict feasibility is the
+  highest-priority blocker that can advance offline, but only as non-final
+  evidence. V112 does not accept a replacement orientation gate, change the
+  canonical controller, close failed cells, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, establish hardware
+  readiness, or authorize hardware motion/configuration.

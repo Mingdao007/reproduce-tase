@@ -1,0 +1,265 @@
+{
+  "run_source": "v112 remaining blocker prioritization",
+  "source_files": {
+    "completion_blockers": "/home/andy/reproduce-tase/runs/offline_completion_blockers/20260525T020734/metrics.yaml",
+    "strict_blockers": "/home/andy/reproduce-tase/runs/strict_feasibility_blockers/20260525T051640/metrics.yaml",
+    "robustness_blockers": "/home/andy/reproduce-tase/runs/robustness_blockers/20260525T052457/metrics.yaml",
+    "weighted_profile_matrix_restatement": "/home/andy/reproduce-tase/runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml",
+    "measured_geometry_readiness": "/home/andy/reproduce-tase/runs/measured_geometry_readiness/20260525T000739/metrics.yaml",
+    "read_only_measurement_audit": "/home/andy/reproduce-tase/runs/read_only_calibration_measurement_run_audit/20260525T015401/metrics.yaml",
+    "orientation_gate_acceptance_review_audit": "/home/andy/reproduce-tase/runs/orientation_gate_acceptance_review_audit/20260525T020055/metrics.yaml"
+  },
+  "blocker_rows": [
+    {
+      "blocker_id": "approved_read_only_calibration_evidence",
+      "title": "Approved read-only calibration evidence",
+      "priority_rank": 0,
+      "category": "approval_blocked_prerequisite",
+      "status": "approval_required_prerequisite",
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "evidence_summary": {
+        "approved_read_only_run_count": 0,
+        "latest_audit_mode": "scaffold",
+        "latest_audit_passed": true,
+        "live_hardware_accessed": false,
+        "robot_motion_commanded": false,
+        "configuration_written": false
+      },
+      "blockers": [
+        "explicit_user_read_only_approval_missing"
+      ],
+      "next_action": "Wait for explicit approval for a specific read-only SOP step; then collect worksheet rows, finalize, and audit with approved-read-only mode.",
+      "completion_claim_allowed": false
+    },
+    {
+      "blocker_id": "orientation_gate_acceptance",
+      "title": "Orientation gate acceptance",
+      "priority_rank": 1,
+      "category": "evidence_and_review_blocked",
+      "status": "blocked_on_evidence_and_separate_review",
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "evidence_summary": {
+        "decision": "not_accepted",
+        "review_status": "review_scaffold_not_executed",
+        "accepted_review_count": 0,
+        "gate_acceptance_blocked_cell_ids": [
+          "positive_orientation_gate_0p119",
+          "weighted_plus1mm_0p119_gate"
+        ],
+        "accepted_gate_value_rad": null
+      },
+      "blockers": [
+        "approved_read_only_calibration_evidence_missing",
+        "separate_gate_review_not_authorized"
+      ],
+      "next_action": "Keep gate acceptance review unused until approved-read-only evidence exists and a separate review is authorized.",
+      "completion_claim_allowed": false
+    },
+    {
+      "blocker_id": "calibrated_contact_geometry",
+      "title": "Calibrated contact geometry and force-frame evidence",
+      "priority_rank": 2,
+      "category": "measurement_blocked",
+      "status": "blocked_on_approved_measurements",
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "evidence_summary": {
+        "records_sufficient_for_v85_margin": false,
+        "supports_accepting_v85_margin": false,
+        "insufficient_check_count": 5,
+        "insufficient_checks": [
+          "mounted_stack_tcp_contact_point",
+          "contact_patch_convention",
+          "plane_contact_normal",
+          "force_source_frame",
+          "orientation_gate_semantics"
+        ],
+        "force_source_frame_status": "unresolved_conflict"
+      },
+      "blockers": [
+        "approved_read_only_calibration_evidence_missing"
+      ],
+      "next_action": "Collect the v87/v93 read-only measurement worksheets after explicit user approval.",
+      "completion_claim_allowed": false
+    },
+    {
+      "blocker_id": "strict_paper_equivalent_full_staged_feasibility",
+      "title": "Strict paper-equivalent full staged feasibility",
+      "priority_rank": 3,
+      "category": "offline_actionable_nonfinal",
+      "status": "offline_actionable_nonfinal",
+      "can_advance_offline": true,
+      "requires_explicit_approval": false,
+      "evidence_summary": {
+        "strict_feasibility_complete": false,
+        "strict_setup_gate_complete": false,
+        "strict_full_staged_feasibility_pass_count": 0,
+        "strict_full_staged_feasibility_case_count": 4,
+        "three_phase_setup_terminal_state_pass_count": 0,
+        "three_phase_setup_terminal_state_case_count": 10,
+        "three_phase_trajectory_feasibility_pass_count": 8,
+        "three_phase_trajectory_feasibility_case_count": 10,
+        "primary_blocker": "strict_setup_terminal_tradeoff"
+      },
+      "blockers": [
+        "strict_setup_gate_failure",
+        "paper_platform_parity_split_claim"
+      ],
+      "next_action": "Continue simulation or paper-platform parity work offline, but do not claim completion until strict rows pass under the target claim definition.",
+      "completion_claim_allowed": false
+    },
+    {
+      "blocker_id": "robustness_to_contact_model_perturbations",
+      "title": "Robustness matrix completion under accepted model",
+      "priority_rank": 4,
+      "category": "offline_actionable_nonfinal_but_gate_contact_blocked",
+      "status": "offline_actionable_but_final_claim_blocked",
+      "can_advance_offline": true,
+      "requires_explicit_approval": false,
+      "evidence_summary": {
+        "robustness_complete": false,
+        "restatement_supported": true,
+        "profile_overlay_supported_count": 2,
+        "gate_acceptance_blocked_cell_ids": [
+          "positive_orientation_gate_0p119",
+          "weighted_plus1mm_0p119_gate"
+        ],
+        "closed_cell_count": 0,
+        "accepted_as_robustness_proof": false
+      },
+      "blockers": [
+        "current_stress_failures",
+        "calibrated_contact_geometry_missing"
+      ],
+      "next_action": "Continue only non-final stress bookkeeping until gate/contact dependencies are accepted.",
+      "completion_claim_allowed": false
+    },
+    {
+      "blocker_id": "hardware_readiness",
+      "title": "Hardware readiness",
+      "priority_rank": 5,
+      "category": "approval_and_evidence_blocked_terminal",
+      "status": "blocked_on_evidence_chain",
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "evidence_summary": {
+        "hardware_readiness_claim": false,
+        "hardware_gate_report_exists": false,
+        "latest_read_only_runs_have_hardware_readiness": [],
+        "latest_gate_reviews_have_hardware_readiness": []
+      },
+      "blockers": [
+        "approved_read_only_calibration_evidence_missing",
+        "force_source_frame_unresolved",
+        "hardware_gate_report_missing"
+      ],
+      "next_action": "Do not prepare robot motion; collect/read-only evidence first and keep hardware readiness false.",
+      "completion_claim_allowed": false
+    }
+  ],
+  "aggregate": {
+    "remaining_blocker_count": 6,
+    "approval_required_count": 4,
+    "live_or_approval_blocked_count": 4,
+    "offline_actionable_nonfinal_count": 2,
+    "completion_claim_allowed_count": 0,
+    "top_priority_blocker_id": "approved_read_only_calibration_evidence",
+    "offline_actionable_blocker_ids": [
+      "strict_paper_equivalent_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations"
+    ],
+    "approval_required_blocker_ids": [
+      "approved_read_only_calibration_evidence",
+      "orientation_gate_acceptance",
+      "calibrated_contact_geometry",
+      "hardware_readiness"
+    ],
+    "profile_overlay_supported_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075"
+    ],
+    "profile_overlay_supported_cell_count": 2,
+    "gate_acceptance_blocked_cell_ids": [
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "gate_acceptance_blocked_cell_count": 2,
+    "non_profile_covered_gate_blocked_cell_ids": [
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "closed_cell_count": 0,
+    "candidate_matrix_complete": false,
+    "accepted_as_robustness_proof": false
+  },
+  "summary": {
+    "overall_goal_complete": false,
+    "completion_blocked": true,
+    "do_not_mark_goal_complete": true,
+    "top_priority_blocker_id": "approved_read_only_calibration_evidence",
+    "remaining_blocker_count": 6,
+    "approval_required_count": 4,
+    "live_or_approval_blocked_count": 4,
+    "offline_actionable_nonfinal_count": 2,
+    "completion_claim_allowed_count": 0,
+    "offline_actionable_blocker_ids": [
+      "strict_paper_equivalent_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations"
+    ],
+    "approval_required_blocker_ids": [
+      "approved_read_only_calibration_evidence",
+      "orientation_gate_acceptance",
+      "calibrated_contact_geometry",
+      "hardware_readiness"
+    ],
+    "non_profile_covered_gate_blocked_cell_ids": [
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "profile_overlay_supported_cell_count": 2,
+    "profile_overlay_supported_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075"
+    ],
+    "gate_acceptance_blocked_cell_count": 2,
+    "gate_acceptance_blocked_cell_ids": [
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "closed_cell_count": 0,
+    "candidate_matrix_complete": false,
+    "accepted_as_robustness_proof": false
+  },
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "failed_cell_closed": false,
+    "canonical_controller_change": false,
+    "canonical_orientation_gate_change": false,
+    "robustness_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "contact_calibration_claim": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false
+  },
+  "next_offline_actions": [
+    "Do not claim completion from this prioritization audit.",
+    "If no live approval exists, strict feasibility is the most direct offline-actionable technical blocker.",
+    "Gate acceptance, contact calibration, and hardware readiness remain blocked on approved read-only evidence.",
+    "Keep the read-only SOP path explicit and separate from any simulation restatement."
+  ],
+  "warnings": [
+    "post-hoc offline audit of existing metrics only",
+    "does not run MuJoCo",
+    "does not execute read-only hardware steps",
+    "does not accept a replacement orientation gate",
+    "does not calibrate contact geometry or force frames",
+    "not strict paper-equivalent feasibility",
+    "not a robustness proof",
+    "not hardware-ready"
+  ],
+  "run_id": "20260525T072600"
+}
