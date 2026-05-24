@@ -683,6 +683,34 @@ Legacy source root:
   `0.009738544642078033 m`, and max angular slack
   `0.06085033484246333 rad/s`.
 
+## V25 Staged Approach Bracket
+
+### Tilted Stage A gain/slack/priority bracket
+
+- Run root:
+  - `runs/staged_orientation_approach_bracket/20260524T093536`
+- Scope:
+  Seven E1 tilted-plane staged runs varying Stage A priority mode, orientation
+  gain, planar slack weight, and angular slack weight while keeping the Stage B
+  E1 trajectory settings from v24.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `5 / 7`, approach full-feasibility
+  pass count `0 / 7`, trajectory-after-approach pass count `3 / 7`, and full
+  staged-feasibility pass count `0 / 7`.
+- Limit:
+  This is negative E1-only tilted-plane simulation evidence. It rules out
+  simple scalar gain/slack bracketing for Stage A under the current gates, but
+  it does not cover curved surfaces, E2-E4 staged trajectories, torque
+  dynamics, or hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

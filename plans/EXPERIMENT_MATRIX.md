@@ -64,11 +64,15 @@ them rather than deleting them.
 - Staged prealignment lets the following E1 trajectory pass the gates, but the
   approach phase itself fails due to sustained qdot saturation and planar
   drift.
+- Stage A scalar/slack bracketing did not produce an ordinary approach
+  feasibility pass. The best trajectory-enabling cases still rely on sustained
+  qdot saturation, and the planar-preserving linear-primary case does not
+  reach the tilted-normal orientation threshold.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_force_motion/20260524T092927` as evidence that
-prealignment can unblock the trajectory phase, while keeping approach-phase
-failure separate. The next executable experiment is an approach-controller
-bracket that reduces planar drift and sustained qdot saturation before
-expanding staged checks to E2-E4.
+Use `runs/staged_orientation_approach_bracket/20260524T093536` as negative
+evidence for simple Stage A scalar/slack tuning. The next executable
+experiment should be a redesigned approach schedule/controller, or the project
+should record a separate relaxed-budget prealignment decision before expanding
+staged checks to E2-E4.

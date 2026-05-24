@@ -494,3 +494,25 @@
   staged maneuver passes." The next controller work should reduce approach
   drift and saturation, or explicitly document a separate relaxed approach
   budget before trajectory tracking.
+
+## D030: Stop Simple Slack Bracketing For Tilted Stage A
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not claim a full staged tilted-plane maneuver pass from simple Stage A
+  scalar gain, slack-weight, or priority-mode bracketing.
+- Reason:
+  The v25 bracket tested seven E1 Stage A cases. Five reached the terminal
+  orientation threshold, and three allowed the following trajectory phase to
+  pass, but no approach phase passed the ordinary feasibility gate. Weighted
+  cases that align the tilted normal still spend sustained qdot saturation and
+  millimeter-scale planar drift. Higher planar slack weights trade drift for
+  larger angular slack and failed terminal alignment. The linear-primary
+  approach preserves planar position but stalls at about `0.074 rad`, above
+  the `0.03 rad` threshold.
+- Consequence:
+  Further tilted Stage A work should be a controller redesign, an explicitly
+  scheduled longer approach with approach-specific gates, or a transparent
+  decision to treat prealignment as a separate relaxed-budget maneuver. More
+  unlabeled scalar slack bracketing is not enough evidence.

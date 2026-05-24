@@ -80,11 +80,16 @@ smoke runs regress.
 - A staged weighted approach can make the following E1 trajectory pass, but
   the approach phase currently uses sustained qdot saturation and about
   `9.7 mm` planar drift.
+- A seven-case Stage A bracket did not find a scalar gain or slack-weight
+  setting that makes the tilted approach phase pass the ordinary feasibility
+  gate. Trajectory-enabling weighted cases still saturate qdot for most of the
+  approach, while the linear-primary approach stalls above the orientation
+  threshold.
 
 ## Next Executable Step
 
-Improve the simulation-only Stage A approach controller so it reaches the
-tilted force-normal orientation with less planar drift and without sustained
-qdot saturation. If that is not feasible under the current velocity-level
-controller, record a separate approach-budget decision before expanding the
-staged run to E2-E4.
+Design a new simulation-only Stage A approach strategy instead of continuing
+simple scalar/slack bracketing. The next candidate should explicitly schedule
+orientation alignment and position hold under the qdot budget, or else record
+a separate relaxed approach-budget decision before expanding staged checks to
+E2-E4.

@@ -870,3 +870,36 @@
   Improve the approach phase to reduce planar drift and sustained qdot
   saturation, or explicitly record a separate relaxed approach budget before
   claiming a full staged maneuver pass.
+
+## 2026-05-24 v25 Staged Approach Bracket
+
+- Branch: `exp/tase-ur10e-v25-approach-bracket`
+- Starting commit: `0a686dcb4972b9c4292f414af41c3fbb97f544ca`
+- Files added:
+  - `reports/staged_approach_bracket_report.md`
+  - `runs/staged_orientation_approach_bracket/20260524T093536`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_approach_bracket/20260524T093536/<case> --approach-duration-s 4.0 --trajectory-duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight <weight> --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode <mode> --approach-orientation-kp <gain> --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight <weight> --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The bracket covered seven Stage A cases. Approach terminal-orientation pass
+  count was `5 / 7`, trajectory-after-approach pass count was `3 / 7`, and
+  full staged-feasibility pass count was `0 / 7`. No approach case passed the
+  ordinary feasibility gate. The best trajectory-enabling weighted cases still
+  had approach qdot saturation fractions between `0.8875` and `0.9995` plus
+  millimeter-scale planar drift.
+- Limit:
+  This is E1-only tilted-plane simulation evidence. It does not solve Stage A
+  and does not validate hardware.
+- Next step:
+  Stop simple Stage A scalar/slack bracketing. Choose a redesigned approach
+  controller, a longer scheduled approach with explicit approach-specific
+  gates, or a documented relaxed-budget prealignment decision.

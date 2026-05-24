@@ -771,3 +771,42 @@ Therefore v24 is a useful decomposition, not a complete maneuver solution.
 The UR10e transfer now needs either an approach controller that reduces planar
 drift and sustained qdot saturation, or an explicit decision that approach and
 paper-trajectory tracking use different budgets/gates.
+
+## V25 Stage A Bracket Implication
+
+The Stage A bracket tested whether the v24 approach failure can be repaired by
+changing only scalar gains and slack weights:
+
+```text
+approach priority in {weighted, linear-primary}
+k_o in {0.5, 1.0, 2.0}
+planar slack weight in {1, 10, 100}
+angular slack weight in {1, 10}
+```
+
+No case satisfies the ordinary approach feasibility gate. The weighted cases
+can make the terminal orientation small enough for the following E1 trajectory
+to pass, but they do so by spending the velocity budget:
+
+```text
+trajectory-enabling weighted qdot saturation fraction in [0.8875, 0.9995]
+planar drift in [0.007650647578364729, 0.012530340042995497] m
+```
+
+The linear-primary approach preserves planar position:
+
+```text
+max planar drift = 9.543399245007592e-06 m
+```
+
+but it stalls above the orientation threshold:
+
+```text
+final ||e_R|| = 0.07414766093770783 rad > 0.03 rad
+```
+
+Therefore the current transfer cannot be finished by reweighting the same
+velocity-level objective. The next derivation step needs an explicit approach
+schedule or a different approach controller that treats position hold,
+force-normal alignment, contact maintenance, and qdot budget as separate
+contracts.
