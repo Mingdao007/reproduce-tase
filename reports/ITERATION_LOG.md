@@ -3058,8 +3058,8 @@
   `python3 -m py_compile scripts/audit_positive_planar_priority_matrix.py`
   passed. Full tests passed with `115 passed in 2.55s`; `git diff --check`
   passed. The run artifact is lightweight: `117` files, `1.8M`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
-  pending.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `8e7832eedb85cc3642a3cb89047325969e1cb3d0`.
 - Next step:
   Stress the recovered planar-primary formulation against the v73/v76
   faster-timing boundary and the tighter `0.119 rad` orientation gate before
