@@ -54,11 +54,12 @@ contact behavior regresses.
 
 - The current TCP guess is unverified. v54 adds a contact-point variant where
   the 85 mm site is separated from the `0.045 m` colliding sphere center, but
-  this is still an unmeasured simulation proxy.
+  this is still an unmeasured simulation proxy. v55 enforces the intended
+  `contact_plane` / `contact_tip` force pair in terminal setup audits.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
-Run a broader terminal feasibility or gate-definition audit on the v54
-contact-point model, while keeping hardware use blocked until mounted-stack
-geometry is measured.
+Run a contact-manifold or gate-definition audit from known target-contact
+states, while keeping hardware use blocked until mounted-stack geometry is
+measured.

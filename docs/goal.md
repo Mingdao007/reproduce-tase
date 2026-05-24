@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v54 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v54 UR10e TCP contact-point model separates the 85 mm site from the colliding sphere center, but the strict terminal setup audit still fails `0 / 65`; this is simulation-only and not hardware evidence. Choose the next branch deliberately: run a broader terminal feasibility or gate-definition audit on the v54 contact-point model before designing another Stage A controller. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v55 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v55 UR10e broad terminal audit enforces the target `contact_plane` / `contact_tip` force pair and still finds `0 / 513` strict terminal passes; it closes a self-collision false-positive path but is not a global infeasibility proof. Choose the next branch deliberately: build a contact-manifold or gate-definition audit that seeds from known target-contact states and tests whether the x/y, force, and orientation gates are mutually compatible under UR10e 6DOF geometry. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v54` repository state. The project goal is to reproduce the T-ASE finite-time
+`v55` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v54-tcp-contact-point-model`
-- Current v54 code commit:
-  `1725f4c28796fc844dc1d350236755e6c4d59c28`
+  `exp/tase-ur10e-v55-broad-terminal-feasibility`
+- Current v55 code commit:
+  `8da8828ac9182816459bcb54e129d33413fcfa98`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -112,6 +112,10 @@ Current accepted claims:
   model where the 85 mm site is the intended contact point and the colliding
   sphere center is offset to local `[0, 0, 0.045]`. The strict terminal setup
   audit still fails `0 / 65`.
+- `ur10e_broad_terminal_feasibility_audit`: v55 gates setup force/contact on
+  `contact_plane` / `contact_tip` only and finds `0 / 513` broad terminal
+  passes. This closes a self-collision false-positive path but is not a global
+  infeasibility proof.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -121,9 +125,9 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work with a broader terminal feasibility or
-  gate-definition audit on the v54 contact-point model before designing
-  another Stage A controller.
+- Continue UR10e adapted work with a contact-manifold or gate-definition audit
+  that seeds from known target-contact states and tests whether the x/y, force,
+  and orientation gates are mutually compatible under UR10e 6DOF geometry.
 
 ## Safety Boundary
 

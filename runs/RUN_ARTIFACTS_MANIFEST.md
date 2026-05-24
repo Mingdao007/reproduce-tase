@@ -1531,6 +1531,24 @@ Legacy source root:
   error `0.0050975519688662985 N`, x/y error `0.0030075788240061675 m`, and
   orientation error `0.07240603253666981 rad`.
 
+## V55 Broad Terminal Feasibility Audit
+
+### Broad target-contact terminal IK audit
+
+- Run:
+  - `runs/setup_terminal_ik_audit/20260524T141321`
+- Command:
+  `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count 512 --random-seed-std-rad 2.0 --random-seed 541 --max-nfev 800 --posture-weight 0.0`
+- Git state at run time:
+  commit `8da8828ac9182816459bcb54e129d33413fcfa98`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The terminal setup audit now uses only the intended `contact_plane` /
+  `contact_tip` target-pair force for the setup force gate. With `513` broad
+  candidates, the strict setup pass count remains `0 / 513`. The best target
+  contact candidate fails x/y and orientation gates.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

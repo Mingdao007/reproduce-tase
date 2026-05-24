@@ -160,6 +160,46 @@ The strict setup gate still fails:
 This closes the simple TCP/contact convention replacement step, but it does
 not provide a strict Stage A solution.
 
+## 2026-05-24 v55 Broad Rerun With Target Contact Gate
+
+The v55 terminal setup code now gates force and contact on the intended
+`contact_plane` / `contact_tip` pair instead of total MuJoCo contact force.
+This prevents broad random seeds from passing via robot self-collision.
+Evidence is in `reports/broad_terminal_feasibility_audit_report.md`.
+
+The broad audit was run at:
+
+- `runs/setup_terminal_ik_audit/20260524T141321`
+
+Common setup changes from v54:
+
+- random seed count: `512`
+- random seed std: `2.0 rad`
+- max function evaluations: `800`
+- posture weight: `0.0`
+
+The strict setup gate still fails:
+
+- terminal candidates: `513`
+- terminal setup passes: `0 / 513`
+- initial target force: `4.9999999999967395 N`
+- initial target contact count: `1`
+- best target force: `4.994902453443297 N`
+- best target contact count: `1`
+- best force error: `0.005097546556703136 N`
+- best x/y error: `0.0030075762251302427 m`
+- best orientation error: `0.07240605683117833 rad`
+- best failed criteria: `tangential_error_m;orientation_error_rad`
+
+Most broad seeds fail by losing target contact:
+
+- `512` candidates: `force_error_N;contact_present`
+- `1` candidate: `tangential_error_m;orientation_error_rad`
+
+This is not a global infeasibility proof, because contact discovery from
+non-contact random seeds is a weak local least-squares problem. It does close
+the self-collision false-positive path.
+
 ## Verification
 
 - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`

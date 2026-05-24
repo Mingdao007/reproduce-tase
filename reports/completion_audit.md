@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v54-tcp-contact-point-model`
+Branch: `exp/tase-ur10e-v55-broad-terminal-feasibility`
 
 ## Objective Restatement
 
@@ -64,6 +64,8 @@ The objective has two separate technical claim levels:
 - `reports/tcp_contact_point_model_variant_report.md`
 - `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml`
 - `runs/setup_terminal_ik_audit/20260524T140539/metrics.yaml`
+- `reports/broad_terminal_feasibility_audit_report.md`
+- `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -74,17 +76,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v53 branches pushed and GitHub-verified; v54 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v54-tcp-contact-point-model`; latest local branch is `exp/tase-ur10e-v54-tcp-contact-point-model` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v54 branches pushed and GitHub-verified; v55 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v55-broad-terminal-feasibility`; latest local branch is `exp/tase-ur10e-v55-broad-terminal-feasibility` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v54 branch/commit, claim boundary, and next executable choice | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D059 as of v54 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v55 branch/commit, claim boundary, and next executable choice | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D060 as of v55 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v54 full-suite validation was `88 passed in 2.25s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v55 full-suite validation was `89 passed in 2.27s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -98,7 +100,8 @@ The objective has two separate technical claim levels:
 | Formalize split paper-platform evidence | `reports/paper_platform_split_evidence_report.md` | Done; accepted wording keeps formula-convergence and tuned-landmark claims separate and leaves full paper-equivalent numerical parity unclaimed |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
-| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65` | Not achieved |
+| Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
+| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
 | Hardware gate before real motion | Only SOP exists; no `reports/hardware_gate_report.md`; TCP/payload/force source unresolved | Not achieved |
@@ -345,6 +348,22 @@ Evidence:
 - `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml`
 - `runs/setup_terminal_ik_audit/20260524T140539/metrics.yaml`
 
+The broad terminal feasibility audit can additionally claim:
+
+```text
+ur10e_broad_terminal_feasibility_audit:
+  target contact pair enforced = contact_plane / contact_tip
+  broad candidate count = 513
+  strict terminal setup pass count = 0 / 513
+  self-collision force false-positive path closed = true
+  global infeasibility proof = false
+```
+
+Evidence:
+
+- `reports/broad_terminal_feasibility_audit_report.md`
+- `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -373,6 +392,9 @@ Evidence:
 - Hardware gate report is not produced, and no real robot motion is authorized.
 - The relaxed setup budget is an explicit adapted-simulation label, not a
   mathematical solution to the strict Stage A setup gate.
+- The v55 broad terminal audit is still a local least-squares search. It
+  closes self-collision false positives but does not prove global terminal
+  infeasibility on the contact manifold.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -396,7 +418,8 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Run a broader terminal feasibility or gate-definition audit on the v54
-contact-point model before designing another Stage A controller. Any hardware
-work still requires measured mounted-stack geometry and a separate approved
-SOP.
+Build a contact-manifold or gate-definition audit that seeds from known
+target-contact states and explicitly tests whether the current x/y, force, and
+orientation gates are mutually compatible under UR10e 6DOF geometry. Any
+hardware work still requires measured mounted-stack geometry and a separate
+approved SOP.

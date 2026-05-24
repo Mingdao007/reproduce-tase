@@ -1161,3 +1161,23 @@
   `runs/setup_terminal_ik_audit/20260524T140539` remains `0 / 65`, so the next
   useful simulation step is broader terminal feasibility or gate-definition
   analysis, not another scalar phase schedule.
+
+## D060: Gate Terminal Setup Force On The Intended Tool-Plane Contact Pair
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  The terminal setup audit must use target-pair contact force from
+  `contact_plane` / `contact_tip`, not total MuJoCo contact force from all
+  contacts.
+- Reason:
+  A broad v55 exploratory run exposed a false-positive path: robot
+  self-collision could create `5 N` of total positive normal force while the
+  TCP site was far from the plane. The fixed v55 run
+  `runs/setup_terminal_ik_audit/20260524T141321` records
+  `target_contact_count` and `total_normal_force_N` separately and uses only
+  target-pair force for the gate.
+- Consequence:
+  The broad v55 terminal audit reports `0 / 513` passing candidates. Future
+  setup claims must preserve target-contact-pair accounting, especially when
+  using wide random seeds that may introduce non-tool contacts.

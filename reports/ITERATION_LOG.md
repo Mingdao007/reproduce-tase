@@ -2092,3 +2092,52 @@
 - Next step:
   Run a broader terminal feasibility or gate-definition audit on the v54
   contact-point model before designing another Stage A controller.
+
+## 2026-05-24 v55 Broad Terminal Feasibility Audit
+
+- Branch: `exp/tase-ur10e-v55-broad-terminal-feasibility`
+- Starting commit:
+  `1e4a8318efd4a77a077fd04e7b09485280e73345`
+- Code commit:
+  `8da8828ac9182816459bcb54e129d33413fcfa98`
+- Files updated:
+  - `src/tase_repro/contact_ladder.py`
+  - `src/tase_repro/setup_terminal_ik.py`
+  - `scripts/run_setup_terminal_ik_probe.py`
+  - `tests/test_setup_terminal_ik.py`
+  - `reports/setup_terminal_ik_audit_report.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+  - `docs/goal.md`
+- Files added:
+  - `reports/broad_terminal_feasibility_audit_report.md`
+  - `runs/setup_terminal_ik_audit/20260524T141321/**`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_setup_terminal_ik.py tests/test_tcp_contact_model_audit.py`
+  - `python3 -m py_compile src/tase_repro/contact_ladder.py src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`
+  - `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml --random-seed-count 512 --random-seed-std-rad 2.0 --random-seed 541 --max-nfev 800 --posture-weight 0.0`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  The terminal setup audit now gates force/contact on the named
+  `contact_plane` / `contact_tip` pair and records total contact force
+  separately. This closes a broad-seed false-positive path where self-collision
+  force could previously satisfy the force gate.
+- Broad terminal run:
+  The v55 broad run reports `0 / 513` passing candidates. The best target
+  contact candidate has force error `0.005097546556703136 N`, x/y error
+  `0.0030075762251302427 m`, orientation error
+  `0.07240605683117833 rad`, and failed criteria
+  `tangential_error_m;orientation_error_rad`.
+- Limit:
+  This is still not a global infeasibility proof. Most broad seeds lose target
+  contact, and local least-squares is weak at discovering a discontinuous
+  contact manifold from non-contact states.
+- Validation:
+  Full tests passed with `89 passed in 2.27s`. `git diff --check` passed.
+- Next step:
+  Build a contact-manifold or gate-definition audit that seeds from known
+  target-contact states and explicitly tests whether the current x/y, force,
+  and orientation gates are mutually compatible under UR10e 6DOF geometry.

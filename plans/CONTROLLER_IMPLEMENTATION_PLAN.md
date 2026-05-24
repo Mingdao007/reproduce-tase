@@ -201,6 +201,9 @@ smoke runs regress.
   colliding sphere center, not the simulated contact surface.
 - The v54 contact-point model separates the 85 mm site from the colliding
   sphere center, but the strict terminal setup rerun still fails `0 / 65`.
+- The v55 broad terminal audit enforces the intended `contact_plane` /
+  `contact_tip` target force pair and still finds `0 / 513` strict terminal
+  passes.
 
 ## Next Executable Step
 
@@ -212,7 +215,7 @@ formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists, the formula candidate covers 30 s, and the tuned
 figure-match candidate is implemented separately. Future work should formalize
 split evidence reporting or continue UR10e adapted work using the explicit
-claim boundary. For the UR10e adapted line, run a broader terminal feasibility
-or gate-definition audit on the v54 contact-point model before designing
+claim boundary. For the UR10e adapted line, run a contact-manifold or
+gate-definition audit from known target-contact states before designing
 another Stage A controller. Keep contact, drift, terminal orientation, force
 error, and qdot saturation visible together.

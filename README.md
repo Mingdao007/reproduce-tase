@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v54-tcp-contact-point-model`
+Current branch: `exp/tase-ur10e-v55-broad-terminal-feasibility`
 
 ## Scope
 
@@ -43,8 +43,8 @@ Hardware work is read-only until a separate hardware gate SOP is approved.
 
 Current accepted claims are tracked in `reports/completion_audit.md`.
 UR10e results remain adapted simulation evidence, not hardware evidence. The
-v54 adds a separate contact-point model where the 85 mm site is separated from
-the colliding sphere center, but the strict terminal setup audit still fails.
+v55 enforces the intended `contact_plane` / `contact_tip` force pair in the
+terminal setup audit; the broad strict terminal search still fails.
 
 ## Test Command
 

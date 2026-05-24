@@ -184,6 +184,9 @@ them rather than deleting them.
   rerun remains `0 / 65`.
 - The v54 contact-point model separates the 85 mm site from the colliding
   sphere center, but the strict terminal setup rerun remains `0 / 65`.
+- The v55 broad terminal audit enforces the intended `contact_plane` /
+  `contact_tip` target force pair and still finds `0 / 513` strict terminal
+  passes.
 
 ## Next Executable Step
 
@@ -193,5 +196,5 @@ achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next paper-platform step
 should formalize split evidence reporting. Otherwise proceed with UR10e
-adapted work by running broader terminal feasibility or gate-definition audits
-on the v54 contact-point model.
+adapted work by running contact-manifold or gate-definition audits from known
+target-contact states.

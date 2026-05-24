@@ -77,12 +77,12 @@ work exists only on that branch.
 - Paper truth is still not PDF-verified.
 - UR10e MJCF is approximate and not calibrated. v54 adds a contact-point
   variant that separates the 85 mm TCP site from the colliding sphere center,
-  but the strict terminal setup gate still fails and the mounted stack is not
-  measured.
+  but v55 still finds `0 / 513` strict terminal passes after enforcing the
+  intended `contact_plane` / `contact_tip` force pair.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run a broader terminal feasibility or gate-definition audit on the v54
-contact-point model before designing another Stage A controller.
+Run a contact-manifold or gate-definition audit from known target-contact
+states before designing another Stage A controller.
