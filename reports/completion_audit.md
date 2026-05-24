@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v39-completion-audit`
+Branch: `exp/tase-ur10e-v40-section-v-z0-audit`
 
 ## Objective Restatement
 
@@ -31,6 +31,7 @@ The objective has two separate technical claim levels:
 - `runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml`
 - `runs/relaxed_setup_budget_eval/20260524T111859/metrics.yaml`
 - `configs/paper_truth.yaml`
+- `reports/section_v_z0_audit.md`
 - `plans/HARDWARE_GATE_SOP.md`
 - `reports/DECISION_RECORD.md`
 - `runs/RUN_ARTIFACTS_MANIFEST.md`
@@ -39,10 +40,10 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37/v38 branches pushed and GitHub-verified | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v40 branches pushed and GitHub-verified | Done |
 | Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v40-section-v-z0-audit`; latest local branch is `exp/tase-ur10e-v40-section-v-z0-audit` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D043 before this audit | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D045 as of v40 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
