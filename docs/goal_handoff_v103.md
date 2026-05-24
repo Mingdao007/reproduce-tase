@@ -93,7 +93,7 @@ exp/tase-ur10e-v102-positive-orientation-gate-execution
 Verified implementation commit:
 
 ```text
-PENDING_IMPLEMENTATION_COMMIT
+5f7b30e7009296ca8153a020bd1475fec0b6dabd
 ```
 
 V102 positive orientation-gate execution artifacts:
