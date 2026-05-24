@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff`
 
-Implementation commit: `V109_IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `3a766ae641d7d4cda70864da4cfad366786e6515`
 
 ## Objective
 
@@ -83,7 +83,8 @@ readiness, or authorize hardware motion/configuration.
   passed with `156 passed in 6.93s`.
 - `git diff --check`
   passed.
-- Branch push verification is pending the implementation commit.
+- Branch push was verified at
+  `3a766ae641d7d4cda70864da4cfad366786e6515`.
 
 ## Next Step
 

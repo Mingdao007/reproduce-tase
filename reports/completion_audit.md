@@ -222,7 +222,7 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v108 branches pushed and GitHub-verified; v109 branch push verification is pending implementation commit `V109_IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v109 branches pushed and GitHub-verified; v109 implementation branch push verified at `3a766ae641d7d4cda70864da4cfad366786e6515` | Done |
 | Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff`; latest local branch is `exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
 | Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v110.md` include the short prompt, authoritative local clone, v95-v109 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |

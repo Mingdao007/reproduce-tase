@@ -96,7 +96,7 @@ exp/tase-ur10e-v109-relaxed-base-z-weighted-handoff
 Verified implementation commit:
 
 ```text
-V109_IMPLEMENTATION_COMMIT_PENDING
+3a766ae641d7d4cda70864da4cfad366786e6515
 ```
 
 V109 relaxed base-z weighted handoff artifacts:
