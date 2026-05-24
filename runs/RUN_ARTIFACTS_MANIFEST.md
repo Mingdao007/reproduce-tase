@@ -2306,7 +2306,8 @@ Legacy source root:
   `0.014963398168061883 mm` (`14.963398168061882 um`) under the v84 terminal
   slope proxy. Existing metrics show scoped recovery at `0.11955`, `0.1196`,
   and `0.11995 rad`, but v85 does not accept any as replacement diagnostic
-  gates.
+  gates. Branch push was verified at
+  `e9603612a47fed63e19d9aa0f90bd925d2015991`.
 - Limit:
   This is diagnostic calibration/definition margin evidence only. It is not a
   recovery of the `+1.0 mm`, `0.119 rad` gate, accepted gate relaxation,
