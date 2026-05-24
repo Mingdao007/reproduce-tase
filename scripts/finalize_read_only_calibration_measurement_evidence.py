@@ -20,6 +20,7 @@ from audit_read_only_calibration_measurement_run import (
     EXPECTED_CSV_HEADERS,
     EXPECTED_EVIDENCE_STATUS,
     HARD_FALSE_FIELDS,
+    OPTIONAL_CSV_HEADERS,
     REQUIRED_FILES,
     audit_run,
     nested_get,
@@ -31,8 +32,10 @@ APPROVAL_PHRASE = "I approve this read-only measurement step"
 
 CSV_EVIDENCE_MAP = {
     "tcp_contact_measurements.csv": "mounted_stack_tcp_contact_point",
+    "ksm_contact_patch_convention.csv": "ksm_contact_patch_convention",
     "plane_normal_measurements.csv": "plane_normal_robot_base_frame",
     "force_source_comparison.csv": "force_source_frame_reconciliation",
+    "orientation_gate_semantics.csv": "orientation_gate_semantics",
 }
 
 
@@ -79,8 +82,12 @@ def validate_confirmation(confirmation_phrase: str, approved_step_id: str, opera
 
 def read_worksheet_row_counts(run_dir: pathlib.Path) -> dict[str, int]:
     row_counts: dict[str, int] = {}
-    for csv_name, expected_header in EXPECTED_CSV_HEADERS.items():
+    csv_headers = {**EXPECTED_CSV_HEADERS, **OPTIONAL_CSV_HEADERS}
+    for csv_name, expected_header in csv_headers.items():
         path = run_dir / csv_name
+        if csv_name in OPTIONAL_CSV_HEADERS and not path.exists():
+            row_counts[csv_name] = 0
+            continue
         with path.open("r", encoding="utf-8", newline="") as f:
             reader = csv.reader(f)
             header = next(reader, [])

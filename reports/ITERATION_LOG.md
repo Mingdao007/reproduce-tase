@@ -3495,3 +3495,46 @@
   and approved worksheet rows exist. If no live bench interaction is approved,
   refine KSM contact patch convention or orientation-gate worksheet coverage
   offline.
+
+## 2026-05-25 v92 Read-Only Worksheet Coverage
+
+### Add KSM contact patch and orientation semantics worksheets
+
+- Branch:
+  `exp/tase-ur10e-v92-readonly-worksheet-coverage`
+- Runs:
+  - `runs/read_only_calibration_measurement/20260525T014755`
+  - `runs/read_only_calibration_measurement_run_audit/20260525T014756`
+- Report:
+  `reports/read_only_calibration_measurement_worksheet_coverage_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/create_read_only_calibration_measurement_run.py --run-id 20260525T014755`
+  - `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T014755 --audit-mode scaffold --run-id 20260525T014756`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `ksm_contact_patch_convention.csv` and
+  `orientation_gate_semantics.csv` to the read-only measurement template. The
+  audit validates optional worksheet headers when present and rejects optional
+  worksheet rows in scaffold mode. The finalizer now derives KSM and
+  orientation semantics evidence statuses from approved optional rows. The new
+  scaffold run passed with `audit_passed = true`, `violations = []`, 14
+  lightweight files, and no heavy payloads.
+- Limit:
+  This is worksheet/audit/finalizer coverage only. It does not collect
+  measurements, execute the SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  passed; focused scaffold/finalizer/audit tests passed with
+  `7 passed in 1.56s`; the new scaffold audit passed; full tests passed with
+  `122 passed in 4.26s`; `git diff --check` passed after full-test
+  validation.
+- Next step:
+  Use the updated scaffold only after the user approves the exact read-only SOP
+  step. If no live bench interaction is approved, refine orientation-gate
+  acceptance semantics offline so collected read-only rows cannot be mistaken
+  for gate relaxation.

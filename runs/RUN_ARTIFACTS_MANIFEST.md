@@ -2473,6 +2473,38 @@ Legacy source root:
   replacement orientation gate, not a strict paper-equivalent claim, and not
   hardware authorization.
 
+## V92 Read-Only Calibration Measurement Worksheet Coverage
+
+### KSM contact patch and orientation semantics worksheets
+
+- Template files:
+  - `templates/read_only_calibration_measurement/ksm_contact_patch_convention.csv`
+  - `templates/read_only_calibration_measurement/orientation_gate_semantics.csv`
+- Scripts:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+- Runs:
+  - `runs/read_only_calibration_measurement/20260525T014755`
+  - `runs/read_only_calibration_measurement_run_audit/20260525T014756`
+- Command:
+  `python3 scripts/create_read_only_calibration_measurement_run.py --run-id 20260525T014755`
+- Audit command:
+  `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T014755 --audit-mode scaffold --run-id 20260525T014756`
+- Tracked lightweight artifacts:
+  updated template files, scaffold run files, audit metrics/summary/git state,
+  updated scripts/tests/docs, and
+  `reports/read_only_calibration_measurement_worksheet_coverage_report.md`.
+- Result:
+  The updated scaffold includes explicit KSM and orientation semantics
+  worksheets. The scaffold audit passed with `audit_passed = true`,
+  `violations = []`, 14 lightweight files, and no heavy payloads.
+- Validation:
+  Full tests passed with `122 passed in 4.26s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -34,6 +34,11 @@ EXPECTED_CSV_HEADERS = {
     "force_source_comparison.csv": "timestamp_s,source,Fx_N,Fy_N,Fz_N,Tx_Nm,Ty_Nm,Tz_Nm,zero_state,frame,notes",
 }
 
+OPTIONAL_CSV_HEADERS = {
+    "ksm_contact_patch_convention.csv": "sample_id,datum,contact_patch_description,seating_observation,instrument,operator,notes",
+    "orientation_gate_semantics.csv": "sample_id,gate_type,gate_value_rad,normal_source,contact_datum_source,uncertainty_deg,geometry_uncertainty_um,decision,operator,notes",
+}
+
 SCAFFOLD_FALSE_FIELDS = [
     ("execution", "user_confirmed_read_only_step"),
     ("execution", "live_hardware_accessed"),
@@ -196,7 +201,8 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
         if not changed_evidence_fields:
             violations.append("approved read-only mode requires at least one evidence_status field to change")
 
-    for csv_name, expected_header in EXPECTED_CSV_HEADERS.items():
+    csv_headers = {**EXPECTED_CSV_HEADERS, **OPTIONAL_CSV_HEADERS}
+    for csv_name, expected_header in csv_headers.items():
         csv_path = run_dir / csv_name
         if csv_path.exists():
             rows = csv_path.read_text(encoding="utf-8").splitlines()

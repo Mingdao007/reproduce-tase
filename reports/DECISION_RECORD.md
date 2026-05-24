@@ -2026,3 +2026,22 @@
   gate relaxation, robustness proof, strict paper-equivalent claim,
   hardware-readiness claim, or authorization for robot motion, writes, zeroing,
   or force control.
+
+## D097: Make KSM And Orientation Semantics First-Class Read-Only Worksheets
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v92 as the worksheet coverage refinement for KSM contact patch
+  convention and orientation-gate semantics evidence.
+- Reason:
+  V87-V91 tracked these evidence needs, but KSM convention and orientation
+  semantics still depended on prose artifacts. V92 adds optional worksheet CSVs
+  for both items, validates their headers when present, rejects worksheet rows
+  in scaffold audit mode, and allows the finalizer to derive read-only evidence
+  statuses from approved rows. This keeps future evidence capture structured
+  without breaking older run folders.
+- Consequence:
+  A collected orientation semantics row is still evidence collection, not gate
+  acceptance. Gate relaxation, contact-model update, hardware readiness, and
+  robot motion remain disallowed until separately approved and audited.
