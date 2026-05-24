@@ -1589,3 +1589,26 @@
   faster-timing/orientation sensitivity limits. This remains diagnostic-label
   simulation evidence only, not a robustness proof, strict paper-equivalent
   feasibility, contact-model calibration, or hardware readiness.
+
+## D080: Treat Qdot012 Positive Matrix As Recovered At 18.035 Seconds
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v75 as evidence that the qdot012 positive stitched diagnostic matrix
+  recovers when the v74 `18.035 s` Stage A duration is applied to all positive
+  deltas.
+- Reason:
+  The v75 run at `runs/positive_full_stitched_recovery/20260524T195501` reuses
+  the v70 relaxed terminal/path setup with `qdot_limit_rad_s = 0.12`,
+  `stage_a_duration_s = 18.035`, `paper_time_scale = 0.005`, and the run-local
+  `0.12 rad` orientation gate. Stitched pass count is `8 / 8` through
+  `+1.0 mm`; every row reports Stage A pass and Stage B handoff `4 / 4`.
+  Maximum Stage B qdot saturation fraction is `0.001`, and maximum Stage B
+  orientation error is `0.11997895388586574 rad`.
+- Consequence:
+  The qdot012 branch of the v73 sensitivity failure is recovered under the
+  diagnostic label. The harder `paper_time_scale_0p0075` and
+  `orientation_gate_0p119` `+1.0 mm` limits remain unresolved. The project
+  still must not claim robustness, strict paper-equivalent feasibility,
+  contact-model calibration, or hardware readiness.

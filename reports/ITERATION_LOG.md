@@ -2830,3 +2830,37 @@
   Decide whether to fold the `18.035 s` qdot012 duration margin into a compact
   positive stitched recovery matrix or move to the harder `+1.0 mm`
   timing/orientation sensitivity limits.
+
+## 2026-05-24 v75 Qdot012 Positive Stitched Matrix
+
+### Fold the qdot012 Stage A duration margin into all positive deltas
+
+- Branch:
+  `exp/tase-ur10e-v75-qdot012-positive-matrix`
+- Run:
+  `runs/positive_full_stitched_recovery/20260524T195501`
+- Report:
+  `reports/qdot012_positive_stitched_matrix_report.md`
+- Commands run:
+  - `scripts/audit_positive_full_stitched_recovery.py --stage-a-duration-s 18.035 --qdot-limit-rad-s 0.12 --paper-time-scale 0.005 --max-orientation-error-rad 0.12`
+- Result:
+  The audit applies the v74 `18.035 s` Stage A duration margin to the full
+  positive matrix with `qdot_limit_rad_s = 0.12`, reusing the v70 run-local
+  relaxed terminal/path setup and `paper_time_scale = 0.005`. Stitched recovery
+  passes `8 / 8` through `+1.0 mm`; every row has Stage A passing and Stage B
+  handoff `4 / 4`. Max Stage B qdot saturation fraction is `0.001`, max Stage B
+  tail qdot utilization is `0.4474846584870986`, and max Stage B orientation
+  error is `0.11997895388586574 rad`.
+- Limit:
+  This is diagnostic-label simulation evidence only. It closes the qdot012
+  branch of the v73 compact sensitivity failure, but it does not recover the
+  faster-timing or tighter-orientation `+1.0 mm` sensitivity failures and is
+  not strict paper-equivalent, robust, calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_full_stitched_recovery.py scripts/audit_qdot012_stage_a_margin.py scripts/audit_positive_stitched_sensitivity.py`
+  passed. Full tests passed with `115 passed in 2.46s`; `git diff --check`
+  passed.
+- Next step:
+  Move to the harder `+1.0 mm` faster-timing and tighter-orientation
+  sensitivity limits unless the qdot012 branch is intentionally stopped at the
+  recovered diagnostic matrix.

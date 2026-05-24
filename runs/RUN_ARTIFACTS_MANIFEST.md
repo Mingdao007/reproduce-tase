@@ -1995,6 +1995,33 @@ Legacy source root:
   paper-equivalent claim, robustness proof, contact-model calibration, or
   hardware evidence.
 
+## V75 Qdot012 Positive Stitched Matrix
+
+### Full positive matrix with qdot012 and the v74 duration margin
+
+- Run:
+  - `runs/positive_full_stitched_recovery/20260524T195501`
+- Command:
+  `scripts/audit_positive_full_stitched_recovery.py --stage-a-duration-s 18.035 --qdot-limit-rad-s 0.12 --paper-time-scale 0.005 --max-orientation-error-rad 0.12`
+- Git state at run time:
+  parent commit `d904e0f2ec38d116f0a8103a9014d6283fde8a1e` with dirty v75
+  report/docs/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-delta full E1-E4 stitched metrics/summaries/commands under
+  `cases/*`.
+- Result:
+  The audit folds the v74 `18.035 s` Stage A duration into all positive deltas
+  with `qdot_limit_rad_s = 0.12`. Stitched recovery passes `8 / 8` through
+  `+1.0 mm`; every row has Stage B handoff `4 / 4`. Max Stage B qdot
+  saturation fraction is `0.001`, and max Stage B orientation error is
+  `0.11997895388586574 rad`.
+- Limit:
+  This is diagnostic-label qdot012 positive stitched evidence only. It does not
+  recover the v73 faster-timing or tighter-orientation `+1.0 mm` sensitivity
+  failures and is not a canonical-config change, strict paper-equivalent claim,
+  robustness proof, contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

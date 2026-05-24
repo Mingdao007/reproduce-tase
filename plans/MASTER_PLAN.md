@@ -113,14 +113,16 @@ work exists only on that branch.
   Stage B timing, and tighter orientation gates. v74 isolates the
   `qdot012_stage_a18s` `+0.2 mm` failure as a narrow Stage A duration margin:
   `18.03 s` still fails, while `18.035 s` passes with Stage B `4 / 4`.
-  This is still not robust, paper-equivalent, or hardware evidence.
+  v75 folds that `18.035 s` margin back into the full positive qdot012 matrix
+  and recovers `8 / 8` stitched rows through `+1.0 mm`. This is still not
+  robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Decide whether to fold the `18.035 s` qdot012 duration margin into a compact
-positive stitched recovery matrix, or move to the harder
-`paper_time_scale_0p0075` and `orientation_gate_0p119` `+1.0 mm` sensitivity
-limits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup,
-and v63-v74 diagnostic staged labels separate.
+Move to the harder `paper_time_scale_0p0075` and `orientation_gate_0p119`
+`+1.0 mm` sensitivity limits, unless the project intentionally stops the
+qdot012 branch at the recovered diagnostic matrix. Keep strict
+paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v75
+diagnostic staged labels separate.

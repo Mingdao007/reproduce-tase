@@ -257,6 +257,9 @@ them rather than deleting them.
 - The v74 qdot012 Stage A margin audit isolates the `qdot012_stage_a18s`
   `+0.2 mm` failure. Stage B passes `4 / 4` for every tested duration; Stage A
   final tracking fails through `18.03 s` and recovers at `18.035 s`.
+- The v75 qdot012 positive stitched matrix folds the `18.035 s` Stage A margin
+  into all eight positive deltas. Stitched recovery passes `8 / 8` through
+  `+1.0 mm` with Stage B `4 / 4` for every row.
 
 ## Next Executable Step
 
@@ -273,5 +276,6 @@ diagnostic envelope, and v71 found that E2 recovers for all positive deltas at
 `paper_time_scale = 0.005`. v72 recovers the full positive E1-E4 stitched
 matrix at that timing. v73 bounds sensitivity around that exact relaxed
 diagnostic policy, and v74 recovers the qdot012 `+0.2 mm` Stage A tracking miss
-with a `18.035 s` duration. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v74 diagnostic staged labels separate.
+with a `18.035 s` duration. v75 recovers the full qdot012 positive matrix at
+that duration. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v75 diagnostic staged labels separate.

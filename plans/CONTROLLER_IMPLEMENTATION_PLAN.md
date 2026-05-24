@@ -270,13 +270,16 @@ smoke runs regress.
 - The v74 qdot012 Stage A margin audit shows the `qdot012_stage_a18s`
   `+0.2 mm` failure is recovered by extending Stage A from `18.03 s` to
   `18.035 s`; Stage B is `4 / 4` for every tested duration.
+- The v75 qdot012 positive stitched matrix uses `stage_a_duration_s = 18.035`
+  and `qdot_limit_rad_s = 0.12` for all positive deltas. Stitched recovery
+  passes `8 / 8` through `+1.0 mm`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should decide
-whether the `18.035 s` qdot012 duration margin should be folded into a compact
-positive stitched recovery matrix, or whether work should move to the harder
-`+1.0 mm` faster-timing/orientation sensitivity limits. Keep contact, drift,
-terminal orientation, force error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should move to
+the harder `+1.0 mm` faster-timing/orientation sensitivity limits unless the
+qdot012 branch is intentionally stopped at the recovered diagnostic matrix.
+Keep contact, drift, terminal orientation, force error, and qdot saturation
+visible together.
