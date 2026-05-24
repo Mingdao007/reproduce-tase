@@ -1962,6 +1962,7 @@
 - Files added:
   - `reports/paper_7dof_tuned_figure_match_candidate_report.md`
   - `reports/paper_7dof_tuned_figure_match_provenance_report.md`
+  - `reports/paper_platform_split_evidence_report.md`
   - `runs/paper_7dof_section_v/20260524T134441/**`
   - `runs/paper_7dof_fig6_raw_provenance/20260524T134549/**`
 - Commands run:
@@ -1977,12 +1978,10 @@
   comparison records legacy-vs-Python figure-match joint RMSE of
   `6.081574510252252e-09 rad`.
 - Validation:
-  Full tests passed with `85 passed in 2.25s`.
+  Full tests passed with `85 passed in 2.26s`.
 - Limit:
   This is a tuned landmark reproduction candidate. It uses
   `admittance_proxy` and q7 nullspace bias and must not be relabeled as
   formula-faithful paper-equivalent parity.
 - Next step:
-  Keep formula convergence and tuned landmark reproduction separate, then
-  either formalize the split evidence reporting structure or return to UR10e
-  adapted TCP/contact model validation.
+  Move to UR10e adapted TCP/contact model validation before any hardware gate.

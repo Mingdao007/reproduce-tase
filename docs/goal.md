@@ -7,7 +7,7 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v52 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved because those are separate claim levels and the tuned line uses non-paper-faithful `admittance_proxy` plus q7 nullspace bias. Choose the next branch deliberately: formalize the split evidence reporting structure, or continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v52 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved because those are separate claim levels and the tuned line uses non-paper-faithful `admittance_proxy` plus q7 nullspace bias. Choose the next branch deliberately: continue the UR10e adapted line by validating/replacing the approximate UR10e TCP/contact model and rerunning the terminal setup audit. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
@@ -111,12 +111,10 @@ bias, not the formula-faithful controller path. v52 implements that tuned line
 in Python and matches the legacy figure-match raw trajectory to numerical
 precision. Future work must still keep these claim levels separate.
 
-Current next executable choice:
+Current next executable step:
 
-- Formalize the split evidence reporting structure so formula convergence and
-  tuned landmark evidence are not collapsed into one paper-equivalent claim; or
-- Continue UR10e adapted work by validating or replacing the approximate UR10e
-  TCP/contact model and rerunning the terminal setup audit.
+- Continue UR10e adapted work by validating or replacing the approximate
+  UR10e TCP/contact model and rerunning the terminal setup audit.
 
 ## Safety Boundary
 

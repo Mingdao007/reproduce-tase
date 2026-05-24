@@ -1450,6 +1450,16 @@ Legacy source root:
   `2.337566316043061e-11 rad`, and joint RMSE
   `6.081574510252252e-09 rad`.
 
+### Split evidence claim contract
+
+- Report:
+  - `reports/paper_platform_split_evidence_report.md`
+- Result:
+  The project now has an explicit paper-platform reporting contract:
+  formula-convergence evidence and tuned figure-match landmark reproduction
+  are both available, but full paper-equivalent numerical parity remains
+  unclaimed.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
