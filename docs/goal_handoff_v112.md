@@ -91,7 +91,7 @@ exp/tase-ur10e-v111-weighted-profile-matrix-restatement
 Verified implementation commit:
 
 ```text
-V111_IMPLEMENTATION_COMMIT_PENDING
+7900d441e3d072026bdf0f874da98b322cf9628d
 ```
 
 V111 weighted-profile matrix restatement artifacts:
