@@ -90,7 +90,7 @@ exp/tase-ur10e-v101-positive-fast-timing-execution
 Verified implementation commit:
 
 ```text
-PENDING_IMPLEMENTATION_COMMIT
+7bd28a07a3eb4fe9a1122b9397b156a25401d33f
 ```
 
 V101 positive fast-timing execution artifacts:
