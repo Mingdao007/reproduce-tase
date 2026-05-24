@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v87-readonly-measurement-sop`
+Branch: `exp/tase-ur10e-v88-readonly-measurement-templates`
 
 ## Objective Restatement
 
@@ -129,6 +129,11 @@ The objective has two separate technical claim levels:
 - `reports/measured_geometry_readiness_report.md`
 - `runs/measured_geometry_readiness/20260525T000739/metrics.yaml`
 - `reports/read_only_calibration_measurement_sop.md`
+- `reports/read_only_calibration_measurement_template_report.md`
+- `templates/read_only_calibration_measurement/`
+- `scripts/create_read_only_calibration_measurement_run.py`
+- `tests/test_read_only_calibration_measurement_template.py`
+- `runs/read_only_calibration_measurement/20260525T012234/metrics.yaml`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -142,17 +147,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v87 branches pushed and GitHub-verified; v87 branch push verified at `e60a90cfb112e4f5962c67efc2abbbcc3db313d0` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v87-readonly-measurement-sop`; latest local branch is `exp/tase-ur10e-v87-readonly-measurement-sop` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v87 branches pushed and GitHub-verified; v88 is on local branch `exp/tase-ur10e-v88-readonly-measurement-templates` pending push verification | Done locally |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v88-readonly-measurement-templates`; latest local branch is `exp/tase-ur10e-v88-readonly-measurement-templates` | Done locally |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v87 branch/SOP artifact, claim boundary, and next executable read-only SOP execution/refinement target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D092 as of v87 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v89.md` include the short prompt, authoritative local clone, v88 template/scaffold artifacts, claim boundary, and next executable read-only SOP execution/refinement target | Done locally |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D093 as of v88 | Done locally |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v87 validation: `scripts/run_tests.sh` reported `115 passed in 2.65s`, `git diff --check` passed, and no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v88 validation: `python3 -m py_compile scripts/create_read_only_calibration_measurement_run.py` passed, `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py` reported `1 passed in 0.19s`, `scripts/run_tests.sh` reported `116 passed in 2.82s`, `git diff --check` passed, and no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -199,6 +204,7 @@ The objective has two separate technical claim levels:
 | Contact orientation calibration margin | `scripts/audit_contact_orientation_calibration_margin.py`, `reports/contact_orientation_calibration_margin_report.md`, `runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml` | v85 quantifies the hardest remaining weighted row as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) over the `0.119 rad` gate, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the v84 terminal slope proxy; existing recovered gates are not accepted replacement gates without calibrated geometry/normal evidence; branch push verified at `e9603612a47fed63e19d9aa0f90bd925d2015991` |
 | Measured geometry readiness | `scripts/audit_measured_geometry_readiness.py`, `reports/measured_geometry_readiness_report.md`, `runs/measured_geometry_readiness/20260525T000739/metrics.yaml` | v86 inspects current lab-vault and simulation records read-only and finds they are insufficient to support accepting the v85 margin: the `85.0 mm` contact point is design metadata, current UR TCP `[0, 0, 0.12254, 0, 0, 0]` is temporary and not contact-validated, the plane normal is analytic simulation geometry, and direct TCP DAQ still disagrees with RTDE/PolyScope force values by about `32 N`; branch push verified at `70a1b35cf6436b284ed8bc8d1fcf936f9b0724a1` |
 | Read-only calibration measurement SOP | `reports/read_only_calibration_measurement_sop.md` | v87 converts the v86 missing evidence into a read-only measurement/SOP with pass/fail gates, expected artifacts, and abort conditions for mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics; the SOP was not executed and does not authorize motion, writes, zeroing, force control, gate relaxation, or hardware claims; branch push verified at `e60a90cfb112e4f5962c67efc2abbbcc3db313d0` |
+| Read-only calibration measurement template | `templates/read_only_calibration_measurement/`, `scripts/create_read_only_calibration_measurement_run.py`, `tests/test_read_only_calibration_measurement_template.py`, `runs/read_only_calibration_measurement/20260525T012234/metrics.yaml`, `reports/read_only_calibration_measurement_template_report.md` | v88 creates a non-executed template/scaffold run for future SOP evidence capture. Generated metrics keep user confirmation, live hardware access, robot motion, configuration writes, zeroing/biasing, force control, contact-model updates, v85 margin acceptance, gate relaxation, and hardware readiness false | Done locally |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1157,6 +1163,35 @@ Evidence:
 
 - `reports/read_only_calibration_measurement_sop.md`
 
+The read-only calibration measurement template can additionally claim:
+
+```text
+ur10e_read_only_calibration_measurement_template:
+  source artifact = v87 read-only calibration measurement SOP
+  template worksheets exist = true
+  scaffold command exists = true
+  generated run = runs/read_only_calibration_measurement/20260525T012234
+  generated status = scaffold_created_not_executed
+  user_confirmed_read_only_step = false
+  live_hardware_accessed = false
+  robot_motion = false
+  configuration_writes = false
+  zeroing_or_biasing = false
+  force_control = false
+  supports_contact_model_update = false
+  supports_accepting_v85_margin = false
+  gate_relaxation_claim = false
+  hardware_readiness = false
+```
+
+Evidence:
+
+- `reports/read_only_calibration_measurement_template_report.md`
+- `templates/read_only_calibration_measurement/`
+- `scripts/create_read_only_calibration_measurement_run.py`
+- `tests/test_read_only_calibration_measurement_template.py`
+- `runs/read_only_calibration_measurement/20260525T012234/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -1374,6 +1409,11 @@ Evidence:
   orientation-gate semantics. The SOP is not an executed measurement and does
   not authorize robot motion, writes, zeroing, force control, gate relaxation,
   or hardware-readiness claims.
+- The v88 read-only calibration measurement template turns the SOP into a
+  reusable non-executed run scaffold with worksheets, claim-boundary metrics,
+  git state, and tests. It still does not collect measurements or authorize
+  robot motion, writes, zeroing, force control, gate relaxation, or
+  hardware-readiness claims.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1394,7 +1434,8 @@ simulation-audit state for a UR10e adapted result, and v85 quantifies the
 remaining `0.119 rad` row as a calibration/definition margin. V86 confirms
 that existing local records are not sufficient to accept that margin as a
 calibrated correction. V87 defines the read-only measurement SOP needed to
-collect the missing evidence. The project still has not achieved strict
+collect the missing evidence, and v88 provides a non-executed template/scaffold
+for future evidence capture. The project still has not achieved strict
 paper-equivalent full staged feasibility, calibrated contact geometry,
 robustness, or hardware readiness.
 
@@ -1405,8 +1446,9 @@ Do not mark the active goal complete from the current evidence.
 Treat the faster-timing diagnostic face as recovered under the `0.11995 rad`
 gate, but do not accept a replacement orientation gate from simulation metrics
 or current local records alone. The next executable step is to execute only
-safe read-only portions of the v87 SOP after explicit user confirmation, or to
-refine the SOP if any measurement path remains ambiguous. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v87
-diagnostic staged labels separate. Any hardware write, zeroing, force-control,
-or robot motion still requires a separate approved SOP.
+safe read-only portions of the v87 SOP with the v88 scaffold after explicit
+user confirmation, or to refine the worksheets if any measurement path remains
+ambiguous. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v88 diagnostic staged labels separate.
+Any hardware write, zeroing, force-control, or robot motion still requires a
+separate approved SOP.

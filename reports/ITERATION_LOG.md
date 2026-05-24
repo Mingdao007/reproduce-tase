@@ -3342,3 +3342,39 @@
 - Next step:
   Execute only safe read-only portions of the SOP after explicit user
   confirmation, or refine the SOP if any measurement path is ambiguous.
+
+## 2026-05-25 v88 Read-Only Measurement Templates
+
+### Make the v87 SOP executable as a non-executed scaffold
+
+- Branch:
+  `exp/tase-ur10e-v88-readonly-measurement-templates`
+- Run:
+  `runs/read_only_calibration_measurement/20260525T012234`
+- Report:
+  `reports/read_only_calibration_measurement_template_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/create_read_only_calibration_measurement_run.py --run-id 20260525T012234`
+- Result:
+  Added a reusable template under
+  `templates/read_only_calibration_measurement/`, a scaffold command, and a
+  pytest that verifies generated runs keep live hardware access, robot motion,
+  configuration writes, zeroing/biasing, force control, gate relaxation, and
+  hardware-readiness flags false. The generated run is
+  `scaffold_created_not_executed` and records git state.
+- Limit:
+  This is a template-only, non-executed run. It does not collect measurements,
+  execute the SOP, calibrate the contact model, accept any replacement gate,
+  prove robustness, prove strict paper-equivalent feasibility, or authorize
+  hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/create_read_only_calibration_measurement_run.py`
+  passed; focused scaffold test passed with `1 passed in 0.19s`; full tests
+  passed with `116 passed in 2.82s`; `git diff --check` passed before
+  full-test validation. The generated run artifact has `12` files, `52K`, and
+  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Use the scaffold only for an explicitly approved read-only SOP step, or keep
+  refining the worksheets if the live measurement path is still ambiguous.

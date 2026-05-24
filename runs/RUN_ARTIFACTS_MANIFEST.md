@@ -2366,6 +2366,34 @@ Legacy source root:
   or authorization for motion, writes, zeroing, or force control. Branch push
   was verified at `e60a90cfb112e4f5962c67efc2abbbcc3db313d0`.
 
+## V88 Read-Only Calibration Measurement Templates
+
+### Non-executed scaffold for future SOP evidence collection
+
+- Template:
+  - `templates/read_only_calibration_measurement/`
+- Script:
+  - `scripts/create_read_only_calibration_measurement_run.py`
+- Run:
+  - `runs/read_only_calibration_measurement/20260525T012234`
+- Command:
+  `python3 scripts/create_read_only_calibration_measurement_run.py --run-id 20260525T012234`
+- Tracked lightweight artifacts:
+  `README.md`, `measurement_plan.md`, `operator_checklist.md`,
+  `tcp_contact_measurements.csv`, `plane_normal_measurements.csv`,
+  `force_source_comparison.csv`, `orientation_gate_decision.md`,
+  `photos_manifest.md`, `metrics.yaml`, `metrics.json`, `summary.md`, and
+  `git_state.md`.
+- Result:
+  The run is a template-only scaffold with status
+  `scaffold_created_not_executed`. It records no live hardware access, no
+  robot motion, no configuration writes, no zeroing/biasing, no force control,
+  no gate relaxation, and no hardware-readiness claim.
+- Limit:
+  This is not collected measurement evidence, not a calibrated contact model,
+  not an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

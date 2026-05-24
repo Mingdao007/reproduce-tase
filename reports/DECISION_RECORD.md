@@ -1934,3 +1934,27 @@
   ambiguous. The SOP itself is not a recovery, executed calibration,
   robustness proof, strict paper-equivalent feasibility, hardware-readiness
   claim, or authorization for motion, writes, zeroing, or force control.
+
+## D093: Make Read-Only Measurement Evidence Collection Template-First
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v88 as a template/scaffold iteration for the v87 read-only SOP. The
+  next calibration evidence collection should start from a generated run folder
+  with explicit worksheets, safety flags, claim-boundary metrics, and git state
+  rather than ad hoc notes.
+- Reason:
+  No live bench read was explicitly approved in this thread. The safe next
+  action is therefore to make the SOP executable as a non-executed artifact:
+  `templates/read_only_calibration_measurement/`,
+  `scripts/create_read_only_calibration_measurement_run.py`, and
+  `runs/read_only_calibration_measurement/20260525T012234`. The generated
+  metrics mark live hardware access, robot motion, configuration writes,
+  zeroing/biasing, force control, contact-model updates, gate relaxation, and
+  hardware readiness as false.
+- Consequence:
+  Future SOP execution still requires explicit user approval for the exact
+  read-only step. The template is not collected measurement evidence, not an
+  accepted calibration, not a gate relaxation, and not authorization for robot
+  motion, writes, zeroing, force control, or hardware claims.

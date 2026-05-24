@@ -1,0 +1,32 @@
+run_source: read-only calibration measurement template
+run_id: TEMPLATE
+status: template_not_executed
+source_sop: reports/read_only_calibration_measurement_sop.md
+v85_margin:
+  required_normal_rotation_deg: 0.03245531101442353
+  equivalent_geometry_um: 14.963398168061882
+execution:
+  user_confirmed_read_only_step: false
+  live_hardware_accessed: false
+  robot_motion_commanded: false
+  configuration_written: false
+  zeroing_or_biasing_performed: false
+  force_control_run: false
+evidence_status:
+  mounted_stack_tcp_contact_point: not_collected
+  ksm_contact_patch_convention: not_collected
+  plane_normal_robot_base_frame: not_collected
+  force_source_frame_reconciliation: not_collected
+  orientation_gate_semantics: not_accepted
+verdict:
+  supports_contact_model_update: false
+  supports_accepting_v85_margin: false
+  supports_gate_relaxation: false
+  supports_hardware_claim: false
+  supports_more_stage_b_qdot_tuning: false
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  gate_relaxation_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
