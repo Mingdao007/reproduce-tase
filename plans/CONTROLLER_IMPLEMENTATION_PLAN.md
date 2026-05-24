@@ -158,6 +158,11 @@ smoke runs regress.
   contact and force error with hard bounds respected. It is closer to the
   paper inner-loop form than v42, but the force-integral cap is still an
   explicit diagnostic anti-windup assumption.
+- The v44 parity gate compares the v43 Python 7DOF candidate against the
+  legacy MATLAB/RNN formula-faithful and figure-match verification reports.
+  Tail convergence agrees with the formula-faithful reference within the gate
+  tolerances, but strict parity fails on duration, Fig.6 q7-at-22 s, missing
+  Python Fig.5 r-sweep coverage, and the capped force integral.
 
 ## Next Executable Step
 
@@ -165,6 +170,8 @@ Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
-formulation, or define a paper-platform parity gate against the legacy
-MATLAB/RNN outputs. Keep contact, drift, terminal orientation, force error, and
-qdot saturation visible together.
+formulation, or feed the paper-platform parity gate with a stronger candidate.
+The parity gate now exists; future paper-platform work should feed it a 30 s
+7DOF candidate with Fig.5/Fig.6 landmarks and an uncapped or paper-justified
+force loop. Keep contact, drift, terminal orientation, force error, and qdot
+saturation visible together.

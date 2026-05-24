@@ -78,7 +78,8 @@ This still does not prove paper-equivalent numerical parity:
 - The Panda/Franka DH parameters are inherited from legacy MATLAB audit files.
 - The desired orientation remains based on the documented force-normal
   shortest-arc interpretation of an ambiguous paper equation.
-- No Fig.5/Fig.6 parity gate has been defined for the Python 7DOF line.
+- At v43, no Fig.5/Fig.6 parity gate had been defined for the Python 7DOF
+  line. v44 adds that gate and records it as failing for this candidate.
 
 The correct claim after v43 is:
 
@@ -92,6 +93,6 @@ paper_platform_7dof_capped_integral_kkt_contact_diagnostic:
 
 ## Next Step
 
-Define a paper-platform parity gate against the legacy MATLAB/RNN outputs, or
+Use the v44 paper-platform parity gate with a 30 s Python candidate, or
 separately audit the Panda/Franka DH model against a vendor/manual source
 before using the Python 7DOF line for stronger paper-platform claims.

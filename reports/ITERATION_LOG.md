@@ -1608,3 +1608,46 @@
   Define a paper-platform parity gate against legacy MATLAB/RNN outputs, or
   audit Panda/Franka DH model provenance before making stronger paper-platform
   claims.
+
+## 2026-05-24 v44 Paper Platform Parity Gate
+
+- Branch: `exp/tase-ur10e-v44-paper-platform-parity-gate`
+- Starting commit: `e5b0ab2e66bfa31c937730ad50e56ec2637048f3`
+- Files added:
+  - `configs/paper_platform_parity.yaml`
+  - `src/tase_repro/paper_platform_parity.py`
+  - `scripts/evaluate_paper_platform_parity.py`
+  - `tests/test_paper_platform_parity.py`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/paper_platform_parity_eval/20260524T115641/metrics.yaml`
+  - `runs/paper_platform_parity_eval/20260524T115641/metrics.json`
+  - `runs/paper_platform_parity_eval/20260524T115641/summary.md`
+- Files updated:
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_platform_parity.py`
+  - `scripts/evaluate_paper_platform_parity.py`
+- Result:
+  Defined a strict paper-platform parity gate against the legacy MATLAB/RNN
+  Section V verification reports. The v43 Python capped-integral KKT
+  candidate passes execution/contact/bounds and matches formula-faithful tail
+  force, position, and orientation metrics within configured tolerances.
+  Strict parity still fails because the candidate is only `5.0 s`, cannot
+  expose q7 at `22 s`, has no Python Fig.5 r-sweep coverage, and uses the
+  finite force-integral cap.
+- Validation:
+  Targeted parity tests passed with `3 passed in 0.04s`.
+- Limit:
+  This is a gate definition plus a failing evaluation. It improves claim
+  discipline but does not achieve paper-equivalent numerical parity or
+  hardware readiness.
+- Next step:
+  Run or implement a 30 s Python 7DOF candidate with q7-at-22 s and Fig.5
+  r-sweep outputs, then address the capped-integral assumption or verify
+  Panda/Franka model provenance.

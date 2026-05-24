@@ -909,3 +909,26 @@
   verify Panda/Franka DH parameters, and keep the force-integral cap labeled as
   an explicit diagnostic anti-windup decision unless the paper source supports
   it.
+
+## D049: Define Strict Paper-Platform Parity Gate Before Upgrading 7DOF Claims
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Define `paper_platform_7dof_strict_parity` as a separate gate against the
+  legacy MATLAB/RNN Section V outputs. The gate is configured in
+  `configs/paper_platform_parity.yaml` and evaluated by
+  `scripts/evaluate_paper_platform_parity.py`.
+- Reason:
+  The v44 evaluation at `runs/paper_platform_parity_eval/20260524T115641`
+  shows the v43 Python capped-integral KKT candidate matches the
+  formula-faithful tail convergence metrics within configured tolerances, but
+  strict parity still fails. The candidate is only `5.0 s` long, lacks the
+  Fig.6 q7-at-22 s landmark, lacks Python Fig.5 r-sweep coverage, and uses
+  `force_integral_limit = 0.1`.
+- Consequence:
+  Reports may say the Python 7DOF line has a formal parity gate and partial
+  tail-convergence agreement with the legacy formula-faithful output. They
+  must not call it paper-equivalent numerical parity until the strict gate
+  passes, including duration, Fig.5/Fig.6 landmarks, and assumption
+  compatibility.

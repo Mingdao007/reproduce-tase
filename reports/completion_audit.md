@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`
+Branch: `exp/tase-ur10e-v44-paper-platform-parity-gate`
 
 ## Objective Restatement
 
@@ -38,6 +38,9 @@ The objective has two separate technical claim levels:
 - `runs/paper_7dof_section_v/20260524T114244/metrics.yaml`
 - `reports/paper_7dof_kkt_contact_recovery_report.md`
 - `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
+- `configs/paper_platform_parity.yaml`
+- `reports/paper_platform_parity_gate_report.md`
+- `runs/paper_platform_parity_eval/20260524T115641/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
 - `reports/DECISION_RECORD.md`
 - `runs/RUN_ARTIFACTS_MANIFEST.md`
@@ -46,10 +49,10 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v42 branches pushed and GitHub-verified; v43 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v43-paper-7dof-kkt-sweep`; latest local branch is `exp/tase-ur10e-v43-paper-7dof-kkt-sweep` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v43 branches pushed and GitHub-verified; v44 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v44-paper-platform-parity-gate`; latest local branch is `exp/tase-ur10e-v44-paper-platform-parity-gate` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D048 as of v43 | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D049 as of v44 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
@@ -59,6 +62,7 @@ The objective has two separate technical claim levels:
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
+| Paper-platform parity gate | `configs/paper_platform_parity.yaml`, `src/tase_repro/paper_platform_parity.py`, `scripts/evaluate_paper_platform_parity.py`, `runs/paper_platform_parity_eval/20260524T115641/metrics.yaml` | Gate exists; v43 candidate has tail convergence agreement with formula-faithful reference but strict parity fails |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -112,12 +116,30 @@ Evidence:
 - `reports/paper_7dof_kkt_contact_recovery_report.md`
 - `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
 
+The strict parity gate can additionally claim:
+
+```text
+paper_platform_7dof_strict_parity:
+  parity pass = false
+  tail convergence against formula-faithful legacy reference = pass
+  duration coverage = false
+  Fig.6 q7-at-22 s landmark = false
+  Python Fig.5 r-sweep coverage = false
+  force-integral assumption compatibility = false
+```
+
+Evidence:
+
+- `reports/paper_platform_parity_gate_report.md`
+- `runs/paper_platform_parity_eval/20260524T115641/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
 - Paper-platform 7DOF Franka/Panda reproduction now has a separate executable
-  diagnostic line and a capped-integral KKT variant that passes tail force,
-  but it is not paper-equivalent numerical parity.
+  diagnostic line, a capped-integral KKT variant that passes tail force, and a
+  strict parity gate. The gate fails, so this is still not paper-equivalent
+  numerical parity.
 - Section V `z0` is now verified undefined in the simulation text; future code
   still needs an explicit adapted convention if it implements Section V.
 - UR10e MJCF, 85 mm TCP guess, payload, CoG, and contact geometry remain
@@ -126,9 +148,11 @@ Evidence:
 - Hardware gate report is not produced, and no real robot motion is authorized.
 - The relaxed setup budget is an explicit adapted-simulation label, not a
   mathematical solution to the strict Stage A setup gate.
-- The v43 paper-platform line inherits unverified Panda DH parameters, uses a
-  documented force-normal orientation interpretation, and passes force/contact
-  only with an explicit capped-integral anti-windup assumption.
+- The v43/v44 paper-platform line inherits unverified Panda DH parameters,
+  uses a documented force-normal orientation interpretation, and passes
+  force/contact only with an explicit capped-integral anti-windup assumption.
+  It also lacks 30 s duration coverage, q7-at-22 s, and Python Fig.5 r-sweep
+  parity evidence.
 
 ## Audit Conclusion
 
@@ -142,7 +166,8 @@ Do not mark the active goal complete from the current evidence.
 
 Choose one of these before any real hardware work:
 
-- define a paper-platform parity gate against the legacy MATLAB/RNN outputs or
-  verify the Panda/Franka DH model provenance; or
+- feed the v44 paper-platform parity gate with a 30 s Python 7DOF candidate
+  that records q7 at 22 s and Fig.5 r-sweep outputs, then address the
+  capped-integral assumption or verify Panda/Franka DH model provenance; or
 - validate or replace the approximate UR10e TCP/contact model and rerun the
   terminal setup audit.

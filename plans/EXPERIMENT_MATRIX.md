@@ -25,6 +25,7 @@ python3 scripts/run_full_article_experiment_sim.py --config configs/full_article
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
+scripts/evaluate_paper_platform_parity.py
 ```
 
 ## Expected Outputs
@@ -40,6 +41,8 @@ scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode 
   contact-normal velocity mapping.
 - Separate paper-platform 7DOF Section V diagnostics with execution, contact,
   force-error, bound, and residual metrics.
+- Paper-platform parity gate outputs comparing the Python 7DOF candidate to
+  the migrated legacy MATLAB/RNN verification reports.
 
 ## Pass/Fail Criteria
 
@@ -127,7 +130,11 @@ them rather than deleting them.
   `pinv_bounded` and a capped force integral.
 - The v43 capped-integral KKT 7DOF diagnostic passes the tail contact-force
   gate using `kkt_projection`, but the integral cap remains an adapted
-  anti-windup assumption and no paper-platform parity gate has been defined.
+  anti-windup assumption.
+- The v44 paper-platform parity gate is now defined. The v43 candidate passes
+  legacy formula-faithful tail convergence tolerances, but strict parity fails
+  on 30 s duration coverage, Fig.6 q7-at-22 s, missing Python Fig.5 r-sweep
+  coverage, and the capped-integral assumption.
 
 ## Next Executable Step
 
@@ -135,4 +142,6 @@ Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
-paper-platform parity/model-provenance gaps, not another duration bracket.
+paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
+should be a 30 s Python candidate with q7-at-22 s and Fig.5 r-sweep coverage,
+not another short contact-tail recovery run.

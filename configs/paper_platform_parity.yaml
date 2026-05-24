@@ -1,0 +1,38 @@
+paper_platform_parity:
+  claim: paper_platform_7dof_strict_parity
+  candidate:
+    label: python_v43_capped_integral_kkt
+    metrics_path: runs/paper_7dof_section_v/20260524T114736/metrics.yaml
+    raw_npz_path: runs/paper_7dof_section_v/20260524T114736/paper_7dof_section_v_raw.npz
+  legacy_references:
+    formula_faithful:
+      label: paper_method_formula_faithful
+      verification_path: runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_formula_faithful/paper_method_formula_faithful_verification.md
+      role: primary_formula_reference
+    figure_match:
+      label: paper_method_figure_match
+      verification_path: runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_figure_match/paper_method_figure_match_verification.md
+      role: fig6_landmark_reference
+  primary_convergence_reference: formula_faithful
+  fig6_landmark_reference: figure_match
+  required_coverage:
+    duration_s: 30.0
+    fig6_q7_sample_time_s: 22.0
+    fig5_r_sweep: true
+    uncapped_force_integral: true
+  candidate_fig5_r_sweep:
+    required_r_values:
+      - 0.2
+      - 0.4
+      - 0.6
+      - 0.8
+      - 1.0
+    metrics_paths: {}
+  thresholds:
+    tail_force_error_abs_N: 1.0
+    tail_position_error_abs_m: 0.002
+    tail_orientation_error_abs_rad: 0.001
+    tail_force_error_delta_N_vs_formula: 0.05
+    tail_position_error_delta_m_vs_formula: 0.001
+    tail_orientation_error_delta_rad_vs_formula: 0.0001
+    q7_at_22_abs_error_rad_vs_figure_match: 0.05

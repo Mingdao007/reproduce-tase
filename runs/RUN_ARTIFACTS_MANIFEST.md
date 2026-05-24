@@ -1190,6 +1190,33 @@ Legacy source root:
   explicit anti-windup choice and the Panda DH/orientation assumptions remain
   unverified.
 
+## V44 Paper Platform Parity Gate
+
+### Strict gate against legacy MATLAB/RNN Section V outputs
+
+- Run:
+  - `runs/paper_platform_parity_eval/20260524T115641`
+- Command:
+  `scripts/evaluate_paper_platform_parity.py`
+- Config:
+  `configs/paper_platform_parity.yaml`
+- Candidate:
+  `runs/paper_7dof_section_v/20260524T114736/metrics.yaml`
+- Legacy references:
+  - `runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_formula_faithful/paper_method_formula_faithful_verification.md`
+  - `runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_figure_match/paper_method_figure_match_verification.md`
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Result:
+  `paper_platform_parity_pass = false`. The v43 Python candidate passes
+  execution/contact/bounds and agrees with the formula-faithful tail
+  convergence reference under configured tolerances, but strict parity fails
+  on duration coverage, Fig.6 q7-at-22 s, missing Python Fig.5 r-sweep
+  coverage, and the finite force-integral cap.
+- Limit:
+  This artifact defines and applies the gate. It is not a paper-equivalent
+  numerical parity pass.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -68,9 +68,14 @@ the decision record and revert only the affected controller commit.
 - The v43 capped-integral KKT paper-platform line passes tail contact and
   force error using `kkt_projection`, but the integral cap is not yet
   PDF-verified paper truth.
+- The v44 strict parity gate formalizes the comparison against the legacy
+  MATLAB/RNN outputs. The current Python 7DOF candidate has tail convergence
+  agreement with the formula-faithful reference but fails strict parity on
+  duration, Fig.5/Fig.6 landmark coverage, and capped-integral assumptions.
 
 ## Next Executable Step
 
-For the paper-platform line, define a parity gate against the legacy
-MATLAB/RNN outputs or verify the Panda/Franka DH model before upgrading the
-claim. Keep this separate from UR10e adapted controller iterations.
+For the paper-platform line, feed the v44 parity gate with a 30 s Python 7DOF
+candidate that records q7 at 22 s and Fig.5 r-sweep outputs, or verify the
+Panda/Franka DH model before upgrading the claim. Keep this separate from
+UR10e adapted controller iterations.
