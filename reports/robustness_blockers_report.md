@@ -67,7 +67,8 @@ hardware-readiness claim.
   created the v97 blocker audit.
 - `scripts/run_tests.sh` passed with `132 passed in 5.44s`.
 - `git diff --check` passed after full-test validation.
-- Branch push verification is pending.
+- Branch push was verified at
+  `f74c3719d4770e21604ae0087d8b27cc22e4b7d9`.
 
 ## Next Step
 

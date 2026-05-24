@@ -77,6 +77,12 @@ Expected branch:
 exp/tase-ur10e-v97-robustness-blockers
 ```
 
+Verified implementation commit:
+
+```text
+f74c3719d4770e21604ae0087d8b27cc22e4b7d9
+```
+
 V97 robustness blocker artifacts:
 
 ```text
