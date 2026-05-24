@@ -2935,7 +2935,8 @@
   `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py`
   passed. Full tests passed with `115 passed in 2.55s`; `git diff --check`
   passed. The run artifact is lightweight: `76` files, `1008K`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `66715852488151da19379a5b4a9373dd44c0c407`.
 - Next step:
   Test a targeted Stage B orientation-margin/control change or revisit the
   terminal/contact model before claiming anything stronger than diagnostic
