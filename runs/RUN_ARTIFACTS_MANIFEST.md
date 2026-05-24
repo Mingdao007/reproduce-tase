@@ -3005,6 +3005,47 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V107 Positive Fast Weighted Full-Cell Probe
+
+### Ran exact fixed-gate E1-E4 fast face with weighted priority
+
+- Scripts:
+  - `scripts/audit_positive_fast_weighted_full_cell.py`
+- Runs:
+  - `runs/positive_fast_weighted_full_cell/20260525T064719`
+- Report:
+  - `reports/positive_fast_weighted_full_cell_report.md`
+- Tests:
+  - `tests/test_positive_fast_weighted_full_cell.py`
+- Command:
+  `python3 scripts/audit_positive_fast_weighted_full_cell.py --output-dir runs/positive_fast_weighted_full_cell/20260525T064719`
+- Tracked lightweight artifacts:
+  probe metrics/summary/git state, per-scenario lightweight metrics and
+  command logs, report, tests, and updated planning/decision/manifest
+  documentation.
+- Result:
+  The full E1-E4 matrix keeps `paper_time_scale = 0.0075`, `qdot_limit =
+  0.15 rad/s`, and the `0.12 rad` orientation gate fixed. The linear-primary
+  baseline still fails E2 with orientation `0.12020305872871904`, qdot
+  saturation `0.999`, and tail qdot utilization `1.0`. Both weighted scenarios
+  pass `4 / 4` with maximum Stage B orientation `0.11954627160547111`, qdot
+  saturation `0.0`, tail qdot utilization `0.5177926211135458`, and tail mean
+  absolute force error `0.0008422275835027282 N`.
+- Validation:
+  Focused tests passed with `2 passed in 0.12s`; YAML anchor check found no
+  anchors in the root summary metrics; raw/heavy artifact scan found no
+  payloads; full tests passed with `150 passed in 6.79s`; `git diff --check`
+  passed.
+  Branch-push validation is pending before finalizing v107.
+- Limit:
+  No live or physical measurement was collected. This is full-cell diagnostic
+  simulation for one face and does not close the original v99
+  `positive_fast_timing_0p0075` failed cell because `weighted` has not been
+  accepted as a canonical controller default. It is not a calibrated contact
+  model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v106-positive-fast-e2-orientation-margin`
+Branch: `exp/tase-ur10e-v107-positive-fast-weighted-full-cell`
 
 ## Objective Restatement
 
@@ -197,6 +197,10 @@ The objective has two separate technical claim levels:
 - `tests/test_positive_fast_e2_orientation_margin.py`
 - `runs/positive_fast_e2_orientation_margin/20260525T063817/metrics.yaml`
 - `reports/positive_fast_e2_orientation_margin_report.md`
+- `scripts/audit_positive_fast_weighted_full_cell.py`
+- `tests/test_positive_fast_weighted_full_cell.py`
+- `runs/positive_fast_weighted_full_cell/20260525T064719/metrics.yaml`
+- `reports/positive_fast_weighted_full_cell_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -210,17 +214,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v106 branches pushed and GitHub-verified; v106 implementation branch push verified at `716ecde74a428c15ce17445018ca7028b1db9527` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v106-positive-fast-e2-orientation-margin`; latest local branch is `exp/tase-ur10e-v106-positive-fast-e2-orientation-margin` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v107 branches pushed and GitHub-verified after v107 branch verification is finalized | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v107-positive-fast-weighted-full-cell`; latest local branch is `exp/tase-ur10e-v107-positive-fast-weighted-full-cell` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v107.md` include the short prompt, authoritative local clone, v95-v106 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D111 as of v106 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v108.md` include the short prompt, authoritative local clone, v95-v107 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D112 as of v107 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v106 focused validation: `python3 -m py_compile scripts/audit_positive_fast_e2_orientation_margin.py` passed, `scripts/run_tests.sh tests/test_positive_fast_e2_orientation_margin.py` reported `1 passed in 0.12s`, the v106 E2 orientation-margin run was created, YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `148 passed in 6.81s`, and `git diff --check` passed; branch push was verified at `716ecde74a428c15ce17445018ca7028b1db9527`; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v107 focused validation: `python3 -m py_compile scripts/audit_positive_fast_weighted_full_cell.py` passed, `scripts/run_tests.sh tests/test_positive_fast_weighted_full_cell.py` reported `2 passed in 0.12s`, the v107 weighted full-cell run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `150 passed in 6.79s`, and `git diff --check` passed; branch-push validation is pending before finalizing v107; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -286,6 +290,7 @@ The objective has two separate technical claim levels:
 | Plus1mm unresolved diagnostic probe | `scripts/audit_plus1mm_unresolved_diagnostic_probe.py`, `tests/test_plus1mm_unresolved_diagnostic_probe.py`, `runs/plus1mm_unresolved_diagnostic_probe/20260525T062237/metrics.yaml`, `reports/plus1mm_unresolved_diagnostic_probe_report.md` | v104 classifies the four executed unresolved `+1.0 mm` cells from existing v100-v103 metrics: all four remain unresolved, only `positive_fast_timing_0p0075` is qdot-limited, `weighted_plus1mm_0p119_gate` has max qdot saturation `0.0` and remains orientation-margin/gate-acceptance blocked, and `probe_closes_failed_cells = false`; implementation branch push verified at `b412ddf5bbec20682ce021b754aa0efc845a3372` | Done |
 | Positive fast-timing E2 qdot isolation | `scripts/audit_positive_stage_b_e2_margin.py`, `tests/test_positive_stage_b_e2_margin.py`, `runs/positive_fast_timing_e2_qdot_isolation/20260525T063019/metrics.yaml`, `reports/positive_fast_timing_e2_qdot_isolation_report.md` | v105 isolates the `positive_fast_timing_0p0075` E2 row: the first tested timing pass is `paper_time_scale = 0.0052`, and qdot-limit-only probes at `paper_time_scale = 0.0075` fail `0 / 5` through `0.3 rad/s` because orientation remains above `0.12 rad`; implementation branch push verified at `6cc6733a3ac78b93090d4079b62480ade57e82a7` | Done |
 | Positive fast E2 orientation-margin probe | `scripts/audit_positive_fast_e2_orientation_margin.py`, `tests/test_positive_fast_e2_orientation_margin.py`, `runs/positive_fast_e2_orientation_margin/20260525T063817/metrics.yaml`, `reports/positive_fast_e2_orientation_margin_report.md` | v106 keeps `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the `0.12 rad` orientation gate fixed, then shows weighted rows pass the isolated E2 row with `max_orientation_error_rad = 0.11954627160547111`, qdot saturation `0.0`, and tail qdot utilization `0.5177926211135458`; this remains E2-only and does not close the full `positive_fast_timing_0p0075` failed cell; implementation branch push verified at `716ecde74a428c15ce17445018ca7028b1db9527` | Done |
+| Positive fast weighted full-cell probe | `scripts/audit_positive_fast_weighted_full_cell.py`, `tests/test_positive_fast_weighted_full_cell.py`, `runs/positive_fast_weighted_full_cell/20260525T064719/metrics.yaml`, `reports/positive_fast_weighted_full_cell_report.md` | v107 keeps `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the `0.12 rad` orientation gate fixed across the full `+1.0 mm` E1-E4 face. The linear-primary baseline still fails E2, while `weighted_kp0_normal1` and `weighted_kp0_normal30` pass `4 / 4`; this is a diagnostic recovery candidate and does not close the original failed cell because weighted priority is not accepted as canonical; implementation branch push verification pending | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
@@ -1683,8 +1688,13 @@ pass is `0.0052`. V106 then keeps `paper_time_scale = 0.0075`, `qdot_limit =
 priority formulation. The weighted rows pass the isolated E2 row with
 orientation `0.11954627160547111 rad`, but v106 is still E2-only diagnostic
 evidence and does not close the full `positive_fast_timing_0p0075` failed
-cell. The project still has not achieved strict paper-equivalent full staged
-feasibility, calibrated contact geometry, robustness, or hardware readiness.
+cell. V107 runs the exact full E1-E4 `+1.0 mm` fast-timing face at the same
+fixed timing, qdot limit, and `0.12 rad` gate. The linear-primary baseline
+still fails E2, while both weighted rows pass `4 / 4`; this establishes a
+weighted-priority diagnostic recovery candidate but still does not close the
+original failed cell because no canonical controller change is accepted. The
+project still has not achieved strict paper-equivalent full staged feasibility,
+calibrated contact geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
@@ -1694,15 +1704,15 @@ Do not accept a replacement orientation gate from simulation metrics or current
 local records alone. The next executable step is to execute only safe read-only
 portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
 verifier after explicit user confirmation, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v106 blocker audits, the
-v99 planned experiment matrix, and the v100-v106 execution/probe audits. All
-v99 planned commands have now been executed; v106 shows the isolated E2 row can
-clear the fixed `0.12 rad` gate with weighted priority, but the full failed
-cell still needs E1-E4 audit coverage before any upgrade. The next offline
-probe can rerun `positive_fast_timing_0p0075` with weighted E1-E4 priority at
-the fixed gate, or switch to the separate `base_z_plus1mm` start-contact versus
-terminal-orientation split. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v106 diagnostic staged labels
+simulation/paper-platform work identified by the v95-v107 blocker audits, the
+v99 planned experiment matrix, and the v100-v107 execution/probe audits. All
+v99 planned commands have now been executed; v107 shows the fast-timing face
+can recover under weighted priority, but weighted priority still needs an
+acceptance-boundary audit before any canonical upgrade. The next offline probe
+can audit whether/how to promote weighted priority into a named diagnostic
+controller profile, or switch to the separate `base_z_plus1mm` start-contact
+versus terminal-orientation split. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v107 diagnostic staged labels
 separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

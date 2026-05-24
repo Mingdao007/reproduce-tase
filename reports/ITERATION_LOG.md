@@ -4120,3 +4120,45 @@
   positive-fast probe can rerun the full E1-E4 failed-cell audit with weighted
   priority while keeping the `0.12 rad` gate fixed; the other clean target is
   the `base_z_plus1mm` start-contact versus terminal-orientation split.
+
+## 2026-05-25 v107 Positive Fast Weighted Full-Cell Probe
+
+### Run exact fixed-gate E1-E4 fast face with weighted priority
+
+- Branch:
+  `exp/tase-ur10e-v107-positive-fast-weighted-full-cell`
+- Runs:
+  - `runs/positive_fast_weighted_full_cell/20260525T064719`
+- Report:
+  `reports/positive_fast_weighted_full_cell_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_fast_weighted_full_cell.py`
+  - `scripts/run_tests.sh tests/test_positive_fast_weighted_full_cell.py`
+  - `python3 scripts/audit_positive_fast_weighted_full_cell.py --output-dir runs/positive_fast_weighted_full_cell/20260525T064719`
+  - `rg -n "&id|\*id" runs/positive_fast_weighted_full_cell/20260525T064719/metrics.yaml`
+  - `find runs/positive_fast_weighted_full_cell/20260525T064719 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The full E1-E4 matrix keeps `paper_time_scale = 0.0075`, `qdot_limit =
+  0.15 rad/s`, and the `0.12 rad` orientation gate fixed. The linear-primary
+  baseline still fails E2; both weighted scenarios pass `4 / 4`. The weighted
+  rows report maximum Stage B orientation `0.11954627160547111`, qdot
+  saturation `0.0`, and tail qdot utilization `0.5177926211135458`.
+- Limit:
+  This is full-cell diagnostic simulation for one face. It does not close the
+  original v99 `positive_fast_timing_0p0075` failed cell because it does not
+  accept `weighted` as a canonical controller default. It does not accept a
+  relaxed orientation gate, calibrate contact geometry, prove robustness, prove
+  strict paper-equivalent feasibility, or authorize hardware
+  motion/configuration.
+- Validation:
+  Focused tests passed with `2 passed in 0.12s`; YAML anchor check found no
+  anchors in the root summary metrics; raw/heavy artifact scan found no
+  payloads; full tests passed with `150 passed in 6.79s`; `git diff --check`
+  passed.
+  Branch-push validation is pending before finalizing v107.
+- Next step:
+  Without live approval, continue only non-final offline work. The next
+  positive-fast step should audit the acceptance boundary for promoting
+  weighted priority into a named diagnostic controller profile; the other clean
+  target is the `base_z_plus1mm` start-contact versus terminal-orientation
+  split.

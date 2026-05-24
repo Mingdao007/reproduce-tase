@@ -2356,3 +2356,29 @@
   motion/configuration. Future offline work may run the full E1-E4 failed-cell
   audit with weighted priority at the fixed `0.12 rad` gate, or switch to the
   `base_z_plus1mm` start-contact versus terminal-orientation split.
+
+## D112: Keep Weighted Full-Cell Fast Recovery As Candidate Until Accepted
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v107 as a full E1-E4 diagnostic recovery probe for the
+  `positive_fast_timing_0p0075` face under weighted Stage B priority.
+- Reason:
+  V106 showed weighted priority clears the isolated E2 row. V107 tests the
+  exact `+1.0 mm`, `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`,
+  `0.12 rad` full E1-E4 face. The linear-primary baseline still fails E2 with
+  qdot saturation `0.999`, tail qdot utilization `1.0`, and orientation
+  `0.12020305872871904 rad`. Both weighted rows pass `4 / 4` with maximum
+  Stage B orientation `0.11954627160547111 rad`, qdot saturation `0.0`, and
+  tail qdot utilization `0.5177926211135458`.
+- Consequence:
+  Treat weighted priority as a full-cell diagnostic recovery candidate, not as
+  a closed original v99 failed cell. V107 does not accept `weighted` as a
+  canonical controller default, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, accept a
+  replacement orientation gate, establish hardware readiness, or authorize
+  hardware motion/configuration. Future offline work should either audit the
+  acceptance boundary for promoting weighted priority into a named diagnostic
+  controller profile, or switch to the `base_z_plus1mm` start-contact versus
+  terminal-orientation split.
