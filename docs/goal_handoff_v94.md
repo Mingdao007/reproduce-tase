@@ -72,6 +72,12 @@ Expected branch:
 exp/tase-ur10e-v93-orientation-acceptance-boundary
 ```
 
+Verified implementation commit:
+
+```text
+b8246d247734c5df5a3d0c3f056d4ac60b25729c
+```
+
 V93 orientation-boundary artifacts:
 
 ```text

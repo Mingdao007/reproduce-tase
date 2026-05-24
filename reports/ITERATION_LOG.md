@@ -3577,7 +3577,8 @@
   passed; focused scaffold/finalizer/audit tests passed with
   `8 passed in 1.81s`; the new scaffold audit passed; full tests passed with
   `123 passed in 4.43s`; `git diff --check` passed after full-test
-  validation.
+  validation. Branch push was verified at
+  `b8246d247734c5df5a3d0c3f056d4ac60b25729c`.
 - Next step:
   Use the updated scaffold only after the user approves the exact read-only SOP
   step. If no live bench interaction is approved, define a separate
