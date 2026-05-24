@@ -1044,3 +1044,39 @@
   Run a focused E2 post-prealignment timing/task-priority bracket, or replace
   the Stage A task structure instead of accepting relaxed-drift prealignment
   as a full staged reproduction.
+
+## 2026-05-24 v30 E2 After Prealignment Bracket
+
+- Branch: `exp/tase-ur10e-v30-e2-after-prealign-bracket`
+- Starting commit: `5e98b0f3516e6a171de6151046bda12be3bfca78`
+- Files added:
+  - `reports/e2_after_prealign_bracket_report.md`
+  - `runs/staged_orientation_e2_after_prealign_bracket/20260524T100429`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 - <<'PY' ... summary aggregate check ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_e2_after_prealign_bracket/20260524T100429/scale<scale>_kp<kp> --approach-duration-s 4.0 --trajectory-duration-s 8.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --approach-qdot-limit-rad-s 0.25 --trajectory-qdot-limit-rad-s 0.15 --trajectory e2-figure-eight --omega-rad-s 0.1 --paper-time-scale <0.075|0.05|0.025> --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode weighted --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp <0.10|0.05|0.02|0.00> --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  The 12-case bracket produced `12 / 12` approach terminal-orientation passes,
+  `0 / 12` approach ordinary-feasibility passes, `0 / 12`
+  trajectory-after-approach passes, and `0 / 12` full staged-feasibility
+  passes. Every Stage B row failed only qdot saturation and tail qdot
+  utilization. The slowest zero-gain case (`scale0p025_kp0p00`) still had
+  qdot saturation fraction `0.906` and tail qdot utilization `1.0`.
+  Validation passed with `54 passed in 1.21s`, `git diff --check`, and
+  aggregate check `12 0 0 0`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence under the same
+  post-prealignment posture. It does not test posture redesign or a new
+  tangent allocation.
+- Next step:
+  Stop scalar E2 timing/gain expansion. Test posture/prealignment terminal
+  configuration changes or add a posture/nullspace objective before E2.

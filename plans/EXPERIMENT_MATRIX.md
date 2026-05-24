@@ -80,12 +80,14 @@ them rather than deleting them.
 - The first staged E1-E4 after-prealignment matrix passes Stage B for E1, E3,
   and E4, but E2 remains qdot-budget limited after prealignment. The matrix is
   therefore partial evidence, not a complete staged tilted-plane reproduction.
+- The E2 post-prealignment timing/gain bracket did not find a pass. Even
+  `paper_time_scale = 0.025` with zero trajectory orientation gain remains
+  qdot-saturated for `90.6%` of the trajectory.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_e1e4_after_prealign/20260524T095804` as evidence
-that weighted tilted-normal prealignment enables only `3 / 4` slowed Stage B
-trajectories. The next executable experiment should isolate E2 after
-prealignment with a small timing/task-priority bracket, or replace Stage A
-with a contact/position-first structure before making any broader staged
-claim.
+Use `runs/staged_orientation_e2_after_prealign_bracket/20260524T100429` as
+evidence that E2 is not fixed by scalar timing or trajectory orientation gain
+under the same posture. The next executable experiment should change posture,
+the prealignment terminal configuration, or tangent task allocation before
+rerunning E2.

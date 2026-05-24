@@ -597,3 +597,23 @@
   Keep the v29 run as partial trajectory-after-prealignment evidence. The next
   isolated blocker is E2 after prealignment, or a genuinely different Stage A
   task structure that avoids both planar drift and sustained qdot saturation.
+
+## D035: Stop Scalar E2 Timing/Gain Brackets Under Same Posture
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not keep expanding scalar E2 post-prealignment timing or trajectory
+  orientation-gain brackets under the same posture and task structure.
+- Reason:
+  The v30 E2 bracket tested 12 cases crossing `paper_time_scale` values
+  `0.075`, `0.05`, and `0.025` with trajectory orientation gains `0.10`,
+  `0.05`, `0.02`, and `0.00`. No case passed the trajectory-after-approach
+  or full staged gate. Every case failed only qdot saturation and tail qdot
+  utilization. Even the slowest zero-gain case had qdot saturation fraction
+  `0.906` and tail qdot utilization `1.0`.
+- Consequence:
+  Treat E2 after prealignment as a kinematic velocity-budget blocker. The next
+  useful experiments should change posture, the prealignment terminal
+  configuration, tangent task allocation, or add an explicit posture/nullspace
+  objective before E2.

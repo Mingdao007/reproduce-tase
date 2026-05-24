@@ -821,6 +821,35 @@ Legacy source root:
   This is partial tilted-plane simulation evidence at slowed timing. It does
   not accept Stage A and does not establish full staged E1-E4 feasibility.
 
+## V30 E2 After Prealignment Bracket
+
+### E2 timing and trajectory orientation-gain isolation
+
+- Run root:
+  - `runs/staged_orientation_e2_after_prealign_bracket/20260524T100429`
+- Scope:
+  Twelve E2 staged tilted-plane runs. Stage A repeats the v29 weighted
+  prealignment setup. Stage B crosses `paper_time_scale` values `0.075`,
+  `0.05`, and `0.025` with trajectory orientation gains `0.10`, `0.05`,
+  `0.02`, and `0.00`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `12 / 12`, approach
+  ordinary-feasibility pass count `0 / 12`, trajectory-after-approach pass
+  count `0 / 12`, trajectory-feasibility pass count `0 / 12`, and full
+  staged-feasibility pass count `0 / 12`. All Stage B failures are qdot
+  saturation and tail qdot utilization only.
+- Limit:
+  This is E2-only negative simulation evidence under the same
+  post-prealignment posture. It does not test posture redesign.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

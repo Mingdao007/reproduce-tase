@@ -100,11 +100,13 @@ smoke runs regress.
 - The v29 staged E1-E4 matrix shows that weighted prealignment is not enough
   for a full trajectory family claim. E1, E3, and E4 pass the slowed Stage B
   gate, but E2 remains qdot-saturated after prealignment.
+- The v30 E2 bracket shows that this E2 saturation survives lower timing and
+  zero trajectory orientation gain. The blocker is likely posture-conditioned
+  tangent velocity authority, not the angular task alone.
 
 ## Next Executable Step
 
-Isolate the E2 post-prealignment qdot failure with a small timing or
-task-priority bracket, while keeping Stage A labeled as a separate infeasible
-approach under the ordinary budget. In parallel, the next controller redesign
-candidate should preserve contact and planar position first, then use
-remaining velocity budget for orientation.
+Prototype a posture or tangent-allocation change for E2 after prealignment.
+Candidate directions are a posture/nullspace objective before E2, a different
+prealignment terminal configuration, or a tangent task weighting that reduces
+joint-velocity saturation without hiding qdot budget failures.

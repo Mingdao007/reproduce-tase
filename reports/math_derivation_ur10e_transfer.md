@@ -928,3 +928,35 @@ also not universally solved after prealignment because E2 remains
 qdot-limited. The UR10e 6DOF adaptation therefore still needs either an E2
 post-prealignment timing/task-priority adjustment or a different approach
 formulation before it can claim a complete staged E1-E4 reproduction.
+
+## V30 E2 Post-Prealignment Bracket Implication
+
+The v30 E2-only bracket holds Stage A fixed and varies only Stage B timing and
+trajectory orientation gain:
+
+```text
+paper_time_scale in {0.075, 0.05, 0.025}
+trajectory_orientation_kp in {0.10, 0.05, 0.02, 0.00}
+```
+
+No case passes. The failed criteria are identical across the grid:
+
+```text
+qdot_saturation_fraction
+tail_max_qdot_utilization
+```
+
+The strongest diagnostic point is the zero-gain row. Removing trajectory
+orientation correction does not remove saturation:
+
+```text
+scale 0.075, kp 0.00: qdot saturation = 0.99025
+scale 0.050, kp 0.00: qdot saturation = 0.97775
+scale 0.025, kp 0.00: qdot saturation = 0.906
+```
+
+All other metrics remain inside thresholds. Therefore the E2 blocker after
+prealignment is not dominated by the orientation task. It is a tangent
+direction and posture-conditioned velocity-budget issue under the current
+UR10e 6DOF mapping. The next derivation should treat E2 as a posture or
+task-allocation problem, not a scalar gain problem.
