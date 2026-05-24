@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v114-strict-command-limited-stage-a`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `aaa42097f6778cc0b2c8617c9ffc21f57b5fbfb4`
 
 ## Objective
 
@@ -93,7 +93,7 @@ motion/configuration.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `aaa42097f6778cc0b2c8617c9ffc21f57b5fbfb4`.
 
 ## Next Step
 

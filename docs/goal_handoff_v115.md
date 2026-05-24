@@ -85,7 +85,7 @@ exp/tase-ur10e-v114-strict-command-limited-stage-a
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+aaa42097f6778cc0b2c8617c9ffc21f57b5fbfb4
 ```
 
 V114 strict command-limited Stage A artifacts:
