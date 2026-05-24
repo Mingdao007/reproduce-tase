@@ -1252,3 +1252,51 @@
   next Stage A iteration should either define an explicit relaxed approach
   budget, or test a planned prealignment path with separately verified
   contact-maintenance and terminal-state gates.
+
+## 2026-05-24 v35 Two-Phase Approach Recenter Probe
+
+- Branch: `exp/tase-ur10e-v35-two-phase-approach-recenter`
+- Starting commit: `aa9ba76c3ef6e5119efaddb0cdbce87d955879af`
+- Files added:
+  - `reports/two_phase_recenter_probe_report.md`
+  - `runs/staged_orientation_two_phase_recenter/20260524T104957`
+- Files updated:
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `src/tase_repro/force_feedback.py`
+  - `src/tase_repro/staged_force_motion.py`
+  - `tests/test_force_motion.py`
+  - `tests/test_staged_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/force_feedback.py src/tase_repro/staged_force_motion.py scripts/run_staged_orientation_force_motion.py`
+  - `scripts/run_tests.sh`
+  - `python3 - <<'PY' ... two-phase recenter matrix and summary aggregation ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py ... --recenter-duration-s <duration> --recenter-orientation-priority-mode <mode> --setup-max-final-tangential-error-m 0.002 ...`
+- Result:
+  Added an explicit `planar_reference_xy_m` hook so a later phase can target
+  the original setup x/y point, optional recenter support in the staged
+  runner, and a setup terminal-state gate that checks final orientation, final
+  x/y error, contact, tail force error, and hard qdot/joint-limit violations.
+  The 10-case E2 matrix produced `0 / 10` setup terminal-state passes,
+  `4 / 10` trajectory feasibility passes, `4 / 10` legacy
+  trajectory-after-approach passes, `0 / 10` planned setup-then-trajectory
+  passes, and `0 / 10` full staged-feasibility passes. Short linear-primary
+  recenter windows keep Stage B passing but fail setup force and x/y gates.
+  Long linear-primary recentering can meet the x/y and force terminal gates,
+  but loses terminal orientation and makes Stage B fail.
+- Validation:
+  `scripts/run_tests.sh` passed with `63 passed in 1.31s`. The aggregate
+  summary check reads `10 0 4 4 0 0`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence. It does not establish a
+  complete E1-E4 planned setup or hardware readiness.
+- Next step:
+  Stop scalar recenter-duration tuning. Either add a force-maintaining
+  recenter formulation with phase-specific normal/force authority, or record
+  an explicit relaxed setup budget that accepts weighted-prealignment drift
+  without calling it paper-equivalent full staged feasibility.

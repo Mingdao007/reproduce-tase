@@ -1120,3 +1120,57 @@ force-normal orientation, and qdot budget still conflict under a two-level
 instantaneous velocity formulation. The next mathematical option is either an
 explicit relaxed prealignment budget or a planned approach path that separates
 contact-maintenance intervals from the terminal orientation state.
+
+## V35 Two-Phase Recenter Implication
+
+The v35 staged runner adds an explicit setup reference:
+
+```text
+x_d, y_d = x_setup, y_setup
+```
+
+for a second approach phase. This tests whether the weighted tilted-normal
+prealignment can be followed by a planned recenter operation before the E2
+trajectory starts. The acceptance gate is terminal-state based rather than a
+transient paper-trajectory gate:
+
+```text
+final ||e_R|| <= 0.03 rad
+final ||p_xy - p_setup,xy|| <= 0.002 m
+tail force error <= 0.25 N
+contact fraction = 1.0
+hard qdot and joint-limit violation = 0
+```
+
+No tested row satisfies this setup contract:
+
+```text
+setup terminal-state pass count = 0 / 10
+planned setup-then-trajectory pass count = 0 / 10
+full staged-feasibility pass count = 0 / 10
+```
+
+The recenter tradeoff is continuous and exposes the conflict:
+
+```text
+0.3 s linear-primary recenter:
+  setup x/y error = 0.0072102171132026795 m
+  setup orientation error = 0.00853105574687911 rad
+  recenter tail force error = 1.55001710834636 N
+  E2 trajectory passes
+
+4.0 s linear-primary recenter:
+  setup x/y error = 0.001202027969075075 m
+  setup orientation error = 0.06144921366675186 rad
+  recenter tail force error = 0.07268453631886647 N
+  E2 trajectory fails orientation
+```
+
+Weighted recentering preserves the trajectory pass but leaves about
+`8.36 mm` drift. Planar-primary recentering preserves orientation but loses
+contact and force. The 6DOF transfer therefore cannot be resolved by simply
+splitting the old approach into "align then recenter" with the same
+instantaneous velocity tasks. A future planned setup needs a different
+normal/force-maintaining formulation, or the reproduction must explicitly
+accept a relaxed setup drift budget and keep it separate from full staged
+paper-equivalent feasibility.

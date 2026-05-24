@@ -177,3 +177,45 @@ def test_staged_supports_separate_trajectory_qdot_limits() -> None:
     )
     assert np.max(np.abs(staged.approach.qdot)) <= 0.3 + 1e-12
     assert np.max(np.abs(staged.trajectory.qdot)) <= 0.05 + 1e-12
+
+
+def test_staged_optional_recenter_targets_original_approach_xy() -> None:
+    model = load_model(TILTED_MODEL_PATH)
+    qdot_min = np.full(model.nv, -0.3)
+    qdot_max = np.full(model.nv, 0.3)
+    staged = simulate_orientation_prealign_then_planar_force_motion(
+        TILTED_MODEL_PATH,
+        initial_q=np.array([0.0, -0.1, 0.15, -0.05, 0.0, 0.0]),
+        base_z_offset_m=-0.0011631221220595766,
+        target_force_N=5.0,
+        planar_trajectory=lambda t_s: paper_e1_cycloid_planar_state(t_s, time_scale=0.075),
+        approach_duration_s=0.02,
+        recenter_duration_s=0.02,
+        trajectory_duration_s=0.02,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-4,
+        r=0.5,
+        planar_kp=0.5,
+        recenter_planar_kp=1.0,
+        slack_axis_weights=np.array([1.0, 1.0, 10000.0]),
+        slack_constraint_weight=1000.0,
+        normal_velocity_mode="contact_normal",
+        approach_orientation_priority_mode="weighted",
+        approach_orientation_kp=2.0,
+        recenter_orientation_priority_mode="linear_primary",
+        trajectory_orientation_priority_mode="linear_primary",
+        trajectory_orientation_kp=0.1,
+        angular_axis_weights=np.ones(3),
+        angular_slack_axis_weights=np.ones(3),
+    )
+
+    assert staged.approach_recenter is not None
+    np.testing.assert_allclose(staged.setup_reference_xy_m, staged.approach.desired_tcp[0, :2])
+    expected_reference_xy = np.tile(staged.setup_reference_xy_m, (len(staged.approach_recenter.force), 1))
+    np.testing.assert_allclose(staged.approach_recenter.desired_tcp[:, :2], expected_reference_xy)
+    np.testing.assert_allclose(staged.trajectory_initial_q, staged.approach_recenter.q[-1])
+    assert staged.setup_final_tangential_position_error_m == np.linalg.norm(
+        staged.approach_recenter.tcp[-1, :2] - staged.setup_reference_xy_m
+    )

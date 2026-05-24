@@ -707,3 +707,33 @@
   define either an explicit relaxed approach budget or a planned prealignment
   path/task formulation with separate contact-maintenance and terminal-state
   gates.
+
+## D040: Two-Phase Recenter Does Not Produce An Accepted Setup
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the optional recenter phase and explicit setup terminal-state gate as
+  diagnostic infrastructure, but do not accept the tested two-phase recenter
+  path as the Stage A solution.
+- Reason:
+  The v35 E2 matrix tested weighted prealignment followed by optional
+  weighted, linear-primary, or planar-primary recentering to the original x/y
+  reference, then the v32 trajectory posture-regularized E2 Stage B. The
+  setup terminal-state gate requires final orientation `<= 0.03 rad`, final
+  x/y error `<= 0.002 m`, contact fraction `1.0`, tail force error
+  `<= 0.25 N`, and no hard qdot or joint-limit violations. No case passed
+  this setup gate. Short linear-primary recenter windows (`0.2-0.3 s`) kept
+  the following trajectory passing but left `7.21-7.57 mm` x/y error and
+  `1.40-1.55 N` recenter tail force error. The `4 s` linear-primary recenter
+  reduced x/y error to `0.001202027969075075 m` and tail force error to
+  `0.07268453631886647 N`, but lost terminal orientation
+  (`0.06144921366675186 rad`) and made E2 fail. Weighted recentering preserved
+  the old Stage B pass but left about `8.36 mm` x/y error. Planar-primary
+  recentering lost contact/force.
+- Consequence:
+  Do not continue scalar recenter-duration tuning as the primary path. The
+  next Stage A option should either introduce a genuinely force-maintaining
+  recenter formulation with phase-specific normal/force authority, or make an
+  explicit relaxed setup-budget decision that remains separate from
+  paper-equivalent full staged feasibility.

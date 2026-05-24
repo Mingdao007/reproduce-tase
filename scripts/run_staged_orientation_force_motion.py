@@ -210,6 +210,61 @@ def build_thresholds(args: argparse.Namespace) -> FeasibilityThresholds:
     )
 
 
+def evaluate_setup_terminal_state(
+    *,
+    setup_summary: dict,
+    final_orientation_error_rad: float,
+    final_tangential_error_m: float,
+    thresholds: FeasibilityThresholds,
+    orientation_threshold_rad: float,
+    final_tangential_error_threshold_m: float,
+) -> dict:
+    criteria = {
+        "final_orientation_error_rad": {
+            "actual": float(final_orientation_error_rad),
+            "operator": "<=",
+            "threshold": float(orientation_threshold_rad),
+            "passed": float(final_orientation_error_rad) <= float(orientation_threshold_rad),
+        },
+        "final_tangential_position_error_m": {
+            "actual": float(final_tangential_error_m),
+            "operator": "<=",
+            "threshold": float(final_tangential_error_threshold_m),
+            "passed": float(final_tangential_error_m) <= float(final_tangential_error_threshold_m),
+        },
+        "contact_present_fraction": {
+            "actual": float(setup_summary["contact_present_fraction"]),
+            "operator": ">=",
+            "threshold": float(thresholds.contact_present_fraction_min),
+            "passed": setup_summary["contact_present_fraction"] >= thresholds.contact_present_fraction_min,
+        },
+        "tail_mean_abs_force_error_N": {
+            "actual": float(setup_summary["tail_mean_abs_force_error_N"]),
+            "operator": "<=",
+            "threshold": float(thresholds.tail_mean_abs_force_error_N_max),
+            "passed": setup_summary["tail_mean_abs_force_error_N"] <= thresholds.tail_mean_abs_force_error_N_max,
+        },
+        "max_qdot_violation_rad_s": {
+            "actual": float(setup_summary["max_qdot_violation_rad_s"]),
+            "operator": "<=",
+            "threshold": float(thresholds.max_qdot_violation_rad_s_max),
+            "passed": setup_summary["max_qdot_violation_rad_s"] <= thresholds.max_qdot_violation_rad_s_max,
+        },
+        "max_joint_limit_violation_rad": {
+            "actual": float(setup_summary["max_joint_limit_violation_rad"]),
+            "operator": "<=",
+            "threshold": float(thresholds.max_joint_limit_violation_rad_max),
+            "passed": setup_summary["max_joint_limit_violation_rad"] <= thresholds.max_joint_limit_violation_rad_max,
+        },
+    }
+    failed = [name for name, criterion in criteria.items() if not bool(criterion["passed"])]
+    return {
+        "passed": not failed,
+        "failed_criteria": failed,
+        "criteria": criteria,
+    }
+
+
 def phase_metrics(
     *,
     phase: str,
@@ -262,6 +317,7 @@ def main() -> int:
     parser.add_argument("--config", default="configs/mujoco_ur10e_tilted_plane.yaml")
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--approach-duration-s", type=float, default=4.0)
+    parser.add_argument("--recenter-duration-s", type=float, default=0.0)
     parser.add_argument("--trajectory-duration-s", type=float, default=2.0)
     parser.add_argument("--target-force-N", type=float, default=5.0)
     parser.add_argument("--force-gain", type=float, default=5e-4)
@@ -270,6 +326,7 @@ def main() -> int:
     parser.add_argument("--initial-q", default="0,-0.1,0.15,-0.05,0,0")
     parser.add_argument("--qdot-limit-rad-s", type=float, default=0.15)
     parser.add_argument("--approach-qdot-limit-rad-s", type=float, default=None)
+    parser.add_argument("--recenter-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument("--trajectory-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument(
         "--trajectory",
@@ -285,6 +342,7 @@ def main() -> int:
     parser.add_argument("--zero-initial-offset", dest="zero_initial_offset", action="store_true", default=True)
     parser.add_argument("--no-zero-initial-offset", dest="zero_initial_offset", action="store_false")
     parser.add_argument("--planar-kp", type=float, default=0.5)
+    parser.add_argument("--recenter-planar-kp", type=float, default=None)
     parser.add_argument("--planar-axis-weight", type=float, default=1.0)
     parser.add_argument("--normal-axis-weight", type=float, default=1.0)
     parser.add_argument("--planar-slack-weight", type=float, default=1.0)
@@ -299,6 +357,13 @@ def main() -> int:
     parser.add_argument("--approach-orientation-kp", type=float, default=2.0)
     parser.add_argument("--approach-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument(
+        "--recenter-orientation-priority-mode",
+        choices=["weighted", "linear-primary", "planar-primary"],
+        default="linear-primary",
+    )
+    parser.add_argument("--recenter-orientation-kp", type=float, default=None)
+    parser.add_argument("--recenter-max-angular-command-rad-s", type=float, default=None)
+    parser.add_argument(
         "--trajectory-orientation-priority-mode",
         choices=["weighted", "linear-primary", "planar-primary"],
         default="linear-primary",
@@ -308,14 +373,19 @@ def main() -> int:
     parser.add_argument("--angular-axis-weight", type=float, default=1.0)
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
     parser.add_argument("--approach-posture-target-q", default=None)
+    parser.add_argument("--recenter-posture-target-q", default=None)
     parser.add_argument("--trajectory-posture-target-q", default=None)
     parser.add_argument("--approach-posture-kp", type=float, default=0.0)
+    parser.add_argument("--recenter-posture-kp", type=float, default=0.0)
     parser.add_argument("--trajectory-posture-kp", type=float, default=0.0)
     parser.add_argument("--approach-posture-weight", type=float, default=0.0)
+    parser.add_argument("--recenter-posture-weight", type=float, default=0.0)
     parser.add_argument("--trajectory-posture-weight", type=float, default=0.0)
     parser.add_argument("--approach-max-posture-velocity-rad-s", type=float, default=None)
+    parser.add_argument("--recenter-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--trajectory-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--approach-orientation-threshold-rad", type=float, default=0.03)
+    parser.add_argument("--setup-max-final-tangential-error-m", type=float, default=0.002)
     parser.add_argument("--max-orientation-error-rad", type=float, default=0.03)
     parser.add_argument("--max-angular-slack-rad-s", type=float, default=0.03)
     args = parser.parse_args()
@@ -328,11 +398,16 @@ def main() -> int:
     q_min, q_max = joint_ranges(model)
     qdot_limit = abs(float(args.qdot_limit_rad_s))
     approach_qdot_limit = qdot_limit if args.approach_qdot_limit_rad_s is None else abs(float(args.approach_qdot_limit_rad_s))
+    recenter_qdot_limit = (
+        qdot_limit if args.recenter_qdot_limit_rad_s is None else abs(float(args.recenter_qdot_limit_rad_s))
+    )
     trajectory_qdot_limit = (
         qdot_limit if args.trajectory_qdot_limit_rad_s is None else abs(float(args.trajectory_qdot_limit_rad_s))
     )
     approach_qdot_min = np.full(model.nv, -approach_qdot_limit, dtype=float)
     approach_qdot_max = np.full(model.nv, approach_qdot_limit, dtype=float)
+    recenter_qdot_min = np.full(model.nv, -recenter_qdot_limit, dtype=float)
+    recenter_qdot_max = np.full(model.nv, recenter_qdot_limit, dtype=float)
     trajectory_qdot_min = np.full(model.nv, -trajectory_qdot_limit, dtype=float)
     trajectory_qdot_max = np.full(model.nv, trajectory_qdot_limit, dtype=float)
     approach_qdot_limit_source = (
@@ -341,7 +416,11 @@ def main() -> int:
     trajectory_qdot_limit_source = (
         "trajectory_cli_override" if args.trajectory_qdot_limit_rad_s is not None else "cli_override"
     )
+    recenter_qdot_limit_source = (
+        "recenter_cli_override" if args.recenter_qdot_limit_rad_s is not None else "cli_override"
+    )
     approach_posture_target = None if args.approach_posture_target_q is None else parse_vector(args.approach_posture_target_q)
+    recenter_posture_target = None if args.recenter_posture_target_q is None else parse_vector(args.recenter_posture_target_q)
     trajectory_posture_target = (
         None if args.trajectory_posture_target_q is None else parse_vector(args.trajectory_posture_target_q)
     )
@@ -363,9 +442,13 @@ def main() -> int:
         qdot_max=approach_qdot_max,
         trajectory_qdot_min=trajectory_qdot_min,
         trajectory_qdot_max=trajectory_qdot_max,
+        recenter_duration_s=args.recenter_duration_s,
+        recenter_qdot_min=recenter_qdot_min,
+        recenter_qdot_max=recenter_qdot_max,
         force_gain=args.force_gain,
         r=args.r,
         planar_kp=args.planar_kp,
+        recenter_planar_kp=args.recenter_planar_kp,
         axis_weights=np.array([args.planar_axis_weight, args.planar_axis_weight, args.normal_axis_weight]),
         slack_axis_weights=np.array([args.planar_slack_weight, args.planar_slack_weight, args.normal_slack_weight]),
         slack_constraint_weight=args.slack_constraint_weight,
@@ -373,6 +456,9 @@ def main() -> int:
         approach_orientation_priority_mode=args.approach_orientation_priority_mode.replace("-", "_"),
         approach_orientation_kp=args.approach_orientation_kp,
         approach_max_angular_command_rad_s=args.approach_max_angular_command_rad_s,
+        recenter_orientation_priority_mode=args.recenter_orientation_priority_mode.replace("-", "_"),
+        recenter_orientation_kp=args.recenter_orientation_kp,
+        recenter_max_angular_command_rad_s=args.recenter_max_angular_command_rad_s,
         trajectory_orientation_priority_mode=args.trajectory_orientation_priority_mode.replace("-", "_"),
         trajectory_orientation_kp=args.trajectory_orientation_kp,
         trajectory_max_angular_command_rad_s=args.trajectory_max_angular_command_rad_s,
@@ -382,6 +468,10 @@ def main() -> int:
         approach_joint_posture_kp=args.approach_posture_kp,
         approach_joint_posture_weight=args.approach_posture_weight,
         approach_max_joint_posture_velocity_rad_s=args.approach_max_posture_velocity_rad_s,
+        recenter_joint_posture_target=recenter_posture_target,
+        recenter_joint_posture_kp=args.recenter_posture_kp,
+        recenter_joint_posture_weight=args.recenter_posture_weight,
+        recenter_max_joint_posture_velocity_rad_s=args.recenter_max_posture_velocity_rad_s,
         trajectory_joint_posture_target=trajectory_posture_target,
         trajectory_joint_posture_kp=args.trajectory_posture_kp,
         trajectory_joint_posture_weight=args.trajectory_posture_weight,
@@ -396,6 +486,16 @@ def main() -> int:
         qdot_min=approach_qdot_min,
         qdot_max=approach_qdot_max,
     )
+    recenter_summary = None
+    if staged.approach_recenter is not None:
+        recenter_summary = summarize_force_motion(
+            staged.approach_recenter,
+            target_force_N=args.target_force_N,
+            q_min=q_min,
+            q_max=q_max,
+            qdot_min=recenter_qdot_min,
+            qdot_max=recenter_qdot_max,
+        )
     trajectory_summary = summarize_force_motion(
         staged.trajectory,
         target_force_N=args.target_force_N,
@@ -410,6 +510,13 @@ def main() -> int:
         thresholds=thresholds,
         qdot_abs_limit_rad_s=approach_qdot_limit,
     )
+    recenter_gate = None
+    if recenter_summary is not None:
+        recenter_gate = evaluate_force_motion_feasibility(
+            recenter_summary,
+            thresholds=thresholds,
+            qdot_abs_limit_rad_s=recenter_qdot_limit,
+        )
     trajectory_gate = evaluate_force_motion_feasibility(
         trajectory_summary,
         thresholds=thresholds,
@@ -420,6 +527,30 @@ def main() -> int:
         "threshold_rad": float(args.approach_orientation_threshold_rad),
         "passed": staged.approach_final_orientation_error_rad <= float(args.approach_orientation_threshold_rad),
     }
+    setup_final_orientation_error = (
+        staged.approach_final_orientation_error_rad
+        if staged.setup_final_orientation_error_rad is None
+        else staged.setup_final_orientation_error_rad
+    )
+    setup_terminal_gate = {
+        "final_orientation_error_rad": setup_final_orientation_error,
+        "threshold_rad": float(args.approach_orientation_threshold_rad),
+        "passed": setup_final_orientation_error <= float(args.approach_orientation_threshold_rad),
+    }
+    setup_summary = approach_summary if recenter_summary is None else recenter_summary
+    setup_final_tangential_error = (
+        approach_summary["final_tangential_position_error_m"]
+        if staged.setup_final_tangential_position_error_m is None
+        else staged.setup_final_tangential_position_error_m
+    )
+    setup_terminal_state_gate = evaluate_setup_terminal_state(
+        setup_summary=setup_summary,
+        final_orientation_error_rad=setup_final_orientation_error,
+        final_tangential_error_m=setup_final_tangential_error,
+        thresholds=thresholds,
+        orientation_threshold_rad=args.approach_orientation_threshold_rad,
+        final_tangential_error_threshold_m=args.setup_max_final_tangential_error_m,
+    )
     approach_metrics = phase_metrics(
         phase="approach",
         result=staged.approach,
@@ -448,6 +579,50 @@ def main() -> int:
             "terminal_orientation_gate": approach_terminal_gate,
         }
     )
+    recenter_metrics = None
+    if staged.approach_recenter is not None and recenter_summary is not None and recenter_gate is not None:
+        recenter_terminal_gate = {
+            "final_orientation_error_rad": staged.approach_recenter_final_orientation_error_rad,
+            "threshold_rad": float(args.approach_orientation_threshold_rad),
+            "passed": staged.approach_recenter_final_orientation_error_rad <= float(args.approach_orientation_threshold_rad),
+        }
+        recenter_metrics = phase_metrics(
+            phase="approach_recenter",
+            result=staged.approach_recenter,
+            summary=recenter_summary,
+            args=args,
+            dt_s=dt_s,
+            qdot_limit_source=recenter_qdot_limit_source,
+            qdot_min=recenter_qdot_min,
+            qdot_max=recenter_qdot_max,
+            joint_posture_target=recenter_posture_target,
+            joint_posture_kp=args.recenter_posture_kp,
+            joint_posture_weight=args.recenter_posture_weight,
+            max_joint_posture_velocity_rad_s=args.recenter_max_posture_velocity_rad_s,
+        )
+        recenter_metrics.update(
+            {
+                "orientation_priority_mode": args.recenter_orientation_priority_mode,
+                "orientation_kp": None
+                if args.recenter_orientation_kp is None
+                else float(args.recenter_orientation_kp),
+                "effective_orientation_kp": float(
+                    args.approach_orientation_kp
+                    if args.recenter_orientation_kp is None
+                    else args.recenter_orientation_kp
+                ),
+                "max_angular_command_rad_s": args.recenter_max_angular_command_rad_s,
+                "orientation_threshold_rad": float(args.approach_orientation_threshold_rad),
+                "reached_threshold": bool(staged.approach_recenter_reached_threshold),
+                "first_threshold_index": staged.approach_recenter_first_threshold_index,
+                "first_threshold_time_s": staged.approach_recenter_first_threshold_time_s,
+                "final_orientation_error_rad": staged.approach_recenter_final_orientation_error_rad,
+                "reference_xy_m": [float(x) for x in staged.setup_reference_xy_m],
+                "final_tangential_position_error_m": staged.setup_final_tangential_position_error_m,
+                "feasibility_gate": recenter_gate,
+                "terminal_orientation_gate": recenter_terminal_gate,
+            }
+        )
     trajectory_metrics = phase_metrics(
         phase="trajectory",
         result=staged.trajectory,
@@ -485,6 +660,17 @@ def main() -> int:
         target_force_N=args.target_force_N,
         trajectory_name="stationary",
     )
+    if staged.approach_recenter is not None and recenter_metrics is not None:
+        write_phase_artifacts(
+            out_dir / "approach_recenter",
+            phase="approach_recenter",
+            result=staged.approach_recenter,
+            metrics=recenter_metrics,
+            dt_s=dt_s,
+            run_id=run_id,
+            target_force_N=args.target_force_N,
+            trajectory_name="stationary-recenter",
+        )
     write_phase_artifacts(
         out_dir / "trajectory",
         phase="trajectory",
@@ -496,13 +682,28 @@ def main() -> int:
         trajectory_name=args.trajectory,
     )
 
-    trajectory_after_approach_pass = bool(
-        approach_terminal_gate["passed"]
-        and trajectory_gate["feasibility_pass"]
-        and approach_summary["max_qdot_violation_rad_s"] <= thresholds.max_qdot_violation_rad_s_max
+    setup_hard_limit_pass = bool(
+        approach_summary["max_qdot_violation_rad_s"] <= thresholds.max_qdot_violation_rad_s_max
         and approach_summary["max_joint_limit_violation_rad"] <= thresholds.max_joint_limit_violation_rad_max
+        and (
+            recenter_summary is None
+            or (
+                recenter_summary["max_qdot_violation_rad_s"] <= thresholds.max_qdot_violation_rad_s_max
+                and recenter_summary["max_joint_limit_violation_rad"] <= thresholds.max_joint_limit_violation_rad_max
+            )
+        )
     )
-    full_staged_feasibility_pass = bool(approach_gate["feasibility_pass"] and trajectory_gate["feasibility_pass"])
+    trajectory_after_approach_pass = bool(
+        setup_terminal_gate["passed"] and trajectory_gate["feasibility_pass"] and setup_hard_limit_pass
+    )
+    planned_setup_then_trajectory_pass = bool(
+        setup_terminal_state_gate["passed"] and trajectory_gate["feasibility_pass"]
+    )
+    full_staged_feasibility_pass = bool(
+        approach_gate["feasibility_pass"]
+        and (recenter_gate is None or recenter_gate["feasibility_pass"])
+        and trajectory_gate["feasibility_pass"]
+    )
     aggregate = {
         "config": str(config_path),
         "model": str(model_path),
@@ -513,14 +714,22 @@ def main() -> int:
         "paper_formula": PAPER_FORMULAS[args.trajectory],
         "paper_time_scale": float(args.paper_time_scale),
         "approach_duration_s": float(args.approach_duration_s),
+        "recenter_duration_s": float(args.recenter_duration_s),
         "trajectory_duration_s": float(args.trajectory_duration_s),
         "approach_qdot_limit_rad_s": approach_qdot_limit,
+        "recenter_qdot_limit_rad_s": recenter_qdot_limit,
         "trajectory_qdot_limit_rad_s": trajectory_qdot_limit,
         "dt_s": dt_s,
         "thresholds": thresholds.to_dict(),
         "approach": approach_metrics,
+        "approach_recenter": recenter_metrics,
+        "setup_terminal_orientation_gate": setup_terminal_gate,
+        "setup_terminal_state_gate": setup_terminal_state_gate,
+        "setup_final_tangential_position_error_m": staged.setup_final_tangential_position_error_m,
+        "setup_hard_limit_pass": setup_hard_limit_pass,
         "trajectory_phase": trajectory_metrics,
         "trajectory_after_approach_pass": trajectory_after_approach_pass,
+        "planned_setup_then_trajectory_pass": planned_setup_then_trajectory_pass,
         "full_staged_feasibility_pass": full_staged_feasibility_pass,
         "staged_pass": full_staged_feasibility_pass,
         "warnings": [
@@ -546,11 +755,17 @@ def main() -> int:
         f"- Approach final orientation error: `{staged.approach_final_orientation_error_rad}`",
         f"- Approach first threshold time: `{staged.approach_first_threshold_time_s}`",
         f"- Approach qdot saturation fraction: `{approach_summary['qdot_saturation_fraction']}`",
+        f"- Recenter enabled: `{staged.approach_recenter is not None}`",
+        f"- Setup final orientation error: `{setup_final_orientation_error}`",
+        f"- Setup final tangential error: `{staged.setup_final_tangential_position_error_m}`",
+        f"- Setup terminal-state pass: `{setup_terminal_state_gate['passed']}`",
+        f"- Setup terminal-state failed criteria: `{';'.join(setup_terminal_state_gate['failed_criteria']) or 'none'}`",
         f"- Trajectory feasibility pass: `{trajectory_gate['feasibility_pass']}`",
         f"- Trajectory failed criteria: `{';'.join(trajectory_gate['failed_criteria']) or 'none'}`",
         f"- Trajectory max orientation error: `{trajectory_summary['max_orientation_error_rad']}`",
         f"- Trajectory qdot saturation fraction: `{trajectory_summary['qdot_saturation_fraction']}`",
         f"- Trajectory after approach pass: `{aggregate['trajectory_after_approach_pass']}`",
+        f"- Planned setup then trajectory pass: `{aggregate['planned_setup_then_trajectory_pass']}`",
         f"- Full staged feasibility pass: `{aggregate['full_staged_feasibility_pass']}`",
         "",
     ]

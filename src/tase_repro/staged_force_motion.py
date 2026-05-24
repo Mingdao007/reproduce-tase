@@ -19,6 +19,14 @@ class StagedForceMotionResult:
     approach_first_threshold_time_s: float | None
     approach_final_orientation_error_rad: float
     trajectory_initial_q: np.ndarray
+    setup_final_orientation_error_rad: float | None = None
+    setup_final_tangential_position_error_m: float | None = None
+    setup_reference_xy_m: np.ndarray | None = None
+    approach_recenter: ForceMotionResult | None = None
+    approach_recenter_reached_threshold: bool | None = None
+    approach_recenter_first_threshold_index: int | None = None
+    approach_recenter_first_threshold_time_s: float | None = None
+    approach_recenter_final_orientation_error_rad: float | None = None
 
 
 def stationary_planar_state(_: float) -> PlanarTrajectoryState:
@@ -50,9 +58,13 @@ def simulate_orientation_prealign_then_planar_force_motion(
     qdot_max: np.ndarray,
     trajectory_qdot_min: np.ndarray | None = None,
     trajectory_qdot_max: np.ndarray | None = None,
+    recenter_duration_s: float = 0.0,
+    recenter_qdot_min: np.ndarray | None = None,
+    recenter_qdot_max: np.ndarray | None = None,
     force_gain: float,
     r: float,
     planar_kp: float = 0.5,
+    recenter_planar_kp: float | None = None,
     axis_weights: np.ndarray | None = None,
     slack_axis_weights: np.ndarray | None = None,
     slack_constraint_weight: float = 1e3,
@@ -60,6 +72,9 @@ def simulate_orientation_prealign_then_planar_force_motion(
     approach_orientation_priority_mode: str = "weighted",
     approach_orientation_kp: float = 1.0,
     approach_max_angular_command_rad_s: float | None = None,
+    recenter_orientation_priority_mode: str = "linear_primary",
+    recenter_orientation_kp: float | None = None,
+    recenter_max_angular_command_rad_s: float | None = None,
     trajectory_orientation_priority_mode: str = "linear_primary",
     trajectory_orientation_kp: float = 0.1,
     trajectory_max_angular_command_rad_s: float | None = None,
@@ -69,6 +84,10 @@ def simulate_orientation_prealign_then_planar_force_motion(
     approach_joint_posture_kp: float = 0.0,
     approach_joint_posture_weight: float = 0.0,
     approach_max_joint_posture_velocity_rad_s: float | None = None,
+    recenter_joint_posture_target: np.ndarray | None = None,
+    recenter_joint_posture_kp: float = 0.0,
+    recenter_joint_posture_weight: float = 0.0,
+    recenter_max_joint_posture_velocity_rad_s: float | None = None,
     trajectory_joint_posture_target: np.ndarray | None = None,
     trajectory_joint_posture_kp: float = 0.0,
     trajectory_joint_posture_weight: float = 0.0,
@@ -80,10 +99,17 @@ def simulate_orientation_prealign_then_planar_force_motion(
 
     Stage A holds the planar command at zero while regulating contact force and
     aligning TCP local z to the measured force normal. Stage B restarts the
-    requested planar trajectory from the approach terminal q.
+    requested planar trajectory from the setup terminal q. When requested, an
+    intermediate recenter phase targets the original approach x/y reference
+    before Stage B starts.
     """
     stage_b_qdot_min = qdot_min if trajectory_qdot_min is None else trajectory_qdot_min
     stage_b_qdot_max = qdot_max if trajectory_qdot_max is None else trajectory_qdot_max
+    stage_recenter_qdot_min = qdot_min if recenter_qdot_min is None else recenter_qdot_min
+    stage_recenter_qdot_max = qdot_max if recenter_qdot_max is None else recenter_qdot_max
+    recenter_duration = float(recenter_duration_s)
+    if recenter_duration < 0.0:
+        raise ValueError("recenter_duration_s must be nonnegative")
     approach = simulate_planar_force_motion(
         model_path,
         initial_q=initial_q,
@@ -117,6 +143,51 @@ def simulate_orientation_prealign_then_planar_force_motion(
     threshold_time = None if threshold_index is None else threshold_index * float(dt_s)
     final_q = approach.q[-1].copy()
     final_orientation_error = float(np.linalg.norm(approach.orientation_error_rotvec[-1]))
+    setup_reference_xy = approach.desired_tcp[0, :2].copy()
+    setup_final_orientation_error = final_orientation_error
+    setup_final_tangential_error = float(np.linalg.norm(approach.tcp[-1, :2] - setup_reference_xy))
+    recenter = None
+    recenter_threshold_index = None
+    recenter_threshold_time = None
+    recenter_final_orientation_error = None
+
+    if recenter_duration > 0.0:
+        recenter = simulate_planar_force_motion(
+            model_path,
+            initial_q=final_q,
+            base_z_offset_m=base_z_offset_m,
+            target_force_N=target_force_N,
+            planar_trajectory=stationary_planar_state,
+            duration_s=recenter_duration,
+            dt_s=dt_s,
+            qdot_min=stage_recenter_qdot_min,
+            qdot_max=stage_recenter_qdot_max,
+            force_gain=force_gain,
+            r=r,
+            planar_kp=planar_kp if recenter_planar_kp is None else recenter_planar_kp,
+            axis_weights=axis_weights,
+            slack_axis_weights=slack_axis_weights,
+            slack_constraint_weight=slack_constraint_weight,
+            normal_velocity_mode=normal_velocity_mode,
+            orientation_mode="force_normal",
+            orientation_priority_mode=recenter_orientation_priority_mode,
+            orientation_kp=approach_orientation_kp if recenter_orientation_kp is None else recenter_orientation_kp,
+            max_angular_command_rad_s=recenter_max_angular_command_rad_s,
+            angular_axis_weights=angular_axis_weights,
+            angular_slack_axis_weights=angular_slack_axis_weights,
+            joint_posture_target=recenter_joint_posture_target,
+            joint_posture_kp=recenter_joint_posture_kp,
+            joint_posture_weight=recenter_joint_posture_weight,
+            max_joint_posture_velocity_rad_s=recenter_max_joint_posture_velocity_rad_s,
+            planar_reference_xy_m=setup_reference_xy,
+            site_name=site_name,
+        )
+        recenter_threshold_index = first_orientation_threshold_index(recenter, approach_orientation_threshold_rad)
+        recenter_threshold_time = None if recenter_threshold_index is None else recenter_threshold_index * float(dt_s)
+        final_q = recenter.q[-1].copy()
+        recenter_final_orientation_error = float(np.linalg.norm(recenter.orientation_error_rotvec[-1]))
+        setup_final_orientation_error = recenter_final_orientation_error
+        setup_final_tangential_error = float(np.linalg.norm(recenter.tcp[-1, :2] - setup_reference_xy))
 
     trajectory = simulate_planar_force_motion(
         model_path,
@@ -155,4 +226,12 @@ def simulate_orientation_prealign_then_planar_force_motion(
         approach_first_threshold_time_s=threshold_time,
         approach_final_orientation_error_rad=final_orientation_error,
         trajectory_initial_q=final_q,
+        setup_final_orientation_error_rad=setup_final_orientation_error,
+        setup_final_tangential_position_error_m=setup_final_tangential_error,
+        setup_reference_xy_m=setup_reference_xy,
+        approach_recenter=recenter,
+        approach_recenter_reached_threshold=None if recenter is None else recenter_threshold_index is not None,
+        approach_recenter_first_threshold_index=recenter_threshold_index,
+        approach_recenter_first_threshold_time_s=recenter_threshold_time,
+        approach_recenter_final_orientation_error_rad=recenter_final_orientation_error,
     )

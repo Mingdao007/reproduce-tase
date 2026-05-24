@@ -98,12 +98,16 @@ them rather than deleting them.
 - Planar-primary Stage A priority controls x/y drift but does not solve the
   approach. Default normal secondary weighting loses contact/force; high
   normal weighting restores force but stalls orientation near `0.07 rad`.
+- The two-phase recenter probe does not solve Stage A either. The explicit
+  setup terminal-state gate passes `0 / 10` E2 rows: short recenter windows
+  keep the following trajectory passing but fail setup force and x/y gates,
+  while long recentering fixes x/y and force at the cost of terminal
+  orientation.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_planar_primary_approach/20260524T103539` and
-`runs/staged_orientation_planar_primary_normal_weight/20260524T103646` as
-evidence that two-level planar-primary velocity priority is not sufficient.
-The next executable experiment should either define an accepted relaxed
-approach budget or test a planned prealignment path with separate
-contact-maintenance and terminal-state gates.
+Use `runs/staged_orientation_two_phase_recenter/20260524T104957` as evidence
+that scalar recenter-duration tuning is not sufficient. The next executable
+experiment should either add phase-specific force-maintaining recenter
+authority, or define an accepted relaxed setup budget and keep it separate
+from full staged paper-equivalent feasibility.

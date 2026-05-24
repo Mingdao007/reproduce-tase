@@ -972,6 +972,35 @@ Legacy source root:
   This is E1-only tilted-plane Stage A evidence. It does not establish a full
   approach solution or hardware readiness.
 
+## V35 Two-Phase Approach Recenter Probe
+
+### Planned setup terminal-state diagnostic
+
+- Run root:
+  - `runs/staged_orientation_two_phase_recenter/20260524T104957`
+- Scope:
+  Ten E2 staged tilted-plane runs. Stage A1 repeats weighted force-normal
+  prealignment. Stage A2 is optional recentering to the original setup x/y
+  reference with weighted, linear-primary, or planar-primary priority. Stage B
+  uses the v32 moderate trajectory posture objective.
+- Tracked lightweight artifacts:
+  root `summary.yaml` and `summary.md`; per-case root `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; per-phase `metrics.yaml`,
+  `metrics.json`, force plot, xy plot, orientation plot, and angular-slack
+  plot for `approach`, optional `approach_recenter`, and `trajectory`.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz`,
+  `approach_recenter/staged-approach_recenter_raw.npz`, and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Setup terminal-state pass count `0 / 10`, trajectory feasibility pass count
+  `4 / 10`, legacy trajectory-after-approach pass count `4 / 10`, planned
+  setup-then-trajectory pass count `0 / 10`, and full staged-feasibility pass
+  count `0 / 10`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence. It does not establish a
+  full E1-E4 planned setup solution or hardware readiness.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

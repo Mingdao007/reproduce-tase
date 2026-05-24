@@ -122,11 +122,17 @@ smoke runs regress.
 - The v34 planar-primary Stage A mode controls drift but either loses
   contact/force or stalls orientation when normal weighting is increased.
   It is diagnostic, not an accepted approach solution.
+- The v35 two-phase recenter probe adds an explicit original x/y setup
+  reference and a setup terminal-state gate. No E2 row passes the setup gate.
+  Short recenter windows keep Stage B passing but fail force and x/y terminal
+  gates; long recentering meets x/y and force but loses terminal orientation.
 
 ## Next Executable Step
 
-Define an accepted relaxed approach budget, or test a planned prealignment
-path with separate contact-maintenance and terminal-state gates. The next
-approach experiment must report contact, drift, terminal orientation, and qdot
-saturation together so posture shaping cannot hide a force or drift
-regression.
+Do not continue scalar recenter-duration tuning. Either add a
+force-maintaining recenter formulation with phase-specific normal/force
+authority, or define an accepted relaxed setup budget that keeps the
+weighted-prealignment drift separate from paper-equivalent full staged
+feasibility. The next approach experiment must keep reporting contact, drift,
+terminal orientation, and qdot saturation together so posture shaping cannot
+hide a force or drift regression.

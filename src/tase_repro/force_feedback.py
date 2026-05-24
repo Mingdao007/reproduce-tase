@@ -268,6 +268,7 @@ def simulate_planar_force_motion(
     joint_posture_kp: float = 0.0,
     joint_posture_weight: float = 0.0,
     max_joint_posture_velocity_rad_s: float | None = None,
+    planar_reference_xy_m: np.ndarray | None = None,
     site_name: str = "tcp_site_unverified_85mm",
 ) -> ForceMotionResult:
     """Run an x/y trajectory while regulating normal force."""
@@ -350,6 +351,12 @@ def simulate_planar_force_motion(
     set_qpos(model, data, q)
     start_tcp = site_position(model, data, site_name)
     start_rotation = site_rotation_matrix(model, data, site_name)
+    if planar_reference_xy_m is None:
+        planar_reference_xy = start_tcp[:2].copy()
+    else:
+        planar_reference_xy = np.asarray(planar_reference_xy_m, dtype=float)
+        if planar_reference_xy.shape != (2,):
+            raise ValueError("planar_reference_xy_m must have shape (2,)")
     last_desired_rotation = start_rotation.copy()
     steps = int(round(float(duration_s) / float(dt_s)))
     q_hist = np.empty((steps, model.nq), dtype=float)
@@ -386,7 +393,7 @@ def simulate_planar_force_motion(
         if planar_displacement.shape != (2,) or planar_velocity.shape != (2,):
             raise ValueError("planar trajectory must return x/y displacement and velocity")
         desired_tcp = start_tcp.copy()
-        desired_tcp[:2] += planar_displacement
+        desired_tcp[:2] = planar_reference_xy + planar_displacement
 
         tangential_error = desired_tcp[:2] - tcp[:2]
         tangential_cmd = planar_velocity + float(planar_kp) * tangential_error
@@ -561,6 +568,8 @@ def summarize_force_motion(
         "max_abs_force_error_N": float(np.max(np.abs(force_error))),
         "mean_tangential_position_error_m": float(np.mean(np.linalg.norm(tangential_error, axis=1))),
         "max_tangential_position_error_m": float(np.max(np.linalg.norm(tangential_error, axis=1))),
+        "final_tangential_position_error_m": float(np.linalg.norm(tangential_error[-1])),
+        "final_tangential_position_error_xy_m": [float(x) for x in tangential_error[-1]],
         "final_tangential_displacement_m": [float(x) for x in displacement],
         "desired_tangential_displacement_m": [float(x) for x in desired_displacement],
         "solver_success_fraction": float(np.mean(result.solver_success)),

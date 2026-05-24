@@ -95,6 +95,46 @@ def test_paper_e1_cycloid_force_motion_holds_contact_and_tracks_y() -> None:
     assert summary["max_joint_limit_violation_rad"] == 0.0
 
 
+def test_planar_force_motion_accepts_explicit_planar_reference_xy() -> None:
+    model = load_model(MODEL_PATH)
+    q_min, q_max = joint_ranges(model)
+    qdot_min = np.full(model.nv, -0.05)
+    qdot_max = np.full(model.nv, 0.05)
+    reference_xy = np.array([0.1, -0.2], dtype=float)
+
+    def stationary_planar_state(_: float) -> PlanarTrajectoryState:
+        return PlanarTrajectoryState(
+            displacement_m=np.zeros(2, dtype=float),
+            velocity_m_s=np.zeros(2, dtype=float),
+        )
+
+    result = simulate_planar_force_motion(
+        MODEL_PATH,
+        initial_q=np.array([0.0, -0.02, 0.03, -0.01, 0.0, 0.0]),
+        base_z_offset_m=-4e-5,
+        target_force_N=5.0,
+        planar_trajectory=stationary_planar_state,
+        duration_s=0.002,
+        dt_s=0.002,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+        force_gain=5e-5,
+        r=0.5,
+        planar_kp=0.5,
+        planar_reference_xy_m=reference_xy,
+    )
+    summary = summarize_force_motion(
+        result,
+        target_force_N=5.0,
+        q_min=q_min,
+        q_max=q_max,
+        qdot_min=qdot_min,
+        qdot_max=qdot_max,
+    )
+    np.testing.assert_allclose(result.desired_tcp[:, :2], reference_xy[None, :])
+    assert summary["final_tangential_position_error_m"] >= 0.0
+
+
 def test_planar_force_motion_accepts_normal_axis_weight() -> None:
     model = load_model(MODEL_PATH)
     q_min, q_max = joint_ranges(model)
