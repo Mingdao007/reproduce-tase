@@ -850,6 +850,34 @@ Legacy source root:
   This is E2-only negative simulation evidence under the same
   post-prealignment posture. It does not test posture redesign.
 
+## V31 E2 Short Approach Bracket
+
+### E2 after shorter weighted prealignment durations
+
+- Run root:
+  - `runs/staged_orientation_e2_short_approach_bracket/20260524T101113`
+- Scope:
+  Five E2 staged tilted-plane runs. Stage A uses the same weighted
+  prealignment setup as v29/v30 but varies duration across `0.94`, `1.00`,
+  `1.20`, `2.00`, and `4.00 s`. Stage B is fixed to E2 at
+  `paper_time_scale = 0.075`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `5 / 5`, approach
+  ordinary-feasibility pass count `0 / 5`, trajectory-after-approach pass
+  count `0 / 5`, trajectory-feasibility pass count `0 / 5`, and full
+  staged-feasibility pass count `0 / 5`.
+- Limit:
+  This is E2-only negative simulation evidence for duration-only Stage A
+  stopping. It does not test a posture objective or task-structure change.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

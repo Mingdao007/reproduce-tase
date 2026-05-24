@@ -83,11 +83,14 @@ them rather than deleting them.
 - The E2 post-prealignment timing/gain bracket did not find a pass. Even
   `paper_time_scale = 0.025` with zero trajectory orientation gain remains
   qdot-saturated for `90.6%` of the trajectory.
+- Shorter weighted Stage A durations near the first orientation-threshold
+  crossing also do not fix E2. Short approaches fail E2 orientation gates;
+  longer approaches recover orientation but keep E2 qdot saturation near
+  `0.99`.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_e2_after_prealign_bracket/20260524T100429` as
-evidence that E2 is not fixed by scalar timing or trajectory orientation gain
-under the same posture. The next executable experiment should change posture,
-the prealignment terminal configuration, or tangent task allocation before
-rerunning E2.
+Use `runs/staged_orientation_e2_short_approach_bracket/20260524T101113` as
+evidence that Stage A duration alone is not enough. The next executable
+experiment should add a posture/nullspace objective or otherwise change the
+terminal configuration before rerunning E2.

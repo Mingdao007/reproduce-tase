@@ -103,10 +103,13 @@ smoke runs regress.
 - The v30 E2 bracket shows that this E2 saturation survives lower timing and
   zero trajectory orientation gain. The blocker is likely posture-conditioned
   tangent velocity authority, not the angular task alone.
+- The v31 short-approach bracket shows that stopping Stage A near the first
+  orientation threshold only trades E2 qdot failure for E2 orientation failure;
+  duration alone is not an adequate terminal-configuration control.
 
 ## Next Executable Step
 
-Prototype a posture or tangent-allocation change for E2 after prealignment.
-Candidate directions are a posture/nullspace objective before E2, a different
-prealignment terminal configuration, or a tangent task weighting that reduces
-joint-velocity saturation without hiding qdot budget failures.
+Prototype a posture/nullspace objective before or during Stage A, then rerun
+E2 after prealignment. The experiment should report both terminal orientation
+margin and qdot saturation, so it cannot hide the current drift/orientation
+tradeoff.

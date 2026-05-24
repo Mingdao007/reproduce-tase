@@ -1,0 +1,15 @@
+# Staged Orientation Force-Motion Summary
+
+Run root: `runs/staged_orientation_e2_short_approach_bracket/20260524T101113/approach1p00`
+
+## Result
+
+- Approach final orientation error: `0.026344676181529823`
+- Approach first threshold time: `0.926`
+- Approach qdot saturation fraction: `1.0`
+- Trajectory feasibility pass: `False`
+- Trajectory failed criteria: `qdot_saturation_fraction;tail_max_qdot_utilization;max_orientation_error_rad;max_angular_velocity_slack_rad_s`
+- Trajectory max orientation error: `0.04142406189804967`
+- Trajectory qdot saturation fraction: `0.94925`
+- Trajectory after approach pass: `False`
+- Full staged feasibility pass: `False`

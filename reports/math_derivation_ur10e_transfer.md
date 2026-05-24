@@ -960,3 +960,35 @@ prealignment is not dominated by the orientation task. It is a tangent
 direction and posture-conditioned velocity-budget issue under the current
 UR10e 6DOF mapping. The next derivation should treat E2 as a posture or
 task-allocation problem, not a scalar gain problem.
+
+## V31 Threshold-Duration Prealignment Implication
+
+The v31 bracket tests whether the E2 issue comes from allowing the weighted
+approach to continue after it first reaches the terminal orientation
+threshold. The tested Stage A durations are:
+
+```text
+0.94, 1.00, 1.20, 2.00, 4.00 s
+```
+
+No case passes E2. The shorter approaches reduce planar drift but leave too
+little orientation margin:
+
+```text
+0.94 s: approach drift = 0.005511250096345505 m, E2 max ||e_R|| = 0.04359451698383457 rad
+1.00 s: approach drift = 0.005757642179203222 m, E2 max ||e_R|| = 0.04142406189804967 rad
+1.20 s: approach drift = 0.006423414172320667 m, E2 max ||e_R|| = 0.035706552138982606 rad
+```
+
+Longer approaches restore the E2 orientation gate but keep the velocity budget
+saturated:
+
+```text
+2.00 s: E2 qdot saturation = 0.99775
+4.00 s: E2 qdot saturation = 0.9935
+```
+
+The terminal-state problem is therefore not solved by a threshold-duration
+schedule alone. The next derivation should introduce an explicit posture or
+nullspace objective, or a different E2 tangent allocation, so the terminal
+configuration is shaped rather than only stopped earlier.

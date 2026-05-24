@@ -1080,3 +1080,38 @@
 - Next step:
   Stop scalar E2 timing/gain expansion. Test posture/prealignment terminal
   configuration changes or add a posture/nullspace objective before E2.
+
+## 2026-05-24 v31 E2 Short Approach Bracket
+
+- Branch: `exp/tase-ur10e-v31-e2-short-approach-bracket`
+- Starting commit: `63a7910bd10d43e55ed2ecf05137745f8245e53f`
+- Files added:
+  - `reports/e2_short_approach_bracket_report.md`
+  - `runs/staged_orientation_e2_short_approach_bracket/20260524T101113`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 - <<'PY' ... summary aggregate check ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_e2_short_approach_bracket/20260524T101113/approach<duration> --approach-duration-s <0.94|1.00|1.20|2.00|4.00> --trajectory-duration-s 8.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --approach-qdot-limit-rad-s 0.25 --trajectory-qdot-limit-rad-s 0.15 --trajectory e2-figure-eight --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode weighted --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.10 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  The five-case bracket produced `5 / 5` approach terminal-orientation passes,
+  `0 / 5` approach ordinary-feasibility passes, `0 / 5`
+  trajectory-after-approach passes, and `0 / 5` full staged-feasibility
+  passes. Shorter approaches reduced drift but made E2 fail orientation and
+  angular gates; longer approaches recovered orientation but left E2 qdot
+  saturation near `0.99`.
+  Validation passed with `54 passed in 1.20s`, `git diff --check`, and
+  aggregate check `5 0 0 0`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence. It changes Stage A
+  duration but not the posture objective or QP task structure.
+- Next step:
+  Stop duration-only Stage A changes for E2. Add a posture/nullspace objective
+  or otherwise change the terminal configuration before retesting E2.

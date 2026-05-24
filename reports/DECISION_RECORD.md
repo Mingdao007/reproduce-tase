@@ -617,3 +617,22 @@
   useful experiments should change posture, the prealignment terminal
   configuration, tangent task allocation, or add an explicit posture/nullspace
   objective before E2.
+
+## D036: Threshold-Duration Stage A Does Not Fix E2
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not treat stopping the weighted Stage A near its first terminal
+  orientation threshold crossing as the E2 fix.
+- Reason:
+  The v31 bracket tested Stage A durations `0.94`, `1.00`, `1.20`, `2.00`,
+  and `4.00 s` before the same E2 Stage B trajectory. No case passed the
+  trajectory-after-approach or full staged gate. Short approaches reduce Stage
+  A drift to about `5.5-6.4 mm`, but E2 then fails orientation and angular
+  gates. Longer approaches recover E2 orientation but still fail qdot
+  saturation and tail qdot utilization, with qdot saturation near `0.99`.
+- Consequence:
+  The next useful change should alter the terminal configuration through a
+  posture objective, explicit nullspace/posture step, or different tangent
+  allocation, rather than changing only Stage A duration.
