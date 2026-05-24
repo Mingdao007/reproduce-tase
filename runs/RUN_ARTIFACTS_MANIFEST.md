@@ -1731,6 +1731,32 @@ Legacy source root:
   not a strict paper-equivalent claim, a robustness proof, or hardware
   evidence.
 
+## V65 Stitched Timing Margin Audit
+
+### Timing-margin case set around the v63 diagnostic staged policy
+
+- Run:
+  - `runs/stitched_stage_a_handoff_timing_margin/20260524T162005`
+- Command:
+  `scripts/audit_stitched_stage_a_handoff_sensitivity.py --case-set timing-margin`
+- Git state at run time:
+  commit `c071469132a2d39336f9e8727f51fed88d5334a1`.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-case metrics, summaries, git state, and command stdout/stderr under
+  `cases/*`.
+- Result:
+  The timing-margin matrix reports a stitched pass count of `4 / 7`. Passing
+  cases are nominal, `stage_a_14p5_recovery`,
+  `qdot012_stage_a_18p0_recovery`, and `paper_time_scale_0p012_recovery`.
+  Failing boundary cases are `stage_a_14s_reference_fail`,
+  `qdot012_stage_a_17p5_reference_fail`, and
+  `paper_time_scale_0p0125_reference_fail`.
+- Limit:
+  This is a diagnostic-label timing-margin audit only. It does not recover the
+  1 mm base-z/contact perturbation failures and is not a strict
+  paper-equivalent claim, a robustness proof, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

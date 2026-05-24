@@ -214,6 +214,10 @@ them rather than deleting them.
   base-z/contact perturbations, `stage_a_14s`, `qdot_limit_0p12`, and
   `paper_time_scale_0p02`, so the v63 result remains nominal diagnostic
   evidence only.
+- The v65 timing-margin audit recovers nearby timing/qdot failures:
+  `stage_a_14p5_recovery`, `qdot012_stage_a_18p0_recovery`, and
+  `paper_time_scale_0p012_recovery` pass. The 1 mm base-z/contact perturbation
+  failures remain unaddressed.
 
 ## Next Executable Step
 
@@ -221,6 +225,7 @@ Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future UR10e experiment branches should stress-test the v63 stitched
 policy before treating it as more than a nominal diagnostic staged pass. v64
-has done the first stress test and shows the main gaps are base-z/contact and
-qdot/timing margin. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63/v64 diagnostic staged labels separate.
+did the first stress test, and v65 recovered the qdot/timing side. The main
+remaining simulation gap is base-z/contact perturbation recovery. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v65
+diagnostic staged labels separate.

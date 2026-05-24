@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v64-stitched-sensitivity-audit`
+Current branch: `exp/tase-ur10e-v65-stitched-timing-margin`
 
 ## Scope
 
@@ -56,8 +56,11 @@ one staged trajectory run. v63 stitches the v62 tracker to the v60 slowed
 handoff and passes `4 / 4` E1-E4 under the diagnostic label. v64 stress-tests
 that stitched policy and passes only `4 / 9` sensitivity cases, failing 1 mm
 base-z/contact perturbations, shorter Stage A timing, a tighter qdot limit, and
-faster Stage B timing. This is still not strict paper-equivalent, robust, or
-hardware evidence.
+faster Stage B timing. v65 recovers the timing/qdot side with explicit margins:
+`14.5 s` Stage A passes at the nominal `0.15 rad/s` limit, `18.0 s` passes at a
+`0.12 rad/s` limit, and Stage B passes up to `paper_time_scale = 0.012` but not
+`0.0125`. The 1 mm base-z/contact failures remain unresolved. This is still not
+strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
 

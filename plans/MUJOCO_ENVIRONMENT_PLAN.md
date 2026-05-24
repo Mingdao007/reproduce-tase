@@ -66,12 +66,14 @@ contact behavior regresses.
   this still does not make the model hardware-ready. v63 stitches the tracker
   to the slowed handoff. v64 sensitivity passes only `4 / 9` cases, failing
   1 mm base-z/contact perturbations and tighter timing/qdot cases, so the
-  result is still simulation-only, nominal, and diagnostic-label.
+  result is still simulation-only, nominal, and diagnostic-label. v65 recovers
+  the qdot/timing side with explicit margins but does not recover the 1 mm
+  base-z/contact perturbations.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should test whether perturbation-aware path
-reoptimization or margin-aware timing can recover the v64 sensitivity failures
-unless a later decision changes the label.
+simulation controller prototype should test perturbation-aware Stage A path
+reoptimization for the remaining v64 base-z/contact sensitivity failures unless
+a later decision changes the label.

@@ -1362,3 +1362,24 @@
   paper-equivalent feasibility, or hardware readiness. The next controller
   branch should test perturbation-aware path reoptimization or margin-aware
   timing against these failure cases.
+
+## D070: Keep Timing-Margin Recovery Separate From Contact-Model Robustness
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v65 as timing-margin recovery evidence for the diagnostic stitched
+  policy, while keeping 1 mm base-z/contact perturbation recovery unresolved.
+- Reason:
+  The v65 run at
+  `runs/stitched_stage_a_handoff_timing_margin/20260524T162005` evaluates
+  seven timing-margin cases. It recovers the nearby Stage A and qdot failures:
+  `stage_a_14p5_recovery`, `qdot012_stage_a_18p0_recovery`, and
+  `paper_time_scale_0p012_recovery` pass, while their nearby reference-fail
+  boundaries remain failing.
+- Consequence:
+  The project can claim limited qdot/timing margins for the diagnostic
+  stitched policy. It still must not claim robustness, strict paper-equivalent
+  feasibility, or hardware readiness. The next branch should focus on
+  perturbation-aware Stage A path reoptimization for `base_z_minus_1mm` and
+  `base_z_plus_1mm`.

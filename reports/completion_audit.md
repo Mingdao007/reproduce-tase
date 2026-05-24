@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v64-stitched-sensitivity-audit`
+Branch: `exp/tase-ur10e-v65-stitched-timing-margin`
 
 ## Objective Restatement
 
@@ -84,6 +84,8 @@ The objective has two separate technical claim levels:
 - `runs/stitched_stage_a_handoff_eval/20260524T152807/metrics.yaml`
 - `reports/stitched_stage_a_handoff_sensitivity_report.md`
 - `runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml`
+- `reports/stitched_stage_a_handoff_timing_margin_report.md`
+- `runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -94,17 +96,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v64 branches pushed and GitHub-verified; v64 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v64-stitched-sensitivity-audit`; latest local branch is `exp/tase-ur10e-v64-stitched-sensitivity-audit` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v65 branches pushed and GitHub-verified; v65 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v65-stitched-timing-margin`; latest local branch is `exp/tase-ur10e-v65-stitched-timing-margin` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v64 branch/code commit, claim boundary, and next executable perturbation-aware recovery target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D069 as of v64 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v65 branch/code commit, claim boundary, and next executable base-z/contact reoptimization target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D070 as of v65 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v64 validation was `107 passed in 2.50s`; `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v65 validation was `107 passed in 2.40s`; `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -128,6 +130,7 @@ The objective has two separate technical claim levels:
 | Stage A contact path tracking | `src/tase_repro/stage_a_contact_path_tracking.py`, `scripts/track_stage_a_contact_path.py`, `reports/stage_a_contact_path_tracking_report.md`, `runs/stage_a_contact_path_tracking/20260524T152346/metrics.yaml` | v62 tracks the v61 path over `15.0 s`; tracking gate and terminal diagnostic gate pass with max qdot `0.14332635022814824 rad/s`, zero qdot saturation, and target contact throughout; still not connected to Stage B |
 | Stitched diagnostic Stage A plus handoff | `scripts/evaluate_stitched_stage_a_handoff.py`, `reports/stitched_stage_a_handoff_report.md`, `runs/stitched_stage_a_handoff_eval/20260524T152807/metrics.yaml` | v63 executes the v62 Stage A tracker and v60 slowed handoff in one script; stitched gate passes and Stage B is `4 / 4`; still diagnostic-label simulation evidence only |
 | Stitched diagnostic sensitivity audit | `src/tase_repro/stitched_sensitivity.py`, `scripts/audit_stitched_stage_a_handoff_sensitivity.py`, `reports/stitched_stage_a_handoff_sensitivity_report.md`, `runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml` | v64 evaluates nine sensitivity cases around v63; stitched pass count is `4 / 9`, failing 1 mm base-z/contact perturbations, `stage_a_14s`, `qdot_limit_0p12`, and `paper_time_scale_0p02`; robustness is not achieved |
+| Stitched diagnostic timing-margin audit | `scripts/audit_stitched_stage_a_handoff_sensitivity.py --case-set timing-margin`, `reports/stitched_stage_a_handoff_timing_margin_report.md`, `runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml` | v65 evaluates seven timing-margin cases; `stage_a_14p5_recovery`, `qdot012_stage_a_18p0_recovery`, and `paper_time_scale_0p012_recovery` pass, while nearby reference-fail cases still fail; base-z/contact recovery remains unaddressed |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -552,6 +555,25 @@ Evidence:
 - `reports/stitched_stage_a_handoff_sensitivity_report.md`
 - `runs/stitched_stage_a_handoff_sensitivity/20260524T161111/metrics.yaml`
 
+The stitched timing-margin audit can additionally claim:
+
+```text
+ur10e_stitched_diagnostic_timing_margin:
+  case count = 7
+  stitched pass count = 4 / 7
+  passing cases = nominal, stage_a_14p5_recovery, qdot012_stage_a_18p0_recovery, paper_time_scale_0p012_recovery
+  failing cases = stage_a_14s_reference_fail, qdot012_stage_a_17p5_reference_fail, paper_time_scale_0p0125_reference_fail
+  base-z/contact perturbation recovery = false
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/stitched_stage_a_handoff_timing_margin_report.md`
+- `runs/stitched_stage_a_handoff_timing_margin/20260524T162005/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -620,6 +642,9 @@ Evidence:
   nominal v63 policy is fragile to 1 mm base-z/contact perturbations, tighter
   qdot budget, shorter Stage A timing, and faster Stage B timing. It therefore
   bounds the nominal claim but does not establish robustness.
+- The v65 timing-margin audit recovers the qdot/timing side under explicit
+  margins, but it does not recover the 1 mm base-z/contact perturbation
+  failures and therefore still does not establish robustness.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -643,8 +668,8 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Test whether perturbation-aware Stage A path reoptimization or margin-aware
-timing can recover the v64 base-z/contact and qdot failures. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63/v64
+Test perturbation-aware Stage A path reoptimization for the remaining v64
+`base_z_minus_1mm` and `base_z_plus_1mm` failures. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v65
 diagnostic staged labels separate. Any hardware work still requires measured
 mounted-stack geometry and a separate approved SOP.

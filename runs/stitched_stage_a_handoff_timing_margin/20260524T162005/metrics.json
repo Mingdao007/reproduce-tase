@@ -1,0 +1,281 @@
+{
+  "run_id": "20260524T162005",
+  "case_set": "timing-margin",
+  "source": "v63 stitched diagnostic Stage A tracker plus Stage B handoff",
+  "case_count": 7,
+  "aggregate": {
+    "case_count": 7,
+    "stitched_pass_count": 4,
+    "stitched_fail_count": 3,
+    "stitched_pass_fraction": 0.5714285714285714,
+    "passing_cases": [
+      "nominal",
+      "stage_a_14p5_recovery",
+      "qdot012_stage_a_18p0_recovery",
+      "paper_time_scale_0p012_recovery"
+    ],
+    "failing_cases": [
+      "stage_a_14s_reference_fail",
+      "qdot012_stage_a_17p5_reference_fail",
+      "paper_time_scale_0p0125_reference_fail"
+    ],
+    "all_cases_passed": false,
+    "claim_scope": "diagnostic_label_sensitivity_audit_not_robustness_or_hardware_claim"
+  },
+  "cases": [
+    {
+      "case": "nominal",
+      "parameters": {},
+      "stitched_passed": true,
+      "stage_a_passed": true,
+      "stage_b_pass_count": 4,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.14332635022814824,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_max_force_error_N": 0.13962429878283,
+      "stage_a_terminal_force_error_N": 0.005097546556703136,
+      "stage_a_terminal_xy_error_m": 0.0030075762251302427,
+      "stage_a_terminal_orientation_error_rad": 0.07240605683117463,
+      "stage_a_terminal_gate_passed": true,
+      "stage_b_failed_rows": [],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.003461025015189971,
+        "max_xy_error_m": 1.2123675244811085e-06,
+        "max_orientation_error_rad": 0.07314538284753326,
+        "max_qdot_saturation_fraction": 0.0,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "stage_a_14s_reference_fail",
+      "parameters": {
+        "stage_a_duration_s": 14.0
+      },
+      "stitched_passed": false,
+      "stage_a_passed": false,
+      "stage_b_pass_count": 0,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.15,
+      "stage_a_qdot_saturation_fraction": 0.007857142857142858,
+      "stage_a_final_tracking_error_norm_rad": 0.00039203413401432414,
+      "stage_a_max_force_error_N": 2.03704061425341,
+      "stage_a_terminal_force_error_N": 2.03704061425341,
+      "stage_a_terminal_xy_error_m": 0.00326792033555318,
+      "stage_a_terminal_orientation_error_rad": 0.07201402269716099,
+      "stage_a_terminal_gate_passed": false,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e3-circle",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        }
+      ],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.005164775788000147,
+        "max_xy_error_m": 6.4708453060925745e-06,
+        "max_orientation_error_rad": 0.071999704472154,
+        "max_qdot_saturation_fraction": 0.011,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "stage_a_14p5_recovery",
+      "parameters": {
+        "stage_a_duration_s": 14.5
+      },
+      "stitched_passed": true,
+      "stage_a_passed": true,
+      "stage_b_pass_count": 4,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.14826863816707989,
+      "stage_a_qdot_saturation_fraction": 0.00786206896551724,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_max_force_error_N": 0.13962429878283,
+      "stage_a_terminal_force_error_N": 0.005097546556703136,
+      "stage_a_terminal_xy_error_m": 0.0030075762251302427,
+      "stage_a_terminal_orientation_error_rad": 0.07240605683117463,
+      "stage_a_terminal_gate_passed": true,
+      "stage_b_failed_rows": [],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.003461025015189971,
+        "max_xy_error_m": 1.2123675244811085e-06,
+        "max_orientation_error_rad": 0.07314538284753326,
+        "max_qdot_saturation_fraction": 0.0,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "qdot012_stage_a_17p5_reference_fail",
+      "parameters": {
+        "qdot_limit_rad_s": 0.12,
+        "stage_a_duration_s": 17.5
+      },
+      "stitched_passed": false,
+      "stage_a_passed": false,
+      "stage_b_pass_count": 0,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.12,
+      "stage_a_qdot_saturation_fraction": 0.0077714285714285715,
+      "stage_a_final_tracking_error_norm_rad": 0.0003877573980070368,
+      "stage_a_max_force_error_N": 2.0144060251115015,
+      "stage_a_terminal_force_error_N": 2.0144060251115015,
+      "stage_a_terminal_xy_error_m": 0.00326508021973135,
+      "stage_a_terminal_orientation_error_rad": 0.07201829943316994,
+      "stage_a_terminal_gate_passed": false,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e3-circle",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "failed_criteria": [
+            "qdot_saturation_fraction"
+          ]
+        }
+      ],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.0051716759259824,
+        "max_xy_error_m": 6.389774345445081e-06,
+        "max_orientation_error_rad": 0.07200389101019385,
+        "max_qdot_saturation_fraction": 0.016,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "qdot012_stage_a_18p0_recovery",
+      "parameters": {
+        "qdot_limit_rad_s": 0.12,
+        "stage_a_duration_s": 18.0
+      },
+      "stitched_passed": true,
+      "stage_a_passed": true,
+      "stage_b_pass_count": 4,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.1194386251900526,
+      "stage_a_qdot_saturation_fraction": 0.0077777777777777776,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_max_force_error_N": 0.13962429878283,
+      "stage_a_terminal_force_error_N": 0.005097546556703136,
+      "stage_a_terminal_xy_error_m": 0.0030075762251302427,
+      "stage_a_terminal_orientation_error_rad": 0.07240605683117463,
+      "stage_a_terminal_gate_passed": true,
+      "stage_b_failed_rows": [],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.003460893452988381,
+        "max_xy_error_m": 1.212220768302331e-06,
+        "max_orientation_error_rad": 0.0731453878884208,
+        "max_qdot_saturation_fraction": 0.002,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "paper_time_scale_0p012_recovery",
+      "parameters": {
+        "paper_time_scale": 0.012
+      },
+      "stitched_passed": true,
+      "stage_a_passed": true,
+      "stage_b_pass_count": 4,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.14332635022814824,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_max_force_error_N": 0.13962429878283,
+      "stage_a_terminal_force_error_N": 0.005097546556703136,
+      "stage_a_terminal_xy_error_m": 0.0030075762251302427,
+      "stage_a_terminal_orientation_error_rad": 0.07240605683117463,
+      "stage_a_terminal_gate_passed": true,
+      "stage_b_failed_rows": [],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.004977812422968393,
+        "max_xy_error_m": 1.453794801989588e-06,
+        "max_orientation_error_rad": 0.07329179294859031,
+        "max_qdot_saturation_fraction": 0.002,
+        "min_contact_present_fraction": 1.0
+      }
+    },
+    {
+      "case": "paper_time_scale_0p0125_reference_fail",
+      "parameters": {
+        "paper_time_scale": 0.0125
+      },
+      "stitched_passed": false,
+      "stage_a_passed": true,
+      "stage_b_pass_count": 3,
+      "stage_b_trajectory_count": 4,
+      "stage_a_max_qdot_rad_s": 0.14332635022814824,
+      "stage_a_qdot_saturation_fraction": 0.0,
+      "stage_a_final_tracking_error_norm_rad": 0.0,
+      "stage_a_max_force_error_N": 0.13962429878283,
+      "stage_a_terminal_force_error_N": 0.005097546556703136,
+      "stage_a_terminal_xy_error_m": 0.0030075762251302427,
+      "stage_a_terminal_orientation_error_rad": 0.07240605683117463,
+      "stage_a_terminal_gate_passed": true,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "qdot_saturation_fraction",
+            "tail_max_qdot_utilization"
+          ]
+        }
+      ],
+      "stage_b_worst": {
+        "trajectory": "e2-figure-eight",
+        "max_tail_force_error_N": 0.009659333060181977,
+        "max_xy_error_m": 1.6853621524790917e-06,
+        "max_orientation_error_rad": 0.0733173098115436,
+        "max_qdot_saturation_fraction": 0.114,
+        "min_contact_present_fraction": 1.0
+      }
+    }
+  ],
+  "warnings": [
+    "diagnostic-label timing-margin audit only",
+    "does not test base-z/contact path reoptimization",
+    "not strict paper-equivalent feasibility",
+    "not a formal robustness proof",
+    "not hardware-ready"
+  ]
+}

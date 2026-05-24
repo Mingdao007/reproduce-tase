@@ -2492,3 +2492,38 @@
 - Next step:
   Test whether perturbation-aware Stage A path reoptimization or margin-aware
   timing can recover the v64 base-z/contact and qdot failures.
+
+## 2026-05-24 v65 Stitched Timing Margin Audit
+
+### Margin-aware recovery of qdot/timing sensitivity cases
+
+- Branch:
+  `exp/tase-ur10e-v65-stitched-timing-margin`
+- Code commit:
+  `c071469132a2d39336f9e8727f51fed88d5334a1`
+- Run:
+  `runs/stitched_stage_a_handoff_timing_margin/20260524T162005`
+- Report:
+  `reports/stitched_stage_a_handoff_timing_margin_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_stitched_stage_a_handoff_sensitivity.py scripts/evaluate_stitched_stage_a_handoff.py src/tase_repro/stitched_sensitivity.py`
+  - `scripts/run_tests.sh tests/test_stitched_sensitivity.py`
+  - `scripts/run_tests.sh`
+  - `scripts/audit_stitched_stage_a_handoff_sensitivity.py --case-set timing-margin`
+  - `git diff --check`
+- Result:
+  The timing-margin case set passes `4 / 7` stitched cases. Passing recovery
+  cases are `stage_a_14p5_recovery`, `qdot012_stage_a_18p0_recovery`, and
+  `paper_time_scale_0p012_recovery`, plus nominal. Nearby reference-fail cases
+  at `14.0 s`, `0.12 rad/s` with `17.5 s`, and `paper_time_scale = 0.0125`
+  remain failing.
+- Limit:
+  This is diagnostic-label timing-margin evidence only. It does not recover
+  the 1 mm base-z/contact perturbation failures and is not a strict
+  paper-equivalent, robustness, or hardware-readiness claim.
+- Validation:
+  Focused tests passed with `3 passed in 0.00s`. Full tests passed with
+  `107 passed in 2.43s`; `git diff --check` passed before the formal run.
+- Next step:
+  Test perturbation-aware Stage A path reoptimization for `base_z_minus_1mm`
+  and `base_z_plus_1mm`.
