@@ -205,12 +205,15 @@ them rather than deleting them.
   ordinary initial q to the selected diagnostic target with a qdot-limited
   minimum duration of `14.332635022800167 s`, but it is not an online
   controller.
+- The v62 contact path tracker follows that path over `15.0 s` with max qdot
+  `0.14332635022814824 rad/s`, zero qdot saturation, target contact throughout,
+  and a passing terminal diagnostic gate, but it is not connected to Stage B.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
-achieved. Future UR10e experiment branches should track the v61 offline path
-with an online qdot-aware Stage A controller before using v61 as more than
-offline path evidence. Keep strict paper-equivalent setup and v38
-trajectory-after-relaxed-setup as separate labels.
+achieved. Future UR10e experiment branches should stitch the v62 Stage A
+tracker to the v60 slowed handoff before making a connected staged trajectory
+claim. Keep strict paper-equivalent setup and v38 trajectory-after-relaxed-setup
+as separate labels.

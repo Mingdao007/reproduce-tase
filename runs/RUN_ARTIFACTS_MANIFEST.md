@@ -1663,6 +1663,29 @@ Legacy source root:
   strict trajectory-feasibility claim, paper-equivalent claim, or hardware
   claim.
 
+## V62 Stage A Contact Path Tracking
+
+### Qdot-limited replay of the selected diagnostic contact path
+
+- Run:
+  - `runs/stage_a_contact_path_tracking/20260524T152346`
+- Command:
+  `scripts/track_stage_a_contact_path.py`
+- Git state at run time:
+  commit `6edddf4a05fae2671ee91f62bc653ec11d2f6058`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, `tracking_trace.csv`, and
+  `git_state.md`.
+- Result:
+  The tracker follows the v61 path over `15.0 s`. The tracking gate and
+  terminal diagnostic gate pass with max qdot `0.14332635022814824 rad/s`,
+  qdot saturation `0.0`, final tracking error `0.0`, and target contact present
+  throughout.
+- Limit:
+  This is a qdot-limited joint-path tracking prototype only. It is not a
+  connected Stage A plus Stage B trajectory claim, paper-equivalent claim, or
+  hardware claim.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

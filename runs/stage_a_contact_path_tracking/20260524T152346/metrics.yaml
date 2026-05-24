@@ -1,0 +1,80 @@
+run_id: 20260524T152346
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+stage_a_target_config: /home/andy/reproduce-tase/configs/ur10e_adapted_stage_a_target.yaml
+source_path_csv: /home/andy/reproduce-tase/runs/stage_a_contact_path_audit/20260524T151201/path.csv
+selected_target_label: ur10e_adapted_terminal_setup_diagnostic
+claim_scope: qdot_limited_joint_path_tracking_prototype_not_stage_b_or_hardware
+duration_s: 15.0
+dt_s: 0.002
+target_force_N: 5.0
+diagnostic_gate:
+  max_terminal_tangential_error_m: 0.004
+  max_terminal_orientation_error_rad: 0.08
+  max_terminal_force_error_N: 0.25
+  min_target_contact_count: 1
+tracking:
+  duration_s: 15.0
+  sample_count: 7501
+  dt_min_s: 0.0019999999999988916
+  dt_max_s: 0.002000000000000668
+  qdot_limit_rad_s: 0.15
+  max_abs_qdot_rad_s: 0.14332635022814824
+  max_qdot_utilization: 0.9555090015209883
+  qdot_saturation_fraction: 0.0
+  tail_max_qdot_utilization: 0.9555090015209883
+  max_abs_tracking_error_rad: 0.0
+  max_tracking_error_norm_rad: 0.0
+  final_tracking_error_norm_rad: 0.0
+evaluation:
+  target_contact_present_fraction: 1.0
+  min_target_contact_count: 1
+  max_force_error_N: 0.13962429878283
+  terminal_force_error_N: 0.005097546556703136
+  max_scheduled_xy_error_m: 8.352155120555089e-08
+  max_reference_xy_error_m: 0.0030075762251302427
+  terminal_reference_xy_error_m: 0.0030075762251302427
+  max_scheduled_orientation_error_rad: 3.7582991511547844e-07
+  max_force_normal_orientation_error_rad: 0.17453292523411995
+  terminal_force_normal_orientation_error_rad: 0.07240605683117463
+terminal_gate:
+  passed: true
+  failed_criteria: []
+  criteria:
+    terminal_force_error_N:
+      actual: 0.005097546556703136
+      operator: <=
+      threshold: 0.25
+      passed: true
+    terminal_xy_error_m:
+      actual: 0.0030075762251302427
+      operator: <=
+      threshold: 0.004
+      passed: true
+    terminal_force_normal_orientation_error_rad:
+      actual: 0.07240605683117463
+      operator: <=
+      threshold: 0.08
+      passed: true
+    target_contact_count:
+      actual: 1
+      operator: '>='
+      threshold: 1
+      passed: true
+tracking_gate:
+  passed: true
+  criteria:
+    target_contact_present_fraction: 1.0
+    max_force_error_N: 0.13962429878283
+    max_scheduled_xy_error_m: 8.352155120555089e-08
+    max_scheduled_orientation_error_rad: 3.7582991511547844e-07
+    max_abs_qdot_rad_s: 0.14332635022814824
+    final_tracking_error_norm_rad: 0.0
+    terminal_gate_passed: true
+warnings:
+- tracks the v61 offline path with qdot-limited joint replay
+- not a force-feedback path optimizer
+- not connected to Stage B handoff in this run
+- not strict paper-equivalent trajectory feasibility
+- not hardware-ready

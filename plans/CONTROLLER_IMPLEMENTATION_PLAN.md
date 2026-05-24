@@ -223,13 +223,15 @@ smoke runs regress.
   slows the trajectory timing, lowers force gain, and holds the diagnostic
   orientation envelope. It reports `4 / 4` passes without qdot saturation, but
   it is direct-target handoff evidence only.
+- The v62 Stage A contact path tracker follows the v61 path over `15.0 s` with
+  zero qdot saturation and a passing terminal diagnostic gate, but it is not
+  connected to Stage B handoff.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should track the
-v61 offline contact path with an online qdot-aware Stage A controller, then
-reuse the v60 handoff parameters only under one explicit timing and acceptance
-policy. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+task formulation. The next UR10e adapted controller experiment should stitch the
+v62 Stage A tracker to the v60 handoff parameters under one explicit timing and
+acceptance policy. Keep contact, drift, terminal orientation, force error, and
+qdot saturation visible together.

@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v61-contact-path-to-diagnostic-target`
+Current branch: `exp/tase-ur10e-v62-contact-path-tracking`
 
 ## Scope
 
@@ -50,6 +50,9 @@ adds a slowed, low-gain diagnostic handoff that passes `4 / 4` from the
 selected target. v61 adds an offline 128-knot quasi-static contact path from
 the ordinary initial q to that target, but it is not an online controller,
 strict trajectory-feasibility claim, paper-equivalent claim, or hardware claim.
+v62 tracks that path with a qdot-limited joint-path replay prototype over
+`15.0 s`, but it still does not connect Stage A tracking to Stage B handoff in
+one staged trajectory run.
 
 ## Test Command
 

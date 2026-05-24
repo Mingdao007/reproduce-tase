@@ -84,14 +84,13 @@ work exists only on that branch.
   simulation prototype target. v59 shows direct Stage B handoff from that
   target still fails `0 / 4` on qdot saturation. v60 shows a slowed low-gain
   diagnostic handoff can pass `4 / 4`. v61 finds an offline qdot-limited
-  contact path to the selected target, but this is still not an online
-  controller or paper-equivalent trajectory claim.
+  contact path to the selected target, and v62 tracks that path with a
+  qdot-limited joint replay. This is still not a connected Stage A plus Stage B
+  or paper-equivalent trajectory claim.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Track the v61 offline contact path with an online qdot-aware Stage A
-controller, then connect it to the v60 slowed handoff under one explicit timing
-and acceptance policy. Keep v61 labeled as offline path evidence until that
-controller exists.
+Run a single stitched simulation that executes the v62 Stage A tracker and then
+the v60 slowed handoff under one explicit timing and acceptance policy.

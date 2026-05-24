@@ -1304,3 +1304,22 @@
   strict trajectory feasibility, paper-equivalent feasibility, hardware
   readiness, or all-knot force-normal diagnostic orientation compliance from
   this result alone.
+
+## D067: Keep Qdot-Limited Contact Path Tracking Separate From Staged Trajectory Feasibility
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v62 as a qdot-limited Stage A joint-path tracking prototype, not as a
+  connected staged trajectory claim.
+- Reason:
+  The v62 run at `runs/stage_a_contact_path_tracking/20260524T152346` tracks
+  the v61 path over `15.0 s`. The tracking gate and terminal diagnostic gate
+  pass, max qdot is `0.14332635022814824 rad/s`, qdot saturation is `0.0`, and
+  target contact remains present throughout.
+- Consequence:
+  The project can claim that the selected diagnostic target is reachable by a
+  qdot-limited joint-path replay in simulation. It still must not claim a
+  connected Stage A plus Stage B trajectory, force-feedback robustness,
+  paper-equivalent feasibility, or hardware readiness until the tracked path and
+  handoff are evaluated in one explicit stitched run.

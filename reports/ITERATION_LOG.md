@@ -2396,3 +2396,36 @@
   Track the v61 offline path with an online qdot-aware Stage A controller, then
   connect it to the v60 slowed handoff under one explicit timing and acceptance
   policy.
+
+## 2026-05-24 v62 Contact Path Tracking
+
+### Qdot-limited tracking of the v61 Stage A path
+
+- Branch:
+  `exp/tase-ur10e-v62-contact-path-tracking`
+- Code commit:
+  `6edddf4a05fae2671ee91f62bc653ec11d2f6058`
+- Run:
+  `runs/stage_a_contact_path_tracking/20260524T152346`
+- Report:
+  `reports/stage_a_contact_path_tracking_report.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_stage_a_contact_path_tracking.py tests/test_stage_a_contact_path.py`
+  - `python3 -m py_compile src/tase_repro/stage_a_contact_path_tracking.py scripts/track_stage_a_contact_path.py`
+  - `scripts/track_stage_a_contact_path.py`
+- Result:
+  The qdot-limited joint-path tracker follows the v61 path over `15.0 s`. The
+  tracking gate and terminal diagnostic gate pass. Max qdot is
+  `0.14332635022814824 rad/s`, qdot saturation is `0.0`, final tracking error
+  is `0.0`, target contact is present throughout, and max force error is
+  `0.13962429878283 N`.
+- Limit:
+  This is a Stage A path tracking prototype only. It does not connect to the
+  v60 Stage B handoff, does not prove force-feedback recovery, does not prove
+  strict paper-equivalent feasibility, and does not authorize hardware use.
+- Validation:
+  Focused tests passed with `8 passed in 0.05s`. Full tests passed with
+  `104 passed in 2.39s`; `git diff --check` passed.
+- Next step:
+  Run a stitched Stage A tracker plus v60 handoff simulation under one explicit
+  timing and acceptance policy.
