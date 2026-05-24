@@ -1528,3 +1528,44 @@
 - Next step:
   Debug the paper-platform normal-force/contact loop, or return to the UR10e
   TCP/contact model validation path. Do not claim the overall goal complete.
+
+## 2026-05-24 v42 Paper 7DOF Contact Loop Diagnostic
+
+- Branch: `exp/tase-ur10e-v42-paper-7dof-contact-loop`
+- Starting commit: `d53251b7a5f4023d1fd048d35d0e984d2dd14f20`
+- Code commit:
+  `16ba42368f81145f2970c8d8d295f6ed238e7be4`
+- Files updated:
+  - `scripts/run_paper_7dof_section_v.py`
+  - `tests/test_paper_7dof.py`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_7dof_contact_loop_report.md`
+  - `runs/paper_7dof_section_v/20260524T114244/metrics.yaml`
+  - `runs/paper_7dof_section_v/20260524T114244/metrics.json`
+  - `runs/paper_7dof_section_v/20260524T114244/summary.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_paper_7dof.py`
+  - `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Result:
+  The contact-stabilized 7DOF diagnostic run passed the tail contact-force
+  gate: `contact_force_tail_success = true`, `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.013764149103712913`, and no q or qdot bound
+  violations.
+- Validation:
+  Targeted paper 7DOF tests passed with `5 passed in 0.24s`; full suite
+  passed with `75 passed in 1.53s`.
+- Limit:
+  This is still not paper-faithful KKT parity. The passing run uses
+  `pinv_bounded` and a capped force integral; the v41 KKT-projection line
+  still loses contact.
+- Next step:
+  Debug the KKT-projection contact loss or define a paper-platform parity gate
+  against the legacy MATLAB/RNN outputs. Do not claim the overall goal
+  complete.

@@ -41,6 +41,7 @@ scripts/run_tests.sh
 python3 scripts/run_fig5_r_sweep.py --config configs/paper_truth.yaml
 python3 scripts/run_ur10e_mujoco_adaptation.py --config configs/mujoco_ur10e.yaml --smoke
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc
+scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 ```
 
 ## Expected Outputs
@@ -149,6 +150,9 @@ smoke runs regress.
 - The v41 paper-platform 7DOF diagnostic executes with hard bounds respected,
   but its paper-literal force loop loses tail contact. It is a separate
   executable line, not paper-faithful numerical parity.
+- The v42 contact-stabilized paper-platform diagnostic passes tail contact and
+  force error with hard bounds respected, but it uses `pinv_bounded` plus a
+  capped force integral, not the paper-faithful KKT-projection path.
 
 ## Next Executable Step
 
@@ -156,6 +160,6 @@ Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
-formulation, or debug the separate paper-platform 7DOF normal-force/contact
-loop. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+formulation, or debug the separate paper-platform KKT-projection contact loss.
+Keep contact, drift, terminal orientation, force error, and qdot saturation
+visible together.

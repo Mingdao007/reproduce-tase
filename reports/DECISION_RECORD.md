@@ -866,3 +866,23 @@
   from UR10e. Any paper-equivalent claim remains blocked until the 7DOF line
   maintains the force/contact behavior and the inherited Panda DH model and
   force-normal orientation interpretation are verified.
+
+## D047: Stabilize The Paper 7DOF Contact Tail As A Diagnostic Variant
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the v42 contact-stabilized 7DOF run as a diagnostic paper-platform
+  variant, not as the paper-faithful KKT result.
+- Reason:
+  The run at `runs/paper_7dof_section_v/20260524T114244` uses the same
+  Section V trajectory, q0, 5 N target, joint limits, velocity limits, and
+  force-normal orientation interpretation as v41, but switches the projection
+  target to `pinv_bounded` and caps the force integral at `0.1`. It passes the
+  contact tail gate with `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.013764149103712913`, and no q or qdot bound
+  violations.
+- Consequence:
+  The v41 contact-tail failure is closed for the diagnostic 7DOF line, but the
+  paper-equivalent claim remains blocked because the KKT-projection line still
+  loses contact and the Panda DH/orientation assumptions remain unverified.

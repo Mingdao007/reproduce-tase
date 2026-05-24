@@ -1138,6 +1138,32 @@ Legacy source root:
   This is a paper-platform executable diagnostic, not paper-faithful numerical
   parity, not a UR10e adapted result, and not hardware readiness evidence.
 
+## V42 Paper 7DOF Contact Loop Diagnostic
+
+### Contact-stabilized paper-platform Section V line
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T114244`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0`
+- Git state at run time:
+  branch `exp/tase-ur10e-v42-paper-7dof-contact-loop`, code commit
+  `16ba42368f81145f2970c8d8d295f6ed238e7be4`, clean before output creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The contact-stabilized diagnostic passed tail force/contact:
+  `contact_force_tail_success = true`, `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.013764149103712913`, and no q or qdot bound
+  violations.
+- Limit:
+  This is a diagnostic paper-platform run using `pinv_bounded` and a capped
+  force integral. It is not the paper-faithful KKT-projection result, not
+  Fig.5/Fig.6 parity, not a UR10e adapted result, and not hardware readiness
+  evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -62,10 +62,12 @@ the decision record and revert only the affected controller commit.
   saturation.
 - The v41 paper-platform line executes, but its paper-literal normal-force
   loop loses tail contact and cannot support a paper-equivalent claim yet.
+- The v42 contact-stabilized paper-platform line passes tail contact and force
+  error, but only as a diagnostic variant using `pinv_bounded` and a capped
+  force integral.
 
 ## Next Executable Step
 
-For the paper-platform line, debug the v41 normal-force/contact loop until the
-tail contact and force-error metrics pass without violating Section V hard
-joint or velocity bounds. Keep this separate from UR10e adapted controller
-iterations.
+For the paper-platform line, debug the KKT-projection contact loss or define a
+parity gate against the legacy MATLAB/RNN outputs. Keep this separate from
+UR10e adapted controller iterations.
