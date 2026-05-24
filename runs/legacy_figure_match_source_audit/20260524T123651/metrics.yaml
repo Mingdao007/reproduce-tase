@@ -1,0 +1,285 @@
+run_id: 20260524T123651
+git_commit: deaf21d52abb86e52ed146ddafe7a80e147dd773
+git_status_short: ''
+legacy_root: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2
+source_files:
+  config_audit_m: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/config_audit.m
+  simulate_paper_method_branch_m: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/simulate_paper_method_branch.m
+  simulate_paper_ideal_branch_m: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/simulate_paper_ideal_branch.m
+summary:
+  figure_match_is_formula_faithful: false
+  nonpaper_tuning_knob_count: 8
+  nonpaper_tuning_knobs:
+  - field: orientation_mode
+    figure_match_value: normal_only
+    formula_faithful_value: force_shortest_arc
+    paper_faithful_expected: force_shortest_arc
+  - field: solver_mode
+    figure_match_value: pinv_bounded
+    formula_faithful_value: kkt_projection
+    paper_faithful_expected: kkt_projection
+  - field: force_loop_mode
+    figure_match_value: admittance_proxy
+    formula_faithful_value: paper_literal
+    paper_faithful_expected: paper_literal
+  - field: acceptance_mode
+    figure_match_value: landmark
+    formula_faithful_value: diagnostic
+    paper_faithful_expected: diagnostic
+  - field: alpha
+    figure_match_value: 20.0
+    formula_faithful_value: null
+    paper_faithful_expected: not configured as formula-faithful tuning knob
+  - field: maxAngularSpeed
+    figure_match_value: 1.5
+    formula_faithful_value: null
+    paper_faithful_expected: not configured as formula-faithful tuning knob
+  - field: kp
+    figure_match_value: 25.0
+    formula_faithful_value: null
+    paper_faithful_expected: not configured as formula-faithful tuning knob
+  - field: q7NullspaceSpeed
+    figure_match_value: 0.35
+    formula_faithful_value: null
+    paper_faithful_expected: not configured as formula-faithful tuning knob
+  uses_explicit_q7_nullspace_bias: true
+  figure_match_pins_q7_upper_limit: true
+  recommended_next_action: implement a separately labeled Python figure-match/admittance_proxy
+    candidate or revise the strict parity gate so q7 figure-match remains landmark
+    provenance
+  figure_match_force_loop_mode: admittance_proxy
+  figure_match_solver_mode: pinv_bounded
+  figure_match_orientation_mode: normal_only
+  figure_match_acceptance_mode: landmark
+  figure_match_q7_nullspace_speed: 0.35
+  figure_match_alpha: 20.0
+  figure_match_kp: 25.0
+  formula_force_loop_mode: paper_literal
+  formula_solver_mode: kkt_projection
+  formula_orientation_mode: force_shortest_arc
+  raw_figure_match_q7_at_22_s_rad: 2.4999999999358065
+  raw_figure_match_q7_exact_upper_limit_count: 17829
+formula_faithful_assignments:
+  orientation_mode:
+    value: force_shortest_arc
+    raw_value: '''force_shortest_arc'''
+    comment: ''
+    line: 189
+  solver_mode:
+    value: kkt_projection
+    raw_value: '''kkt_projection'''
+    comment: ''
+    line: 190
+  acceptance_mode:
+    value: diagnostic
+    raw_value: '''diagnostic'''
+    comment: ''
+    line: 191
+  force_loop_mode:
+    value: paper_literal
+    raw_value: '''paper_literal'''
+    comment: ''
+    line: 192
+  T:
+    value: 0.032
+    raw_value: '0.032'
+    comment: 'resolved ambiguity: controller communication interval for Eq.(17)'
+    line: 193
+figure_match_assignments:
+  orientation_mode:
+    value: normal_only
+    raw_value: '''normal_only'''
+    comment: ''
+    line: 194
+  solver_mode:
+    value: pinv_bounded
+    raw_value: '''pinv_bounded'''
+    comment: ''
+    line: 195
+  acceptance_mode:
+    value: landmark
+    raw_value: '''landmark'''
+    comment: ''
+    line: 196
+  force_loop_mode:
+    value: admittance_proxy
+    raw_value: '''admittance_proxy'''
+    comment: ''
+    line: 197
+  alpha:
+    value: 20.0
+    raw_value: '20.0'
+    comment: 'tuned candidate: makes joint-limit behavior more aggressive'
+    line: 198
+  maxAngularSpeed:
+    value: 1.5
+    raw_value: '1.5'
+    comment: 'tuned candidate: keep orientation channel within velocity limit scale'
+    line: 199
+  kp:
+    value: 25.0
+    raw_value: '25.0'
+    comment: 'tuned: recover XY tracking while keeping startup saturation'
+    line: 200
+  q7NullspaceSpeed:
+    value: 0.35
+    raw_value: '0.35'
+    comment: 'tuned: drive q7 toward the paper 22 s limit landmark'
+    line: 201
+acceptance_assignments:
+  q7_time:
+    value: 22.0
+    raw_value: '22.0'
+    comment: ''
+    line: 202
+  q7_limit:
+    value: 2.5
+    raw_value: '2.5'
+    comment: ''
+    line: 203
+  q7_tolerance:
+    value: 0.1
+    raw_value: '0.10'
+    comment: ''
+    line: 204
+  startup_window:
+    value: 2.0
+    raw_value: '2.0'
+    comment: ''
+    line: 205
+  velocity_limit:
+    value: 1.5
+    raw_value: '1.5'
+    comment: ''
+    line: 206
+  velocity_tolerance:
+    value: 0.02
+    raw_value: '0.02'
+    comment: ''
+    line: 207
+  tail_window:
+    value: 5.0
+    raw_value: '5.0'
+    comment: ''
+    line: 208
+  force_tail_mean_max:
+    value: 0.05
+    raw_value: '0.05'
+    comment: ''
+    line: 209
+  position_tail_mean_max:
+    value: 0.001
+    raw_value: '1.0e-3'
+    comment: ''
+    line: 210
+  orientation_tail_mean_max:
+    value: 0.02
+    raw_value: '2.0e-2'
+    comment: ''
+    line: 211
+normal_loop_assignments:
+  trackGain:
+    value: 20.0
+    raw_value: '20.0'
+    comment: 'assumed: pull actual normal coordinate to the commanded state'
+    line: 168
+  maxCommandVelocity:
+    value: 0.12
+    raw_value: '0.12'
+    comment: 'assumed: keep the normal command bounded'
+    line: 169
+  maxStateVelocity:
+    value: 0.12
+    raw_value: '0.12'
+    comment: 'assumed: bound the admittance internal state'
+    line: 170
+  maxTargetOffset:
+    value: 0.05
+    raw_value: '0.05'
+    comment: 'assumed: commanded normal offset stays near the plane'
+    line: 171
+  integralLimit:
+    value: 5.0
+    raw_value: '5.0'
+    comment: 'assumed: simple anti-windup for force integral'
+    line: 172
+  integralLeak:
+    value: 1.5
+    raw_value: '1.5'
+    comment: 'assumed: avoid long-horizon force-state drift'
+    line: 173
+  targetRestoreRate:
+    value: 6.0
+    raw_value: '6.0'
+    comment: 'assumed: keep the commanded normal coordinate near the equilibrium plane'
+    line: 174
+raw_fig6_summaries:
+  formula_faithful:
+    path: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_formula_faithful_figure_bundle/raw_runs/formula_faithful_fig6_results.mat
+    paper_method_variant: formula_faithful
+    acceptance_mode: diagnostic
+    solver_mode: kkt_projection
+    orientation_mode: force_shortest_arc
+    force_loop_mode: paper_literal
+    q7_at_22_s_rad: 1.1241793710124022
+    q7_exact_upper_limit_count: 0
+    q7_first_near_upper_limit_time_s: null
+    qdot_velocity_limit_hit_count: 0
+    tail_force_error_mean_abs_N: 0.03509717257708793
+  figure_match:
+    path: /home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/results/paper_method_figure_match_figure_bundle/raw_runs/figure_match_fig6_results.mat
+    paper_method_variant: figure_match
+    acceptance_mode: landmark
+    solver_mode: pinv_bounded
+    orientation_mode: normal_only
+    force_loop_mode: admittance_proxy
+    q7_at_22_s_rad: 2.4999999999358065
+    q7_exact_upper_limit_count: 17829
+    q7_first_near_upper_limit_time_s: 11.872999999998859
+    qdot_velocity_limit_hit_count: 148
+    tail_force_error_mean_abs_N: 0.00046279812738245213
+implementation_hits:
+  simulate_paper_method_branch.m:
+  - line: 26
+    text: results.paper_method_notes = notes_for_variant(variant);
+  - line: 48
+    text: cfg.paper_ideal.forceLoopMode = cfg.paper_method.formula_faithful.force_loop_mode;
+  - line: 52
+    text: case 'figure_match'
+  - line: 64
+    text: cfg.paper_ideal.forceLoopMode = cfg.paper_method.figure_match.force_loop_mode;
+  - line: 65
+    text: cfg.paper_ideal.q7NullspaceSpeed = cfg.paper_method.figure_match.q7NullspaceSpeed;
+  - line: 97
+    text: function notes = notes_for_variant(variant)
+  - line: 100
+    text: notes = [ ...
+  - line: 106
+    text: case 'figure_match'
+  - line: 107
+    text: notes = [ ...
+  - line: 112
+    text: notes = '';
+  simulate_paper_ideal_branch.m:
+  - line: 160
+    text: case 'admittance_proxy'
+  - line: 161
+    text: normal_target_accel = (-force_error - kf * force_integral - Bd * normal_target_velocity)
+      / Md;
+  - line: 162
+    text: normal_target_velocity = saturate_scalar(normal_target_velocity + dt * normal_target_accel,
+      maxNormalStateVelocity);
+  - line: 171
+    text: xdd_p = normal_target_accel * planeNormal;
+  - line: 174
+    text: normal_target_accel = 0;
+  - line: 458
+    text: if isfield(cfg.paper_ideal, 'q7NullspaceSpeed') && cfg.paper_ideal.q7NullspaceSpeed
+      ~= 0
+  - line: 459
+    text: null_projector = eye(size(J, 2)) - pinv(J) * J;
+  - line: 462
+    text: bias(7) = min(cfg.paper_ideal.q7NullspaceSpeed, q7_margin / max(cfg.dt,
+      eps));
+  - line: 463
+    text: qdot_proj_raw = qdot_proj_raw + null_projector * bias;

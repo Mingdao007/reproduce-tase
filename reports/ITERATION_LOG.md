@@ -1861,3 +1861,44 @@
   Audit the legacy `admittance_proxy` force loop and figure-match tuning
   source, then decide whether to implement that line in Python or revise the
   strict gate claim structure.
+
+## 2026-05-24 v50 Legacy Figure-Match Source Audit
+
+- Branch: `exp/tase-ur10e-v50-legacy-figure-match-source-audit`
+- Starting commit: `13ff58a68dcca6129e9a00a67e3f8bd089b9dcf5`
+- Code commit:
+  `deaf21d52abb86e52ed146ddafe7a80e147dd773`
+- Files added:
+  - `scripts/audit_legacy_figure_match_source.py`
+  - `tests/test_legacy_figure_match_source_audit.py`
+  - `reports/legacy_figure_match_source_audit_report.md`
+  - `runs/legacy_figure_match_source_audit/20260524T123651/**`
+- Files updated:
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `scripts/run_tests.sh tests/test_legacy_figure_match_source_audit.py`
+  - `scripts/audit_legacy_figure_match_source.py`
+- Result:
+  The legacy `figure_match` path has eight non-paper-faithful tuning knobs:
+  `normal_only`, `pinv_bounded`, `admittance_proxy`, `landmark`,
+  `alpha = 20.0`, `maxAngularSpeed = 1.5`, `kp = 25.0`, and
+  `q7NullspaceSpeed = 0.35`. The q7 nullspace speed is explicitly wired into
+  the pseudoinverse nullspace branch, and the raw trajectory pins q7 at the
+  upper limit for `17829` samples.
+- Validation:
+  Full tests passed with `83 passed in 2.28s`.
+- Limit:
+  This does not implement a Python figure-match candidate and does not pass
+  the existing strict parity gate. It resolves the source provenance question
+  enough to revise the gate claim structure.
+- Next step:
+  Split the paper-platform gate into formula-faithful parity and
+  figure-match landmark evidence, or implement a separately labeled Python
+  figure-match candidate.

@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v49-paper-fig6-raw-provenance-audit`
+Branch: `exp/tase-ur10e-v50-legacy-figure-match-source-audit`
 
 ## Scope
 
@@ -30,6 +30,8 @@ paper-equivalent parity.
   `runs/paper_7dof_q7_variant_probe/20260524T122345`
 - raw Fig.6 provenance output:
   `runs/paper_7dof_fig6_raw_provenance/20260524T123130`
+- legacy figure-match source audit output:
+  `runs/legacy_figure_match_source_audit/20260524T123651`
 
 ## Gate Definition
 
@@ -99,10 +101,15 @@ instead tied to the legacy `figure_match` line, which uses `pinv_bounded`,
 trajectory pins q7 at the upper limit for `17829` samples and first nears the
 upper limit at `11.872999999998859 s`.
 
+The v50 source audit confirms that this path is explicitly tuned. The legacy
+`figure_match` configuration has eight non-paper-faithful knobs, including
+`alpha = 20.0`, `kp = 25.0`, and `q7NullspaceSpeed = 0.35`; that q7 speed is
+wired into the pseudoinverse nullspace branch. The q7 landmark should not be
+used as a formula-faithful parity requirement without this label.
+
 ## Next Step
 
-To pursue paper-platform parity, audit the legacy `admittance_proxy` force
-loop and figure-match tuning source, then decide whether to implement it as a
-separate Python landmark candidate or revise the strict parity gate's claim
-structure. Keep this path separate from UR10e adapted simulation and hardware
-readiness claims.
+To pursue paper-platform parity, split the gate into formula-faithful parity
+and tuned figure-match landmark evidence, or implement a separate Python
+figure-match candidate with explicit tuning labels. Keep this path separate
+from UR10e adapted simulation and hardware readiness claims.

@@ -27,6 +27,7 @@ scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode 
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 scripts/compare_paper_7dof_fig6_raw_provenance.py
+scripts/audit_legacy_figure_match_source.py
 scripts/evaluate_paper_platform_parity.py
 ```
 
@@ -50,6 +51,8 @@ scripts/evaluate_paper_platform_parity.py
   variants.
 - Paper-platform raw Fig.6 provenance outputs comparing Python raw arrays to
   ignored local legacy MATLAB/RNN `.mat` arrays without committing raw data.
+- Legacy figure-match source audit outputs that classify tuned landmark knobs
+  separately from formula-faithful paper-platform parity.
 
 ## Pass/Fail Criteria
 
@@ -162,6 +165,11 @@ them rather than deleting them.
   `2.5 rad` q7 landmark comes from the legacy `admittance_proxy`
   figure-match line with `landmark` acceptance and q7 upper-limit pinning, not
   from the formula-faithful `paper_literal` line.
+- The v50 source audit shows the legacy `figure_match` path has eight
+  non-paper-faithful tuning knobs and an explicit q7 nullspace bias. The
+  q7@22 s figure-match landmark should therefore be treated as tuned landmark
+  evidence unless a separate Python figure-match candidate is intentionally
+  implemented and labeled.
 
 ## Next Executable Step
 
@@ -170,6 +178,6 @@ simulation line, while keeping strict full staged feasibility marked as not
 achieved. Future experiment branches should target model/TCP/contact
 validation, a genuinely different Stage A formulation, or the v41 paper-7DOF
 paper-platform parity/model-provenance gaps. The next 7DOF parity experiment
-should audit the legacy `admittance_proxy` force loop and figure-match tuning
-source, then decide whether to implement it as a separate Python landmark
-candidate or revise the strict gate claim structure.
+should split the paper-platform gate into formula-faithful parity and
+figure-match landmark evidence, or intentionally implement the tuned
+figure-match line as a separate Python candidate.

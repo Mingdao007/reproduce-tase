@@ -1043,3 +1043,27 @@
   `admittance_proxy` figure-match line in Python as a separate tuned landmark
   candidate, or revise the parity gate so formula-faithful behavior is primary
   and q7 figure-match remains labeled landmark evidence.
+
+## D055: Separate Figure-Match Landmark Tuning From Formula-Faithful Parity
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Treat the legacy `figure_match` q7-at-22 s result as tuned landmark
+  evidence, not as a formula-faithful parity requirement.
+- Reason:
+  The v50 source audit at
+  `runs/legacy_figure_match_source_audit/20260524T123651` parses the legacy
+  MATLAB/RNN configuration and implementation. It finds eight non-paper-
+  faithful tuning knobs in `figure_match`: `normal_only`, `pinv_bounded`,
+  `admittance_proxy`, `landmark`, `alpha = 20.0`,
+  `maxAngularSpeed = 1.5`, `kp = 25.0`, and `q7NullspaceSpeed = 0.35`.
+  The q7 speed is explicitly wired into the pseudoinverse nullspace branch,
+  and the raw figure-match trajectory pins q7 at the upper limit for `17829`
+  samples.
+- Consequence:
+  The strict paper-platform gate should be split or relabeled before stronger
+  claims are made: formula-faithful parity should not fail solely because it
+  does not reproduce a tuned q7-nullspace landmark. A separate Python
+  `figure_match` candidate may still be useful, but it must be labeled as a
+  tuned landmark reproduction rather than paper-equivalent numerical parity.

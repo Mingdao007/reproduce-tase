@@ -1368,6 +1368,28 @@ Legacy source root:
   acceptance and q7 pinned at the upper limit for `17829` samples, not from
   the formula-faithful `paper_literal` line.
 
+## V50 Legacy Figure-Match Source Audit
+
+### Static source and raw-output audit of figure-match tuning
+
+- Run:
+  - `runs/legacy_figure_match_source_audit/20260524T123651`
+- Command:
+  `scripts/audit_legacy_figure_match_source.py`
+- Git state at run time:
+  commit `deaf21d52abb86e52ed146ddafe7a80e147dd773`, clean before output
+  creation.
+- External source inputs:
+  MATLAB/RNN files under
+  `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/runs/full_paper_matlab/20260523T114034/worktree/RNN_F2/`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Result:
+  The source audit identifies eight non-paper-faithful `figure_match` tuning
+  knobs and confirms `q7NullspaceSpeed = 0.35` is wired into the
+  pseudoinverse nullspace branch. The q7 landmark should be treated as tuned
+  figure-match evidence, not a formula-faithful parity requirement.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

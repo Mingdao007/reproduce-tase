@@ -25,6 +25,7 @@ contracts are testable.
 - `scripts/run_paper_7dof_section_v.py`
 - `scripts/run_paper_7dof_q7_variant_probe.py`
 - `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+- `scripts/audit_legacy_figure_match_source.py`
 - `scripts/run_paper_trajectory_force_motion.py`
 - `scripts/run_timing_feasibility_sweep.py`
 - `tests/test_controller.py`
@@ -47,6 +48,7 @@ scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode 
 scripts/run_paper_7dof_section_v.py --duration-s 5.0 --dt-s 0.002 --solver-mode pinv_bounded --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-limit 0.1 --force-integral-leak 0.0
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 scripts/compare_paper_7dof_fig6_raw_provenance.py
+scripts/audit_legacy_figure_match_source.py
 ```
 
 ## Expected Outputs
@@ -184,6 +186,10 @@ smoke runs regress.
   matches sampled legacy raw states. The figure-match q7 landmark is tied to a
   legacy `admittance_proxy` force-loop and landmark-acceptance line with q7
   upper-limit pinning, not to the formula-faithful `paper_literal` line.
+- The v50 source audit shows the legacy `figure_match` path has eight
+  non-paper-faithful tuning knobs, including explicit q7 nullspace bias. This
+  makes the current q7 landmark a tuned figure-match signal, not a
+  formula-faithful controller requirement.
 
 ## Next Executable Step
 
@@ -194,6 +200,6 @@ model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
 paper-platform work should target the legacy `admittance_proxy` force-loop
-source and figure-match tuning provenance, or revise the strict parity gate's
-claim structure. Keep contact, drift, terminal orientation, force error, and
-qdot saturation visible together.
+source as a separately labeled Python candidate or revise the strict parity
+gate's claim structure. Keep contact, drift, terminal orientation, force
+error, and qdot saturation visible together.

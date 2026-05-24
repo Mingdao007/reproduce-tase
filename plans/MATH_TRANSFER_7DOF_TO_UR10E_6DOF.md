@@ -23,6 +23,7 @@ adapted formulation without relying on redundant null-space behavior.
 - `src/tase_repro/paper_7dof.py`
 - `scripts/run_paper_7dof_q7_variant_probe.py`
 - `scripts/compare_paper_7dof_fig6_raw_provenance.py`
+- `scripts/audit_legacy_figure_match_source.py`
 - Future controller code under `src/tase_repro/`
 
 ## Commands To Run
@@ -33,6 +34,7 @@ scripts/run_tests.sh tests/test_constraints.py
 scripts/run_tests.sh tests/test_panda_kinematics.py tests/test_paper_7dof.py
 scripts/run_paper_7dof_q7_variant_probe.py --duration-s 30.0 --dt-s 0.002 --communication-delay-s 0.032 --force-integral-leak 0.0
 scripts/compare_paper_7dof_fig6_raw_provenance.py
+scripts/audit_legacy_figure_match_source.py
 ```
 
 ## Expected Outputs
@@ -93,10 +95,14 @@ the decision record and revert only the affected controller commit.
   conditioning matches sampled legacy raw states. The q7 figure-match
   landmark is tied to the legacy `admittance_proxy` line and upper-limit
   pinning, not to a Python kinematics porting mismatch.
+- The v50 source audit shows the legacy figure-match line uses explicit
+  non-paper-faithful tuning knobs, including q7 nullspace bias. The
+  formula-faithful math transfer should not inherit that bias unless a
+  separately labeled landmark-matching candidate is being implemented.
 
 ## Next Executable Step
 
-For the paper-platform line, audit the legacy `admittance_proxy` force loop
-and figure-match tuning source, then decide whether to implement that line in
-Python as a separate landmark candidate or revise the strict gate claim
-structure. Keep this separate from UR10e adapted controller iterations.
+For the paper-platform line, split the strict gate claim structure into
+formula-faithful parity and tuned figure-match landmark evidence, or implement
+the tuned line in Python with explicit labeling. Keep this separate from
+UR10e adapted controller iterations.
