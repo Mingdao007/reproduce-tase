@@ -318,6 +318,7 @@ def main() -> int:
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--approach-duration-s", type=float, default=4.0)
     parser.add_argument("--recenter-duration-s", type=float, default=0.0)
+    parser.add_argument("--settle-duration-s", type=float, default=0.0)
     parser.add_argument("--trajectory-duration-s", type=float, default=2.0)
     parser.add_argument("--target-force-N", type=float, default=5.0)
     parser.add_argument("--force-gain", type=float, default=5e-4)
@@ -327,6 +328,7 @@ def main() -> int:
     parser.add_argument("--qdot-limit-rad-s", type=float, default=0.15)
     parser.add_argument("--approach-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument("--recenter-qdot-limit-rad-s", type=float, default=None)
+    parser.add_argument("--settle-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument("--trajectory-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument(
         "--trajectory",
@@ -343,6 +345,7 @@ def main() -> int:
     parser.add_argument("--no-zero-initial-offset", dest="zero_initial_offset", action="store_false")
     parser.add_argument("--planar-kp", type=float, default=0.5)
     parser.add_argument("--recenter-planar-kp", type=float, default=None)
+    parser.add_argument("--settle-planar-kp", type=float, default=None)
     parser.add_argument("--planar-axis-weight", type=float, default=1.0)
     parser.add_argument("--normal-axis-weight", type=float, default=1.0)
     parser.add_argument("--planar-slack-weight", type=float, default=1.0)
@@ -364,6 +367,13 @@ def main() -> int:
     parser.add_argument("--recenter-orientation-kp", type=float, default=None)
     parser.add_argument("--recenter-max-angular-command-rad-s", type=float, default=None)
     parser.add_argument(
+        "--settle-orientation-priority-mode",
+        choices=["weighted", "linear-primary", "planar-primary"],
+        default="weighted",
+    )
+    parser.add_argument("--settle-orientation-kp", type=float, default=None)
+    parser.add_argument("--settle-max-angular-command-rad-s", type=float, default=None)
+    parser.add_argument(
         "--trajectory-orientation-priority-mode",
         choices=["weighted", "linear-primary", "planar-primary"],
         default="linear-primary",
@@ -374,15 +384,19 @@ def main() -> int:
     parser.add_argument("--angular-slack-weight", type=float, default=1.0)
     parser.add_argument("--approach-posture-target-q", default=None)
     parser.add_argument("--recenter-posture-target-q", default=None)
+    parser.add_argument("--settle-posture-target-q", default=None)
     parser.add_argument("--trajectory-posture-target-q", default=None)
     parser.add_argument("--approach-posture-kp", type=float, default=0.0)
     parser.add_argument("--recenter-posture-kp", type=float, default=0.0)
+    parser.add_argument("--settle-posture-kp", type=float, default=0.0)
     parser.add_argument("--trajectory-posture-kp", type=float, default=0.0)
     parser.add_argument("--approach-posture-weight", type=float, default=0.0)
     parser.add_argument("--recenter-posture-weight", type=float, default=0.0)
+    parser.add_argument("--settle-posture-weight", type=float, default=0.0)
     parser.add_argument("--trajectory-posture-weight", type=float, default=0.0)
     parser.add_argument("--approach-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--recenter-max-posture-velocity-rad-s", type=float, default=None)
+    parser.add_argument("--settle-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--trajectory-max-posture-velocity-rad-s", type=float, default=None)
     parser.add_argument("--approach-orientation-threshold-rad", type=float, default=0.03)
     parser.add_argument("--setup-max-final-tangential-error-m", type=float, default=0.002)
@@ -401,6 +415,9 @@ def main() -> int:
     recenter_qdot_limit = (
         qdot_limit if args.recenter_qdot_limit_rad_s is None else abs(float(args.recenter_qdot_limit_rad_s))
     )
+    settle_qdot_limit = (
+        qdot_limit if args.settle_qdot_limit_rad_s is None else abs(float(args.settle_qdot_limit_rad_s))
+    )
     trajectory_qdot_limit = (
         qdot_limit if args.trajectory_qdot_limit_rad_s is None else abs(float(args.trajectory_qdot_limit_rad_s))
     )
@@ -408,6 +425,8 @@ def main() -> int:
     approach_qdot_max = np.full(model.nv, approach_qdot_limit, dtype=float)
     recenter_qdot_min = np.full(model.nv, -recenter_qdot_limit, dtype=float)
     recenter_qdot_max = np.full(model.nv, recenter_qdot_limit, dtype=float)
+    settle_qdot_min = np.full(model.nv, -settle_qdot_limit, dtype=float)
+    settle_qdot_max = np.full(model.nv, settle_qdot_limit, dtype=float)
     trajectory_qdot_min = np.full(model.nv, -trajectory_qdot_limit, dtype=float)
     trajectory_qdot_max = np.full(model.nv, trajectory_qdot_limit, dtype=float)
     approach_qdot_limit_source = (
@@ -419,8 +438,10 @@ def main() -> int:
     recenter_qdot_limit_source = (
         "recenter_cli_override" if args.recenter_qdot_limit_rad_s is not None else "cli_override"
     )
+    settle_qdot_limit_source = "settle_cli_override" if args.settle_qdot_limit_rad_s is not None else "cli_override"
     approach_posture_target = None if args.approach_posture_target_q is None else parse_vector(args.approach_posture_target_q)
     recenter_posture_target = None if args.recenter_posture_target_q is None else parse_vector(args.recenter_posture_target_q)
+    settle_posture_target = None if args.settle_posture_target_q is None else parse_vector(args.settle_posture_target_q)
     trajectory_posture_target = (
         None if args.trajectory_posture_target_q is None else parse_vector(args.trajectory_posture_target_q)
     )
@@ -445,10 +466,14 @@ def main() -> int:
         recenter_duration_s=args.recenter_duration_s,
         recenter_qdot_min=recenter_qdot_min,
         recenter_qdot_max=recenter_qdot_max,
+        settle_duration_s=args.settle_duration_s,
+        settle_qdot_min=settle_qdot_min,
+        settle_qdot_max=settle_qdot_max,
         force_gain=args.force_gain,
         r=args.r,
         planar_kp=args.planar_kp,
         recenter_planar_kp=args.recenter_planar_kp,
+        settle_planar_kp=args.settle_planar_kp,
         axis_weights=np.array([args.planar_axis_weight, args.planar_axis_weight, args.normal_axis_weight]),
         slack_axis_weights=np.array([args.planar_slack_weight, args.planar_slack_weight, args.normal_slack_weight]),
         slack_constraint_weight=args.slack_constraint_weight,
@@ -459,6 +484,9 @@ def main() -> int:
         recenter_orientation_priority_mode=args.recenter_orientation_priority_mode.replace("-", "_"),
         recenter_orientation_kp=args.recenter_orientation_kp,
         recenter_max_angular_command_rad_s=args.recenter_max_angular_command_rad_s,
+        settle_orientation_priority_mode=args.settle_orientation_priority_mode.replace("-", "_"),
+        settle_orientation_kp=args.settle_orientation_kp,
+        settle_max_angular_command_rad_s=args.settle_max_angular_command_rad_s,
         trajectory_orientation_priority_mode=args.trajectory_orientation_priority_mode.replace("-", "_"),
         trajectory_orientation_kp=args.trajectory_orientation_kp,
         trajectory_max_angular_command_rad_s=args.trajectory_max_angular_command_rad_s,
@@ -472,6 +500,10 @@ def main() -> int:
         recenter_joint_posture_kp=args.recenter_posture_kp,
         recenter_joint_posture_weight=args.recenter_posture_weight,
         recenter_max_joint_posture_velocity_rad_s=args.recenter_max_posture_velocity_rad_s,
+        settle_joint_posture_target=settle_posture_target,
+        settle_joint_posture_kp=args.settle_posture_kp,
+        settle_joint_posture_weight=args.settle_posture_weight,
+        settle_max_joint_posture_velocity_rad_s=args.settle_max_posture_velocity_rad_s,
         trajectory_joint_posture_target=trajectory_posture_target,
         trajectory_joint_posture_kp=args.trajectory_posture_kp,
         trajectory_joint_posture_weight=args.trajectory_posture_weight,
@@ -496,6 +528,16 @@ def main() -> int:
             qdot_min=recenter_qdot_min,
             qdot_max=recenter_qdot_max,
         )
+    settle_summary = None
+    if staged.approach_settle is not None:
+        settle_summary = summarize_force_motion(
+            staged.approach_settle,
+            target_force_N=args.target_force_N,
+            q_min=q_min,
+            q_max=q_max,
+            qdot_min=settle_qdot_min,
+            qdot_max=settle_qdot_max,
+        )
     trajectory_summary = summarize_force_motion(
         staged.trajectory,
         target_force_N=args.target_force_N,
@@ -517,6 +559,13 @@ def main() -> int:
             thresholds=thresholds,
             qdot_abs_limit_rad_s=recenter_qdot_limit,
         )
+    settle_gate = None
+    if settle_summary is not None:
+        settle_gate = evaluate_force_motion_feasibility(
+            settle_summary,
+            thresholds=thresholds,
+            qdot_abs_limit_rad_s=settle_qdot_limit,
+        )
     trajectory_gate = evaluate_force_motion_feasibility(
         trajectory_summary,
         thresholds=thresholds,
@@ -537,7 +586,11 @@ def main() -> int:
         "threshold_rad": float(args.approach_orientation_threshold_rad),
         "passed": setup_final_orientation_error <= float(args.approach_orientation_threshold_rad),
     }
-    setup_summary = approach_summary if recenter_summary is None else recenter_summary
+    setup_summary = approach_summary
+    if recenter_summary is not None:
+        setup_summary = recenter_summary
+    if settle_summary is not None:
+        setup_summary = settle_summary
     setup_final_tangential_error = (
         approach_summary["final_tangential_position_error_m"]
         if staged.setup_final_tangential_position_error_m is None
@@ -623,6 +676,46 @@ def main() -> int:
                 "terminal_orientation_gate": recenter_terminal_gate,
             }
         )
+    settle_metrics = None
+    if staged.approach_settle is not None and settle_summary is not None and settle_gate is not None:
+        settle_terminal_gate = {
+            "final_orientation_error_rad": staged.approach_settle_final_orientation_error_rad,
+            "threshold_rad": float(args.approach_orientation_threshold_rad),
+            "passed": staged.approach_settle_final_orientation_error_rad <= float(args.approach_orientation_threshold_rad),
+        }
+        settle_metrics = phase_metrics(
+            phase="approach_settle",
+            result=staged.approach_settle,
+            summary=settle_summary,
+            args=args,
+            dt_s=dt_s,
+            qdot_limit_source=settle_qdot_limit_source,
+            qdot_min=settle_qdot_min,
+            qdot_max=settle_qdot_max,
+            joint_posture_target=settle_posture_target,
+            joint_posture_kp=args.settle_posture_kp,
+            joint_posture_weight=args.settle_posture_weight,
+            max_joint_posture_velocity_rad_s=args.settle_max_posture_velocity_rad_s,
+        )
+        settle_metrics.update(
+            {
+                "orientation_priority_mode": args.settle_orientation_priority_mode,
+                "orientation_kp": None if args.settle_orientation_kp is None else float(args.settle_orientation_kp),
+                "effective_orientation_kp": float(
+                    args.approach_orientation_kp if args.settle_orientation_kp is None else args.settle_orientation_kp
+                ),
+                "max_angular_command_rad_s": args.settle_max_angular_command_rad_s,
+                "orientation_threshold_rad": float(args.approach_orientation_threshold_rad),
+                "reached_threshold": bool(staged.approach_settle_reached_threshold),
+                "first_threshold_index": staged.approach_settle_first_threshold_index,
+                "first_threshold_time_s": staged.approach_settle_first_threshold_time_s,
+                "final_orientation_error_rad": staged.approach_settle_final_orientation_error_rad,
+                "reference_xy_m": [float(x) for x in staged.setup_reference_xy_m],
+                "final_tangential_position_error_m": staged.setup_final_tangential_position_error_m,
+                "feasibility_gate": settle_gate,
+                "terminal_orientation_gate": settle_terminal_gate,
+            }
+        )
     trajectory_metrics = phase_metrics(
         phase="trajectory",
         result=staged.trajectory,
@@ -671,6 +764,17 @@ def main() -> int:
             target_force_N=args.target_force_N,
             trajectory_name="stationary-recenter",
         )
+    if staged.approach_settle is not None and settle_metrics is not None:
+        write_phase_artifacts(
+            out_dir / "approach_settle",
+            phase="approach_settle",
+            result=staged.approach_settle,
+            metrics=settle_metrics,
+            dt_s=dt_s,
+            run_id=run_id,
+            target_force_N=args.target_force_N,
+            trajectory_name="stationary-settle",
+        )
     write_phase_artifacts(
         out_dir / "trajectory",
         phase="trajectory",
@@ -692,6 +796,13 @@ def main() -> int:
                 and recenter_summary["max_joint_limit_violation_rad"] <= thresholds.max_joint_limit_violation_rad_max
             )
         )
+        and (
+            settle_summary is None
+            or (
+                settle_summary["max_qdot_violation_rad_s"] <= thresholds.max_qdot_violation_rad_s_max
+                and settle_summary["max_joint_limit_violation_rad"] <= thresholds.max_joint_limit_violation_rad_max
+            )
+        )
     )
     trajectory_after_approach_pass = bool(
         setup_terminal_gate["passed"] and trajectory_gate["feasibility_pass"] and setup_hard_limit_pass
@@ -702,6 +813,7 @@ def main() -> int:
     full_staged_feasibility_pass = bool(
         approach_gate["feasibility_pass"]
         and (recenter_gate is None or recenter_gate["feasibility_pass"])
+        and (settle_gate is None or settle_gate["feasibility_pass"])
         and trajectory_gate["feasibility_pass"]
     )
     aggregate = {
@@ -715,14 +827,17 @@ def main() -> int:
         "paper_time_scale": float(args.paper_time_scale),
         "approach_duration_s": float(args.approach_duration_s),
         "recenter_duration_s": float(args.recenter_duration_s),
+        "settle_duration_s": float(args.settle_duration_s),
         "trajectory_duration_s": float(args.trajectory_duration_s),
         "approach_qdot_limit_rad_s": approach_qdot_limit,
         "recenter_qdot_limit_rad_s": recenter_qdot_limit,
+        "settle_qdot_limit_rad_s": settle_qdot_limit,
         "trajectory_qdot_limit_rad_s": trajectory_qdot_limit,
         "dt_s": dt_s,
         "thresholds": thresholds.to_dict(),
         "approach": approach_metrics,
         "approach_recenter": recenter_metrics,
+        "approach_settle": settle_metrics,
         "setup_terminal_orientation_gate": setup_terminal_gate,
         "setup_terminal_state_gate": setup_terminal_state_gate,
         "setup_final_tangential_position_error_m": staged.setup_final_tangential_position_error_m,
@@ -756,6 +871,7 @@ def main() -> int:
         f"- Approach first threshold time: `{staged.approach_first_threshold_time_s}`",
         f"- Approach qdot saturation fraction: `{approach_summary['qdot_saturation_fraction']}`",
         f"- Recenter enabled: `{staged.approach_recenter is not None}`",
+        f"- Settle enabled: `{staged.approach_settle is not None}`",
         f"- Setup final orientation error: `{setup_final_orientation_error}`",
         f"- Setup final tangential error: `{staged.setup_final_tangential_position_error_m}`",
         f"- Setup terminal-state pass: `{setup_terminal_state_gate['passed']}`",

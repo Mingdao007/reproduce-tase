@@ -126,13 +126,17 @@ smoke runs regress.
   reference and a setup terminal-state gate. No E2 row passes the setup gate.
   Short recenter windows keep Stage B passing but fail force and x/y terminal
   gates; long recentering meets x/y and force but loses terminal orientation.
+- The v36 three-phase settle probe also passes `0 / 10` setup terminal-state
+  rows. Weighted settling restores force/orientation and Stage B compatibility
+  by drifting back toward `8 mm`; linear-primary settling preserves x/y but
+  keeps terminal orientation too high.
 
 ## Next Executable Step
 
-Do not continue scalar recenter-duration tuning. Either add a
-force-maintaining recenter formulation with phase-specific normal/force
-authority, or define an accepted relaxed setup budget that keeps the
-weighted-prealignment drift separate from paper-equivalent full staged
-feasibility. The next approach experiment must keep reporting contact, drift,
-terminal orientation, and qdot saturation together so posture shaping cannot
-hide a force or drift regression.
+Do not continue scalar phase-duration tuning under the current instantaneous
+velocity task formulation. Either define an accepted relaxed setup budget that
+keeps the weighted-prealignment drift separate from paper-equivalent full
+staged feasibility, or change the Stage A mathematical formulation. The next
+approach experiment must keep reporting contact, drift, terminal orientation,
+and qdot saturation together so posture shaping cannot hide a force or drift
+regression.

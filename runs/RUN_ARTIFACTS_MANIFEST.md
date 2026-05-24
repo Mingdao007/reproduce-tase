@@ -1001,6 +1001,38 @@ Legacy source root:
   This is E2-only tilted-plane simulation evidence. It does not establish a
   full E1-E4 planned setup solution or hardware readiness.
 
+## V36 Three-Phase Setup Settle Probe
+
+### Planned align/recenter/settle diagnostic
+
+- Run root:
+  - `runs/staged_orientation_three_phase_settle/20260524T110039`
+- Scope:
+  Ten E2 staged tilted-plane runs. Stage A1 repeats weighted force-normal
+  prealignment. Stage A2 optionally recenters to the original setup x/y
+  reference with linear-primary priority. Stage A3 optionally settles against
+  the same x/y reference before Stage B. Stage B uses the v32 moderate
+  trajectory posture objective.
+- Tracked lightweight artifacts:
+  root `summary.yaml` and `summary.md`; per-case root `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; per-phase `metrics.yaml`,
+  `metrics.json`, force plot, xy plot, orientation plot, and angular-slack
+  plot for `approach`, optional `approach_recenter`, optional
+  `approach_settle`, and `trajectory`.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz`,
+  `approach_recenter/staged-approach_recenter_raw.npz`,
+  `approach_settle/staged-approach_settle_raw.npz`, and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Setup terminal-state pass count `0 / 10`, trajectory feasibility pass count
+  `8 / 10`, legacy trajectory-after-approach pass count `8 / 10`, planned
+  setup-then-trajectory pass count `0 / 10`, and full staged-feasibility pass
+  count `0 / 10`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence. It does not establish a
+  full E1-E4 planned setup solution or hardware readiness.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -1,0 +1,22 @@
+# Staged Orientation Force-Motion Summary
+
+Run root: `runs/staged_orientation_three_phase_settle/20260524T110039/lp4_no_settle`
+
+## Result
+
+- Approach final orientation error: `0.0020290714973557108`
+- Approach first threshold time: `0.926`
+- Approach qdot saturation fraction: `1.0`
+- Recenter enabled: `True`
+- Settle enabled: `False`
+- Setup final orientation error: `0.06144921366675186`
+- Setup final tangential error: `0.001202027969075075`
+- Setup terminal-state pass: `False`
+- Setup terminal-state failed criteria: `final_orientation_error_rad`
+- Trajectory feasibility pass: `False`
+- Trajectory failed criteria: `max_orientation_error_rad`
+- Trajectory max orientation error: `0.08828833304324712`
+- Trajectory qdot saturation fraction: `0.0`
+- Trajectory after approach pass: `False`
+- Planned setup then trajectory pass: `False`
+- Full staged feasibility pass: `False`

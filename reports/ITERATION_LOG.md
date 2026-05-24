@@ -1300,3 +1300,46 @@
   recenter formulation with phase-specific normal/force authority, or record
   an explicit relaxed setup budget that accepts weighted-prealignment drift
   without calling it paper-equivalent full staged feasibility.
+
+## 2026-05-24 v36 Three-Phase Setup Settle Probe
+
+- Branch: `exp/tase-ur10e-v36-three-phase-setup-settle`
+- Starting commit: `4fdc9b8bc640871e0a7057f3b5bd70e87acc4ed8`
+- Files added:
+  - `reports/three_phase_settle_probe_report.md`
+  - `runs/staged_orientation_three_phase_settle/20260524T110039`
+- Files updated:
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `src/tase_repro/staged_force_motion.py`
+  - `tests/test_staged_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/staged_force_motion.py scripts/run_staged_orientation_force_motion.py`
+  - `scripts/run_tests.sh`
+  - `python3 - <<'PY' ... three-phase settle matrix and summary aggregation ... PY`
+  - `python3 scripts/run_staged_orientation_force_motion.py ... --recenter-duration-s <duration> --settle-duration-s <duration> --settle-orientation-priority-mode <weighted|linear-primary> ...`
+- Result:
+  Added optional `approach_settle` support after recentering. The 10-case E2
+  matrix produced `0 / 10` setup terminal-state passes, `8 / 10` trajectory
+  feasibility passes, `8 / 10` legacy trajectory-after-approach passes,
+  `0 / 10` planned setup-then-trajectory passes, and `0 / 10` full staged
+  passes. Weighted settle rows restore force/orientation enough for Stage B
+  but return final x/y error to `7.2-8.3 mm`. The linear-primary settle row
+  keeps x/y error near zero but fails terminal orientation and Stage B
+  orientation.
+- Validation:
+  `scripts/run_tests.sh` passed with `64 passed in 1.38s`. The aggregate
+  summary check reads `10 0 8 8 0 0`.
+- Limit:
+  This is E2-only tilted-plane simulation evidence. It does not establish a
+  complete E1-E4 planned setup or hardware readiness.
+- Next step:
+  Stop scalar phase-duration bracketing under the current instantaneous
+  velocity formulation. Either decision-record a relaxed setup budget that
+  explicitly accepts weighted-prealignment drift, or change the Stage A
+  mathematical formulation.

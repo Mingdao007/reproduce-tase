@@ -1174,3 +1174,54 @@ instantaneous velocity tasks. A future planned setup needs a different
 normal/force-maintaining formulation, or the reproduction must explicitly
 accept a relaxed setup drift budget and keep it separate from full staged
 paper-equivalent feasibility.
+
+## V36 Three-Phase Settle Implication
+
+The v36 controller path adds one more planned setup interval:
+
+```text
+align weighted -> recenter linear-primary -> settle -> E2 trajectory
+```
+
+The settle phase uses the same original setup x/y reference as the recenter
+phase. It tests whether orientation and force can be restored after recentering
+without giving back the x/y correction.
+
+The result is again negative under the explicit setup terminal-state gate:
+
+```text
+setup terminal-state pass count = 0 / 10
+trajectory feasibility pass count = 8 / 10
+planned setup-then-trajectory pass count = 0 / 10
+full staged-feasibility pass count = 0 / 10
+```
+
+Weighted settling moves the terminal state back toward the original weighted
+prealignment compromise:
+
+```text
+lp1_settle_w2:
+  setup orientation error = 0.0025125657280091578 rad
+  setup x/y error = 0.00828135120454356 m
+  settle tail force error = 0.003310079622609865 N
+  E2 trajectory passes
+```
+
+Linear-primary settling keeps the x/y reference but does not recover
+orientation:
+
+```text
+lp4_settle_lp4:
+  setup orientation error = 0.07228244179626259 rad
+  setup x/y error = 0.00017396214319096055 m
+  settle tail force error = 0.0019523730245144177 N
+  E2 trajectory fails orientation
+```
+
+This closes the simple planned-phase hypothesis. Under the current
+velocity-level UR10e task model, scheduling the same weighted and
+primary/secondary tasks in phases can move along the drift/orientation
+tradeoff, but it does not produce a terminal setup satisfying x/y, force,
+contact, and orientation together. Further progress requires either a relaxed
+setup-budget decision or a genuinely different Stage A mathematical
+formulation.

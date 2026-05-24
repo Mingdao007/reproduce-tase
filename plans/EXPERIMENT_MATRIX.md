@@ -103,11 +103,14 @@ them rather than deleting them.
   keep the following trajectory passing but fail setup force and x/y gates,
   while long recentering fixes x/y and force at the cost of terminal
   orientation.
+- The three-phase settle probe also passes `0 / 10` setup terminal-state rows.
+  Weighted settling improves the following E2 trajectory pass count to
+  `8 / 10`, but only by allowing final x/y error around `7.2-8.3 mm`.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_two_phase_recenter/20260524T104957` as evidence
-that scalar recenter-duration tuning is not sufficient. The next executable
-experiment should either add phase-specific force-maintaining recenter
-authority, or define an accepted relaxed setup budget and keep it separate
-from full staged paper-equivalent feasibility.
+Use `runs/staged_orientation_three_phase_settle/20260524T110039` as evidence
+that scalar planned-phase scheduling is not sufficient. The next executable
+step should either define an accepted relaxed setup budget and keep it
+separate from full staged paper-equivalent feasibility, or change the Stage A
+mathematical formulation rather than adding another duration bracket.

@@ -1,0 +1,203 @@
+run_root: runs/staged_orientation_three_phase_settle/20260524T110039
+case_count: 10
+setup_terminal_state_pass_count: 0
+trajectory_feasibility_pass_count: 8
+legacy_trajectory_after_approach_pass_count: 8
+planned_setup_then_trajectory_pass_count: 0
+full_staged_feasibility_pass_count: 0
+rows:
+- case: baseline_no_recenter
+  recenter_duration_s: 0.0
+  settle_duration_s: 0.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  setup_final_orientation_error_rad: 0.0020290714973557108
+  setup_final_tangential_position_error_m: 0.008347977658392892
+  recenter_tail_mean_abs_force_error_N: null
+  settle_tail_mean_abs_force_error_N: null
+  settle_qdot_saturation_fraction: null
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.0203545748607252
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp4_no_settle
+  recenter_duration_s: 4.0
+  settle_duration_s: 0.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_orientation_error_rad
+  setup_final_orientation_error_rad: 0.06144921366675186
+  setup_final_tangential_position_error_m: 0.001202027969075075
+  recenter_tail_mean_abs_force_error_N: 0.07268453631886647
+  settle_tail_mean_abs_force_error_N: null
+  settle_qdot_saturation_fraction: null
+  trajectory_feasibility_pass: false
+  trajectory_failed_criteria:
+  - max_orientation_error_rad
+  trajectory_max_orientation_error_rad: 0.08828833304324712
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: false
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp1_settle_w0p5
+  recenter_duration_s: 1.0
+  settle_duration_s: 0.5
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  - tail_mean_abs_force_error_N
+  setup_final_orientation_error_rad: 0.011139549031039307
+  setup_final_tangential_position_error_m: 0.007193845624799021
+  recenter_tail_mean_abs_force_error_N: 1.0513662147686107
+  settle_tail_mean_abs_force_error_N: 0.8225791490908131
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.02939550767657929
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp1_settle_w1
+  recenter_duration_s: 1.0
+  settle_duration_s: 1.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  setup_final_orientation_error_rad: 0.005558417503337856
+  setup_final_tangential_position_error_m: 0.007869579772205084
+  recenter_tail_mean_abs_force_error_N: 1.0513662147686107
+  settle_tail_mean_abs_force_error_N: 0.1393121211793803
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.02403096466832988
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp1_settle_w2
+  recenter_duration_s: 1.0
+  settle_duration_s: 2.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  setup_final_orientation_error_rad: 0.0025125657280091578
+  setup_final_tangential_position_error_m: 0.00828135120454356
+  recenter_tail_mean_abs_force_error_N: 1.0513662147686107
+  settle_tail_mean_abs_force_error_N: 0.003310079622609865
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.020860331353265302
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp2_settle_w1
+  recenter_duration_s: 2.0
+  settle_duration_s: 1.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  - tail_mean_abs_force_error_N
+  setup_final_orientation_error_rad: 0.008147569423222185
+  setup_final_tangential_position_error_m: 0.007543673110517419
+  recenter_tail_mean_abs_force_error_N: 0.41587533900905554
+  settle_tail_mean_abs_force_error_N: 0.4460386510159919
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.02659356165501424
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp2_settle_w2
+  recenter_duration_s: 2.0
+  settle_duration_s: 2.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  setup_final_orientation_error_rad: 0.002914947767721797
+  setup_final_tangential_position_error_m: 0.008224360494180138
+  recenter_tail_mean_abs_force_error_N: 0.41587533900905554
+  settle_tail_mean_abs_force_error_N: 0.010563335509174326
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.021294571846744433
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp4_settle_w1
+  recenter_duration_s: 4.0
+  settle_duration_s: 1.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  - tail_mean_abs_force_error_N
+  setup_final_orientation_error_rad: 0.010909888730768584
+  setup_final_tangential_position_error_m: 0.00721962222129202
+  recenter_tail_mean_abs_force_error_N: 0.07268453631886647
+  settle_tail_mean_abs_force_error_N: 0.9675117552611987
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.02918723865860162
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp4_settle_w2
+  recenter_duration_s: 4.0
+  settle_duration_s: 2.0
+  settle_mode: weighted
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_tangential_position_error_m
+  setup_final_orientation_error_rad: 0.0033403693502681454
+  setup_final_tangential_position_error_m: 0.008165765238665546
+  recenter_tail_mean_abs_force_error_N: 0.07268453631886647
+  settle_tail_mean_abs_force_error_N: 0.026269070988793494
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: []
+  trajectory_max_orientation_error_rad: 0.02174260279275125
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: true
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false
+- case: lp4_settle_lp4
+  recenter_duration_s: 4.0
+  settle_duration_s: 4.0
+  settle_mode: linear-primary
+  setup_terminal_state_pass: false
+  setup_terminal_state_failed_criteria:
+  - final_orientation_error_rad
+  setup_final_orientation_error_rad: 0.07228244179626259
+  setup_final_tangential_position_error_m: 0.00017396214319096055
+  recenter_tail_mean_abs_force_error_N: 0.07268453631886647
+  settle_tail_mean_abs_force_error_N: 0.0019523730245144177
+  settle_qdot_saturation_fraction: 1.0
+  trajectory_feasibility_pass: false
+  trajectory_failed_criteria:
+  - max_orientation_error_rad
+  trajectory_max_orientation_error_rad: 0.10197948276546515
+  trajectory_qdot_saturation_fraction: 0.0
+  legacy_trajectory_after_approach_pass: false
+  planned_setup_then_trajectory_pass: false
+  full_staged_feasibility_pass: false

@@ -737,3 +737,29 @@
   recenter formulation with phase-specific normal/force authority, or make an
   explicit relaxed setup-budget decision that remains separate from
   paper-equivalent full staged feasibility.
+
+## D041: Three-Phase Settle Still Does Not Produce An Accepted Setup
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not accept the tested align -> recenter -> settle path as the Stage A
+  solution. Keep the optional settle phase as diagnostic infrastructure only.
+- Reason:
+  The v36 matrix added a post-recenter settle phase that targets the original
+  x/y setup reference while restoring force-normal orientation before the
+  posture-regularized E2 trajectory. The matrix produced `0 / 10` setup
+  terminal-state passes, `8 / 10` trajectory feasibility passes, `8 / 10`
+  legacy trajectory-after-approach passes, and `0 / 10` planned
+  setup-then-trajectory passes. Weighted settling restored orientation and
+  force enough for Stage B, but final x/y error returned to about
+  `7.2-8.3 mm`. Linear-primary settling kept x/y error as low as
+  `0.00017396214319096055 m`, but terminal orientation rose to
+  `0.07228244179626259 rad` and the following E2 trajectory failed
+  orientation.
+- Consequence:
+  Stop scalar phase-duration bracketing for Stage A under the current
+  instantaneous velocity task formulation. The next decision should either
+  define a relaxed setup budget that explicitly accepts weighted-prealignment
+  drift, or move to a mathematically different Stage A formulation rather than
+  another align/recenter/settle schedule.
