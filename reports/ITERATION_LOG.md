@@ -3790,7 +3790,8 @@
   passed; focused matrix-candidate tests passed with `2 passed in 0.18s`; the
   v98 candidate matrix audit run was created; full tests passed with
   `134 passed in 5.59s`; `git diff --check` passed after full-test
-  validation. Branch push verification is pending.
+  validation. Branch push was verified at
+  `9d284be82583ba88cb76fbc3a21cfabf29c8ca50`.
 - Next step:
   Without live approval, continue only non-final offline work. The clearest
   target is to convert the four failed v98 matrix cells into executable

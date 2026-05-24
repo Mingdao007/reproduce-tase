@@ -77,7 +77,8 @@ hardware-readiness claim.
   created the v98 candidate matrix audit.
 - `scripts/run_tests.sh` passed with `134 passed in 5.59s`.
 - `git diff --check` passed after full-test validation.
-- Branch push verification is pending.
+- Branch push was verified at
+  `9d284be82583ba88cb76fbc3a21cfabf29c8ca50`.
 
 ## Next Step
 

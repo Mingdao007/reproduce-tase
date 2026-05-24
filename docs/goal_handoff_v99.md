@@ -76,6 +76,12 @@ Expected branch:
 exp/tase-ur10e-v98-diagnostic-robustness-matrix
 ```
 
+Verified implementation commit:
+
+```text
+9d284be82583ba88cb76fbc3a21cfabf29c8ca50
+```
+
 V98 diagnostic robustness matrix artifacts:
 
 ```text
