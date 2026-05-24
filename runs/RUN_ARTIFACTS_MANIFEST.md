@@ -2889,7 +2889,8 @@ Legacy source root:
 - Validation:
   Focused execution-audit tests passed with `6 passed in 0.96s`; YAML anchor
   check found no anchors in the generated metrics; full tests passed with
-  `144 passed in 6.60s`.
+  `144 passed in 6.60s`; `git diff --check` passed. Branch push was verified
+  at `ce266165b9ec3e47dbe6fdcce3cb0c717b8dda15`.
 - Limit:
   No live or physical measurement was collected. All four planned experiment
   commands have now been executed. This is not a calibrated contact model, not

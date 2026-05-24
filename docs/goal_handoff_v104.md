@@ -93,7 +93,7 @@ exp/tase-ur10e-v103-weighted-plus1mm-gate-execution
 Verified implementation commit:
 
 ```text
-PENDING_IMPLEMENTATION_COMMIT
+ce266165b9ec3e47dbe6fdcce3cb0c717b8dda15
 ```
 
 V103 weighted gate execution artifacts:
