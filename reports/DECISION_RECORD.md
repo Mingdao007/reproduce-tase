@@ -763,3 +763,26 @@
   define a relaxed setup budget that explicitly accepts weighted-prealignment
   drift, or move to a mathematically different Stage A formulation rather than
   another align/recenter/settle schedule.
+
+## D042: Terminal IK Audit Does Not Find An Accepted Setup State
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep the setup terminal IK probe as configuration-feasibility evidence, but
+  do not accept it as a Stage A solution and do not treat it as a global
+  infeasibility proof.
+- Reason:
+  The v37 probe removed path and instantaneous velocity-controller constraints
+  and directly optimized terminal joint states against the setup gate. Across
+  65 deterministic candidates, no candidate passed the terminal setup gate.
+  The best local candidate kept contact and force error small
+  (`0.004835673570861232 N`) but still failed x/y error
+  (`0.002178947478445584 m` against a `0.002 m` gate) and force-normal
+  orientation error (`0.05199834145021794 rad` against a `0.03 rad` gate).
+- Consequence:
+  More align/recenter/settle scheduling is not justified by the current
+  evidence. The next useful decision is to either define an explicit relaxed
+  setup budget for the UR10e adapted reproduction, or revisit model/TCP/contact
+  geometry and run a broader terminal feasibility audit before adding another
+  Stage A controller.

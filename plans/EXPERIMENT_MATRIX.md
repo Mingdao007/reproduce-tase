@@ -106,11 +106,16 @@ them rather than deleting them.
 - The three-phase settle probe also passes `0 / 10` setup terminal-state rows.
   Weighted settling improves the following E2 trajectory pass count to
   `8 / 10`, but only by allowing final x/y error around `7.2-8.3 mm`.
+- The setup terminal IK audit removes path feasibility and searches directly
+  for terminal setup configurations. It produces `0 / 65` terminal setup
+  passes; the best candidate is close on force but fails the x/y and
+  orientation gates.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_three_phase_settle/20260524T110039` as evidence
-that scalar planned-phase scheduling is not sufficient. The next executable
-step should either define an accepted relaxed setup budget and keep it
-separate from full staged paper-equivalent feasibility, or change the Stage A
-mathematical formulation rather than adding another duration bracket.
+Use `runs/setup_terminal_ik_audit/20260524T111150` together with the v35/v36
+phase probes as evidence that the current setup gate is not being met under
+the approximate tilted-plane model. The next executable step should define an
+accepted relaxed setup budget and keep it separate from full staged
+paper-equivalent feasibility, or revisit the model/TCP/contact geometry before
+adding another controller-duration bracket.

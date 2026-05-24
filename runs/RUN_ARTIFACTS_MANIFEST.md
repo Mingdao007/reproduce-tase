@@ -1033,6 +1033,28 @@ Legacy source root:
   This is E2-only tilted-plane simulation evidence. It does not establish a
   full E1-E4 planned setup solution or hardware readiness.
 
+## V37 Setup Terminal IK Audit
+
+### Terminal setup configuration diagnostic
+
+- Run root:
+  - `runs/setup_terminal_ik_audit/20260524T111150`
+- Scope:
+  Terminal nonlinear least-squares audit over the tilted-plane setup. The probe
+  searches joint configurations against the explicit x/y, force, contact, and
+  force-normal orientation setup gate without simulating a Stage A path.
+- Tracked lightweight artifacts:
+  root `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Ignored raw artifacts:
+  none.
+- Result:
+  Terminal setup pass count `0 / 65`. Best candidate has force error
+  `0.004835673570861232 N`, x/y error `0.002178947478445584 m`, and
+  orientation error `0.05199834145021794 rad`.
+- Limit:
+  This is a local terminal IK audit, not a global infeasibility proof, not a
+  path/controller solution, and not hardware readiness evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

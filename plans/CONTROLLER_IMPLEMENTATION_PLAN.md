@@ -130,13 +130,17 @@ smoke runs regress.
   rows. Weighted settling restores force/orientation and Stage B compatibility
   by drifting back toward `8 mm`; linear-primary settling preserves x/y but
   keeps terminal orientation too high.
+- The v37 terminal IK audit removes path and velocity-controller constraints
+  and still finds `0 / 65` accepted terminal setup states. The best candidate
+  keeps contact and force but fails both the `2 mm` x/y gate and `0.03 rad`
+  force-normal orientation gate.
 
 ## Next Executable Step
 
 Do not continue scalar phase-duration tuning under the current instantaneous
-velocity task formulation. Either define an accepted relaxed setup budget that
-keeps the weighted-prealignment drift separate from paper-equivalent full
-staged feasibility, or change the Stage A mathematical formulation. The next
-approach experiment must keep reporting contact, drift, terminal orientation,
-and qdot saturation together so posture shaping cannot hide a force or drift
-regression.
+velocity task formulation. After v37, the next executable step is to define and
+decision-record a relaxed UR10e adapted setup budget, or revisit the model,
+TCP, and contact geometry before implementing another Stage A controller. Any
+future approach experiment must keep reporting contact, drift, terminal
+orientation, and qdot saturation together so posture shaping cannot hide a
+force or drift regression.

@@ -1225,3 +1225,39 @@ tradeoff, but it does not produce a terminal setup satisfying x/y, force,
 contact, and orientation together. Further progress requires either a relaxed
 setup-budget decision or a genuinely different Stage A mathematical
 formulation.
+
+## V37 Terminal IK Implication
+
+The v37 audit changes the Stage A question from velocity-control scheduling to
+terminal nonlinear least-squares feasibility. The residual uses the same
+explicit setup gate:
+
+```text
+e_xy = p_xy(q) - p_setup,xy
+e_f = f_n(q) - 5 N
+e_R = log(R_des^T R(q))
+
+min_q ||e_xy / 0.002||^2 + ||e_f / 0.25||^2 + ||e_R / 0.03||^2
+subject to q_min <= q <= q_max
+```
+
+where `R_des` aligns the TCP local z axis to the tilted-plane normal
+`[0.1736481777, 0, 0.9848077530]`. This removes path timing and instantaneous
+velocity allocation from the audit.
+
+The best local terminal candidate still misses the gate:
+
+```text
+candidate count = 65
+terminal setup pass count = 0 / 65
+best force error = 0.004835673570861232 N
+best x/y error = 0.002178947478445584 m
+best orientation error = 0.05199834145021794 rad
+```
+
+This does not prove global infeasibility, but it weakens the hypothesis that a
+different ordering of the same Stage A velocity tasks will find an accepted
+terminal setup. Under the current approximate tilted-plane model and 85 mm TCP
+guess, the remaining project decision is now mostly about acceptance criteria
+or model validity: either relax the UR10e adapted setup budget explicitly, or
+revisit the contact/TCP model before another Stage A controller iteration.

@@ -1343,3 +1343,44 @@
   velocity formulation. Either decision-record a relaxed setup budget that
   explicitly accepts weighted-prealignment drift, or change the Stage A
   mathematical formulation.
+
+## 2026-05-24 v37 Setup Terminal IK Audit
+
+- Branch: `exp/tase-ur10e-v37-terminal-ik-audit`
+- Starting commit: `8d83f0117875c757051f1b7806a018caa4d70702`
+- Files added:
+  - `src/tase_repro/setup_terminal_ik.py`
+  - `scripts/run_setup_terminal_ik_probe.py`
+  - `tests/test_setup_terminal_ik.py`
+  - `reports/setup_terminal_ik_audit_report.md`
+  - `runs/setup_terminal_ik_audit/20260524T111150`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/setup_terminal_ik.py scripts/run_setup_terminal_ik_probe.py`
+  - `scripts/run_tests.sh`
+  - `scripts/run_setup_terminal_ik_probe.py --config configs/mujoco_ur10e_tilted_plane.yaml --random-seed-count 64 --random-seed-std-rad 0.15 --random-seed 37 --max-nfev 300 --posture-weight 0.0001`
+- Result:
+  Added a terminal nonlinear least-squares setup audit that removes Stage A
+  path/controller constraints and directly searches for terminal joint states
+  satisfying the setup x/y, force, contact, and force-normal orientation gate.
+  The run produced `65` candidates and `0 / 65` terminal setup passes. The
+  best candidate kept contact and force error small
+  (`0.004835673570861232 N`) but still failed x/y
+  (`0.002178947478445584 m`) and orientation
+  (`0.05199834145021794 rad`) gates.
+- Validation:
+  `scripts/run_tests.sh` passed with `66 passed in 1.38s`.
+- Limit:
+  This is a terminal local IK audit, not a path/controller solution and not a
+  global infeasibility proof. It uses the approximate tilted-plane MJCF and
+  unverified 85 mm TCP.
+- Next step:
+  Define a relaxed setup-budget decision for the current UR10e adapted
+  reproduction, or revisit model/TCP/contact geometry before designing another
+  Stage A controller.
