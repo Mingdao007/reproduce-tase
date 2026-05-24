@@ -3410,7 +3410,8 @@
   passed; focused scaffold/audit tests passed with `3 passed in 0.63s`; full
   tests passed with `118 passed in 3.22s`; `git diff --check` passed before
   full-test validation. The generated audit artifact has `4` files, `20K`, and
-  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+  no `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `ec3490654c6555f3d9713392edc0f7ebe76cdc36`.
 - Next step:
   Use the verifier before any future worksheet-filled run is cited as evidence.
   Live bench evidence still requires explicit approval for the exact read-only

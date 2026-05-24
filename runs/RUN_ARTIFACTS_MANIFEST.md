@@ -2411,7 +2411,8 @@ Legacy source root:
   The v88 scaffold run passed the offline audit with `audit_passed = true` and
   `violations = []`. The audit confirms no live hardware access, robot motion,
   configuration writes, zeroing/biasing, force control, gate relaxation, or
-  hardware-readiness claim is present in the audited run.
+  hardware-readiness claim is present in the audited run. Branch push was
+  verified at `ec3490654c6555f3d9713392edc0f7ebe76cdc36`.
 - Limit:
   This is not collected measurement evidence, not a calibrated contact model,
   not an accepted replacement orientation gate, not a strict paper-equivalent
