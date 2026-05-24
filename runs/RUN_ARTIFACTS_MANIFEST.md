@@ -2732,8 +2732,8 @@ Legacy source root:
   focused offline commands and preserves `do_not_mark_goal_complete = true`.
 - Validation:
   Full tests passed with `136 passed in 5.75s`; YAML anchor check found no
-  anchors in the generated metrics. Branch push verification is pending final
-  marker.
+  anchors in the generated metrics; `git diff --check` passed. Branch push
+  was verified at `f81df802cede561528849dc886b303ad3d5e63dc`.
 - Limit:
   No live or physical measurement was collected. No planned experiment command
   was executed. This is not a calibrated contact model, not an accepted

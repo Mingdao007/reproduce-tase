@@ -83,7 +83,7 @@ exp/tase-ur10e-v99-failed-robustness-experiment-matrix
 Verified implementation commit:
 
 ```text
-PENDING_IMPLEMENTATION_COMMIT
+f81df802cede561528849dc886b303ad3d5e63dc
 ```
 
 V99 failed-cell experiment-matrix artifacts:

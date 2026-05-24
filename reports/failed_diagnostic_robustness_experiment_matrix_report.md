@@ -80,6 +80,9 @@ make a hardware-readiness claim.
 - `rg -n "&id|\*id" runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/metrics.yaml`
   found no YAML anchors.
 - `scripts/run_tests.sh` passed with `136 passed in 5.75s`.
+- `git diff --check` passed after validation.
+- Branch push was verified at
+  `f81df802cede561528849dc886b303ad3d5e63dc`.
 
 ## Next Step
 
