@@ -2283,3 +2283,27 @@
   V103 does not prove robustness, strict paper-equivalent feasibility, contact
   calibration, gate acceptance, hardware readiness, or any hardware
   authorization.
+
+## D109: Use V104 To Classify Remaining Plus1mm Signatures Without Upgrading Cells
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v104 as a post-hoc offline diagnostic probe over the existing
+  v100-v103 failed-cell execution metrics.
+- Reason:
+  All four v99 planned commands have now been executed and audited, but all
+  four cells remain unresolved. V104 avoids repeating those heavier commands
+  and instead classifies the remaining `+1.0 mm` blocker signatures from the
+  actual generated metrics. The probe confirms that
+  `positive_fast_timing_0p0075` is the only remaining `+1.0 mm` row with a
+  qdot-saturation blocker, while the weighted current-gate rows have max qdot
+  saturation `0.0` and remain orientation-margin/gate-acceptance blocked.
+- Consequence:
+  Do not upgrade any v99 failed cell from v104. Future offline work should
+  target either a `base_z_plus1mm` start-contact versus terminal-orientation
+  split probe or a focused `positive_fast_timing_0p0075` E2 qdot/usage
+  isolation probe. Contact-model and orientation-gate interpretation still
+  require approved read-only evidence or an accepted gate review. V104 does not
+  prove robustness, strict paper-equivalent feasibility, contact calibration,
+  gate acceptance, hardware readiness, or any hardware authorization.

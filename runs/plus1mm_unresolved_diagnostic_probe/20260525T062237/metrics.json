@@ -1,0 +1,427 @@
+{
+  "run_source": "v104 plus1mm unresolved diagnostic probe",
+  "source_files": {
+    "execution_audit": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_audit/20260525T061328/metrics.yaml",
+    "experiment_root": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments",
+    "base_z_plus1mm": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/base_z_plus1mm/metrics.yaml",
+    "positive_fast_timing_0p0075": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_fast_timing_0p0075/metrics.yaml",
+    "positive_orientation_gate_0p119": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/positive_orientation_gate_0p119/metrics.yaml",
+    "weighted_plus1mm_0p119_gate": "/home/andy/reproduce-tase/runs/failed_diagnostic_robustness_experiment_matrix/20260525T053909/experiments/weighted_plus1mm_0p119_gate/metrics.yaml"
+  },
+  "current_gate_rad": 0.119,
+  "execution_audit_summary": {
+    "cell_count": 4,
+    "status_counts": {
+      "executed_unresolved": 4
+    },
+    "closed_cell_ids": [],
+    "unresolved_executed_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075",
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "not_executed_cell_ids": [],
+    "executed_cell_count": 4,
+    "closed_cell_count": 0,
+    "not_executed_cell_count": 0,
+    "all_failed_cells_closed": false
+  },
+  "summary": {
+    "planned_failed_cell_count": 4,
+    "executed_cell_count": 4,
+    "closed_cell_count": 0,
+    "not_executed_cell_count": 0,
+    "unresolved_cell_count": 4,
+    "unresolved_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075",
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "qdot_limited_cell_ids": [
+      "positive_fast_timing_0p0075"
+    ],
+    "orientation_limited_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075",
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "current_gate_still_blocks": true,
+    "replacement_gate_accepted": false,
+    "probe_closes_failed_cells": false
+  },
+  "cell_rows": [
+    {
+      "cell_id": "base_z_plus1mm",
+      "status": "executed_unresolved",
+      "closure_passed": false,
+      "diagnostic_class": "start_terminal_path_unrecovered",
+      "base_z_offset_delta_mm": 1.0,
+      "start_passed": false,
+      "start_failed_criteria": [
+        "force_error_N",
+        "target_contact_count"
+      ],
+      "terminal_passed": false,
+      "terminal_failed_criteria": [
+        "orientation_error_rad"
+      ],
+      "terminal_orientation_error_rad": 0.11948560786548146,
+      "terminal_orientation_excess_over_current_gate_rad": 0.0004856078654814633,
+      "terminal_orientation_excess_over_current_gate_deg": 0.02782328119044446,
+      "path_geometry_recovered": false,
+      "duration_recovered_count": 0,
+      "primary_blockers": [
+        "start_contact_not_recovered",
+        "terminal_orientation_over_gate",
+        "path_geometry_not_recovered",
+        "duration_not_recovered"
+      ]
+    },
+    {
+      "cell_id": "positive_fast_timing_0p0075",
+      "status": "executed_unresolved",
+      "closure_passed": false,
+      "diagnostic_class": "fast_timing_e2_qdot_and_orientation",
+      "base_z_offset_delta_mm": 1.0,
+      "paper_time_scale": 0.0075,
+      "stage_a_passed": true,
+      "stitched_passed": false,
+      "handoff_pass_count": 3,
+      "handoff_trajectory_count": 4,
+      "stage_b_failed_rows": [
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "qdot_saturation_fraction",
+            "tail_max_qdot_utilization",
+            "max_orientation_error_rad"
+          ]
+        }
+      ],
+      "stage_b_max_qdot_saturation_fraction": 0.999,
+      "stage_b_max_tail_qdot_utilization": 1.0,
+      "stage_b_max_orientation_error_rad": 0.12020305872871904,
+      "orientation_gate_rad": 0.12,
+      "stage_b_orientation_excess_over_gate_rad": 0.0002030587287190494,
+      "stage_b_orientation_excess_over_current_gate_rad": 0.0012030587287190503,
+      "primary_blockers": [
+        "e2_qdot_saturation",
+        "e2_tail_qdot_utilization",
+        "e2_orientation_over_gate"
+      ]
+    },
+    {
+      "cell_id": "positive_orientation_gate_0p119",
+      "status": "executed_unresolved",
+      "closure_passed": false,
+      "diagnostic_class": "unweighted_orientation_margin",
+      "base_z_offset_delta_mm": 1.0,
+      "current_gate_rad": 0.119,
+      "current_gate_stage_a_passed": false,
+      "current_gate_stitched_passed": false,
+      "current_gate_handoff_pass_count": 0,
+      "current_gate_handoff_trajectory_count": 4,
+      "current_gate_failed_rows": [
+        {
+          "trajectory": "e1-cycloid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948787562097642
+        },
+        {
+          "trajectory": "e2-figure-eight",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.1199788204275829
+        },
+        {
+          "trajectory": "e3-circle",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948785215835259
+        },
+        {
+          "trajectory": "e4-cardioid",
+          "failed_criteria": [
+            "max_orientation_error_rad"
+          ],
+          "orientation_error_rad": 0.11948805833755421
+        }
+      ],
+      "min_passing_orientation_gate_rad": 0.11998,
+      "max_failing_orientation_gate_rad": 0.11997,
+      "min_passing_minus_current_gate_rad": 0.0009800000000000086,
+      "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+      "stage_b_max_orientation_error_rad": 0.1199788204275829,
+      "stage_b_orientation_excess_over_current_gate_rad": 0.0009788204275829049,
+      "stage_b_max_qdot_saturation_fraction": 0.006,
+      "primary_blockers": [
+        "current_gate_stage_a_terminal_orientation",
+        "current_gate_stage_b_orientation",
+        "replacement_gate_not_accepted"
+      ]
+    },
+    {
+      "cell_id": "weighted_plus1mm_0p119_gate",
+      "status": "executed_unresolved",
+      "closure_passed": false,
+      "diagnostic_class": "weighted_orientation_margin_without_qdot_saturation",
+      "current_gate_rad": 0.119,
+      "current_gate_case_count": 4,
+      "current_gate_failed_count": 4,
+      "current_gate_cases": [
+        {
+          "group": "time0p0075_gate0p119:weighted_kp0_normal1",
+          "scenario": "weighted_kp0_normal1",
+          "paper_time_scale": 0.0075,
+          "orientation_gate_rad": 0.119,
+          "stage_a_passed": false,
+          "stitched_passed": false,
+          "handoff_pass_count": 0,
+          "handoff_trajectory_count": 4,
+          "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+          "stage_b_max_orientation_error_rad": 0.11954627160547111,
+          "stage_b_max_qdot_saturation_fraction": 0.0,
+          "stage_b_failed_rows": [
+            {
+              "trajectory": "e1-cycloid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e2-figure-eight",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e3-circle",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e4-cardioid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "time0p0075_gate0p119:weighted_kp0_normal30",
+          "scenario": "weighted_kp0_normal30",
+          "paper_time_scale": 0.0075,
+          "orientation_gate_rad": 0.119,
+          "stage_a_passed": false,
+          "stitched_passed": false,
+          "handoff_pass_count": 0,
+          "handoff_trajectory_count": 4,
+          "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+          "stage_b_max_orientation_error_rad": 0.11954627160547111,
+          "stage_b_max_qdot_saturation_fraction": 0.0,
+          "stage_b_failed_rows": [
+            {
+              "trajectory": "e1-cycloid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e2-figure-eight",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e3-circle",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e4-cardioid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "time0p01_gate0p119:weighted_kp0_normal1",
+          "scenario": "weighted_kp0_normal1",
+          "paper_time_scale": 0.01,
+          "orientation_gate_rad": 0.119,
+          "stage_a_passed": false,
+          "stitched_passed": false,
+          "handoff_pass_count": 0,
+          "handoff_trajectory_count": 4,
+          "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+          "stage_b_max_orientation_error_rad": 0.11956645203696047,
+          "stage_b_max_qdot_saturation_fraction": 0.0,
+          "stage_b_failed_rows": [
+            {
+              "trajectory": "e1-cycloid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e2-figure-eight",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e3-circle",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e4-cardioid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "time0p01_gate0p119:weighted_kp0_normal30",
+          "scenario": "weighted_kp0_normal30",
+          "paper_time_scale": 0.01,
+          "orientation_gate_rad": 0.119,
+          "stage_a_passed": false,
+          "stitched_passed": false,
+          "handoff_pass_count": 0,
+          "handoff_trajectory_count": 4,
+          "stage_a_terminal_orientation_error_rad": 0.11948560786547915,
+          "stage_b_max_orientation_error_rad": 0.11956645203696047,
+          "stage_b_max_qdot_saturation_fraction": 0.0,
+          "stage_b_failed_rows": [
+            {
+              "trajectory": "e1-cycloid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e2-figure-eight",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e3-circle",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            },
+            {
+              "trajectory": "e4-cardioid",
+              "failed_criteria": [
+                "max_orientation_error_rad"
+              ]
+            }
+          ]
+        }
+      ],
+      "current_gate_max_stage_b_orientation_error_rad": 0.11956645203696047,
+      "current_gate_stage_b_orientation_excess_over_current_gate_rad": 0.0005664520369604714,
+      "current_gate_max_qdot_saturation_fraction": 0.0,
+      "diagnostic_boundaries": [
+        {
+          "group": "gate_boundary_plus1mm_time_0p0075",
+          "paper_time_scale": 0.0075,
+          "min_passing_orientation_gate_rad": 0.11955,
+          "max_failing_orientation_gate_rad": 0.1195,
+          "min_passing_minus_current_gate_rad": 0.0005500000000000088,
+          "max_stage_b_orientation_error_rad": 0.11954627160547111,
+          "max_stage_b_qdot_saturation_fraction": 0.0
+        },
+        {
+          "group": "gate_boundary_plus1mm_time_0p01",
+          "paper_time_scale": 0.01,
+          "min_passing_orientation_gate_rad": 0.1196,
+          "max_failing_orientation_gate_rad": 0.11955,
+          "min_passing_minus_current_gate_rad": 0.0006000000000000033,
+          "max_stage_b_orientation_error_rad": 0.11956645203696047,
+          "max_stage_b_qdot_saturation_fraction": 0.0
+        }
+      ],
+      "diagnostic_min_passing_gates_rad": [
+        0.11955,
+        0.1196
+      ],
+      "max_min_passing_minus_current_gate_rad": 0.0006000000000000033,
+      "primary_blockers": [
+        "current_gate_stage_a_terminal_orientation",
+        "current_gate_stage_b_orientation",
+        "replacement_gate_not_accepted"
+      ]
+    }
+  ],
+  "ranked_orientation_excess_over_current_gate": [
+    {
+      "cell_id": "positive_fast_timing_0p0075",
+      "quantity": "stage_b_max_orientation",
+      "excess_rad": 0.0012030587287190503,
+      "excess_deg": 0.06893018766197583
+    },
+    {
+      "cell_id": "positive_orientation_gate_0p119",
+      "quantity": "stage_b_max_orientation",
+      "excess_rad": 0.0009788204275829049,
+      "excess_deg": 0.05608227940169108
+    },
+    {
+      "cell_id": "weighted_plus1mm_0p119_gate",
+      "quantity": "stage_b_max_orientation",
+      "excess_rad": 0.0005664520369604714,
+      "excess_deg": 0.03245531101442353
+    },
+    {
+      "cell_id": "base_z_plus1mm",
+      "quantity": "terminal_orientation",
+      "excess_rad": 0.0004856078654814633,
+      "excess_deg": 0.02782328119044446
+    }
+  ],
+  "claim_boundary": {
+    "offline_diagnostic_probe_only": true,
+    "probe_closes_failed_cells": false,
+    "do_not_mark_goal_complete": true,
+    "robustness_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "contact_calibration_claim": false,
+    "orientation_gate_acceptance": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false
+  },
+  "next_offline_actions": [
+    "Do not upgrade any v99 failed cell from this post-hoc probe.",
+    "Separate the base_z_plus1mm start-contact miss from terminal orientation before another recovery claim.",
+    "Treat positive_fast_timing_0p0075 as the only remaining +1.0 mm row with a qdot-saturation blocker.",
+    "Treat positive_orientation_gate_0p119 and weighted_plus1mm_0p119_gate as gate-margin rows until measured geometry or an accepted diagnostic gate exists.",
+    "Keep live read-only SOP work blocked until explicit user approval exists for the exact step."
+  ],
+  "warnings": [
+    "post-hoc offline audit of existing v100-v103 metrics only",
+    "does not rerun MuJoCo or change controller defaults",
+    "does not accept a replacement orientation gate",
+    "does not calibrate contact geometry or force frames",
+    "not strict paper-equivalent feasibility",
+    "not a robustness proof",
+    "not hardware-ready"
+  ],
+  "run_id": "20260525T062237"
+}

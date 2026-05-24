@@ -2897,6 +2897,41 @@ Legacy source root:
   an accepted replacement orientation gate, not a strict paper-equivalent
   claim, not a robustness proof, and not hardware authorization.
 
+## V104 Plus1mm Unresolved Diagnostic Probe
+
+### Classified remaining `+1.0 mm` blocker signatures
+
+- Scripts:
+  - `scripts/audit_plus1mm_unresolved_diagnostic_probe.py`
+- Runs:
+  - `runs/plus1mm_unresolved_diagnostic_probe/20260525T062237`
+- Report:
+  - `reports/plus1mm_unresolved_diagnostic_probe_report.md`
+- Tests:
+  - `tests/test_plus1mm_unresolved_diagnostic_probe.py`
+- Command:
+  `python3 scripts/audit_plus1mm_unresolved_diagnostic_probe.py`
+- Tracked lightweight artifacts:
+  probe metrics/summary/git state, report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The probe reads the v103 execution audit and all four executed failed-cell
+  experiment metrics. It reports planned failed cells `4`, executed cells `4`,
+  closed cells `0`, not-executed cells `0`, unresolved cells `4`, and
+  `probe_closes_failed_cells = false`. The only qdot-limited cell is
+  `positive_fast_timing_0p0075`; weighted current-gate rows have max qdot
+  saturation `0.0` and remain orientation-margin/gate-acceptance blocked.
+- Validation:
+  Focused tests passed with `2 passed in 0.22s`; YAML anchor check found no
+  anchors in the generated metrics; full tests passed with
+  `146 passed in 6.74s`; `git diff --check` passed. Final push verification
+  is pending.
+- Limit:
+  No live or physical measurement was collected. This is a post-hoc offline
+  audit over existing metrics only. It is not a calibrated contact model, not
+  an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, not a robustness proof, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

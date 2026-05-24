@@ -4008,3 +4008,39 @@
   commands have now been executed; candidate paths are narrower diagnostic
   probes for the unresolved `+1.0 mm` rows or explicitly approved read-only
   evidence before changing contact/gate interpretation.
+
+## 2026-05-25 v104 Plus1mm Unresolved Diagnostic Probe
+
+### Classify remaining `+1.0 mm` blocker signatures
+
+- Branch:
+  `exp/tase-ur10e-v104-plus1mm-unresolved-probe`
+- Runs:
+  - `runs/plus1mm_unresolved_diagnostic_probe/20260525T062237`
+- Report:
+  `reports/plus1mm_unresolved_diagnostic_probe_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_plus1mm_unresolved_diagnostic_probe.py`
+  - `scripts/run_tests.sh tests/test_plus1mm_unresolved_diagnostic_probe.py`
+  - `python3 scripts/audit_plus1mm_unresolved_diagnostic_probe.py`
+  - `rg -n "&id|\*id" runs/plus1mm_unresolved_diagnostic_probe/20260525T062237/metrics.yaml`
+- Result:
+  Classified the four executed unresolved `+1.0 mm` failed cells from actual
+  v100-v103 metrics. All four remain unresolved. The only qdot-limited cell is
+  `positive_fast_timing_0p0075`; the weighted current-gate rows have max qdot
+  saturation `0.0` and remain orientation-margin/gate-acceptance blocked.
+- Limit:
+  This is post-hoc offline bookkeeping over existing metrics. It does not rerun
+  MuJoCo, collect measurements, execute the read-only SOP, calibrate the
+  contact model, accept any replacement gate, prove robustness, prove strict
+  paper-equivalent feasibility, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `2 passed in 0.22s`; YAML anchor check found no
+  anchors in the generated metrics; full tests passed with
+  `146 passed in 6.74s`; `git diff --check` passed. Final push verification
+  is pending.
+- Next step:
+  Without live approval, continue only non-final offline work. The most focused
+  offline candidates are a `base_z_plus1mm` start-contact versus
+  terminal-orientation split probe or a `positive_fast_timing_0p0075` E2
+  qdot/usage isolation probe.
