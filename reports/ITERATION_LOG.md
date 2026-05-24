@@ -3224,6 +3224,8 @@
     and `metrics.json`; `summary.md` differed only by the run-root path.
   - Artifact audit: `4` files, `28K`, no `.npz/.npy/.mat/.tar/.gz/.zip`
     payloads under `runs/weighted_orientation_model_sensitivity/20260524T233945`.
+  - Branch push was verified at
+    `8289d252dbb8a3ea9d3c9744ff08eaeba5fe0ed1`.
 - Next step:
   Tighten terminal/contact orientation definition, measured mounted-stack
   geometry, contact point convention, and plane/contact normal calibration
