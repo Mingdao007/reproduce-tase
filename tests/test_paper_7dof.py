@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import subprocess
+from pathlib import Path
+
 import numpy as np
+import yaml
 
 from tase_repro.paper_7dof import (
     PaperSectionV7DofResult,
@@ -11,6 +15,9 @@ from tase_repro.paper_7dof import (
     simulate_paper_section_v_7dof,
     summarize_paper_section_v_7dof,
 )
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_paper_section_v_trajectory_uses_explicit_z0() -> None:
@@ -125,3 +132,33 @@ def test_summary_records_fig6_q7_landmark_when_duration_covers_22s() -> None:
     assert metrics["fig6_q7_sample_time_s"] == 22.0
     assert metrics["fig6_q7_at_22s_rad"] == 1.675
     np.testing.assert_allclose(metrics["fig6_q7_abs_error_to_2p5_rad"], 0.825)
+
+
+def test_q7_variant_probe_script_writes_single_short_variant(tmp_path: Path) -> None:
+    completed = subprocess.run(
+        [
+            str(ROOT / "scripts/run_paper_7dof_q7_variant_probe.py"),
+            "--duration-s",
+            "0.02",
+            "--dt-s",
+            "0.01",
+            "--solver-modes",
+            "kkt_projection",
+            "--orientation-modes",
+            "normal_only",
+            "--force-integral-limits",
+            "0.1",
+            "--output-dir",
+            str(tmp_path / "q7_probe"),
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert "wrote" in completed.stdout
+    payload = yaml.safe_load((tmp_path / "q7_probe" / "summary.yaml").read_text(encoding="utf-8"))
+    assert payload["summary"]["variant_count"] == 1
+    assert not payload["summary"]["all_q7_available"]
+    assert payload["variants"][0]["variant_label"] == "kkt_normal_cap0p1"
+    assert payload["variants"][0]["metrics"]["execution_success"]
