@@ -106,13 +106,17 @@ contact behavior regresses.
   stress-tests the formulation and shows the focused `+1.0 mm` timing boundary
   now passes through `paper_time_scale = 0.0065`, but the full
   `paper_time_scale = 0.0075` stress still fails `0 / 16` and the
-  `0.119 rad` gate still fails at `+1.0 mm`.
+  `0.119 rad` gate still fails at `+1.0 mm`. v82 shows weighted
+  zero-angular-command priority recovers that faster-timing stress under the
+  `0.11995 rad` gate, with both tested weighted scenarios passing `8 / 8`
+  through `+1.0 mm` and a focused timing sweep passing through
+  `paper_time_scale = 0.01`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should choose between redesigning faster-timing
-E2 qdot/tail-utilization at `paper_time_scale = 0.0075` and revisiting the
-terminal/contact model plus orientation gate before trying to force the
-`+1.0 mm`, `0.119 rad` case through Stage B tuning.
+simulation controller prototype should stress the weighted zero-angular-command
+candidate against the `0.119 rad` orientation gate and decide whether a full
+positive-delta matrix at `paper_time_scale = 0.01` is a meaningful diagnostic
+target before treating the faster-timing face as closed.

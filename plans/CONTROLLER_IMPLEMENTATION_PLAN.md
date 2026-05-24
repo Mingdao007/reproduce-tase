@@ -298,14 +298,19 @@ smoke runs regress.
   `0.007` first fail, but neither recovers the full positive-delta
   `paper_time_scale = 0.0075` stress. Both candidates also pass the
   `0.119 rad` gate through `+0.75 mm` but still fail at `+1.0 mm`.
+- The v82 weighted timing recovery audit shows the faster-timing failure is
+  priority-formulation dependent. Weighted zero-angular-command priority passes
+  the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix
+  `8 / 8` for both tested normal weights, while the focused `+1.0 mm` timing
+  sweep for `weighted_kp0_normal1` passes through `paper_time_scale = 0.01`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should choose
-between redesigning faster-timing E2 qdot/tail-utilization at
-`paper_time_scale = 0.0075` and revisiting the terminal/contact model plus
-orientation gate before trying to force the `+1.0 mm`, `0.119 rad` case
-through Stage B tuning. Keep contact, drift, terminal orientation, force error,
-and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should stress
+the weighted zero-angular-command candidate against the `0.119 rad` orientation
+gate and decide whether a full positive-delta matrix at `paper_time_scale =
+0.01` is a meaningful diagnostic target before treating the faster-timing face
+as closed. Keep contact, drift, terminal orientation, force error, and qdot
+saturation visible together.

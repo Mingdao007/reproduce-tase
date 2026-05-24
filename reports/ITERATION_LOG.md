@@ -3106,3 +3106,44 @@
   faster-timing E2 qdot/tail-utilization behavior at `paper_time_scale =
   0.0075`, or revisit the terminal/contact model and orientation gate before
   trying to force the `+1.0 mm`, `0.119 rad` case through Stage B tuning.
+
+## 2026-05-24 v82 Weighted Timing Recovery
+
+### Recover the faster-timing face with weighted zero-angular priority
+
+- Branch:
+  `exp/tase-ur10e-v82-weighted-timing-recovery`
+- Run:
+  `runs/weighted_timing_recovery/20260524T231454`
+- Report:
+  `reports/weighted_timing_recovery_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_weighted_timing_recovery.py`
+  - `scripts/audit_weighted_timing_recovery.py`
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `qdot_limit_rad_s = 0.15`, and `orientation_gate = 0.11995 rad`
+  fixed while comparing linear-primary, the two v80 planar-primary candidates,
+  and weighted zero-angular-command priority on the full positive-delta
+  `paper_time_scale = 0.0075` stress face. Linear-primary passes `7 / 8` and
+  still fails `+1.0 mm`; both planar-primary candidates pass `0 / 8`; both
+  weighted candidates pass `8 / 8` through `+1.0 mm`. The
+  `weighted_kp0_normal1` focused `+1.0 mm` timing sweep passes all tested
+  values from `paper_time_scale = 0.005` through `0.01`.
+- Limit:
+  This is diagnostic-label faster-timing recovery evidence under the
+  `0.11995 rad` gate. It is not a canonical controller default, does not
+  recover the `0.119 rad` gate, does not prove a full positive-delta
+  `paper_time_scale = 0.01` matrix, and is not strict paper-equivalent,
+  robust, contact-calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_weighted_timing_recovery.py` passed.
+  Full tests passed with `115 passed in 2.66s`; `git diff --check` passed. The
+  run artifact is lightweight: `355` files, `5.4M`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
+  pending.
+- Next step:
+  Stress the weighted zero-angular-command candidate against the `0.119 rad`
+  orientation gate and decide whether a full positive-delta
+  `paper_time_scale = 0.01` matrix is a meaningful diagnostic target before
+  treating the faster-timing face as closed.

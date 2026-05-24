@@ -1771,3 +1771,32 @@
   faster-timing qdot/tail-utilization behavior at `paper_time_scale = 0.0075`,
   or revisit the terminal/contact model and orientation gate before further
   Stage B tuning of the `+1.0 mm`, `0.119 rad` case.
+
+## D087: Treat Weighted Zero-Angular Priority As The Faster-Timing Recovery Candidate
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v82 as evidence that the v81 faster-timing failure is
+  priority-formulation dependent and is recovered by weighted
+  zero-angular-command Stage B priority under the tested `0.11995 rad` gate.
+- Reason:
+  The v82 run at `runs/weighted_timing_recovery/20260524T231454` compares
+  linear-primary, the two v80 planar-primary candidates, and two weighted
+  zero-angular-command candidates on the full positive-delta
+  `paper_time_scale = 0.0075`, `orientation_gate = 0.11995 rad` stress face.
+  Linear-primary passes `7 / 8` and still fails `+1.0 mm`; the two
+  planar-primary candidates each pass `0 / 8`; both weighted candidates pass
+  `8 / 8` through `+1.0 mm` with max Stage B orientation
+  `0.11954627160547111 rad`, max qdot saturation `0.0`, max tail qdot
+  utilization `0.5177926211135458`, and max tail force error
+  `0.0009911909058976187 N`. The focused `+1.0 mm`
+  `weighted_kp0_normal1` timing sweep passes every tested value from
+  `paper_time_scale = 0.005` through `0.01`.
+- Consequence:
+  The faster-timing face is diagnostically recovered under the `0.11995 rad`
+  gate, but weighted zero-angular priority is not yet a canonical controller
+  default and does not recover the tighter `0.119 rad` gate. The next branch
+  should stress this candidate against the tightened gate and decide whether a
+  full positive-delta `paper_time_scale = 0.01` matrix is a meaningful
+  diagnostic target.

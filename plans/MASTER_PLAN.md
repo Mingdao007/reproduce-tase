@@ -133,15 +133,19 @@ work exists only on that branch.
   candidates: both pass the focused `+1.0 mm` timing sweep through
   `paper_time_scale = 0.0065` and first fail at `0.007`, both fail the full
   positive-delta `paper_time_scale = 0.0075` stress, and both still fail the
-  `+1.0 mm`, `0.119 rad` gate row.
+  `+1.0 mm`, `0.119 rad` gate row. v82 shows weighted zero-angular-command
+  priority recovers the faster-timing face under the `0.11995 rad` gate: both
+  tested weighted scenarios pass `8 / 8` at `paper_time_scale = 0.0075`, and
+  `weighted_kp0_normal1` passes the focused `+1.0 mm` timing sweep through
+  `paper_time_scale = 0.01`.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Choose the next diagnostic branch from the v81 failure modes: either redesign
-faster-timing E2 qdot/tail-utilization at `paper_time_scale = 0.0075`, or
-revisit the terminal/contact model and orientation gate before trying to force
-the `+1.0 mm`, `0.119 rad` case through Stage B tuning. Keep strict
-paper-equivalent setup, v38 relaxed trajectory-after-relaxed-setup, and
-v63-v81 diagnostic staged labels separate.
+Stress the weighted zero-angular-command candidate against the `0.119 rad`
+orientation gate and decide whether a full positive-delta matrix at
+`paper_time_scale = 0.01` is a meaningful diagnostic target before treating
+the faster-timing face as closed. Keep strict paper-equivalent setup, v38
+relaxed trajectory-after-relaxed-setup, and v63-v82 diagnostic staged labels
+separate.

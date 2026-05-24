@@ -1,0 +1,985 @@
+{
+  "run_id": "20260524T231616",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+  "stage_a_target_config": "/home/andy/reproduce-tase/runs/weighted_timing_recovery/20260524T231454/configs/orientation_gate_0p11995_stage_a_target_config.yaml",
+  "source_path_csv": "/home/andy/reproduce-tase/runs/positive_relaxed_orientation_recovery/20260524T172909/cases/delta_p0p100mm/path/path.csv",
+  "selected_target_label": "ur10e_adapted_terminal_setup_diagnostic",
+  "claim_scope": "stitched_diagnostic_stage_a_tracking_and_stage_b_handoff_not_paper_or_hardware",
+  "target_force_N": 5.0,
+  "base_z_offset_m": -0.04602594095298278,
+  "base_z_offset_delta_m": 0.0001,
+  "qdot_limit_rad_s": 0.15,
+  "stage_a_duration_s": 15.0,
+  "stage_b_duration_s": 2.0,
+  "force_gain": 0.0001,
+  "r": 0.5,
+  "planar_kp": 0.5,
+  "orientation_priority_mode": "weighted",
+  "orientation_kp": 0.0,
+  "normal_axis_weight": 1.0,
+  "angular_axis_weight": 1.0,
+  "joint_posture_target_q": null,
+  "joint_posture_kp": 0.0,
+  "joint_posture_weight": 0.0,
+  "max_joint_posture_velocity_rad_s": null,
+  "paper_time_scale": 0.0075,
+  "stage_a": {
+    "tracking": {
+      "duration_s": 15.0,
+      "sample_count": 7501,
+      "dt_min_s": 0.0019999999999988916,
+      "dt_max_s": 0.002000000000000668,
+      "qdot_limit_rad_s": 0.15,
+      "max_abs_qdot_rad_s": 0.14206784149212412,
+      "max_qdot_utilization": 0.9471189432808275,
+      "qdot_saturation_fraction": 0.0,
+      "tail_max_qdot_utilization": 0.9471189432808275,
+      "max_abs_tracking_error_rad": 0.0,
+      "max_tracking_error_norm_rad": 0.0,
+      "final_tracking_error_norm_rad": 0.0
+    },
+    "evaluation": {
+      "target_contact_present_fraction": 1.0,
+      "min_target_contact_count": 1,
+      "max_force_error_N": 0.14161453068196206,
+      "terminal_force_error_N": 0.0008976407522842678,
+      "max_scheduled_xy_error_m": 7.742843203791342e-08,
+      "max_reference_xy_error_m": 0.0021368298309197976,
+      "terminal_reference_xy_error_m": 0.0021368298309197976,
+      "max_scheduled_orientation_error_rad": 7.786070227350236e-07,
+      "max_force_normal_orientation_error_rad": 0.18203292523411982,
+      "terminal_force_normal_orientation_error_rad": 0.08565245135289722
+    },
+    "terminal_gate": {
+      "passed": true,
+      "failed_criteria": [],
+      "criteria": {
+        "terminal_force_error_N": {
+          "actual": 0.0008976407522842678,
+          "operator": "<=",
+          "threshold": 0.25,
+          "passed": true
+        },
+        "terminal_xy_error_m": {
+          "actual": 0.0021368298309197976,
+          "operator": "<=",
+          "threshold": 0.004,
+          "passed": true
+        },
+        "terminal_force_normal_orientation_error_rad": {
+          "actual": 0.08565245135289722,
+          "operator": "<=",
+          "threshold": 0.11995,
+          "passed": true
+        },
+        "target_contact_count": {
+          "actual": 1,
+          "operator": ">=",
+          "threshold": 1,
+          "passed": true
+        }
+      }
+    },
+    "stage_a_gate": {
+      "passed": true,
+      "criteria": {
+        "target_contact_present_fraction": 1.0,
+        "max_force_error_N": 0.14161453068196206,
+        "max_scheduled_xy_error_m": 7.742843203791342e-08,
+        "max_scheduled_orientation_error_rad": 7.786070227350236e-07,
+        "max_abs_qdot_rad_s": 0.14206784149212412,
+        "final_tracking_error_norm_rad": 0.0,
+        "terminal_gate_passed": true
+      }
+    }
+  },
+  "stage_b": {
+    "handoff_pass_count": 4,
+    "trajectory_count": 4,
+    "rows": [
+      {
+        "trajectory": "e1-cycloid",
+        "duration_s": 2.0,
+        "dt_s": 0.002,
+        "target_pair_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999745961116812,
+          "final_force_N": 5.0006393095377755,
+          "tail_mean_force_N": 4.999999572736606,
+          "tail_mean_abs_force_error_N": 0.0006397340166476306,
+          "max_abs_force_error_N": 0.0006401778581750506,
+          "mean_tangential_position_error_m": 1.261702307129841e-07,
+          "max_tangential_position_error_m": 1.9603490771100332e-07,
+          "final_tangential_position_error_m": 1.8984480342352904e-07,
+          "final_tangential_position_error_xy_m": [
+            -1.8921874112703962e-07,
+            -1.540510932180454e-08
+          ],
+          "final_tangential_displacement_m": [
+            -1.2322854484742018e-07,
+            1.4361539373399644e-09
+          ],
+          "desired_tangential_displacement_m": [
+            8.41221189928909e-12,
+            1.6841263723588185e-08
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.113589553069892e-05,
+          "max_planar_velocity_residual_m_s": 6.389704148038448e-05,
+          "tail_mean_planar_velocity_residual_m_s": 6.383604766412173e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6716492981948506e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.7923711888978226e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7897185703419014e-07,
+          "mean_planar_velocity_slack_m_s": 6.113583439486455e-05,
+          "max_planar_velocity_slack_m_s": 6.389697758340687e-05,
+          "tail_mean_planar_velocity_slack_m_s": 6.38359838281379e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645197324945381e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.764723949404089e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.7620975943979055e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565258019567468,
+          "max_orientation_error_rad": 0.08565266855351242,
+          "tail_mean_orientation_error_rad": 0.08565261564801956,
+          "mean_angular_velocity_residual_rad_s": 4.287528099636826e-05,
+          "max_angular_velocity_residual_rad_s": 4.4812312083014695e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.476966068673801e-05,
+          "mean_angular_velocity_slack_rad_s": 4.287523812113011e-05,
+          "max_angular_velocity_slack_rad_s": 4.48122672707474e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.4769615917122085e-05,
+          "max_qdot_utilization": 0.24943315660483564,
+          "tail_max_qdot_utilization": 0.0009927117192818126,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.037414973490725346,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 2.9960653402158435e-06,
+          "max_abs_actual_linear_velocity_m_s": 6.434963356878716e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.4812312083014695e-05
+        },
+        "total_force_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999102359247716,
+          "final_force_N": 4.999359841375436,
+          "tail_mean_force_N": 4.999999572708399,
+          "tail_mean_abs_force_error_N": 0.0006397339884405451,
+          "max_abs_force_error_N": 0.0008976407522842678,
+          "mean_tangential_position_error_m": 1.261702307129841e-07,
+          "max_tangential_position_error_m": 1.9603490771100332e-07,
+          "final_tangential_position_error_m": 1.8984480342352904e-07,
+          "final_tangential_position_error_xy_m": [
+            -1.8921874112703962e-07,
+            -1.540510932180454e-08
+          ],
+          "final_tangential_displacement_m": [
+            -1.2322854484742018e-07,
+            1.4361539373399644e-09
+          ],
+          "desired_tangential_displacement_m": [
+            8.41221189928909e-12,
+            1.6841263723588185e-08
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.113589553069892e-05,
+          "max_planar_velocity_residual_m_s": 6.389704148038448e-05,
+          "tail_mean_planar_velocity_residual_m_s": 6.383604766412173e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6716492981948506e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.7923711888978226e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7897185703419014e-07,
+          "mean_planar_velocity_slack_m_s": 6.113583439486455e-05,
+          "max_planar_velocity_slack_m_s": 6.389697758340687e-05,
+          "tail_mean_planar_velocity_slack_m_s": 6.38359838281379e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645197324945381e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.764723949404089e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.7620975943979055e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565258019567468,
+          "max_orientation_error_rad": 0.08565266855351242,
+          "tail_mean_orientation_error_rad": 0.08565261564801956,
+          "mean_angular_velocity_residual_rad_s": 4.287528099636826e-05,
+          "max_angular_velocity_residual_rad_s": 4.4812312083014695e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.476966068673801e-05,
+          "mean_angular_velocity_slack_rad_s": 4.287523812113011e-05,
+          "max_angular_velocity_slack_rad_s": 4.48122672707474e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.4769615917122085e-05,
+          "max_qdot_utilization": 0.24943315660483564,
+          "tail_max_qdot_utilization": 0.0009927117192818126,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.037414973490725346,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 2.9960653402158435e-06,
+          "max_abs_actual_linear_velocity_m_s": 6.434963356878716e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.4812312083014695e-05
+        },
+        "target_pair_summary": {
+          "target_pair_initial_force_N": 4.999745961116812,
+          "target_pair_final_force_N": 5.0006393095377755,
+          "target_pair_tail_mean_force_N": 4.999999572736606,
+          "target_pair_tail_mean_abs_force_error_N": 0.0006397340166476306,
+          "target_pair_max_abs_force_error_N": 0.0006401778581750506,
+          "target_contact_present_fraction": 1.0,
+          "target_contact_min_count": 1,
+          "target_contact_max_count": 1
+        },
+        "feasibility_gate": {
+          "feasibility_pass": true,
+          "failed_criteria": [],
+          "criteria": {
+            "solver_success_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "contact_present_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "tail_mean_abs_force_error_N": {
+              "actual": 0.0006397340166476306,
+              "operator": "<=",
+              "threshold": 0.25,
+              "passed": true
+            },
+            "max_tangential_position_error_m": {
+              "actual": 1.9603490771100332e-07,
+              "operator": "<=",
+              "threshold": 0.002,
+              "passed": true
+            },
+            "max_planar_velocity_slack_m_s": {
+              "actual": 6.389697758340687e-05,
+              "operator": "<=",
+              "threshold": 0.001,
+              "passed": true
+            },
+            "max_abs_normal_velocity_slack_m_s": {
+              "actual": 2.764723949404089e-07,
+              "operator": "<=",
+              "threshold": 0.0002,
+              "passed": true
+            },
+            "max_qdot_violation_rad_s": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "max_joint_limit_violation_rad": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "qdot_saturation_fraction": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 0.01,
+              "passed": true
+            },
+            "tail_max_qdot_utilization": {
+              "actual": 0.0009927117192818126,
+              "operator": "<=",
+              "threshold": 0.98,
+              "passed": true
+            },
+            "max_orientation_error_rad": {
+              "actual": 0.08565266855351242,
+              "operator": "<=",
+              "threshold": 0.11995,
+              "passed": true
+            },
+            "max_angular_velocity_slack_rad_s": {
+              "actual": 4.48122672707474e-05,
+              "operator": "<=",
+              "threshold": 0.03,
+              "passed": true
+            }
+          }
+        }
+      },
+      {
+        "trajectory": "e2-figure-eight",
+        "duration_s": 2.0,
+        "dt_s": 0.002,
+        "target_pair_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.99933416433931,
+          "final_force_N": 5.000228191887089,
+          "tail_mean_force_N": 4.999665183176266,
+          "tail_mean_abs_force_error_N": 0.0005815527112354202,
+          "max_abs_force_error_N": 0.0009223330534355867,
+          "mean_tangential_position_error_m": 3.0728693662467785e-05,
+          "max_tangential_position_error_m": 6.075446192415983e-05,
+          "final_tangential_position_error_m": 6.075446192415983e-05,
+          "final_tangential_position_error_xy_m": [
+            -5.4364995436298816e-05,
+            -2.7121060357320033e-05
+          ],
+          "final_tangential_displacement_m": [
+            5.596304928984046e-06,
+            2.846938574973729e-06
+          ],
+          "desired_tangential_displacement_m": [
+            5.993997756743516e-05,
+            2.9969955134885195e-05
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.59707591830222e-05,
+          "max_planar_velocity_residual_m_s": 0.00011386743659615063,
+          "tail_mean_planar_velocity_residual_m_s": 6.918514227811248e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6154457774938284e-07,
+          "max_abs_normal_velocity_residual_m_s": 4.838121278020855e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.537580520363589e-07,
+          "mean_planar_velocity_slack_m_s": 6.597069321232898e-05,
+          "max_planar_velocity_slack_m_s": 0.00011386732272882798,
+          "tail_mean_planar_velocity_slack_m_s": 6.918507309303939e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.5895502747463263e-07,
+          "max_abs_normal_velocity_slack_m_s": 4.79021908714949e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.512455960756024e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08567819723115551,
+          "max_orientation_error_rad": 0.08570975751005047,
+          "tail_mean_orientation_error_rad": 0.08570251040511977,
+          "mean_angular_velocity_residual_rad_s": 4.279847413688451e-05,
+          "max_angular_velocity_residual_rad_s": 7.791953062594161e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.256509822986002e-05,
+          "mean_angular_velocity_slack_rad_s": 4.279843133845317e-05,
+          "max_angular_velocity_slack_rad_s": 7.791945270648887e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.2565055664804346e-05,
+          "max_qdot_utilization": 0.3082363035855384,
+          "tail_max_qdot_utilization": 0.0011401767373903986,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.04623544553783075,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 6.414526595694244e-05,
+          "max_abs_actual_linear_velocity_m_s": 6.459704226884984e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 7.791953062594161e-05
+        },
+        "total_force_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999102359247716,
+          "final_force_N": 4.999077666946564,
+          "tail_mean_force_N": 4.999665371445457,
+          "tail_mean_abs_force_error_N": 0.0005817409804252938,
+          "max_abs_force_error_N": 0.0009223330534355867,
+          "mean_tangential_position_error_m": 3.0728693662467785e-05,
+          "max_tangential_position_error_m": 6.075446192415983e-05,
+          "final_tangential_position_error_m": 6.075446192415983e-05,
+          "final_tangential_position_error_xy_m": [
+            -5.4364995436298816e-05,
+            -2.7121060357320033e-05
+          ],
+          "final_tangential_displacement_m": [
+            5.596304928984046e-06,
+            2.846938574973729e-06
+          ],
+          "desired_tangential_displacement_m": [
+            5.993997756743516e-05,
+            2.9969955134885195e-05
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.59707591830222e-05,
+          "max_planar_velocity_residual_m_s": 0.00011386743659615063,
+          "tail_mean_planar_velocity_residual_m_s": 6.918514227811248e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6154457774938284e-07,
+          "max_abs_normal_velocity_residual_m_s": 4.838121278020855e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.537580520363589e-07,
+          "mean_planar_velocity_slack_m_s": 6.597069321232898e-05,
+          "max_planar_velocity_slack_m_s": 0.00011386732272882798,
+          "tail_mean_planar_velocity_slack_m_s": 6.918507309303939e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.5895502747463263e-07,
+          "max_abs_normal_velocity_slack_m_s": 4.79021908714949e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.512455960756024e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08567819723115551,
+          "max_orientation_error_rad": 0.08570975751005047,
+          "tail_mean_orientation_error_rad": 0.08570251040511977,
+          "mean_angular_velocity_residual_rad_s": 4.279847413688451e-05,
+          "max_angular_velocity_residual_rad_s": 7.791953062594161e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.256509822986002e-05,
+          "mean_angular_velocity_slack_rad_s": 4.279843133845317e-05,
+          "max_angular_velocity_slack_rad_s": 7.791945270648887e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.2565055664804346e-05,
+          "max_qdot_utilization": 0.3082363035855384,
+          "tail_max_qdot_utilization": 0.0011401767373903986,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.04623544553783075,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 6.414526595694244e-05,
+          "max_abs_actual_linear_velocity_m_s": 6.459704226884984e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 7.791953062594161e-05
+        },
+        "target_pair_summary": {
+          "target_pair_initial_force_N": 4.99933416433931,
+          "target_pair_final_force_N": 5.000228191887089,
+          "target_pair_tail_mean_force_N": 4.999665183176266,
+          "target_pair_tail_mean_abs_force_error_N": 0.0005815527112354202,
+          "target_pair_max_abs_force_error_N": 0.0009223330534355867,
+          "target_contact_present_fraction": 1.0,
+          "target_contact_min_count": 1,
+          "target_contact_max_count": 1
+        },
+        "feasibility_gate": {
+          "feasibility_pass": true,
+          "failed_criteria": [],
+          "criteria": {
+            "solver_success_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "contact_present_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "tail_mean_abs_force_error_N": {
+              "actual": 0.0005815527112354202,
+              "operator": "<=",
+              "threshold": 0.25,
+              "passed": true
+            },
+            "max_tangential_position_error_m": {
+              "actual": 6.075446192415983e-05,
+              "operator": "<=",
+              "threshold": 0.002,
+              "passed": true
+            },
+            "max_planar_velocity_slack_m_s": {
+              "actual": 0.00011386732272882798,
+              "operator": "<=",
+              "threshold": 0.001,
+              "passed": true
+            },
+            "max_abs_normal_velocity_slack_m_s": {
+              "actual": 4.79021908714949e-07,
+              "operator": "<=",
+              "threshold": 0.0002,
+              "passed": true
+            },
+            "max_qdot_violation_rad_s": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "max_joint_limit_violation_rad": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "qdot_saturation_fraction": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 0.01,
+              "passed": true
+            },
+            "tail_max_qdot_utilization": {
+              "actual": 0.0011401767373903986,
+              "operator": "<=",
+              "threshold": 0.98,
+              "passed": true
+            },
+            "max_orientation_error_rad": {
+              "actual": 0.08570975751005047,
+              "operator": "<=",
+              "threshold": 0.11995,
+              "passed": true
+            },
+            "max_angular_velocity_slack_rad_s": {
+              "actual": 7.791945270648887e-05,
+              "operator": "<=",
+              "threshold": 0.03,
+              "passed": true
+            }
+          }
+        }
+      },
+      {
+        "trajectory": "e3-circle",
+        "duration_s": 2.0,
+        "dt_s": 0.002,
+        "target_pair_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.99974596111372,
+          "final_force_N": 5.0006396487631255,
+          "tail_mean_force_N": 4.999999878943444,
+          "tail_mean_abs_force_error_N": 0.0006397242569734907,
+          "max_abs_force_error_N": 0.000640110468957289,
+          "mean_tangential_position_error_m": 2.0560213354881332e-05,
+          "max_tangential_position_error_m": 4.068014008413673e-05,
+          "final_tangential_position_error_m": 4.068014008413673e-05,
+          "final_tangential_position_error_xy_m": [
+            -1.5857720503387185e-07,
+            -4.067983100425851e-05
+          ],
+          "final_tangential_displacement_m": [
+            -1.2627794815454202e-07,
+            4.272217866692711e-06
+          ],
+          "desired_tangential_displacement_m": [
+            -3.368252744773148e-08,
+            4.495498317557628e-05
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.857169601013618e-05,
+          "max_planar_velocity_residual_m_s": 7.537072537409901e-05,
+          "tail_mean_planar_velocity_residual_m_s": 7.440212296957828e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.671592643999661e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.792012205258749e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7896951397192864e-07,
+          "mean_planar_velocity_slack_m_s": 6.85716274385087e-05,
+          "max_planar_velocity_slack_m_s": 7.5370650003449e-05,
+          "tail_mean_planar_velocity_slack_m_s": 7.44020485675297e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645141231682815e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.764368520058158e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.7620743957616836e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565257162383645,
+          "max_orientation_error_rad": 0.0856526414324457,
+          "tail_mean_orientation_error_rad": 0.08565259399278922,
+          "mean_angular_velocity_residual_rad_s": 4.3657380101691386e-05,
+          "max_angular_velocity_residual_rad_s": 4.6007830434821543e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.589333788458266e-05,
+          "mean_angular_velocity_slack_rad_s": 4.365733644435487e-05,
+          "max_angular_velocity_slack_rad_s": 4.600778442703715e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.589329199129067e-05,
+          "max_qdot_utilization": 0.2494331563122419,
+          "tail_max_qdot_utilization": 0.0009672075871883898,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.03741497344683628,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 4.291747989775648e-05,
+          "max_abs_actual_linear_velocity_m_s": 6.440618440605794e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.6007830434821543e-05
+        },
+        "total_force_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999102359247716,
+          "final_force_N": 4.999360204147407,
+          "tail_mean_force_N": 4.999999878490232,
+          "tail_mean_abs_force_error_N": 0.0006397238037625241,
+          "max_abs_force_error_N": 0.0008976407522842678,
+          "mean_tangential_position_error_m": 2.0560213354881332e-05,
+          "max_tangential_position_error_m": 4.068014008413673e-05,
+          "final_tangential_position_error_m": 4.068014008413673e-05,
+          "final_tangential_position_error_xy_m": [
+            -1.5857720503387185e-07,
+            -4.067983100425851e-05
+          ],
+          "final_tangential_displacement_m": [
+            -1.2627794815454202e-07,
+            4.272217866692711e-06
+          ],
+          "desired_tangential_displacement_m": [
+            -3.368252744773148e-08,
+            4.495498317557628e-05
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.857169601013618e-05,
+          "max_planar_velocity_residual_m_s": 7.537072537409901e-05,
+          "tail_mean_planar_velocity_residual_m_s": 7.440212296957828e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.671592643999661e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.792012205258749e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7896951397192864e-07,
+          "mean_planar_velocity_slack_m_s": 6.85716274385087e-05,
+          "max_planar_velocity_slack_m_s": 7.5370650003449e-05,
+          "tail_mean_planar_velocity_slack_m_s": 7.44020485675297e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645141231682815e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.764368520058158e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.7620743957616836e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565257162383645,
+          "max_orientation_error_rad": 0.0856526414324457,
+          "tail_mean_orientation_error_rad": 0.08565259399278922,
+          "mean_angular_velocity_residual_rad_s": 4.3657380101691386e-05,
+          "max_angular_velocity_residual_rad_s": 4.6007830434821543e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.589333788458266e-05,
+          "mean_angular_velocity_slack_rad_s": 4.365733644435487e-05,
+          "max_angular_velocity_slack_rad_s": 4.600778442703715e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.589329199129067e-05,
+          "max_qdot_utilization": 0.2494331563122419,
+          "tail_max_qdot_utilization": 0.0009672075871883898,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.03741497344683628,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 4.291747989775648e-05,
+          "max_abs_actual_linear_velocity_m_s": 6.440618440605794e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.6007830434821543e-05
+        },
+        "target_pair_summary": {
+          "target_pair_initial_force_N": 4.99974596111372,
+          "target_pair_final_force_N": 5.0006396487631255,
+          "target_pair_tail_mean_force_N": 4.999999878943444,
+          "target_pair_tail_mean_abs_force_error_N": 0.0006397242569734907,
+          "target_pair_max_abs_force_error_N": 0.000640110468957289,
+          "target_contact_present_fraction": 1.0,
+          "target_contact_min_count": 1,
+          "target_contact_max_count": 1
+        },
+        "feasibility_gate": {
+          "feasibility_pass": true,
+          "failed_criteria": [],
+          "criteria": {
+            "solver_success_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "contact_present_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "tail_mean_abs_force_error_N": {
+              "actual": 0.0006397242569734907,
+              "operator": "<=",
+              "threshold": 0.25,
+              "passed": true
+            },
+            "max_tangential_position_error_m": {
+              "actual": 4.068014008413673e-05,
+              "operator": "<=",
+              "threshold": 0.002,
+              "passed": true
+            },
+            "max_planar_velocity_slack_m_s": {
+              "actual": 7.5370650003449e-05,
+              "operator": "<=",
+              "threshold": 0.001,
+              "passed": true
+            },
+            "max_abs_normal_velocity_slack_m_s": {
+              "actual": 2.764368520058158e-07,
+              "operator": "<=",
+              "threshold": 0.0002,
+              "passed": true
+            },
+            "max_qdot_violation_rad_s": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "max_joint_limit_violation_rad": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "qdot_saturation_fraction": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 0.01,
+              "passed": true
+            },
+            "tail_max_qdot_utilization": {
+              "actual": 0.0009672075871883898,
+              "operator": "<=",
+              "threshold": 0.98,
+              "passed": true
+            },
+            "max_orientation_error_rad": {
+              "actual": 0.0856526414324457,
+              "operator": "<=",
+              "threshold": 0.11995,
+              "passed": true
+            },
+            "max_angular_velocity_slack_rad_s": {
+              "actual": 4.600778442703715e-05,
+              "operator": "<=",
+              "threshold": 0.03,
+              "passed": true
+            }
+          }
+        }
+      },
+      {
+        "trajectory": "e4-cardioid",
+        "duration_s": 2.0,
+        "dt_s": 0.002,
+        "target_pair_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999745961116812,
+          "final_force_N": 5.000638977318096,
+          "tail_mean_force_N": 4.999999282875415,
+          "tail_mean_abs_force_error_N": 0.0006397333381505233,
+          "max_abs_force_error_N": 0.0006404893792835153,
+          "mean_tangential_position_error_m": 1.3622688698923144e-07,
+          "max_tangential_position_error_m": 2.1997530760718756e-07,
+          "final_tangential_position_error_m": 2.1997530760718756e-07,
+          "final_tangential_position_error_xy_m": [
+            -2.1997530271020832e-07,
+            -4.6415827144278304e-11
+          ],
+          "final_tangential_displacement_m": [
+            -1.2031102901172847e-07,
+            4.056956902920382e-12
+          ],
+          "desired_tangential_displacement_m": [
+            3.3682489630759704e-08,
+            5.047324849087945e-11
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.113694261944813e-05,
+          "max_planar_velocity_residual_m_s": 6.394001309594661e-05,
+          "tail_mean_planar_velocity_residual_m_s": 6.383605207459331e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6716951975236694e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.794249808666077e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7897190626642394e-07,
+          "mean_planar_velocity_slack_m_s": 6.113688148256673e-05,
+          "max_planar_velocity_slack_m_s": 6.393994915599757e-05,
+          "tail_mean_planar_velocity_slack_m_s": 6.383598823860507e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645242769825385e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.76658396897646e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.762098081845761e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565258923326383,
+          "max_orientation_error_rad": 0.08565269730932937,
+          "tail_mean_orientation_error_rad": 0.08565263855958247,
+          "mean_angular_velocity_residual_rad_s": 4.287601354737483e-05,
+          "max_angular_velocity_residual_rad_s": 4.484242215996829e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.476965866121831e-05,
+          "mean_angular_velocity_slack_rad_s": 4.287597067140417e-05,
+          "max_angular_velocity_slack_rad_s": 4.484237731759101e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.4769613891604425e-05,
+          "max_qdot_utilization": 0.24943315660483564,
+          "tail_max_qdot_utilization": 0.0009928707829243912,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.037414973490725346,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 2.9960653402158435e-06,
+          "max_abs_actual_linear_velocity_m_s": 6.435269310195574e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.484242215996829e-05
+        },
+        "total_force_metrics": {
+          "target_force_N": 5.0,
+          "initial_force_N": 4.999102359247716,
+          "final_force_N": 4.9993595106207165,
+          "tail_mean_force_N": 4.999999283261505,
+          "tail_mean_abs_force_error_N": 0.0006397337242399104,
+          "max_abs_force_error_N": 0.0008976407522842678,
+          "mean_tangential_position_error_m": 1.3622688698923144e-07,
+          "max_tangential_position_error_m": 2.1997530760718756e-07,
+          "final_tangential_position_error_m": 2.1997530760718756e-07,
+          "final_tangential_position_error_xy_m": [
+            -2.1997530271020832e-07,
+            -4.6415827144278304e-11
+          ],
+          "final_tangential_displacement_m": [
+            -1.2031102901172847e-07,
+            4.056956902920382e-12
+          ],
+          "desired_tangential_displacement_m": [
+            3.3682489630759704e-08,
+            5.047324849087945e-11
+          ],
+          "solver_success_fraction": 1.0,
+          "contact_present_fraction": 1.0,
+          "max_active_bound_count": 0,
+          "min_planar_scale": 1.0,
+          "tail_mean_planar_scale": 1.0,
+          "mean_planar_velocity_residual_m_s": 6.113694261944813e-05,
+          "max_planar_velocity_residual_m_s": 6.394001309594661e-05,
+          "tail_mean_planar_velocity_residual_m_s": 6.383605207459331e-05,
+          "mean_abs_normal_velocity_residual_m_s": 2.6716951975236694e-07,
+          "max_abs_normal_velocity_residual_m_s": 2.794249808666077e-07,
+          "tail_mean_abs_normal_velocity_residual_m_s": 2.7897190626642394e-07,
+          "mean_planar_velocity_slack_m_s": 6.113688148256673e-05,
+          "max_planar_velocity_slack_m_s": 6.393994915599757e-05,
+          "tail_mean_planar_velocity_slack_m_s": 6.383598823860507e-05,
+          "mean_abs_normal_velocity_slack_m_s": 2.645242769825385e-07,
+          "max_abs_normal_velocity_slack_m_s": 2.76658396897646e-07,
+          "tail_mean_abs_normal_velocity_slack_m_s": 2.762098081845761e-07,
+          "orientation_task_enabled": true,
+          "mean_orientation_error_rad": 0.08565258923326383,
+          "max_orientation_error_rad": 0.08565269730932937,
+          "tail_mean_orientation_error_rad": 0.08565263855958247,
+          "mean_angular_velocity_residual_rad_s": 4.287601354737483e-05,
+          "max_angular_velocity_residual_rad_s": 4.484242215996829e-05,
+          "tail_mean_angular_velocity_residual_rad_s": 4.476965866121831e-05,
+          "mean_angular_velocity_slack_rad_s": 4.287597067140417e-05,
+          "max_angular_velocity_slack_rad_s": 4.484237731759101e-05,
+          "tail_mean_angular_velocity_slack_rad_s": 4.4769613891604425e-05,
+          "max_qdot_utilization": 0.24943315660483564,
+          "tail_max_qdot_utilization": 0.0009928707829243912,
+          "qdot_saturation_threshold": 0.98,
+          "qdot_saturation_fraction": 0.0,
+          "tail_qdot_saturation_fraction": 0.0,
+          "max_abs_qdot_rad_s": 0.037414973490725346,
+          "max_qdot_violation_rad_s": 0.0,
+          "max_joint_limit_violation_rad": 0.0,
+          "max_abs_commanded_linear_velocity_m_s": 2.9960653402158435e-06,
+          "max_abs_actual_linear_velocity_m_s": 6.435269310195574e-05,
+          "max_abs_commanded_angular_velocity_rad_s": 0.0,
+          "max_abs_actual_angular_velocity_rad_s": 4.484242215996829e-05
+        },
+        "target_pair_summary": {
+          "target_pair_initial_force_N": 4.999745961116812,
+          "target_pair_final_force_N": 5.000638977318096,
+          "target_pair_tail_mean_force_N": 4.999999282875415,
+          "target_pair_tail_mean_abs_force_error_N": 0.0006397333381505233,
+          "target_pair_max_abs_force_error_N": 0.0006404893792835153,
+          "target_contact_present_fraction": 1.0,
+          "target_contact_min_count": 1,
+          "target_contact_max_count": 1
+        },
+        "feasibility_gate": {
+          "feasibility_pass": true,
+          "failed_criteria": [],
+          "criteria": {
+            "solver_success_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "contact_present_fraction": {
+              "actual": 1.0,
+              "operator": ">=",
+              "threshold": 1.0,
+              "passed": true
+            },
+            "tail_mean_abs_force_error_N": {
+              "actual": 0.0006397333381505233,
+              "operator": "<=",
+              "threshold": 0.25,
+              "passed": true
+            },
+            "max_tangential_position_error_m": {
+              "actual": 2.1997530760718756e-07,
+              "operator": "<=",
+              "threshold": 0.002,
+              "passed": true
+            },
+            "max_planar_velocity_slack_m_s": {
+              "actual": 6.393994915599757e-05,
+              "operator": "<=",
+              "threshold": 0.001,
+              "passed": true
+            },
+            "max_abs_normal_velocity_slack_m_s": {
+              "actual": 2.76658396897646e-07,
+              "operator": "<=",
+              "threshold": 0.0002,
+              "passed": true
+            },
+            "max_qdot_violation_rad_s": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "max_joint_limit_violation_rad": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 1e-09,
+              "passed": true
+            },
+            "qdot_saturation_fraction": {
+              "actual": 0.0,
+              "operator": "<=",
+              "threshold": 0.01,
+              "passed": true
+            },
+            "tail_max_qdot_utilization": {
+              "actual": 0.0009928707829243912,
+              "operator": "<=",
+              "threshold": 0.98,
+              "passed": true
+            },
+            "max_orientation_error_rad": {
+              "actual": 0.08565269730932937,
+              "operator": "<=",
+              "threshold": 0.11995,
+              "passed": true
+            },
+            "max_angular_velocity_slack_rad_s": {
+              "actual": 4.484237731759101e-05,
+              "operator": "<=",
+              "threshold": 0.03,
+              "passed": true
+            }
+          }
+        }
+      }
+    ]
+  },
+  "stitched_gate": {
+    "passed": true,
+    "stage_a_passed": true,
+    "handoff_pass_count": 4,
+    "handoff_trajectory_count": 4
+  },
+  "warnings": [
+    "diagnostic selected-target staged prototype only",
+    "Stage A is qdot-limited joint-path replay of the v61 path",
+    "Stage B uses the v60 slowed low-gain handoff parameters",
+    "not strict paper-equivalent trajectory feasibility",
+    "not hardware-ready"
+  ]
+}

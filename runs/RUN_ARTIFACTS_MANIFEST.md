@@ -2200,6 +2200,37 @@ Legacy source root:
   `0.119 rad` gate, strict paper-equivalent claim, robustness proof,
   contact-model calibration, or hardware evidence.
 
+## V82 Weighted Timing Recovery
+
+### Faster-timing recovery with weighted zero-angular-command priority
+
+- Run:
+  - `runs/weighted_timing_recovery/20260524T231454`
+- Command:
+  `scripts/audit_weighted_timing_recovery.py`
+- Git state at run time:
+  parent commit `8f4a94ca9729a5eb626b0e73960a1e14f9dea608` with dirty v82
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  a run-local copied Stage A target config under `configs/`, plus per-scenario
+  and per-delta E1-E4 stitched metrics/summaries/commands under
+  `full_delta/*` and focused timing-sweep artifacts under `timing_sweep/*`.
+- Result:
+  Linear-primary passes `7 / 8` and still fails `+1.0 mm` on the
+  `paper_time_scale = 0.0075`, `orientation_gate = 0.11995 rad` stress face.
+  The two v80 planar-primary candidates each pass `0 / 8`. Both weighted
+  zero-angular-command candidates, `weighted_kp0_normal1` and
+  `weighted_kp0_normal30`, pass `8 / 8` through `+1.0 mm`. The focused
+  `+1.0 mm` `weighted_kp0_normal1` timing sweep passes all tested values
+  through `paper_time_scale = 0.01`.
+- Limit:
+  This is diagnostic-label faster-timing recovery evidence only. It is not a
+  canonical controller default, recovery of the `0.119 rad` gate, proof of a
+  full positive-delta `paper_time_scale = 0.01` matrix, strict
+  paper-equivalent claim, robustness proof, contact-model calibration, or
+  hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

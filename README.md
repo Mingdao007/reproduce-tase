@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v81-planar-priority-stress`
+Current branch: `exp/tase-ur10e-v82-weighted-timing-recovery`
 
 ## Scope
 
@@ -115,7 +115,11 @@ those candidates against the remaining faster-timing and tighter-gate faces:
 both pass the focused `+1.0 mm` timing sweep through `paper_time_scale =
 0.0065` but fail at `0.007`, both fail every full positive-delta cell at
 `paper_time_scale = 0.0075`, and both still fail the `+1.0 mm` row at the
-`0.119 rad` orientation gate.
+`0.119 rad` orientation gate. v82 shows the faster-timing failure is
+priority-formulation dependent: weighted zero-angular-command priority passes
+the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix
+`8 / 8` for both tested normal weights, and the focused `+1.0 mm` timing sweep
+passes through `paper_time_scale = 0.01`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
