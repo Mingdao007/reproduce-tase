@@ -2903,3 +2903,40 @@
   Move to the remaining `+1.0 mm` tightened-orientation sensitivity limit, or
   test a targeted Stage B orientation-margin/control change for the v76 timing
   boundary without relaxing the diagnostic gate.
+
+## 2026-05-24 v77 Positive Orientation Gate Boundary Audit
+
+### Isolate the `+1.0 mm` tightened-orientation boundary
+
+- Branch:
+  `exp/tase-ur10e-v77-positive-orientation-gate-boundary`
+- Run:
+  `runs/positive_orientation_gate_boundary/20260524T221842`
+- Report:
+  `reports/positive_orientation_gate_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py`
+  - `scripts/audit_positive_orientation_gate_boundary.py`
+- Result:
+  The audit isolates the v73 `orientation_gate_0p119` `+1.0 mm` failing cell
+  while holding the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `paper_time_scale = 0.005`, and `qdot_limit_rad_s = 0.15` fixed. The
+  script writes a run-local Stage A target config for each gate and passes the
+  same gate to Stage B. Stage A fails at `0.119` and `0.11925`, then first
+  passes at `0.1195 rad`. Full stitched recovery still fails through
+  `0.11997`, then first passes at `0.11998` because E2 reaches
+  `0.1199788204275829 rad`.
+- Limit:
+  This is diagnostic-label orientation-boundary evidence only. It localizes
+  the gate margin but does not change the terminal/contact model, prove
+  robustness, establish strict paper-equivalent feasibility, calibrate contact,
+  or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py`
+  passed. Full tests passed with `115 passed in 2.55s`; `git diff --check`
+  passed. The run artifact is lightweight: `76` files, `1008K`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Test a targeted Stage B orientation-margin/control change or revisit the
+  terminal/contact model before claiming anything stronger than diagnostic
+  recovery.

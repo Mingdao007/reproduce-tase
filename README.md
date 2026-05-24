@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v76-positive-timing-boundary`
+Current branch: `exp/tase-ur10e-v77-positive-orientation-gate-boundary`
 
 ## Scope
 
@@ -95,7 +95,10 @@ v76 isolates the harder `paper_time_scale_0p0075` `+1.0 mm` timing boundary:
 the row still passes at `paper_time_scale = 0.0052` and first fails at
 `0.0054` on E2 orientation just above the `0.12 rad` diagnostic gate; Stage A
 passes every timing case, and qdot saturation becomes severe only at `0.007`
-and above.
+and above. v77 isolates the tightened-orientation `+1.0 mm` boundary: Stage A
+passes once the gate reaches `0.1195 rad`, but full stitched recovery first
+passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad` under the
+v72 timing.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

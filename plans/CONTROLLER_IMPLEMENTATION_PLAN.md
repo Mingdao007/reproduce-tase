@@ -277,13 +277,17 @@ smoke runs regress.
   `paper_time_scale_0p0075` `+1.0 mm` failure: Stage A passes all timing
   cases, the row still passes at `paper_time_scale = 0.0052`, and `0.0054`
   first fails on E2 orientation just above the `0.12 rad` diagnostic gate.
+- The v77 positive orientation-gate boundary audit isolates the v73
+  `orientation_gate_0p119` `+1.0 mm` failure: Stage A passes once the gate is
+  `0.1195 rad`, but full stitched recovery first passes at `0.11998 rad`
+  because E2 reaches `0.1199788204275829 rad`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should move to
-the remaining `+1.0 mm` tightened-orientation sensitivity limit, or test a
-targeted Stage B orientation-margin/control change for the v76 timing boundary
-without relaxing the diagnostic gate. Keep contact, drift, terminal
-orientation, force error, and qdot saturation visible together.
+a targeted Stage B orientation-margin/control change or revisit the
+terminal/contact model before claiming anything stronger than diagnostic
+recovery. Keep contact, drift, terminal orientation, force error, and qdot
+saturation visible together.

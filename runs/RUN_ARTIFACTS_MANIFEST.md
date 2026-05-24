@@ -2052,6 +2052,34 @@ Legacy source root:
   change, strict paper-equivalent claim, robustness proof, contact-model
   calibration, or hardware evidence.
 
+## V77 Positive Orientation Gate Boundary Audit
+
+### Focused orientation-gate boundary for the v73 `+1.0 mm` tightened-gate failure
+
+- Run:
+  - `runs/positive_orientation_gate_boundary/20260524T221842`
+- Command:
+  `scripts/audit_positive_orientation_gate_boundary.py`
+- Git state at run time:
+  parent commit `05a84809099e6a526d52e89c939a79b587ca9503` with dirty v77
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  run-local copied Stage A target configs under `configs/`, plus per-gate
+  stitched metrics/summaries/commands under `cases/*`.
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, `paper_time_scale = 0.005`, and `qdot_limit_rad_s = 0.15` fixed for
+  the `+1.0 mm` cell. Stage A first passes at orientation gate `0.1195 rad`.
+  Full stitched recovery still fails through `0.11997` and first passes at
+  `0.11998`, because E2 has the maximum Stage B orientation error
+  `0.1199788204275829 rad`.
+- Limit:
+  This is diagnostic-label orientation-boundary evidence only. It localizes,
+  but does not remove, the tightened-orientation sensitivity margin. It is not
+  a canonical-config change, strict paper-equivalent claim, robustness proof,
+  contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

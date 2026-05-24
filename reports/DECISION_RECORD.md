@@ -1637,3 +1637,29 @@
   orientation-margin/control change without relaxing the diagnostic gate. The
   project still must not claim robustness, strict paper-equivalent feasibility,
   contact-model calibration, or hardware readiness.
+
+## D082: Treat The Tightened Orientation Failure As An E2 Gate Margin
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v77 as evidence that the v73 `orientation_gate_0p119` `+1.0 mm`
+  failure is a narrow orientation-gate margin controlled by E2 under the v72
+  timing, not an unresolved Stage A path or qdot issue.
+- Reason:
+  The v77 run at `runs/positive_orientation_gate_boundary/20260524T221842`
+  holds the v70 relaxed target/path setup, `stage_a_duration_s = 15.0`,
+  `paper_time_scale = 0.005`, and `qdot_limit_rad_s = 0.15` fixed while
+  sweeping both the run-local Stage A terminal orientation gate and the Stage B
+  orientation gate for the hardest `+1.0 mm` row. Stage A first passes at
+  `0.1195 rad`, matching the terminal orientation value
+  `0.11948560786547915 rad`. Full stitched recovery first passes at
+  `0.11998 rad`, matching the maximum Stage B orientation error
+  `0.1199788204275829 rad` from E2.
+- Consequence:
+  The tightened-orientation sensitivity limit is localized but not converted
+  into a stronger robustness or paper-equivalent claim. The next branch should
+  test a targeted Stage B orientation-margin/control change or revisit the
+  terminal/contact model before claiming anything beyond diagnostic recovery.
+  The project still must not claim robustness, strict paper-equivalent
+  feasibility, contact-model calibration, or hardware readiness.

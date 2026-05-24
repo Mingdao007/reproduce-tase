@@ -118,14 +118,16 @@ work exists only on that branch.
   `paper_time_scale_0p0075` `+1.0 mm` timing boundary: Stage A passes all
   timing cases, `paper_time_scale = 0.0052` still passes, and `0.0054` first
   fails on E2 orientation just above the `0.12 rad` diagnostic gate. This is
-  still not robust, paper-equivalent, or hardware evidence.
+  still not robust, paper-equivalent, or hardware evidence. v77 isolates the
+  tightened-orientation `+1.0 mm` boundary: Stage A passes once the gate reaches
+  `0.1195 rad`, while full stitched recovery first passes at `0.11998 rad`
+  because E2 reaches `0.1199788204275829 rad` under v72 timing.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Move to the remaining `orientation_gate_0p119` `+1.0 mm` sensitivity limit, or
-test a targeted Stage B orientation-margin/control change for the v76 timing
-boundary without relaxing the diagnostic gate. Keep strict paper-equivalent
-setup, v38 relaxed trajectory-after-setup, and v63-v76 diagnostic staged
-labels separate.
+Test a targeted Stage B orientation-margin/control change or revisit the
+terminal/contact model before claiming anything stronger than diagnostic
+recovery. Keep strict paper-equivalent setup, v38 relaxed
+trajectory-after-relaxed-setup, and v63-v77 diagnostic staged labels separate.

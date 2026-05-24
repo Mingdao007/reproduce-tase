@@ -93,13 +93,14 @@ contact behavior regresses.
   stitched rows through `+1.0 mm`. v76 isolates the `+1.0 mm` faster-timing
   boundary: `paper_time_scale = 0.0052` still passes, while `0.0054` first
   fails on E2 orientation just above the diagnostic `0.12 rad` gate; Stage A
-  passes every timing case.
+  passes every timing case. v77 isolates the tightened-orientation boundary:
+  Stage A passes at `0.1195 rad`, but full stitched recovery first passes at
+  `0.11998 rad` because E2 reaches `0.1199788204275829 rad`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should move to the remaining `+1.0 mm`
-tightened-orientation sensitivity limit, or test a targeted Stage B
-orientation-margin/control change for the v76 timing boundary without relaxing
-the diagnostic gate.
+simulation controller prototype should test a targeted Stage B
+orientation-margin/control change or revisit the terminal/contact model before
+claiming anything stronger than diagnostic recovery.

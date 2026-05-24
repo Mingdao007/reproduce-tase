@@ -2,7 +2,7 @@
 
 Date: 2026-05-24
 
-Branch: `exp/tase-ur10e-v76-positive-timing-boundary`
+Branch: `exp/tase-ur10e-v77-positive-orientation-gate-boundary`
 
 ## Objective Restatement
 
@@ -108,6 +108,8 @@ The objective has two separate technical claim levels:
 - `runs/positive_full_stitched_recovery/20260524T195501/metrics.yaml`
 - `reports/positive_timing_boundary_report.md`
 - `runs/positive_timing_boundary/20260524T200236/metrics.yaml`
+- `reports/positive_orientation_gate_boundary_report.md`
+- `runs/positive_orientation_gate_boundary/20260524T221842/metrics.yaml`
 - `reports/paper_platform_parity_gate_report.md`
 - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
 - `plans/HARDWARE_GATE_SOP.md`
@@ -118,17 +120,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v76 branches pushed and GitHub-verified; v76 is the current iteration branch | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v76-positive-timing-boundary`; latest local branch is `exp/tase-ur10e-v76-positive-timing-boundary` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v76 branches pushed and GitHub-verified; v77 is the current iteration branch | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v77-positive-orientation-gate-boundary`; latest local branch is `exp/tase-ur10e-v77-positive-orientation-gate-boundary` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v76 branch/run, claim boundary, and next executable tightened-orientation/control target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D081 as of v76 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` includes the short prompt, authoritative local clone, v77 branch/run, claim boundary, and next executable orientation-control/model target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D082 as of v77 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v76 validation was `115 passed in 2.64s`; `python3 -m py_compile scripts/audit_positive_timing_boundary.py` and `git diff --check` passed | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v77 validation was `115 passed in 2.55s`; `python3 -m py_compile scripts/audit_positive_orientation_gate_boundary.py` and `git diff --check` passed | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -164,6 +166,7 @@ The objective has two separate technical claim levels:
 | Qdot012 Stage A margin audit | `scripts/audit_qdot012_stage_a_margin.py`, `reports/qdot012_stage_a_margin_report.md`, `runs/qdot012_stage_a_margin/20260524T194817/metrics.yaml` | v74 isolates the v73 qdot012 `+0.2 mm` failure; Stage B passes `4 / 4` throughout, Stage A fails through `18.03 s`, and stitched recovery starts at `18.035 s` |
 | Qdot012 positive stitched matrix | `scripts/audit_positive_full_stitched_recovery.py --stage-a-duration-s 18.035 --qdot-limit-rad-s 0.12 --paper-time-scale 0.005 --max-orientation-error-rad 0.12`, `reports/qdot012_positive_stitched_matrix_report.md`, `runs/positive_full_stitched_recovery/20260524T195501/metrics.yaml` | v75 folds the v74 duration margin into all positive deltas; stitched recovery passes `8 / 8` through `+1.0 mm`, with Stage B `4 / 4` for every row |
 | Positive timing boundary audit | `scripts/audit_positive_timing_boundary.py`, `reports/positive_timing_boundary_report.md`, `runs/positive_timing_boundary/20260524T200236/metrics.yaml` | v76 isolates the v73 `paper_time_scale_0p0075` `+1.0 mm` failure; Stage A passes all timing cases, `paper_time_scale = 0.0052` still passes, and `0.0054` first fails on E2 orientation just above the `0.12 rad` diagnostic gate |
+| Positive orientation-gate boundary audit | `scripts/audit_positive_orientation_gate_boundary.py`, `reports/positive_orientation_gate_boundary_report.md`, `runs/positive_orientation_gate_boundary/20260524T221842/metrics.yaml` | v77 isolates the v73 `orientation_gate_0p119` `+1.0 mm` failure; Stage A passes once the gate reaches `0.1195 rad`, while full stitched recovery first passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad` |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -849,6 +852,31 @@ Evidence:
 - `reports/positive_timing_boundary_report.md`
 - `runs/positive_timing_boundary/20260524T200236/metrics.yaml`
 
+The positive orientation-gate boundary audit can additionally claim:
+
+```text
+ur10e_positive_orientation_gate_boundary:
+  source setup = v70 run-local relaxed terminal/path setup
+  inherited failing cell = v73 orientation_gate_0p119 +1.0 mm
+  Stage A duration = 15.0 s
+  paper_time_scale = 0.005
+  qdot limit = 0.15 rad/s
+  orientation gate sweep case count = 9
+  stitched pass count = 2 / 9
+  max failing orientation gate = 0.11997 rad
+  first passing orientation gate = 0.11998 rad
+  Stage A first passes at orientation gate = 0.1195 rad
+  max Stage B orientation error = 0.1199788204275829 rad
+  robustness claim = false
+  paper-equivalent feasibility = false
+  hardware readiness = false
+```
+
+Evidence:
+
+- `reports/positive_orientation_gate_boundary_report.md`
+- `runs/positive_orientation_gate_boundary/20260524T221842/metrics.yaml`
+
 ## Missing Or Weakly Verified Requirements
 
 - Strict paper-equivalent full staged feasibility is not achieved.
@@ -982,6 +1010,12 @@ Evidence:
   above. This bounds the v73 `paper_time_scale_0p0075` failure but does not
   recover it under the same diagnostic gate, and it leaves the separate
   `orientation_gate_0p119` `+1.0 mm` limit unresolved.
+- The v77 positive orientation-gate boundary audit isolates the remaining
+  tightened-orientation `+1.0 mm` limit. Stage A terminal orientation first
+  passes once the gate reaches `0.1195 rad`, but full stitched recovery first
+  passes at `0.11998 rad` because E2 reaches
+  `0.1199788204275829 rad` under v72 timing. This localizes the gate margin,
+  but it is still not a robustness proof or hardware-ready control claim.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1005,9 +1039,9 @@ Do not mark the active goal complete from the current evidence.
 
 ## Next Executable Step
 
-Move to the remaining `+1.0 mm` tightened-orientation sensitivity limit, or
-test a targeted Stage B orientation-margin/control change for the v76 timing
-boundary without relaxing the diagnostic gate. Keep strict paper-equivalent
-setup, v38 trajectory-after-relaxed-setup, and v63-v76 diagnostic staged labels separate.
+Test a targeted Stage B orientation-margin/control change or revisit the
+terminal/contact model before claiming anything stronger than diagnostic
+recovery. Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup,
+and v63-v77 diagnostic staged labels separate.
 Any hardware work still requires measured mounted-stack geometry and a separate
 approved SOP.

@@ -265,6 +265,10 @@ them rather than deleting them.
   cases; the hardest positive E2 row passes through `paper_time_scale =
   0.0052` and first fails at `0.0054` on orientation just above the `0.12 rad`
   diagnostic gate.
+- The v77 positive orientation-gate boundary audit isolates the
+  `orientation_gate_0p119` `+1.0 mm` failure. Stage A terminal orientation
+  passes once the gate reaches `0.1195 rad`; full stitched recovery first
+  passes at `0.11998 rad` because E2 reaches `0.1199788204275829 rad`.
 
 ## Next Executable Step
 
@@ -283,6 +287,7 @@ matrix at that timing. v73 bounds sensitivity around that exact relaxed
 diagnostic policy, and v74 recovers the qdot012 `+0.2 mm` Stage A tracking miss
 with a `18.035 s` duration. v75 recovers the full qdot012 positive matrix at
 that duration. v76 brackets the `+1.0 mm` faster-timing failure at
-`paper_time_scale = 0.0052` pass versus `0.0054` first fail. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v76
-diagnostic staged labels separate.
+`paper_time_scale = 0.0052` pass versus `0.0054` first fail. v77 brackets the
+tightened-orientation boundary at `0.11997` fail versus `0.11998` first
+stitched pass. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v77 diagnostic staged labels separate.
