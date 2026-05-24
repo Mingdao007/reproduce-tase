@@ -809,3 +809,22 @@
   paper-equivalent full staged feasibility and not hardware-ready. The strict
   full staged gate remains the criterion for any future paper-equivalent
   reproduction claim.
+
+## D044: Completion Audit Does Not Close The Overall Goal
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not mark the overall reproduction goal complete from the current
+  repository state.
+- Reason:
+  The audit confirms that the Git-backed UR10e adapted simulation line has an
+  accepted relaxed-label result, but strict paper-equivalent full staged
+  feasibility remains `0 / 4`, the terminal setup audit remains `0 / 65`, the
+  paper-faithful 7DOF executable line is not separate and complete, and the
+  hardware gate is not passed.
+- Consequence:
+  Continue to report the current result as UR10e adapted simulation evidence
+  only. Future completion requires closing the paper-truth/model gaps or
+  producing a separate paper-faithful reproduction line; real hardware remains
+  blocked by the hardware gate.

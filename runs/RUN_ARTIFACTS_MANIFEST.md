@@ -1080,6 +1080,23 @@ Legacy source root:
   This is acceptance bookkeeping for simulation evidence. It is not
   paper-equivalent full staged feasibility and not hardware readiness evidence.
 
+## V39 Completion Audit
+
+### Prompt-to-artifact audit
+
+- Artifact:
+  - `reports/completion_audit.md`
+- Scope:
+  Maps the long-form goal requirements to repo artifacts, run metrics,
+  commands, and remaining gaps.
+- Result:
+  Confirms the repository has an accepted UR10e adapted simulation claim under
+  the v38 relaxed setup budget, but the overall goal is not complete because
+  strict paper-equivalent full staged feasibility, hardware readiness, and a
+  separate paper-faithful 7DOF executable line remain incomplete.
+- Limit:
+  Documentation-only audit. No new simulation run and no hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

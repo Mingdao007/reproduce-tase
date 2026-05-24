@@ -1421,3 +1421,32 @@
 - Next step:
   Use this label in the completion audit and keep any future controller/model
   work separate from the accepted UR10e adapted simulation claim.
+
+## 2026-05-24 v39 Completion Audit
+
+- Branch: `exp/tase-ur10e-v39-completion-audit`
+- Starting commit: `b0e431dae51a09a3923c2689eea79f34249fd775`
+- Files added:
+  - `reports/completion_audit.md`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `git status --short --branch`
+  - `git log --oneline --decorate -n 10`
+  - mandatory plan/report existence checks
+  - `python3 - <<'PY' ... inspect v33/v36/v37/v38 summary metrics ... PY`
+- Result:
+  The audit maps the goal requirements to concrete artifacts and evidence.
+  It confirms the current accepted claim is only the UR10e adapted slowed
+  tilted-plane E1-E4 result under the relaxed setup budget. Strict
+  paper-equivalent full staged feasibility, hardware readiness, and a separate
+  paper-faithful 7DOF executable reproduction remain incomplete.
+- Limit:
+  This is an audit/documentation iteration, not a new controller or simulation
+  result.
+- Next step:
+  Close the remaining PDF truth gap, validate or replace the approximate
+  TCP/contact model, or create the separate paper-faithful 7DOF reproduction
+  line before claiming the overall goal complete.
