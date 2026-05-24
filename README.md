@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v62-contact-path-tracking`
+Current branch: `exp/tase-ur10e-v63-stitched-stage-a-handoff`
 
 ## Scope
 
@@ -52,7 +52,9 @@ the ordinary initial q to that target, but it is not an online controller,
 strict trajectory-feasibility claim, paper-equivalent claim, or hardware claim.
 v62 tracks that path with a qdot-limited joint-path replay prototype over
 `15.0 s`, but it still does not connect Stage A tracking to Stage B handoff in
-one staged trajectory run.
+one staged trajectory run. v63 stitches the v62 tracker to the v60 slowed
+handoff and passes `4 / 4` E1-E4 under the diagnostic label, but this is still
+not strict paper-equivalent or hardware evidence.
 
 ## Test Command
 

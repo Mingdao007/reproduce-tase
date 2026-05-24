@@ -1323,3 +1323,21 @@
   connected Stage A plus Stage B trajectory, force-feedback robustness,
   paper-equivalent feasibility, or hardware readiness until the tracked path and
   handoff are evaluated in one explicit stitched run.
+
+## D068: Treat The Stitched Diagnostic Run As Nominal Simulation Evidence
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v63 as a connected diagnostic Stage A plus Stage B simulation pass,
+  while keeping it separate from strict paper-equivalent and hardware claims.
+- Reason:
+  The v63 run at `runs/stitched_stage_a_handoff_eval/20260524T152807` executes
+  the v62 Stage A tracker and v60 slowed handoff in one script. The stitched
+  gate passes, Stage A passes, and Stage B reports `4 / 4` E1-E4 handoff
+  passes with target-pair force/contact accounting and zero qdot saturation.
+- Consequence:
+  The project can claim a nominal diagnostic staged simulation pass for the
+  selected UR10e target. It still must not claim strict paper-equivalent
+  feasibility, robustness to contact/model perturbations, or hardware readiness
+  until those gates are explicitly evaluated.

@@ -84,13 +84,15 @@ work exists only on that branch.
   simulation prototype target. v59 shows direct Stage B handoff from that
   target still fails `0 / 4` on qdot saturation. v60 shows a slowed low-gain
   diagnostic handoff can pass `4 / 4`. v61 finds an offline qdot-limited
-  contact path to the selected target, and v62 tracks that path with a
-  qdot-limited joint replay. This is still not a connected Stage A plus Stage B
-  or paper-equivalent trajectory claim.
+  contact path to the selected target, v62 tracks that path with a qdot-limited
+  joint replay, and v63 stitches the tracker to the slowed handoff with `4 / 4`
+  Stage B passes. This is still diagnostic-label simulation evidence, not
+  paper-equivalent or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run a single stitched simulation that executes the v62 Stage A tracker and then
-the v60 slowed handoff under one explicit timing and acceptance policy.
+Run a sensitivity audit around the v63 stitched policy while keeping strict
+paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63 diagnostic
+staged labels separate.

@@ -63,11 +63,13 @@ contact behavior regresses.
   blocks a trajectory claim. v60 shows slowed low-gain direct-target handoff
   can avoid saturation, and v61 finds an offline qdot-limited contact path to
   the selected target. v62 tracks that path with qdot-limited joint replay, but
-  this still does not make the model hardware-ready.
+  this still does not make the model hardware-ready. v63 stitches the tracker
+  to the slowed handoff, but the result is still simulation-only and
+  diagnostic-label.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should stitch the v62 Stage A tracker to the
-v60 slowed handoff unless a later decision changes the label.
+simulation controller prototype should stress-test the v63 stitched policy
+unless a later decision changes the label.

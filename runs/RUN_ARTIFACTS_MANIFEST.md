@@ -1686,6 +1686,27 @@ Legacy source root:
   connected Stage A plus Stage B trajectory claim, paper-equivalent claim, or
   hardware claim.
 
+## V63 Stitched Stage A Handoff
+
+### Diagnostic Stage A tracker plus Stage B handoff in one run
+
+- Run:
+  - `runs/stitched_stage_a_handoff_eval/20260524T152807`
+- Command:
+  `scripts/evaluate_stitched_stage_a_handoff.py`
+- Git state at run time:
+  commit `748c4d46730d6f7044c8056fb6babc6c0804f1d2`.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The stitched gate passes. Stage A tracking passes, and Stage B reports `4 / 4`
+  E1-E4 handoff passes with target-pair force/contact accounting. Stage A max
+  qdot is `0.14332635022814824 rad/s`, and qdot saturation is `0.0`.
+- Limit:
+  This is nominal diagnostic-label simulation evidence only. It is not strict
+  paper-equivalent feasibility, perturbation robustness evidence, or hardware
+  evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

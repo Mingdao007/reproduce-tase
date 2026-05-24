@@ -2429,3 +2429,32 @@
 - Next step:
   Run a stitched Stage A tracker plus v60 handoff simulation under one explicit
   timing and acceptance policy.
+
+## 2026-05-24 v63 Stitched Stage A Handoff
+
+### Diagnostic staged simulation with Stage A tracker and Stage B handoff
+
+- Branch:
+  `exp/tase-ur10e-v63-stitched-stage-a-handoff`
+- Code commit:
+  `748c4d46730d6f7044c8056fb6babc6c0804f1d2`
+- Run:
+  `runs/stitched_stage_a_handoff_eval/20260524T152807`
+- Report:
+  `reports/stitched_stage_a_handoff_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py`
+  - `scripts/evaluate_stitched_stage_a_handoff.py`
+- Result:
+  The stitched gate passes. Stage A tracking passes, and Stage B reports `4 / 4`
+  E1-E4 handoff passes. Stage A max qdot is `0.14332635022814824 rad/s`; Stage A
+  qdot saturation is `0.0`. All Stage B rows keep target contact, stay under the
+  diagnostic orientation threshold, and have qdot saturation `0.0`.
+- Limit:
+  This is nominal diagnostic-label simulation evidence only. It is not strict
+  paper-equivalent feasibility, a perturbation robustness claim, or hardware
+  readiness.
+- Validation:
+  Full tests passed with `104 passed in 2.43s`; `git diff --check` passed.
+- Next step:
+  Run a sensitivity audit around the v63 stitched policy.

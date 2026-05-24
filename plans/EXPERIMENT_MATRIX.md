@@ -208,12 +208,14 @@ them rather than deleting them.
 - The v62 contact path tracker follows that path over `15.0 s` with max qdot
   `0.14332635022814824 rad/s`, zero qdot saturation, target contact throughout,
   and a passing terminal diagnostic gate, but it is not connected to Stage B.
+- The v63 stitched run executes the v62 Stage A tracker and v60 slowed handoff
+  in one script and reports a passing stitched gate with Stage B `4 / 4`.
 
 ## Next Executable Step
 
 Use the v38 relaxed label in the completion audit for the UR10e adapted
 simulation line, while keeping strict full staged feasibility marked as not
-achieved. Future UR10e experiment branches should stitch the v62 Stage A
-tracker to the v60 slowed handoff before making a connected staged trajectory
-claim. Keep strict paper-equivalent setup and v38 trajectory-after-relaxed-setup
-as separate labels.
+achieved. Future UR10e experiment branches should stress-test the v63 stitched
+policy before treating it as more than a nominal diagnostic staged pass. Keep
+strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63
+diagnostic staged labels separate.

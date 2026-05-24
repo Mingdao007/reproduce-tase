@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v62 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, and v62 tracks that path over `15.0 s` with max qdot `0.14332635022814824 rad/s`, zero qdot saturation, and a passing terminal diagnostic gate. This remains simulation-only staged-prep evidence: it is not a connected Stage A plus Stage B trajectory claim, not strict paper-equivalent, and not hardware-ready. The next branch should run a single stitched simulation that executes the v62 Stage A tracker and then the v60 slowed handoff under one explicit timing/acceptance policy. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v63 claim boundary: the formula-faithful Python paper-platform line passes formula-convergence evidence; the separate tuned Python figure-match line reproduces the legacy Fig.6 q7 landmark; full paper-equivalent parity is still not achieved. The v57 UR10e diagnostic terminal setup gate passes `1 / 513` terminal candidates, v58 selects that target, v59 shows default direct handoff fails `0 / 4` on qdot saturation, v60 shows a slowed low-gain diagnostic handoff from the selected target passes `4 / 4`, v61 finds an offline 128-knot quasi-static contact path to that target, v62 tracks that path over `15.0 s`, and v63 stitches the v62 Stage A tracker to the v60 slowed handoff with a `4 / 4` Stage B pass count. This is diagnostic-label simulation evidence: it is not strict paper-equivalent, not robust to contact/model perturbations, and not hardware-ready. The next branch should run a sensitivity audit around the v63 stitched policy while keeping strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v62` repository state. The project goal is to reproduce the T-ASE finite-time
+`v63` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,9 +34,9 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v62-contact-path-tracking`
-- Current v62 code commit:
-  `6edddf4a05fae2671ee91f62bc653ec11d2f6058`
+  `exp/tase-ur10e-v63-stitched-stage-a-handoff`
+- Current v63 code commit:
+  `748c4d46730d6f7044c8056fb6babc6c0804f1d2`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
@@ -146,6 +146,10 @@ Current accepted claims:
   qdot-limited joint-path replay over `15.0 s`. The tracking gate and terminal
   diagnostic gate pass with max qdot `0.14332635022814824 rad/s` and zero qdot
   saturation. This is not a connected Stage A plus Stage B trajectory claim.
+- `ur10e_stitched_diagnostic_stage_a_handoff`: v63 runs the v62 Stage A tracker
+  and v60 slowed handoff in one script. The stitched gate passes, Stage A
+  passes, and Stage B reports `4 / 4` E1-E4 passes. This is diagnostic-label
+  simulation evidence only.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -155,10 +159,9 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by running a single stitched simulation that
-  executes the v62 Stage A tracker and then the v60 slowed handoff under one
-  explicit timing/acceptance policy. Keep strict paper-equivalent setup and v38
-  trajectory-after-relaxed-setup as separate labels.
+- Continue UR10e adapted work by running a sensitivity audit around the v63
+  stitched policy. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63 diagnostic staged labels separate.
 
 ## Safety Boundary
 
