@@ -20,6 +20,21 @@ def test_panda_forward_kinematics_returns_valid_pose() -> None:
     np.testing.assert_allclose(np.linalg.norm(pose.quaternion_xyzw), 1.0, atol=1e-12)
 
 
+def test_panda_forward_kinematics_matches_legacy_q0_pose() -> None:
+    q = np.array([0.0, -np.pi / 4.0, 0.0, -3.0 * np.pi / 4.0, 0.0, np.pi / 2.0, np.pi / 4.0])
+    pose = panda_forward_kinematics(q)
+    np.testing.assert_allclose(
+        pose.position_m,
+        [0.306890567, -7.84183454e-17, 0.486882052],
+        atol=5e-10,
+    )
+    np.testing.assert_allclose(
+        pose.quaternion_xyzw,
+        [0.923879533, -0.382683432, -1.17163010e-17, 5.17182548e-17],
+        atol=5e-10,
+    )
+
+
 def test_panda_geometric_jacobian_matches_position_finite_difference() -> None:
     q = np.array([0.18, -0.51, -0.15, -2.31, -0.07, 1.80, 0.07])
     analytic = panda_geometric_jacobian(q)
