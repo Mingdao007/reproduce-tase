@@ -1913,6 +1913,34 @@ Legacy source root:
   paper-equivalent claim, robustness proof, contact-model calibration, or
   hardware evidence.
 
+## V72 Positive Full Stitched Recovery Audit
+
+### Full E1-E4 stitched positive recovery at the E2-safe timing
+
+- Run:
+  - `runs/positive_full_stitched_recovery/20260524T192854`
+- Command:
+  `scripts/audit_positive_full_stitched_recovery.py`
+- Git state at run time:
+  parent commit `121ad38c0268faeafe8e1daded8015de8f25639c` with dirty v72
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-delta full E1-E4 stitched metrics/summaries/commands under
+  `cases/*`.
+- Result:
+  The audit reuses the v70 run-local `0.12 rad` relaxed target config and
+  positive path CSV artifacts, then evaluates all E1-E4 trajectories at
+  `paper_time_scale = 0.005`. Stitched recovery passes `8 / 8` positive deltas
+  through `+1.0 mm`; every row has Stage A passing and Stage B handoff
+  `4 / 4`. Max Stage B qdot saturation fraction is `0.006`, and max Stage B
+  orientation error is `0.1199788204275829 rad`.
+- Limit:
+  This is diagnostic-label full positive stitched evidence only. It depends on
+  a run-local relaxed orientation gate and slowed Stage B timing, and is not a
+  canonical-config change, strict paper-equivalent claim, robustness proof,
+  contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

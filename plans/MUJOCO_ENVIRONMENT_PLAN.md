@@ -82,11 +82,13 @@ contact behavior regresses.
   v71 shows E2 recovers for all positive deltas at
   `paper_time_scale = 0.005`; qdot-limit-only relaxation at original `0.01`
   timing still fails the hardest `+1.0 mm` row because orientation remains
-  just above `0.12 rad`.
+  just above `0.12 rad`. v72 combines that timing with the v70 relaxed
+  terminal/path setup and recovers the full positive E1-E4 stitched diagnostic
+  matrix `8 / 8` through `+1.0 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should run the full positive E1-E4 stitched
-matrix with the v70 relaxed terminal/path setup and `paper_time_scale = 0.005`.
+simulation controller prototype should stress-test the v72 recovered positive
+stitched policy under a compact sensitivity matrix.

@@ -104,13 +104,15 @@ work exists only on that branch.
   fails because Stage B handoff is `3 / 4` with E2 qdot saturation. v71 shows
   that E2 recovers for all positive deltas at `paper_time_scale = 0.005`, while
   a qdot-limit-only probe at original `0.01` timing does not recover the
-  `+1.0 mm` case because orientation remains just above `0.12 rad`. This is
-  still not robust, paper-equivalent, or hardware evidence.
+  `+1.0 mm` case because orientation remains just above `0.12 rad`. v72
+  combines the v70 relaxed terminal/path setup with `paper_time_scale = 0.005`
+  and recovers the full positive E1-E4 stitched matrix `8 / 8` through
+  `+1.0 mm`. This is still not robust, paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Run the full positive E1-E4 stitched matrix with the v70 relaxed terminal/path
-setup and `paper_time_scale = 0.005`. Keep strict paper-equivalent setup, v38
-relaxed trajectory-after-setup, and v63-v71 diagnostic staged labels separate.
+Stress-test the v72 recovered positive stitched policy under a compact
+sensitivity matrix. Keep strict paper-equivalent setup, v38 relaxed
+trajectory-after-setup, and v63-v72 diagnostic staged labels separate.

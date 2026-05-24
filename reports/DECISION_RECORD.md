@@ -1519,3 +1519,25 @@
   v70 relaxed terminal/path setup and `paper_time_scale = 0.005`. The project
   still must not claim robustness, strict paper-equivalent feasibility,
   contact-model calibration, or hardware readiness.
+
+## D077: Treat Positive Full Stitched Recovery As Diagnostic-Only
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v72 as evidence that the v70 run-local relaxed terminal/path setup
+  plus v71 E2-safe timing recovers the full positive E1-E4 stitched diagnostic
+  matrix through `+1.0 mm`.
+- Reason:
+  The v72 run at `runs/positive_full_stitched_recovery/20260524T192854`
+  evaluates eight positive deltas from `+0.05 mm` through `+1.0 mm` with
+  `paper_time_scale = 0.005`, `qdot_limit_rad_s = 0.15`, and the run-local
+  `0.12 rad` relaxed orientation gate. Stitched pass count is `8 / 8`; every
+  row reports Stage A pass and Stage B handoff `4 / 4`. The maximum Stage B
+  qdot saturation fraction is `0.006`, and the maximum Stage B orientation
+  error is `0.1199788204275829 rad`.
+- Consequence:
+  The next branch should stress-test the v72 recovered positive stitched
+  policy under a compact sensitivity matrix. This is still diagnostic-label
+  simulation evidence, not a robustness proof, strict paper-equivalent
+  feasibility, contact-model calibration, or hardware readiness.

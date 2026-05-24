@@ -2726,3 +2726,37 @@
 - Next step:
   Run the full positive E1-E4 stitched matrix with the v70 relaxed
   terminal/path setup and `paper_time_scale = 0.005`.
+
+## 2026-05-24 v72 Positive Full Stitched Recovery Audit
+
+### Run the full positive E1-E4 stitched matrix at the E2-safe timing
+
+- Branch:
+  `exp/tase-ur10e-v72-positive-full-stitched`
+- Run:
+  `runs/positive_full_stitched_recovery/20260524T192854`
+- Report:
+  `reports/positive_full_stitched_recovery_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_positive_full_stitched_recovery.py`
+  - `scripts/audit_positive_full_stitched_recovery.py`
+- Result:
+  The audit reuses the v70 run-local `0.12 rad` relaxed target config and
+  per-delta path CSV artifacts, then evaluates all E1-E4 trajectories at
+  `paper_time_scale = 0.005`. Positive stitched recovery passes `8 / 8`
+  through `+1.0 mm`; every row has Stage A passing and Stage B handoff
+  `4 / 4`. Max Stage B qdot saturation fraction is `0.006`, max Stage B tail
+  qdot utilization is `0.3579877267896789`, and max Stage B orientation error
+  is `0.1199788204275829 rad`.
+- Limit:
+  This is diagnostic-label simulation evidence only. It depends on the
+  run-local `0.12 rad` relaxed orientation gate and slowed
+  `paper_time_scale = 0.005`; it is not strict paper-equivalent, robust,
+  contact-model calibrated, or hardware-ready.
+- Validation:
+  `python3 -m py_compile scripts/audit_positive_full_stitched_recovery.py`
+  passed. Full tests passed with `115 passed in 2.50s`; `git diff --check`
+  passed.
+- Next step:
+  Stress-test the v72 recovered positive stitched policy under a compact
+  sensitivity matrix.

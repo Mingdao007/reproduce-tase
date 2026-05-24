@@ -245,6 +245,9 @@ them rather than deleting them.
   `paper_time_scale = 0.01`, `7 / 8` at `0.0075`, and `8 / 8` at `0.005`.
   Raising qdot limit alone on the hardest `+1.0 mm` case at original timing
   still fails because orientation remains just above `0.12 rad`.
+- The v72 positive full stitched recovery audit combines the v70 relaxed
+  terminal/path setup with `paper_time_scale = 0.005`. It recovers the full
+  positive E1-E4 stitched diagnostic matrix `8 / 8` through `+1.0 mm`.
 
 ## Next Executable Step
 
@@ -258,6 +261,7 @@ the positive side down to `+0.05 mm`, v68 separated positive-side start
 contact from terminal orientation, v69 quantified the orientation margin, and
 v70 recovered positive-side endpoints/path under an explicit `0.12 rad`
 diagnostic envelope, and v71 found that E2 recovers for all positive deltas at
-`paper_time_scale = 0.005`. The next simulation gap is the full positive E1-E4
-stitched matrix at that timing. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v71 diagnostic staged labels separate.
+`paper_time_scale = 0.005`. v72 recovers the full positive E1-E4 stitched
+matrix at that timing. The next simulation gap is sensitivity around that exact
+relaxed diagnostic policy. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v72 diagnostic staged labels separate.

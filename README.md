@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v71-stage-b-e2-margin`
+Current branch: `exp/tase-ur10e-v72-positive-full-stitched`
 
 ## Scope
 
@@ -80,6 +80,9 @@ v71 isolates that E2 handoff margin: at original `paper_time_scale = 0.01`, E2
 passes `0 / 8` positive deltas; at `0.005`, E2 passes `8 / 8`. A qdot-limit-only
 probe at `+1.0 mm` still fails because orientation remains just above
 `0.12 rad`.
+v72 combines the v70 relaxed terminal/path setup with the v71 E2-safe timing
+and recovers the full positive E1-E4 stitched diagnostic matrix `8 / 8` through
+`+1.0 mm`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

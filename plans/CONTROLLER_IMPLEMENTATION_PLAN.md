@@ -259,12 +259,15 @@ smoke runs regress.
   at `paper_time_scale = 0.005` under the v70 run-local relaxed terminal/path
   setup. Qdot-limit-only relaxation at original `0.01` timing does not recover
   the hardest `+1.0 mm` row because orientation remains just above `0.12 rad`.
+- The v72 positive full stitched recovery audit uses the v70 relaxed
+  terminal/path setup plus `paper_time_scale = 0.005` and recovers all positive
+  E1-E4 stitched rows `8 / 8` through `+1.0 mm`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should run the
-full positive E1-E4 stitched matrix with the v70 relaxed terminal/path setup
-and `paper_time_scale = 0.005`. Keep contact, drift, terminal orientation,
-force error, and qdot saturation visible together.
+task formulation. The next UR10e adapted controller experiment should
+stress-test the v72 recovered positive stitched policy under a compact
+sensitivity matrix. Keep contact, drift, terminal orientation, force error,
+and qdot saturation visible together.
