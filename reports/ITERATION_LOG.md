@@ -800,3 +800,36 @@
   Run a small tilted-plane orientation-gain/timing sweep with the existing
   gates. If no case passes without qdot saturation, record an explicit
   orientation approach-phase or qdot-budget decision.
+
+## 2026-05-24 v23 Tilted Gain/Timing Sweep
+
+- Branch: `exp/tase-ur10e-v23-tilted-gain-timing`
+- Starting commit: `e37a5545af1cb9d406848180a7ef5d772df7f4e8`
+- Files added:
+  - `reports/tilted_gain_timing_sweep_report.md`
+  - `runs/tilted_orientation_gain_timing_sweep/20260524T091826`
+- Files updated:
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 scripts/run_timing_feasibility_sweep.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/tilted_orientation_gain_timing_sweep/20260524T091826/kp<gain> --trajectories e1-cycloid --time-scales 0.05,0.075,0.1 --duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --omega-rad-s 0.1 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --orientation-mode force-normal --orientation-priority-mode linear-primary --orientation-kp <gain> --angular-axis-weight 1.0 --angular-slack-weight 1.0 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Tests passed: `49 passed in 0.53s`. `git diff --check` passed. The sweep
+  covered 18 E1 cases: gains `0.1`, `0.25`, `0.5`, `1.0`, `2.0`, and `5.0`
+  across paper time scales `0.05`, `0.075`, and `0.1`. No case passed. Low
+  gains avoided qdot saturation but failed the max-orientation-error gate at
+  about `0.174 rad`. Gains at or above `0.5` also failed qdot saturation and
+  angular-slack gates.
+- Limit:
+  This isolates the tilted orientation transition on E1 only. It does not test
+  curved surfaces, hardware, or full E1-E4 article reproduction.
+- Next step:
+  Implement a staged orientation approach/pre-alignment simulation before
+  paper-trajectory tracking, or explicitly record a qdot-budget relaxation
+  decision before further tilted orientation-gated claims.

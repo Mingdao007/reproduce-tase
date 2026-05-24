@@ -691,3 +691,37 @@ limit; a low gain preserves qdot margin but leaves the TCP orientation far from
 the tilted normal over the tested duration. The next derivation/controller
 decision should therefore be a staged orientation approach or an explicit
 velocity-budget relaxation, not an unlabeled scalar-gain tweak.
+
+## V23 Tilted Orientation Gate Implication
+
+The tilted gain/timing sweep confirms a structural issue with the current gate
+definition and controller start condition. The desired force-normal orientation
+changes from the flat initial TCP orientation to the tilted normal at the first
+paper-trajectory sample:
+
+```text
+theta_initial ~= acos([0, 0, 1]^T n_tilt) ~= 0.1745 rad
+```
+
+The existing orientation gate is a maximum-error gate:
+
+```text
+max_t ||e_R(t)|| <= 0.03 rad
+```
+
+Therefore any run that begins from the old flat orientation and immediately
+uses the tilted force-normal target is rejected before gain tuning can help.
+Low gains preserve qdot margin but keep `max ||e_R|| ~= 0.174 rad`; higher
+gains reduce the tail more quickly but exceed the qdot and angular-slack
+budgets.
+
+The correct next simulation transfer is a two-stage task:
+
+```text
+stage A: align TCP local z to n_tilt under qdot and angular-slack limits
+stage B: start paper trajectory only after ||e_R|| <= gate
+```
+
+If stage A is not added, the alternative is an explicit decision to relax the
+`0.15 rad/s` qdot budget or the max-error gate. That would be an adapted UR10e
+assumption, not a paper-faithful result.

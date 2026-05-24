@@ -451,3 +451,25 @@
   Further progress needs a small gain/timing sweep and then an explicit
   orientation approach-phase or qdot-budget decision if scalar gain tuning does
   not pass the existing gates.
+
+## D028: Stop Scalar Gain Tuning For Tilted Orientation Gates
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not claim tilted force-normal orientation feasibility from scalar
+  orientation-gain/time-scale tuning alone. The next controller step should be
+  a staged orientation approach phase before paper-trajectory tracking, or an
+  explicitly documented qdot-budget relaxation.
+- Reason:
+  The v23 tilted gain/timing sweep tested 18 E1 cases across orientation gains
+  `0.1`, `0.25`, `0.5`, `1.0`, `2.0`, and `5.0` and paper time scales
+  `0.05`, `0.075`, and `0.1`. No case passed the existing gates. Low gains
+  avoided qdot saturation but failed the `0.03 rad` max-orientation-error gate
+  because the run starts about `0.174 rad` away from the tilted normal. Gains
+  at or above `0.5` also failed qdot saturation and angular-slack gates.
+- Consequence:
+  Further tilted-surface work should move the initial orientation mismatch out
+  of the paper-trajectory run through an explicit approach/pre-alignment phase,
+  or make a transparent decision to spend more joint-velocity budget. More
+  unlabeled scalar gain sweeps are not enough evidence.

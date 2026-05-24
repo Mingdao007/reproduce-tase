@@ -627,6 +627,33 @@ Legacy source root:
   This validates nontrivial tilted-plane normal plumbing, not curved-surface
   adaptation or a full orientation-gated pass.
 
+## V23 Tilted Orientation Gain/Timing Sweep
+
+### Scalar gain/time-scale check on tilted plane
+
+- Run root:
+  - `runs/tilted_orientation_gain_timing_sweep/20260524T091826`
+- Scope:
+  E1 cycloid tilted-plane force-normal orientation sweeps using
+  `normal_velocity_mode = contact-normal`, `orientation_mode = force-normal`,
+  `orientation_priority_mode = linear-primary`, orientation gains `0.1`,
+  `0.25`, `0.5`, `1.0`, `2.0`, and `5.0`, and paper time scales `0.05`,
+  `0.075`, and `0.1`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-gain summaries and `git_state.md`; per-case
+  `metrics.yaml`, `metrics.json`, force plot, xy plot, orientation plot, and
+  angular-slack plot.
+- Ignored raw artifacts:
+  per-case `paper-trajectory-force-motion_raw.npz`.
+- Result:
+  No case passed the existing gates. Low gains avoided qdot saturation but
+  failed max orientation error at about `0.174 rad`; gains at or above `0.5`
+  also failed qdot saturation and angular-slack gates.
+- Limit:
+  This is negative E1-only simulation evidence. It does not cover curved
+  surfaces, E2-E4, torque dynamics, or hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

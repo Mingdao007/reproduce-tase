@@ -59,11 +59,12 @@ them rather than deleting them.
   orientation gates under the current linear-primary controller.
 - Tilted-plane force-normal smokes expose the qdot/gain tradeoff but do not
   yet pass the orientation gates without saturation.
+- Tilted-plane scalar gain/time-scale tuning fails the max-orientation-error
+  gate from a flat initial orientation before trajectory timing can help.
 
 ## Next Executable Step
 
-Use `runs/tilted_force_normal_orientation_smoke/20260524T050139` and
-`runs/tilted_force_normal_orientation_smoke/20260524T050139_kp0p1` as the
-first nontrivial surface-normal checks. The next executable experiment is a
-small tilted-plane orientation-gain/timing sweep with the existing orientation
-and qdot gates.
+Use `runs/tilted_orientation_gain_timing_sweep/20260524T091826` as negative
+evidence that scalar gain/time-scale tuning is insufficient. The next
+executable experiment is a staged tilted-plane orientation approach followed by
+paper-trajectory tracking under the same orientation and qdot gates.

@@ -74,10 +74,13 @@ smoke runs regress.
   current `0.15 rad/s` cap.
 - Tilted-plane force-normal smokes expose a qdot/gain tradeoff but do not yet
   pass orientation gates without saturation.
+- Tilted-plane gain/time-scale tuning cannot pass the existing max-orientation
+  gate from a flat initial TCP orientation, because the initial error is about
+  `0.174 rad`.
 
 ## Next Executable Step
 
-Run a small tilted-plane orientation-gain/timing sweep with
-`normal_velocity_mode = contact_normal`. If no case passes the existing
-orientation and qdot gates, record a controller decision for either a staged
-orientation approach phase or an explicit qdot-budget tradeoff.
+Implement a simulation-only staged orientation approach phase for the tilted
+plane. Stage A should align TCP local z to the measured contact normal under
+the same qdot and angular-slack limits; Stage B should start paper-trajectory
+tracking only after the orientation gate is satisfied.
