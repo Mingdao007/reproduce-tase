@@ -3016,8 +3016,8 @@
   `python3 -m py_compile scripts/evaluate_stitched_stage_a_handoff.py scripts/audit_stage_b_priority_recovery.py`
   passed. Full tests passed with `115 passed in 2.54s`; `git diff --check`
   passed. The run artifact is lightweight: `54` files, `788K`, with no
-  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push verification is
-  pending.
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads. Branch push was verified at
+  `9bfdb9b6dbf0c76760ca41b4a918d790ae61dc08`.
 - Next step:
   Run the recovered planar-primary formulation across the full positive-delta
   matrix, or stress it against faster timing/tighter gates, before claiming
