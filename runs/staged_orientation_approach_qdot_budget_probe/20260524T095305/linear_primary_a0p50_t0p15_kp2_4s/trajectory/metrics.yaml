@@ -1,0 +1,162 @@
+phase: trajectory
+duration_s: 2.0
+dt_s: 0.002
+steps: 1000
+qdot_limit_source: trajectory_cli_override
+qdot_min_rad_s:
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+- -0.15
+qdot_max_rad_s:
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+- 0.15
+target_force_N: 5.0
+force_gain: 0.0005
+r: 0.5
+normal_velocity_mode: contact-normal
+planar_kp: 0.5
+use_slack_solve: true
+slack_axis_weights:
+- 1.0
+- 1.0
+- 10000.0
+slack_constraint_weight: 1000.0
+initial_force_N: 4.970352618100685
+final_force_N: 4.998756030836587
+tail_mean_force_N: 4.999516699243463
+tail_mean_abs_force_error_N: 0.000548315759515714
+max_abs_force_error_N: 0.029647381899314595
+mean_tangential_position_error_m: 1.2055393720480363e-06
+max_tangential_position_error_m: 1.9784072298503184e-06
+final_tangential_displacement_m:
+- -1.939661406300669e-06
+- 1.6863775141820577e-06
+desired_tangential_displacement_m:
+- 8.412118356060372e-09
+- 1.6840951734836684e-06
+solver_success_fraction: 1.0
+contact_present_fraction: 1.0
+max_active_bound_count: 2
+min_planar_scale: 1.0
+tail_mean_planar_scale: 1.0
+mean_planar_velocity_residual_m_s: 2.057812954372216e-11
+max_planar_velocity_residual_m_s: 1.3447369130702043e-10
+tail_mean_planar_velocity_residual_m_s: 2.6882325205392452e-11
+mean_abs_normal_velocity_residual_m_s: 3.932452019649533e-12
+max_abs_normal_velocity_residual_m_s: 3.132734176236607e-11
+tail_mean_abs_normal_velocity_residual_m_s: 3.801169850145131e-12
+mean_planar_velocity_slack_m_s: 2.057812954372216e-11
+max_planar_velocity_slack_m_s: 1.3447369130702043e-10
+tail_mean_planar_velocity_slack_m_s: 2.6882325205392452e-11
+mean_abs_normal_velocity_slack_m_s: 3.932452019649533e-12
+max_abs_normal_velocity_slack_m_s: 3.132734176236607e-11
+tail_mean_abs_normal_velocity_slack_m_s: 3.801169850145131e-12
+orientation_task_enabled: true
+mean_orientation_error_rad: 0.07384863478717002
+max_orientation_error_rad: 0.07386057425237291
+tail_mean_orientation_error_rad: 0.07384154336042868
+mean_angular_velocity_residual_rad_s: 0.007395262918278392
+max_angular_velocity_residual_rad_s: 0.011060474360817012
+tail_mean_angular_velocity_residual_rad_s: 0.007377627187814671
+mean_angular_velocity_slack_rad_s: 0.007395262918278392
+max_angular_velocity_slack_rad_s: 0.011060474360817012
+tail_mean_angular_velocity_slack_rad_s: 0.007377627187814671
+max_qdot_utilization: 1.0
+tail_max_qdot_utilization: 1.0
+qdot_saturation_threshold: 0.98
+qdot_saturation_fraction: 1.0
+tail_qdot_saturation_fraction: 1.0
+max_abs_qdot_rad_s: 0.15
+max_qdot_violation_rad_s: 0.0
+max_joint_limit_violation_rad: 0.0
+max_abs_commanded_linear_velocity_m_s: 8.609207556348405e-05
+max_abs_actual_linear_velocity_m_s: 8.609202136105723e-05
+max_abs_commanded_angular_velocity_rad_s: 0.007386057425237291
+max_abs_actual_angular_velocity_rad_s: 0.00367782771539092
+trajectory: e1-cycloid
+paper_formula: x=x0+0.015*(0.1*t-sin(0.1*t)); y=y0+0.015*(1-cos(0.1*t))
+paper_time_scale: 0.075
+orientation_priority_mode: linear-primary
+orientation_kp: 0.1
+max_angular_command_rad_s: null
+initial_q:
+- -4.1275403327282545e-12
+- -0.029256776715237475
+- 0.000582051726882699
+- 0.00020977947310087044
+- 7.908093911159614e-14
+- 0.12917819395854957
+feasibility_gate:
+  feasibility_pass: false
+  failed_criteria:
+  - qdot_saturation_fraction
+  - tail_max_qdot_utilization
+  - max_orientation_error_rad
+  criteria:
+    solver_success_fraction:
+      actual: 1.0
+      operator: '>='
+      threshold: 1.0
+      passed: true
+    contact_present_fraction:
+      actual: 1.0
+      operator: '>='
+      threshold: 1.0
+      passed: true
+    tail_mean_abs_force_error_N:
+      actual: 0.000548315759515714
+      operator: <=
+      threshold: 0.25
+      passed: true
+    max_tangential_position_error_m:
+      actual: 1.9784072298503184e-06
+      operator: <=
+      threshold: 0.002
+      passed: true
+    max_planar_velocity_slack_m_s:
+      actual: 1.3447369130702043e-10
+      operator: <=
+      threshold: 0.001
+      passed: true
+    max_abs_normal_velocity_slack_m_s:
+      actual: 3.132734176236607e-11
+      operator: <=
+      threshold: 0.0002
+      passed: true
+    max_qdot_violation_rad_s:
+      actual: 0.0
+      operator: <=
+      threshold: 1.0e-09
+      passed: true
+    max_joint_limit_violation_rad:
+      actual: 0.0
+      operator: <=
+      threshold: 1.0e-09
+      passed: true
+    qdot_saturation_fraction:
+      actual: 1.0
+      operator: <=
+      threshold: 0.01
+      passed: false
+    tail_max_qdot_utilization:
+      actual: 1.0
+      operator: <=
+      threshold: 0.98
+      passed: false
+    max_orientation_error_rad:
+      actual: 0.07386057425237291
+      operator: <=
+      threshold: 0.03
+      passed: false
+    max_angular_velocity_slack_rad_s:
+      actual: 0.011060474360817012
+      operator: <=
+      threshold: 0.03
+      passed: true

@@ -48,6 +48,8 @@ def simulate_orientation_prealign_then_planar_force_motion(
     dt_s: float,
     qdot_min: np.ndarray,
     qdot_max: np.ndarray,
+    trajectory_qdot_min: np.ndarray | None = None,
+    trajectory_qdot_max: np.ndarray | None = None,
     force_gain: float,
     r: float,
     planar_kp: float = 0.5,
@@ -72,6 +74,8 @@ def simulate_orientation_prealign_then_planar_force_motion(
     aligning TCP local z to the measured force normal. Stage B restarts the
     requested planar trajectory from the approach terminal q.
     """
+    stage_b_qdot_min = qdot_min if trajectory_qdot_min is None else trajectory_qdot_min
+    stage_b_qdot_max = qdot_max if trajectory_qdot_max is None else trajectory_qdot_max
     approach = simulate_planar_force_motion(
         model_path,
         initial_q=initial_q,
@@ -110,8 +114,8 @@ def simulate_orientation_prealign_then_planar_force_motion(
         planar_trajectory=planar_trajectory,
         duration_s=trajectory_duration_s,
         dt_s=dt_s,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_min=stage_b_qdot_min,
+        qdot_max=stage_b_qdot_max,
         force_gain=force_gain,
         r=r,
         planar_kp=planar_kp,

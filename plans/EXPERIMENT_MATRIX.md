@@ -74,11 +74,14 @@ them rather than deleting them.
 - Angular-command caps are respected and reduce weighted saturation, but still
   do not produce a Stage A pass. The remaining issue appears to be task
   structure, not just requested angular-rate magnitude.
+- Separate approach and trajectory qdot caps are supported, but relaxed Stage
+  A qdot alone still does not produce a terminal approach-budget or full
+  staged-feasibility pass.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_rate_cap_probe/20260524T094752` as evidence that
-angular-command capping alone is insufficient. The next executable experiment
-should test a contact/position-first Stage A task structure, or the project
-should record a separate relaxed-budget prealignment decision before expanding
-staged checks to E2-E4.
+Use `runs/staged_orientation_approach_qdot_budget_probe/20260524T095305` as
+evidence that qdot relaxation alone is insufficient. The next executable
+experiment should test a contact/position-first Stage A task structure, or the
+project should record a separate relaxed-drift prealignment decision before
+expanding staged checks to E2-E4.

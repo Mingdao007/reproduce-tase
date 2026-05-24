@@ -971,3 +971,39 @@
   Stop changing only orientation command magnitude. Test a position-hold or
   contact/position-first task structure, or record a relaxed-budget
   prealignment decision before expanding staged checks to E2-E4.
+
+## 2026-05-24 v28 Approach Qdot Budget
+
+- Branch: `exp/tase-ur10e-v28-approach-qdot-budget`
+- Starting commit: `f621584c6a3e90cf8ed55837d317ac9e4541e30b`
+- Files added:
+  - `reports/approach_qdot_budget_report.md`
+  - `runs/staged_orientation_approach_qdot_budget_probe/20260524T095305`
+- Files updated:
+  - `src/tase_repro/staged_force_motion.py`
+  - `scripts/run_staged_orientation_force_motion.py`
+  - `tests/test_staged_force_motion.py`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/math_derivation_ur10e_transfer.md`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/staged_force_motion.py scripts/run_staged_orientation_force_motion.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+  - `python3 scripts/run_staged_orientation_force_motion.py --config configs/mujoco_ur10e_tilted_plane.yaml --output-dir runs/staged_orientation_approach_qdot_budget_probe/20260524T095305/<case> --approach-duration-s 4.0 --trajectory-duration-s 2.0 --target-force-N 5.0 --force-gain 5e-4 --r 0.5 --base-z-offset-m=-0.0011631221220595766 --initial-q 0,-0.1,0.15,-0.05,0,0 --qdot-limit-rad-s 0.15 --approach-qdot-limit-rad-s <limit> --trajectory-qdot-limit-rad-s 0.15 --trajectory e1-cycloid --omega-rad-s 0.1 --paper-time-scale 0.075 --planar-kp 0.5 --planar-slack-weight 1.0 --normal-slack-weight 10000.0 --slack-constraint-weight 1000.0 --normal-velocity-mode contact-normal --approach-orientation-priority-mode <mode> --approach-orientation-kp 2.0 --trajectory-orientation-priority-mode linear-primary --trajectory-orientation-kp 0.1 --angular-axis-weight 1.0 --angular-slack-weight 1.0 --approach-orientation-threshold-rad 0.03 --max-orientation-error-rad 0.03 --max-angular-slack-rad-s 0.03`
+- Result:
+  The staged helper and runner now support separate approach and trajectory
+  qdot limits. The seven-case probe produced `4 / 7` approach terminal
+  orientation passes, `0 / 7` terminal approach-budget passes, `3 / 7`
+  trajectory-after-approach passes, and `0 / 7` full staged-feasibility
+  passes.
+- Limit:
+  This is E1-only tilted-plane simulation evidence. It tests qdot budget
+  separation, not a new task-priority solver.
+- Next step:
+  Stop treating qdot relaxation alone as sufficient. Either implement a real
+  position/contact-first approach formulation or explicitly decide that
+  prealignment is a relaxed-drift phase outside paper-trajectory feasibility.

@@ -869,3 +869,28 @@ force regulation, planar position hold, force-normal orientation alignment,
 and the `0.15 rad/s` joint-velocity budget. The next derivation should assign
 explicit priority or acceptance gates to those contracts instead of continuing
 to tune `omega_cmd` magnitude alone.
+
+## V28 Separate Qdot Budget Implication
+
+The v28 interface separates Stage A and Stage B qdot caps:
+
+```text
+Stage A: qdot_min/max = +/- qdot_approach
+Stage B: qdot_min/max = +/- qdot_trajectory
+```
+
+The probe keeps Stage B at `0.15 rad/s` and tests Stage A up to
+`0.50 rad/s`. This isolates whether the approach can be treated as a separate
+velocity-budget phase. It does not resolve the conflict:
+
+```text
+weighted Stage A: final ||e_R|| ~= 0.002 rad, drift ~= 0.008 m
+linear-primary Stage A: drift < 3.1e-05 m, final ||e_R|| ~= 0.074 rad
+```
+
+The weighted formulation uses the added velocity authority to align the tool
+but still violates the position-hold budget. The `linear-primary` formulation
+protects position but cannot align the tilted normal under the tested
+secondary objective. Therefore a relaxed qdot limit alone is not a sufficient
+approach-budget definition. A future accepted prealignment phase must either
+permit and bound drift explicitly or use a different task structure.

@@ -766,6 +766,33 @@ Legacy source root:
   capping as a Stage A fix. It does not cover curved surfaces, E2-E4 staged
   trajectories, torque dynamics, or hardware.
 
+## V28 Approach Qdot Budget Probe
+
+### Separate Stage A and Stage B qdot-cap probe
+
+- Run root:
+  - `runs/staged_orientation_approach_qdot_budget_probe/20260524T095305`
+- Scope:
+  Seven E1 tilted-plane staged runs testing separate approach and trajectory
+  qdot caps. Stage A caps vary from `0.15` to `0.50 rad/s`; Stage B remains at
+  `0.15 rad/s`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `4 / 7`, approach terminal-budget
+  pass count `0 / 7`, trajectory-after-approach pass count `3 / 7`, and full
+  staged-feasibility pass count `0 / 7`.
+- Limit:
+  This is negative E1-only tilted-plane simulation evidence for qdot
+  relaxation as a Stage A fix. It does not cover curved surfaces, E2-E4 staged
+  trajectories, torque dynamics, or hardware.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

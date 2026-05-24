@@ -256,6 +256,8 @@ def main() -> int:
     parser.add_argument("--base-z-offset-m", type=float, default=-0.0011631221220595766)
     parser.add_argument("--initial-q", default="0,-0.1,0.15,-0.05,0,0")
     parser.add_argument("--qdot-limit-rad-s", type=float, default=0.15)
+    parser.add_argument("--approach-qdot-limit-rad-s", type=float, default=None)
+    parser.add_argument("--trajectory-qdot-limit-rad-s", type=float, default=None)
     parser.add_argument(
         "--trajectory",
         choices=["e1-cycloid", "e2-figure-eight", "e3-circle", "e4-cardioid"],
@@ -296,9 +298,20 @@ def main() -> int:
     model = load_model(model_path)
     q_min, q_max = joint_ranges(model)
     qdot_limit = abs(float(args.qdot_limit_rad_s))
-    qdot_min = np.full(model.nv, -qdot_limit, dtype=float)
-    qdot_max = np.full(model.nv, qdot_limit, dtype=float)
-    qdot_limit_source = "cli_override"
+    approach_qdot_limit = qdot_limit if args.approach_qdot_limit_rad_s is None else abs(float(args.approach_qdot_limit_rad_s))
+    trajectory_qdot_limit = (
+        qdot_limit if args.trajectory_qdot_limit_rad_s is None else abs(float(args.trajectory_qdot_limit_rad_s))
+    )
+    approach_qdot_min = np.full(model.nv, -approach_qdot_limit, dtype=float)
+    approach_qdot_max = np.full(model.nv, approach_qdot_limit, dtype=float)
+    trajectory_qdot_min = np.full(model.nv, -trajectory_qdot_limit, dtype=float)
+    trajectory_qdot_max = np.full(model.nv, trajectory_qdot_limit, dtype=float)
+    approach_qdot_limit_source = (
+        "approach_cli_override" if args.approach_qdot_limit_rad_s is not None else "cli_override"
+    )
+    trajectory_qdot_limit_source = (
+        "trajectory_cli_override" if args.trajectory_qdot_limit_rad_s is not None else "cli_override"
+    )
     dt_s = float(cfg["ur10e_mujoco"]["timestep_s"])
     run_id = dt.datetime.now().strftime("%Y%m%dT%H%M%S")
     out_dir = pathlib.Path(args.output_dir) if args.output_dir else ROOT / "runs" / "staged_orientation_force_motion" / run_id
@@ -313,8 +326,10 @@ def main() -> int:
         approach_duration_s=args.approach_duration_s,
         trajectory_duration_s=args.trajectory_duration_s,
         dt_s=dt_s,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_min=approach_qdot_min,
+        qdot_max=approach_qdot_max,
+        trajectory_qdot_min=trajectory_qdot_min,
+        trajectory_qdot_max=trajectory_qdot_max,
         force_gain=args.force_gain,
         r=args.r,
         planar_kp=args.planar_kp,
@@ -337,27 +352,27 @@ def main() -> int:
         target_force_N=args.target_force_N,
         q_min=q_min,
         q_max=q_max,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_min=approach_qdot_min,
+        qdot_max=approach_qdot_max,
     )
     trajectory_summary = summarize_force_motion(
         staged.trajectory,
         target_force_N=args.target_force_N,
         q_min=q_min,
         q_max=q_max,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_min=trajectory_qdot_min,
+        qdot_max=trajectory_qdot_max,
     )
     thresholds = build_thresholds(args)
     approach_gate = evaluate_force_motion_feasibility(
         approach_summary,
         thresholds=thresholds,
-        qdot_abs_limit_rad_s=args.qdot_limit_rad_s,
+        qdot_abs_limit_rad_s=approach_qdot_limit,
     )
     trajectory_gate = evaluate_force_motion_feasibility(
         trajectory_summary,
         thresholds=thresholds,
-        qdot_abs_limit_rad_s=args.qdot_limit_rad_s,
+        qdot_abs_limit_rad_s=trajectory_qdot_limit,
     )
     approach_terminal_gate = {
         "final_orientation_error_rad": staged.approach_final_orientation_error_rad,
@@ -370,9 +385,9 @@ def main() -> int:
         summary=approach_summary,
         args=args,
         dt_s=dt_s,
-        qdot_limit_source=qdot_limit_source,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_limit_source=approach_qdot_limit_source,
+        qdot_min=approach_qdot_min,
+        qdot_max=approach_qdot_max,
     )
     approach_metrics.update(
         {
@@ -394,9 +409,9 @@ def main() -> int:
         summary=trajectory_summary,
         args=args,
         dt_s=dt_s,
-        qdot_limit_source=qdot_limit_source,
-        qdot_min=qdot_min,
-        qdot_max=qdot_max,
+        qdot_limit_source=trajectory_qdot_limit_source,
+        qdot_min=trajectory_qdot_min,
+        qdot_max=trajectory_qdot_max,
     )
     trajectory_metrics.update(
         {
@@ -450,6 +465,8 @@ def main() -> int:
         "paper_time_scale": float(args.paper_time_scale),
         "approach_duration_s": float(args.approach_duration_s),
         "trajectory_duration_s": float(args.trajectory_duration_s),
+        "approach_qdot_limit_rad_s": approach_qdot_limit,
+        "trajectory_qdot_limit_rad_s": trajectory_qdot_limit,
         "dt_s": dt_s,
         "thresholds": thresholds.to_dict(),
         "approach": approach_metrics,

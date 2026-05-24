@@ -558,3 +558,22 @@
   relaxed approach budget. Candidate next steps are position-hold constraints,
   a documented relaxed-budget prealignment state, or a task-priority approach
   that gives contact/position first claim on the velocity budget.
+
+## D033: Relaxed Stage A Qdot Alone Is Not An Approach Budget
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Keep separate Stage A and Stage B qdot-limit support, but do not accept
+  relaxed Stage A qdot alone as the tilted prealignment solution.
+- Reason:
+  The v28 probe tested weighted and `linear-primary` approaches with Stage A
+  caps up to `0.50 rad/s` while keeping Stage B at `0.15 rad/s`. No case passed
+  the terminal approach budget or full staged feasibility. Weighted cases
+  aligned the tilted normal but still saturated the relaxed cap and drifted
+  about `8 mm`. `linear-primary` cases preserved planar position but stalled
+  near `0.074 rad`, above the terminal orientation threshold.
+- Consequence:
+  Future work should either change the task structure or explicitly accept a
+  relaxed-drift prealignment phase separate from paper-trajectory feasibility.
+  Qdot relaxation by itself is not enough evidence.
