@@ -87,7 +87,7 @@ exp/tase-ur10e-v104-plus1mm-unresolved-probe
 Verified implementation commit:
 
 ```text
-TBD_AFTER_V104_IMPLEMENTATION_COMMIT
+b412ddf5bbec20682ce021b754aa0efc845a3372
 ```
 
 V104 unresolved diagnostic probe artifacts:

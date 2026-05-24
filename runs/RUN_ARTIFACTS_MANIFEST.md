@@ -2924,8 +2924,8 @@ Legacy source root:
 - Validation:
   Focused tests passed with `2 passed in 0.22s`; YAML anchor check found no
   anchors in the generated metrics; full tests passed with
-  `146 passed in 6.74s`; `git diff --check` passed. Final push verification
-  is pending.
+  `146 passed in 6.74s`; `git diff --check` passed. Branch push was verified
+  at `b412ddf5bbec20682ce021b754aa0efc845a3372`.
 - Limit:
   No live or physical measurement was collected. This is a post-hoc offline
   audit over existing metrics only. It is not a calibrated contact model, not

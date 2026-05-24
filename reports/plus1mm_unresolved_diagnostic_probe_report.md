@@ -70,6 +70,8 @@ make a hardware-readiness claim.
   found no YAML anchors.
 - `scripts/run_tests.sh` passed with `146 passed in 6.74s`.
 - `git diff --check` passed after validation.
+- Branch push was verified at
+  `b412ddf5bbec20682ce021b754aa0efc845a3372`.
 
 ## Next Step
 
