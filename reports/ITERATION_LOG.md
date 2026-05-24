@@ -3455,3 +3455,42 @@
   Use `--audit-mode approved-read-only` only after the user approves the exact
   read-only SOP step and the run folder records that approval. Otherwise keep
   refining worksheets or gates offline.
+
+## 2026-05-25 v91 Read-Only Evidence Finalizer
+
+### Convert worksheet-filled scaffolds through an explicit offline approval gate
+
+- Branch:
+  `exp/tase-ur10e-v91-readonly-evidence-finalizer`
+- Report:
+  `reports/read_only_calibration_measurement_evidence_finalizer_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `scripts/finalize_read_only_calibration_measurement_evidence.py`, an
+  offline finalizer that requires the exact read-only approval phrase,
+  approved step ID, operator, explicit `live_hardware_accessed` metadata,
+  matching metrics YAML/JSON, default scaffold safety state, and at least one
+  worksheet CSV row before converting a scaffold to
+  `approved_read_only_evidence`. The tool derives evidence statuses from
+  worksheet rows, writes YAML/JSON metrics consistently, updates the run
+  summary and git state, and self-checks through the v90 `approved-read-only`
+  audit mode.
+- Limit:
+  This is an offline metadata finalizer only. It does not collect
+  measurements, execute the SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  passed; focused scaffold/finalizer/audit tests passed with
+  `6 passed in 1.34s`; full tests passed with `121 passed in 4.01s`;
+  `git diff --check` passed after full-test validation.
+- Next step:
+  Use the finalizer only after the user approves the exact read-only SOP step
+  and approved worksheet rows exist. If no live bench interaction is approved,
+  refine KSM contact patch convention or orientation-gate worksheet coverage
+  offline.

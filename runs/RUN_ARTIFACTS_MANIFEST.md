@@ -2442,6 +2442,35 @@ Legacy source root:
   not an accepted replacement orientation gate, not a strict paper-equivalent
   claim, and not hardware authorization.
 
+## V91 Read-Only Calibration Measurement Evidence Finalizer
+
+### Offline approval gate for worksheet-filled read-only runs
+
+- Script:
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+- Report:
+  - `reports/read_only_calibration_measurement_evidence_finalizer_report.md`
+- Tests:
+  - `tests/test_read_only_calibration_measurement_template.py`
+- Command:
+  `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+- Validation:
+  Full tests passed with `121 passed in 4.01s`; `git diff --check` passed.
+- Tracked lightweight artifacts:
+  script, report, tests, updated decision/iteration/completion documentation,
+  and `docs/goal_handoff_v92.md`.
+- Result:
+  The finalizer requires an exact approval phrase, approved step ID, operator,
+  explicit `live_hardware_accessed` metadata, matching metrics YAML/JSON,
+  default scaffold safety state, and worksheet CSV rows before converting a
+  scaffold to `approved_read_only_evidence`. It derives evidence statuses from
+  worksheet rows and self-checks with the v90 `approved-read-only` audit mode.
+- Limit:
+  No new live or physical measurement run was created. This is not collected
+  measurement evidence, not a calibrated contact model, not an accepted
+  replacement orientation gate, not a strict paper-equivalent claim, and not
+  hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

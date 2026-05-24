@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v90-readonly-evidence-audit-modes`
+Branch: `exp/tase-ur10e-v91-readonly-evidence-finalizer`
 
 ## Objective Restatement
 
@@ -139,6 +139,8 @@ The objective has two separate technical claim levels:
 - `runs/read_only_calibration_measurement_run_audit/20260525T012835/metrics.yaml`
 - `reports/read_only_calibration_measurement_audit_modes_report.md`
 - `runs/read_only_calibration_measurement_run_audit/20260525T013421/metrics.yaml`
+- `scripts/finalize_read_only_calibration_measurement_evidence.py`
+- `reports/read_only_calibration_measurement_evidence_finalizer_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -152,17 +154,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v90 branches pushed and GitHub-verified; v90 branch push verified at `aa4f48f8cb87d5af1f0051f65768fbc09e3c06ab` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v90-readonly-evidence-audit-modes`; latest local branch is `exp/tase-ur10e-v90-readonly-evidence-audit-modes` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v90 branches pushed and GitHub-verified; v91 branch is `exp/tase-ur10e-v91-readonly-evidence-finalizer` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v91-readonly-evidence-finalizer`; latest local branch is `exp/tase-ur10e-v91-readonly-evidence-finalizer` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v91.md` include the short prompt, authoritative local clone, v90 audit-mode artifacts, claim boundary, and next executable read-only SOP execution/refinement target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D095 as of v90 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v92.md` include the short prompt, authoritative local clone, v91 finalizer artifacts, claim boundary, and next executable read-only SOP execution/refinement target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D096 as of v91 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v90 validation: `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py` passed, `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py` reported `4 passed in 0.86s`, `scripts/run_tests.sh` reported `119 passed in 3.50s`, `git diff --check` passed, and no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v91 validation: `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py` passed, `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py` reported `6 passed in 1.34s`, `scripts/run_tests.sh` reported `121 passed in 4.01s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -212,6 +214,7 @@ The objective has two separate technical claim levels:
 | Read-only calibration measurement template | `templates/read_only_calibration_measurement/`, `scripts/create_read_only_calibration_measurement_run.py`, `tests/test_read_only_calibration_measurement_template.py`, `runs/read_only_calibration_measurement/20260525T012234/metrics.yaml`, `reports/read_only_calibration_measurement_template_report.md` | v88 creates a non-executed template/scaffold run for future SOP evidence capture. Generated metrics keep user confirmation, live hardware access, robot motion, configuration writes, zeroing/biasing, force control, contact-model updates, v85 margin acceptance, gate relaxation, and hardware readiness false; branch push verified at `67b486ef5b7b42c14ecf30e22dc1bb89014ec4c9` | Done |
 | Read-only calibration measurement run audit | `scripts/audit_read_only_calibration_measurement_run.py`, `runs/read_only_calibration_measurement_run_audit/20260525T012835/metrics.yaml`, `reports/read_only_calibration_measurement_run_audit_report.md`, `tests/test_read_only_calibration_measurement_template.py` | v89 verifies the v88 scaffold run is internally consistent and claim-safe: `audit_passed = true`, `violations = []`, non-executed status remains, no heavy payloads, and live hardware access, robot motion, writes, zeroing/biasing, force control, gate relaxation, and hardware readiness remain false; branch push verified at `ec3490654c6555f3d9713392edc0f7ebe76cdc36` | Done |
 | Read-only calibration measurement audit modes | `scripts/audit_read_only_calibration_measurement_run.py`, `tests/test_read_only_calibration_measurement_template.py`, `runs/read_only_calibration_measurement_run_audit/20260525T013421/metrics.yaml`, `reports/read_only_calibration_measurement_audit_modes_report.md` | v90 adds explicit `scaffold` and `approved-read-only` modes. Scaffold audit of the v88 run passes with `audit_passed = true`, `violations = []`; tests cover approved-read-only rows while keeping motion, writes, zeroing/biasing, force control, gate relaxation, hardware claims, and hardware readiness false; branch push verified at `aa4f48f8cb87d5af1f0051f65768fbc09e3c06ab` | Done |
+| Read-only calibration measurement evidence finalizer | `scripts/finalize_read_only_calibration_measurement_evidence.py`, `tests/test_read_only_calibration_measurement_template.py`, `reports/read_only_calibration_measurement_evidence_finalizer_report.md` | v91 adds an offline finalizer that requires the exact read-only approval phrase, approved step ID, operator, explicit `live_hardware_accessed` metadata, matching YAML/JSON metrics, default scaffold safety state, and worksheet CSV rows before converting a scaffold to `approved_read_only_evidence`; tests cover successful finalization and missing-approval rejection while preserving hard false gates | Done |
 | Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1480,6 +1483,15 @@ Evidence:
   weakening hard safety/claim gates. It still does not collect measurements or
   authorize robot motion, writes, zeroing, force control, gate relaxation, or
   hardware-readiness claims.
+- The v91 read-only calibration measurement evidence finalizer adds an offline
+  controlled transition from scaffold to approved read-only evidence. It
+  requires the exact read-only approval phrase, approved step ID, operator,
+  explicit live-read metadata flag, matching YAML/JSON metrics, default
+  scaffold safety state, and at least one worksheet CSV row. It derives
+  evidence-status changes from worksheet rows and self-checks with the v90
+  `approved-read-only` audit mode. It still does not collect measurements or
+  authorize robot motion, writes, zeroing, force control, gate relaxation, or
+  hardware-readiness claims.
 - The v43-v51 paper-platform line inherits unverified Panda DH parameters,
   uses a documented force-normal orientation interpretation, and passes
   force/contact with the current uncapped KKT candidate. It has Fig.5 r-sweep
@@ -1501,10 +1513,11 @@ remaining `0.119 rad` row as a calibration/definition margin. V86 confirms
 that existing local records are not sufficient to accept that margin as a
 calibrated correction. V87 defines the read-only measurement SOP needed to
 collect the missing evidence, v88 provides a non-executed template/scaffold for
-future evidence capture, v89 adds an offline run-audit gate, and v90 splits the
-gate into scaffold and approved-read-only modes. The project still has not
-achieved strict paper-equivalent full staged feasibility, calibrated contact
-geometry, robustness, or hardware readiness.
+future evidence capture, v89 adds an offline run-audit gate, v90 splits the
+gate into scaffold and approved-read-only modes, and v91 adds a controlled
+offline finalizer for worksheet-filled approved read-only evidence runs. The
+project still has not achieved strict paper-equivalent full staged feasibility,
+calibrated contact geometry, robustness, or hardware readiness.
 
 Do not mark the active goal complete from the current evidence.
 
@@ -1513,9 +1526,9 @@ Do not mark the active goal complete from the current evidence.
 Treat the faster-timing diagnostic face as recovered under the `0.11995 rad`
 gate, but do not accept a replacement orientation gate from simulation metrics
 or current local records alone. The next executable step is to execute only
-safe read-only portions of the v87 SOP with the v88 scaffold and v90 verifier
-after explicit user confirmation, or to refine the worksheets/audit gates if
-any measurement path remains ambiguous. Keep strict paper-equivalent setup,
-v38 trajectory-after-relaxed-setup, and v63-v90 diagnostic staged labels
-separate. Any hardware write, zeroing, force-control, or robot motion still
-requires a separate approved SOP.
+safe read-only portions of the v87 SOP with the v88 scaffold, v91 finalizer,
+and v90 verifier after explicit user confirmation, or to refine the
+worksheets/audit gates if any measurement path remains ambiguous. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v91
+diagnostic staged labels separate. Any hardware write, zeroing, force-control,
+or robot motion still requires a separate approved SOP.

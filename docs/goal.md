@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v91.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v90 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 finds current local records insufficient to accept that margin. v87 adds a read-only measurement/SOP artifact. v88 adds a reusable non-executed template/scaffold and run folder for future mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics evidence. v89 adds an offline run-audit gate for scaffolded measurement folders. v90 splits that gate into scaffold and approved-read-only modes without allowing motion, writes, zeroing, force control, gate relaxation, or hardware claims. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold and verifier, or keep refining the template/audit gates if any measurement path is ambiguous. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v90 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v92.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v91 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. v85 quantifies the remaining `+1.0 mm`, `0.119 rad` miss as `0.0005664520369604714 rad` (`0.03245531101442353 deg`) of normal-orientation margin, equivalent to `0.014963398168061883 mm` (`14.963398168061882 um`) under the current terminal slope proxy. v86 finds current local records insufficient to accept that margin. v87 adds a read-only measurement/SOP artifact. v88 adds a reusable non-executed template/scaffold and run folder for future mounted-stack TCP/contact point, KSM contact patch convention, robot-base-frame plane normal, force-source/frame reconciliation, and orientation-gate semantics evidence. v89 adds an offline run-audit gate for scaffolded measurement folders. v90 splits that gate into scaffold and approved-read-only modes without allowing motion, writes, zeroing, force control, gate relaxation, or hardware claims. v91 adds an offline finalizer that requires the exact read-only approval phrase, approved step ID, operator, explicit live-read metadata flag, and worksheet rows before converting a scaffold to approved read-only evidence. This is not strict paper-equivalent, not robust to contact/model perturbations, not contact-calibrated, and not hardware-ready. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or keep refining the template/audit gates if any measurement path is ambiguous. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v91 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v90` repository state. The project goal is to reproduce the T-ASE finite-time
+`v91` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v90-readonly-evidence-audit-modes`
+  `exp/tase-ur10e-v91-readonly-evidence-finalizer`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -47,12 +47,15 @@ Read and audit these files before making assumptions:
 - Current v90 audit-mode artifacts:
   `runs/read_only_calibration_measurement_run_audit/20260525T013421`
   `reports/read_only_calibration_measurement_audit_modes_report.md`
+- Current v91 evidence-finalizer artifacts:
+  `scripts/finalize_read_only_calibration_measurement_evidence.py`
+  `reports/read_only_calibration_measurement_evidence_finalizer_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v91.md`
+  `docs/goal_handoff_v92.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -299,6 +302,11 @@ Current accepted claims:
   tested for future user-confirmed read-only worksheet rows while preserving
   hard false gates for motion, writes, zeroing/biasing, force control, gate
   relaxation, and hardware readiness.
+- `ur10e_read_only_calibration_measurement_evidence_finalizer`: v91 adds an
+  offline finalizer that requires the exact read-only approval phrase,
+  approved step ID, operator, explicit live-read metadata flag, matching
+  YAML/JSON metrics, default scaffold safety state, and worksheet CSV rows
+  before converting a scaffold to `approved_read_only_evidence`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -309,10 +317,10 @@ precision. Future work must still keep these claim levels separate.
 Current next executable step:
 
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
-  after explicit user confirmation, using the v88 scaffold and v90 verifier
-  for evidence capture; or refine the template/audit gates if any measurement
-  path is ambiguous. Keep strict paper-equivalent setup, v38
-  trajectory-after-relaxed-setup, and v63-v90 diagnostic staged labels
+  after explicit user confirmation, using the v88 scaffold, v91 finalizer, and
+  v90 verifier for evidence capture; or refine the template/audit gates if any
+  measurement path is ambiguous. Keep strict paper-equivalent setup, v38
+  trajectory-after-relaxed-setup, and v63-v91 diagnostic staged labels
   separate.
 
 ## Safety Boundary

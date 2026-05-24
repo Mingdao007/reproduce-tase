@@ -2002,3 +2002,27 @@
   The audit mode must match the run state. Passing either mode is not itself an
   accepted calibration, gate relaxation, robustness proof, strict
   paper-equivalent claim, or hardware authorization.
+
+## D096: Finalize Read-Only Evidence Runs Through An Explicit Offline Gate
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v91 as the required offline finalization gate for converting a
+  scaffolded read-only calibration measurement run into
+  `approved_read_only_evidence`.
+- Reason:
+  V90 allowed future approved read-only evidence runs, but manually editing
+  metrics creates avoidable drift risk. The v91 finalizer requires the exact
+  read-only approval phrase, approved step ID, operator, explicit
+  `live_hardware_accessed` metadata, matching YAML/JSON metrics, default
+  scaffold safety state, and at least one worksheet CSV row before it writes
+  approval metadata and derived evidence statuses. It then self-checks the run
+  with the v90 `approved-read-only` audit mode.
+- Consequence:
+  Future read-only worksheet evidence should use
+  `scripts/finalize_read_only_calibration_measurement_evidence.py` before
+  being cited. Passing this finalizer is not an executed calibration, accepted
+  gate relaxation, robustness proof, strict paper-equivalent claim,
+  hardware-readiness claim, or authorization for robot motion, writes, zeroing,
+  or force control.

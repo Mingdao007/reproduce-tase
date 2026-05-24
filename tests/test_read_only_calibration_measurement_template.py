@@ -211,3 +211,146 @@ def test_audit_read_only_calibration_measurement_run_rejects_claim_drift(tmp_pat
     audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
     assert audit["audit_passed"] is False
     assert "expected false field is not false: verdict.supports_hardware_claim" in audit["violations"]
+
+
+def test_finalize_read_only_calibration_measurement_evidence_derives_status(tmp_path) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    audit_dir = tmp_path / "audit"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    tcp_path = run_dir / "tcp_contact_measurements.csv"
+    tcp_path.write_text(
+        tcp_path.read_text(encoding="utf-8")
+        + "s1,approved_read_only_fixture,+z,85.0,caliper,0.01,test,synthetic test row\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/finalize_read_only_calibration_measurement_evidence.py",
+            str(run_dir),
+            "--confirmation-phrase",
+            "I approve this read-only measurement step",
+            "--approved-step-id",
+            "TEST_READ_ONLY_STEP",
+            "--operator",
+            "pytest",
+            "--live-hardware-accessed",
+            "false",
+            "--finalized-at-utc",
+            "2026-05-25T00:00:00Z",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    assert completed.stdout.strip() == str(run_dir.resolve())
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    metrics_json = json.loads((run_dir / "metrics.json").read_text(encoding="utf-8"))
+    assert metrics_json == metrics
+    assert metrics["status"] == "approved_read_only_evidence"
+    assert metrics["execution"]["user_confirmed_read_only_step"] is True
+    assert metrics["execution"]["live_hardware_accessed"] is False
+    assert metrics["execution"]["robot_motion_commanded"] is False
+    assert metrics["execution"]["configuration_written"] is False
+    assert metrics["execution"]["zeroing_or_biasing_performed"] is False
+    assert metrics["execution"]["force_control_run"] is False
+    assert metrics["evidence_status"]["mounted_stack_tcp_contact_point"] == "collected_read_only"
+    assert metrics["evidence_status"]["plane_normal_robot_base_frame"] == "not_collected"
+    assert metrics["verdict"]["supports_hardware_claim"] is False
+    assert metrics["claim_boundary"]["hardware_readiness"] is False
+    assert metrics["read_only_evidence_finalization"]["approved_step_id"] == "TEST_READ_ONLY_STEP"
+    assert metrics["read_only_evidence_finalization"]["worksheet_row_counts"][
+        "tcp_contact_measurements.csv"
+    ] == 1
+
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/audit_read_only_calibration_measurement_run.py",
+            str(run_dir),
+            "--audit-mode",
+            "approved-read-only",
+            "--output-dir",
+            str(audit_dir),
+            "--run-id",
+            "TEST_AUDIT",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert audit["audit_mode"] == "approved-read-only"
+    assert audit["audit_passed"] is True
+    assert audit["violations"] == []
+
+
+def test_finalize_read_only_calibration_measurement_evidence_rejects_missing_approval(
+    tmp_path,
+) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    tcp_path = run_dir / "tcp_contact_measurements.csv"
+    tcp_path.write_text(
+        tcp_path.read_text(encoding="utf-8")
+        + "s1,approved_read_only_fixture,+z,85.0,caliper,0.01,test,synthetic test row\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/finalize_read_only_calibration_measurement_evidence.py",
+            str(run_dir),
+            "--confirmation-phrase",
+            "wrong phrase",
+            "--approved-step-id",
+            "TEST_READ_ONLY_STEP",
+            "--operator",
+            "pytest",
+            "--live-hardware-accessed",
+            "false",
+            "--finalized-at-utc",
+            "2026-05-25T00:00:00Z",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 1
+    assert "approval phrase mismatch" in completed.stderr
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert metrics["status"] == "scaffold_created_not_executed"
+    assert metrics["execution"]["user_confirmed_read_only_step"] is False
