@@ -2104,3 +2104,27 @@
   non-final simulation/paper-platform work. Approved read-only evidence,
   calibrated contact geometry, orientation-gate acceptance, and hardware
   readiness remain blocked until explicit approval/evidence exists.
+
+## D101: Quantify Strict Feasibility As A Setup-Tradeoff Blocker
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v96 as the strict-feasibility blocker audit for the non-final
+  offline-actionable strict paper-equivalent item identified by v95.
+- Reason:
+  V95 said strict paper-equivalent full staged feasibility could still advance
+  offline, but the next step needed to identify whether the remaining blocker
+  was trajectory tracking or setup feasibility. V96 adds
+  `scripts/audit_strict_feasibility_blockers.py`, which reads the existing
+  posture-regularized and three-phase settle summaries plus the strict
+  acceptance thresholds. It reports strict full staged feasibility `0 / 4`,
+  three-phase setup terminal state `0 / 10`, and three-phase trajectory
+  feasibility `8 / 10`.
+- Consequence:
+  Treat the strict-feasibility blocker as a strict setup terminal tradeoff, not
+  as a solved trajectory problem. Future offline work may search for a setup
+  policy that satisfies tangential, orientation, force, and qdot gates
+  simultaneously, but v96 does not prove strict paper-equivalent feasibility,
+  robustness, contact calibration, gate acceptance, hardware readiness, or any
+  hardware authorization.

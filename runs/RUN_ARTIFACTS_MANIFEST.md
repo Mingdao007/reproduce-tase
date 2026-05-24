@@ -2612,6 +2612,38 @@ Legacy source root:
   paper-equivalent claim, not a robustness proof, and not hardware
   authorization.
 
+## V96 Strict Feasibility Blockers
+
+### Strict setup terminal tradeoff audit
+
+- Script:
+  - `scripts/audit_strict_feasibility_blockers.py`
+- Run:
+  - `runs/strict_feasibility_blockers/20260525T051640`
+- Report:
+  - `reports/strict_feasibility_blockers_report.md`
+- Tests:
+  - `tests/test_strict_feasibility_blockers.py`
+- Command:
+  `python3 scripts/audit_strict_feasibility_blockers.py --run-id 20260525T051640`
+- Tracked lightweight artifacts:
+  metrics, JSON mirror, summary, git state, report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The audit reports `strict_feasibility_complete = false`,
+  `strict_setup_gate_complete = false`, strict full staged feasibility
+  `0 / 4`, three-phase setup terminal state `0 / 10`, three-phase trajectory
+  feasibility `8 / 10`, `primary_blocker =
+  strict_setup_terminal_tradeoff`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Full tests passed with `130 passed in 5.04s`; `git diff --check` passed.
+  Branch push verification is pending.
+- Limit:
+  No live or physical measurement was collected. This is not a calibrated
+  contact model, not an accepted replacement orientation gate, not a strict
+  paper-equivalent claim, not a robustness proof, and not hardware
+  authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -3672,3 +3672,43 @@
   user approves the exact read-only SOP step. Without live approval, continue
   only non-final offline simulation or paper-platform work identified by the
   v95 audit.
+
+## 2026-05-25 v96 Strict Feasibility Blockers
+
+### Quantify the strict setup terminal tradeoff
+
+- Branch:
+  `exp/tase-ur10e-v96-strict-feasibility-blockers`
+- Run:
+  `runs/strict_feasibility_blockers/20260525T051640`
+- Report:
+  `reports/strict_feasibility_blockers_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_feasibility_blockers.py`
+  - `scripts/run_tests.sh tests/test_strict_feasibility_blockers.py`
+  - `python3 scripts/audit_strict_feasibility_blockers.py --run-id 20260525T051640`
+  - `scripts/run_tests.sh`
+  - `git diff --check`
+- Result:
+  Added `scripts/audit_strict_feasibility_blockers.py`, which reads the strict
+  acceptance thresholds, the posture-regularized strict staged summary, the
+  three-phase settle summary, and the v95 blocker metrics. The audit reports
+  `strict_feasibility_complete = false`, `strict_setup_gate_complete = false`,
+  strict full staged feasibility `0 / 4`, three-phase setup terminal state
+  `0 / 10`, three-phase trajectory feasibility `8 / 10`, and
+  `primary_blocker = strict_setup_terminal_tradeoff`.
+- Limit:
+  This is an offline blocker audit only. It does not collect measurements,
+  execute the read-only SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_strict_feasibility_blockers.py` passed;
+  focused strict-feasibility blocker tests passed with `2 passed in 0.18s`;
+  the v96 blocker audit run was created; full tests passed with
+  `130 passed in 5.04s`; `git diff --check` passed after full-test
+  validation. Branch push verification is pending.
+- Next step:
+  Without live approval, continue only non-final offline work. Candidate paths
+  are strict setup policy search across tangential/orientation/force/qdot gates
+  or the separate robustness blocker from the v95 audit.

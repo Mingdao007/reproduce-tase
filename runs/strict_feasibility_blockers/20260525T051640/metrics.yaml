@@ -1,0 +1,441 @@
+audit_source: v96 strict feasibility blockers
+overall_goal_complete: false
+strict_feasibility_complete: false
+strict_setup_gate_complete: false
+strict_paper_equivalent_full_staged_feasibility_achieved: false
+trajectory_gate_often_passes: true
+completion_claim_allowed: false
+offline_actionable_from_v95: true
+source_files:
+  acceptance_config: configs/ur10e_adapted_acceptance.yaml
+  posture_regularized_summary: runs/staged_orientation_e1e4_posture_regularized/20260524T102747/summary.yaml
+  three_phase_summary: runs/staged_orientation_three_phase_settle/20260524T110039/summary.yaml
+  offline_blockers_metrics: runs/offline_completion_blockers/20260525T020734/metrics.yaml
+strict_thresholds:
+  max_final_tangential_error_m: 0.002
+  max_final_orientation_error_rad: 0.03
+  max_tail_mean_abs_force_error_N: 0.25
+  qdot_saturation_fraction_max: 0.01
+posture_regularized:
+  path: runs/staged_orientation_e1e4_posture_regularized/20260524T102747/summary.yaml
+  case_count: 4
+  approach_terminal_orientation_pass_count: 4
+  approach_feasibility_pass_count: 0
+  trajectory_feasibility_pass_count: 4
+  trajectory_after_approach_pass_count: 4
+  full_staged_feasibility_pass_count: 0
+  all_approaches_orientation_within_strict_gate: true
+  all_approaches_tangential_outside_strict_gate: true
+  strict_failure_counts:
+    final_tangential_position_error_m: 4
+    final_orientation_error_rad: 0
+  dominant_blocker: strict_setup_terminal_tangential_error
+  rows:
+  - trajectory: e1-cycloid
+    approach_feasibility_pass: false
+    trajectory_feasibility_pass: true
+    full_staged_feasibility_pass: false
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008347977658392892
+        threshold: 0.002
+        passed: false
+        gap: 0.006347977658392892
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        threshold: 0.03
+        passed: true
+        gap: -0.027970928502644286
+  - trajectory: e2-figure-eight
+    approach_feasibility_pass: false
+    trajectory_feasibility_pass: true
+    full_staged_feasibility_pass: false
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008347977658392892
+        threshold: 0.002
+        passed: false
+        gap: 0.006347977658392892
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        threshold: 0.03
+        passed: true
+        gap: -0.027970928502644286
+  - trajectory: e3-circle
+    approach_feasibility_pass: false
+    trajectory_feasibility_pass: true
+    full_staged_feasibility_pass: false
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008347977658392892
+        threshold: 0.002
+        passed: false
+        gap: 0.006347977658392892
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        threshold: 0.03
+        passed: true
+        gap: -0.027970928502644286
+  - trajectory: e4-cardioid
+    approach_feasibility_pass: false
+    trajectory_feasibility_pass: true
+    full_staged_feasibility_pass: false
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008347977658392892
+        threshold: 0.002
+        passed: false
+        gap: 0.006347977658392892
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        threshold: 0.03
+        passed: true
+        gap: -0.027970928502644286
+three_phase_settle:
+  path: runs/staged_orientation_three_phase_settle/20260524T110039/summary.yaml
+  case_count: 10
+  setup_terminal_state_pass_count: 0
+  trajectory_feasibility_pass_count: 8
+  legacy_trajectory_after_approach_pass_count: 8
+  planned_setup_then_trajectory_pass_count: 0
+  full_staged_feasibility_pass_count: 0
+  setup_failed_criteria_counts:
+    final_orientation_error_rad: 2
+    final_tangential_position_error_m: 8
+    tail_mean_abs_force_error_N: 3
+  trajectory_feasibility_pass_fraction: 0.8
+  qdot_saturation_summary:
+    threshold: 0.01
+    exceedance_count: 8
+    missing_count: 2
+    settled_rows_all_exceed: true
+  observed_tradeoff: Rows that reduce tangential error either fail orientation or
+    qdot/force criteria; rows that preserve trajectory feasibility still fail strict
+    setup.
+  best_observed_metrics:
+    best_tangential_position_error_m:
+      case: lp4_settle_lp4
+      value: 0.00017396214319096055
+      setup_terminal_state_pass: false
+      trajectory_feasibility_pass: false
+      full_staged_feasibility_pass: false
+      failed_criteria:
+      - final_orientation_error_rad
+    best_orientation_error_rad:
+      case: baseline_no_recenter
+      value: 0.0020290714973557108
+      setup_terminal_state_pass: false
+      trajectory_feasibility_pass: true
+      full_staged_feasibility_pass: false
+      failed_criteria:
+      - final_tangential_position_error_m
+    best_settle_tail_mean_abs_force_error_N:
+      case: lp4_settle_lp4
+      value: 0.0019523730245144177
+      setup_terminal_state_pass: false
+      trajectory_feasibility_pass: false
+      full_staged_feasibility_pass: false
+      failed_criteria:
+      - final_orientation_error_rad
+  rows:
+  - case: baseline_no_recenter
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008347977658392892
+        threshold: 0.002
+        passed: false
+        gap: 0.006347977658392892
+      final_orientation_error_rad:
+        actual: 0.0020290714973557108
+        threshold: 0.03
+        passed: true
+        gap: -0.027970928502644286
+      tail_mean_abs_force_error_N:
+        actual: null
+        threshold: 0.25
+        passed: null
+        gap: null
+      qdot_saturation_fraction:
+        actual: null
+        threshold: 0.01
+        passed: null
+        gap: null
+  - case: lp4_no_settle
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_orientation_error_rad
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.001202027969075075
+        threshold: 0.002
+        passed: true
+        gap: -0.000797972030924925
+      final_orientation_error_rad:
+        actual: 0.06144921366675186
+        threshold: 0.03
+        passed: false
+        gap: 0.03144921366675186
+      tail_mean_abs_force_error_N:
+        actual: 0.07268453631886647
+        threshold: 0.25
+        passed: true
+        gap: -0.17731546368113354
+      qdot_saturation_fraction:
+        actual: null
+        threshold: 0.01
+        passed: null
+        gap: null
+  - case: lp1_settle_w0p5
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    - tail_mean_abs_force_error_N
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.007193845624799021
+        threshold: 0.002
+        passed: false
+        gap: 0.0051938456247990206
+      final_orientation_error_rad:
+        actual: 0.011139549031039307
+        threshold: 0.03
+        passed: true
+        gap: -0.01886045096896069
+      tail_mean_abs_force_error_N:
+        actual: 0.8225791490908131
+        threshold: 0.25
+        passed: false
+        gap: 0.5725791490908131
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp1_settle_w1
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.007869579772205084
+        threshold: 0.002
+        passed: false
+        gap: 0.005869579772205084
+      final_orientation_error_rad:
+        actual: 0.005558417503337856
+        threshold: 0.03
+        passed: true
+        gap: -0.024441582496662142
+      tail_mean_abs_force_error_N:
+        actual: 0.1393121211793803
+        threshold: 0.25
+        passed: true
+        gap: -0.1106878788206197
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp1_settle_w2
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.00828135120454356
+        threshold: 0.002
+        passed: false
+        gap: 0.00628135120454356
+      final_orientation_error_rad:
+        actual: 0.0025125657280091578
+        threshold: 0.03
+        passed: true
+        gap: -0.02748743427199084
+      tail_mean_abs_force_error_N:
+        actual: 0.003310079622609865
+        threshold: 0.25
+        passed: true
+        gap: -0.24668992037739013
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp2_settle_w1
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    - tail_mean_abs_force_error_N
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.007543673110517419
+        threshold: 0.002
+        passed: false
+        gap: 0.005543673110517419
+      final_orientation_error_rad:
+        actual: 0.008147569423222185
+        threshold: 0.03
+        passed: true
+        gap: -0.021852430576777812
+      tail_mean_abs_force_error_N:
+        actual: 0.4460386510159919
+        threshold: 0.25
+        passed: false
+        gap: 0.19603865101599188
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp2_settle_w2
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008224360494180138
+        threshold: 0.002
+        passed: false
+        gap: 0.006224360494180138
+      final_orientation_error_rad:
+        actual: 0.002914947767721797
+        threshold: 0.03
+        passed: true
+        gap: -0.027085052232278202
+      tail_mean_abs_force_error_N:
+        actual: 0.010563335509174326
+        threshold: 0.25
+        passed: true
+        gap: -0.23943666449082568
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp4_settle_w1
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    - tail_mean_abs_force_error_N
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.00721962222129202
+        threshold: 0.002
+        passed: false
+        gap: 0.00521962222129202
+      final_orientation_error_rad:
+        actual: 0.010909888730768584
+        threshold: 0.03
+        passed: true
+        gap: -0.019090111269231415
+      tail_mean_abs_force_error_N:
+        actual: 0.9675117552611987
+        threshold: 0.25
+        passed: false
+        gap: 0.7175117552611987
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp4_settle_w2
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_tangential_position_error_m
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.008165765238665546
+        threshold: 0.002
+        passed: false
+        gap: 0.006165765238665546
+      final_orientation_error_rad:
+        actual: 0.0033403693502681454
+        threshold: 0.03
+        passed: true
+        gap: -0.026659630649731855
+      tail_mean_abs_force_error_N:
+        actual: 0.026269070988793494
+        threshold: 0.25
+        passed: true
+        gap: -0.2237309290112065
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+  - case: lp4_settle_lp4
+    setup_terminal_state_pass: false
+    full_staged_feasibility_pass: false
+    failed_criteria:
+    - final_orientation_error_rad
+    strict_setup_checks:
+      final_tangential_position_error_m:
+        actual: 0.00017396214319096055
+        threshold: 0.002
+        passed: true
+        gap: -0.0018260378568090395
+      final_orientation_error_rad:
+        actual: 0.07228244179626259
+        threshold: 0.03
+        passed: false
+        gap: 0.04228244179626259
+      tail_mean_abs_force_error_N:
+        actual: 0.0019523730245144177
+        threshold: 0.25
+        passed: true
+        gap: -0.24804762697548557
+      qdot_saturation_fraction:
+        actual: 1.0
+        threshold: 0.01
+        passed: false
+        gap: 0.99
+blocker_summary:
+  strict_case_count: 4
+  strict_full_staged_feasibility_pass_count: 0
+  three_phase_case_count: 10
+  setup_terminal_state_pass_count: 0
+  trajectory_feasibility_pass_count: 8
+  three_phase_full_staged_feasibility_pass_count: 0
+  primary_blocker: strict_setup_terminal_tradeoff
+  blocker_ids:
+  - strict_setup_terminal_tradeoff
+  - strict_setup_terminal_tangential_error
+  - settle_qdot_saturation
+  primary_blockers:
+  - strict_setup_terminal_tradeoff
+  - strict_setup_terminal_tangential_error
+  - settle_qdot_saturation
+  secondary_blockers:
+  - paper_platform_parity_split_claim
+  - uncalibrated_contact_geometry_for_gate_definition
+claim_boundary:
+  do_not_mark_goal_complete: true
+  paper_equivalent_feasibility: false
+  robustness_claim: false
+  contact_calibration_claim: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  hardware_readiness_claim: false
+next_offline_actions:
+- Search for a strict setup terminal policy that meets tangential, orientation, force,
+  and qdot gates simultaneously.
+- Keep any relaxed setup or diagnostic gate result separate from paper-equivalent
+  feasibility.
+- Do not use calibrated-contact or hardware-ready language until the read-only evidence
+  chain is closed.
+audit_run_id: 20260525T051640
+audit_root: /home/andy/reproduce-tase/runs/strict_feasibility_blockers/20260525T051640
