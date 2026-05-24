@@ -1,0 +1,110 @@
+run_root: runs/staged_orientation_e1e4_after_prealign/20260524T095804
+scope: Staged tilted-plane E1-E4 trajectory-after-prealignment matrix
+case_count: 4
+thresholds:
+  solver_success_fraction_min: 1.0
+  contact_present_fraction_min: 1.0
+  tail_mean_abs_force_error_N_max: 0.25
+  max_tangential_position_error_m_max: 0.002
+  max_planar_velocity_slack_m_s_max: 0.001
+  max_abs_normal_velocity_slack_m_s_max: 0.0002
+  max_qdot_violation_rad_s_max: 1.0e-09
+  max_joint_limit_violation_rad_max: 1.0e-09
+  qdot_saturation_fraction_max: 0.01
+  tail_max_qdot_utilization_max: 0.98
+  max_orientation_error_rad_max: 0.03
+  max_angular_velocity_slack_rad_s_max: 0.03
+approach_terminal_orientation_pass_count: 4
+approach_feasibility_pass_count: 0
+trajectory_after_approach_pass_count: 3
+trajectory_feasibility_pass_count: 3
+full_staged_feasibility_pass_count: 0
+rows:
+- case: e1-cycloid
+  trajectory: e1-cycloid
+  approach_final_orientation_error_rad: 0.0020290714973557108
+  approach_first_threshold_time_s: 0.926
+  approach_terminal_orientation_pass: true
+  approach_feasibility_pass: false
+  approach_failed_criteria: max_tangential_position_error_m;max_planar_velocity_slack_m_s;qdot_saturation_fraction;tail_max_qdot_utilization;max_orientation_error_rad
+  approach_qdot_saturation_fraction: 1.0
+  approach_max_tangential_position_error_m: 0.008347977658392892
+  approach_tail_mean_abs_force_error_N: 0.003600515115319756
+  trajectory_after_approach_pass: true
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: none
+  trajectory_tail_mean_abs_force_error_N: 0.0002608776054143602
+  trajectory_max_tangential_position_error_m: 2.323702463815581e-08
+  trajectory_max_planar_velocity_slack_m_s: 4.6412192417479153e-10
+  trajectory_max_orientation_error_rad: 0.0020386821878491048
+  trajectory_max_angular_slack_rad_s: 0.0007743999386017914
+  trajectory_qdot_saturation_fraction: 0.0005
+  trajectory_tail_max_qdot_utilization: 0.0018066419614528443
+  full_staged_feasibility_pass: false
+  case_dir: runs/staged_orientation_e1e4_after_prealign/20260524T095804/e1-cycloid
+- case: e2-figure-eight
+  trajectory: e2-figure-eight
+  approach_final_orientation_error_rad: 0.0020290714973557108
+  approach_first_threshold_time_s: 0.926
+  approach_terminal_orientation_pass: true
+  approach_feasibility_pass: false
+  approach_failed_criteria: max_tangential_position_error_m;max_planar_velocity_slack_m_s;qdot_saturation_fraction;tail_max_qdot_utilization;max_orientation_error_rad
+  approach_qdot_saturation_fraction: 1.0
+  approach_max_tangential_position_error_m: 0.008347977658392892
+  approach_tail_mean_abs_force_error_N: 0.003600515115319756
+  trajectory_after_approach_pass: false
+  trajectory_feasibility_pass: false
+  trajectory_failed_criteria: qdot_saturation_fraction;tail_max_qdot_utilization
+  trajectory_tail_mean_abs_force_error_N: 0.015191179672980932
+  trajectory_max_tangential_position_error_m: 2.0850437675500445e-05
+  trajectory_max_planar_velocity_slack_m_s: 2.7711268332986485e-09
+  trajectory_max_orientation_error_rad: 0.020294558071100602
+  trajectory_max_angular_slack_rad_s: 0.004471744994925079
+  trajectory_qdot_saturation_fraction: 0.9935
+  trajectory_tail_max_qdot_utilization: 1.0
+  full_staged_feasibility_pass: false
+  case_dir: runs/staged_orientation_e1e4_after_prealign/20260524T095804/e2-figure-eight
+- case: e3-circle
+  trajectory: e3-circle
+  approach_final_orientation_error_rad: 0.0020290714973557108
+  approach_first_threshold_time_s: 0.926
+  approach_terminal_orientation_pass: true
+  approach_feasibility_pass: false
+  approach_failed_criteria: max_tangential_position_error_m;max_planar_velocity_slack_m_s;qdot_saturation_fraction;tail_max_qdot_utilization;max_orientation_error_rad
+  approach_qdot_saturation_fraction: 1.0
+  approach_max_tangential_position_error_m: 0.008347977658392892
+  approach_tail_mean_abs_force_error_N: 0.003600515115319756
+  trajectory_after_approach_pass: true
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: none
+  trajectory_tail_mean_abs_force_error_N: 0.00024053609321311064
+  trajectory_max_tangential_position_error_m: 7.491694364837392e-07
+  trajectory_max_planar_velocity_slack_m_s: 3.3407114235801414e-09
+  trajectory_max_orientation_error_rad: 0.007108778321016299
+  trajectory_max_angular_slack_rad_s: 0.0015898319214800389
+  trajectory_qdot_saturation_fraction: 0.0005
+  trajectory_tail_max_qdot_utilization: 0.005716628545258487
+  full_staged_feasibility_pass: false
+  case_dir: runs/staged_orientation_e1e4_after_prealign/20260524T095804/e3-circle
+- case: e4-cardioid
+  trajectory: e4-cardioid
+  approach_final_orientation_error_rad: 0.0020290714973557108
+  approach_first_threshold_time_s: 0.926
+  approach_terminal_orientation_pass: true
+  approach_feasibility_pass: false
+  approach_failed_criteria: max_tangential_position_error_m;max_planar_velocity_slack_m_s;qdot_saturation_fraction;tail_max_qdot_utilization;max_orientation_error_rad
+  approach_qdot_saturation_fraction: 1.0
+  approach_max_tangential_position_error_m: 0.008347977658392892
+  approach_tail_mean_abs_force_error_N: 0.003600515115319756
+  trajectory_after_approach_pass: true
+  trajectory_feasibility_pass: true
+  trajectory_failed_criteria: none
+  trajectory_tail_mean_abs_force_error_N: 0.00024069599478070082
+  trajectory_max_tangential_position_error_m: 6.072721953184356e-07
+  trajectory_max_planar_velocity_slack_m_s: 4.6412192417479153e-10
+  trajectory_max_orientation_error_rad: 0.0024109462623841393
+  trajectory_max_angular_slack_rad_s: 0.0007744164549044335
+  trajectory_qdot_saturation_fraction: 0.0005
+  trajectory_tail_max_qdot_utilization: 0.0021304398551708144
+  full_staged_feasibility_pass: false
+  case_dir: runs/staged_orientation_e1e4_after_prealign/20260524T095804/e4-cardioid

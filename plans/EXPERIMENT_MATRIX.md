@@ -77,11 +77,15 @@ them rather than deleting them.
 - Separate approach and trajectory qdot caps are supported, but relaxed Stage
   A qdot alone still does not produce a terminal approach-budget or full
   staged-feasibility pass.
+- The first staged E1-E4 after-prealignment matrix passes Stage B for E1, E3,
+  and E4, but E2 remains qdot-budget limited after prealignment. The matrix is
+  therefore partial evidence, not a complete staged tilted-plane reproduction.
 
 ## Next Executable Step
 
-Use `runs/staged_orientation_approach_qdot_budget_probe/20260524T095305` as
-evidence that qdot relaxation alone is insufficient. The next executable
-experiment should test a contact/position-first Stage A task structure, or the
-project should record a separate relaxed-drift prealignment decision before
-expanding staged checks to E2-E4.
+Use `runs/staged_orientation_e1e4_after_prealign/20260524T095804` as evidence
+that weighted tilted-normal prealignment enables only `3 / 4` slowed Stage B
+trajectories. The next executable experiment should isolate E2 after
+prealignment with a small timing/task-priority bracket, or replace Stage A
+with a contact/position-first structure before making any broader staged
+claim.

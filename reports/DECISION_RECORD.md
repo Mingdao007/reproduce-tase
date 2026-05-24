@@ -577,3 +577,23 @@
   Future work should either change the task structure or explicitly accept a
   relaxed-drift prealignment phase separate from paper-trajectory feasibility.
   Qdot relaxation by itself is not enough evidence.
+
+## D034: Do Not Accept Partial E1-E4 After Prealignment As Full Staged Reproduction
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Do not claim a complete staged tilted-plane E1-E4 reproduction from the v29
+  trajectory-after-prealignment matrix.
+- Reason:
+  The v29 matrix repeats the weighted tilted-normal prealignment and then runs
+  the slowed Section VI E1-E4 trajectories for `8 s` at
+  `paper_time_scale = 0.075`. E1, E3, and E4 pass the Stage B trajectory gate,
+  but E2 fails due qdot saturation fraction `0.9935` and tail qdot utilization
+  `1.0`. The approach phase also fails ordinary feasibility in all four cases
+  because the repeated weighted approach saturates qdot for the full approach
+  and drifts `0.008347977658392892 m` tangentially.
+- Consequence:
+  Keep the v29 run as partial trajectory-after-prealignment evidence. The next
+  isolated blocker is E2 after prealignment, or a genuinely different Stage A
+  task structure that avoids both planar drift and sustained qdot saturation.

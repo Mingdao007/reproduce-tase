@@ -894,3 +894,37 @@ protects position but cannot align the tilted normal under the tested
 secondary objective. Therefore a relaxed qdot limit alone is not a sufficient
 approach-budget definition. A future accepted prealignment phase must either
 permit and bound drift explicitly or use a different task structure.
+
+## V29 Staged E1-E4 After Prealignment Implication
+
+The v29 matrix asks a different question from the Stage A budget probes:
+assuming the weighted tilted-normal prealignment has already reached the
+terminal orientation gate, can the slowed Section VI trajectory family pass
+the existing Stage B force, position, orientation, slack, and qdot gates?
+
+With Stage A fixed at `weighted`, `k_o = 2.0`,
+`qdot_approach = 0.25 rad/s`, and Stage B fixed at
+`linear-primary`, `k_o = 0.1`, `qdot_trajectory = 0.15 rad/s`, the result is
+partial:
+
+```text
+trajectory-after-approach pass count = 3 / 4
+full staged-feasibility pass count = 0 / 4
+```
+
+E1, E3, and E4 pass Stage B at `paper_time_scale = 0.075`, but E2 fails due
+velocity budget:
+
+```text
+E2 qdot saturation fraction = 0.9935
+E2 tail max qdot utilization = 1.0
+E2 max orientation error = 0.020294558071100602 rad
+E2 max tangential position error = 2.0850437675500445e-05 m
+```
+
+This separates two remaining issues. Stage A is still not an accepted
+approach because it saturates qdot and drifts about `8.35 mm`. Stage B is
+also not universally solved after prealignment because E2 remains
+qdot-limited. The UR10e 6DOF adaptation therefore still needs either an E2
+post-prealignment timing/task-priority adjustment or a different approach
+formulation before it can claim a complete staged E1-E4 reproduction.

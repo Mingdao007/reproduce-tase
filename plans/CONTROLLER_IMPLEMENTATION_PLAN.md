@@ -97,11 +97,14 @@ smoke runs regress.
   A qdot alone still does not produce a pass. Weighted approaches align with
   about `8 mm` drift, while `linear-primary` approaches preserve position but
   stall above the orientation threshold.
+- The v29 staged E1-E4 matrix shows that weighted prealignment is not enough
+  for a full trajectory family claim. E1, E3, and E4 pass the slowed Stage B
+  gate, but E2 remains qdot-saturated after prealignment.
 
 ## Next Executable Step
 
-Test a Stage A structure that changes task priority instead of only changing
-orientation command magnitude or qdot budget. The next candidate should
-preserve contact and planar position first, then use remaining velocity budget
-for orientation; if that still fails, record a separate relaxed-drift
-approach-budget decision before expanding staged checks to E2-E4.
+Isolate the E2 post-prealignment qdot failure with a small timing or
+task-priority bracket, while keeping Stage A labeled as a separate infeasible
+approach under the ordinary budget. In parallel, the next controller redesign
+candidate should preserve contact and planar position first, then use
+remaining velocity budget for orientation.

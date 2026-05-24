@@ -793,6 +793,34 @@ Legacy source root:
   relaxation as a Stage A fix. It does not cover curved surfaces, E2-E4 staged
   trajectories, torque dynamics, or hardware.
 
+## V29 Staged E1-E4 After Prealignment Matrix
+
+### Tilted-plane Section VI trajectory family after weighted prealignment
+
+- Run root:
+  - `runs/staged_orientation_e1e4_after_prealign/20260524T095804`
+- Scope:
+  Four staged tilted-plane runs. Stage A repeats the weighted prealignment
+  setup with `approach_qdot_limit_rad_s = 0.25`; Stage B runs E1-E4 for `8 s`
+  at `paper_time_scale = 0.075` with `trajectory_qdot_limit_rad_s = 0.15`.
+- Tracked lightweight artifacts:
+  root `summary.csv`, `summary.json`, `summary.yaml`, `summary.md`, and
+  `git_state.md`; per-case root `metrics.yaml`, `metrics.json`, `summary.md`,
+  and `git_state.md`; per-phase `metrics.yaml`, `metrics.json`, force plot,
+  xy plot, orientation plot, and angular-slack plot.
+- Ignored raw artifacts:
+  per-case `approach/staged-approach_raw.npz` and
+  `trajectory/staged-trajectory_raw.npz`.
+- Result:
+  Approach terminal-orientation pass count `4 / 4`, approach
+  ordinary-feasibility pass count `0 / 4`, trajectory-after-approach pass
+  count `3 / 4`, trajectory-feasibility pass count `3 / 4`, and full
+  staged-feasibility pass count `0 / 4`. E2 fails Stage B due qdot saturation
+  fraction `0.9935` and tail qdot utilization `1.0`.
+- Limit:
+  This is partial tilted-plane simulation evidence at slowed timing. It does
+  not accept Stage A and does not establish full staged E1-E4 feasibility.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
