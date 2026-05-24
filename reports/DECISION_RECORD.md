@@ -1980,3 +1980,25 @@
   claim-safe. It is not measurement evidence, not an accepted calibration, not
   a gate relaxation, and not authorization for robot motion, writes, zeroing,
   force control, or hardware claims.
+
+## D095: Split Read-Only Run Audit Into Scaffold And Approved-Evidence Modes
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v90 as the audit-mode refinement for read-only calibration
+  measurement runs. Use `--audit-mode scaffold` for untouched template runs and
+  `--audit-mode approved-read-only` for future runs where the user explicitly
+  approved a read-only evidence step.
+- Reason:
+  The v89 verifier was intentionally strict and only accepted non-executed
+  scaffolds. A future approved read-only run may legitimately set
+  `user_confirmed_read_only_step = true`, may record live read-only access, and
+  may add worksheet rows. V90 allows those fields only in the approved mode,
+  while continuing to hard-fail robot motion, configuration writes,
+  zeroing/biasing, force control, contact-model updates, gate relaxation,
+  hardware claims, and hardware readiness.
+- Consequence:
+  The audit mode must match the run state. Passing either mode is not itself an
+  accepted calibration, gate relaxation, robustness proof, strict
+  paper-equivalent claim, or hardware authorization.

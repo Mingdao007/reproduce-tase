@@ -1,0 +1,51 @@
+audited_run: /home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T012234
+audit_mode: scaffold
+audit_passed: true
+violations: []
+required_files_present:
+- README.md
+- force_source_comparison.csv
+- git_state.md
+- measurement_plan.md
+- metrics.json
+- metrics.yaml
+- operator_checklist.md
+- orientation_gate_decision.md
+- photos_manifest.md
+- plane_normal_measurements.csv
+- summary.md
+- tcp_contact_measurements.csv
+missing_files: []
+run_status: scaffold_created_not_executed
+run_id: 20260525T012234
+execution:
+  user_confirmed_read_only_step: false
+  live_hardware_accessed: false
+  robot_motion_commanded: false
+  configuration_written: false
+  zeroing_or_biasing_performed: false
+  force_control_run: false
+evidence_status:
+  mounted_stack_tcp_contact_point: not_collected
+  ksm_contact_patch_convention: not_collected
+  plane_normal_robot_base_frame: not_collected
+  force_source_frame_reconciliation: not_collected
+  orientation_gate_semantics: not_accepted
+verdict:
+  supports_contact_model_update: false
+  supports_accepting_v85_margin: false
+  supports_gate_relaxation: false
+  supports_hardware_claim: false
+  supports_more_stage_b_qdot_tuning: false
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  gate_relaxation_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
+artifact_audit:
+  file_count: 12
+  total_bytes: 7818
+  heavy_payloads: []
+audit_run_id: 20260525T013421
+audit_root: /home/andy/reproduce-tase/runs/read_only_calibration_measurement_run_audit/20260525T013421

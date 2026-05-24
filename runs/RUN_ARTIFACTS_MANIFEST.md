@@ -2418,6 +2418,29 @@ Legacy source root:
   not an accepted replacement orientation gate, not a strict paper-equivalent
   claim, and not hardware authorization.
 
+## V90 Read-Only Calibration Measurement Audit Modes
+
+### Scaffold and approved-read-only audit profiles
+
+- Script:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+- Run:
+  - `runs/read_only_calibration_measurement_run_audit/20260525T013421`
+- Command:
+  `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T012234 --audit-mode scaffold --run-id 20260525T013421`
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`.
+- Result:
+  The audit script now has explicit `scaffold` and `approved-read-only` modes.
+  The v88 scaffold run passed in scaffold mode with `audit_passed = true` and
+  `violations = []`. The approved-read-only path is covered by tests and still
+  forbids robot motion, configuration writes, zeroing/biasing, force control,
+  gate relaxation, and hardware-readiness claims.
+- Limit:
+  This is not collected measurement evidence, not a calibrated contact model,
+  not an accepted replacement orientation gate, not a strict paper-equivalent
+  claim, and not hardware authorization.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

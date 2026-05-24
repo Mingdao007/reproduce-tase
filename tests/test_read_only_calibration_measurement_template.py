@@ -94,10 +94,77 @@ def test_audit_read_only_calibration_measurement_run_accepts_scaffold(tmp_path) 
     audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
     audit_json = json.loads((audit_dir / "metrics.json").read_text(encoding="utf-8"))
     assert audit_json == audit
+    assert audit["audit_mode"] == "scaffold"
     assert audit["audit_passed"] is True
     assert audit["violations"] == []
     assert audit["run_status"] == "scaffold_created_not_executed"
     assert audit["execution"]["live_hardware_accessed"] is False
+    assert audit["verdict"]["supports_hardware_claim"] is False
+    assert audit["claim_boundary"]["hardware_readiness"] is False
+
+
+def test_audit_read_only_calibration_measurement_run_accepts_approved_read_only(tmp_path) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    audit_dir = tmp_path / "audit"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    metrics["status"] = "approved_read_only_evidence"
+    metrics["execution"]["user_confirmed_read_only_step"] = True
+    metrics["execution"]["live_hardware_accessed"] = True
+    metrics["evidence_status"]["mounted_stack_tcp_contact_point"] = "collected_read_only"
+    (run_dir / "metrics.yaml").write_text(yaml.safe_dump(metrics, sort_keys=False), encoding="utf-8")
+    (run_dir / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
+    tcp_path = run_dir / "tcp_contact_measurements.csv"
+    tcp_path.write_text(
+        tcp_path.read_text(encoding="utf-8")
+        + "s1,approved_read_only_fixture,+z,85.0,caliper,0.01,test,synthetic test row\n",
+        encoding="utf-8",
+    )
+    (run_dir / "summary.md").write_text(
+        "# Read-Only Calibration Measurement Summary\n\n"
+        "Status: `approved_read_only_evidence`\n\n"
+        "All hardware-readiness claims remain false.\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/audit_read_only_calibration_measurement_run.py",
+            str(run_dir),
+            "--audit-mode",
+            "approved-read-only",
+            "--output-dir",
+            str(audit_dir),
+            "--run-id",
+            "TEST_AUDIT",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+
+    assert completed.stdout.strip() == str(audit_dir)
+    audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert audit["audit_mode"] == "approved-read-only"
+    assert audit["audit_passed"] is True
+    assert audit["violations"] == []
+    assert audit["execution"]["user_confirmed_read_only_step"] is True
+    assert audit["execution"]["live_hardware_accessed"] is True
     assert audit["verdict"]["supports_hardware_claim"] is False
     assert audit["claim_boundary"]["hardware_readiness"] is False
 

@@ -3416,3 +3416,41 @@
   Use the verifier before any future worksheet-filled run is cited as evidence.
   Live bench evidence still requires explicit approval for the exact read-only
   SOP step.
+
+## 2026-05-25 v90 Read-Only Audit Modes
+
+### Allow explicitly approved read-only evidence without weakening safety gates
+
+- Branch:
+  `exp/tase-ur10e-v90-readonly-evidence-audit-modes`
+- Run:
+  `runs/read_only_calibration_measurement_run_audit/20260525T013421`
+- Report:
+  `reports/read_only_calibration_measurement_audit_modes_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/20260525T012234 --audit-mode scaffold --run-id 20260525T013421`
+- Result:
+  Added explicit `scaffold` and `approved-read-only` audit modes. Scaffold
+  mode keeps user confirmation and live hardware access false and rejects any
+  worksheet rows. Approved-read-only mode requires explicit user confirmation,
+  allows a boolean live-read flag, requires at least one evidence-status change,
+  and still hard-fails motion, writes, zeroing/biasing, force control,
+  contact-model updates, gate relaxation, hardware claims, and hardware
+  readiness.
+- Limit:
+  This is an offline audit-gate refinement only. It does not collect
+  measurements, execute the SOP, calibrate the contact model, accept any
+  replacement gate, prove robustness, prove strict paper-equivalent
+  feasibility, or authorize hardware motion/configuration.
+- Validation:
+  `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/create_read_only_calibration_measurement_run.py`
+  passed; focused scaffold/audit-mode tests passed with `4 passed in 0.86s`;
+  full tests passed with `119 passed in 3.50s`; `git diff --check` passed
+  before full-test validation. The generated audit artifact has `4` files,
+  `20K`, and no `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Use `--audit-mode approved-read-only` only after the user approves the exact
+  read-only SOP step and the run folder records that approval. Otherwise keep
+  refining worksheets or gates offline.
