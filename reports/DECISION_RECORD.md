@@ -1800,3 +1800,31 @@
   should stress this candidate against the tightened gate and decide whether a
   full positive-delta `paper_time_scale = 0.01` matrix is a meaningful
   diagnostic target.
+
+## D088: Treat V83 As Timing Closure And Tightened-Gate Boundary Evidence
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v83 as evidence that the weighted zero-angular-command candidate
+  closes the full positive-delta `paper_time_scale = 0.01` diagnostic matrix
+  under the `0.11995 rad` gate, but still does not recover the tighter
+  `0.119 rad` orientation gate at `+1.0 mm`.
+- Reason:
+  The v83 run at `runs/weighted_gate_time_matrix/20260524T232637` holds the
+  v70 relaxed target/path setup, `stage_a_duration_s = 15.0`, and
+  `qdot_limit_rad_s = 0.15` fixed while testing two weighted
+  zero-angular-command scenarios. Under `orientation_gate = 0.11995 rad`, both
+  scenarios pass all eight positive deltas at `paper_time_scale = 0.01`. Under
+  `orientation_gate = 0.119 rad`, both tested timings pass only through
+  `+0.75 mm` and fail the `+1.0 mm` row. The focused `+1.0 mm` gate boundary
+  first passes at `0.11955 rad` for `paper_time_scale = 0.0075` and
+  `0.1196 rad` for `paper_time_scale = 0.01`.
+- Consequence:
+  The faster-timing diagnostic face can be treated as closed under the
+  `0.11995 rad` gate, but the remaining simulation blocker is the `+1.0 mm`,
+  `0.119 rad` orientation-gate row. The next work should revisit the
+  terminal/contact orientation definition or model calibration before more
+  Stage B qdot tuning. This is not a canonical controller default, robustness
+  proof, strict paper-equivalent feasibility, contact-model calibration, or
+  hardware-readiness evidence.

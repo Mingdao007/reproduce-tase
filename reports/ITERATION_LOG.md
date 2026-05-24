@@ -3147,3 +3147,42 @@
   orientation gate and decide whether a full positive-delta
   `paper_time_scale = 0.01` matrix is a meaningful diagnostic target before
   treating the faster-timing face as closed.
+
+## 2026-05-24 v83 Weighted Gate/Time Matrix
+
+### Close the full `0.01` timing matrix and bracket the tightened gate
+
+- Branch:
+  `exp/tase-ur10e-v83-weighted-gate-time-matrix`
+- Run:
+  `runs/weighted_gate_time_matrix/20260524T232637`
+- Report:
+  `reports/weighted_gate_time_matrix_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py`
+  - `scripts/audit_weighted_gate_time_matrix.py`
+- Result:
+  The audit holds the v70 relaxed target/path setup, `stage_a_duration_s =
+  15.0`, and `qdot_limit_rad_s = 0.15` fixed while testing the two v82
+  weighted zero-angular-command candidates. Both weighted scenarios pass the
+  full positive-delta `paper_time_scale = 0.01`, `orientation_gate = 0.11995`
+  matrix `8 / 8` through `+1.0 mm`. At the tighter `0.119 rad` gate, both
+  timings pass through `+0.75 mm` but fail `+1.0 mm`. The focused `+1.0 mm`
+  gate boundary first passes at `0.11955 rad` for `paper_time_scale = 0.0075`
+  and `0.1196 rad` for `paper_time_scale = 0.01`.
+- Limit:
+  This is diagnostic-label timing/gate matrix evidence only. It closes the
+  full `paper_time_scale = 0.01` positive matrix under the `0.11995 rad` gate,
+  but it does not recover the `+1.0 mm`, `0.119 rad` gate and is not a
+  canonical controller default, strict paper-equivalent feasibility,
+  robustness proof, contact-model calibration, or hardware readiness.
+- Validation:
+  `python3 -m py_compile scripts/audit_weighted_gate_time_matrix.py` passed.
+  Full tests passed with `115 passed in 2.78s`; `git diff --check` passed. The
+  run artifact is lightweight: `460` files, `7.0M`, with no
+  `.npz/.npy/.mat/.tar/.gz/.zip` payloads.
+- Next step:
+  Treat the faster-timing face as recovered under the `0.11995 rad` gate. The
+  remaining simulation blocker is the `+1.0 mm`, `0.119 rad` orientation-gate
+  row, so revisit the terminal/contact orientation definition or model
+  calibration before more Stage B qdot tuning.

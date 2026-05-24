@@ -291,6 +291,10 @@ them rather than deleting them.
   tested weighted scenarios pass the full positive-delta
   `paper_time_scale = 0.0075` matrix `8 / 8`, and `weighted_kp0_normal1`
   passes the focused `+1.0 mm` timing sweep through `paper_time_scale = 0.01`.
+- The v83 weighted gate/time matrix audit shows the full positive-delta
+  `paper_time_scale = 0.01`, `0.11995 rad` matrix also passes `8 / 8` for both
+  weighted scenarios, while the tighter `0.119 rad` gate passes through
+  `+0.75 mm` but still fails at `+1.0 mm`.
 
 ## Next Executable Step
 
@@ -318,7 +322,8 @@ v80 carries that recovery across the full positive-delta matrix. v81 improves
 the focused timing/gate boundaries but does not recover the full
 `paper_time_scale = 0.0075` stress or the `+1.0 mm`, `0.119 rad` row. v82
 recovers the `0.0075` faster-timing face with weighted zero-angular-command
-priority under the `0.11995 rad` gate, but does not recover the `0.119 rad`
-gate or prove the full positive matrix at `paper_time_scale = 0.01`. Keep
-strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v82
+priority under the `0.11995 rad` gate. v83 proves the full positive
+`paper_time_scale = 0.01`, `0.11995 rad` matrix for the tested weighted
+scenarios, but does not recover the `0.119 rad` gate. Keep strict
+paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v83
 diagnostic staged labels separate.

@@ -2231,6 +2231,35 @@ Legacy source root:
   paper-equivalent claim, robustness proof, contact-model calibration, or
   hardware evidence.
 
+## V83 Weighted Gate/Time Matrix
+
+### Full `0.01` timing matrix and tightened-gate boundary
+
+- Run:
+  - `runs/weighted_gate_time_matrix/20260524T232637`
+- Command:
+  `scripts/audit_weighted_gate_time_matrix.py`
+- Git state at run time:
+  parent commit `b72ecec06468cf527889d176fc553be764206307` with dirty v83
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  run-local copied Stage A target configs under `configs/`, plus full-matrix
+  stitched metrics/summaries/commands under `full_matrix/*` and focused
+  gate-boundary artifacts under `gate_boundary/*`.
+- Result:
+  Both weighted zero-angular-command scenarios pass the full positive-delta
+  `paper_time_scale = 0.01`, `orientation_gate = 0.11995 rad` matrix `8 / 8`
+  through `+1.0 mm`. At `orientation_gate = 0.119 rad`, both tested timings
+  pass through `+0.75 mm` but fail `+1.0 mm`. The focused `+1.0 mm` gate
+  boundary first passes at `0.11955 rad` for `paper_time_scale = 0.0075` and
+  `0.1196 rad` for `paper_time_scale = 0.01`.
+- Limit:
+  This is diagnostic-label timing/gate matrix evidence only. It is not a
+  canonical controller default, recovery of the `+1.0 mm`, `0.119 rad` gate,
+  strict paper-equivalent claim, robustness proof, contact-model calibration,
+  or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -303,14 +303,17 @@ smoke runs regress.
   the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix
   `8 / 8` for both tested normal weights, while the focused `+1.0 mm` timing
   sweep for `weighted_kp0_normal1` passes through `paper_time_scale = 0.01`.
+- The v83 weighted gate/time matrix audit shows the full positive-delta
+  `paper_time_scale = 0.01`, `0.11995 rad` matrix also passes `8 / 8` for both
+  weighted scenarios, but the tighter `0.119 rad` gate still only passes
+  through `+0.75 mm` and fails at `+1.0 mm`.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
-task formulation. The next UR10e adapted controller experiment should stress
-the weighted zero-angular-command candidate against the `0.119 rad` orientation
-gate and decide whether a full positive-delta matrix at `paper_time_scale =
-0.01` is a meaningful diagnostic target before treating the faster-timing face
-as closed. Keep contact, drift, terminal orientation, force error, and qdot
-saturation visible together.
+task formulation. The faster-timing face is diagnostically recovered under the
+`0.11995 rad` gate. The next UR10e adapted modeling experiment should revisit
+the terminal/contact orientation definition or calibration for the `+1.0 mm`,
+`0.119 rad` row before more Stage B qdot tuning. Keep contact, drift, terminal
+orientation, force error, and qdot saturation visible together.

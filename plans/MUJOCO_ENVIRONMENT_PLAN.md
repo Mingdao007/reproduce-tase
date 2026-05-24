@@ -110,13 +110,15 @@ contact behavior regresses.
   zero-angular-command priority recovers that faster-timing stress under the
   `0.11995 rad` gate, with both tested weighted scenarios passing `8 / 8`
   through `+1.0 mm` and a focused timing sweep passing through
-  `paper_time_scale = 0.01`.
+  `paper_time_scale = 0.01`. v83 shows the full positive-delta
+  `paper_time_scale = 0.01`, `0.11995 rad` matrix also passes `8 / 8` for both
+  weighted scenarios, while the tighter `0.119 rad` gate still fails at
+  `+1.0 mm`.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should stress the weighted zero-angular-command
-candidate against the `0.119 rad` orientation gate and decide whether a full
-positive-delta matrix at `paper_time_scale = 0.01` is a meaningful diagnostic
-target before treating the faster-timing face as closed.
+simulation modeling step should revisit the terminal/contact orientation
+definition or model calibration for the `+1.0 mm`, `0.119 rad` row before more
+Stage B qdot tuning.

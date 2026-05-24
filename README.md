@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v82-weighted-timing-recovery`
+Current branch: `exp/tase-ur10e-v83-weighted-gate-time-matrix`
 
 ## Scope
 
@@ -119,7 +119,12 @@ both pass the focused `+1.0 mm` timing sweep through `paper_time_scale =
 priority-formulation dependent: weighted zero-angular-command priority passes
 the full positive-delta `paper_time_scale = 0.0075`, `0.11995 rad` matrix
 `8 / 8` for both tested normal weights, and the focused `+1.0 mm` timing sweep
-passes through `paper_time_scale = 0.01`.
+passes through `paper_time_scale = 0.01`. v83 shows that focused timing result
+generalizes to the full positive-delta `paper_time_scale = 0.01`,
+`0.11995 rad` matrix (`8 / 8` for both tested weighted scenarios), but the
+tighter `0.119 rad` gate still fails at `+1.0 mm` and only passes through
+`+0.75 mm`; the `+1.0 mm` row needs about `0.11955 rad` at
+`paper_time_scale = 0.0075` and `0.1196 rad` at `0.01`.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command
