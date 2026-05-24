@@ -80,10 +80,11 @@ the decision record and revert only the affected controller commit.
 - The v46 Python 7DOF Fig.5 sweep closes the Fig.5 coverage gap. Strict
   parity still fails because q7 at 22 s remains mismatched and the
   force-integral cap remains an adapted assumption.
+- The v47 uncapped KKT candidate closes the force-integral-cap assumption gap.
+  Strict parity still fails because q7 at 22 s remains mismatched.
 
 ## Next Executable Step
 
-For the paper-platform line, investigate the q7-at-22 s mismatch, remove or
-justify the force-integral cap, or verify the Panda/Franka DH model before
-upgrading the claim. Keep this separate from UR10e adapted controller
-iterations.
+For the paper-platform line, investigate the q7-at-22 s mismatch or verify the
+Panda/Franka DH model before upgrading the claim. Keep this separate from
+UR10e adapted controller iterations.

@@ -169,6 +169,9 @@ smoke runs regress.
   rather than the figure-match `2.5 rad`.
 - The v46 Python 7DOF Fig.5 sweep records all required r values over 0-2 s
   windows. The strict parity gate now passes Fig.5 r-sweep coverage.
+- The v47 uncapped KKT candidate passes force/contact, hard bounds, and the
+  strict gate's paper-assumption compatibility check. q7 at 22 s remains
+  mismatched at `1.6680622878116045 rad`.
 
 ## Next Executable Step
 
@@ -178,6 +181,6 @@ task formulation. Any future controller experiment should either revisit the
 model/TCP/contact geometry, introduce a genuinely different Stage A
 formulation, or feed the paper-platform parity gate with a stronger candidate.
 The parity gate now exists and the current candidate covers 30 s; future
-paper-platform work should target the q7 landmark mismatch and an uncapped or
-paper-justified force loop. Keep contact, drift, terminal orientation, force
-error, and qdot saturation visible together.
+paper-platform work should target the q7 landmark mismatch directly. Keep
+contact, drift, terminal orientation, force error, and qdot saturation visible
+together.

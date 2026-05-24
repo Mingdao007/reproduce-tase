@@ -28,7 +28,7 @@ def test_parse_formula_faithful_legacy_verification() -> None:
     assert metrics.tail_force_error_mean_N == 0.0476436
 
 
-def test_current_v46_candidate_fails_only_non_fig5_strict_parity_checks() -> None:
+def test_current_v47_candidate_fails_only_q7_landmark_check() -> None:
     result = evaluate_paper_platform_parity(ROOT / "configs/paper_platform_parity.yaml", ROOT)
     assert not result["paper_platform_parity_pass"]
     assert result["checks"]["candidate_execution_contact_bounds"]["pass"]
@@ -36,7 +36,7 @@ def test_current_v46_candidate_fails_only_non_fig5_strict_parity_checks() -> Non
     assert result["checks"]["duration_coverage"]["pass"]
     assert not result["checks"]["fig6_q7_22s_landmark"]["pass"]
     assert result["checks"]["fig5_r_sweep_coverage"]["pass"]
-    assert not result["checks"]["paper_assumption_compatibility"]["pass"]
+    assert result["checks"]["paper_assumption_compatibility"]["pass"]
 
 
 def test_synthetic_complete_candidate_can_pass_gate(tmp_path: Path) -> None:

@@ -1286,6 +1286,41 @@ Legacy source root:
   coverage. Remaining failures are Fig.6 q7-at-22 s mismatch and the finite
   force-integral cap.
 
+## V47 Paper 7DOF Uncapped KKT Candidate
+
+### Uncapped full-duration paper-platform candidate
+
+- Run:
+  - `runs/paper_7dof_section_v/20260524T121503`
+- Command:
+  `scripts/run_paper_7dof_section_v.py --duration-s 30.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-leak 0.0`
+- Git state at run time:
+  commit `d4884d79c3e0702228e11205976bb8dc506e4472`, clean before output
+  creation.
+- Tracked lightweight artifacts:
+  `metrics.yaml`, `metrics.json`, and `summary.md`.
+- Ignored raw artifact:
+  `paper_7dof_section_v_raw.npz`.
+- Result:
+  The uncapped KKT candidate passes execution/contact/bounds:
+  `contact_force_tail_success = true`, `tail_contact_fraction = 1.0`,
+  `tail_force_error_mean_N = 0.023282898803479644`, and no q/qdot bound
+  violations. It records `fig6_q7_at_22s_rad = 1.6680622878116045`.
+
+### Strict parity gate after removing integral cap
+
+- Run:
+  - `runs/paper_platform_parity_eval/20260524T121542`
+- Command:
+  `scripts/evaluate_paper_platform_parity.py`
+- Git state at run time:
+  commit `60c430179aff31400ae115a9a4f3fb61725e5dd5`, clean before output
+  creation.
+- Result:
+  `paper_platform_parity_pass = false`. The gate now passes
+  `paper_assumption_compatibility`; the only remaining strict-gate failure is
+  `fig6_q7_22s_landmark`.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

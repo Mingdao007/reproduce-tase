@@ -974,3 +974,23 @@
   but not that Fig.5 numerical parity is achieved. The remaining
   paper-platform blockers are the q7 landmark mismatch and the finite
   force-integral cap.
+
+## D052: Use The Uncapped KKT Candidate For Strict Paper-Platform Parity
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Replace the capped v45 candidate in `configs/paper_platform_parity.yaml`
+  with the uncapped 30 s KKT candidate at
+  `runs/paper_7dof_section_v/20260524T121503`.
+- Reason:
+  The uncapped run passes execution, contact tail, hard q/qdot bounds,
+  duration coverage, formula-faithful tail convergence, and Fig.5 coverage.
+  The v47 parity evaluation at
+  `runs/paper_platform_parity_eval/20260524T121542` passes
+  `paper_assumption_compatibility`; strict parity now fails only on
+  `fig6_q7_22s_landmark`.
+- Consequence:
+  The finite force-integral cap is no longer a strict-gate blocker for the
+  current Python 7DOF line. Future paper-platform work should focus on the
+  q7-at-22 s mismatch and model/provenance or redundancy differences.

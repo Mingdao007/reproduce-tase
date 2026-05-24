@@ -1741,3 +1741,40 @@
 - Next step:
   Investigate the q7-at-22 s mismatch or remove/justify the force-integral
   cap.
+
+## 2026-05-24 v47 Paper 7DOF Uncapped KKT Candidate
+
+- Branch: `exp/tase-ur10e-v47-paper-7dof-q7-variant-probe`
+- Starting commit: `d4884d79c3e0702228e11205976bb8dc506e4472`
+- Files updated:
+  - `configs/paper_platform_parity.yaml`
+  - `plans/CONTROLLER_IMPLEMENTATION_PLAN.md`
+  - `plans/EXPERIMENT_MATRIX.md`
+  - `plans/MATH_TRANSFER_7DOF_TO_UR10E_6DOF.md`
+  - `reports/DECISION_RECORD.md`
+  - `reports/ITERATION_LOG.md`
+  - `reports/completion_audit.md`
+  - `reports/paper_platform_parity_gate_report.md`
+  - `runs/RUN_ARTIFACTS_MANIFEST.md`
+- Files added:
+  - `reports/paper_7dof_uncapped_candidate_report.md`
+  - `runs/paper_7dof_section_v/20260524T121503/metrics.yaml`
+  - `runs/paper_7dof_section_v/20260524T121503/metrics.json`
+  - `runs/paper_7dof_section_v/20260524T121503/summary.md`
+  - `runs/paper_platform_parity_eval/20260524T121542/metrics.yaml`
+  - `runs/paper_platform_parity_eval/20260524T121542/metrics.json`
+  - `runs/paper_platform_parity_eval/20260524T121542/summary.md`
+- Commands run:
+  - `scripts/run_paper_7dof_section_v.py --duration-s 30.0 --dt-s 0.002 --solver-mode kkt_projection --orientation-mode force_shortest_arc --communication-delay-s 0.032 --force-integral-leak 0.0`
+  - `scripts/evaluate_paper_platform_parity.py`
+- Result:
+  Recorded an uncapped 30 s KKT candidate. It passes execution/contact/bounds
+  and formula-faithful tail convergence checks. The strict parity gate now
+  passes duration coverage, Fig.5 coverage, and paper-assumption compatibility.
+  It fails only on `fig6_q7_22s_landmark`.
+- Limit:
+  This is still not paper-equivalent numerical parity because
+  `q7@22s = 1.6680622878116045 rad`, while the figure-match reference is
+  `2.5 rad`.
+- Next step:
+  Investigate the q7 landmark mismatch directly.
