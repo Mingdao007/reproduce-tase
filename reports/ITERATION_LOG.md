@@ -4374,7 +4374,8 @@
   Focused tests passed with `3 passed in 0.16s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `165 passed in 7.13s`; `git diff --check` passed.
-  Branch push was verified at `BRANCH_PUSH_PENDING`.
+  Branch push was verified at
+  `8ed1b881fae6d27e815feecf0b59724f64cb2a9a`.
 - Next step:
   Without live approval, continue only non-final offline work. The next clean
   offline branch can target strict feasibility, because v112 identifies it as

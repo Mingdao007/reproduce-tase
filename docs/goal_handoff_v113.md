@@ -81,7 +81,7 @@ exp/tase-ur10e-v112-remaining-blocker-prioritization
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+8ed1b881fae6d27e815feecf0b59724f64cb2a9a
 ```
 
 V112 remaining-blocker prioritization artifacts:

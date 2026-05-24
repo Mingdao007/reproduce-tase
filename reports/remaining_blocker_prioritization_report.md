@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v112-remaining-blocker-prioritization`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `8ed1b881fae6d27e815feecf0b59724f64cb2a9a`
 
 ## Objective
 
@@ -81,7 +81,7 @@ authorize hardware motion/configuration.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `8ed1b881fae6d27e815feecf0b59724f64cb2a9a`.
 
 ## Next Step
 
