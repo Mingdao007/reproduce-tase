@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v68-positive-start-contact`
+Current branch: `exp/tase-ur10e-v69-positive-terminal-orientation`
 
 ## Scope
 
@@ -68,6 +68,10 @@ exceeds the terminal orientation gate before any path can be tested.
 v68 widens the start-contact search and shows positive-delta start contact is
 recoverable through `+1.0 mm`; the remaining positive-side blocker is terminal
 orientation, not the Stage A start contact.
+v69 isolates that blocker: in the current contact-point model, force/x-y/contact
+passes `8 / 8` positive terminal cases, but orientation still passes `0 / 8`;
+full-rotation and force-normal-only errors are numerically identical, so yaw is
+not the limiting convention.
 This is still not strict paper-equivalent, robust, or hardware evidence.
 
 ## Test Command

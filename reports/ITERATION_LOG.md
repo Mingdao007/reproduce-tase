@@ -2623,3 +2623,38 @@
   `114 passed in 2.47s`; `git diff --check` passed.
 - Next step:
   Investigate the positive-side terminal orientation gate/model convention.
+
+## 2026-05-24 v69 Positive Terminal Orientation Audit
+
+### Separate orientation margin from yaw and contact-model convention
+
+- Branch:
+  `exp/tase-ur10e-v69-positive-terminal-orientation`
+- Run:
+  `runs/positive_terminal_orientation/20260524T171705`
+- Report:
+  `reports/positive_terminal_orientation_report.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/base_z_recovery.py scripts/audit_positive_terminal_orientation.py`
+  - `scripts/run_tests.sh tests/test_base_z_recovery.py`
+  - `scripts/audit_positive_terminal_orientation.py`
+- Result:
+  The current contact-point model passes force/x-y/contact for all `8 / 8`
+  positive terminal cases from `+0.05 mm` through `+1.0 mm`, but diagnostic
+  orientation passes `0 / 8`. The full-rotation error and force-normal-only
+  error differ by at most `4.884981308350689e-15 rad`, so yaw handling is not
+  the limiting convention. Covering all positive force/x-y/contact terminal
+  cases in the current model requires about `0.11948560786548146 rad` of
+  orientation margin. The legacy sphere-center comparison passes `6 / 8`
+  through `+0.5 mm`, but remains a known flawed geometry comparison.
+- Limit:
+  This is terminal-state diagnostic simulation evidence only. It is not a
+  strict paper-equivalent claim, path or stitched recovery, robustness proof,
+  contact-model calibration, or hardware readiness.
+- Validation:
+  Focused base-z tests passed with `6 passed in 0.01s`. Full tests passed with
+  `115 passed in 2.45s`; `git diff --check` passed.
+- Next step:
+  Test positive-side path/stitched recovery only under an explicit justified
+  `0.12 rad` terminal orientation envelope, or revisit the contact-point /
+  terminal target definition if that envelope is unacceptable.

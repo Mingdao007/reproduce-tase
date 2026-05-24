@@ -1,0 +1,73 @@
+case: delta_p0p200mm
+variant: contact_point
+variant_label: current contact-point model
+variant_status: current v54 contact-point convention; simulation-only, not hardware-calibrated
+config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+model: /home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml
+setup_metrics: /home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml
+base_z_offset_nominal_m: -0.04612594095298278
+base_z_offset_delta_m: 0.0002
+base_z_offset_delta_mm: 0.2
+base_z_offset_m: -0.04592594095298278
+candidate_count: 517
+pass_count: 0
+extra_seed_labels:
+- setup_best_candidate
+- selected_stage_a_target
+best_candidate:
+  seed_label: random_328
+  q:
+  - -1.0364889012811563e-08
+  - -0.021899507700215776
+  - -0.00043741004332752896
+  - 0.0002585951092996044
+  - 2.5879245467048296e-10
+  - 0.10726776468598527
+  cost: 0.7853808171947112
+  success: true
+  status: 2
+  message: '`ftol` termination condition is satisfied.'
+  nfev: 95
+  tcp_m:
+  - 0.0027027794253866692
+  - 4.0350310856591594e-11
+  - -0.0003837477929913846
+  force_N: 4.999044629578629
+  force_error_N: 0.0009553704213711711
+  tangential_error_m: 0.0022751499985566013
+  orientation_error_rad: 0.08934348318237911
+  target_contact_count: 1
+  failed_criteria:
+  - orientation_error_rad
+  passed: false
+  max_gate_ratio: 1.1167935397797388
+force_xy_contact_passed: true
+diagnostic_passed: false
+force_normal_only_passed: false
+full_rotation_error_rad: 0.08934348318237911
+force_normal_only_error_rad: 0.08934348318237903
+full_minus_force_normal_abs_rad: 8.326672684688674e-17
+minus_local_z_to_normal_error_rad: 3.052249170407414
+target_contact_frame_normal_error_rad: 0.0
+tcp_local_z_world:
+- 0.08508643938214246
+- -1.1392165011489986e-09
+- 0.9963735734318072
+threshold_eval:
+  force_xy_contact_passed: true
+  orientation_thresholds_rad:
+    '0.080':
+      full_rotation_passed: false
+      force_normal_only_passed: false
+    '0.090':
+      full_rotation_passed: true
+      force_normal_only_passed: true
+    '0.100':
+      full_rotation_passed: true
+      force_normal_only_passed: true
+    '0.110':
+      full_rotation_passed: true
+      force_normal_only_passed: true
+    '0.120':
+      full_rotation_passed: true
+      force_normal_only_passed: true

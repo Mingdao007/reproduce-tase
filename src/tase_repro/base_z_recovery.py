@@ -200,3 +200,67 @@ def aggregate_positive_start_contact(cases: list[dict[str, Any]]) -> dict[str, A
         "max_start_pass_delta_mm": max(start_pass_delta_mm) if start_pass_delta_mm else None,
         "max_terminal_pass_delta_mm": max(terminal_pass_delta_mm) if terminal_pass_delta_mm else None,
     }
+
+
+def aggregate_positive_terminal_orientation(cases: list[dict[str, Any]]) -> dict[str, Any]:
+    variants: dict[str, list[dict[str, Any]]] = {}
+    for case in cases:
+        variants.setdefault(str(case["variant"]), []).append(case)
+
+    by_variant: dict[str, dict[str, Any]] = {}
+    for variant, variant_cases in sorted(variants.items()):
+        diagnostic_pass_cases = [case["case"] for case in variant_cases if case["diagnostic_passed"]]
+        force_xy_contact_cases = [
+            case["case"] for case in variant_cases if case["force_xy_contact_passed"]
+        ]
+        force_normal_only_cases = [
+            case["case"] for case in variant_cases if case["force_normal_only_passed"]
+        ]
+        force_xy_deltas = [
+            float(case["base_z_offset_delta_mm"])
+            for case in variant_cases
+            if case["force_xy_contact_passed"]
+        ]
+        diagnostic_deltas = [
+            float(case["base_z_offset_delta_mm"])
+            for case in variant_cases
+            if case["diagnostic_passed"]
+        ]
+        force_xy_errors = [
+            float(case["full_rotation_error_rad"])
+            for case in variant_cases
+            if case["force_xy_contact_passed"]
+        ]
+        all_full_errors = [float(case["full_rotation_error_rad"]) for case in variant_cases]
+        all_force_normal_errors = [
+            float(case["force_normal_only_error_rad"]) for case in variant_cases
+        ]
+        yaw_gap_errors = [
+            abs(float(case["full_rotation_error_rad"]) - float(case["force_normal_only_error_rad"]))
+            for case in variant_cases
+        ]
+        by_variant[variant] = {
+            "case_count": len(variant_cases),
+            "diagnostic_pass_count": len(diagnostic_pass_cases),
+            "force_xy_contact_pass_count": len(force_xy_contact_cases),
+            "force_normal_only_pass_count": len(force_normal_only_cases),
+            "diagnostic_pass_cases": diagnostic_pass_cases,
+            "force_xy_contact_cases": force_xy_contact_cases,
+            "force_normal_only_pass_cases": force_normal_only_cases,
+            "max_force_xy_contact_delta_mm": max(force_xy_deltas) if force_xy_deltas else None,
+            "max_diagnostic_pass_delta_mm": max(diagnostic_deltas) if diagnostic_deltas else None,
+            "min_full_rotation_threshold_for_force_xy_contact_cases_rad": (
+                max(force_xy_errors) if force_xy_errors else None
+            ),
+            "max_full_rotation_error_rad": max(all_full_errors) if all_full_errors else None,
+            "max_force_normal_only_error_rad": (
+                max(all_force_normal_errors) if all_force_normal_errors else None
+            ),
+            "max_full_minus_force_normal_abs_rad": max(yaw_gap_errors) if yaw_gap_errors else None,
+        }
+
+    return {
+        "case_count": len(cases),
+        "variant_count": len(variants),
+        "variants": by_variant,
+    }

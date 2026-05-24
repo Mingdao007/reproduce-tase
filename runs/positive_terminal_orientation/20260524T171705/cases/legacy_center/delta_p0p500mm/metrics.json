@@ -1,0 +1,85 @@
+{
+  "case": "delta_p0p500mm",
+  "variant": "legacy_center",
+  "variant_label": "legacy sphere-center model",
+  "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+  "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+  "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+  "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+  "base_z_offset_nominal_m": -0.0011631221220595766,
+  "base_z_offset_delta_m": 0.0005,
+  "base_z_offset_delta_mm": 0.5,
+  "base_z_offset_m": -0.0006631221220595766,
+  "candidate_count": 515,
+  "pass_count": 21,
+  "extra_seed_labels": [
+    "setup_best_candidate"
+  ],
+  "best_candidate": {
+    "seed_label": "random_469",
+    "q": [
+      -1.9230257136063144e-08,
+      -0.024474232745461382,
+      -0.0005122155997231498,
+      0.00013159551993504486,
+      9.909985917591732e-11,
+      0.12226221416597446
+    ],
+    "cost": 0.6176384213081496,
+    "success": true,
+    "status": 2,
+    "message": "`ftol` termination condition is satisfied.",
+    "nfev": 84,
+    "tcp_m": [
+      0.002765878469227146,
+      -2.7034355615539883e-11,
+      0.045083476564904565
+    ],
+    "force_N": 4.998784003779637,
+    "force_error_N": 0.0012159962203632801,
+    "tangential_error_m": 0.0022120509547161244,
+    "orientation_error_rad": 0.07712556389339752,
+    "target_contact_count": 1,
+    "failed_criteria": [],
+    "passed": true,
+    "max_gate_ratio": 0.964069548667469
+  },
+  "force_xy_contact_passed": true,
+  "diagnostic_passed": true,
+  "force_normal_only_passed": true,
+  "full_rotation_error_rad": 0.07712556389339752,
+  "force_normal_only_error_rad": 0.07712556389339624,
+  "full_minus_force_normal_abs_rad": 1.27675647831893e-15,
+  "minus_local_z_to_normal_error_rad": 3.064467089696397,
+  "target_contact_frame_normal_error_rad": 0.0,
+  "tcp_local_z_world": [
+    0.09725339774309454,
+    -1.9685679525326956e-09,
+    0.9952596528682469
+  ],
+  "threshold_eval": {
+    "force_xy_contact_passed": true,
+    "orientation_thresholds_rad": {
+      "0.080": {
+        "full_rotation_passed": true,
+        "force_normal_only_passed": true
+      },
+      "0.090": {
+        "full_rotation_passed": true,
+        "force_normal_only_passed": true
+      },
+      "0.100": {
+        "full_rotation_passed": true,
+        "force_normal_only_passed": true
+      },
+      "0.110": {
+        "full_rotation_passed": true,
+        "force_normal_only_passed": true
+      },
+      "0.120": {
+        "full_rotation_passed": true,
+        "force_normal_only_passed": true
+      }
+    }
+  }
+}

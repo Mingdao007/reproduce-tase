@@ -3,6 +3,7 @@ from __future__ import annotations
 from tase_repro.base_z_recovery import (
     aggregate_base_z_bracket,
     aggregate_positive_start_contact,
+    aggregate_positive_terminal_orientation,
     aggregate_base_z_recovery,
     base_z_delta_label,
     summarize_base_z_recovery_case,
@@ -170,3 +171,41 @@ def test_positive_start_contact_aggregate_distinguishes_contact_from_gate_pass()
     assert aggregate["terminal_pass_cases"] == []
     assert aggregate["contact_without_start_pass_cases"] == ["delta_p1p000mm"]
     assert aggregate["max_start_pass_delta_mm"] == 0.5
+
+
+def test_positive_terminal_orientation_aggregate_tracks_variant_margins() -> None:
+    cases = [
+        {
+            "case": "delta_p0p050mm",
+            "variant": "contact_point",
+            "base_z_offset_delta_mm": 0.05,
+            "diagnostic_passed": False,
+            "force_xy_contact_passed": True,
+            "force_normal_only_passed": False,
+            "full_rotation_error_rad": 0.084,
+            "force_normal_only_error_rad": 0.084,
+        },
+        {
+            "case": "delta_p0p500mm",
+            "variant": "legacy_center",
+            "base_z_offset_delta_mm": 0.5,
+            "diagnostic_passed": True,
+            "force_xy_contact_passed": True,
+            "force_normal_only_passed": True,
+            "full_rotation_error_rad": 0.077,
+            "force_normal_only_error_rad": 0.077,
+        },
+    ]
+
+    aggregate = aggregate_positive_terminal_orientation(cases)
+
+    assert aggregate["variant_count"] == 2
+    assert aggregate["variants"]["contact_point"]["diagnostic_pass_count"] == 0
+    assert aggregate["variants"]["contact_point"]["force_xy_contact_pass_count"] == 1
+    assert (
+        aggregate["variants"]["contact_point"][
+            "min_full_rotation_threshold_for_force_xy_contact_cases_rad"
+        ]
+        == 0.084
+    )
+    assert aggregate["variants"]["legacy_center"]["max_diagnostic_pass_delta_mm"] == 0.5

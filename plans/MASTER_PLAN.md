@@ -95,13 +95,18 @@ work exists only on that branch.
   recovery already fails at `+0.05 mm` under the current diagnostic
   start/terminal gates. v68 shows the positive-side start contact is
   recoverable through `+1.0 mm` with broader seeds, leaving terminal
-  orientation as the audited blocker. This is still not robust,
+  orientation as the audited blocker. v69 shows that, in the current
+  contact-point model, force/x-y/contact passes all positive terminal cases,
+  while orientation passes none; full-rotation and force-normal-only errors are
+  numerically identical, so yaw is not the limiter. This is still not robust,
   paper-equivalent, or hardware evidence.
 - OnRobot direct TCP DAQ force values disagree with PolyScope/RTDE readings.
 - EOAT TCP and payload are not physically verified for control use.
 
 ## Next Executable Step
 
-Investigate the positive-side terminal orientation gate/model convention, while
-keeping strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v68 diagnostic staged labels separate.
+Test positive-side path/stitched recovery only under an explicit justified
+`0.12 rad` terminal orientation envelope, or revisit the contact-point/terminal
+target definition if that envelope is unacceptable. Keep strict
+paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v69
+diagnostic staged labels separate.

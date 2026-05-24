@@ -73,10 +73,16 @@ contact behavior regresses.
   shows start/terminal feasibility already fails at `+0.05 mm`. v68 shows the
   positive-side start contact can be recovered through `+1.0 mm` with broader
   seeds, leaving terminal orientation as the current positive-side blocker.
+  v69 shows the current contact-point model itself drives the orientation
+  margin: force/x-y/contact passes all positive terminal cases, but the
+  `0.08 rad` diagnostic orientation gate passes none, and yaw handling is not
+  the cause.
 - Contact stiffness and damping are not paper- or hardware-verified.
 
 ## Next Executable Step
 
 Keep hardware use blocked until mounted-stack geometry is measured. The next
-simulation controller prototype should investigate the positive-side terminal
-orientation gate/model convention unless a later decision changes the label.
+simulation controller prototype should test positive-side path/stitched
+recovery only under an explicit justified `0.12 rad` terminal orientation
+envelope, or revisit the contact-point/terminal target definition if that
+envelope is unacceptable.

@@ -1,0 +1,1520 @@
+{
+  "run_id": "20260524T171705",
+  "source": "positive terminal orientation gate/model diagnostic audit",
+  "base_z_deltas_mm": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "selected_variants": [
+    "contact_point",
+    "legacy_center"
+  ],
+  "variant_definitions": {
+    "contact_point": {
+      "label": "current contact-point model",
+      "config": "configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "setup_metrics": "runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "include_selected_stage_a_seed": true,
+      "status": "current v54 contact-point convention; simulation-only, not hardware-calibrated"
+    },
+    "legacy_center": {
+      "label": "legacy sphere-center model",
+      "config": "configs/mujoco_ur10e_tilted_plane.yaml",
+      "setup_metrics": "runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "include_selected_stage_a_seed": false,
+      "status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center"
+    }
+  },
+  "diagnostic_gate": {
+    "max_terminal_tangential_error_m": 0.004,
+    "max_terminal_orientation_error_rad": 0.08,
+    "max_terminal_force_error_N": 0.25,
+    "min_target_contact_count": 1
+  },
+  "orientation_thresholds_rad": [
+    0.08,
+    0.09,
+    0.1,
+    0.11,
+    0.12
+  ],
+  "parameters": {
+    "random_seed_count": 512,
+    "random_seed_std_rad": 0.15,
+    "random_seed": 37,
+    "max_nfev": 300,
+    "posture_weight": 0.0001
+  },
+  "aggregate": {
+    "case_count": 16,
+    "variant_count": 2,
+    "variants": {
+      "contact_point": {
+        "case_count": 8,
+        "diagnostic_pass_count": 0,
+        "force_xy_contact_pass_count": 8,
+        "force_normal_only_pass_count": 0,
+        "diagnostic_pass_cases": [],
+        "force_xy_contact_cases": [
+          "delta_p0p050mm",
+          "delta_p0p100mm",
+          "delta_p0p150mm",
+          "delta_p0p200mm",
+          "delta_p0p250mm",
+          "delta_p0p500mm",
+          "delta_p0p750mm",
+          "delta_p1p000mm"
+        ],
+        "force_normal_only_pass_cases": [],
+        "max_force_xy_contact_delta_mm": 1.0,
+        "max_diagnostic_pass_delta_mm": null,
+        "min_full_rotation_threshold_for_force_xy_contact_cases_rad": 0.11948560786548146,
+        "max_full_rotation_error_rad": 0.11948560786548146,
+        "max_force_normal_only_error_rad": 0.11948560786547915,
+        "max_full_minus_force_normal_abs_rad": 4.884981308350689e-15
+      },
+      "legacy_center": {
+        "case_count": 8,
+        "diagnostic_pass_count": 6,
+        "force_xy_contact_pass_count": 8,
+        "force_normal_only_pass_count": 6,
+        "diagnostic_pass_cases": [
+          "delta_p0p050mm",
+          "delta_p0p100mm",
+          "delta_p0p150mm",
+          "delta_p0p200mm",
+          "delta_p0p250mm",
+          "delta_p0p500mm"
+        ],
+        "force_xy_contact_cases": [
+          "delta_p0p050mm",
+          "delta_p0p100mm",
+          "delta_p0p150mm",
+          "delta_p0p200mm",
+          "delta_p0p250mm",
+          "delta_p0p500mm",
+          "delta_p0p750mm",
+          "delta_p1p000mm"
+        ],
+        "force_normal_only_pass_cases": [
+          "delta_p0p050mm",
+          "delta_p0p100mm",
+          "delta_p0p150mm",
+          "delta_p0p200mm",
+          "delta_p0p250mm",
+          "delta_p0p500mm"
+        ],
+        "max_force_xy_contact_delta_mm": 1.0,
+        "max_diagnostic_pass_delta_mm": 0.5,
+        "min_full_rotation_threshold_for_force_xy_contact_cases_rad": 0.09525838838593075,
+        "max_full_rotation_error_rad": 0.09525838838593075,
+        "max_force_normal_only_error_rad": 0.09525838838593054,
+        "max_full_minus_force_normal_abs_rad": 2.400857290751901e-15
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "delta_p0p050mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 5e-05,
+      "base_z_offset_delta_mm": 0.05,
+      "base_z_offset_m": -0.04607594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_164",
+        "q": [
+          -8.570499805313102e-09,
+          -0.023373849172367164,
+          -0.0004508658621282807,
+          0.00027957173839832257,
+          2.974134639201747e-10,
+          0.11426050944059446
+        ],
+        "cost": 0.6828082336387803,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 129,
+        "tcp_m": [
+          0.002907612610997171,
+          5.361367262608989e-11,
+          -0.0004404352562820124
+        ],
+        "force_N": 4.999130072598662,
+        "force_error_N": 0.0008699274013377334,
+        "tangential_error_m": 0.0020703168129460998,
+        "orientation_error_rad": 0.0838175590896232,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.0477194886202899
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.0838175590896232,
+      "force_normal_only_error_rad": 0.08381755908962295,
+      "full_minus_force_normal_abs_rad": 2.498001805406602e-16,
+      "minus_local_z_to_normal_error_rad": 3.0577750945001703,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.09059099700634446,
+        -1.0718842620138988e-09,
+        0.9958881821075077
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p100mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.0001,
+      "base_z_offset_delta_mm": 0.1,
+      "base_z_offset_m": -0.04602594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_012",
+        "q": [
+          -8.11856619597856e-09,
+          -0.022886450623667755,
+          -0.0004465751968388975,
+          0.00027266717252904285,
+          2.3458590117003193e-10,
+          0.11194083252919781
+        ],
+        "cost": 0.7158470020149014,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 101,
+        "tcp_m": [
+          0.002841099593023473,
+          3.888671469154862e-11,
+          -0.00042203741753027435
+        ],
+        "force_N": 4.999102359247716,
+        "force_error_N": 0.0008976407522842678,
+        "tangential_error_m": 0.0021368298309197976,
+        "orientation_error_rad": 0.08565245135290023,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.0706556419112527
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.08565245135290023,
+      "force_normal_only_error_rad": 0.08565245135289722,
+      "full_minus_force_normal_abs_rad": 3.011479954295737e-15,
+      "minus_local_z_to_normal_error_rad": 3.055940202236896,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.0887634980091176,
+        -9.537500010389673e-10,
+        0.9960527302413189
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p150mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.00015,
+      "base_z_offset_delta_mm": 0.15,
+      "base_z_offset_m": -0.04597594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_411",
+        "q": [
+          9.69731649840358e-09,
+          -0.022395001142904707,
+          -0.0004421155495257384,
+          0.0002656829255510863,
+          -3.005701891817745e-10,
+          0.1096098448753927
+        ],
+        "cost": 0.7500264359087833,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 96,
+        "tcp_m": [
+          0.0027728440807985996,
+          -5.2500407421432556e-11,
+          -0.0004031457959353807
+        ],
+        "force_N": 4.999073889121523,
+        "force_error_N": 0.0009261108784768268,
+        "tangential_error_m": 0.0022050853431446714,
+        "orientation_error_rad": 0.0874945141256073,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.0936814265700912
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.0874945141256073,
+      "force_normal_only_error_rad": 0.08749451412560418,
+      "full_minus_force_normal_abs_rad": 3.1225022567582528e-15,
+      "minus_local_z_to_normal_error_rad": 3.054098139464189,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.08692855679682353,
+        1.1417401512623776e-09,
+        0.9962145481838848
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p200mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.0002,
+      "base_z_offset_delta_mm": 0.2,
+      "base_z_offset_m": -0.04592594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_328",
+        "q": [
+          -1.0364889012811563e-08,
+          -0.021899507700215776,
+          -0.00043741004332752896,
+          0.0002585951092996044,
+          2.5879245467048296e-10,
+          0.10726776468598527
+        ],
+        "cost": 0.7853808171947112,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 95,
+        "tcp_m": [
+          0.0027027794253866692,
+          4.0350310856591594e-11,
+          -0.0003837477929913846
+        ],
+        "force_N": 4.999044629578629,
+        "force_error_N": 0.0009553704213711711,
+        "tangential_error_m": 0.0022751499985566013,
+        "orientation_error_rad": 0.08934348318237911,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.1167935397797388
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.08934348318237911,
+      "force_normal_only_error_rad": 0.08934348318237903,
+      "full_minus_force_normal_abs_rad": 8.326672684688674e-17,
+      "minus_local_z_to_normal_error_rad": 3.052249170407414,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.08508643938214246,
+        -1.1392165011489986e-09,
+        0.9963735734318072
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p250mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.00025,
+      "base_z_offset_delta_mm": 0.25,
+      "base_z_offset_m": -0.04587594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_227",
+        "q": [
+          -7.477657758674608e-09,
+          -0.021399661058702602,
+          -0.0004328252343050522,
+          0.0002514219798896234,
+          2.0296168521061363e-10,
+          0.10491494689322009
+        ],
+        "cost": 0.8219458482555785,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 131,
+        "tcp_m": [
+          0.0026308343942888553,
+          3.3950548775801616e-11,
+          -0.0003638302772655394
+        ],
+        "force_N": 4.999014545924868,
+        "force_error_N": 0.000985454075132175,
+        "tangential_error_m": 0.0023470950296544148,
+        "orientation_error_rad": 0.09119904265401833,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.1399880331752292
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.09119904265401833,
+      "force_normal_only_error_rad": 0.09119904265401542,
+      "full_minus_force_normal_abs_rad": 2.914335439641036e-15,
+      "minus_local_z_to_normal_error_rad": 3.0503936109357777,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.083237463541063,
+        -8.242669600310525e-10,
+        0.996529740982802
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p500mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.0005,
+      "base_z_offset_delta_mm": 0.5,
+      "base_z_offset_m": -0.04562594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_269",
+        "q": [
+          -1.7023657755191496e-09,
+          -0.01883596373515915,
+          -0.0004095187254174353,
+          0.00021475254364954372,
+          2.876130095000642e-10,
+          0.09300117786594672
+        ],
+        "cost": 1.02428777979244,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 91,
+        "tcp_m": [
+          0.0022402586875578,
+          7.222348472979648e-11,
+          -0.0002559810361039555
+        ],
+        "force_N": 4.9988504556866955,
+        "force_error_N": 0.0011495443133044958,
+        "tangential_error_m": 0.002737670736385471,
+        "orientation_error_rad": 0.10056247728510045,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.2570309660637558
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.10056247728510045,
+      "force_normal_only_error_rad": 0.10056247728509893,
+      "full_minus_force_normal_abs_rad": 1.5265566588595902e-15,
+      "minus_local_z_to_normal_error_rad": 3.0410301763046945,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.07390300994931699,
+        -4.12180046623476e-10,
+        0.9972654336336095
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.100": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p750mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.00075,
+      "base_z_offset_delta_mm": 0.75,
+      "base_z_offset_m": -0.04537594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_153",
+        "q": [
+          3.185887962546853e-08,
+          -0.01616314345038177,
+          -0.00038596476219299994,
+          0.000176506211527681,
+          -2.0597171121503152e-10,
+          0.08088387987181599
+        ],
+        "cost": 1.2631816904964046,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 132,
+        "tcp_m": [
+          0.0017905406844683372,
+          2.5597577788241225e-12,
+          -0.000133088890076849
+        ],
+        "force_N": 4.998659682007591,
+        "force_error_N": 0.0013403179924091901,
+        "tangential_error_m": 0.003187388739474933,
+        "orientation_error_rad": 0.11002164736335575,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.3752705920419468
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.11002164736335575,
+      "force_normal_only_error_rad": 0.11002164736335086,
+      "full_minus_force_normal_abs_rad": 4.884981308350689e-15,
+      "minus_local_z_to_normal_error_rad": 3.0315710062264425,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.06446654102987721,
+        2.2591300947229312e-09,
+        0.9979198690714817
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.100": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.110": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p1p000mm",
+      "variant": "contact_point",
+      "variant_label": "current contact-point model",
+      "variant_status": "current v54 contact-point convention; simulation-only, not hardware-calibrated",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml",
+      "base_z_offset_nominal_m": -0.04612594095298278,
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "base_z_offset_m": -0.04512594095298278,
+      "candidate_count": 517,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate",
+        "selected_stage_a_target"
+      ],
+      "best_candidate": {
+        "seed_label": "random_184",
+        "q": [
+          2.4301307228908532e-08,
+          -0.013382708679140294,
+          -0.00036297777643642904,
+          0.00013685157798432314,
+          9.345517764106481e-11,
+          0.06865615224623349
+        ],
+        "cost": 1.5450854318403278,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 75,
+        "tcp_m": [
+          0.0012698191989169412,
+          5.5591963641989815e-11,
+          6.5842635268292815e-06
+        ],
+        "force_N": 4.998436057525303,
+        "force_error_N": 0.0015639424746973773,
+        "tangential_error_m": 0.0037081102250263293,
+        "orientation_error_rad": 0.11948560786548146,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.4935700983185183
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.11948560786548146,
+      "force_normal_only_error_rad": 0.11948560786547915,
+      "full_minus_force_normal_abs_rad": 2.3037127760972e-15,
+      "minus_local_z_to_normal_error_rad": 3.022107045724314,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.05501952078467065,
+        1.2438112723341183e-09,
+        0.9984852789764229
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.100": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.110": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p050mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 5e-05,
+      "base_z_offset_delta_mm": 0.05,
+      "base_z_offset_m": -0.0011131221220595767,
+      "candidate_count": 515,
+      "pass_count": 35,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_405",
+        "q": [
+          -6.961494522180264e-09,
+          -0.02894155469892166,
+          -0.0005650586150976934,
+          0.00017628952453001078,
+          -1.6882941191796573e-10,
+          0.143109220014002
+        ],
+        "cost": 0.36075399896746246,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 121,
+        "tcp_m": [
+          0.0034559840120839836,
+          -6.85483545123832e-11,
+          0.044966223314008194
+        ],
+        "force_N": 4.999161428125651,
+        "force_error_N": 0.0008385718743486592,
+        "tangential_error_m": 0.001521945411859288,
+        "orientation_error_rad": 0.06075402900960788,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.7594253626200984
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.06075402900960788,
+      "force_normal_only_error_rad": 0.06075402900960761,
+      "full_minus_force_normal_abs_rad": 2.706168622523819e-16,
+      "minus_local_z_to_normal_error_rad": 3.0808386245801858,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.11353356502438394,
+        -6.232597647017966e-10,
+        0.9935341612711935
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p100mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.0001,
+      "base_z_offset_delta_mm": 0.1,
+      "base_z_offset_m": -0.0010631221220595765,
+      "candidate_count": 515,
+      "pass_count": 34,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_292",
+        "q": [
+          7.84395158456125e-09,
+          -0.028465487650625274,
+          -0.0005592356130233178,
+          0.00017159598692169804,
+          -2.2508729505388936e-10,
+          0.14083661844114104
+        ],
+        "cost": 0.3845166694352087,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 79,
+        "tcp_m": [
+          0.003389452722899757,
+          -3.273828159357538e-11,
+          0.04497744650206262
+        ],
+        "force_N": 4.999125160628063,
+        "force_error_N": 0.0008748393719368863,
+        "tangential_error_m": 0.0015884767010435137,
+        "orientation_error_rad": 0.06254943406970642,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.7818679258713302
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.06254943406970642,
+      "force_normal_only_error_rad": 0.06254943406970456,
+      "full_minus_force_normal_abs_rad": 1.8596235662471372e-15,
+      "minus_local_z_to_normal_error_rad": 3.0790432195200887,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.1117495867356943,
+        1.0994170323887805e-09,
+        0.9937363985808317
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p150mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.00015,
+      "base_z_offset_delta_mm": 0.15,
+      "base_z_offset_m": -0.0010131221220595766,
+      "candidate_count": 515,
+      "pass_count": 30,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_292",
+        "q": [
+          -5.943892282779746e-09,
+          -0.027984355484736597,
+          -0.0005534245425754614,
+          0.00016678528823505222,
+          -4.462670500234133e-11,
+          0.13855157136266794
+        ],
+        "cost": 0.40937032762446496,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 76,
+        "tcp_m": [
+          0.003320649890976914,
+          -3.1501652207565425e-11,
+          0.0449890736210769
+        ],
+        "force_N": 4.999087636064552,
+        "force_error_N": 0.0009123639354475799,
+        "tangential_error_m": 0.0016572795329663564,
+        "orientation_error_rad": 0.06435234861052946,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.8044043576316183
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.06435234861052946,
+      "force_normal_only_error_rad": 0.06435234861052797,
+      "full_minus_force_normal_abs_rad": 1.4988010832439613e-15,
+      "minus_local_z_to_normal_error_rad": 3.077240304979265,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.10995778428254513,
+        -6.093781747631085e-10,
+        0.9939362583564769
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p200mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.0002,
+      "base_z_offset_delta_mm": 0.2,
+      "base_z_offset_m": -0.0009631221220595766,
+      "candidate_count": 515,
+      "pass_count": 30,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_228",
+        "q": [
+          5.277109459426637e-09,
+          -0.02749815826720301,
+          -0.0005475541620764872,
+          0.00016181826546704043,
+          3.130509848305659e-11,
+          0.1362546087332039
+        ],
+        "cost": 0.43535632297933824,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 105,
+        "tcp_m": [
+          0.0032494690111606953,
+          2.5401583692673116e-11,
+          0.045001123660918935
+        ],
+        "force_N": 4.999048790178286,
+        "force_error_N": 0.0009512098217143716,
+        "tangential_error_m": 0.001728460412782575,
+        "orientation_error_rad": 0.0661622106647289,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.8270276333091112
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.0661622106647289,
+      "force_normal_only_error_rad": 0.06616221066472865,
+      "full_minus_force_normal_abs_rad": 2.498001805406602e-16,
+      "minus_local_z_to_normal_error_rad": 3.0754304429250645,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.10815871765747948,
+        5.397504388435572e-10,
+        0.9941336388004832
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p250mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.00025,
+      "base_z_offset_delta_mm": 0.25,
+      "base_z_offset_m": -0.0009131221220595766,
+      "candidate_count": 515,
+      "pass_count": 28,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_153",
+        "q": [
+          -7.543157114124561e-09,
+          -0.027006955823265396,
+          -0.0005416471055093314,
+          0.0001569325199751319,
+          -1.799097253637122e-10,
+          0.1339462191559001
+        ],
+        "cost": 0.46251806343742435,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 109,
+        "tcp_m": [
+          0.0031757981274430497,
+          -7.139795082310746e-11,
+          0.045013616587605845
+        ],
+        "force_N": 4.99900855634629,
+        "force_error_N": 0.0009914436537101778,
+        "tangential_error_m": 0.0018021312965002217,
+        "orientation_error_rad": 0.06797837648702,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.84972970608775
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.06797837648702,
+      "force_normal_only_error_rad": 0.0679783764870176,
+      "full_minus_force_normal_abs_rad": 2.400857290751901e-15,
+      "minus_local_z_to_normal_error_rad": 3.0736142771027755,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.10635302873400694,
+        -6.239394015697113e-10,
+        0.9943284333051648
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p500mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.0005,
+      "base_z_offset_delta_mm": 0.5,
+      "base_z_offset_m": -0.0006631221220595766,
+      "candidate_count": 515,
+      "pass_count": 21,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_469",
+        "q": [
+          -1.9230257136063144e-08,
+          -0.024474232745461382,
+          -0.0005122155997231498,
+          0.00013159551993504486,
+          9.909985917591732e-11,
+          0.12226221416597446
+        ],
+        "cost": 0.6176384213081496,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 84,
+        "tcp_m": [
+          0.002765878469227146,
+          -2.7034355615539883e-11,
+          0.045083476564904565
+        ],
+        "force_N": 4.998784003779637,
+        "force_error_N": 0.0012159962203632801,
+        "tangential_error_m": 0.0022120509547161244,
+        "orientation_error_rad": 0.07712556389339752,
+        "target_contact_count": 1,
+        "failed_criteria": [],
+        "passed": true,
+        "max_gate_ratio": 0.964069548667469
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": true,
+      "force_normal_only_passed": true,
+      "full_rotation_error_rad": 0.07712556389339752,
+      "force_normal_only_error_rad": 0.07712556389339624,
+      "full_minus_force_normal_abs_rad": 1.27675647831893e-15,
+      "minus_local_z_to_normal_error_rad": 3.064467089696397,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.09725339774309454,
+        -1.9685679525326956e-09,
+        0.9952596528682469
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p0p750mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.00075,
+      "base_z_offset_delta_mm": 0.75,
+      "base_z_offset_m": -0.00041312212205957656,
+      "candidate_count": 515,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_269",
+        "q": [
+          1.279629563890898e-08,
+          -0.021817619619142994,
+          -0.000482300951799366,
+          0.00010427775627967959,
+          -1.854133881735874e-11,
+          0.11044586285408488
+        ],
+        "cost": 0.8100123930429154,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 85,
+        "tcp_m": [
+          0.0022745856700760398,
+          2.4209196755696427e-11,
+          0.045167821230902086
+        ],
+        "force_N": 4.998512973345448,
+        "force_error_N": 0.0014870266545523592,
+        "tangential_error_m": 0.0027033437538672308,
+        "orientation_error_rad": 0.08628270519469884,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.0785338149337356
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.08628270519469884,
+      "force_normal_only_error_rad": 0.08628270519469683,
+      "full_minus_force_normal_abs_rad": 2.0122792321330962e-15,
+      "minus_local_z_to_normal_error_rad": 3.0553099483950965,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.08813571436149625,
+        1.146239024740552e-09,
+        0.9961084759472679
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    },
+    {
+      "case": "delta_p1p000mm",
+      "variant": "legacy_center",
+      "variant_label": "legacy sphere-center model",
+      "variant_status": "known flawed comparison where the 85 mm site is coincident with the contact sphere center",
+      "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane.yaml",
+      "model": "/home/andy/reproduce-tase/assets/mjcf/ur10e_tilted_plane_10deg.xml",
+      "setup_metrics": "/home/andy/reproduce-tase/runs/setup_terminal_ik_audit/20260524T111150/metrics.yaml",
+      "base_z_offset_nominal_m": -0.0011631221220595766,
+      "base_z_offset_delta_m": 0.001,
+      "base_z_offset_delta_mm": 1.0,
+      "base_z_offset_m": -0.00016312212205957656,
+      "candidate_count": 515,
+      "pass_count": 0,
+      "extra_seed_labels": [
+        "setup_best_candidate"
+      ],
+      "best_candidate": {
+        "seed_label": "random_190",
+        "q": [
+          -8.711925108317678e-09,
+          -0.01905145444233168,
+          -0.0004539291096751808,
+          7.65588846283968e-05,
+          5.994943990432214e-11,
+          0.09870336151556819
+        ],
+        "cost": 1.0479101275739855,
+        "success": true,
+        "status": 2,
+        "message": "`ftol` termination condition is satisfied.",
+        "nfev": 89,
+        "tcp_m": [
+          0.0016844694444316868,
+          1.1693207670688442e-12,
+          0.04526976723015888
+        ],
+        "force_N": 4.998184222380782,
+        "force_error_N": 0.0018157776192175845,
+        "tangential_error_m": 0.0032934599795115833,
+        "orientation_error_rad": 0.09525838838593075,
+        "target_contact_count": 1,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "passed": false,
+        "max_gate_ratio": 1.1907298548241343
+      },
+      "force_xy_contact_passed": true,
+      "diagnostic_passed": false,
+      "force_normal_only_passed": false,
+      "full_rotation_error_rad": 0.09525838838593075,
+      "force_normal_only_error_rad": 0.09525838838593054,
+      "full_minus_force_normal_abs_rad": 2.0816681711721685e-16,
+      "minus_local_z_to_normal_error_rad": 3.0463342652038627,
+      "target_contact_frame_normal_error_rad": 0.0,
+      "tcp_local_z_world": [
+        0.07919153009559753,
+        -7.495683319968865e-10,
+        0.9968594191565419
+      ],
+      "threshold_eval": {
+        "force_xy_contact_passed": true,
+        "orientation_thresholds_rad": {
+          "0.080": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.090": {
+            "full_rotation_passed": false,
+            "force_normal_only_passed": false
+          },
+          "0.100": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.110": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          },
+          "0.120": {
+            "full_rotation_passed": true,
+            "force_normal_only_passed": true
+          }
+        }
+      }
+    }
+  ],
+  "warnings": [
+    "terminal-state diagnostic simulation only",
+    "legacy_center is a known flawed comparison model, not a solution",
+    "not path/trajectory recovery",
+    "not strict paper-equivalent feasibility",
+    "not contact-model calibration",
+    "not hardware-ready"
+  ]
+}

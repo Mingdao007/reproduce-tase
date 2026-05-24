@@ -1448,3 +1448,28 @@
   spending another iteration only on start-contact recovery. The project still
   must not claim robustness, strict paper-equivalent feasibility,
   contact-model calibration, or hardware readiness.
+
+## D074: Treat Positive Terminal Failure As Current-Model Orientation Margin
+
+- Date: 2026-05-24
+- Status: accepted
+- Decision:
+  Record v69 as evidence that the positive terminal blocker in the current
+  contact-point model is the diagnostic orientation margin, not yaw handling or
+  force/x-y/contact terminal feasibility.
+- Reason:
+  The v69 run at `runs/positive_terminal_orientation/20260524T171705`
+  evaluates eight positive deltas for the current contact-point model and the
+  older sphere-center model as a known flawed comparison. In the current model,
+  force/x-y/contact passes `8 / 8` positive terminal cases, while the
+  `0.08 rad` diagnostic orientation gate passes `0 / 8`. Full-rotation and
+  force-normal-only errors differ by at most `4.884981308350689e-15 rad`, so
+  yaw preservation is not the cause. Covering all positive force/x-y/contact
+  cases through `+1.0 mm` requires about `0.11948560786548146 rad`.
+- Consequence:
+  The next branch should test positive-side path and stitched recovery only if
+  an explicit diagnostic `0.12 rad` terminal orientation envelope is accepted.
+  If that envelope is not acceptable, the project should revisit the physical
+  contact-point model or terminal target definition before further path work.
+  The legacy sphere-center model must remain a comparison only, not a
+  hardware-ready fix.

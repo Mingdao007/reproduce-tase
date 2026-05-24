@@ -246,11 +246,19 @@ smoke runs regress.
 - The v68 positive start-contact audit shows broader deterministic seeds can
   recover the positive-side start contact through `+1.0 mm`; the terminal
   orientation gate still fails all positive deltas.
+- The v69 positive terminal orientation audit shows force/x-y/contact passes
+  `8 / 8` positive terminal cases in the current contact-point model, but the
+  `0.08 rad` orientation gate passes `0 / 8`. Full-rotation and
+  force-normal-only errors match to numerical precision, so yaw is not the
+  limiting convention.
 
 ## Next Executable Step
 
 Use the relaxed label only for UR10e adapted simulation reports. Do not
 continue scalar phase-duration tuning under the current instantaneous velocity
 task formulation. The next UR10e adapted controller experiment should focus on
-the positive-side terminal orientation gate/model convention. Keep contact,
-drift, terminal orientation, force error, and qdot saturation visible together.
+positive-side path/stitched recovery only if the diagnostic label explicitly
+allows a `0.12 rad` terminal orientation envelope. If that envelope is not
+acceptable, revisit the contact-point/terminal target definition before more
+path work. Keep contact, drift, terminal orientation, force error, and qdot
+saturation visible together.

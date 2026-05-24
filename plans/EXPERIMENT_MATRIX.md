@@ -230,6 +230,11 @@ them rather than deleting them.
 - The v68 positive base-z start-contact audit shows the positive-side start
   contact itself is recoverable through `+1.0 mm` with broader deterministic
   seed sweeps. Terminal orientation still fails all positive deltas.
+- The v69 positive terminal orientation audit shows the current contact-point
+  model passes force/x-y/contact for all positive terminal cases but passes the
+  `0.08 rad` diagnostic orientation gate for `0 / 8`. Full-rotation and
+  force-normal-only errors are numerically identical, so yaw handling is not
+  the limiter.
 
 ## Next Executable Step
 
@@ -239,8 +244,10 @@ achieved. Future UR10e experiment branches should stress-test the v63 stitched
 policy before treating it as more than a nominal diagnostic staged pass. v64
 did the first stress test, v65 recovered the qdot/timing side, v66 recovered
 only the `-1 mm` base-z case with a `16.0 s` Stage A duration, v67 bracketed
-the positive side down to `+0.05 mm`, and v68 separated positive-side start
-contact from terminal orientation. The main remaining simulation gap is the
-positive-side terminal orientation gate/model convention. Keep strict
-paper-equivalent setup, v38 trajectory-after-relaxed-setup, and v63-v68
-diagnostic staged labels separate.
+the positive side down to `+0.05 mm`, v68 separated positive-side start
+contact from terminal orientation, and v69 quantified the orientation margin.
+The next simulation gap is whether a justified `0.12 rad` terminal orientation
+envelope can support positive-side path/stitched recovery in the current
+contact-point model. If not, revisit the contact-point/terminal target
+definition. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v69 diagnostic staged labels separate.

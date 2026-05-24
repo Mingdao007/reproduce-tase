@@ -1832,6 +1832,32 @@ Legacy source root:
   strict paper-equivalent claim, terminal recovery, path or stitched recovery,
   a robustness proof, contact-model calibration, or hardware evidence.
 
+## V69 Positive Terminal Orientation Audit
+
+### Orientation margin under current contact-point model
+
+- Run:
+  - `runs/positive_terminal_orientation/20260524T171705`
+- Command:
+  `scripts/audit_positive_terminal_orientation.py`
+- Git state at run time:
+  parent commit `cb2f85805ce32945fc91775bdfadc85552023dc1` with dirty v69
+  audit code/artifacts under test.
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`,
+  plus per-variant/per-delta compact terminal-orientation metrics.
+- Result:
+  In the current contact-point model, force/x-y/contact passes all `8 / 8`
+  positive terminal cases, while the `0.08 rad` diagnostic orientation gate
+  passes `0 / 8`. Full-rotation and force-normal-only errors are numerically
+  identical, so yaw handling is not the limiting convention. The legacy
+  sphere-center model passes `6 / 8` through `+0.5 mm`, but remains a known
+  flawed comparison model.
+- Limit:
+  This is terminal-state diagnostic simulation evidence only. It is not a
+  strict paper-equivalent claim, path or stitched recovery, a robustness proof,
+  contact-model calibration, or hardware evidence.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
