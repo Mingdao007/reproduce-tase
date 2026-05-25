@@ -4235,7 +4235,7 @@ Legacy source root:
 ### Preserved scale separation between diagnostic margin and strict gap
 
 - Implementation commit:
-  `TBD`
+  `b1567daef58ec7e7a034f0532fefea4bdc430400`
 - Scripts:
   - `scripts/audit_strict_vs_diagnostic_margin_separation.py`
 - Runs:

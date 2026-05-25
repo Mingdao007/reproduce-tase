@@ -5463,7 +5463,7 @@
 - Branch:
   `exp/tase-ur10e-v137-strict-diagnostic-margin-separation`
 - Implementation commit:
-  `TBD`
+  `b1567daef58ec7e7a034f0532fefea4bdc430400`
 - Runs:
   - `runs/strict_vs_diagnostic_margin_separation/20260525T124000`
 - Report:
