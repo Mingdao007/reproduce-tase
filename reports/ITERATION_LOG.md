@@ -5571,7 +5571,7 @@
 - Branch:
   `exp/tase-ur10e-v139-full-reproduction-status`
 - Implementation commit:
-  `TBD`
+  `7691b0dc7396fd1a8374b75e91d54908bee6c30b`
 - Runs:
   - `runs/full_reproduction_status_after_v138/20260525T130000`
 - Report:
@@ -5600,9 +5600,10 @@
   gate, prove strict paper-equivalent feasibility, prove robustness, establish
   hardware readiness, or authorize hardware work.
 - Validation:
-  Focused tests passed with `4 passed in 0.13s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.13s`; full tests passed with
+  `263 passed in 30.31s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v139 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user later gives explicit approval, use one exact registered approval
   packet, fill only valid rows for that step's worksheet scope, finalize with

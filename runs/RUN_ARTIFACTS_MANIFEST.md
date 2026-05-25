@@ -4332,7 +4332,7 @@ Legacy source root:
 ### Answered the full-reproduction status question from audited evidence
 
 - Implementation commit:
-  `TBD`
+  `7691b0dc7396fd1a8374b75e91d54908bee6c30b`
 - Scripts:
   - `scripts/audit_full_reproduction_status_after_v138.py`
 - Runs:
@@ -4360,9 +4360,10 @@ Legacy source root:
   false, readiness completion evidence IDs `[]`, and
   `do_not_mark_goal_complete = true`.
 - Validation:
-  Focused tests passed with `4 passed in 0.13s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.13s`; full tests passed with
+  `263 passed in 30.31s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v139 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is status bookkeeping
   only; it does not approve any packet, authorize live access, authorize
