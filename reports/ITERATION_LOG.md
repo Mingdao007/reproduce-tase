@@ -5930,7 +5930,7 @@
 - Branch:
   `exp/tase-ur10e-v146-offline-blocker-boundary`
 - Implementation commit:
-  `TBD pending final closeout`
+  `4ce5b9c386301d8d4580be21f1c3ddbffbd1544b`
 - Runs:
   - `runs/post_v145_offline_blocker_boundary/20260525T200000`
 - Report:
@@ -5956,9 +5956,10 @@
   setup target, relax a gate, prove strict paper-equivalent feasibility, prove
   robustness, establish hardware readiness, or authorize hardware work.
 - Validation:
-  Focused tests passed with `4 passed in 0.29s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.29s`; full tests passed with
+  `291 passed in 32.10s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v146 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user gives exact approval, use the phase1 packet and fill only valid
   `tcp_contact_measurements.csv` rows before finalization and

@@ -67,9 +67,12 @@ Exact phase1 approval is still required before any live read-only SOP path.
 - `scripts/run_tests.sh tests/test_post_v145_offline_blocker_boundary.py`
   reported `4 passed in 0.29s`.
 - `python3 scripts/audit_post_v145_offline_blocker_boundary.py --run-id 20260525T200000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `291 passed in 32.10s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v146 run artifact.
+- `git diff --check` passed.
+- Implementation commit:
+  `4ce5b9c386301d8d4580be21f1c3ddbffbd1544b`
 
 ## Limit
 

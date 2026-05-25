@@ -4657,7 +4657,7 @@ Legacy source root:
 ### Checked whether any non-repeating offline shortcut can close the remaining blockers
 
 - Implementation commit:
-  `TBD pending final closeout`
+  `4ce5b9c386301d8d4580be21f1c3ddbffbd1544b`
 - Scripts:
   - `scripts/audit_post_v145_offline_blocker_boundary.py`
 - Runs:
@@ -4681,9 +4681,10 @@ Legacy source root:
   `completion_closing_offline_shortcut_known = false`, and
   `safe_nonrepeating_completion_action_available = false`.
 - Validation:
-  Focused tests passed with `4 passed in 0.29s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.29s`; full tests passed with
+  `291 passed in 32.10s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v146 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is blocker-boundary
   bookkeeping only; it does not run a new optimizer, rerun failed robustness
