@@ -92,7 +92,7 @@ exp/tase-ur10e-v116-strict-terminal-constrained-optimization
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+b956ee36c659fb01bc23fc7d3db3e66bed9e8077
 ```
 
 V116 strict terminal constrained optimization artifacts:

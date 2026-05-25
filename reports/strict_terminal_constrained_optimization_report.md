@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v116-strict-terminal-constrained-optimization`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `b956ee36c659fb01bc23fc7d3db3e66bed9e8077`
 
 ## Objective
 
@@ -97,7 +97,7 @@ readiness, or authorize hardware motion/configuration.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `b956ee36c659fb01bc23fc7d3db3e66bed9e8077`.
 
 ## Next Step
 
