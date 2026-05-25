@@ -3306,6 +3306,27 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, close completion, or authorize hardware work.
 
+## D155: Diagnostic Force Response Is Simulation Debugging, Not Calibration
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v150 as an offline diagnostic force-response ladder on the v149
+  collision-masked overlay.
+- Reason:
+  V149 proves the diagnostic overlay has a clean target contact pair, but the
+  next simulation step needs evidence that the pair has a usable MuJoCo force
+  response over small penetrations. That force response must be kept separate
+  from accepted contact calibration because the overlay remains unaccepted.
+- Consequence:
+  V150 verifies a seven-row target-only ladder from 0 to 2 mm penetration with
+  monotonic positive force and `force_at_1mm_N = 11.078794158483424`. V150
+  remains simulation debugging evidence only: it does not collect approved
+  read-only evidence, approve a packet, authorize execution, accept
+  contact/setup targets, accept orientation gates, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, close completion, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

@@ -6119,3 +6119,49 @@
   Use the v149 collision-masked overlay for the next offline diagnostic
   force/contact simulation, keeping any result non-final until contact/setup
   target acceptance and approved evidence gates are separately satisfied.
+
+## 2026-05-25 v150 Overlay Force Response
+
+### Run a clean target-only diagnostic force-response ladder
+
+- Branch:
+  `exp/tase-ur10e-v150-overlay-force-response`
+- Runs:
+  - `runs/calibrated_overlay_force_response_after_v149/20260525T230000`
+- Report:
+  `reports/calibrated_overlay_force_response_v150_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_calibrated_overlay_force_response_after_v149.py`
+  - `scripts/run_tests.sh tests/test_calibrated_overlay_force_response_after_v149.py`
+  - `python3 scripts/audit_calibrated_overlay_force_response_after_v149.py --run-id 20260525T230000`
+- Result:
+  V150 applies a static diagnostic penetration ladder to the v149
+  collision-masked overlay while keeping the backed-up v147 joint pose fixed.
+  The audit reports `force_response_ladder_passed = true`, `row_count = 7`,
+  `clean_target_contact_all_rows = true`,
+  `zero_penetration_force_ok = true`,
+  `positive_penetration_force_positive = true`,
+  `target_force_monotonic_nondecreasing = true`,
+  `positive_target_force_strictly_increasing = true`,
+  `contact_distance_matches_penetration = true`,
+  `min_positive_force_N = 7.432339543010282`,
+  `force_at_1mm_N = 11.078794158483424`,
+  `max_force_N = 14.36943859842967`,
+  `diagnostic_overlay_acceptance_status = not_accepted`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline diagnostic force-response evidence only. It does not collect
+  live measurements, approve any SOP packet, authorize live access, authorize
+  execution, create repository approved calibration evidence, accept a contact
+  model or setup target, relax an orientation gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or close the completion gate.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; full tests passed with
+  `312 passed in 33.58s`; YAML anchor scan found no anchors in the v150
+  force-response metrics; raw/heavy artifact scan found no payloads in the
+  v150 run artifact; `git diff --check` passed.
+- Next step:
+  Use the v150 ladder as a non-final simulation-debugging baseline for the
+  next offline controller or setup experiment, keeping contact/setup-target
+  acceptance and approved evidence gates separate.
