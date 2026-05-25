@@ -4634,7 +4634,8 @@
   Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `184 passed in 7.74s`; `git diff --check`
-  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+  passed. Branch push was verified at
+  `a11668032fb01accde9ed55aaaf95c04b5465075`.
 - Next step:
   The top blocker remains explicit approval for a safe read-only calibration
   measurement step. Without approval, continue only non-final offline work and

@@ -74,7 +74,7 @@ exp/tase-ur10e-v118-post-v117-evidence-readiness-audit
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+a11668032fb01accde9ed55aaaf95c04b5465075
 ```
 
 V118 evidence readiness artifacts:

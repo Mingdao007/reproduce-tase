@@ -3462,7 +3462,8 @@ Legacy source root:
   Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `184 passed in 7.74s`; `git diff --check`
-  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+  passed. Branch push was verified at
+  `a11668032fb01accde9ed55aaaf95c04b5465075`.
 - Limit:
   No live or physical measurement was collected. This is offline bookkeeping
   only; it does not accept a contact model, accept a setup target, prove
