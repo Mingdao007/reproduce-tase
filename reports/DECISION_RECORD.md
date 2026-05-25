@@ -2786,6 +2786,29 @@
   a gate, prove strict paper-equivalent feasibility, prove robustness,
   establish hardware readiness, or authorize hardware work.
 
+## D133: First Read-Only Approval Candidate Must Be Non-Authorizing Until Approved
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v128 as an offline next-step selection audit over the v127 dependency
+  map. The selector names `phase1_mounted_stack_tcp_contact_measurement` as
+  the first approval-ready candidate, scoped to `tcp_contact_measurements.csv`
+  and the exact approval phrase `I approve this read-only measurement step`.
+- Reason:
+  V127 maps every unresolved readiness dependency, but a future human approval
+  should still name one exact step and worksheet. V128 derives that first
+  candidate from packet coverage, preflight readiness, blocker support, and
+  registered step order, while failing if the source already contains approved
+  packets, execution authorization, live-access authorization, approved
+  evidence, or completion drift.
+- Consequence:
+  The project now has a deterministic first step to name if the user later
+  gives explicit approval. The selection is not approval. V128 does not
+  approve a packet, collect live evidence, accept a contact model, accept a
+  setup target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

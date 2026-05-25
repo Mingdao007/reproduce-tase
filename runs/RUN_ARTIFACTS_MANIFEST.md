@@ -3832,6 +3832,46 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V128 Read-Only Next-Step Selection
+
+### Selected the first exact read-only approval candidate without authorization
+
+- Scripts:
+  - `scripts/audit_read_only_next_step_selection.py`
+- Runs:
+  - `runs/read_only_next_step_selection/20260525T111000`
+- Report:
+  - `reports/read_only_next_step_selection_report.md`
+- Tests:
+  - `tests/test_read_only_next_step_selection.py`
+- Command:
+  `python3 scripts/audit_read_only_next_step_selection.py --run-id 20260525T111000`
+- Tracked lightweight artifacts:
+  next-step selection audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The selector audit passes while authorizing nothing:
+  `selection_plan_complete = true`, candidate steps `5`,
+  `first_candidate_step_id = phase1_mounted_stack_tcp_contact_measurement`,
+  `first_candidate_worksheet = tcp_contact_measurements.csv`, exact step ID
+  required true, approved packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `selection_authorizes_execution = false`, `completion_claim_allowed = false`,
+  and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.13s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `217 passed in 11.80s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline selection
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create approved calibration evidence, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

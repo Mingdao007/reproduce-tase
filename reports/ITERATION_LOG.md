@@ -5039,3 +5039,45 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and keep the v127 dependency
   map separate from approved evidence.
+
+## 2026-05-25 v128 Read-Only Next-Step Selection
+
+### Select the first exact read-only approval candidate without authorizing it
+
+- Branch:
+  `exp/tase-ur10e-v128-readonly-next-step-selection`
+- Runs:
+  - `runs/read_only_next_step_selection/20260525T111000`
+- Report:
+  `reports/read_only_next_step_selection_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_next_step_selection.py`
+  - `scripts/run_tests.sh tests/test_read_only_next_step_selection.py`
+  - `python3 scripts/audit_read_only_next_step_selection.py --run-id 20260525T111000`
+- Result:
+  V128 adds an offline selector over the v127 dependency map. The run reports
+  `audit_passed = true`, `selection_plan_complete = true`, candidate steps
+  `5`, first candidate
+  `phase1_mounted_stack_tcp_contact_measurement`, first worksheet
+  `tcp_contact_measurements.csv`, required phrase
+  `I approve this read-only measurement step`, exact step ID required true,
+  approved packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `selection_authorizes_execution = false`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline selection bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 0.13s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `217 passed in 11.80s`; `git diff --check` passed.
+- Next step:
+  If the user later gives explicit approval, the first exact step to name is
+  `phase1_mounted_stack_tcp_contact_measurement`. Without approval, continue
+  only non-final offline work and keep the v128 selector separate from
+  approved evidence.
