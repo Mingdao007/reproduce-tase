@@ -76,7 +76,7 @@ exp/tase-ur10e-v120-readonly-step-approval-packet
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+c897dfa467b823c8cf6fc68b54f290a29942a704
 ```
 
 V120 artifacts:

@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v120-readonly-step-approval-packet`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `c897dfa467b823c8cf6fc68b54f290a29942a704`
 
 ## Objective
 
@@ -99,7 +99,7 @@ or make a hardware-readiness claim.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `c897dfa467b823c8cf6fc68b54f290a29942a704`.
 
 ## Next Step
 
