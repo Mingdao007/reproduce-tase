@@ -4567,7 +4567,7 @@ Legacy source root:
 ### Verified the first read-only approval packet is fresh but still not approved
 
 - Implementation commit:
-  `TBD pending final closeout`
+  `fd86daa91ea7a3201bb567ebf59cceb2f27e96d4`
 - Scripts:
   - `scripts/audit_phase1_packet_freshness_after_v143.py`
 - Runs:
@@ -4597,9 +4597,10 @@ Legacy source root:
   `approved_read_only_evidence_created = false`, and
   `do_not_mark_goal_complete = true`.
 - Validation:
-  Focused tests passed with `4 passed in 0.20s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.20s`; full tests passed with
+  `283 passed in 31.89s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v144 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is packet-freshness
   bookkeeping only; it does not approve any packet, authorize live access,

@@ -70,9 +70,12 @@ read-only evidence.
 - `scripts/run_tests.sh tests/test_phase1_packet_freshness_after_v143.py`
   reported `4 passed in 0.20s`.
 - `python3 scripts/audit_phase1_packet_freshness_after_v143.py --run-id 20260525T180000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `283 passed in 31.89s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v144 run artifact.
+- `git diff --check` passed.
+- Implementation commit:
+  `fd86daa91ea7a3201bb567ebf59cceb2f27e96d4`
 
 ## Limit
 

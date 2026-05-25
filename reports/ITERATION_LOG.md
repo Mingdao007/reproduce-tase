@@ -5833,7 +5833,7 @@
 - Branch:
   `exp/tase-ur10e-v144-phase1-packet-freshness`
 - Implementation commit:
-  `TBD pending final closeout`
+  `fd86daa91ea7a3201bb567ebf59cceb2f27e96d4`
 - Runs:
   - `runs/phase1_packet_freshness_after_v143/20260525T180000`
 - Report:
@@ -5867,9 +5867,10 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 - Validation:
-  Focused tests passed with `4 passed in 0.20s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.20s`; full tests passed with
+  `283 passed in 31.89s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v144 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user gives exact approval, use this phase1 packet and fill only valid
   `tcp_contact_measurements.csv` rows before finalization and
