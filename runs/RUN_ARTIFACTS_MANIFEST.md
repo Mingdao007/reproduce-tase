@@ -4763,6 +4763,50 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, close completion, or authorize hardware work.
 
+## V148 Calibrated Diagnostic Contact Overlay
+
+### Generated an unaccepted contact overlay for the calibrated v147 seed
+
+- Scripts:
+  - `scripts/audit_calibrated_contact_overlay_after_v147.py`
+- Runs:
+  - `runs/calibrated_contact_overlay_after_v147/20260525T220000`
+- Report:
+  - `reports/calibrated_contact_overlay_v148_report.md`
+- Tests:
+  - `tests/test_calibrated_contact_overlay_after_v147.py`
+- Data/config/model artifacts:
+  - `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml`
+  - `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml`
+- Command:
+  `python3 scripts/audit_calibrated_contact_overlay_after_v147.py --run-id 20260525T220000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  generated overlay MJCF/config; report, tests, script, handoff, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The calibrated diagnostic contact overlay audit passes with
+  `overlay_model_loads = true`,
+  `current_tcp_site_on_diagnostic_plane = true`,
+  `contact_tip_surface_tangent_to_plane = true`,
+  `tcp_plane_signed_distance_m = 0.0`, `tip_surface_gap_m = 0.0`,
+  `plane_normal_error = 3.4120107557038376e-11`,
+  `simulation_can_start_from_diagnostic_overlay = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; full tests passed with
+  `308 passed in 32.99s`; YAML anchor scan found no anchors in the new overlay
+  metrics/config YAML files; raw/heavy artifact scan found no payloads in the
+  new overlay artifacts; `git diff --check` passed.
+- Limit:
+  This is offline diagnostic contact-geometry scaffolding only. It does not
+  create approved read-only calibration evidence, approve any packet,
+  authorize live access or execution, accept a contact model or setup target,
+  relax an orientation gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

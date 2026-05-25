@@ -1,0 +1,69 @@
+v1:
+  model_status: v148_diagnostic_contact_overlay_from_v147_calibrated_seed
+  contact_status: diagnostic_unaccepted_overlay_only
+  claim_boundary: offline_contact_geometry_proposal_not_contact_or_hardware_evidence
+ur10e_mujoco:
+  mjcf_path: assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml
+  source_kinematic_config_path: configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml
+  source_kinematic_mjcf_path: assets/mjcf/ur10e_calibrated_20260525T1641_tcp_offset.xml
+  source_seed_path: data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml
+  source_calibration_path: data/ur10e_real_snapshot_20260525T1641/ur10e_calibration.yaml
+  timestep_s: 0.002
+  tcp_site: tcp_site_live_offset_122p54mm
+  payload_kg: 0.44
+  payload_cog_m:
+  - 0.005
+  - -0.005
+  - 0.025
+  joint_names:
+  - shoulder_pan_joint
+  - shoulder_lift_joint
+  - elbow_joint
+  - wrist_1_joint
+  - wrist_2_joint
+  - wrist_3_joint
+  joint_limit_rad:
+    source: ur_description_joint_limits_for_ur10e
+    lower:
+    - -6.283185307179586
+    - -6.283185307179586
+    - -3.141592653589793
+    - -6.283185307179586
+    - -6.283185307179586
+    - -6.283185307179586
+    upper:
+    - 6.283185307179586
+    - 6.283185307179586
+    - 3.141592653589793
+    - 6.283185307179586
+    - 6.283185307179586
+    - 6.283185307179586
+  contact:
+    status: diagnostic_unaccepted_overlay_only
+    plane_geom_name: diagnostic_contact_plane_unaccepted
+    tip_geom_name: diagnostic_contact_tip_unaccepted
+    source_convention: v54 tilted 10deg normal, translated through v147 current RTDE
+      TCP site
+    plane_point_world_m:
+    - 0.45619207276771306
+    - 0.16055309891221037
+    - 0.044663962326398465
+    plane_tilt_rad_about_y: 0.1745329252
+    expected_normal_world:
+    - 0.1736481777010905
+    - 0.0
+    - 0.9848077530061847
+    contact_tip_radius_m: 0.045
+    tip_center_local_offset_m_from_tcp:
+    - 0.007636138423789576
+    - 0.00021697283048135996
+    - -0.04434684106859876
+    acceptance_status: not_accepted
+    reason: This overlay creates an offline diagnostic start-contact geometry for
+      simulation continuation only; it is not contact calibration evidence.
+claim_boundary:
+  approved_read_only_evidence: false
+  contact_setup_target_acceptance: false
+  orientation_gate_acceptance: false
+  hardware_readiness: false
+  completion_claim_allowed: false

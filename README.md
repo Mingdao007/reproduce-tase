@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v147-readable-state-sim-seed`
+Current branch: `exp/tase-ur10e-v148-calibrated-contact-overlay`
 
 ## Scope
 
@@ -157,7 +157,11 @@ loads in MuJoCo and replays the backed-up RTDE TCP pose within
 `2.016003536429377e-06 m` and `6.278799181396437e-06 rad`; this is offline
 kinematic seed infrastructure only and does not create approved calibration
 evidence, contact/setup-target acceptance, robustness evidence, hardware
-readiness, or completion.
+readiness, or completion. V148 adds an unaccepted diagnostic contact overlay
+on the calibrated seed so offline simulation can start from the backed-up TCP
+pose with a deterministic tilted-plane contact geometry; the overlay reports
+zero TCP plane distance and zero tip surface gap, but remains diagnostic-only
+and not accepted contact/setup-target evidence.
 
 ## Test Command
 

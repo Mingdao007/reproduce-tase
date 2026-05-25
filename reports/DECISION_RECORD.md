@@ -3259,6 +3259,31 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, close completion, or authorize hardware work.
 
+## D153: Calibrated Contact Overlays Are Diagnostic Scaffolds Until Accepted
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v148 as an unaccepted calibrated diagnostic contact-overlay audit after
+  the v147 readable-state seed.
+- Reason:
+  V147 provides a calibrated kinematic seed that replays the backed-up RTDE TCP
+  pose, but it intentionally has no contact plane, contact patch, or force
+  source. Continuing simulation needs a concrete offline contact geometry for
+  the next diagnostic run, while preserving the rule that contact/setup-target
+  changes are not accepted from simulation scaffolds alone.
+- Consequence:
+  V148 generates a calibrated diagnostic overlay with
+  `diagnostic_contact_plane_unaccepted` and
+  `diagnostic_contact_tip_unaccepted`. At the v147 seed pose, the TCP site is
+  on the diagnostic plane and the diagnostic tip surface is tangent to the
+  plane, so offline simulation can start from this geometry. The overlay
+  remains `not_accepted` and does not collect approved read-only evidence,
+  approve a packet, authorize execution, accept contact/setup targets, accept
+  orientation gates, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25
