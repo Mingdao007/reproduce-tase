@@ -8,10 +8,10 @@ instructions into the goal text.
 
 ```text
 Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`.
-First read `docs/goal.md`, `docs/goal_handoff_v151.md`,
+First read `docs/goal.md`, `docs/goal_handoff_v152.md`,
 `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and
 `reports/DECISION_RECORD.md`; then inspect git status before changing
-anything. Preserve the current v150 claim boundary: formula-faithful Python
+anything. Preserve the current v151 claim boundary: formula-faithful Python
 paper-platform convergence and tuned Fig.6 landmark evidence remain separate,
 full paper-equivalent parity is not achieved, and the UR10e adapted line is
 diagnostic simulation only. V118-v123 establish that actual approved
@@ -73,31 +73,38 @@ diagnostic tip surface is tangent to that plane, and
 `simulation_can_start_from_diagnostic_overlay = true`, but
 `diagnostic_overlay_acceptance_status = not_accepted` and completion remains
 false.
-V150 runs a clean offline diagnostic force-response ladder on the v149
-collision-masked overlay: all rows use only the target contact pair,
-positive-penetration target force is strictly increasing, the 1 mm row
-produces `11.078794158483424 N`, but the overlay remains `not_accepted` and
-completion remains false.
 V149 fixes the overlay collision mask and audits clean target contact: the
 target plane/tip pair count is `1`, non-target contacts are `0`, a 1 mm
 activation probe produces only the target contact pair with
 `activation_probe_target_normal_force_N = 11.078794158483424`, but
 `diagnostic_overlay_acceptance_status = not_accepted` and completion remains
 false.
+V150 runs a clean offline diagnostic force-response ladder on the v149
+collision-masked overlay: all rows use only the target contact pair,
+positive-penetration target force is strictly increasing, the 1 mm row
+produces `11.078794158483424 N`, but the overlay remains `not_accepted` and
+completion remains false.
+V151 checks whether that unaccepted diagnostic overlay can represent the
+common `5.0 N` static target. The near-zero scan jumps from `0.0 N` at tangent
+contact to `7.136494172695263 N` for any positive penetration in the scan, so
+`target_force_reachable_in_scan = false` and
+`coverage_gap_identified = true`; the overlay remains
+`diagnostic_overlay_acceptance_status = not_accepted` and completion remains
+false.
 The next branch should execute only a safe read-only SOP subset after explicit
 user confirmation using one exact audited packet, the
 scaffold, finalizer, and verifier, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v150 audits. Use the
+simulation/paper-platform work identified by the v95-v151 audits. Use the
 v117 scaffold before accepting any contact/setup-target definition. Keep
 strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v150 diagnostic staged labels separate. Do not move or configure the real
+v63-v151 diagnostic staged labels separate. Do not move or configure the real
 UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v150` repository state. The project goal is to reproduce the T-ASE finite-time
+`v151` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -118,7 +125,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v150-overlay-force-response`
+  `exp/tase-ur10e-v151-overlay-target-force-coverage`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -448,12 +455,17 @@ Read and audit these files before making assumptions:
   `tests/test_calibrated_overlay_force_response_after_v149.py`
   `runs/calibrated_overlay_force_response_after_v149/20260525T230000`
   `reports/calibrated_overlay_force_response_v150_report.md`
+- Current v151 overlay target-force coverage artifacts:
+  `scripts/audit_overlay_target_force_coverage_after_v150.py`
+  `tests/test_overlay_target_force_coverage_after_v150.py`
+  `runs/overlay_target_force_coverage_after_v150/20260525T231000`
+  `reports/overlay_target_force_coverage_v151_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v151.md`
+  `docs/goal_handoff_v152.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -1114,6 +1126,14 @@ Current accepted claims:
   `force_at_1mm_N = 11.078794158483424`,
   `max_force_N = 14.36943859842967`, and
   `do_not_mark_goal_complete = true`.
+- `overlay_target_force_coverage_after_v150`: v151 checks whether the
+  diagnostic overlay can cover the common `5.0 N` target by penetration alone.
+  It reports `target_force_reachable_in_scan = false`,
+  `coverage_gap_identified = true`,
+  `minimum_positive_force_N = 7.136494172695263`,
+  `best_force_N = 7.136494172695263`,
+  `best_abs_error_N = 2.1364941726952633`, and
+  `do_not_mark_goal_complete = true`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -1124,14 +1144,15 @@ precision. Future work must still keep these claim levels separate.
 Current next executable step:
 
 - Continue UR10e adapted work by using the v150 diagnostic force-response
-  ladder as a baseline for the next non-final offline controller or setup
-  experiment, while keeping the overlay explicitly non-final and unaccepted; or execute only a safe
+  ladder and v151 target-force coverage gap as the baseline for the next
+  non-final contact-parameter or target-definition diagnostic, while keeping
+  the overlay explicitly non-final and unaccepted; or execute only a safe
   read-only SOP subset
   after explicit user confirmation, using one audited v120/v121 packet for a
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122/v135 preflight and rehearsal path for evidence
   capture; or continue only non-final offline simulation/paper-platform work
-  identified by the v95-v150 blocker
+  identified by the v95-v151 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
@@ -1141,7 +1162,7 @@ Current next executable step:
   Do not rerun gate-blocked robustness rows as closure evidence before
   approved contact/gate evidence exists.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v150 diagnostic staged labels separate.
+  v63-v151 diagnostic staged labels separate.
 
 ## Safety Boundary
 

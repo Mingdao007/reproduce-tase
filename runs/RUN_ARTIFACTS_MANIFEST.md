@@ -4898,6 +4898,49 @@ Legacy source root:
   robustness, establish hardware readiness, close completion, or authorize
   hardware work.
 
+## V151 Overlay Target-Force Coverage
+
+### Audited whether the diagnostic overlay can cover 5 N
+
+- Scripts:
+  - `scripts/audit_overlay_target_force_coverage_after_v150.py`
+- Runs:
+  - `runs/overlay_target_force_coverage_after_v150/20260525T231000`
+- Report:
+  - `reports/overlay_target_force_coverage_v151_report.md`
+- Tests:
+  - `tests/test_overlay_target_force_coverage_after_v150.py`
+- Command:
+  `python3 scripts/audit_overlay_target_force_coverage_after_v150.py --run-id 20260525T231000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, script, handoff, and updated goal/planning/decision/manifest
+  documentation.
+- Result:
+  The coverage audit passes as a diagnostic gap detector with
+  `target_force_N = 5.0`, `force_tolerance_N = 0.25`,
+  `scan_row_count = 18`, `clean_target_contact_all_rows = true`,
+  `zero_penetration_force_N = 0.0`,
+  `minimum_positive_force_N = 7.136494172695263`,
+  `best_force_N = 7.136494172695263`,
+  `best_abs_error_N = 2.1364941726952633`,
+  `target_force_reachable_in_scan = false`,
+  `coverage_gap_identified = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.29s`; full tests passed with
+  `316 passed in 33.67s`; YAML anchor scan found no anchors in the v151
+  coverage metrics; raw/heavy artifact scan found no payloads in the v151 run
+  artifact; `git diff --check` passed.
+- Limit:
+  This is offline diagnostic target-force coverage evidence only. It does not
+  create approved read-only calibration evidence, approve any packet,
+  authorize live access or execution, accept a contact model or setup target,
+  relax an orientation gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -3327,6 +3327,29 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, close completion, or authorize hardware work.
 
+## D156: Target-Force Coverage Gaps Must Block Claim-Closing Controller Runs
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v151 as an offline diagnostic target-force coverage audit after the
+  v150 force-response ladder.
+- Reason:
+  V150 proves the unaccepted diagnostic overlay has a clean monotonic target
+  force response, but the common `5.0 N` target cannot be assumed reachable
+  until the near-zero response is checked. A controller run against an
+  unreachable static force target would mix contact-parameter diagnosis with
+  control validation and could be overread as accepted calibration.
+- Consequence:
+  V151 shows that the scan jumps from `0.0 N` at tangent contact to
+  `7.136494172695263 N` for any positive penetration in the scan, so
+  `target_force_reachable_in_scan = false` and
+  `coverage_gap_identified = true`. V151 remains simulation debugging evidence
+  only: it does not collect approved read-only evidence, approve a packet,
+  authorize execution, accept contact/setup targets, accept orientation gates,
+  prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, close completion, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

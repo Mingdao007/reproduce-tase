@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v150-overlay-force-response`
+Branch: `exp/tase-ur10e-v151-overlay-target-force-coverage`
 
 ## Objective Restatement
 
@@ -335,6 +335,25 @@ The objective has two separate technical claim levels:
 - `scripts/audit_post_v145_offline_blocker_boundary.py`
 - `runs/post_v145_offline_blocker_boundary/20260525T200000/metrics.yaml`
 - `reports/post_v145_offline_blocker_boundary_report.md`
+- `scripts/audit_current_real_snapshot_sim_seed_after_v146.py`
+- `runs/current_real_snapshot_sim_seed_after_v146/20260525T210000/metrics.yaml`
+- `scripts/audit_calibrated_urdf_fk_snapshot_after_v147.py`
+- `runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000/metrics.yaml`
+- `scripts/audit_calibrated_mjcf_replay_after_v147.py`
+- `runs/calibrated_mjcf_replay_after_v147/20260525T212000/metrics.yaml`
+- `reports/readable_state_sim_seed_v147_report.md`
+- `scripts/audit_calibrated_contact_overlay_after_v147.py`
+- `runs/calibrated_contact_overlay_after_v147/20260525T220000/metrics.yaml`
+- `runs/calibrated_contact_overlay_after_v147/20260525T223000/metrics.yaml`
+- `reports/calibrated_contact_overlay_v148_report.md`
+- `reports/calibrated_contact_overlay_collision_mask_v149_report.md`
+- `scripts/audit_calibrated_overlay_force_response_after_v149.py`
+- `runs/calibrated_overlay_force_response_after_v149/20260525T230000/metrics.yaml`
+- `reports/calibrated_overlay_force_response_v150_report.md`
+- `scripts/audit_overlay_target_force_coverage_after_v150.py`
+- `runs/overlay_target_force_coverage_after_v150/20260525T231000/metrics.yaml`
+- `reports/overlay_target_force_coverage_v151_report.md`
+- `docs/goal_handoff_v152.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -348,17 +367,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v150 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v150 is on `exp/tase-ur10e-v150-overlay-force-response` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v150-overlay-force-response`; latest local branch is `exp/tase-ur10e-v150-overlay-force-response` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v151 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v151 is on `exp/tase-ur10e-v151-overlay-target-force-coverage` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v151-overlay-target-force-coverage`; latest local branch is `exp/tase-ur10e-v151-overlay-target-force-coverage` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v150 blocker/review/seed/overlay artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D155 as of v150 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v151 blocker/review/seed/overlay artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D156 as of v151 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v150 validation: py_compile for the force-response audit passed; focused force-response tests reported `4 passed in 0.27s`; full tests reported `312 passed in 33.58s`; YAML anchor scan found no anchors in the v150 force-response metrics; raw/heavy artifact scan found no payloads in the v150 run artifact; `git diff --check` passed; no robot motion or hardware writes were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v151 validation: py_compile for the target-force coverage audit passed; focused coverage tests reported `4 passed in 0.29s`; full tests reported `316 passed in 33.67s`; YAML anchor scan found no anchors in the v151 coverage metrics; raw/heavy artifact scan found no payloads in the v151 run artifact; `git diff --check` passed; no robot motion or hardware writes were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -397,6 +416,7 @@ The objective has two separate technical claim levels:
 | Calibrated diagnostic contact overlay after v147 | `scripts/audit_calibrated_contact_overlay_after_v147.py`, `tests/test_calibrated_contact_overlay_after_v147.py`, `reports/calibrated_contact_overlay_v148_report.md`, `runs/calibrated_contact_overlay_after_v147/20260525T220000/metrics.yaml`, `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml`, `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml` | v148 generates an unaccepted diagnostic contact overlay on the calibrated v147 seed; the current TCP site lies on the diagnostic plane, the diagnostic tip surface is tangent to that plane, `simulation_can_start_from_diagnostic_overlay = true`, acceptance remains `not_accepted`, and completion remains false |
 | Calibrated contact overlay collision mask after v148 | `scripts/audit_calibrated_contact_overlay_after_v147.py`, `tests/test_calibrated_contact_overlay_after_v147.py`, `reports/calibrated_contact_overlay_collision_mask_v149_report.md`, `runs/calibrated_contact_overlay_after_v147/20260525T223000/metrics.yaml`, `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml` | v149 collision-masks visual/primitive geoms and verifies clean target contact: target plane/tip pair count at seed `1`, non-target contacts `0`, 1 mm activation probe target contact count `1`, non-target activation contacts `0`, activation probe force `11.078794158483424 N`, acceptance remains `not_accepted`, and completion remains false |
 | Calibrated overlay force response after v149 | `scripts/audit_calibrated_overlay_force_response_after_v149.py`, `tests/test_calibrated_overlay_force_response_after_v149.py`, `reports/calibrated_overlay_force_response_v150_report.md`, `runs/calibrated_overlay_force_response_after_v149/20260525T230000/metrics.yaml` | v150 runs a clean target-only diagnostic force-response ladder on the v149 collision-masked overlay: seven penetration rows, monotonic target force, `force_at_1mm_N = 11.078794158483424`, `max_force_N = 14.36943859842967`, acceptance remains `not_accepted`, and completion remains false |
+| Overlay target-force coverage after v150 | `scripts/audit_overlay_target_force_coverage_after_v150.py`, `tests/test_overlay_target_force_coverage_after_v150.py`, `reports/overlay_target_force_coverage_v151_report.md`, `runs/overlay_target_force_coverage_after_v150/20260525T231000/metrics.yaml` | v151 checks whether the diagnostic overlay can cover the common `5.0 N` target by penetration alone: `minimum_positive_force_N = 7.136494172695263`, `best_force_N = 7.136494172695263`, `best_abs_error_N = 2.1364941726952633`, `target_force_reachable_in_scan = false`, `coverage_gap_identified = true`, acceptance remains `not_accepted`, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -2441,7 +2461,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v150 blocker and
+offline simulation/paper-platform work identified by the v95-v151 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -2545,11 +2565,15 @@ and cannot close the completion gate.
 V150 confirms a clean diagnostic force-response ladder on that overlay, but it
 is still not accepted contact/setup-target evidence and cannot close the
 completion gate.
+V151 confirms that the unaccepted diagnostic overlay cannot cover the common
+`5.0 N` target by penetration alone; this identifies a non-final
+contact-parameter or target-definition blocker and still cannot close the
+completion gate.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v150 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v151 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

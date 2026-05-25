@@ -6165,3 +6165,49 @@
   Use the v150 ladder as a non-final simulation-debugging baseline for the
   next offline controller or setup experiment, keeping contact/setup-target
   acceptance and approved evidence gates separate.
+
+## 2026-05-25 v151 Overlay Target-Force Coverage
+
+### Check whether the diagnostic overlay can represent a 5 N static target
+
+- Branch:
+  `exp/tase-ur10e-v151-overlay-target-force-coverage`
+- Runs:
+  - `runs/overlay_target_force_coverage_after_v150/20260525T231000`
+- Report:
+  `reports/overlay_target_force_coverage_v151_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_overlay_target_force_coverage_after_v150.py`
+  - `scripts/run_tests.sh tests/test_overlay_target_force_coverage_after_v150.py`
+  - `python3 scripts/audit_overlay_target_force_coverage_after_v150.py --run-id 20260525T231000`
+- Result:
+  V151 scans near-zero through 2 mm penetration against the v150
+  force-response baseline while preserving clean target-only contact. The
+  audit reports `target_force_N = 5.0`, `force_tolerance_N = 0.25`,
+  `scan_row_count = 18`, `clean_target_contact_all_rows = true`,
+  `zero_penetration_force_N = 0.0`,
+  `minimum_positive_force_N = 7.136494172695263`,
+  `best_penetration_m = 1.0e-12`,
+  `best_force_N = 7.136494172695263`,
+  `best_abs_error_N = 2.1364941726952633`,
+  `target_force_reachable_in_scan = false`,
+  `coverage_gap_identified = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline diagnostic target-force coverage evidence only. It does not
+  collect live measurements, approve any SOP packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model or setup target, relax an orientation gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or close the completion gate.
+- Validation:
+  Focused tests passed with `4 passed in 0.29s`; full tests passed with
+  `316 passed in 33.67s`; YAML anchor scan found no anchors in the v151
+  coverage metrics; raw/heavy artifact scan found no payloads in the v151 run
+  artifact; `git diff --check` passed.
+- Next step:
+  Treat the `5 N` coverage gap as a non-final simulation blocker and run a
+  contact-parameter or target-definition diagnostic before any controller run.
+  Do not promote tuned contact parameters to accepted evidence without the
+  contact/setup-target review path.
