@@ -6023,3 +6023,52 @@
   plane/contact patch/force-frame assumptions only through the existing
   contact/setup-target acceptance path, or execute a read-only SOP step only
   after exact user approval.
+
+## 2026-05-25 v148 Calibrated Diagnostic Contact Overlay
+
+### Add an unaccepted offline contact overlay to the calibrated seed
+
+- Branch:
+  `exp/tase-ur10e-v148-calibrated-contact-overlay`
+- Runs:
+  - `runs/calibrated_contact_overlay_after_v147/20260525T220000`
+- Report:
+  `reports/calibrated_contact_overlay_v148_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_calibrated_contact_overlay_after_v147.py`
+  - `scripts/run_tests.sh tests/test_calibrated_contact_overlay_after_v147.py`
+  - `python3 scripts/audit_calibrated_contact_overlay_after_v147.py --run-id 20260525T220000`
+- Result:
+  V148 generates
+  `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml`
+  and
+  `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml`.
+  The overlay translates the v54 tilted 10 degree diagnostic normal through
+  the v147 backed-up TCP site and adds the unaccepted geoms
+  `diagnostic_contact_plane_unaccepted` and
+  `diagnostic_contact_tip_unaccepted`. The audit reports
+  `overlay_model_loads = true`,
+  `current_tcp_site_on_diagnostic_plane = true`,
+  `contact_tip_surface_tangent_to_plane = true`,
+  `tcp_plane_signed_distance_m = 0.0`, `tip_surface_gap_m = 0.0`,
+  `plane_normal_error = 3.4120107557038376e-11`,
+  `simulation_can_start_from_diagnostic_overlay = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is an offline diagnostic contact-geometry scaffold only. It does not
+  collect live measurements, approve any SOP packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model or setup target, relax an orientation gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or close the completion gate.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; full tests passed with
+  `308 passed in 32.99s`; YAML anchor scan found no anchors in the new overlay
+  metrics/config YAML files; raw/heavy artifact scan found no payloads in the
+  new overlay artifacts; `git diff --check` passed.
+- Next step:
+  Run the next offline diagnostic simulation against
+  `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml`
+  while keeping results non-final unless contact/setup-target acceptance and
+  approved evidence gates are separately satisfied.
