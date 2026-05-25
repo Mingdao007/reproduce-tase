@@ -5224,7 +5224,7 @@
 - Branch:
   `exp/tase-ur10e-v132-readonly-sequence-boundary`
 - Implementation commit:
-  `TBD`
+  `23fdb09504792e1f9b1add0dcf607c6cccc3b7fa`
 - Runs:
   - `runs/read_only_evidence_sequence_boundary/20260525T115000`
 - Report:

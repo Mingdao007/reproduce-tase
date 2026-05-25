@@ -4004,7 +4004,7 @@ Legacy source root:
 ### Froze the full registered sequence without bundling approval
 
 - Implementation commit:
-  `TBD`
+  `23fdb09504792e1f9b1add0dcf607c6cccc3b7fa`
 - Scripts:
   - `scripts/audit_read_only_evidence_sequence_boundary.py`
 - Runs:
