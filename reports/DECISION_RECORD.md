@@ -3210,6 +3210,30 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D151: Offline Blocker Boundaries Must Not Become Closure Shortcuts
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v146 as a post-v145 boundary audit over the two remaining offline/non-final
+  blockers.
+- Reason:
+  V145 shows the project is not complete by the user's real-data-only
+  criterion because strict feasibility and robustness remain offline/non-final
+  blockers. The next safe step is to make explicit whether either blocker has
+  a known non-repeating offline shortcut to completion, while preserving the
+  prohibition against repeating v113-v116 or gate-blocked robustness reruns as
+  closure evidence.
+- Consequence:
+  V146 reports no known safe non-repeating offline shortcut:
+  `completion_closing_offline_shortcut_count = 0` and
+  `safe_nonrepeating_completion_action_available = false`. V146 does not
+  collect live evidence, run a new optimizer, rerun failed robustness cells,
+  approve a packet, authorize live access, authorize execution, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

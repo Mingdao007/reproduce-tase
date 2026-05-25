@@ -5922,3 +5922,46 @@
   `tcp_contact_measurements.csv` rows before finalization and
   approved-read-only audit. Without exact approval, continue only non-final
   offline work and do not treat this criterion audit as completion evidence.
+
+## 2026-05-25 v146 Post-V145 Offline Blocker Boundary
+
+### Check whether any non-repeating offline shortcut can close the remaining blockers
+
+- Branch:
+  `exp/tase-ur10e-v146-offline-blocker-boundary`
+- Implementation commit:
+  `TBD pending final closeout`
+- Runs:
+  - `runs/post_v145_offline_blocker_boundary/20260525T200000`
+- Report:
+  `reports/post_v145_offline_blocker_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v145_offline_blocker_boundary.py`
+  - `scripts/run_tests.sh tests/test_post_v145_offline_blocker_boundary.py`
+  - `python3 scripts/audit_post_v145_offline_blocker_boundary.py --run-id 20260525T200000`
+- Result:
+  V146 checks the two offline/non-final blockers from v145 without running new
+  simulation, optimizer, or failed-cell reruns. It reports `audit_passed =
+  true`, `user_completion_criterion_met = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`,
+  offline/non-final unresolved requirements `2`,
+  `completion_closing_offline_shortcut_count = 0`,
+  `completion_closing_offline_shortcut_known = false`, and
+  `safe_nonrepeating_completion_action_available = false`.
+- Limit:
+  This is offline blocker-boundary bookkeeping only. It does not collect live
+  measurements, run a new optimizer, rerun failed robustness cells, approve any
+  read-only SOP step, authorize live access, authorize execution, create
+  repository approved calibration evidence, accept a contact model, accept a
+  setup target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.29s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use the phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work and do not repeat v113-v116 or gate-blocked robustness rows as
+  closure evidence.

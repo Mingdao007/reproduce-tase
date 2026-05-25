@@ -1,0 +1,181 @@
+{
+  "run_source": "post-v145 offline blocker boundary audit",
+  "audit_run_id": "20260525T200000",
+  "source_files": {
+    "v145_user_completion_criterion": "runs/user_completion_criterion_after_v144/20260525T190000/metrics.yaml",
+    "strict_terminal_constrained_optimization": "runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+    "robustness_dependency_frontier": "runs/robustness_dependency_frontier_after_v141/20260525T160000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true,
+    "user_completion_criterion_met": false,
+    "offline_nonfinal_unresolved_count": 2,
+    "offline_nonfinal_unresolved_ids": [
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations"
+    ],
+    "completion_closing_offline_shortcut_count": 0,
+    "completion_closing_offline_shortcut_known": false,
+    "safe_nonrepeating_completion_action_available": false,
+    "live_or_approval_data_still_blocking": true,
+    "exact_phase1_approval_still_required": true
+  },
+  "boundary_rows": [
+    {
+      "blocker_id": "strict_terminal_or_full_staged_feasibility",
+      "status": "offline_unresolved_nonfinal",
+      "completion_closing_offline_shortcut_known": false,
+      "safe_nonrepeating_closure_action": null,
+      "repeat_family_disallowed": "v113-v116 strict-policy/terminal family",
+      "evidence": {
+        "strict_terminal_pass_count": 0,
+        "best_max_gate_ratio": 2.11994927622362,
+        "strict_paper_equivalent_feasibility": false
+      },
+      "next_action": "Continue only non-final strict-feasibility research; do not treat it as completion without a strict pass or accepted setup/contact change."
+    },
+    {
+      "blocker_id": "robustness_to_contact_model_perturbations",
+      "status": "offline_unresolved_but_closure_dependency_blocked",
+      "completion_closing_offline_shortcut_known": false,
+      "safe_nonrepeating_closure_action": null,
+      "repeat_family_disallowed": "gate-blocked robustness cell reruns as closure evidence",
+      "evidence": {
+        "closed_cell_count": 0,
+        "accepted_as_robustness_proof": false,
+        "gate_or_contact_acceptance_blocked_cell_ids": [
+          "positive_orientation_gate_0p119",
+          "weighted_plus1mm_0p119_gate"
+        ],
+        "additional_failed_cell_execution_recommended": false
+      },
+      "next_action": "Keep robustness non-final until approved read-only evidence and contact/gate acceptance exist."
+    }
+  ],
+  "v145_summary": {
+    "audit_passed": true,
+    "violations": [],
+    "answer": "not_complete_not_only_real_data_missing",
+    "user_completion_criterion_met": false,
+    "only_real_or_explicit_approval_data_missing": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true,
+    "incomplete_requirement_count": 6,
+    "incomplete_requirement_ids": [
+      "approved_read_only_calibration_evidence",
+      "contact_setup_target_acceptance",
+      "orientation_gate_acceptance",
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations",
+      "hardware_readiness"
+    ],
+    "approval_or_live_data_blocked_count": 4,
+    "approval_or_live_data_blocked_ids": [
+      "approved_read_only_calibration_evidence",
+      "contact_setup_target_acceptance",
+      "orientation_gate_acceptance",
+      "hardware_readiness"
+    ],
+    "offline_nonfinal_unresolved_count": 2,
+    "offline_nonfinal_unresolved_ids": [
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations"
+    ],
+    "unclassified_incomplete_count": 0,
+    "unclassified_incomplete_ids": [],
+    "top_blocker": "approved_read_only_calibration_evidence",
+    "approved_read_only_run_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "phase1_packet_fresh": true,
+    "phase1_packet_still_not_approved": true,
+    "live_access_authorized_now": false,
+    "execution_authorized_now": false
+  },
+  "strict_summary": {
+    "optimization_case_count": 12,
+    "strict_terminal_pass_count": 0,
+    "optimizer_success_count": 10,
+    "setup_failed_criteria_counts": {
+      "force_error_N": 10,
+      "orientation_error_rad": 10,
+      "tangential_error_m": 9,
+      "target_contact_count": 3
+    },
+    "best_case_id": "xy_force_orientation__best_candidate__slsqp",
+    "best_max_gate_ratio": 2.11994927622362,
+    "v56_strict_best_max_gate_ratio": 2.413534442118322,
+    "best_ratio_improvement": 0.29358516589470174,
+    "best_force_case_id": "xy_force__best_candidate__l-bfgs-b",
+    "best_force_error_N": 2.4868995751603507e-14,
+    "best_xy_case_id": "xy_orientation__best_candidate__slsqp",
+    "best_xy_error_m": 5.204170427930421e-18,
+    "best_orientation_case_id": "xy_orientation__best_candidate__slsqp",
+    "best_orientation_error_rad": 5.551115123125783e-17,
+    "strict_terminal_constrained_optimization_complete": false,
+    "strict_paper_equivalent_feasibility": false
+  },
+  "robustness_summary": {
+    "audit_passed": true,
+    "violations": [],
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "robustness_complete": false,
+    "accepted_as_robustness_proof": false,
+    "candidate_matrix_complete": false,
+    "all_failed_cells_closed": false,
+    "closed_cell_count": 0,
+    "source_failed_cell_count": 4,
+    "frontier_row_count": 4,
+    "profile_overlay_supported_noncanonical_count": 2,
+    "profile_overlay_supported_noncanonical_cell_ids": [
+      "base_z_plus1mm",
+      "positive_fast_timing_0p0075"
+    ],
+    "gate_or_contact_acceptance_blocked_count": 2,
+    "gate_or_contact_acceptance_blocked_cell_ids": [
+      "positive_orientation_gate_0p119",
+      "weighted_plus1mm_0p119_gate"
+    ],
+    "new_simulation_selected": false,
+    "additional_failed_cell_execution_recommended": false,
+    "requires_approved_read_only_evidence_for_closure": true,
+    "requires_contact_setup_target_acceptance_for_closure": true,
+    "requires_orientation_gate_acceptance_for_gate_rows": true,
+    "source_approved_read_only_run_count": 0,
+    "source_approved_read_only_audit_passed_count": 0,
+    "source_accepted_orientation_review_count": 0,
+    "source_accepted_contact_setup_target_review_count": 0,
+    "source_readiness_completion_evidence_ids": [],
+    "do_not_mark_goal_complete": true
+  },
+  "claim_boundary": {
+    "post_hoc_audit_only": true,
+    "new_simulation_run": false,
+    "new_optimizer_run": false,
+    "failed_cell_rerun": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Do not mark the goal complete from the current repository state.",
+    "Use the phase1 packet only after exact user approval for the exact registered scope.",
+    "Without approval, do not repeat v113-v116 or gate-blocked robustness rows as closure evidence."
+  ]
+}

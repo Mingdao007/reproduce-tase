@@ -4652,6 +4652,47 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V146 Post-V145 Offline Blocker Boundary
+
+### Checked whether any non-repeating offline shortcut can close the remaining blockers
+
+- Implementation commit:
+  `TBD pending final closeout`
+- Scripts:
+  - `scripts/audit_post_v145_offline_blocker_boundary.py`
+- Runs:
+  - `runs/post_v145_offline_blocker_boundary/20260525T200000`
+- Report:
+  - `reports/post_v145_offline_blocker_boundary_report.md`
+- Tests:
+  - `tests/test_post_v145_offline_blocker_boundary.py`
+- Command:
+  `python3 scripts/audit_post_v145_offline_blocker_boundary.py --run-id 20260525T200000`
+- Tracked lightweight artifacts:
+  post-v145 offline blocker boundary top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, handoff, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The boundary audit passes while authorizing nothing:
+  `user_completion_criterion_met = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`,
+  offline/non-final unresolved requirements `2`,
+  `completion_closing_offline_shortcut_count = 0`,
+  `completion_closing_offline_shortcut_known = false`, and
+  `safe_nonrepeating_completion_action_available = false`.
+- Validation:
+  Focused tests passed with `4 passed in 0.29s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is blocker-boundary
+  bookkeeping only; it does not run a new optimizer, rerun failed robustness
+  cells, approve any packet, authorize live access, authorize execution,
+  create repository approved calibration evidence, accept a contact model,
+  accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

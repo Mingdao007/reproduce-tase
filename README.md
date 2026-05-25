@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v145-user-completion-criterion`
+Current branch: `exp/tase-ur10e-v146-offline-blocker-boundary`
 
 ## Scope
 
@@ -148,7 +148,8 @@ completion gate. V144 confirms the exact phase1 approval packet remains fresh
 and not approved, with the same hash, exact phrase, and worksheet scope. V145
 directly checks the user's real-data-only completion criterion and reports
 that it is not met because two offline/non-final blockers remain unresolved:
-strict terminal/full-staged feasibility and robustness.
+strict terminal/full-staged feasibility and robustness. V146 confirms there is
+no known safe non-repeating offline shortcut that closes those two blockers.
 
 ## Test Command
 
