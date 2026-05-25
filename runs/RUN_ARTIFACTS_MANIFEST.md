@@ -3750,6 +3750,47 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V126 Strict Terminal Relaxation Budget
+
+### Quantified non-accepted strict gate relaxation budgets
+
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Scripts:
+  - `scripts/audit_strict_terminal_relaxation_budget.py`
+- Runs:
+  - `runs/strict_terminal_relaxation_budget/20260525T105000`
+- Report:
+  - `reports/strict_terminal_relaxation_budget_report.md`
+- Tests:
+  - `tests/test_strict_terminal_relaxation_budget.py`
+- Command:
+  `python3 scripts/audit_strict_terminal_relaxation_budget.py --run-id 20260525T105000`
+- Tracked lightweight artifacts:
+  relaxation-budget audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The relaxation-budget audit passes while accepting no relaxation:
+  `strict_terminal_pass_count = 0`,
+  `minimum_uniform_multiplier = 2.11994927622362`,
+  `minimum_uniform_requires_all_three_scalar_gates = true`,
+  `orientation_only_multiplier = 4.899002392744376`,
+  `contactless_xy_orientation_row_count = 2`,
+  `relaxation_budget_acceptance_allowed = false`,
+  `new_optimization_run = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.28s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `211 passed in 11.65s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline bookkeeping
+  over existing rows only; it does not run a new optimizer, approve any packet,
+  accept a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

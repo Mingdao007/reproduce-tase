@@ -1,0 +1,227 @@
+{
+  "run_source": "strict terminal relaxation budget audit",
+  "audit_run_id": "20260525T105000",
+  "source_files": {
+    "strict_terminal_constrained_optimization": "runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+    "strict_terminal_tradeoff_boundary": "runs/strict_terminal_tradeoff_boundary/20260525T104000/metrics.yaml",
+    "contact_orientation_calibration_margin": "runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml",
+    "remaining_blocker_prioritization": "runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "optimization_case_count": 12,
+    "eligible_scalar_relaxation_row_count": 9,
+    "strict_terminal_pass_count": 0,
+    "minimum_uniform_multiplier": 2.11994927622362,
+    "minimum_uniform_case_id": "xy_force_orientation__best_candidate__slsqp",
+    "minimum_uniform_requires_all_three_scalar_gates": true,
+    "single_scalar_relaxation_row_count": 1,
+    "best_single_scalar_relaxation_case_id": "xy_force__best_candidate__l-bfgs-b",
+    "best_single_scalar_relaxation_multiplier": 4.899002392744376,
+    "orientation_only_relaxation_case_id": "xy_force__best_candidate__l-bfgs-b",
+    "orientation_only_multiplier": 4.899002392744376,
+    "contactless_xy_orientation_row_count": 2,
+    "strict_orientation_increase_rad": 0.0335984782867086,
+    "diagnostic_required_normal_rotation_rad": 0.0005664520369604714,
+    "strict_to_diagnostic_orientation_margin_ratio": 59.31389790209757,
+    "relaxation_budget_acceptance_allowed": false,
+    "new_optimization_run": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "best_uniform_relaxation_row": {
+    "case_id": "xy_force_orientation__best_candidate__slsqp",
+    "eligible_for_scalar_relaxation": true,
+    "target_contact_passed": true,
+    "joint_limit_passed": true,
+    "strict_passed": false,
+    "failed_scalar_criteria": [
+      "force_error_N",
+      "tangential_error_m",
+      "orientation_error_rad"
+    ],
+    "required_uniform_multiplier": 2.11994927622362,
+    "required_multipliers": {
+      "force_error_N": 1.0678992823355102,
+      "tangential_error_m": 1.9702784401478524,
+      "orientation_error_rad": 2.11994927622362
+    },
+    "required_increases": {
+      "force_error_N": 0.01697482058387756,
+      "tangential_error_m": 0.0019405568802957048,
+      "orientation_error_rad": 0.0335984782867086
+    },
+    "actuals": {
+      "force_error_N": 0.26697482058387756,
+      "tangential_error_m": 0.003940556880295705,
+      "orientation_error_rad": 0.0635984782867086
+    },
+    "thresholds": {
+      "force_error_N": 0.25,
+      "tangential_error_m": 0.002,
+      "orientation_error_rad": 0.03
+    }
+  },
+  "best_single_scalar_relaxation_row": {
+    "case_id": "xy_force__best_candidate__l-bfgs-b",
+    "eligible_for_scalar_relaxation": true,
+    "target_contact_passed": true,
+    "joint_limit_passed": true,
+    "strict_passed": false,
+    "failed_scalar_criteria": [
+      "orientation_error_rad"
+    ],
+    "required_uniform_multiplier": 4.899002392744376,
+    "required_multipliers": {
+      "force_error_N": 1.0,
+      "tangential_error_m": 1.0,
+      "orientation_error_rad": 4.899002392744376
+    },
+    "required_increases": {
+      "force_error_N": 0.0,
+      "tangential_error_m": 0.0,
+      "orientation_error_rad": 0.11697007178233126
+    },
+    "actuals": {
+      "force_error_N": 2.4868995751603507e-14,
+      "tangential_error_m": 1.2984463881799684e-15,
+      "orientation_error_rad": 0.14697007178233126
+    },
+    "thresholds": {
+      "force_error_N": 0.25,
+      "tangential_error_m": 0.002,
+      "orientation_error_rad": 0.03
+    }
+  },
+  "orientation_only_relaxation_row": {
+    "case_id": "xy_force__best_candidate__l-bfgs-b",
+    "eligible_for_scalar_relaxation": true,
+    "target_contact_passed": true,
+    "joint_limit_passed": true,
+    "strict_passed": false,
+    "failed_scalar_criteria": [
+      "orientation_error_rad"
+    ],
+    "required_uniform_multiplier": 4.899002392744376,
+    "required_multipliers": {
+      "force_error_N": 1.0,
+      "tangential_error_m": 1.0,
+      "orientation_error_rad": 4.899002392744376
+    },
+    "required_increases": {
+      "force_error_N": 0.0,
+      "tangential_error_m": 0.0,
+      "orientation_error_rad": 0.11697007178233126
+    },
+    "actuals": {
+      "force_error_N": 2.4868995751603507e-14,
+      "tangential_error_m": 1.2984463881799684e-15,
+      "orientation_error_rad": 0.14697007178233126
+    },
+    "thresholds": {
+      "force_error_N": 0.25,
+      "tangential_error_m": 0.002,
+      "orientation_error_rad": 0.03
+    }
+  },
+  "contactless_xy_orientation_rows": [
+    {
+      "case_id": "xy_orientation__best_candidate__slsqp",
+      "eligible_for_scalar_relaxation": false,
+      "target_contact_passed": false,
+      "joint_limit_passed": true,
+      "strict_passed": false,
+      "failed_scalar_criteria": [
+        "force_error_N"
+      ],
+      "required_uniform_multiplier": 20.0,
+      "required_multipliers": {
+        "force_error_N": 20.0,
+        "tangential_error_m": 1.0,
+        "orientation_error_rad": 1.0
+      },
+      "required_increases": {
+        "force_error_N": 4.75,
+        "tangential_error_m": 0.0,
+        "orientation_error_rad": 0.0
+      },
+      "actuals": {
+        "force_error_N": 5.0,
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17
+      },
+      "thresholds": {
+        "force_error_N": 0.25,
+        "tangential_error_m": 0.002,
+        "orientation_error_rad": 0.03
+      }
+    },
+    {
+      "case_id": "xy_orientation__best_candidate__l-bfgs-b",
+      "eligible_for_scalar_relaxation": false,
+      "target_contact_passed": false,
+      "joint_limit_passed": true,
+      "strict_passed": false,
+      "failed_scalar_criteria": [
+        "force_error_N"
+      ],
+      "required_uniform_multiplier": 20.0,
+      "required_multipliers": {
+        "force_error_N": 20.0,
+        "tangential_error_m": 1.0,
+        "orientation_error_rad": 1.0
+      },
+      "required_increases": {
+        "force_error_N": 4.75,
+        "tangential_error_m": 0.0,
+        "orientation_error_rad": 0.0
+      },
+      "actuals": {
+        "force_error_N": 5.0,
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17
+      },
+      "thresholds": {
+        "force_error_N": 0.25,
+        "tangential_error_m": 0.002,
+        "orientation_error_rad": 0.03
+      }
+    }
+  ],
+  "strict_terminal_thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.002,
+    "max_orientation_error_rad": 0.03,
+    "min_target_contact_count": 1.0,
+    "max_joint_limit_violation_rad": 1e-09
+  },
+  "v125_tradeoff_context": {
+    "tradeoff_boundary_preserved": true,
+    "best_combined_failed_all_three_scalar_gates": true
+  },
+  "v85_calibration_context": {
+    "accepted_measurement_noise_budget_exists": false,
+    "required_normal_rotation_rad": 0.0005664520369604714,
+    "continuous_required_gate_rad": 0.11956645203696047
+  },
+  "claim_boundary": {
+    "post_hoc_existing_rows_only": true,
+    "new_optimization_run": false,
+    "relaxation_budget_acceptance_allowed": false,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "canonical_controller_change": false,
+    "canonical_orientation_gate_change": false,
+    "failed_cell_closed": false,
+    "robustness_claim": false,
+    "contact_calibration_claim": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/strict_terminal_relaxation_budget/20260525T105000"
+}

@@ -2741,6 +2741,27 @@
   target, relax a gate, prove strict paper-equivalent feasibility, prove
   robustness, establish hardware readiness, or authorize hardware work.
 
+## D131: Strict-Terminal Relaxation Budgets Are Non-Acceptance Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v126 as a post-hoc offline relaxation-budget audit over the existing
+  v116/v125 strict-terminal rows.
+- Reason:
+  V125 showed a tradeoff but did not quantify the gate budget implied by the
+  existing rows. V126 computes that the smallest uniform scalar budget would
+  still require moving force, x/y, and orientation gates together, with a
+  multiplier of `2.11994927622362`, while the best single-scalar path needs an
+  orientation multiplier of `4.899002392744376`. These numbers are useful
+  blocker evidence but are not accepted gate relaxations.
+- Consequence:
+  Existing rows may be used to explain the magnitude of the strict-terminal
+  blocker, but not to relax gates or claim strict feasibility. V126 does not
+  run a new optimizer, collect live evidence, accept a contact model, accept a
+  setup target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

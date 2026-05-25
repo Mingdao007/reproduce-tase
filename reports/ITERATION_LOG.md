@@ -4953,3 +4953,46 @@
   approval, continue only non-final offline work and do not repeat the v116
   bounded minimax optimizer over the same accepted contact model and seeds as
   a likely closer.
+
+## 2026-05-25 v126 Strict Terminal Relaxation Budget
+
+### Quantify non-accepted scalar gate budgets from existing strict rows
+
+- Branch:
+  `exp/tase-ur10e-v126-strict-terminal-relaxation-budget`
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Runs:
+  - `runs/strict_terminal_relaxation_budget/20260525T105000`
+- Report:
+  `reports/strict_terminal_relaxation_budget_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_terminal_relaxation_budget.py`
+  - `scripts/run_tests.sh tests/test_strict_terminal_relaxation_budget.py`
+  - `python3 scripts/audit_strict_terminal_relaxation_budget.py --run-id 20260525T105000`
+- Result:
+  V126 adds a post-hoc offline budget audit over the existing v116/v125
+  strict-terminal rows. The run reports `audit_passed = true`,
+  `strict_terminal_pass_count = 0`,
+  `minimum_uniform_multiplier = 2.11994927622362`,
+  `minimum_uniform_requires_all_three_scalar_gates = true`,
+  `orientation_only_multiplier = 4.899002392744376`,
+  `contactless_xy_orientation_row_count = 2`,
+  `relaxation_budget_acceptance_allowed = false`,
+  `new_optimization_run = false`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline bookkeeping over existing rows only. It does not run a new
+  optimizer, collect live measurements, approve any read-only SOP step, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 0.28s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `211 passed in 11.65s`; `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and do not accept any
+  strict-terminal relaxation from this budget audit.
