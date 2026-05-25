@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import datetime as dt
 import json
+import math
 import pathlib
 import subprocess
 import sys
@@ -94,6 +96,9 @@ FORBIDDEN_STEP_ACTIONS = {
     "zeroing_or_biasing",
     "tcp_payload_cog_urcap_onrobot_or_rtde_writes",
 }
+
+TCP_TOOL_AXIS_SIGNS = {"+x", "-x", "+y", "-y", "+z", "-z"}
+PLACEHOLDER_VALUES = {"", "tbd", "todo", "unknown", "n/a", "na", "none", "not measured"}
 
 
 def load_yaml(path: pathlib.Path) -> dict[str, Any]:
@@ -206,6 +211,69 @@ def read_csv_row_counts(run_dir: pathlib.Path) -> dict[str, int]:
         if rows and rows[0] != expected_header:
             row_counts[csv_name] = 0
     return row_counts
+
+
+def is_placeholder(value: Any) -> bool:
+    return str(value or "").strip().lower() in PLACEHOLDER_VALUES
+
+
+def positive_float(value: Any, *, field: str, row_label: str, violations: list[str]) -> float | None:
+    raw = str(value or "").strip()
+    try:
+        number = float(raw)
+    except ValueError:
+        violations.append(f"{row_label}.{field} is not numeric")
+        return None
+    if not math.isfinite(number) or number <= 0.0:
+        violations.append(f"{row_label}.{field} must be finite and positive")
+        return None
+    return number
+
+
+def read_dict_rows(path: pathlib.Path, expected_header: str, violations: list[str]) -> list[dict[str, str]]:
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        if reader.fieldnames != expected_header.split(","):
+            violations.append(f"{path.name} header changed")
+            return []
+        rows: list[dict[str, str]] = []
+        for index, row in enumerate(reader, start=2):
+            if row.get(None):
+                violations.append(f"{path.name}: line {index} has extra columns")
+                continue
+            if any(str(value or "").strip() for value in row.values()):
+                rows.append({key: str(value or "") for key, value in row.items()})
+        return rows
+
+
+def validate_tcp_contact_measurement_rows(run_dir: pathlib.Path) -> list[str]:
+    violations: list[str] = []
+    rows = read_dict_rows(
+        run_dir / "tcp_contact_measurements.csv",
+        EXPECTED_CSV_HEADERS["tcp_contact_measurements.csv"],
+        violations,
+    )
+    for index, row in enumerate(rows, start=1):
+        row_label = f"tcp_contact_measurements.csv row {index}"
+        for field in ["sample_id", "datum", "instrument", "operator"]:
+            if is_placeholder(row.get(field)):
+                violations.append(f"{row_label}.{field} must be non-empty and not a placeholder")
+        axis = str(row.get("tool_axis_sign") or "").strip().lower()
+        if axis not in TCP_TOOL_AXIS_SIGNS:
+            violations.append(
+                f"{row_label}.tool_axis_sign must be one of {sorted(TCP_TOOL_AXIS_SIGNS)}"
+            )
+        positive_float(row.get("distance_mm"), field="distance_mm", row_label=row_label, violations=violations)
+        positive_float(
+            row.get("resolution_mm"), field="resolution_mm", row_label=row_label, violations=violations
+        )
+    return violations
+
+
+def validate_worksheet_content(run_dir: pathlib.Path) -> list[str]:
+    return validate_tcp_contact_measurement_rows(run_dir)
 
 
 def audit_approved_step_registry(
@@ -345,6 +413,7 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
                 violations.append(f"{csv_name} contains rows in scaffold mode")
 
     row_counts = read_csv_row_counts(run_dir)
+    violations.extend(validate_worksheet_content(run_dir))
     finalization = {}
     if audit_mode == "approved-read-only":
         finalization = audit_approved_step_registry(metrics_yaml, row_counts, violations)

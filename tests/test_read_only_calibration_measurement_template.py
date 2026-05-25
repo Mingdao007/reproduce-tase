@@ -531,6 +531,154 @@ def test_finalize_read_only_calibration_measurement_evidence_derives_status(tmp_
     assert audit["violations"] == []
 
 
+def test_audit_read_only_calibration_measurement_rejects_invalid_phase1_row(
+    tmp_path,
+) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    audit_dir = tmp_path / "audit"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    metrics["status"] = "approved_read_only_evidence"
+    metrics["execution"]["user_confirmed_read_only_step"] = True
+    metrics["evidence_status"]["mounted_stack_tcp_contact_point"] = "collected_read_only"
+    metrics["read_only_evidence_finalization"] = {
+        "confirmation_phrase_matched": True,
+        "approved_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+        "approved_step_title": "Mounted stack TCP/contact point read-only measurement",
+        "approved_step_registry": "configs/read_only_sop_step_registry.yaml",
+        "allowed_worksheets": ["tcp_contact_measurements.csv"],
+        "operator": "pytest",
+        "finalized_at_utc": "2026-05-25T00:00:00Z",
+        "finalizer": "scripts/finalize_read_only_calibration_measurement_evidence.py",
+        "live_hardware_accessed_declared": False,
+        "worksheet_row_counts": {
+            "tcp_contact_measurements.csv": 1,
+            "ksm_contact_patch_convention.csv": 0,
+            "plane_normal_measurements.csv": 0,
+            "force_source_comparison.csv": 0,
+            "orientation_gate_semantics.csv": 0,
+        },
+    }
+    (run_dir / "metrics.yaml").write_text(yaml.safe_dump(metrics, sort_keys=False), encoding="utf-8")
+    (run_dir / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
+    tcp_path = run_dir / "tcp_contact_measurements.csv"
+    tcp_path.write_text(
+        tcp_path.read_text(encoding="utf-8")
+        + "s1,TBD,sideways,not_numeric,unknown,0,TBD,invalid test row\n",
+        encoding="utf-8",
+    )
+    (run_dir / "summary.md").write_text(
+        "# Read-Only Calibration Measurement Summary\n\n"
+        "Status: `approved_read_only_evidence`\n\n"
+        "All hardware-readiness claims remain false.\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/audit_read_only_calibration_measurement_run.py",
+            str(run_dir),
+            "--audit-mode",
+            "approved-read-only",
+            "--output-dir",
+            str(audit_dir),
+            "--run-id",
+            "TEST_AUDIT",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 1
+    audit = yaml.safe_load((audit_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert audit["audit_passed"] is False
+    assert "tcp_contact_measurements.csv row 1.datum must be non-empty and not a placeholder" in audit[
+        "violations"
+    ]
+    assert any("tool_axis_sign must be one of" in violation for violation in audit["violations"])
+    assert "tcp_contact_measurements.csv row 1.distance_mm is not numeric" in audit[
+        "violations"
+    ]
+    assert "tcp_contact_measurements.csv row 1.resolution_mm must be finite and positive" in audit[
+        "violations"
+    ]
+    assert "tcp_contact_measurements.csv row 1.operator must be non-empty and not a placeholder" in audit[
+        "violations"
+    ]
+
+
+def test_finalize_read_only_calibration_measurement_rejects_invalid_phase1_row_before_write(
+    tmp_path,
+) -> None:
+    run_dir = tmp_path / "readonly_measurement"
+    subprocess.run(
+        [
+            sys.executable,
+            "scripts/create_read_only_calibration_measurement_run.py",
+            "--output-dir",
+            str(run_dir),
+            "--run-id",
+            "TEST_RUN",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    tcp_path = run_dir / "tcp_contact_measurements.csv"
+    tcp_path.write_text(
+        tcp_path.read_text(encoding="utf-8")
+        + "s1,approved_read_only_fixture,+z,0,caliper,0.01,TBD,invalid test row\n",
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "scripts/finalize_read_only_calibration_measurement_evidence.py",
+            str(run_dir),
+            "--confirmation-phrase",
+            "I approve this read-only measurement step",
+            "--approved-step-id",
+            "phase1_mounted_stack_tcp_contact_measurement",
+            "--operator",
+            "pytest",
+            "--live-hardware-accessed",
+            "false",
+            "--finalized-at-utc",
+            "2026-05-25T00:00:00Z",
+        ],
+        cwd="/home/andy/reproduce-tase",
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 1
+    assert "tcp_contact_measurements.csv row 1.distance_mm must be finite and positive" in completed.stderr
+    assert "tcp_contact_measurements.csv row 1.operator must be non-empty and not a placeholder" in completed.stderr
+    metrics = yaml.safe_load((run_dir / "metrics.yaml").read_text(encoding="utf-8"))
+    assert metrics["status"] == "scaffold_created_not_executed"
+    assert metrics["execution"]["user_confirmed_read_only_step"] is False
+    assert "read_only_evidence_finalization" not in metrics
+
+
 def test_finalize_read_only_calibration_measurement_evidence_rejects_missing_approval(
     tmp_path,
 ) -> None:

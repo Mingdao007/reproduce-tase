@@ -1,0 +1,161 @@
+{
+  "run_source": "phase1 row-quality guard audit",
+  "audit_run_id": "20260525T120000",
+  "source_files": {
+    "read_only_evidence_sequence_boundary": "runs/read_only_evidence_sequence_boundary/20260525T115000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "phase1_row_quality_guard_complete": true,
+    "source_sequence_boundary_audit_passed": true,
+    "case_count": 5,
+    "rejected_case_count": 5,
+    "scaffold_preserved_case_count": 5,
+    "approved_read_only_evidence_created_count": 0,
+    "repository_evidence_run_created": false,
+    "temp_only_dry_run": true,
+    "guarded_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+    "guarded_worksheet": "tcp_contact_measurements.csv",
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "approved_read_only_evidence_created": false,
+    "guard_authorizes_live_access": false,
+    "guard_authorizes_execution": false,
+    "guard_creates_approved_evidence": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "rejection_case_rows": [
+    {
+      "case_id": "placeholder_datum",
+      "expected_rejection_substring": "datum must be non-empty and not a placeholder",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: tcp_contact_measurements.csv row 1.datum must be non-empty and not a placeholder",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "invalid_tool_axis_sign",
+      "expected_rejection_substring": "tool_axis_sign must be one of",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: tcp_contact_measurements.csv row 1.tool_axis_sign must be one of ['+x', '+y', '+z', '-x', '-y', '-z']",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "nonnumeric_distance",
+      "expected_rejection_substring": "distance_mm is not numeric",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: tcp_contact_measurements.csv row 1.distance_mm is not numeric",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "nonpositive_resolution",
+      "expected_rejection_substring": "resolution_mm must be finite and positive",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: tcp_contact_measurements.csv row 1.resolution_mm must be finite and positive",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "placeholder_row_operator",
+      "expected_rejection_substring": "operator must be non-empty and not a placeholder",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: tcp_contact_measurements.csv row 1.operator must be non-empty and not a placeholder",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    }
+  ],
+  "guarded_failure_modes": [
+    "placeholder datum",
+    "invalid tool axis sign",
+    "nonnumeric distance_mm",
+    "nonpositive resolution_mm",
+    "placeholder row operator"
+  ],
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "phase1_row_quality_guard_only": true,
+    "temp_only_dry_run": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/phase1_row_quality_guard/20260525T120000"
+}

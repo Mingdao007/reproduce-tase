@@ -4046,6 +4046,54 @@ Legacy source root:
   strict paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V133 Phase1 Row-Quality Guard
+
+### Hardened future phase1 finalization against malformed rows
+
+- Implementation commit:
+  pending verification marker update
+- Scripts:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+  - `scripts/audit_phase1_row_quality_guard.py`
+- Runs:
+  - `runs/phase1_row_quality_guard/20260525T120000`
+- Report:
+  - `reports/phase1_row_quality_guard_report.md`
+- Tests:
+  - `tests/test_read_only_calibration_measurement_template.py`
+  - `tests/test_phase1_row_quality_guard.py`
+- Command:
+  `python3 scripts/audit_phase1_row_quality_guard.py --run-id 20260525T120000`
+- Tracked lightweight artifacts:
+  row-quality guard audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The row-quality guard audit passes while authorizing nothing:
+  `phase1_row_quality_guard_complete = true`, case count `5`, rejected cases
+  `5`, scaffold-preserved cases `5`,
+  `approved_read_only_evidence_created_count = 0`,
+  `repository_evidence_run_created = false`, guarded step
+  `phase1_mounted_stack_tcp_contact_measurement`, guarded worksheet
+  `tcp_contact_measurements.csv`, approved packets `0`,
+  execution-authorizing packets `0`, live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `guard_authorizes_execution = false`, `completion_claim_allowed = false`,
+  and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `17 passed in 6.00s`; full tests passed with
+  `236 passed in 19.47s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline row-quality
+  guard bookkeeping only; it does not approve any packet, authorize live
+  access, authorize execution, create approved calibration evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

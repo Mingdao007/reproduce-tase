@@ -2903,6 +2903,28 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D138: Phase1 Finalization Requires Valid TCP Contact Rows
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v133 as an offline phase1 row-quality guard that hardens the
+  approved-read-only finalizer and audit path for
+  `phase1_mounted_stack_tcp_contact_measurement`.
+- Reason:
+  V132 preserves the sequence boundary, but a future explicitly approved
+  phase1 run could still contain malformed TCP/contact measurement rows.
+  V133 makes row quality executable before approved evidence can be written:
+  phase1 rows must use non-placeholder identity fields, a valid tool-axis
+  sign, and finite positive distance and resolution values.
+- Consequence:
+  The finalizer and approved-read-only audit reject malformed phase1 rows
+  before they can create approved evidence. V133 is still a temporary dry-run
+  guard only: it does not approve a packet, collect live evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, authorize live access, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

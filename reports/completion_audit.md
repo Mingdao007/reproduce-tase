@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v132-readonly-sequence-boundary`
+Branch: `exp/tase-ur10e-v133-phase1-row-quality-guard`
 
 ## Objective Restatement
 
@@ -293,6 +293,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_read_only_evidence_sequence_boundary.py`
 - `runs/read_only_evidence_sequence_boundary/20260525T115000/metrics.yaml`
 - `reports/read_only_evidence_sequence_boundary_report.md`
+- `scripts/audit_phase1_row_quality_guard.py`
+- `runs/phase1_row_quality_guard/20260525T120000/metrics.yaml`
+- `reports/phase1_row_quality_guard_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -306,17 +309,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v132 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v132 is on `exp/tase-ur10e-v132-readonly-sequence-boundary` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v132-readonly-sequence-boundary`; latest local branch is `exp/tase-ur10e-v132-readonly-sequence-boundary` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v133 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v133 is on `exp/tase-ur10e-v133-phase1-row-quality-guard` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v133-phase1-row-quality-guard`; latest local branch is `exp/tase-ur10e-v133-phase1-row-quality-guard` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v132 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D137 as of v132 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v133 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D138 as of v133 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v132 validation: `python3 -m py_compile scripts/audit_read_only_evidence_sequence_boundary.py` passed, focused tests reported `4 passed in 0.22s`, full tests reported `231 passed in 15.64s`, YAML anchor and raw/heavy artifact scans passed, and no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v133 validation: py_compile for the read-only run auditor, finalizer, and row-quality audit passed; focused tests reported `17 passed in 6.00s`; full tests reported `236 passed in 19.47s`; YAML anchor and raw/heavy artifact scans passed; `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -337,6 +340,7 @@ The objective has two separate technical claim levels:
 | Phase1 preapproval finalizer guard | `scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`, `tests/test_read_only_phase1_preapproval_finalizer_guard.py`, `reports/read_only_phase1_preapproval_finalizer_guard_report.md`, `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml` | v130 rejects five temporary dry-run finalizer misuse cases and preserves scaffold state in all five; no repository evidence run, approved packet, execution, live access, approved evidence, or completion claim is created |
 | Phase1 approved-read-only evidence acceptance boundary | `scripts/audit_phase1_approved_evidence_acceptance_boundary.py`, `tests/test_phase1_approved_evidence_acceptance_boundary.py`, `reports/phase1_approved_evidence_acceptance_boundary_report.md`, `runs/phase1_approved_evidence_acceptance_boundary/20260525T114000/metrics.yaml` | v131 scans the current repository evidence directories after v130 and finds read-only runs `3`, read-only audits `4`, approved read-only runs `0`, phase1 approved runs `0`, finalization records `0`, and passed approved-read-only audits `0`; readiness artifacts remain non-evidence and completion remains false |
 | Read-only evidence sequence boundary | `scripts/audit_read_only_evidence_sequence_boundary.py`, `tests/test_read_only_evidence_sequence_boundary.py`, `reports/read_only_evidence_sequence_boundary_report.md`, `runs/read_only_evidence_sequence_boundary/20260525T115000/metrics.yaml` | v132 freezes the ordered five-step read-only evidence chain with phase1 first, four downstream steps remaining after phase1, every step requiring separate approval, no bundle authorization, no approved packets/evidence, and completion false |
+| Phase1 row-quality guard | `scripts/audit_phase1_row_quality_guard.py`, `tests/test_phase1_row_quality_guard.py`, `reports/phase1_row_quality_guard_report.md`, `runs/phase1_row_quality_guard/20260525T120000/metrics.yaml` | v133 rejects five malformed phase1 TCP/contact measurement row cases before finalization can write approved evidence; all scaffolds remain preserved, no repository evidence is created, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -675,6 +679,28 @@ Evidence:
 
 - `reports/read_only_evidence_sequence_boundary_report.md`
 - `runs/read_only_evidence_sequence_boundary/20260525T115000/metrics.yaml`
+
+The phase1 row-quality guard audit can additionally claim:
+
+```text
+phase1_row_quality_guard:
+  phase1 row quality guard complete = true
+  source sequence boundary audit passed = true
+  rejected case count = 5
+  scaffold preserved case count = 5
+  approved read-only evidence created count = 0
+  repository evidence run created = false
+  guarded step ID = phase1_mounted_stack_tcp_contact_measurement
+  guarded worksheet = tcp_contact_measurements.csv
+  guard authorizes execution = false
+  approved read-only evidence created = false
+  overall goal complete = false
+```
+
+Evidence:
+
+- `reports/phase1_row_quality_guard_report.md`
+- `runs/phase1_row_quality_guard/20260525T120000/metrics.yaml`
 
 The 30 s paper-platform candidate can additionally claim:
 

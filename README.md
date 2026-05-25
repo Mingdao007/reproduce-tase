@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v84-orientation-model-sensitivity`
+Current branch: `exp/tase-ur10e-v133-phase1-row-quality-guard`
 
 ## Scope
 
@@ -129,7 +129,11 @@ remaining miss to a small orientation-model margin rather than qdot: the
 critical weighted rows exceed `0.119 rad` by less than `0.00057 rad` with
 `0.0` qdot saturation, while the earlier contact-point versus legacy-center
 geometry convention changes +1.0 mm terminal orientation by about `0.024 rad`.
-This is still not strict paper-equivalent, robust, or hardware evidence.
+v85-v133 turn that margin into read-only evidence requirements, not-approved
+approval packets, preflight readiness checks, sequence/acceptance boundaries,
+and a phase1 row-quality guard. These artifacts do not approve live access,
+create approved calibration evidence, or close strict paper-equivalent,
+robustness, or hardware-readiness gates.
 
 ## Test Command
 

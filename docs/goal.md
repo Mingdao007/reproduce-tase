@@ -8,37 +8,38 @@ instructions into the goal text.
 
 ```text
 Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`.
-First read `docs/goal.md`, `docs/goal_handoff_v133.md`,
+First read `docs/goal.md`, `docs/goal_handoff_v134.md`,
 `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and
 `reports/DECISION_RECORD.md`; then inspect git status before changing
-anything. Preserve the current v132 claim boundary: formula-faithful Python
+anything. Preserve the current v133 claim boundary: formula-faithful Python
 paper-platform convergence and tuned Fig.6 landmark evidence remain separate,
 full paper-equivalent parity is not achieved, and the UR10e adapted line is
 diagnostic simulation only. V118-v123 establish that actual approved
 read-only evidence, accepted orientation/contact reviews, strict terminal
 passes, robustness closure, and hardware gate reports are still absent. V124
 keeps formula convergence and tuned Fig.6 claims separate. V125-v126 quantify
-the strict-terminal tradeoff and non-accepted relaxation budget. V127-v132
+the strict-terminal tradeoff and non-accepted relaxation budget. V127-v133
 prepare but do not approve the registered read-only evidence chain: all five
 steps are packet-covered and preflight-ready, phase1
 `phase1_mounted_stack_tcp_contact_measurement` is first, the frozen phase1
 packet remains not approved, v130 rejection guards pass, v131 finds no
-approved evidence in the repository, and v132 confirms four downstream
-registered evidence steps remain after phase1 with separate approval required
-for every step. The next branch should execute only a safe read-only SOP
+approved evidence in the repository, v132 confirms four downstream registered
+evidence steps remain after phase1 with separate approval required for every
+step, and v133 rejects malformed phase1 TCP/contact measurement rows before
+finalization can write approved evidence. The next branch should execute only a safe read-only SOP
 subset after explicit user confirmation using one exact audited packet, the
 scaffold, finalizer, and verifier, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v132 audits. Use the
+simulation/paper-platform work identified by the v95-v133 audits. Use the
 v117 scaffold before accepting any contact/setup-target definition. Keep
 strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v132 diagnostic staged labels separate. Do not move or configure the real
+v63-v133 diagnostic staged labels separate. Do not move or configure the real
 UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v132` repository state. The project goal is to reproduce the T-ASE finite-time
+`v133` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -59,7 +60,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v132-readonly-sequence-boundary`
+  `exp/tase-ur10e-v133-phase1-row-quality-guard`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -291,12 +292,17 @@ Read and audit these files before making assumptions:
   `tests/test_read_only_evidence_sequence_boundary.py`
   `runs/read_only_evidence_sequence_boundary/20260525T115000`
   `reports/read_only_evidence_sequence_boundary_report.md`
+- Current v133 phase1 row-quality guard artifacts:
+  `scripts/audit_phase1_row_quality_guard.py`
+  `tests/test_phase1_row_quality_guard.py`
+  `runs/phase1_row_quality_guard/20260525T120000`
+  `reports/phase1_row_quality_guard_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v133.md`
+  `docs/goal_handoff_v134.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -804,6 +810,12 @@ Current accepted claims:
   separate approval true, `phase1_alone_completes_overall_goal = false`,
   `bundle_approval_authorized = false`, and
   `do_not_mark_goal_complete = true`.
+- `phase1_row_quality_guard`: v133 hardens the phase1 finalizer/audit path.
+  It reports row-quality rejected cases `5 / 5`, scaffold-preserved cases
+  `5 / 5`, `approved_read_only_evidence_created_count = 0`,
+  `repository_evidence_run_created = false`,
+  `guard_authorizes_execution = false`, and
+  `do_not_mark_goal_complete = true`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -817,7 +829,7 @@ Current next executable step:
   after explicit user confirmation, using one audited v120/v121 packet for a
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122 preflight command path for evidence capture; or continue only non-final
-  offline simulation/paper-platform work identified by the v95-v132 blocker
+  offline simulation/paper-platform work identified by the v95-v133 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
@@ -825,7 +837,7 @@ Current next executable step:
   approved read-only calibration evidence or a new explicitly accepted
   contact/setup-target definition through the v117 scaffold.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v132 diagnostic staged labels separate.
+  v63-v133 diagnostic staged labels separate.
 
 ## Safety Boundary
 

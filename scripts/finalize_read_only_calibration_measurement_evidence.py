@@ -25,6 +25,7 @@ from audit_read_only_calibration_measurement_run import (
     REQUIRED_FILES,
     audit_run,
     nested_get,
+    validate_worksheet_content,
     write_git_state,
     write_yaml,
 )
@@ -215,6 +216,9 @@ def validate_scaffold_run(run_dir: pathlib.Path) -> tuple[dict[str, Any], dict[s
     row_counts = read_worksheet_row_counts(run_dir)
     if not any(row_counts.values()):
         raise ValueError("at least one worksheet CSV row is required before finalization")
+    content_violations = validate_worksheet_content(run_dir)
+    if content_violations:
+        raise ValueError("; ".join(content_violations))
 
     return metrics, row_counts
 
