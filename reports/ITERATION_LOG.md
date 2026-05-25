@@ -5455,3 +5455,57 @@
   packet, fill only valid rows for that step's worksheet scope, finalize with
   the exact registered step ID, and audit in approved-read-only mode. Without
   approval, continue only non-final offline work.
+
+## 2026-05-25 v137 Strict Vs Diagnostic Margin Separation
+
+### Keep diagnostic orientation margin separate from strict feasibility
+
+- Branch:
+  `exp/tase-ur10e-v137-strict-diagnostic-margin-separation`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/strict_vs_diagnostic_margin_separation/20260525T124000`
+- Report:
+  `reports/strict_vs_diagnostic_margin_separation_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_vs_diagnostic_margin_separation.py`
+  - `scripts/run_tests.sh tests/test_strict_vs_diagnostic_margin_separation.py`
+  - `python3 scripts/audit_strict_vs_diagnostic_margin_separation.py --run-id 20260525T124000`
+- Result:
+  V137 adds an offline post-hoc scale-separation audit over the existing v85,
+  v126, and v136 metrics. It confirms that the v85 diagnostic
+  orientation/contact definition margin is not large enough to close the v126
+  strict-terminal gap. The audit reports `audit_passed = true`,
+  `strict_vs_diagnostic_margin_separation_complete = true`,
+  diagnostic required normal rotation `0.0005664520369604714 rad`, strict
+  orientation increase `0.0335984782867086 rad`,
+  strict/diagnostic orientation ratio `59.31389790209757`, minimum uniform
+  multiplier `2.11994927622362`, force increase
+  `0.01697482058387756 N`, tangential increase
+  `0.0019405568802957048 m`,
+  `minimum_uniform_requires_all_three_scalar_gates = true`,
+  `v85_margin_can_close_strict_paper_equivalent_goal = false`,
+  `replacement_gate_accepted = false`, approved read-only runs `0`, passed
+  approved-read-only audits `0`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline metrics bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.17s`; temporary verifier rerun
+  completed under `/tmp/tase_v137_margin_verify`; full tests passed with
+  `255 passed in 29.95s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Next step:
+  If the user later gives explicit approval, use one exact registered approval
+  packet, fill only valid rows for that step's worksheet scope, finalize with
+  the exact registered step ID, and audit in approved-read-only mode. Without
+  approval, continue only non-final offline work that does not repeat the
+  v113-v116 strict-feasibility families over the same accepted model and
+  seeds.

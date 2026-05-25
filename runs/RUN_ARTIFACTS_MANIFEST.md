@@ -4230,6 +4230,55 @@ Legacy source root:
   strict paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V137 Strict Vs Diagnostic Margin Separation
+
+### Preserved scale separation between diagnostic margin and strict gap
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_strict_vs_diagnostic_margin_separation.py`
+- Runs:
+  - `runs/strict_vs_diagnostic_margin_separation/20260525T124000`
+- Report:
+  - `reports/strict_vs_diagnostic_margin_separation_report.md`
+- Tests:
+  - `tests/test_strict_vs_diagnostic_margin_separation.py`
+- Command:
+  `python3 scripts/audit_strict_vs_diagnostic_margin_separation.py --run-id 20260525T124000`
+- Tracked lightweight artifacts:
+  strict-vs-diagnostic margin separation top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The margin-separation audit passes while authorizing nothing:
+  `strict_vs_diagnostic_margin_separation_complete = true`, diagnostic
+  required normal rotation `0.0005664520369604714 rad`, strict orientation
+  increase `0.0335984782867086 rad`, strict/diagnostic orientation ratio
+  `59.31389790209757`, minimum uniform multiplier `2.11994927622362`,
+  force increase `0.01697482058387756 N`, tangential increase
+  `0.0019405568802957048 m`,
+  `minimum_uniform_requires_all_three_scalar_gates = true`,
+  `v85_margin_can_close_strict_orientation = false`,
+  `v85_margin_can_close_strict_uniform_relaxation = false`,
+  `v85_margin_can_close_strict_paper_equivalent_goal = false`,
+  `replacement_gate_accepted = false`, approved read-only runs `0`, passed
+  approved-read-only audits `0`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.17s`; temporary verifier rerun
+  completed under `/tmp/tase_v137_margin_verify`; full tests passed with
+  `255 passed in 29.95s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline metrics
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

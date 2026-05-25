@@ -2994,6 +2994,30 @@
   robustness, establish hardware readiness, authorize live access, or
   authorize hardware work.
 
+## D142: Diagnostic Margin Is Not Strict Feasibility Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v137 as a strict-vs-diagnostic margin separation audit over existing
+  v85, v126, and v136 metrics.
+- Reason:
+  V126 records that the strict-terminal best uniform row still needs a
+  `0.0335984782867086 rad` orientation increase plus force and tangential
+  relaxation. V85 records a much smaller diagnostic orientation/contact
+  definition margin of `0.0005664520369604714 rad`. Because both values are
+  orientation quantities, they could be conflated as if the v85 diagnostic
+  calibration margin could close the strict paper-equivalent blocker. V137
+  makes the scale separation executable and checks the v136 completion gate at
+  the same time.
+- Consequence:
+  The v85 margin is diagnostic calibration context only. It is not accepted as
+  a replacement gate, strict terminal relaxation, contact calibration claim,
+  strict paper-equivalent feasibility claim, robustness proof, hardware
+  readiness evidence, or completion evidence. The top practical blocker
+  remains approved read-only calibration evidence or a separately accepted
+  contact/setup-target definition.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

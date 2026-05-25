@@ -1,0 +1,86 @@
+{
+  "run_source": "strict versus diagnostic margin separation audit",
+  "audit_run_id": "20260525T124000",
+  "source_files": {
+    "contact_orientation_calibration_margin": "runs/contact_orientation_calibration_margin/20260524T235723/metrics.yaml",
+    "strict_terminal_relaxation_budget": "runs/strict_terminal_relaxation_budget/20260525T105000/metrics.yaml",
+    "post_v135_completion_gate": "runs/post_v135_completion_gate/20260525T123000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "strict_vs_diagnostic_margin_separation_complete": true,
+    "source_calibration_margin_present": true,
+    "source_relaxation_budget_audit_passed": true,
+    "source_completion_gate_audit_passed": true,
+    "diagnostic_required_normal_rotation_rad": 0.0005664520369604714,
+    "diagnostic_required_normal_rotation_deg": 0.03245531101442353,
+    "strict_orientation_increase_rad": 0.0335984782867086,
+    "strict_tangential_increase_m": 0.0019405568802957048,
+    "strict_force_increase_N": 0.01697482058387756,
+    "strict_to_diagnostic_orientation_margin_ratio": 59.31389790209757,
+    "minimum_uniform_multiplier": 2.11994927622362,
+    "minimum_uniform_case_id": "xy_force_orientation__best_candidate__slsqp",
+    "minimum_uniform_requires_all_three_scalar_gates": true,
+    "v85_margin_can_close_strict_orientation": false,
+    "v85_margin_can_close_strict_uniform_relaxation": false,
+    "v85_margin_can_close_strict_paper_equivalent_goal": false,
+    "diagnostic_margin_is_strictly_smaller_than_strict_orientation_gap": true,
+    "accepted_measurement_noise_budget_exists": false,
+    "replacement_gate_accepted": false,
+    "read_only_evidence_required_for_calibration": true,
+    "approved_read_only_run_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "comparison": {
+    "diagnostic_context": {
+      "source": "v85 contact orientation calibration margin",
+      "hardest_row": "time0p01_gate0p119:weighted_kp0_normal1",
+      "required_normal_rotation_rad": 0.0005664520369604714,
+      "required_gate_increase_rad": 0.0005664520369604714,
+      "equivalent_base_z_or_contact_point_um": 14.963398168061882,
+      "accepted_measurement_noise_budget_exists": false
+    },
+    "strict_context": {
+      "source": "v126 strict terminal relaxation budget",
+      "strict_terminal_pass_count": 0,
+      "minimum_uniform_case_id": "xy_force_orientation__best_candidate__slsqp",
+      "minimum_uniform_multiplier": 2.11994927622362,
+      "failed_scalar_criteria": [
+        "force_error_N",
+        "tangential_error_m",
+        "orientation_error_rad"
+      ],
+      "required_increases": {
+        "force_error_N": 0.01697482058387756,
+        "tangential_error_m": 0.0019405568802957048,
+        "orientation_error_rad": 0.0335984782867086
+      }
+    },
+    "scale_separation": {
+      "ratio": 59.31389790209757,
+      "minimum_expected_ratio": 10.0,
+      "strict_gap_exceeds_diagnostic_margin": true,
+      "strict_gap_also_requires_force_and_tangential_relaxation": true
+    }
+  },
+  "claim_boundary": {
+    "post_hoc_existing_metrics_only": true,
+    "new_optimization_run": false,
+    "diagnostic_margin_only": true,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "canonical_orientation_gate_change": false,
+    "contact_calibration_claim": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/strict_vs_diagnostic_margin_separation/20260525T124000"
+}

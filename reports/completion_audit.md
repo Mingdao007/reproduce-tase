@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v136-post-rehearsal-completion-gate`
+Branch: `exp/tase-ur10e-v137-strict-diagnostic-margin-separation`
 
 ## Objective Restatement
 
@@ -305,6 +305,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_post_v135_completion_gate.py`
 - `runs/post_v135_completion_gate/20260525T123000/metrics.yaml`
 - `reports/post_v135_completion_gate_report.md`
+- `scripts/audit_strict_vs_diagnostic_margin_separation.py`
+- `runs/strict_vs_diagnostic_margin_separation/20260525T124000/metrics.yaml`
+- `reports/strict_vs_diagnostic_margin_separation_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -318,17 +321,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v136 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v136 is on `exp/tase-ur10e-v136-post-rehearsal-completion-gate` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v136-post-rehearsal-completion-gate`; latest local branch is `exp/tase-ur10e-v136-post-rehearsal-completion-gate` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v137 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v137 is on `exp/tase-ur10e-v137-strict-diagnostic-margin-separation` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v137-strict-diagnostic-margin-separation`; latest local branch is `exp/tase-ur10e-v137-strict-diagnostic-margin-separation` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v136 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D141 as of v136 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v137 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D142 as of v137 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v136 validation: py_compile for the post-v135 completion gate and source gate scripts passed; focused tests reported `4 passed in 0.45s`; compatibility focused gate tests reported `10 passed in 0.95s`; full tests reported `251 passed in 29.98s`; YAML anchor and raw/heavy artifact scans passed; `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v137 validation: py_compile for the strict-vs-diagnostic margin separation audit passed; focused tests reported `4 passed in 0.17s`; temporary verifier rerun completed; full tests reported `255 passed in 29.95s`; YAML anchor and raw/heavy artifact scans passed; `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -353,6 +356,7 @@ The objective has two separate technical claim levels:
 | Downstream row-quality guard | `scripts/audit_downstream_row_quality_guard.py`, `tests/test_downstream_row_quality_guard.py`, `reports/downstream_row_quality_guard_report.md`, `runs/downstream_row_quality_guard/20260525T121000/metrics.yaml` | v134 rejects four malformed downstream registered worksheet row cases before finalization can write approved evidence; all scaffolds remain preserved, no repository evidence is created, and completion remains false |
 | Read-only finalization rehearsal boundary | `scripts/audit_read_only_finalization_rehearsal_boundary.py`, `tests/test_read_only_finalization_rehearsal_boundary.py`, `reports/read_only_finalization_rehearsal_boundary_report.md`, `runs/read_only_finalization_rehearsal_boundary/20260525T122000/metrics.yaml` | v135 rehearses all five registered finalizer steps with valid synthetic rows in temporary space; all five finalizations and approved-read-only verifier runs pass, the temporary root is removed, repository read-only evidence deltas remain `0`, no live access is recorded, no approval/evidence is created, and completion remains false |
 | Post-v135 completion gate | `scripts/audit_post_v135_completion_gate.py`, `tests/test_post_v135_completion_gate.py`, `reports/post_v135_completion_gate_report.md`, `runs/post_v135_completion_gate/20260525T123000/metrics.yaml` | v136 confirms the not-approved packet coverage, execution preflight, and finalization rehearsal are all non-evidence readiness artifacts; actual approved read-only runs and passed approved-read-only audits remain `0`, readiness completion evidence IDs are empty, and completion remains false |
+| Strict-vs-diagnostic margin separation | `scripts/audit_strict_vs_diagnostic_margin_separation.py`, `tests/test_strict_vs_diagnostic_margin_separation.py`, `reports/strict_vs_diagnostic_margin_separation_report.md`, `runs/strict_vs_diagnostic_margin_separation/20260525T124000/metrics.yaml` | v137 confirms the v85 diagnostic normal-rotation margin `0.0005664520369604714 rad` is far smaller than the v126 strict orientation increase `0.0335984782867086 rad`, with ratio `59.31389790209757`; the strict row also still needs force and tangential relaxation, no replacement gate is accepted, approved read-only evidence remains `0`, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -546,6 +550,27 @@ Evidence:
 
 - `reports/strict_terminal_relaxation_budget_report.md`
 - `runs/strict_terminal_relaxation_budget/20260525T105000/metrics.yaml`
+
+The strict-vs-diagnostic margin separation audit can additionally claim:
+
+```text
+strict_vs_diagnostic_margin_separation:
+  diagnostic required normal rotation = 0.0005664520369604714 rad
+  strict orientation increase = 0.0335984782867086 rad
+  strict-to-diagnostic orientation ratio = 59.31389790209757
+  minimum uniform multiplier = 2.11994927622362
+  minimum uniform requires all three scalar gates = true
+  v85 margin can close strict paper-equivalent goal = false
+  replacement gate accepted = false
+  approved read-only run count = 0
+  approved read-only audit passed count = 0
+  overall goal complete = false
+```
+
+Evidence:
+
+- `reports/strict_vs_diagnostic_margin_separation_report.md`
+- `runs/strict_vs_diagnostic_margin_separation/20260525T124000/metrics.yaml`
 
 The read-only evidence dependency-map audit can additionally claim:
 
@@ -2252,6 +2277,14 @@ not-approved packet coverage, execution preflight, and finalization rehearsal
 remain non-evidence readiness artifacts. It reports approved read-only runs
 `0`, passed approved-read-only audits `0`, readiness completion evidence IDs
 `[]`, and `finalization_rehearsal_is_non_evidence = true`.
+V137 then compares the v85 diagnostic orientation/contact definition margin
+against the v126 strict-terminal gap and confirms the diagnostic margin cannot
+close strict feasibility. The strict orientation increase is
+`0.0335984782867086 rad`, the diagnostic normal-rotation margin is
+`0.0005664520369604714 rad`, their ratio is `59.31389790209757`, and the
+strict row still also needs force and tangential relaxation. No replacement
+gate is accepted, approved read-only evidence remains `0`, and completion
+remains false.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -2264,7 +2297,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v136 blocker and
+offline simulation/paper-platform work identified by the v95-v137 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -2335,11 +2368,13 @@ also does not approve a packet, create repository evidence, authorize
 execution, or close any completion gate.
 V136 confirms packet coverage, execution preflight, and finalization rehearsal
 remain non-evidence readiness artifacts and still cannot close the goal.
+V137 confirms the diagnostic orientation/contact margin remains scale-separated
+from strict paper-equivalent feasibility and still cannot close the goal.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v136 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v137 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.
