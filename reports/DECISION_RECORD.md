@@ -2946,6 +2946,29 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, authorize live access, or authorize hardware work.
 
+## D140: Finalizer Readiness Requires A Non-Persistent Rehearsal Boundary
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v135 as an offline finalization rehearsal boundary for all five
+  registered finalizer-eligible read-only SOP steps.
+- Reason:
+  V122 proves command-path readiness and v133-v134 prove malformed rows reject,
+  but the whole positive path still needed an executable non-evidence boundary
+  after the new row-quality guards. V135 creates temporary scaffolds, writes
+  exactly one valid synthetic row in the registered worksheet for each step,
+  runs the finalizer and approved-read-only verifier in the temporary area,
+  deletes the temporary root, and checks that repository read-only evidence
+  counts remain unchanged.
+- Consequence:
+  The finalizer/verifier path is rehearsed end to end without creating
+  repository evidence or authorizing live access. V135 does not approve a
+  packet, collect live evidence, accept a contact model, accept a setup target,
+  relax a gate, prove strict paper-equivalent feasibility, prove robustness,
+  establish hardware readiness, authorize live access, or authorize hardware
+  work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

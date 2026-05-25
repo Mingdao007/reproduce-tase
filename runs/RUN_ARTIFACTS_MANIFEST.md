@@ -4140,6 +4140,51 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V135 Read-Only Finalization Rehearsal Boundary
+
+### Rehearsed registered finalization without persistent evidence
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_read_only_finalization_rehearsal_boundary.py`
+- Runs:
+  - `runs/read_only_finalization_rehearsal_boundary/20260525T122000`
+- Report:
+  - `reports/read_only_finalization_rehearsal_boundary_report.md`
+- Tests:
+  - `tests/test_read_only_finalization_rehearsal_boundary.py`
+- Command:
+  `python3 scripts/audit_read_only_finalization_rehearsal_boundary.py --run-id 20260525T122000`
+- Tracked lightweight artifacts:
+  finalization rehearsal boundary audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The rehearsal boundary audit passes while authorizing nothing:
+  `finalization_rehearsal_boundary_complete = true`, registered finalizer step
+  count `5`, rehearsal passed step count `5`, temporary finalization count
+  `5`, approved-read-only verifier passed count `5`, synthetic-row-only count
+  `5`, live hardware accessed count `0`, temporary root removed true,
+  repository approved-read-only run delta `0`, repository finalization record
+  delta `0`, repository approved-read-only audit delta `0`,
+  `approved_read_only_evidence_created = false`,
+  `rehearsal_authorizes_execution = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 6.16s`; broader focused finalizer
+  tests passed with `25 passed in 12.74s`; full tests passed with
+  `247 passed in 29.31s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline finalization
+  rehearsal bookkeeping only; it does not approve any packet, authorize live
+  access, authorize execution, create repository approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

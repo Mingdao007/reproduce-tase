@@ -5356,3 +5356,54 @@
   approval packet, fill only valid rows for that step's worksheet scope,
   finalize with the exact registered step ID, and audit in approved-read-only
   mode. Without approval, continue only non-final offline work.
+
+## 2026-05-25 v135 Read-Only Finalization Rehearsal Boundary
+
+### Rehearse the finalizer and verifier path without creating repository evidence
+
+- Branch:
+  `exp/tase-ur10e-v135-finalization-rehearsal-boundary`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/read_only_finalization_rehearsal_boundary/20260525T122000`
+- Report:
+  `reports/read_only_finalization_rehearsal_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_finalization_rehearsal_boundary.py`
+  - `scripts/run_tests.sh tests/test_read_only_finalization_rehearsal_boundary.py`
+  - `python3 scripts/audit_read_only_finalization_rehearsal_boundary.py --run-id 20260525T122000`
+- Result:
+  V135 adds an offline non-persistent finalization rehearsal boundary for all
+  five registered read-only finalizer steps. It creates temporary scaffolds,
+  writes one valid synthetic row for exactly each step's registered worksheet,
+  runs the finalizer and approved-read-only verifier in the temporary area,
+  and verifies that the repository read-only evidence directories remain
+  unchanged. The audit run reports `audit_passed = true`,
+  `finalization_rehearsal_boundary_complete = true`, registered finalizer
+  step count `5`, rehearsal passed step count `5`, temporary finalization
+  count `5`, approved-read-only verifier passed count `5`, synthetic-row-only
+  count `5`, live hardware accessed count `0`, temporary root removed true,
+  repository approved-read-only run delta `0`, repository finalization record
+  delta `0`, repository approved-read-only audit delta `0`,
+  `approved_read_only_evidence_created = false`,
+  `rehearsal_authorizes_execution = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline finalization rehearsal bookkeeping only. It does not collect
+  live measurements, approve any read-only SOP step, create repository
+  approved calibration evidence, accept a contact model, accept a setup target,
+  relax a gate, prove strict paper-equivalent feasibility, prove robustness,
+  establish hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 6.16s`; broader focused finalizer
+  tests passed with `25 passed in 12.74s`; full tests passed with
+  `247 passed in 29.31s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Next step:
+  If the user later gives explicit approval, use one exact registered approval
+  packet, fill only valid rows for that step's worksheet scope, finalize with
+  the exact registered step ID, and audit in approved-read-only mode. Without
+  approval, continue only non-final offline work.

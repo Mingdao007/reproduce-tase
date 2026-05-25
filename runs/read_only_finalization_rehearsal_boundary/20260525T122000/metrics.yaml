@@ -1,0 +1,468 @@
+run_source: read-only finalization rehearsal boundary audit
+audit_run_id: 20260525T122000
+source_files:
+  registry: configs/read_only_sop_step_registry.yaml
+  downstream_row_quality_guard: runs/downstream_row_quality_guard/20260525T121000/metrics.yaml
+summary:
+  audit_passed: true
+  violations: []
+  finalization_rehearsal_boundary_complete: true
+  source_downstream_guard_audit_passed: true
+  registered_finalizer_step_count: 5
+  rehearsed_step_count: 5
+  rehearsal_passed_step_count: 5
+  temporary_finalization_count: 5
+  approved_read_only_verifier_passed_count: 5
+  synthetic_row_only_count: 5
+  live_hardware_accessed_count: 0
+  temporary_root_removed: true
+  repository_approved_read_only_run_delta: 0
+  repository_finalization_record_delta: 0
+  repository_approved_read_only_audit_delta: 0
+  repository_evidence_run_created_by_rehearsal: false
+  repository_evidence_audit_created_by_rehearsal: false
+  approval_record_created: false
+  approved_packet_count: 0
+  execution_authorizing_packet_count: 0
+  live_access_authorizing_packet_count: 0
+  approved_read_only_evidence_created: false
+  rehearsal_authorizes_live_access: false
+  rehearsal_authorizes_execution: false
+  rehearsal_creates_repository_evidence: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+repository_state_before:
+  run_root: runs/read_only_calibration_measurement
+  audit_root: runs/read_only_calibration_measurement_run_audit
+  read_only_run_count: 3
+  read_only_audit_count: 4
+  approved_read_only_run_count: 0
+  read_only_evidence_finalization_present_count: 0
+  approved_read_only_audit_passed_count: 0
+  approved_run_paths: []
+  finalization_record_paths: []
+  approved_audit_paths: []
+repository_state_after:
+  run_root: runs/read_only_calibration_measurement
+  audit_root: runs/read_only_calibration_measurement_run_audit
+  read_only_run_count: 3
+  read_only_audit_count: 4
+  approved_read_only_run_count: 0
+  read_only_evidence_finalization_present_count: 0
+  approved_read_only_audit_passed_count: 0
+  approved_run_paths: []
+  finalization_record_paths: []
+  approved_audit_paths: []
+rehearsal_rows:
+- step_id: phase1_mounted_stack_tcp_contact_measurement
+  title: Mounted stack TCP/contact point read-only measurement
+  worksheet: tcp_contact_measurements.csv
+  evidence_key: mounted_stack_tcp_contact_point
+  temporary_run_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase1_mounted_stack_tcp_contact_measurement/run
+  temporary_audit_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase1_mounted_stack_tcp_contact_measurement/audit
+  finalize_returncode: 0
+  audit_returncode: 0
+  finalize_stderr_excerpt: ''
+  audit_stderr_excerpt: ''
+  rehearsal_passed: true
+  scope_preserved: true
+  evidence_changed_only_for_step: true
+  claim_boundary_preserved: true
+  status_after_rehearsal: approved_read_only_evidence
+  audit_passed: true
+  audit_mode: approved-read-only
+  audit_violations: []
+  user_confirmed_after_rehearsal: true
+  live_hardware_accessed_after_rehearsal: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+  hard_false_verdict_fields:
+    supports_contact_model_update: false
+    supports_accepting_v85_margin: false
+    supports_gate_relaxation: false
+    supports_hardware_claim: false
+    supports_more_stage_b_qdot_tuning: false
+  claim_boundary:
+    recovery_claim: false
+    contact_calibration_claim: false
+    gate_relaxation_claim: false
+    paper_equivalent_feasibility: false
+    hardware_readiness: false
+  evidence_status:
+    mounted_stack_tcp_contact_point: collected_read_only
+    ksm_contact_patch_convention: not_collected
+    plane_normal_robot_base_frame: not_collected
+    force_source_frame_reconciliation: not_collected
+    orientation_gate_semantics: not_accepted
+  orientation_gate_acceptance:
+    decision: not_accepted
+    evidence_only: true
+    requires_separate_gate_audit: true
+    orientation_semantics_rows: 0
+    accepted_gate_type: null
+    accepted_gate_value_rad: null
+    accepted_normal_source: null
+    accepted_contact_datum_source: null
+    accepted_uncertainty_budget: null
+  read_only_evidence_finalization:
+    confirmation_phrase_matched: true
+    approved_step_id: phase1_mounted_stack_tcp_contact_measurement
+    approved_step_title: Mounted stack TCP/contact point read-only measurement
+    approved_step_registry: configs/read_only_sop_step_registry.yaml
+    allowed_worksheets:
+    - tcp_contact_measurements.csv
+    operator: finalization_rehearsal
+    finalized_at_utc: '2026-05-25T12:20:00Z'
+    finalizer: scripts/finalize_read_only_calibration_measurement_evidence.py
+    live_hardware_accessed_declared: false
+    worksheet_row_counts:
+      tcp_contact_measurements.csv: 1
+      plane_normal_measurements.csv: 0
+      force_source_comparison.csv: 0
+      ksm_contact_patch_convention.csv: 0
+      orientation_gate_semantics.csv: 0
+  worksheet_row_counts:
+    tcp_contact_measurements.csv: 1
+    plane_normal_measurements.csv: 0
+    force_source_comparison.csv: 0
+    ksm_contact_patch_convention.csv: 0
+    orientation_gate_semantics.csv: 0
+  allowed_worksheets:
+  - tcp_contact_measurements.csv
+- step_id: phase2_ksm_contact_patch_convention
+  title: KSM contact patch convention read-only evidence
+  worksheet: ksm_contact_patch_convention.csv
+  evidence_key: ksm_contact_patch_convention
+  temporary_run_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase2_ksm_contact_patch_convention/run
+  temporary_audit_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase2_ksm_contact_patch_convention/audit
+  finalize_returncode: 0
+  audit_returncode: 0
+  finalize_stderr_excerpt: ''
+  audit_stderr_excerpt: ''
+  rehearsal_passed: true
+  scope_preserved: true
+  evidence_changed_only_for_step: true
+  claim_boundary_preserved: true
+  status_after_rehearsal: approved_read_only_evidence
+  audit_passed: true
+  audit_mode: approved-read-only
+  audit_violations: []
+  user_confirmed_after_rehearsal: true
+  live_hardware_accessed_after_rehearsal: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+  hard_false_verdict_fields:
+    supports_contact_model_update: false
+    supports_accepting_v85_margin: false
+    supports_gate_relaxation: false
+    supports_hardware_claim: false
+    supports_more_stage_b_qdot_tuning: false
+  claim_boundary:
+    recovery_claim: false
+    contact_calibration_claim: false
+    gate_relaxation_claim: false
+    paper_equivalent_feasibility: false
+    hardware_readiness: false
+  evidence_status:
+    mounted_stack_tcp_contact_point: not_collected
+    ksm_contact_patch_convention: collected_read_only
+    plane_normal_robot_base_frame: not_collected
+    force_source_frame_reconciliation: not_collected
+    orientation_gate_semantics: not_accepted
+  orientation_gate_acceptance:
+    decision: not_accepted
+    evidence_only: true
+    requires_separate_gate_audit: true
+    orientation_semantics_rows: 0
+    accepted_gate_type: null
+    accepted_gate_value_rad: null
+    accepted_normal_source: null
+    accepted_contact_datum_source: null
+    accepted_uncertainty_budget: null
+  read_only_evidence_finalization:
+    confirmation_phrase_matched: true
+    approved_step_id: phase2_ksm_contact_patch_convention
+    approved_step_title: KSM contact patch convention read-only evidence
+    approved_step_registry: configs/read_only_sop_step_registry.yaml
+    allowed_worksheets:
+    - ksm_contact_patch_convention.csv
+    operator: finalization_rehearsal
+    finalized_at_utc: '2026-05-25T12:20:00Z'
+    finalizer: scripts/finalize_read_only_calibration_measurement_evidence.py
+    live_hardware_accessed_declared: false
+    worksheet_row_counts:
+      tcp_contact_measurements.csv: 0
+      plane_normal_measurements.csv: 0
+      force_source_comparison.csv: 0
+      ksm_contact_patch_convention.csv: 1
+      orientation_gate_semantics.csv: 0
+  worksheet_row_counts:
+    tcp_contact_measurements.csv: 0
+    plane_normal_measurements.csv: 0
+    force_source_comparison.csv: 0
+    ksm_contact_patch_convention.csv: 1
+    orientation_gate_semantics.csv: 0
+  allowed_worksheets:
+  - ksm_contact_patch_convention.csv
+- step_id: phase3_plane_normal_external_measurement
+  title: Plane normal read-only or external-metrology evidence
+  worksheet: plane_normal_measurements.csv
+  evidence_key: plane_normal_robot_base_frame
+  temporary_run_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase3_plane_normal_external_measurement/run
+  temporary_audit_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase3_plane_normal_external_measurement/audit
+  finalize_returncode: 0
+  audit_returncode: 0
+  finalize_stderr_excerpt: ''
+  audit_stderr_excerpt: ''
+  rehearsal_passed: true
+  scope_preserved: true
+  evidence_changed_only_for_step: true
+  claim_boundary_preserved: true
+  status_after_rehearsal: approved_read_only_evidence
+  audit_passed: true
+  audit_mode: approved-read-only
+  audit_violations: []
+  user_confirmed_after_rehearsal: true
+  live_hardware_accessed_after_rehearsal: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+  hard_false_verdict_fields:
+    supports_contact_model_update: false
+    supports_accepting_v85_margin: false
+    supports_gate_relaxation: false
+    supports_hardware_claim: false
+    supports_more_stage_b_qdot_tuning: false
+  claim_boundary:
+    recovery_claim: false
+    contact_calibration_claim: false
+    gate_relaxation_claim: false
+    paper_equivalent_feasibility: false
+    hardware_readiness: false
+  evidence_status:
+    mounted_stack_tcp_contact_point: not_collected
+    ksm_contact_patch_convention: not_collected
+    plane_normal_robot_base_frame: collected_read_only
+    force_source_frame_reconciliation: not_collected
+    orientation_gate_semantics: not_accepted
+  orientation_gate_acceptance:
+    decision: not_accepted
+    evidence_only: true
+    requires_separate_gate_audit: true
+    orientation_semantics_rows: 0
+    accepted_gate_type: null
+    accepted_gate_value_rad: null
+    accepted_normal_source: null
+    accepted_contact_datum_source: null
+    accepted_uncertainty_budget: null
+  read_only_evidence_finalization:
+    confirmation_phrase_matched: true
+    approved_step_id: phase3_plane_normal_external_measurement
+    approved_step_title: Plane normal read-only or external-metrology evidence
+    approved_step_registry: configs/read_only_sop_step_registry.yaml
+    allowed_worksheets:
+    - plane_normal_measurements.csv
+    operator: finalization_rehearsal
+    finalized_at_utc: '2026-05-25T12:20:00Z'
+    finalizer: scripts/finalize_read_only_calibration_measurement_evidence.py
+    live_hardware_accessed_declared: false
+    worksheet_row_counts:
+      tcp_contact_measurements.csv: 0
+      plane_normal_measurements.csv: 1
+      force_source_comparison.csv: 0
+      ksm_contact_patch_convention.csv: 0
+      orientation_gate_semantics.csv: 0
+  worksheet_row_counts:
+    tcp_contact_measurements.csv: 0
+    plane_normal_measurements.csv: 1
+    force_source_comparison.csv: 0
+    ksm_contact_patch_convention.csv: 0
+    orientation_gate_semantics.csv: 0
+  allowed_worksheets:
+  - plane_normal_measurements.csv
+- step_id: phase4_force_source_read_only_comparison
+  title: Force-source read-only comparison evidence
+  worksheet: force_source_comparison.csv
+  evidence_key: force_source_frame_reconciliation
+  temporary_run_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase4_force_source_read_only_comparison/run
+  temporary_audit_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase4_force_source_read_only_comparison/audit
+  finalize_returncode: 0
+  audit_returncode: 0
+  finalize_stderr_excerpt: ''
+  audit_stderr_excerpt: ''
+  rehearsal_passed: true
+  scope_preserved: true
+  evidence_changed_only_for_step: true
+  claim_boundary_preserved: true
+  status_after_rehearsal: approved_read_only_evidence
+  audit_passed: true
+  audit_mode: approved-read-only
+  audit_violations: []
+  user_confirmed_after_rehearsal: true
+  live_hardware_accessed_after_rehearsal: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+  hard_false_verdict_fields:
+    supports_contact_model_update: false
+    supports_accepting_v85_margin: false
+    supports_gate_relaxation: false
+    supports_hardware_claim: false
+    supports_more_stage_b_qdot_tuning: false
+  claim_boundary:
+    recovery_claim: false
+    contact_calibration_claim: false
+    gate_relaxation_claim: false
+    paper_equivalent_feasibility: false
+    hardware_readiness: false
+  evidence_status:
+    mounted_stack_tcp_contact_point: not_collected
+    ksm_contact_patch_convention: not_collected
+    plane_normal_robot_base_frame: not_collected
+    force_source_frame_reconciliation: collected_read_only
+    orientation_gate_semantics: not_accepted
+  orientation_gate_acceptance:
+    decision: not_accepted
+    evidence_only: true
+    requires_separate_gate_audit: true
+    orientation_semantics_rows: 0
+    accepted_gate_type: null
+    accepted_gate_value_rad: null
+    accepted_normal_source: null
+    accepted_contact_datum_source: null
+    accepted_uncertainty_budget: null
+  read_only_evidence_finalization:
+    confirmation_phrase_matched: true
+    approved_step_id: phase4_force_source_read_only_comparison
+    approved_step_title: Force-source read-only comparison evidence
+    approved_step_registry: configs/read_only_sop_step_registry.yaml
+    allowed_worksheets:
+    - force_source_comparison.csv
+    operator: finalization_rehearsal
+    finalized_at_utc: '2026-05-25T12:20:00Z'
+    finalizer: scripts/finalize_read_only_calibration_measurement_evidence.py
+    live_hardware_accessed_declared: false
+    worksheet_row_counts:
+      tcp_contact_measurements.csv: 0
+      plane_normal_measurements.csv: 0
+      force_source_comparison.csv: 1
+      ksm_contact_patch_convention.csv: 0
+      orientation_gate_semantics.csv: 0
+  worksheet_row_counts:
+    tcp_contact_measurements.csv: 0
+    plane_normal_measurements.csv: 0
+    force_source_comparison.csv: 1
+    ksm_contact_patch_convention.csv: 0
+    orientation_gate_semantics.csv: 0
+  allowed_worksheets:
+  - force_source_comparison.csv
+- step_id: phase5_orientation_gate_semantics_evidence
+  title: Orientation gate semantics read-only evidence
+  worksheet: orientation_gate_semantics.csv
+  evidence_key: orientation_gate_semantics
+  temporary_run_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase5_orientation_gate_semantics_evidence/run
+  temporary_audit_dir: /tmp/read_only_finalization_rehearsal_yjgqv8mk/phase5_orientation_gate_semantics_evidence/audit
+  finalize_returncode: 0
+  audit_returncode: 0
+  finalize_stderr_excerpt: ''
+  audit_stderr_excerpt: ''
+  rehearsal_passed: true
+  scope_preserved: true
+  evidence_changed_only_for_step: true
+  claim_boundary_preserved: true
+  status_after_rehearsal: approved_read_only_evidence
+  audit_passed: true
+  audit_mode: approved-read-only
+  audit_violations: []
+  user_confirmed_after_rehearsal: true
+  live_hardware_accessed_after_rehearsal: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+  hard_false_verdict_fields:
+    supports_contact_model_update: false
+    supports_accepting_v85_margin: false
+    supports_gate_relaxation: false
+    supports_hardware_claim: false
+    supports_more_stage_b_qdot_tuning: false
+  claim_boundary:
+    recovery_claim: false
+    contact_calibration_claim: false
+    gate_relaxation_claim: false
+    paper_equivalent_feasibility: false
+    hardware_readiness: false
+  evidence_status:
+    mounted_stack_tcp_contact_point: not_collected
+    ksm_contact_patch_convention: not_collected
+    plane_normal_robot_base_frame: not_collected
+    force_source_frame_reconciliation: not_collected
+    orientation_gate_semantics: collected_read_only
+  orientation_gate_acceptance:
+    decision: not_accepted
+    evidence_only: true
+    requires_separate_gate_audit: true
+    orientation_semantics_rows: 1
+    accepted_gate_type: null
+    accepted_gate_value_rad: null
+    accepted_normal_source: null
+    accepted_contact_datum_source: null
+    accepted_uncertainty_budget: null
+  read_only_evidence_finalization:
+    confirmation_phrase_matched: true
+    approved_step_id: phase5_orientation_gate_semantics_evidence
+    approved_step_title: Orientation gate semantics read-only evidence
+    approved_step_registry: configs/read_only_sop_step_registry.yaml
+    allowed_worksheets:
+    - orientation_gate_semantics.csv
+    operator: finalization_rehearsal
+    finalized_at_utc: '2026-05-25T12:20:00Z'
+    finalizer: scripts/finalize_read_only_calibration_measurement_evidence.py
+    live_hardware_accessed_declared: false
+    worksheet_row_counts:
+      tcp_contact_measurements.csv: 0
+      plane_normal_measurements.csv: 0
+      force_source_comparison.csv: 0
+      ksm_contact_patch_convention.csv: 0
+      orientation_gate_semantics.csv: 1
+  worksheet_row_counts:
+    tcp_contact_measurements.csv: 0
+    plane_normal_measurements.csv: 0
+    force_source_comparison.csv: 0
+    ksm_contact_patch_convention.csv: 0
+    orientation_gate_semantics.csv: 1
+  allowed_worksheets:
+  - orientation_gate_semantics.csv
+claim_boundary:
+  post_hoc_offline_audit_only: true
+  temporary_rehearsal_only: true
+  synthetic_rows_only: true
+  approval_record_created: false
+  approved_read_only_evidence: false
+  approved_read_only_evidence_created_in_repository: false
+  contact_calibration_claim: false
+  setup_target_acceptance_claim: false
+  gate_relaxation_claim: false
+  strict_terminal_relaxation_accepted: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+audit_root: /home/andy/reproduce-tase/runs/read_only_finalization_rehearsal_boundary/20260525T122000

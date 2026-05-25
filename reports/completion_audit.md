@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v134-downstream-row-quality-guard`
+Branch: `exp/tase-ur10e-v135-finalization-rehearsal-boundary`
 
 ## Objective Restatement
 
@@ -299,6 +299,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_downstream_row_quality_guard.py`
 - `runs/downstream_row_quality_guard/20260525T121000/metrics.yaml`
 - `reports/downstream_row_quality_guard_report.md`
+- `scripts/audit_read_only_finalization_rehearsal_boundary.py`
+- `runs/read_only_finalization_rehearsal_boundary/20260525T122000/metrics.yaml`
+- `reports/read_only_finalization_rehearsal_boundary_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -312,17 +315,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v134 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v134 is on `exp/tase-ur10e-v134-downstream-row-quality-guard` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v134-downstream-row-quality-guard`; latest local branch is `exp/tase-ur10e-v134-downstream-row-quality-guard` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v135 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v135 is on `exp/tase-ur10e-v135-finalization-rehearsal-boundary` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v135-finalization-rehearsal-boundary`; latest local branch is `exp/tase-ur10e-v135-finalization-rehearsal-boundary` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v134 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D139 as of v134 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v135 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D140 as of v135 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v134 validation: py_compile for the read-only run auditor, finalizer, and downstream row-quality audit passed; focused tests reported `21 passed in 6.27s`; full tests reported `243 passed in 23.16s`; YAML anchor and raw/heavy artifact scans passed; `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v135 validation: py_compile for the finalization rehearsal boundary audit passed; focused rehearsal tests reported `4 passed in 6.16s`; broader focused finalizer tests reported `25 passed in 12.74s`; full tests reported `247 passed in 29.31s`; YAML anchor and raw/heavy artifact scans passed; `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -345,6 +348,7 @@ The objective has two separate technical claim levels:
 | Read-only evidence sequence boundary | `scripts/audit_read_only_evidence_sequence_boundary.py`, `tests/test_read_only_evidence_sequence_boundary.py`, `reports/read_only_evidence_sequence_boundary_report.md`, `runs/read_only_evidence_sequence_boundary/20260525T115000/metrics.yaml` | v132 freezes the ordered five-step read-only evidence chain with phase1 first, four downstream steps remaining after phase1, every step requiring separate approval, no bundle authorization, no approved packets/evidence, and completion false |
 | Phase1 row-quality guard | `scripts/audit_phase1_row_quality_guard.py`, `tests/test_phase1_row_quality_guard.py`, `reports/phase1_row_quality_guard_report.md`, `runs/phase1_row_quality_guard/20260525T120000/metrics.yaml` | v133 rejects five malformed phase1 TCP/contact measurement row cases before finalization can write approved evidence; all scaffolds remain preserved, no repository evidence is created, and completion remains false |
 | Downstream row-quality guard | `scripts/audit_downstream_row_quality_guard.py`, `tests/test_downstream_row_quality_guard.py`, `reports/downstream_row_quality_guard_report.md`, `runs/downstream_row_quality_guard/20260525T121000/metrics.yaml` | v134 rejects four malformed downstream registered worksheet row cases before finalization can write approved evidence; all scaffolds remain preserved, no repository evidence is created, and completion remains false |
+| Read-only finalization rehearsal boundary | `scripts/audit_read_only_finalization_rehearsal_boundary.py`, `tests/test_read_only_finalization_rehearsal_boundary.py`, `reports/read_only_finalization_rehearsal_boundary_report.md`, `runs/read_only_finalization_rehearsal_boundary/20260525T122000/metrics.yaml` | v135 rehearses all five registered finalizer steps with valid synthetic rows in temporary space; all five finalizations and approved-read-only verifier runs pass, the temporary root is removed, repository read-only evidence deltas remain `0`, no live access is recorded, no approval/evidence is created, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -726,6 +730,33 @@ Evidence:
 
 - `reports/downstream_row_quality_guard_report.md`
 - `runs/downstream_row_quality_guard/20260525T121000/metrics.yaml`
+
+The read-only finalization rehearsal boundary audit can additionally claim:
+
+```text
+read_only_finalization_rehearsal_boundary:
+  finalization rehearsal boundary complete = true
+  source downstream guard audit passed = true
+  registered finalizer step count = 5
+  rehearsed step count = 5
+  rehearsal passed step count = 5
+  temporary finalization count = 5
+  approved read-only verifier passed count = 5
+  synthetic row only count = 5
+  live hardware accessed count = 0
+  temporary root removed = true
+  repository approved read-only run delta = 0
+  repository finalization record delta = 0
+  repository approved read-only audit delta = 0
+  approved read-only evidence created = false
+  rehearsal authorizes execution = false
+  overall goal complete = false
+```
+
+Evidence:
+
+- `reports/read_only_finalization_rehearsal_boundary_report.md`
+- `runs/read_only_finalization_rehearsal_boundary/20260525T122000/metrics.yaml`
 
 The 30 s paper-platform candidate can additionally claim:
 
@@ -2174,6 +2205,18 @@ chain. It reports ordered step count `5`, phase1 first, four downstream
 registered evidence steps remaining after phase1, every step requiring
 separate approval, `bundle_approval_authorized = false`, and no approved
 packet/evidence.
+V133 then hardens phase1 row quality before finalization: five malformed
+TCP/contact rows reject, all temporary scaffolds remain unfinalized, and no
+repository evidence is created.
+V134 then hardens phase2-phase5 row quality before finalization: four
+malformed downstream rows reject, all temporary scaffolds remain unfinalized,
+and no repository evidence is created.
+V135 then rehearses the positive finalizer/verifier path for all five
+registered steps using one valid synthetic row per step in temporary space.
+All five temporary finalizations and approved-read-only verifier runs pass,
+the temporary root is removed, repository read-only evidence deltas remain
+`0`, live hardware access remains `0`, and no approval or repository evidence
+is created.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -2244,11 +2287,22 @@ V132 confirms the read-only evidence chain still has four downstream
 registered steps after phase1 and that every step needs separate exact user
 approval, but it also does not approve a packet, create evidence, authorize
 execution, or close any completion gate.
+V133 confirms malformed phase1 TCP/contact rows reject before finalization can
+write approved evidence, but it also does not approve a packet, create
+repository evidence, authorize execution, or close any completion gate.
+V134 confirms malformed downstream registered worksheet rows reject before
+finalization can write approved evidence, but it also does not approve a
+packet, create repository evidence, authorize execution, or close any
+completion gate.
+V135 confirms the finalizer and approved-read-only verifier can process one
+valid synthetic row per registered step in temporary rehearsal space, but it
+also does not approve a packet, create repository evidence, authorize
+execution, or close any completion gate.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v132 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v135 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.
