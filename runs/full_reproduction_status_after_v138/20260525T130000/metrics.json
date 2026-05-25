@@ -1,0 +1,76 @@
+{
+  "run_source": "full reproduction status after v138 audit",
+  "audit_run_id": "20260525T130000",
+  "source_files": {
+    "post_v138_completion_gate": "runs/post_v137_completion_gate/20260525T125000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "user_question_answer": "not_fully_reproduced",
+    "full_reproduction_complete": false,
+    "continue_required": true,
+    "safe_continuation_mode": "explicit_read_only_approval_or_nonfinal_offline",
+    "source_completion_gate_audit_passed": true,
+    "source_overall_goal_complete": false,
+    "source_completion_claim_allowed": false,
+    "source_do_not_mark_goal_complete": true,
+    "top_blocker": "approved_read_only_calibration_evidence",
+    "incomplete_requirement_count": 6,
+    "incomplete_requirement_ids": [
+      "approved_read_only_calibration_evidence",
+      "contact_setup_target_acceptance",
+      "orientation_gate_acceptance",
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations",
+      "hardware_readiness"
+    ],
+    "required_incomplete_ids_present": true,
+    "missing_required_incomplete_ids": [],
+    "approved_read_only_run_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "accepted_orientation_review_count": 0,
+    "accepted_contact_setup_target_review_count": 0,
+    "strict_terminal_pass_count": 0,
+    "closed_robustness_cell_count": 0,
+    "hardware_gate_report_exists": false,
+    "readiness_artifact_count": 4,
+    "readiness_completion_evidence_ids": [],
+    "readiness_artifacts_are_non_evidence": true,
+    "margin_separation_is_non_evidence": true,
+    "unexpected_complete_source": false,
+    "unexpected_completion_claim_source": false,
+    "do_not_mark_goal_complete": true
+  },
+  "prompt_to_artifact_checklist": [
+    {
+      "prompt_requirement": "Answer whether the reproduction is fully complete.",
+      "evidence": "post-v138 completion gate overall/completion flags",
+      "status": "not_complete"
+    },
+    {
+      "prompt_requirement": "If it is not complete, continue safely.",
+      "evidence": "safe_continuation_mode and missing requirement IDs",
+      "status": "continue_offline_or_after_explicit_read_only_approval"
+    },
+    {
+      "prompt_requirement": "Do not overclaim partial artifacts as completion.",
+      "evidence": "readiness_completion_evidence_ids and claim boundary flags",
+      "status": "guarded"
+    }
+  ],
+  "claim_boundary": {
+    "status_answer_only": true,
+    "post_hoc_existing_metrics_only": true,
+    "new_simulation_run": false,
+    "live_hardware_access": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "full_reproduction_claim_allowed": false,
+    "strict_paper_equivalent_feasibility": false,
+    "ur10e_hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/full_reproduction_status_after_v138/20260525T130000"
+}

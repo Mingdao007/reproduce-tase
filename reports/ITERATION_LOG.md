@@ -5563,3 +5563,50 @@
   approval, continue only non-final offline work that does not repeat the
   v113-v116 strict-feasibility families over the same accepted model and
   seeds.
+
+## 2026-05-25 v139 Full Reproduction Status After V138
+
+### Answer the completion question from audited evidence
+
+- Branch:
+  `exp/tase-ur10e-v139-full-reproduction-status`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/full_reproduction_status_after_v138/20260525T130000`
+- Report:
+  `reports/full_reproduction_status_after_v138_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_full_reproduction_status_after_v138.py`
+  - `scripts/run_tests.sh tests/test_full_reproduction_status_after_v138.py`
+  - `python3 scripts/audit_full_reproduction_status_after_v138.py --run-id 20260525T130000`
+- Result:
+  V139 adds an offline status audit that directly answers whether the current
+  repository evidence supports a full reproduction claim. The audit reports
+  `audit_passed = true`, `user_question_answer = not_fully_reproduced`,
+  `full_reproduction_complete = false`, `continue_required = true`,
+  safe continuation mode
+  `explicit_read_only_approval_or_nonfinal_offline`, top blocker
+  `approved_read_only_calibration_evidence`, incomplete requirement count `6`,
+  approved read-only runs `0`, passed approved-read-only audits `0`, accepted
+  orientation reviews `0`, accepted contact/setup-target reviews `0`, strict
+  terminal pass count `0`, closed robustness cells `0`, hardware gate report
+  false, readiness completion evidence IDs `[]`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is a status audit over existing metrics only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.13s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user later gives explicit approval, use one exact registered approval
+  packet, fill only valid rows for that step's worksheet scope, finalize with
+  the exact registered step ID, and audit in approved-read-only mode. Without
+  approval, continue only non-final offline work that does not repeat the
+  v113-v116 strict-feasibility families over the same accepted model and
+  seeds.

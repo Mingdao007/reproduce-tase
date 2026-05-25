@@ -4327,6 +4327,50 @@ Legacy source root:
   strict paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V139 Full Reproduction Status After V138
+
+### Answered the full-reproduction status question from audited evidence
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_full_reproduction_status_after_v138.py`
+- Runs:
+  - `runs/full_reproduction_status_after_v138/20260525T130000`
+- Report:
+  - `reports/full_reproduction_status_after_v138_report.md`
+- Tests:
+  - `tests/test_full_reproduction_status_after_v138.py`
+- Command:
+  `python3 scripts/audit_full_reproduction_status_after_v138.py --run-id 20260525T130000`
+- Tracked lightweight artifacts:
+  full reproduction status top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The status audit passes while authorizing nothing:
+  `user_question_answer = not_fully_reproduced`,
+  `full_reproduction_complete = false`, `continue_required = true`,
+  safe continuation mode
+  `explicit_read_only_approval_or_nonfinal_offline`, top blocker
+  `approved_read_only_calibration_evidence`, incomplete requirement count `6`,
+  approved read-only runs `0`, passed approved-read-only audits `0`, accepted
+  orientation reviews `0`, accepted contact/setup-target reviews `0`, strict
+  terminal pass count `0`, closed robustness cells `0`, hardware gate report
+  false, readiness completion evidence IDs `[]`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.13s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is status bookkeeping
+  only; it does not approve any packet, authorize live access, authorize
+  execution, create repository approved calibration evidence, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

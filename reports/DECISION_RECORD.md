@@ -3041,6 +3041,26 @@
   robustness, establish hardware readiness, authorize live access, or
   authorize hardware work.
 
+## D144: Completion Questions Need A Machine-Checked Status Answer
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v139 as an audited status answer for whether the reproduction is fully
+  complete after v138.
+- Reason:
+  The repository has many partial successes and many non-evidence readiness
+  artifacts. A user-facing "is it done?" answer must not rely on memory,
+  passing tests, or a plausible summary. V139 reads the current completion
+  gate and records the answer as `not_fully_reproduced`, with the exact missing
+  requirements and safe continuation mode.
+- Consequence:
+  Full reproduction cannot be claimed until the completion gate changes from
+  false with real evidence. V139 does not collect live evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, authorize live access, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25
