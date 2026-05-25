@@ -5179,7 +5179,7 @@
 - Branch:
   `exp/tase-ur10e-v131-phase1-evidence-acceptance-boundary`
 - Implementation commit:
-  `TBD`
+  `54ce004acb9e1f82cf31daed0e6ddbb9a308dbfc`
 - Runs:
   - `runs/phase1_approved_evidence_acceptance_boundary/20260525T114000`
 - Report:

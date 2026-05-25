@@ -3962,7 +3962,7 @@ Legacy source root:
 ### Scanned current evidence paths after v130 without authorizing phase1
 
 - Implementation commit:
-  `TBD`
+  `54ce004acb9e1f82cf31daed0e6ddbb9a308dbfc`
 - Scripts:
   - `scripts/audit_phase1_approved_evidence_acceptance_boundary.py`
 - Runs:
