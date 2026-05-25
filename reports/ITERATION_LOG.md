@@ -5714,3 +5714,59 @@
   approved-read-only audit. Without exact approval, continue only non-final
   offline work and do not repeat the exhausted v113-v116 strict-feasibility
   family over the same accepted model and seeds.
+
+## 2026-05-25 v142 Robustness Dependency Frontier After V141
+
+### Classify remaining robustness blockers without closing failed cells
+
+- Branch:
+  `exp/tase-ur10e-v142-robustness-dependency-frontier`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/robustness_dependency_frontier_after_v141/20260525T160000`
+- Report:
+  `reports/robustness_dependency_frontier_after_v141_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_robustness_dependency_frontier_after_v141.py`
+  - `scripts/run_tests.sh tests/test_robustness_dependency_frontier_after_v141.py`
+  - `python3 scripts/audit_robustness_dependency_frontier_after_v141.py --run-id 20260525T160000`
+- Result:
+  V142 adds an offline robustness-dependency frontier audit after v141. It
+  reads the v141 completion gate and v111 weighted-profile restatement, then
+  classifies the four remaining failed robustness cells by dependency
+  frontier. The audit reports `audit_passed = true`,
+  `robustness_complete = false`,
+  `accepted_as_robustness_proof = false`,
+  `candidate_matrix_complete = false`, `all_failed_cells_closed = false`,
+  `closed_cell_count = 0`, source failed-cell count `4`, frontier row count
+  `4`, `profile_overlay_supported_noncanonical_count = 2`,
+  `profile_overlay_supported_noncanonical_cell_ids = [base_z_plus1mm,
+  positive_fast_timing_0p0075]`,
+  `gate_or_contact_acceptance_blocked_count = 2`,
+  `gate_or_contact_acceptance_blocked_cell_ids =
+  [positive_orientation_gate_0p119, weighted_plus1mm_0p119_gate]`,
+  `new_simulation_selected = false`,
+  `additional_failed_cell_execution_recommended = false`, approved read-only
+  runs `0`, passed approved-read-only audits `0`, accepted orientation reviews
+  `0`, accepted contact/setup-target reviews `0`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline robustness-dependency bookkeeping only. It does not run
+  simulations, collect live measurements, approve any read-only SOP step,
+  create repository approved calibration evidence, accept a controller/profile
+  change, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, authorize live access, authorize execution, or authorize hardware
+  work.
+- Validation:
+  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use the phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work. Do not treat profile-overlay rows as closed robustness cells,
+  and do not rerun gate-blocked cells as closure evidence before approved
+  contact/gate evidence exists.

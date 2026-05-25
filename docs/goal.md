@@ -8,10 +8,10 @@ instructions into the goal text.
 
 ```text
 Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`.
-First read `docs/goal.md`, `docs/goal_handoff_v142.md`,
+First read `docs/goal.md`, `docs/goal_handoff_v143.md`,
 `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and
 `reports/DECISION_RECORD.md`; then inspect git status before changing
-anything. Preserve the current v141 claim boundary: formula-faithful Python
+anything. Preserve the current v142 claim boundary: formula-faithful Python
 paper-platform convergence and tuned Fig.6 landmark evidence remain separate,
 full paper-equivalent parity is not achieved, and the UR10e adapted line is
 diagnostic simulation only. V118-v123 establish that actual approved
@@ -42,20 +42,24 @@ continuation request is not the exact read-only approval phrase, so no live
 read-only SOP execution is authorized.
 V141 confirms v139 status and v140 continuation-boundary artifacts are also
 non-evidence and cannot close the completion gate.
+V142 classifies the remaining robustness frontier without running new
+simulations: two failed cells are supported only by noncanonical profile
+overlays, two remain gate/contact acceptance blocked, zero failed cells are
+closed, and robustness remains unproved.
 The next branch should execute only a safe read-only SOP subset after explicit
 user confirmation using one exact audited packet, the
 scaffold, finalizer, and verifier, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v141 audits. Use the
+simulation/paper-platform work identified by the v95-v142 audits. Use the
 v117 scaffold before accepting any contact/setup-target definition. Keep
 strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v141 diagnostic staged labels separate. Do not move or configure the real
+v63-v142 diagnostic staged labels separate. Do not move or configure the real
 UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v141` repository state. The project goal is to reproduce the T-ASE finite-time
+`v142` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -76,7 +80,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v141-post-v140-completion-gate`
+  `exp/tase-ur10e-v142-robustness-dependency-frontier`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -353,12 +357,17 @@ Read and audit these files before making assumptions:
   `tests/test_post_v140_completion_gate.py`
   `runs/post_v140_completion_gate/20260525T150000`
   `reports/post_v140_completion_gate_report.md`
+- Current v142 robustness-dependency frontier artifacts:
+  `scripts/audit_robustness_dependency_frontier_after_v141.py`
+  `tests/test_robustness_dependency_frontier_after_v141.py`
+  `runs/robustness_dependency_frontier_after_v141/20260525T160000`
+  `reports/robustness_dependency_frontier_after_v141_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v142.md`
+  `docs/goal_handoff_v143.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -930,6 +939,16 @@ Current accepted claims:
   `status_answer_is_non_evidence = true`,
   `continuation_boundary_is_non_evidence = true`, approved read-only runs `0`,
   passed approved-read-only audits `0`, and `do_not_mark_goal_complete = true`.
+- `robustness_dependency_frontier_after_v141`: v142 classifies the remaining
+  robustness frontier without selecting new simulations. It reports
+  `frontier_row_count = 4`, `closed_cell_count = 0`,
+  `profile_overlay_supported_noncanonical_cell_ids = [base_z_plus1mm,
+  positive_fast_timing_0p0075]`,
+  `gate_or_contact_acceptance_blocked_cell_ids =
+  [positive_orientation_gate_0p119, weighted_plus1mm_0p119_gate]`,
+  `new_simulation_selected = false`,
+  `additional_failed_cell_execution_recommended = false`, and
+  `do_not_mark_goal_complete = true`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -944,15 +963,17 @@ Current next executable step:
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122/v135 preflight and rehearsal path for evidence
   capture; or continue only non-final offline simulation/paper-platform work
-  identified by the v95-v141 blocker
+  identified by the v95-v142 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
   same accepted contact model and seeds. The practical next blocker is
   approved read-only calibration evidence or a new explicitly accepted
   contact/setup-target definition through the v117 scaffold.
+  Do not rerun gate-blocked robustness rows as closure evidence before
+  approved contact/gate evidence exists.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v141 diagnostic staged labels separate.
+  v63-v142 diagnostic staged labels separate.
 
 ## Safety Boundary
 

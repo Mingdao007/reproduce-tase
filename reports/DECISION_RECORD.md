@@ -3111,6 +3111,34 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D147: Robustness Frontier Needs Dependency Classification Before More Runs
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v142 as an offline robustness-dependency frontier audit after the v141
+  completion gate.
+- Reason:
+  The v111 weighted-profile restatement shows some failed robustness faces can
+  be restated with a named noncanonical profile, while other rows remain
+  blocked by gate/contact acceptance. Without a machine-readable frontier, the
+  profile-overlay rows could be overclaimed as closed robustness cells or the
+  gate-blocked rows could be rerun as closure evidence before accepted
+  contact/gate evidence exists.
+- Consequence:
+  V142 classifies `base_z_plus1mm` and `positive_fast_timing_0p0075` as
+  noncanonical profile-overlay diagnostics, and
+  `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` as
+  gate/contact acceptance blocked. It closes zero failed cells, selects no new
+  simulations, recommends no additional failed-cell execution as closure
+  evidence, and leaves approved read-only calibration evidence, contact/setup
+  target acceptance, and orientation-gate acceptance as required blockers.
+  V142 does not collect live evidence, approve a packet, authorize live
+  access, authorize execution, accept a controller/profile change, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

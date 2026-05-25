@@ -1,0 +1,148 @@
+run_source: robustness dependency frontier after v141
+audit_run_id: 20260525T160000
+source_files:
+  post_v141_completion_gate: runs/post_v140_completion_gate/20260525T150000/metrics.yaml
+  weighted_profile_matrix_restatement: runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml
+profile_summary:
+  profile_name: weighted_zero_angular_stage_b_diagnostic
+  diagnostic_profile_naming_supported: true
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  hardware_readiness: false
+summary:
+  audit_passed: true
+  violations: []
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  robustness_complete: false
+  accepted_as_robustness_proof: false
+  candidate_matrix_complete: false
+  all_failed_cells_closed: false
+  closed_cell_count: 0
+  source_failed_cell_count: 4
+  frontier_row_count: 4
+  profile_overlay_supported_noncanonical_count: 2
+  profile_overlay_supported_noncanonical_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  gate_or_contact_acceptance_blocked_count: 2
+  gate_or_contact_acceptance_blocked_cell_ids:
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  new_simulation_selected: false
+  additional_failed_cell_execution_recommended: false
+  requires_approved_read_only_evidence_for_closure: true
+  requires_contact_setup_target_acceptance_for_closure: true
+  requires_orientation_gate_acceptance_for_gate_rows: true
+  source_approved_read_only_run_count: 0
+  source_approved_read_only_audit_passed_count: 0
+  source_accepted_orientation_review_count: 0
+  source_accepted_contact_setup_target_review_count: 0
+  source_readiness_completion_evidence_ids: []
+  do_not_mark_goal_complete: true
+frontier_rows:
+- cell_id: base_z_plus1mm
+  frontier_class: profile_overlay_supported_noncanonical
+  original_status: failed
+  restated_status: failed_with_noncanonical_profile_overlay
+  blocker_ids:
+  - base_z_plus_1mm_contact_or_terminal_orientation
+  profile_overlay_supported: true
+  profile_overlay_face: relaxed_base_z_plus1mm_handoff
+  profile_overlay_status: profile_component_recovered_noncanonical
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  blocking_dependencies:
+  - canonical_controller_or_profile_acceptance
+  - contact_setup_target_acceptance
+  - approved_read_only_calibration_evidence
+  next_nonfinal_action: Keep the profile overlay diagnostic; do not close the original
+    failed cell until controller/profile and contact evidence are accepted.
+- cell_id: positive_fast_timing_0p0075
+  frontier_class: profile_overlay_supported_noncanonical
+  original_status: failed
+  restated_status: failed_with_noncanonical_profile_overlay
+  blocker_ids:
+  - faster_timing_qdot_tail_utilization
+  profile_overlay_supported: true
+  profile_overlay_face: positive_fast_timing_full_e1e4
+  profile_overlay_status: profile_recovered_noncanonical
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  blocking_dependencies:
+  - canonical_controller_or_profile_acceptance
+  - contact_setup_target_acceptance
+  - approved_read_only_calibration_evidence
+  next_nonfinal_action: Keep the profile overlay diagnostic; do not close the original
+    failed cell until controller/profile and contact evidence are accepted.
+- cell_id: positive_orientation_gate_0p119
+  frontier_class: gate_or_contact_acceptance_blocked
+  original_status: failed
+  restated_status: failed_without_profile_overlay
+  blocker_ids:
+  - tightened_orientation_gate_plus1mm
+  - contact_model_calibration_missing
+  profile_overlay_supported: false
+  profile_overlay_face: null
+  profile_overlay_status: not_profile_recovered_gate_acceptance_blocked
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  blocking_dependencies:
+  - orientation_gate_acceptance
+  - contact_setup_target_acceptance
+  - approved_read_only_calibration_evidence
+  next_nonfinal_action: Do not rerun this cell as closure evidence; wait for approved
+    contact/gate evidence or a separate accepted review.
+- cell_id: weighted_plus1mm_0p119_gate
+  frontier_class: gate_or_contact_acceptance_blocked
+  original_status: failed
+  restated_status: failed_without_profile_overlay
+  blocker_ids:
+  - tightened_orientation_gate_plus1mm
+  - contact_model_calibration_missing
+  profile_overlay_supported: false
+  profile_overlay_face: null
+  profile_overlay_status: not_profile_recovered_current_gate_blocked
+  failed_cell_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  robustness_claim: false
+  blocking_dependencies:
+  - orientation_gate_acceptance
+  - contact_setup_target_acceptance
+  - approved_read_only_calibration_evidence
+  next_nonfinal_action: Do not rerun this cell as closure evidence; wait for approved
+    contact/gate evidence or a separate accepted review.
+claim_boundary:
+  post_hoc_existing_metrics_only: true
+  new_simulation_run: false
+  new_failed_cell_execution_selected: false
+  profile_overlay_is_noncanonical: true
+  failed_cells_closed: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  contact_calibration_claim: false
+  orientation_gate_acceptance_claim: false
+  robustness_proof: false
+  strict_paper_equivalent_feasibility: false
+  hardware_readiness: false
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+next_actions:
+- Do not treat profile-overlay rows as closed robustness cells.
+- Do not rerun gate-blocked cells as closure evidence before approved contact/gate
+  evidence exists.
+- Use exact phase1 read-only approval if the user provides it; otherwise continue
+  only non-final offline audits.
+audit_root: /home/andy/reproduce-tase/runs/robustness_dependency_frontier_after_v141/20260525T160000
