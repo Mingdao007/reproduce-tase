@@ -4515,6 +4515,52 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V143 Post-V142 Completion Gate
+
+### Classified the robustness frontier as non-evidence
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_post_v142_completion_gate.py`
+- Runs:
+  - `runs/post_v142_completion_gate/20260525T170000`
+- Report:
+  - `reports/post_v142_completion_gate_report.md`
+- Tests:
+  - `tests/test_post_v142_completion_gate.py`
+- Command:
+  `python3 scripts/audit_post_v142_completion_gate.py --run-id 20260525T170000`
+- Tracked lightweight artifacts:
+  post-v142 completion gate top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, handoff, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The completion gate passes while authorizing nothing:
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  `do_not_mark_goal_complete = true`, top blocker
+  `approved_read_only_calibration_evidence`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, accepted orientation reviews `0`,
+  accepted contact/setup-target reviews `0`, strict terminal pass count `0`,
+  closed robustness cells `0`, hardware gate report false, readiness artifact
+  count `7`, `readiness_completion_evidence_ids = []`,
+  `robustness_frontier_is_non_evidence = true`,
+  `v142_robustness_complete = false`,
+  `v142_accepted_as_robustness_proof = false`,
+  `v142_closed_cell_count = 0`, `v142_new_simulation_selected = false`, and
+  `v142_additional_failed_cell_execution_recommended = false`.
+- Validation:
+  Focused tests passed with `4 passed in 0.48s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is completion-gate
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a controller/profile change, accept a contact model, accept a setup target,
+  relax a gate, prove strict paper-equivalent feasibility, prove robustness,
+  establish hardware readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

@@ -3139,6 +3139,29 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D148: Robustness Frontier Classification Must Stay Non-Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v143 as a post-v142 completion gate that classifies the v142
+  robustness-dependency frontier as non-evidence.
+- Reason:
+  V142 usefully separates noncanonical profile-overlay rows from gate/contact
+  blocked rows, but either class could be overread as progress toward
+  robustness closure. A completion gate must check actual evidence directories
+  and the v142 frontier together before allowing any completion claim.
+- Consequence:
+  The v142 frontier cannot support completion claims. The repository still has
+  no approved read-only run, no passed approved-read-only audit, no accepted
+  contact/setup-target review, no accepted orientation-gate review, no strict
+  terminal pass, no robustness proof, and no hardware gate report. V143 does
+  not collect live evidence, approve a packet, authorize live access,
+  authorize execution, accept a controller/profile change, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

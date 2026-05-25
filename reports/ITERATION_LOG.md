@@ -5771,3 +5771,56 @@
   offline work. Do not treat profile-overlay rows as closed robustness cells,
   and do not rerun gate-blocked cells as closure evidence before approved
   contact/gate evidence exists.
+
+## 2026-05-25 v143 Post-V142 Completion Gate
+
+### Keep the robustness frontier separate from completion evidence
+
+- Branch:
+  `exp/tase-ur10e-v143-post-v142-completion-gate`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/post_v142_completion_gate/20260525T170000`
+- Report:
+  `reports/post_v142_completion_gate_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v142_completion_gate.py`
+  - `scripts/run_tests.sh tests/test_post_v142_completion_gate.py`
+  - `python3 scripts/audit_post_v142_completion_gate.py --run-id 20260525T170000`
+- Result:
+  V143 adds an offline post-v142 completion gate. It scans actual evidence and
+  review directories and classifies seven readiness/status/frontier artifacts
+  as non-evidence: not-approved packet coverage, execution preflight,
+  finalization rehearsal, strict-vs-diagnostic margin separation, v139 status
+  answer, v140 continuation boundary, and the v142 robustness frontier. The
+  audit reports `audit_passed = true`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`, top
+  blocker `approved_read_only_calibration_evidence`, approved read-only runs
+  `0`, passed approved-read-only audits `0`, accepted orientation reviews `0`,
+  accepted contact/setup-target reviews `0`, strict terminal pass count `0`,
+  closed robustness cells `0`, hardware gate report false, readiness artifact
+  count `7`, `readiness_completion_evidence_ids = []`,
+  `robustness_frontier_is_non_evidence = true`,
+  `v142_robustness_complete = false`,
+  `v142_accepted_as_robustness_proof = false`,
+  `v142_closed_cell_count = 0`, `v142_new_simulation_selected = false`, and
+  `v142_additional_failed_cell_execution_recommended = false`.
+- Limit:
+  This is offline completion-gate bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a controller/profile change, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, authorize live
+  access, authorize execution, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.48s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use the phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work. Do not upgrade the v142 frontier rows into robustness
+  evidence, and do not rerun gate-blocked cells as closure evidence before
+  approved contact/gate evidence exists.
