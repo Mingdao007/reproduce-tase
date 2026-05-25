@@ -5364,7 +5364,7 @@
 - Branch:
   `exp/tase-ur10e-v135-finalization-rehearsal-boundary`
 - Implementation commit:
-  `TBD`
+  `c891174470b9ad3ec50d9e3eab911ca5dfba2ee8`
 - Runs:
   - `runs/read_only_finalization_rehearsal_boundary/20260525T122000`
 - Report:

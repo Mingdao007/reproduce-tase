@@ -4145,7 +4145,7 @@ Legacy source root:
 ### Rehearsed registered finalization without persistent evidence
 
 - Implementation commit:
-  `TBD`
+  `c891174470b9ad3ec50d9e3eab911ca5dfba2ee8`
 - Scripts:
   - `scripts/audit_read_only_finalization_rehearsal_boundary.py`
 - Runs:
