@@ -3186,6 +3186,30 @@
   gate, prove strict paper-equivalent feasibility, prove robustness, establish
   hardware readiness, or authorize hardware work.
 
+## D150: User Real-Data-Only Completion Criterion Needs Explicit Audit
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v145 as a post-v144 audit that directly checks whether all remaining
+  incompleteness is only real-machine/explicit-approval data that Codex cannot
+  read.
+- Reason:
+  The user explicitly allowed treating the task as complete only if everything
+  except inaccessible real-machine data is done. The repository already has
+  completion gates, but this criterion needs a direct machine-readable answer
+  so readiness/freshness/status artifacts cannot be overread as completion.
+- Consequence:
+  V145 reports `answer = not_complete_not_only_real_data_missing` and
+  `user_completion_criterion_met = false`: four requirements are
+  approval/live-data blocked, but two offline/non-final requirements remain
+  unresolved (`strict_terminal_or_full_staged_feasibility` and
+  `robustness_to_contact_model_perturbations`). V145 does not collect live
+  evidence, approve a packet, authorize live access, authorize execution,
+  accept a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

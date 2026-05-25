@@ -5877,3 +5877,47 @@
   approved-read-only audit. Without exact approval, continue only non-final
   offline work and do not treat packet freshness as approval or completion
   evidence.
+
+## 2026-05-25 v145 User Completion Criterion After V144
+
+### Check whether only inaccessible real-machine data remains
+
+- Branch:
+  `exp/tase-ur10e-v145-user-completion-criterion`
+- Implementation commit:
+  `TBD pending final closeout`
+- Runs:
+  - `runs/user_completion_criterion_after_v144/20260525T190000`
+- Report:
+  `reports/user_completion_criterion_after_v144_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_user_completion_criterion_after_v144.py`
+  - `scripts/run_tests.sh tests/test_user_completion_criterion_after_v144.py`
+  - `python3 scripts/audit_user_completion_criterion_after_v144.py --run-id 20260525T190000`
+- Result:
+  V145 directly evaluates the user's real-data-only completion criterion after
+  v144. It reports `audit_passed = true`,
+  `answer = not_complete_not_only_real_data_missing`,
+  `user_completion_criterion_met = false`,
+  `only_real_or_explicit_approval_data_missing = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`,
+  incomplete requirements `6`, approval/live-data blocked requirements `4`,
+  and offline/non-final unresolved requirements `2`. The offline/non-final
+  unresolved requirements are `strict_terminal_or_full_staged_feasibility` and
+  `robustness_to_contact_model_perturbations`.
+- Limit:
+  This is offline completion-criterion bookkeeping only. It does not collect
+  live measurements, approve any read-only SOP step, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.18s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use the phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work and do not treat this criterion audit as completion evidence.

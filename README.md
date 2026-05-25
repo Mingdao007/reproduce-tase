@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v144-phase1-packet-freshness`
+Current branch: `exp/tase-ur10e-v145-user-completion-criterion`
 
 ## Scope
 
@@ -145,7 +145,10 @@ not approve live access, create approved calibration evidence, or close strict
 paper-equivalent, robustness, or hardware-readiness gates. V143 confirms the
 v142 robustness frontier is also non-evidence and still cannot close the
 completion gate. V144 confirms the exact phase1 approval packet remains fresh
-and not approved, with the same hash, exact phrase, and worksheet scope.
+and not approved, with the same hash, exact phrase, and worksheet scope. V145
+directly checks the user's real-data-only completion criterion and reports
+that it is not met because two offline/non-final blockers remain unresolved:
+strict terminal/full-staged feasibility and robustness.
 
 ## Test Command
 

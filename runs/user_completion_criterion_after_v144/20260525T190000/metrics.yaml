@@ -1,0 +1,246 @@
+run_source: user completion criterion after v144 audit
+audit_run_id: 20260525T190000
+source_files:
+  post_v143_completion_gate: runs/post_v142_completion_gate/20260525T170000/metrics.yaml
+  phase1_packet_freshness_after_v143: runs/phase1_packet_freshness_after_v143/20260525T180000/metrics.yaml
+summary:
+  audit_passed: true
+  violations: []
+  answer: not_complete_not_only_real_data_missing
+  user_completion_criterion_met: false
+  only_real_or_explicit_approval_data_missing: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+  incomplete_requirement_count: 6
+  incomplete_requirement_ids:
+  - approved_read_only_calibration_evidence
+  - contact_setup_target_acceptance
+  - orientation_gate_acceptance
+  - strict_terminal_or_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_or_live_data_blocked_count: 4
+  approval_or_live_data_blocked_ids:
+  - approved_read_only_calibration_evidence
+  - contact_setup_target_acceptance
+  - orientation_gate_acceptance
+  - hardware_readiness
+  offline_nonfinal_unresolved_count: 2
+  offline_nonfinal_unresolved_ids:
+  - strict_terminal_or_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  unclassified_incomplete_count: 0
+  unclassified_incomplete_ids: []
+  top_blocker: approved_read_only_calibration_evidence
+  approved_read_only_run_count: 0
+  approved_read_only_audit_passed_count: 0
+  phase1_packet_fresh: true
+  phase1_packet_still_not_approved: true
+  live_access_authorized_now: false
+  execution_authorized_now: false
+criterion:
+  user_statement: If everything except real-machine data that Codex cannot read is
+    done, the task may be considered complete.
+  passed_when:
+  - all incomplete requirements are explicitly approval/live-data blocked
+  - no incomplete requirement can still advance offline
+  - current metrics have no validation violations
+  failed_because:
+  - offline_nonfinal_unresolved_count is nonzero
+requirement_classification:
+  offline_nonfinal_unresolved:
+  - requirement_id: strict_terminal_or_full_staged_feasibility
+    success_criteria: Strict paper-equivalent setup/full staged feasibility is recovered.
+    achieved: false
+    evidence:
+      strict_terminal_path: runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml
+      strict_terminal_pass_count: 0
+      best_max_gate_ratio: 2.11994927622362
+      strict_paper_equivalent_feasibility: false
+      v95_requirement_still_incomplete: true
+    missing:
+    - strict terminal/setup pass count remains zero
+    can_advance_offline: true
+    requires_explicit_approval: false
+    next_action: Continue only non-final strict-feasibility research that does not
+      repeat v113-v116.
+  - requirement_id: robustness_to_contact_model_perturbations
+    success_criteria: Robustness matrix closes all failed cells under the accepted
+      model.
+    achieved: false
+    evidence:
+      matrix_restatement_path: runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml
+      closed_cell_count: 0
+      accepted_as_robustness_proof: false
+      gate_acceptance_blocked_cell_ids:
+      - positive_orientation_gate_0p119
+      - weighted_plus1mm_0p119_gate
+      profile_overlay_supported_cell_ids:
+      - base_z_plus1mm
+      - positive_fast_timing_0p0075
+    missing:
+    - accepted model robustness proof
+    can_advance_offline: true
+    requires_explicit_approval: false
+    next_action: Keep robustness as non-final until contact/gate dependencies are
+      accepted.
+  approval_or_live_data_blocked:
+  - requirement_id: approved_read_only_calibration_evidence
+    success_criteria: At least one read-only measurement run is finalized as approved_read_only_evidence
+      and has a passed approved-read-only audit.
+    achieved: false
+    evidence:
+      run_root: runs/read_only_calibration_measurement
+      run_count: 3
+      status_counts:
+        scaffold_created_not_executed: 3
+      approved_read_only_run_count: 0
+      audit_root: runs/read_only_calibration_measurement_run_audit
+      audit_count: 4
+      approved_read_only_audit_passed_count: 0
+      latest_run: runs/read_only_calibration_measurement/20260525T015400/metrics.yaml
+      latest_audit: runs/read_only_calibration_measurement_run_audit/20260525T015401/metrics.yaml
+    missing:
+    - explicit approved read-only measurement evidence run
+    can_advance_offline: false
+    requires_explicit_approval: true
+    next_action: Ask for explicit approval for one exact read-only SOP step before
+      collecting rows.
+  - requirement_id: contact_setup_target_acceptance
+    success_criteria: A separate contact/setup-target review accepts the contact model,
+      setup target, TCP/contact datum, surface normal, and force source from approved
+      read-only evidence.
+    achieved: false
+    evidence:
+      review_root: runs/contact_setup_target_acceptance_review
+      review_count: 1
+      accepted_review_count: 0
+      audit_root: runs/contact_setup_target_acceptance_review_audit
+      audit_count: 1
+      accepted_audit_count: 0
+      latest_audit_passed: true
+      latest_decision: not_accepted
+    missing:
+    - accepted contact/setup-target review
+    can_advance_offline: false
+    requires_explicit_approval: true
+    next_action: Use the v117 scaffold only after approved read-only evidence exists.
+  - requirement_id: orientation_gate_acceptance
+    success_criteria: A separate orientation-gate review accepts a replacement gate
+      from approved read-only evidence.
+    achieved: false
+    evidence:
+      review_root: runs/orientation_gate_acceptance_review
+      review_count: 1
+      accepted_review_count: 0
+      audit_root: runs/orientation_gate_acceptance_review_audit
+      audit_count: 1
+      accepted_audit_count: 0
+      latest_decision: not_accepted
+    missing:
+    - accepted orientation-gate review
+    can_advance_offline: false
+    requires_explicit_approval: true
+    next_action: Keep the gate review not accepted until evidence exists and a separate
+      review is approved.
+  - requirement_id: hardware_readiness
+    success_criteria: Hardware gate report exists and proves measured TCP/payload/CoG,
+      force source, logging, and low-risk SOP readiness.
+    achieved: false
+    evidence:
+      hardware_gate_report: reports/hardware_gate_report.md
+      exists: false
+      robot_motion_authorized: false
+      hardware_writes_authorized: false
+      force_control_authorized: false
+    missing:
+    - hardware gate report and approval/evidence chain
+    can_advance_offline: false
+    requires_explicit_approval: true
+    next_action: Do not prepare motion; collect approved read-only evidence first.
+  unclassified_incomplete: []
+post_v143_summary:
+  audit_passed: true
+  violations: []
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+  top_blocker: approved_read_only_calibration_evidence
+  incomplete_requirement_count: 6
+  incomplete_requirement_ids:
+  - approved_read_only_calibration_evidence
+  - contact_setup_target_acceptance
+  - orientation_gate_acceptance
+  - strict_terminal_or_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approved_read_only_run_count: 0
+  approved_read_only_audit_passed_count: 0
+  accepted_orientation_review_count: 0
+  accepted_contact_setup_target_review_count: 0
+  strict_terminal_pass_count: 0
+  closed_robustness_cell_count: 0
+  hardware_gate_report_exists: false
+  readiness_artifact_count: 7
+  readiness_completion_evidence_ids: []
+  readiness_artifacts_are_non_evidence: true
+  status_answer_is_non_evidence: true
+  continuation_boundary_is_non_evidence: true
+  robustness_frontier_is_non_evidence: true
+  v142_robustness_complete: false
+  v142_accepted_as_robustness_proof: false
+  v142_closed_cell_count: 0
+  v142_frontier_row_count: 4
+  v142_profile_overlay_supported_noncanonical_cell_ids:
+  - base_z_plus1mm
+  - positive_fast_timing_0p0075
+  v142_gate_or_contact_acceptance_blocked_cell_ids:
+  - positive_orientation_gate_0p119
+  - weighted_plus1mm_0p119_gate
+  v142_new_simulation_selected: false
+  v142_additional_failed_cell_execution_recommended: false
+phase1_freshness_summary:
+  audit_passed: true
+  violations: []
+  phase1_packet_fresh: true
+  registry_matches_frozen_packet: true
+  packet_hash_unchanged: true
+  frozen_packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+  current_packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+  frozen_step_id: phase1_mounted_stack_tcp_contact_measurement
+  frozen_worksheet: tcp_contact_measurements.csv
+  approval_phrase_required: I approve this read-only measurement step
+  exact_step_id_required: true
+  phase1_packet_still_not_approved: true
+  post_v143_completion_gate_binding: true
+  approved_read_only_run_count: 0
+  approved_read_only_audit_passed_count: 0
+  readiness_completion_evidence_ids: []
+  approval_record_created: false
+  live_access_authorized_now: false
+  execution_authorized_now: false
+  approved_read_only_evidence_created: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+claim_boundary:
+  post_hoc_audit_only: true
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  approved_read_only_evidence: false
+  contact_calibration_claim: false
+  setup_target_acceptance_claim: false
+  orientation_gate_acceptance_claim: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+next_actions:
+- Do not mark the goal complete from the current repository state.
+- Use the phase1 packet only after exact user approval for the exact registered scope.
+- Without approval, continue only non-final offline work that does not repeat v113-v116.

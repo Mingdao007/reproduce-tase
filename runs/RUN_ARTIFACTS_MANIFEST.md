@@ -4609,6 +4609,48 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V145 User Completion Criterion After V144
+
+### Checked whether only inaccessible real-machine data remains
+
+- Implementation commit:
+  `TBD pending final closeout`
+- Scripts:
+  - `scripts/audit_user_completion_criterion_after_v144.py`
+- Runs:
+  - `runs/user_completion_criterion_after_v144/20260525T190000`
+- Report:
+  - `reports/user_completion_criterion_after_v144_report.md`
+- Tests:
+  - `tests/test_user_completion_criterion_after_v144.py`
+- Command:
+  `python3 scripts/audit_user_completion_criterion_after_v144.py --run-id 20260525T190000`
+- Tracked lightweight artifacts:
+  user completion criterion top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, handoff, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The criterion audit passes while authorizing nothing:
+  `answer = not_complete_not_only_real_data_missing`,
+  `user_completion_criterion_met = false`,
+  `only_real_or_explicit_approval_data_missing = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`,
+  incomplete requirements `6`, approval/live-data blocked requirements `4`,
+  and offline/non-final unresolved requirements `2`. The offline/non-final
+  unresolved requirements are `strict_terminal_or_full_staged_feasibility` and
+  `robustness_to_contact_model_perturbations`.
+- Validation:
+  Focused tests passed with `4 passed in 0.18s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is completion-criterion
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
