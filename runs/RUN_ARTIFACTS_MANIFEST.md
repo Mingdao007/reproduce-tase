@@ -4190,7 +4190,7 @@ Legacy source root:
 ### Classified finalization rehearsal as non-evidence readiness
 
 - Implementation commit:
-  `TBD`
+  `b0cad5d0e3f077de805437f3a7954df73893c106`
 - Scripts:
   - `scripts/audit_post_v135_completion_gate.py`
 - Runs:

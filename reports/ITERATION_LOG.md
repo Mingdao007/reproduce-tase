@@ -5415,7 +5415,7 @@
 - Branch:
   `exp/tase-ur10e-v136-post-rehearsal-completion-gate`
 - Implementation commit:
-  `TBD`
+  `b0cad5d0e3f077de805437f3a7954df73893c106`
 - Runs:
   - `runs/post_v135_completion_gate/20260525T123000`
 - Report:
