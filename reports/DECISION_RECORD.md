@@ -2969,6 +2969,31 @@
   establish hardware readiness, authorize live access, or authorize hardware
   work.
 
+## D141: Rehearsed Finalizations Are Not Completion Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v136 as a post-v135 completion gate that classifies packet coverage,
+  execution preflight, and finalization rehearsal as readiness artifacts rather
+  than completion evidence.
+- Reason:
+  V135 intentionally contains five temporary approved-read-only finalizations
+  and verifier passes in its metrics. Those are useful software-path evidence,
+  but they could be misread as approved calibration evidence unless the current
+  repository evidence directories are scanned and the temporary artifacts are
+  explicitly quarantined as non-evidence. V136 performs that scan and reports
+  no approved read-only runs, no passed approved-read-only audits, no accepted
+  reviews, no strict terminal passes, no closed robustness cells, and no
+  hardware gate report.
+- Consequence:
+  Temporary finalization rehearsal metrics cannot support completion claims.
+  The top blocker remains approved read-only calibration evidence. V136 does
+  not approve a packet, collect live evidence, accept a contact model, accept a
+  setup target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, authorize live access, or
+  authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

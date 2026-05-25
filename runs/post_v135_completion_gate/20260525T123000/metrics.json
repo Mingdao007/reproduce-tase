@@ -1,0 +1,296 @@
+{
+  "run_source": "post-v135 completion gate audit",
+  "audit_run_id": "20260525T123000",
+  "source_files": {
+    "completion_blockers": "runs/offline_completion_blockers/20260525T020734/metrics.yaml",
+    "strict_terminal_constrained_optimization": "runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+    "weighted_profile_matrix_restatement": "runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml",
+    "packet_coverage": "runs/read_only_step_approval_packet_coverage/20260525T100500/metrics.yaml",
+    "execution_preflight": "runs/read_only_step_execution_preflight/20260525T101000/metrics.yaml",
+    "finalization_rehearsal": "runs/read_only_finalization_rehearsal_boundary/20260525T122000/metrics.yaml"
+  },
+  "actual_scan_roots": {
+    "read_only_runs": "runs/read_only_calibration_measurement",
+    "read_only_audits": "runs/read_only_calibration_measurement_run_audit",
+    "orientation_gate_reviews": "runs/orientation_gate_acceptance_review",
+    "orientation_gate_audits": "runs/orientation_gate_acceptance_review_audit",
+    "contact_setup_target_reviews": "runs/contact_setup_target_acceptance_review",
+    "contact_setup_target_audits": "runs/contact_setup_target_acceptance_review_audit"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true,
+    "top_blocker": "approved_read_only_calibration_evidence",
+    "incomplete_requirement_count": 6,
+    "incomplete_requirement_ids": [
+      "approved_read_only_calibration_evidence",
+      "contact_setup_target_acceptance",
+      "orientation_gate_acceptance",
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations",
+      "hardware_readiness"
+    ],
+    "approved_read_only_run_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "accepted_orientation_review_count": 0,
+    "accepted_contact_setup_target_review_count": 0,
+    "strict_terminal_pass_count": 0,
+    "closed_robustness_cell_count": 0,
+    "hardware_gate_report_exists": false,
+    "readiness_artifact_count": 3,
+    "readiness_completion_evidence_ids": [],
+    "readiness_artifacts_are_non_evidence": true,
+    "finalization_rehearsal_is_non_evidence": true,
+    "rehearsal_temporary_finalization_count": 5,
+    "rehearsal_approved_read_only_verifier_passed_count": 5,
+    "rehearsal_temporary_path_existing_count": 0,
+    "rehearsal_repository_approved_read_only_run_delta": 0,
+    "rehearsal_repository_finalization_record_delta": 0,
+    "rehearsal_repository_approved_read_only_audit_delta": 0
+  },
+  "completion_checklist": [
+    {
+      "requirement_id": "approved_read_only_calibration_evidence",
+      "success_criteria": "At least one read-only measurement run is finalized as approved_read_only_evidence and has a passed approved-read-only audit.",
+      "achieved": false,
+      "evidence": {
+        "run_root": "runs/read_only_calibration_measurement",
+        "run_count": 3,
+        "status_counts": {
+          "scaffold_created_not_executed": 3
+        },
+        "approved_read_only_run_count": 0,
+        "audit_root": "runs/read_only_calibration_measurement_run_audit",
+        "audit_count": 4,
+        "approved_read_only_audit_passed_count": 0,
+        "latest_run": "runs/read_only_calibration_measurement/20260525T015400/metrics.yaml",
+        "latest_audit": "runs/read_only_calibration_measurement_run_audit/20260525T015401/metrics.yaml"
+      },
+      "missing": [
+        "explicit approved read-only measurement evidence run"
+      ],
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "next_action": "Ask for explicit approval for one exact read-only SOP step before collecting rows."
+    },
+    {
+      "requirement_id": "contact_setup_target_acceptance",
+      "success_criteria": "A separate contact/setup-target review accepts the contact model, setup target, TCP/contact datum, surface normal, and force source from approved read-only evidence.",
+      "achieved": false,
+      "evidence": {
+        "review_root": "runs/contact_setup_target_acceptance_review",
+        "review_count": 1,
+        "accepted_review_count": 0,
+        "audit_root": "runs/contact_setup_target_acceptance_review_audit",
+        "audit_count": 1,
+        "accepted_audit_count": 0,
+        "latest_audit_passed": true,
+        "latest_decision": "not_accepted"
+      },
+      "missing": [
+        "accepted contact/setup-target review"
+      ],
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "next_action": "Use the v117 scaffold only after approved read-only evidence exists."
+    },
+    {
+      "requirement_id": "orientation_gate_acceptance",
+      "success_criteria": "A separate orientation-gate review accepts a replacement gate from approved read-only evidence.",
+      "achieved": false,
+      "evidence": {
+        "review_root": "runs/orientation_gate_acceptance_review",
+        "review_count": 1,
+        "accepted_review_count": 0,
+        "audit_root": "runs/orientation_gate_acceptance_review_audit",
+        "audit_count": 1,
+        "accepted_audit_count": 0,
+        "latest_decision": "not_accepted"
+      },
+      "missing": [
+        "accepted orientation-gate review"
+      ],
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "next_action": "Keep the gate review not accepted until evidence exists and a separate review is approved."
+    },
+    {
+      "requirement_id": "strict_terminal_or_full_staged_feasibility",
+      "success_criteria": "Strict paper-equivalent setup/full staged feasibility is recovered.",
+      "achieved": false,
+      "evidence": {
+        "strict_terminal_path": "runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+        "strict_terminal_pass_count": 0,
+        "best_max_gate_ratio": 2.11994927622362,
+        "strict_paper_equivalent_feasibility": false,
+        "v95_requirement_still_incomplete": true
+      },
+      "missing": [
+        "strict terminal/setup pass count remains zero"
+      ],
+      "can_advance_offline": true,
+      "requires_explicit_approval": false,
+      "next_action": "Continue only non-final strict-feasibility research that does not repeat v113-v116."
+    },
+    {
+      "requirement_id": "robustness_to_contact_model_perturbations",
+      "success_criteria": "Robustness matrix closes all failed cells under the accepted model.",
+      "achieved": false,
+      "evidence": {
+        "matrix_restatement_path": "runs/weighted_profile_matrix_restatement/20260525T075040/metrics.yaml",
+        "closed_cell_count": 0,
+        "accepted_as_robustness_proof": false,
+        "gate_acceptance_blocked_cell_ids": [
+          "positive_orientation_gate_0p119",
+          "weighted_plus1mm_0p119_gate"
+        ],
+        "profile_overlay_supported_cell_ids": [
+          "base_z_plus1mm",
+          "positive_fast_timing_0p0075"
+        ]
+      },
+      "missing": [
+        "accepted model robustness proof"
+      ],
+      "can_advance_offline": true,
+      "requires_explicit_approval": false,
+      "next_action": "Keep robustness as non-final until contact/gate dependencies are accepted."
+    },
+    {
+      "requirement_id": "hardware_readiness",
+      "success_criteria": "Hardware gate report exists and proves measured TCP/payload/CoG, force source, logging, and low-risk SOP readiness.",
+      "achieved": false,
+      "evidence": {
+        "hardware_gate_report": "reports/hardware_gate_report.md",
+        "exists": false,
+        "robot_motion_authorized": false,
+        "hardware_writes_authorized": false,
+        "force_control_authorized": false
+      },
+      "missing": [
+        "hardware gate report and approval/evidence chain"
+      ],
+      "can_advance_offline": false,
+      "requires_explicit_approval": true,
+      "next_action": "Do not prepare motion; collect approved read-only evidence first."
+    }
+  ],
+  "readiness_artifacts": [
+    {
+      "readiness_id": "not_approved_packet_coverage",
+      "purpose": "Confirm every finalizer-eligible step has an audited not-approved packet.",
+      "status": "ready_not_approved",
+      "completion_evidence": false,
+      "evidence": {
+        "audit_run_id": "20260525T100500",
+        "coverage_complete": true,
+        "covered_step_count": 5,
+        "required_finalizer_step_count": 5,
+        "missing_step_ids": [],
+        "approved_packet_count": 0,
+        "execution_authorizing_packet_count": 0,
+        "live_access_authorizing_packet_count": 0,
+        "do_not_mark_goal_complete": true
+      },
+      "claim_boundary": {
+        "approved_read_only_evidence": false,
+        "packet_authorizes_execution": false,
+        "packet_approves_live_access": false,
+        "hardware_readiness": false,
+        "do_not_mark_goal_complete": true
+      }
+    },
+    {
+      "readiness_id": "execution_preflight",
+      "purpose": "Confirm future approved-read-only command path is wired without authorizing it.",
+      "status": "preflight_ready_not_approved",
+      "completion_evidence": false,
+      "evidence": {
+        "audit_run_id": "20260525T101000",
+        "preflight_ready_step_count": 5,
+        "finalizer_eligible_step_count": 5,
+        "missing_ready_step_ids": [],
+        "approved_packet_count": 0,
+        "execution_authorizing_packet_count": 0,
+        "live_access_authorizing_packet_count": 0,
+        "explicit_user_approval_required": true,
+        "preflight_authorizes_execution": false,
+        "preflight_authorizes_live_access": false,
+        "approved_read_only_evidence_created": false,
+        "do_not_mark_goal_complete": true
+      },
+      "claim_boundary": {
+        "approval_record_created": false,
+        "approved_read_only_evidence": false,
+        "live_hardware_access_authorized": false,
+        "execution_authorized": false,
+        "hardware_readiness": false,
+        "do_not_mark_goal_complete": true
+      }
+    },
+    {
+      "readiness_id": "finalization_rehearsal_boundary",
+      "purpose": "Confirm the positive finalizer/verifier path was rehearsed only in temporary space and cannot count as repository evidence.",
+      "status": "temporary_rehearsal_not_evidence",
+      "completion_evidence": false,
+      "evidence": {
+        "audit_run_id": "20260525T122000",
+        "finalization_rehearsal_boundary_complete": true,
+        "registered_finalizer_step_count": 5,
+        "rehearsed_step_count": 5,
+        "rehearsal_passed_step_count": 5,
+        "temporary_finalization_count": 5,
+        "approved_read_only_verifier_passed_count": 5,
+        "synthetic_row_only_count": 5,
+        "live_hardware_accessed_count": 0,
+        "temporary_root_removed": true,
+        "temporary_path_existing_count": 0,
+        "repository_approved_read_only_run_delta": 0,
+        "repository_finalization_record_delta": 0,
+        "repository_approved_read_only_audit_delta": 0,
+        "approved_read_only_evidence_created": false,
+        "rehearsal_authorizes_execution": false,
+        "rehearsal_authorizes_live_access": false,
+        "completion_claim_allowed": false,
+        "do_not_mark_goal_complete": true
+      },
+      "claim_boundary": {
+        "approval_record_created": false,
+        "approved_read_only_evidence": false,
+        "approved_read_only_evidence_created_in_repository": false,
+        "live_hardware_access_authorized": false,
+        "execution_authorized": false,
+        "hardware_readiness": false,
+        "do_not_mark_goal_complete": true
+      }
+    }
+  ],
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "readiness_artifacts_do_not_complete_goal": true,
+    "finalization_rehearsal_is_not_evidence": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Request explicit user approval before any live read-only SOP step.",
+    "If approval is absent, continue only offline non-final research.",
+    "Treat packet coverage, execution preflight, and finalization rehearsal as readiness artifacts, not evidence.",
+    "Do not accept contact/setup-target or orientation-gate changes from simulation recovery alone.",
+    "Avoid repeating v113-v116 policy, timing, seed, and terminal-objective families."
+  ],
+  "audit_root": "/home/andy/reproduce-tase/runs/post_v135_completion_gate/20260525T123000"
+}

@@ -5407,3 +5407,51 @@
   packet, fill only valid rows for that step's worksheet scope, finalize with
   the exact registered step ID, and audit in approved-read-only mode. Without
   approval, continue only non-final offline work.
+
+## 2026-05-25 v136 Post-V135 Completion Gate
+
+### Keep finalization rehearsal separate from completion evidence
+
+- Branch:
+  `exp/tase-ur10e-v136-post-rehearsal-completion-gate`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/post_v135_completion_gate/20260525T123000`
+- Report:
+  `reports/post_v135_completion_gate_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v135_completion_gate.py`
+  - `scripts/run_tests.sh tests/test_post_v135_completion_gate.py`
+  - `python3 scripts/audit_post_v135_completion_gate.py --run-id 20260525T123000`
+- Result:
+  V136 adds an offline post-v135 completion gate. It scans the actual current
+  read-only evidence, review, strict terminal, robustness, and hardware-gate
+  paths, then classifies not-approved packet coverage, execution preflight,
+  and finalization rehearsal as non-evidence readiness artifacts. The audit
+  reports `audit_passed = true`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, `do_not_mark_goal_complete = true`,
+  top blocker `approved_read_only_calibration_evidence`, approved read-only
+  runs `0`, passed approved-read-only audits `0`, accepted orientation reviews
+  `0`, accepted contact/setup-target reviews `0`, strict terminal pass count
+  `0`, closed robustness cells `0`, hardware gate report false, readiness
+  artifact count `3`, `readiness_completion_evidence_ids = []`,
+  `readiness_artifacts_are_non_evidence = true`, and
+  `finalization_rehearsal_is_non_evidence = true`.
+- Limit:
+  This is offline completion-gate bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.45s`; compatibility focused gate
+  tests passed with `10 passed in 0.95s`; full tests passed with
+  `251 passed in 29.98s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Next step:
+  If the user later gives explicit approval, use one exact registered approval
+  packet, fill only valid rows for that step's worksheet scope, finalize with
+  the exact registered step ID, and audit in approved-read-only mode. Without
+  approval, continue only non-final offline work.
