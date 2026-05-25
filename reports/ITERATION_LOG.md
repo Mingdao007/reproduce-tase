@@ -5083,3 +5083,47 @@
   `phase1_mounted_stack_tcp_contact_measurement`. Without approval, continue
   only non-final offline work and keep the v128 selector separate from
   approved evidence.
+
+## 2026-05-25 v129 Read-Only Phase1 Approval Request Freeze
+
+### Freeze the selected phase1 packet request without approving it
+
+- Branch:
+  `exp/tase-ur10e-v129-readonly-phase1-approval-request-freeze`
+- Runs:
+  - `runs/read_only_phase1_approval_request_freeze/20260525T112000`
+- Report:
+  `reports/read_only_phase1_approval_request_freeze_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_phase1_approval_request_freeze.py`
+  - `scripts/run_tests.sh tests/test_read_only_phase1_approval_request_freeze.py`
+  - `python3 scripts/audit_read_only_phase1_approval_request_freeze.py --run-id 20260525T112000`
+- Result:
+  V129 adds an offline freeze audit for the v128 first candidate approval
+  request. The run reports `audit_passed = true`,
+  `approval_request_freeze_complete = true`, frozen step
+  `phase1_mounted_stack_tcp_contact_measurement`, frozen worksheet
+  `tcp_contact_measurements.csv`, required phrase
+  `I approve this read-only measurement step`, packet Markdown SHA256
+  `91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d`,
+  packet status `approval_packet_created_not_approved`, packet audit passed
+  true, packet approval status `not_approved`,
+  `freeze_authorizes_execution = false`,
+  `approved_read_only_evidence_created = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline approval-request bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 0.11s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `220 passed in 11.97s`; `git diff --check` passed.
+- Next step:
+  If the user later gives explicit approval, use the frozen phase1 request and
+  still create a fresh scaffold, finalize with the exact registered step ID,
+  and audit in approved-read-only mode. Without approval, continue only
+  non-final offline work.

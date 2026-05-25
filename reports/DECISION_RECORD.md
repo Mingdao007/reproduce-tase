@@ -2809,6 +2809,29 @@
   setup target, relax a gate, prove strict paper-equivalent feasibility, prove
   robustness, establish hardware readiness, or authorize hardware work.
 
+## D134: Phase1 Approval Request Freeze Is Not Approval
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v129 as an offline freeze audit for the v128 first candidate approval
+  request. The audit freezes the not-approved phase1 packet, its Markdown hash,
+  worksheet scope, exact confirmation phrase, forbidden actions, and
+  post-approval scaffold/finalizer/audit command path.
+- Reason:
+  V128 names `phase1_mounted_stack_tcp_contact_measurement` as the first
+  candidate, but a future approval handoff should not depend on memory or loose
+  wording. V129 verifies the actual packet metrics, packet audit, and packet
+  Markdown all still say not approved, non-authorizing, and phase1-only, while
+  failing on approved packet drift, operator/approval timestamp drift,
+  execution authorization, live-access authorization, or evidence claims.
+- Consequence:
+  The exact phase1 request is now frozen for future reference, but it is still
+  not approval. V129 does not approve a packet, collect live evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware readiness,
+  or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

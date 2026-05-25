@@ -3874,6 +3874,47 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V129 Read-Only Phase1 Approval Request Freeze
+
+### Frozen the selected phase1 packet request without approval
+
+- Scripts:
+  - `scripts/audit_read_only_phase1_approval_request_freeze.py`
+- Runs:
+  - `runs/read_only_phase1_approval_request_freeze/20260525T112000`
+- Report:
+  - `reports/read_only_phase1_approval_request_freeze_report.md`
+- Tests:
+  - `tests/test_read_only_phase1_approval_request_freeze.py`
+- Command:
+  `python3 scripts/audit_read_only_phase1_approval_request_freeze.py --run-id 20260525T112000`
+- Tracked lightweight artifacts:
+  phase1 approval-request freeze audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The freeze audit passes while authorizing nothing:
+  `approval_request_freeze_complete = true`,
+  `frozen_step_id = phase1_mounted_stack_tcp_contact_measurement`,
+  `frozen_worksheet = tcp_contact_measurements.csv`,
+  `packet_markdown_sha256 =
+  91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d`,
+  packet status `approval_packet_created_not_approved`, packet approval status
+  `not_approved`, `freeze_authorizes_execution = false`,
+  `approved_read_only_evidence_created = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.11s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `220 passed in 11.97s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  approval-request bookkeeping only; it does not approve any packet, authorize
+  live access, authorize execution, create approved calibration evidence,
+  accept a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
