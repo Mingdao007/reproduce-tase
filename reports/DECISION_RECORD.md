@@ -3018,6 +3018,29 @@
   remains approved read-only calibration evidence or a separately accepted
   contact/setup-target definition.
 
+## D143: Margin Separation Must Not Become Completion Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v138 as a post-v137 completion gate that classifies the v137
+  strict-vs-diagnostic margin separation artifact as non-evidence readiness
+  bookkeeping.
+- Reason:
+  V137 proves a useful boundary: the v85 diagnostic margin cannot close the
+  v126 strict-terminal gap. That proof itself could still be overread as an
+  accepted replacement gate or strict-feasibility result unless the current
+  evidence directories and v137 artifact are checked together. V138 performs
+  that scan and keeps approved read-only evidence, accepted reviews, strict
+  terminal passes, robustness closure, and hardware readiness absent.
+- Consequence:
+  The v137 margin-separation artifact cannot support completion claims. The
+  top blocker remains approved read-only calibration evidence. V138 does not
+  approve a packet, collect live evidence, accept a contact model, accept a
+  setup target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, authorize live access, or
+  authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

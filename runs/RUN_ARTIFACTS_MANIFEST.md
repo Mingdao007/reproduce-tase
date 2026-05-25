@@ -4279,6 +4279,54 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V138 Post-V137 Completion Gate
+
+### Classified margin separation as non-evidence readiness
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_post_v137_completion_gate.py`
+- Runs:
+  - `runs/post_v137_completion_gate/20260525T125000`
+- Report:
+  - `reports/post_v137_completion_gate_report.md`
+- Tests:
+  - `tests/test_post_v137_completion_gate.py`
+- Command:
+  `python3 scripts/audit_post_v137_completion_gate.py --run-id 20260525T125000`
+- Tracked lightweight artifacts:
+  post-v137 completion gate top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The post-v137 completion gate passes while authorizing nothing:
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  `do_not_mark_goal_complete = true`, top blocker
+  `approved_read_only_calibration_evidence`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, accepted orientation reviews `0`,
+  accepted contact/setup-target reviews `0`, strict terminal pass count `0`,
+  closed robustness cells `0`, hardware gate report false, readiness artifact
+  count `4`, `readiness_completion_evidence_ids = []`,
+  `readiness_artifacts_are_non_evidence = true`,
+  `finalization_rehearsal_is_non_evidence = true`,
+  `margin_separation_is_non_evidence = true`, strict/diagnostic orientation
+  ratio `59.31389790209757`,
+  `margin_v85_can_close_strict_paper_equivalent_goal = false`, and
+  `margin_replacement_gate_accepted = false`.
+- Validation:
+  Focused tests passed with `4 passed in 0.43s`; full tests passed with
+  `259 passed in 30.32s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline completion
+  gate bookkeeping only; it does not approve any packet, authorize live
+  access, authorize execution, create repository approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

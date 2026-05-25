@@ -5509,3 +5509,57 @@
   approval, continue only non-final offline work that does not repeat the
   v113-v116 strict-feasibility families over the same accepted model and
   seeds.
+
+## 2026-05-25 v138 Post-V137 Completion Gate
+
+### Keep margin separation separate from completion evidence
+
+- Branch:
+  `exp/tase-ur10e-v138-post-margin-completion-gate`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/post_v137_completion_gate/20260525T125000`
+- Report:
+  `reports/post_v137_completion_gate_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v137_completion_gate.py`
+  - `scripts/run_tests.sh tests/test_post_v137_completion_gate.py`
+  - `python3 scripts/audit_post_v137_completion_gate.py --run-id 20260525T125000`
+- Result:
+  V138 adds an offline post-v137 completion gate. It scans the actual current
+  read-only evidence, review, strict terminal, robustness, and hardware-gate
+  paths, then classifies not-approved packet coverage, execution preflight,
+  finalization rehearsal, and strict-vs-diagnostic margin separation as
+  non-evidence readiness artifacts. The audit reports `audit_passed = true`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  `do_not_mark_goal_complete = true`, top blocker
+  `approved_read_only_calibration_evidence`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, accepted orientation reviews `0`,
+  accepted contact/setup-target reviews `0`, strict terminal pass count `0`,
+  closed robustness cells `0`, hardware gate report false, readiness artifact
+  count `4`, `readiness_completion_evidence_ids = []`,
+  `readiness_artifacts_are_non_evidence = true`,
+  `finalization_rehearsal_is_non_evidence = true`,
+  `margin_separation_is_non_evidence = true`,
+  strict/diagnostic orientation ratio `59.31389790209757`,
+  `margin_v85_can_close_strict_paper_equivalent_goal = false`, and
+  `margin_replacement_gate_accepted = false`.
+- Limit:
+  This is offline completion-gate bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.43s`; full tests passed with
+  `259 passed in 30.32s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Next step:
+  If the user later gives explicit approval, use one exact registered approval
+  packet, fill only valid rows for that step's worksheet scope, finalize with
+  the exact registered step ID, and audit in approved-read-only mode. Without
+  approval, continue only non-final offline work that does not repeat the
+  v113-v116 strict-feasibility families over the same accepted model and
+  seeds.

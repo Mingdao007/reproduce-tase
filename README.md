@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v137-strict-diagnostic-margin-separation`
+Current branch: `exp/tase-ur10e-v138-post-margin-completion-gate`
 
 ## Scope
 
@@ -129,13 +129,14 @@ remaining miss to a small orientation-model margin rather than qdot: the
 critical weighted rows exceed `0.119 rad` by less than `0.00057 rad` with
 `0.0` qdot saturation, while the earlier contact-point versus legacy-center
 geometry convention changes +1.0 mm terminal orientation by about `0.024 rad`.
-v85-v137 turn that margin into read-only evidence requirements, not-approved
+v85-v138 turn that margin into read-only evidence requirements, not-approved
 approval packets, preflight readiness checks, sequence/acceptance boundaries,
 phase1/downstream row-quality guards, and a non-persistent finalization
 rehearsal boundary with a post-rehearsal completion gate and a
-strict-vs-diagnostic margin separation audit. These artifacts do not approve
-live access, create approved calibration evidence, or close strict
-paper-equivalent, robustness, or hardware-readiness gates.
+strict-vs-diagnostic margin separation audit plus a post-margin completion
+gate. These artifacts do not approve live access, create approved calibration
+evidence, or close strict paper-equivalent, robustness, or hardware-readiness
+gates.
 
 ## Test Command
 
