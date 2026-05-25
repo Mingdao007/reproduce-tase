@@ -1,0 +1,95 @@
+{
+  "run_source": "calibrated MuJoCo MJCF replay audit after v147",
+  "audit_run_id": "20260525T212000",
+  "source_files": {
+    "config": "configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml",
+    "mjcf": "assets/mjcf/ur10e_calibrated_20260525T1641_tcp_offset.xml",
+    "seed": "data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml",
+    "previous_calibrated_urdf_fk": "runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "mujoco_model_loads": true,
+    "model_nq": 6,
+    "model_nv": 6,
+    "model_nbody": 11,
+    "model_nsite": 1,
+    "calibrated_mjcf_replay_matches_rtde_tcp": true,
+    "position_error_m": 2.016003536429377e-06,
+    "orientation_error_rad": 6.278799181396437e-06,
+    "joint_limit_violation_rad": 0.0,
+    "position_tolerance_m": 0.0001,
+    "orientation_tolerance_rad": 0.0001,
+    "site_name": "tcp_site_live_offset_122p54mm",
+    "tcp_offset_z_m": 0.12254000000000001,
+    "payload_kg": 0.44,
+    "simulation_can_use_calibrated_mjcf_seed": true,
+    "approved_read_only_evidence_claim": false,
+    "contact_setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "hardware_readiness_claim": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "replay": {
+    "actual_q_rad": [
+      0.7058797478675842,
+      -1.681310316125387,
+      -2.5494725704193115,
+      -0.4866345685771485,
+      1.5723538398742676,
+      -0.867556397114889
+    ],
+    "actual_q_deg": [
+      40.44393039657125,
+      -96.33198516579093,
+      -146.0740182693961,
+      -27.88210694464024,
+      90.08923892598439,
+      -49.707320044258765
+    ],
+    "sim_tcp_position_m": [
+      0.45619207276771306,
+      0.16055309891221037,
+      0.044663962326398465
+    ],
+    "rtde_tcp_position_m": [
+      0.4561937863181124,
+      0.16055373507071327,
+      0.044664812807231266
+    ],
+    "position_error_vector_m": [
+      -1.7135503993515044e-06,
+      -6.361585029035499e-07,
+      -8.504808328008151e-07
+    ],
+    "orientation_error_rotvec": [
+      2.4979641774948985e-06,
+      -5.742836847479758e-06,
+      -4.5090916101312026e-07
+    ]
+  },
+  "claim_boundary": {
+    "offline_mujoco_kinematic_replay_only": true,
+    "live_hardware_accessed_by_this_audit": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Use this calibrated MJCF for the next offline simulation seed instead of the old nominal primitive.",
+    "Add contact plane/contact patch only after the contact/setup-target convention is accepted.",
+    "Keep strict feasibility and robustness labels non-final until contact/gate dependencies are closed."
+  ],
+  "output_dir": "/home/andy/reproduce-tase/runs/calibrated_mjcf_replay_after_v147/20260525T212000"
+}

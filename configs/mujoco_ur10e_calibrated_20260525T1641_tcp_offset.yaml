@@ -1,0 +1,30 @@
+v1:
+  model_status: "v147_calibrated_urdf_kinematic_mjcf_from_readable_state_backup"
+  tcp_status: "live_ur_tcp_offset_0p12254m_replayed_as_tool0_plus_z_offset"
+  claim_boundary: "offline_kinematic_sim_seed_only_not_contact_or_hardware_evidence"
+
+ur10e_mujoco:
+  mjcf_path: "assets/mjcf/ur10e_calibrated_20260525T1641_tcp_offset.xml"
+  source_urdf_path: "assets/urdf/ur10e_calibrated_20260525T1641.urdf"
+  source_seed_path: "data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml"
+  source_calibration_path: "data/ur10e_real_snapshot_20260525T1641/ur10e_calibration.yaml"
+  timestep_s: 0.002
+  smoke_duration_s: 2.0
+  tcp_site: "tcp_site_live_offset_122p54mm"
+  tcp_offset_m_axis_angle: [0.0, 0.0, 0.12254000000000001, 0.0, 0.0, 0.0]
+  payload_kg: 0.44
+  payload_cog_m: [0.005, -0.005, 0.025]
+  joint_names:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
+  joint_limit_rad:
+    source: "ur_description_joint_limits_for_ur10e"
+    lower: [-6.283185307179586, -6.283185307179586, -3.141592653589793, -6.283185307179586, -6.283185307179586, -6.283185307179586]
+    upper: [6.283185307179586, 6.283185307179586, 3.141592653589793, 6.283185307179586, 6.283185307179586, 6.283185307179586]
+  contact:
+    status: "not_defined"
+    reason: "This MJCF intentionally proves calibrated kinematic replay only; contact plane, contact patch, and force source remain separate unresolved requirements."

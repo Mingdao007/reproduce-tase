@@ -1,0 +1,157 @@
+{
+  "run_source": "current real UR10e readable-state simulation seed audit after v146",
+  "audit_run_id": "20260525T210000",
+  "source_files": {
+    "repo_seed": "data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml",
+    "repo_calibration": "data/ur10e_real_snapshot_20260525T1641/ur10e_calibration.yaml",
+    "config": "configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+    "v146_offline_blocker_boundary": "runs/post_v145_offline_blocker_boundary/20260525T200000/metrics.yaml",
+    "external_backup_root": "/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "current_robot_state_backed_up": true,
+    "repo_local_sim_seed_available": true,
+    "repo_local_calibration_available": true,
+    "external_backup_root_exists": true,
+    "external_backup_required_files_present_count": 4,
+    "external_backup_required_file_count": 4,
+    "offline_simulation_can_continue_from_seed": true,
+    "current_pose_replay_in_nominal_mujoco_complete": true,
+    "joint_limit_violation_rad": 0.0,
+    "nominal_mujoco_to_rtde_tcp_position_error_m": 1.1351349451303372,
+    "nominal_mujoco_to_rtde_tcp_orientation_error_rad": 2.840514162594206,
+    "calibration_hash": "calib_7367377276742883610",
+    "payload_kg": 0.44,
+    "tcp_offset_z_m": 0.12254000000000001,
+    "model_tcp_guess_z_m": -0.085,
+    "approved_read_only_evidence_claim": false,
+    "contact_setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "hardware_readiness_claim": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "seed_snapshot": {
+    "captured_wall": "2026-05-25T16:41:25",
+    "actual_q_rad": [
+      0.7058797478675842,
+      -1.681310316125387,
+      -2.5494725704193115,
+      -0.4866345685771485,
+      1.5723538398742676,
+      -0.867556397114889
+    ],
+    "actual_q_deg": [
+      40.44393039657125,
+      -96.33198516579093,
+      -146.0740182693961,
+      -27.88210694464024,
+      90.08923892598439,
+      -49.707320044258765
+    ],
+    "actual_tcp_pose_m_axis_angle": [
+      0.4561937863181124,
+      0.16055373507071327,
+      0.044664812807231266,
+      3.1374700419770174,
+      0.007051636876497421,
+      -0.006273548913546367
+    ],
+    "actual_tcp_force_N_Nm": [
+      0.4323903831010829,
+      0.24560844413325422,
+      -3.978839426174607,
+      -0.0008496220946268611,
+      0.003756538854385925,
+      -0.013566411393350974
+    ],
+    "payload_kg": 0.44,
+    "payload_cog_m": [
+      0.005,
+      -0.005,
+      0.025
+    ],
+    "tcp_offset_m_axis_angle": [
+      0.0,
+      0.0,
+      0.12254000000000001,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "mujoco_replay": {
+    "model_path": "assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+    "site_name": "tcp_site_unverified_85mm",
+    "sim_tcp_position_m": [
+      -0.3023430977867437,
+      0.02317755363998648,
+      0.8779000280280365
+    ],
+    "rtde_tcp_position_m": [
+      0.4561937863181124,
+      0.16055373507071327,
+      0.044664812807231266
+    ],
+    "position_error_vector_m": [
+      -0.7585368841048561,
+      -0.1373761814307268,
+      0.8332352152208052
+    ],
+    "position_error_norm_m": 1.1351349451303372,
+    "orientation_error_rotvec": [
+      2.4489331107382255,
+      -1.1255455772821032,
+      -0.8968804159356795
+    ],
+    "orientation_error_norm_rad": 2.840514162594206,
+    "joint_limit_violation_rad": 0.0,
+    "tcp_convention_note": "The repo MJCF still uses the unverified 85 mm TCP/contact convention; the live UR TCP offset readback is a separate working configuration and is not accepted as a contact model."
+  },
+  "backup_artifacts": {
+    "external_required_files": [
+      {
+        "path": "/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup/report.md",
+        "exists": true
+      },
+      {
+        "path": "/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup/simulation_inputs/current_ur10e_sim_seed.yaml",
+        "exists": true
+      },
+      {
+        "path": "/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup/calibration/ur10e_calibration_20260525T1641.yaml",
+        "exists": true
+      },
+      {
+        "path": "/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup/diagnostics/rtde_sim_state_once.json",
+        "exists": true
+      }
+    ],
+    "repo_seed_exists": true,
+    "repo_calibration_exists": true
+  },
+  "claim_boundary": {
+    "offline_audit_only": true,
+    "new_live_hardware_access_in_repo": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Use the repo-local seed and calibration for offline simulation initialization.",
+    "Do not treat the backed-up force traces as contact-model or force-control validation.",
+    "Continue strict terminal feasibility or robustness only as non-final offline simulation work."
+  ],
+  "output_dir": "/home/andy/reproduce-tase/runs/current_real_snapshot_sim_seed_after_v146/20260525T210000"
+}

@@ -8,10 +8,10 @@ instructions into the goal text.
 
 ```text
 Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`.
-First read `docs/goal.md`, `docs/goal_handoff_v147.md`,
+First read `docs/goal.md`, `docs/goal_handoff_v148.md`,
 `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and
 `reports/DECISION_RECORD.md`; then inspect git status before changing
-anything. Preserve the current v146 claim boundary: formula-faithful Python
+anything. Preserve the current v147 claim boundary: formula-faithful Python
 paper-platform convergence and tuned Fig.6 landmark evidence remain separate,
 full paper-equivalent parity is not achieved, and the UR10e adapted line is
 diagnostic simulation only. V118-v123 establish that actual approved
@@ -59,20 +59,28 @@ unresolved (`strict_terminal_or_full_staged_feasibility` and
 as complete by that criterion.
 V146 confirms those two offline/non-final blockers still have no known safe
 non-repeating offline shortcut that can close the completion criterion.
+V147 backs up the currently readable UR10e / OnRobot state for offline
+simulation use and adds repo-local seed, calibration, calibrated URDF, and
+calibrated MuJoCo MJCF artifacts. The calibrated MJCF loads in MuJoCo and
+replays the backed-up RTDE TCP pose within `2.016003536429377e-06 m` and
+`6.278799181396437e-06 rad`, but this is offline kinematic seed
+infrastructure only: approved read-only evidence, contact/setup-target
+acceptance, orientation-gate acceptance, robustness proof, hardware readiness,
+and completion remain false.
 The next branch should execute only a safe read-only SOP subset after explicit
 user confirmation using one exact audited packet, the
 scaffold, finalizer, and verifier, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v146 audits. Use the
+simulation/paper-platform work identified by the v95-v147 audits. Use the
 v117 scaffold before accepting any contact/setup-target definition. Keep
 strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v146 diagnostic staged labels separate. Do not move or configure the real
+v63-v147 diagnostic staged labels separate. Do not move or configure the real
 UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v146` repository state. The project goal is to reproduce the T-ASE finite-time
+`v147` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -93,7 +101,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v146-offline-blocker-boundary`
+  `exp/tase-ur10e-v147-readable-state-sim-seed`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -395,12 +403,23 @@ Read and audit these files before making assumptions:
   `tests/test_post_v145_offline_blocker_boundary.py`
   `runs/post_v145_offline_blocker_boundary/20260525T200000`
   `reports/post_v145_offline_blocker_boundary_report.md`
+- Current v147 readable-state simulation seed artifacts:
+  `scripts/audit_current_real_snapshot_sim_seed_after_v146.py`
+  `tests/test_current_real_snapshot_sim_seed_after_v146.py`
+  `runs/current_real_snapshot_sim_seed_after_v146/20260525T210000`
+  `scripts/audit_calibrated_urdf_fk_snapshot_after_v147.py`
+  `tests/test_calibrated_urdf_fk_snapshot_after_v147.py`
+  `runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000`
+  `scripts/audit_calibrated_mjcf_replay_after_v147.py`
+  `tests/test_calibrated_mjcf_replay_after_v147.py`
+  `runs/calibrated_mjcf_replay_after_v147/20260525T212000`
+  `reports/readable_state_sim_seed_v147_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v147.md`
+  `docs/goal_handoff_v148.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -1008,6 +1027,30 @@ Current accepted claims:
   reports `completion_closing_offline_shortcut_count = 0`,
   `safe_nonrepeating_completion_action_available = false`, and
   `do_not_mark_goal_complete = true`.
+- `current_real_snapshot_sim_seed_after_v146`: v147 backs up the current
+  readable UR10e / OnRobot state and copies a lightweight repo-local simulation
+  seed and UR calibration snapshot. It reports
+  `current_robot_state_backed_up = true`,
+  `offline_simulation_can_continue_from_seed = true`,
+  `calibration_hash = calib_7367377276742883610`,
+  `nominal_mujoco_to_rtde_tcp_position_error_m = 1.1351349451303372`,
+  `nominal_mujoco_to_rtde_tcp_orientation_error_rad = 2.840514162594206`,
+  and `do_not_mark_goal_complete = true`.
+- `calibrated_urdf_fk_snapshot_after_v147`: v147 verifies the generated
+  calibrated URDF plus live TCP offset frame against the backed-up RTDE TCP
+  pose. It reports `calibrated_urdf_fk_matches_rtde_tcp = true`,
+  `best_frame_id = tool0_plus_live_tcp_offset_z`,
+  `best_position_error_m = 2.0160035361820057e-06`,
+  `best_orientation_error_rad = 6.278799181278485e-06`, and
+  `do_not_mark_goal_complete = true`.
+- `calibrated_mjcf_replay_after_v147`: v147 verifies that the simplified
+  calibrated MJCF loads in MuJoCo and replays the backed-up RTDE TCP pose. It
+  reports `mujoco_model_loads = true`,
+  `calibrated_mjcf_replay_matches_rtde_tcp = true`,
+  `position_error_m = 2.016003536429377e-06`,
+  `orientation_error_rad = 6.278799181396437e-06`,
+  `simulation_can_use_calibrated_mjcf_seed = true`, and
+  `do_not_mark_goal_complete = true`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -1017,12 +1060,15 @@ precision. Future work must still keep these claim levels separate.
 
 Current next executable step:
 
-- Continue UR10e adapted work by executing only a safe read-only SOP subset
+- Continue UR10e adapted work by using the calibrated v147 MuJoCo seed for
+  offline kinematic simulation setup, then adding contact/setup-target
+  assumptions only through the existing acceptance path; or execute only a safe
+  read-only SOP subset
   after explicit user confirmation, using one audited v120/v121 packet for a
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122/v135 preflight and rehearsal path for evidence
   capture; or continue only non-final offline simulation/paper-platform work
-  identified by the v95-v146 blocker
+  identified by the v95-v147 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
@@ -1032,7 +1078,7 @@ Current next executable step:
   Do not rerun gate-blocked robustness rows as closure evidence before
   approved contact/gate evidence exists.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v146 diagnostic staged labels separate.
+  v63-v147 diagnostic staged labels separate.
 
 ## Safety Boundary
 

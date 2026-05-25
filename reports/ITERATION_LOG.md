@@ -5966,3 +5966,60 @@
   approved-read-only audit. Without exact approval, continue only non-final
   offline work and do not repeat v113-v116 or gate-blocked robustness rows as
   closure evidence.
+
+## 2026-05-25 v147 Readable-State Simulation Seed
+
+### Back up readable real state and create a calibrated offline MuJoCo seed
+
+- Branch:
+  `exp/tase-ur10e-v147-readable-state-sim-seed`
+- Runs:
+  - `runs/current_real_snapshot_sim_seed_after_v146/20260525T210000`
+  - `runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000`
+  - `runs/calibrated_mjcf_replay_after_v147/20260525T212000`
+- Report:
+  `reports/readable_state_sim_seed_v147_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_current_real_snapshot_sim_seed_after_v146.py`
+  - `scripts/run_tests.sh tests/test_current_real_snapshot_sim_seed_after_v146.py`
+  - `scripts/run_tests.sh tests/test_calibrated_urdf_fk_snapshot_after_v147.py`
+  - `scripts/run_tests.sh tests/test_calibrated_mjcf_replay_after_v147.py`
+  - `scripts/run_tests.sh`
+- Result:
+  V147 backs up the currently readable UR10e / OnRobot state under
+  `/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup`
+  and copies lightweight seed/calibration inputs into
+  `data/ur10e_real_snapshot_20260525T1641/`. It records calibration hash
+  `calib_7367377276742883610`, payload `0.44 kg`, TCP offset z
+  `0.12254000000000001 m`, and the backed-up RTDE joint/TCP pose. The first
+  audit reports the old nominal MuJoCo primitive misses the RTDE TCP pose by
+  `1.1351349451303372 m` and `2.840514162594206 rad`.
+
+  V147 then generates a calibrated URDF and simplified calibrated MJCF with the
+  live TCP offset. The calibrated URDF FK audit reports
+  `best_frame_id = tool0_plus_live_tcp_offset_z`,
+  `best_position_error_m = 2.0160035361820057e-06`, and
+  `best_orientation_error_rad = 6.278799181278485e-06`. The calibrated MJCF
+  replay audit loads in MuJoCo and reports
+  `position_error_m = 2.016003536429377e-06`,
+  `orientation_error_rad = 6.278799181396437e-06`, and
+  `simulation_can_use_calibrated_mjcf_seed = true`.
+- Limit:
+  This is readable-state backup and offline kinematic simulation seed
+  infrastructure only. It is not approved read-only calibration evidence, does
+  not approve any SOP packet, does not authorize live execution, does not
+  accept a contact model or setup target, does not relax an orientation gate,
+  does not prove strict paper-equivalent feasibility, does not prove
+  robustness, does not establish hardware readiness, and does not close the
+  completion gate.
+- Validation:
+  Focused tests passed with `4 passed`, `5 passed`, and `4 passed`; full tests
+  passed with `304 passed in 32.86s`; YAML anchor check found no anchors in the
+  new metrics/data/config YAML files; raw/heavy artifact scan found no payloads
+  in the new lightweight artifacts; `git diff --check` passed.
+- Next step:
+  Use `configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml` as the
+  offline kinematic basis for the next simulation step. Add contact
+  plane/contact patch/force-frame assumptions only through the existing
+  contact/setup-target acceptance path, or execute a read-only SOP step only
+  after exact user approval.
