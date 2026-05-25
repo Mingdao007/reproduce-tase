@@ -3878,6 +3878,8 @@ Legacy source root:
 
 ### Frozen the selected phase1 packet request without approval
 
+- Implementation commit:
+  `4bf07b2373af781eb35b20d13862afd9c5330907`
 - Scripts:
   - `scripts/audit_read_only_phase1_approval_request_freeze.py`
 - Runs:

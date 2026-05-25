@@ -74,6 +74,12 @@ Expected branch:
 exp/tase-ur10e-v129-readonly-phase1-approval-request-freeze
 ```
 
+Verified implementation commit:
+
+```text
+4bf07b2373af781eb35b20d13862afd9c5330907
+```
+
 V129 artifacts:
 
 ```text

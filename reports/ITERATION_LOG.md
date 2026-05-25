@@ -5090,6 +5090,8 @@
 
 - Branch:
   `exp/tase-ur10e-v129-readonly-phase1-approval-request-freeze`
+- Implementation commit:
+  `4bf07b2373af781eb35b20d13862afd9c5330907`
 - Runs:
   - `runs/read_only_phase1_approval_request_freeze/20260525T112000`
 - Report:
