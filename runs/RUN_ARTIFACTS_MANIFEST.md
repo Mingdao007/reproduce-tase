@@ -4853,6 +4853,51 @@ Legacy source root:
   robustness, establish hardware readiness, close completion, or authorize
   hardware work.
 
+## V150 Calibrated Overlay Force Response
+
+### Ran a target-only diagnostic force-response ladder
+
+- Scripts:
+  - `scripts/audit_calibrated_overlay_force_response_after_v149.py`
+- Runs:
+  - `runs/calibrated_overlay_force_response_after_v149/20260525T230000`
+- Report:
+  - `reports/calibrated_overlay_force_response_v150_report.md`
+- Tests:
+  - `tests/test_calibrated_overlay_force_response_after_v149.py`
+- Command:
+  `python3 scripts/audit_calibrated_overlay_force_response_after_v149.py --run-id 20260525T230000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, script, handoff, and updated planning/decision/manifest
+  documentation.
+- Result:
+  The force-response ladder audit passes with
+  `force_response_ladder_passed = true`, `row_count = 7`,
+  `clean_target_contact_all_rows = true`,
+  `zero_penetration_force_ok = true`,
+  `positive_penetration_force_positive = true`,
+  `target_force_monotonic_nondecreasing = true`,
+  `positive_target_force_strictly_increasing = true`,
+  `contact_distance_matches_penetration = true`,
+  `min_positive_force_N = 7.432339543010282`,
+  `force_at_1mm_N = 11.078794158483424`,
+  `max_force_N = 14.36943859842967`,
+  `diagnostic_overlay_acceptance_status = not_accepted`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; full tests passed with
+  `312 passed in 33.58s`; YAML anchor scan found no anchors in the v150
+  force-response metrics; raw/heavy artifact scan found no payloads in the
+  v150 run artifact; `git diff --check` passed.
+- Limit:
+  This is offline diagnostic force-response evidence only. It does not create
+  approved read-only calibration evidence, approve any packet, authorize live
+  access or execution, accept a contact model or setup target, relax an
+  orientation gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

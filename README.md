@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v149-overlay-collision-mask`
+Current branch: `exp/tase-ur10e-v150-overlay-force-response`
 
 ## Scope
 
@@ -165,6 +165,10 @@ and not accepted contact/setup-target evidence. V149 fixes the overlay contact
 mask so visual/primitive geoms cannot contaminate the plane contact: at the
 seed pose the target plane/tip pair count is `1`, non-target contacts are `0`,
 and a 1 mm diagnostic activation probe produces only the target contact pair.
+V150 runs a clean offline diagnostic force-response ladder on that overlay:
+all seven rows use only the target contact pair, target force is monotonic,
+and the 1 mm penetration row produces `11.078794158483424 N`. The ladder is
+still diagnostic-only and not accepted contact/setup-target evidence.
 
 ## Test Command
 
