@@ -4284,7 +4284,7 @@ Legacy source root:
 ### Classified margin separation as non-evidence readiness
 
 - Implementation commit:
-  `TBD`
+  `da2f7bee8a21b60b583e1824a6f7108c2e782b65`
 - Scripts:
   - `scripts/audit_post_v137_completion_gate.py`
 - Runs:
