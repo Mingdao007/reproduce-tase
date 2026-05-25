@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v143-post-v142-completion-gate`
+Branch: `exp/tase-ur10e-v144-phase1-packet-freshness`
 
 ## Objective Restatement
 
@@ -326,6 +326,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_post_v142_completion_gate.py`
 - `runs/post_v142_completion_gate/20260525T170000/metrics.yaml`
 - `reports/post_v142_completion_gate_report.md`
+- `scripts/audit_phase1_packet_freshness_after_v143.py`
+- `runs/phase1_packet_freshness_after_v143/20260525T180000/metrics.yaml`
+- `reports/phase1_packet_freshness_after_v143_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -339,17 +342,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v143 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v143 is on `exp/tase-ur10e-v143-post-v142-completion-gate` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v143-post-v142-completion-gate`; latest local branch is `exp/tase-ur10e-v143-post-v142-completion-gate` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v144 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v144 is on `exp/tase-ur10e-v144-phase1-packet-freshness` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v144-phase1-packet-freshness`; latest local branch is `exp/tase-ur10e-v144-phase1-packet-freshness` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v143 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D148 as of v143 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v144 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D149 as of v144 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v143 validation: py_compile for the post-v142 completion gate passed; focused tests reported `4 passed in 0.48s`; full tests reported `279 passed in 31.37s`; YAML anchor scan found no anchors in the v143 generated metrics; raw/heavy artifact scan found no payloads in the v143 run artifact; `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v144 validation: py_compile for the phase1 packet freshness audit passed; focused tests reported `4 passed in 0.20s`; full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check` are pending final closeout; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -381,6 +384,7 @@ The objective has two separate technical claim levels:
 | Post-v140 completion gate | `scripts/audit_post_v140_completion_gate.py`, `tests/test_post_v140_completion_gate.py`, `reports/post_v140_completion_gate_report.md`, `runs/post_v140_completion_gate/20260525T150000/metrics.yaml` | v141 confirms v139 status and v140 continuation-boundary artifacts are non-evidence; readiness artifact count is `6`, readiness completion evidence IDs are empty, approved read-only evidence remains `0`, and completion remains false |
 | Robustness dependency frontier after v141 | `scripts/audit_robustness_dependency_frontier_after_v141.py`, `tests/test_robustness_dependency_frontier_after_v141.py`, `reports/robustness_dependency_frontier_after_v141_report.md`, `runs/robustness_dependency_frontier_after_v141/20260525T160000/metrics.yaml` | v142 classifies the four remaining failed robustness cells without closing any: `base_z_plus1mm` and `positive_fast_timing_0p0075` are noncanonical profile-overlay diagnostics, `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain gate/contact blocked, `new_simulation_selected = false`, and completion remains false |
 | Post-v142 completion gate | `scripts/audit_post_v142_completion_gate.py`, `tests/test_post_v142_completion_gate.py`, `reports/post_v142_completion_gate_report.md`, `runs/post_v142_completion_gate/20260525T170000/metrics.yaml` | v143 confirms the v142 robustness frontier is non-evidence; readiness artifact count is `7`, readiness completion evidence IDs are empty, `robustness_frontier_is_non_evidence = true`, approved read-only evidence remains `0`, and completion remains false |
+| Phase1 packet freshness after v143 | `scripts/audit_phase1_packet_freshness_after_v143.py`, `tests/test_phase1_packet_freshness_after_v143.py`, `reports/phase1_packet_freshness_after_v143_report.md`, `runs/phase1_packet_freshness_after_v143/20260525T180000/metrics.yaml` | v144 confirms the exact phase1 packet remains fresh and not approved; registry scope still matches, packet hash is unchanged, approved read-only runs and audits remain `0`, no approval record or approved evidence is created, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -2380,6 +2384,9 @@ and robustness remains unproved.
 V143 then scans completion state after v142 and classifies that robustness
 frontier as non-evidence, keeping readiness completion evidence IDs empty and
 approved read-only evidence at `0`.
+V144 then confirms the exact phase1 approval packet is still fresh and not
+approved: registry scope matches the frozen packet, the packet hash is
+unchanged, no approval record exists, and live access/execution remain false.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -2392,7 +2399,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v143 blocker and
+offline simulation/paper-platform work identified by the v95-v144 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -2478,11 +2485,13 @@ profile-overlay diagnostics and gate/contact blocked rows, with zero closed
 failed cells, and still cannot close the goal.
 V143 confirms the v142 frontier is non-evidence and still cannot close the
 completion gate.
+V144 confirms the phase1 packet is fresh but still not approved and still
+cannot authorize live access or execution.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v143 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v144 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

@@ -5825,3 +5825,54 @@
   offline work. Do not upgrade the v142 frontier rows into robustness
   evidence, and do not rerun gate-blocked cells as closure evidence before
   approved contact/gate evidence exists.
+
+## 2026-05-25 v144 Phase1 Packet Freshness After V143
+
+### Verify the first read-only approval packet remains current but not approved
+
+- Branch:
+  `exp/tase-ur10e-v144-phase1-packet-freshness`
+- Implementation commit:
+  `TBD pending final closeout`
+- Runs:
+  - `runs/phase1_packet_freshness_after_v143/20260525T180000`
+- Report:
+  `reports/phase1_packet_freshness_after_v143_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_phase1_packet_freshness_after_v143.py`
+  - `scripts/run_tests.sh tests/test_phase1_packet_freshness_after_v143.py`
+  - `python3 scripts/audit_phase1_packet_freshness_after_v143.py --run-id 20260525T180000`
+- Result:
+  V144 adds an offline freshness audit for the exact first phase1 read-only
+  approval packet after the v143 completion gate. It compares the current
+  registry, v129 frozen approval request, current packet metrics, packet
+  audit, packet Markdown hash, and v143 completion gate. The audit reports
+  `audit_passed = true`, `phase1_packet_fresh = true`,
+  `registry_matches_frozen_packet = true`, `packet_hash_unchanged = true`,
+  frozen step `phase1_mounted_stack_tcp_contact_measurement`, frozen
+  worksheet `tcp_contact_measurements.csv`, required phrase
+  `I approve this read-only measurement step`,
+  `phase1_packet_still_not_approved = true`,
+  `post_v143_completion_gate_binding = true`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, `readiness_completion_evidence_ids =
+  []`, `approval_record_created = false`, `live_access_authorized_now =
+  false`, `execution_authorized_now = false`,
+  `approved_read_only_evidence_created = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline packet-freshness bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.20s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use this phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work and do not treat packet freshness as approval or completion
+  evidence.

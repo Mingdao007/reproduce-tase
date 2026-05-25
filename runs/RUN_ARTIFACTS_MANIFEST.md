@@ -4562,6 +4562,52 @@ Legacy source root:
   relax a gate, prove strict paper-equivalent feasibility, prove robustness,
   establish hardware readiness, or authorize hardware work.
 
+## V144 Phase1 Packet Freshness After V143
+
+### Verified the first read-only approval packet is fresh but still not approved
+
+- Implementation commit:
+  `TBD pending final closeout`
+- Scripts:
+  - `scripts/audit_phase1_packet_freshness_after_v143.py`
+- Runs:
+  - `runs/phase1_packet_freshness_after_v143/20260525T180000`
+- Report:
+  - `reports/phase1_packet_freshness_after_v143_report.md`
+- Tests:
+  - `tests/test_phase1_packet_freshness_after_v143.py`
+- Command:
+  `python3 scripts/audit_phase1_packet_freshness_after_v143.py --run-id 20260525T180000`
+- Tracked lightweight artifacts:
+  phase1 packet freshness top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, handoff, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The packet freshness audit passes while authorizing nothing:
+  `phase1_packet_fresh = true`, `registry_matches_frozen_packet = true`,
+  `packet_hash_unchanged = true`,
+  `frozen_step_id = phase1_mounted_stack_tcp_contact_measurement`,
+  `frozen_worksheet = tcp_contact_measurements.csv`,
+  `approval_phrase_required = I approve this read-only measurement step`,
+  `phase1_packet_still_not_approved = true`,
+  `post_v143_completion_gate_binding = true`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, `readiness_completion_evidence_ids =
+  []`, `approval_record_created = false`, `live_access_authorized_now =
+  false`, `execution_authorized_now = false`,
+  `approved_read_only_evidence_created = false`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.20s`. Full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is packet-freshness
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

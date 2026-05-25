@@ -3162,6 +3162,30 @@
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## D149: Packet Freshness Must Not Be Treated As Approval
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v144 as an offline freshness audit for the exact first phase1 read-only
+  approval packet after the v143 completion gate.
+- Reason:
+  The phase1 packet was frozen many iterations before v143. Before any future
+  user approval or continuation can safely rely on it, the repository needs a
+  machine-readable check that the packet hash, registry scope, worksheet, and
+  exact approval phrase still match the frozen request, while still rejecting
+  any drift toward approved/executed evidence claims.
+- Consequence:
+  V144 confirms the packet remains fresh and still not approved:
+  `phase1_packet_fresh = true`, `packet_hash_unchanged = true`,
+  `registry_matches_frozen_packet = true`, approved read-only runs `0`, passed
+  approved-read-only audits `0`, no approval record, no live access
+  authorization, no execution authorization, and no approved evidence. V144
+  does not collect live evidence, approve a packet, authorize live access,
+  authorize execution, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v143-post-v142-completion-gate`
+Current branch: `exp/tase-ur10e-v144-phase1-packet-freshness`
 
 ## Scope
 
@@ -144,7 +144,8 @@ gate/contact blocked, with zero closed robustness cells. These artifacts do
 not approve live access, create approved calibration evidence, or close strict
 paper-equivalent, robustness, or hardware-readiness gates. V143 confirms the
 v142 robustness frontier is also non-evidence and still cannot close the
-completion gate.
+completion gate. V144 confirms the exact phase1 approval packet remains fresh
+and not approved, with the same hash, exact phrase, and worksheet scope.
 
 ## Test Command
 

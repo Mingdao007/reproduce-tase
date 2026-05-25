@@ -1,0 +1,198 @@
+run_source: phase1 packet freshness after v143 audit
+audit_run_id: 20260525T180000
+source_files:
+  registry: configs/read_only_sop_step_registry.yaml
+  phase1_approval_request_freeze: runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml
+  post_v143_completion_gate: runs/post_v142_completion_gate/20260525T170000/metrics.yaml
+  read_only_next_step_selection: runs/read_only_next_step_selection/20260525T111000/metrics.yaml
+  phase1_packet_metrics: runs/read_only_step_approval_packet/20260525T095500/metrics.yaml
+  phase1_packet_audit: runs/read_only_step_approval_packet_audit/20260525T095501/metrics.yaml
+  phase1_packet_markdown: runs/read_only_step_approval_packet/20260525T095500/approval_packet.md
+summary:
+  audit_passed: true
+  violations: []
+  phase1_packet_fresh: true
+  registry_matches_frozen_packet: true
+  packet_hash_unchanged: true
+  frozen_packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+  current_packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+  frozen_step_id: phase1_mounted_stack_tcp_contact_measurement
+  frozen_worksheet: tcp_contact_measurements.csv
+  approval_phrase_required: I approve this read-only measurement step
+  exact_step_id_required: true
+  phase1_packet_still_not_approved: true
+  post_v143_completion_gate_binding: true
+  approved_read_only_run_count: 0
+  approved_read_only_audit_passed_count: 0
+  readiness_completion_evidence_ids: []
+  approval_record_created: false
+  live_access_authorized_now: false
+  execution_authorized_now: false
+  approved_read_only_evidence_created: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+freshness_checks:
+  registry_phase1_step:
+    step_id: phase1_mounted_stack_tcp_contact_measurement
+    title: Mounted stack TCP/contact point read-only measurement
+    finalizer_eligible: true
+    allowed_worksheets:
+    - tcp_contact_measurements.csv
+    minimum_required_rows:
+      tcp_contact_measurements.csv: 1
+    live_hardware_access_allowed_if_user_approved: true
+    description: 'Record mounted TCP/contact datum measurements and associated instrument
+      metadata without moving the robot or writing configuration.
+
+      '
+    forbidden_actions:
+    - robot_motion
+    - force_control
+    - zeroing_or_biasing
+    - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+  frozen_approval_request:
+    approval_packet_status: not_approved
+    approval_request_text: 'Approve read-only step `phase1_mounted_stack_tcp_contact_measurement`
+      only with the exact phrase `I approve this read-only measurement step`. Worksheet
+      scope: `tcp_contact_measurements.csv`.'
+    required_confirmation_phrase: I approve this read-only measurement step
+    required_approved_step_id: phase1_mounted_stack_tcp_contact_measurement
+    allowed_worksheets:
+    - tcp_contact_measurements.csv
+    minimum_required_rows:
+      tcp_contact_measurements.csv: 1
+    forbidden_actions:
+    - robot_motion
+    - force_control
+    - zeroing_or_biasing
+    - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+    post_approval_command_plan:
+    - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+    - 'Fill only the approved worksheet(s): tcp_contact_measurements.csv; leave all
+      other worksheet CSVs empty.'
+    - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+      --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+      phase1_mounted_stack_tcp_contact_measurement --operator <operator> --live-hardware-accessed
+      <true|false>
+    - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+      --audit-mode approved-read-only --run-id <fresh_audit_id>
+    operator_must_be_recorded_at_finalization: true
+    live_hardware_accessed_metadata_required_at_finalization: true
+    fresh_scaffold_required_after_approval: true
+    approved_read_only_audit_required_after_finalization: true
+  current_phase1_freeze_summary:
+    audit_passed: true
+    violations: []
+    approval_request_freeze_complete: true
+    frozen_step_id: phase1_mounted_stack_tcp_contact_measurement
+    frozen_worksheet: tcp_contact_measurements.csv
+    approval_phrase_required: I approve this read-only measurement step
+    exact_step_id_required: true
+    packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+    packet_status: approval_packet_created_not_approved
+    packet_audit_passed: true
+    packet_approval_status: not_approved
+    approved_packet_count: 0
+    execution_authorizing_packet_count: 0
+    live_access_authorizing_packet_count: 0
+    approved_read_only_evidence_created: false
+    freeze_authorizes_live_access: false
+    freeze_authorizes_execution: false
+    freeze_creates_approved_evidence: false
+    overall_goal_complete: false
+    completion_claim_allowed: false
+    do_not_mark_goal_complete: true
+  current_packet_freeze:
+    packet_markdown_path: runs/read_only_step_approval_packet/20260525T095500/approval_packet.md
+    packet_markdown_sha256: 91d27eac0d13b988d989353614b0400e1149092af9a631b91f18794d9cdbe93d
+    packet_markdown_bytes: 1116
+    selected_step:
+      step_id: phase1_mounted_stack_tcp_contact_measurement
+      title: Mounted stack TCP/contact point read-only measurement
+      finalizer_eligible: true
+      allowed_worksheets:
+      - tcp_contact_measurements.csv
+      minimum_required_rows:
+        tcp_contact_measurements.csv: 1
+      live_hardware_access_allowed_if_user_approved: true
+      forbidden_actions:
+      - robot_motion
+      - force_control
+      - zeroing_or_biasing
+      - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+    approval_request:
+      approval_status: not_approved
+      required_confirmation_phrase: I approve this read-only measurement step
+      required_approved_step_id: phase1_mounted_stack_tcp_contact_measurement
+      operator: null
+      approved_at_utc: null
+      approval_source: null
+      packet_authorizes_execution: false
+      packet_authorizes_live_access: false
+  post_v143_gate_summary:
+    audit_passed: true
+    violations: []
+    overall_goal_complete: false
+    completion_claim_allowed: false
+    do_not_mark_goal_complete: true
+    top_blocker: approved_read_only_calibration_evidence
+    incomplete_requirement_count: 6
+    incomplete_requirement_ids:
+    - approved_read_only_calibration_evidence
+    - contact_setup_target_acceptance
+    - orientation_gate_acceptance
+    - strict_terminal_or_full_staged_feasibility
+    - robustness_to_contact_model_perturbations
+    - hardware_readiness
+    approved_read_only_run_count: 0
+    approved_read_only_audit_passed_count: 0
+    accepted_orientation_review_count: 0
+    accepted_contact_setup_target_review_count: 0
+    strict_terminal_pass_count: 0
+    closed_robustness_cell_count: 0
+    hardware_gate_report_exists: false
+    readiness_artifact_count: 7
+    readiness_completion_evidence_ids: []
+    readiness_artifacts_are_non_evidence: true
+    status_answer_is_non_evidence: true
+    continuation_boundary_is_non_evidence: true
+    robustness_frontier_is_non_evidence: true
+    v142_robustness_complete: false
+    v142_accepted_as_robustness_proof: false
+    v142_closed_cell_count: 0
+    v142_frontier_row_count: 4
+    v142_profile_overlay_supported_noncanonical_cell_ids:
+    - base_z_plus1mm
+    - positive_fast_timing_0p0075
+    v142_gate_or_contact_acceptance_blocked_cell_ids:
+    - positive_orientation_gate_0p119
+    - weighted_plus1mm_0p119_gate
+    v142_new_simulation_selected: false
+    v142_additional_failed_cell_execution_recommended: false
+claim_boundary:
+  freshness_audit_only: true
+  approval_record_created: false
+  approved_read_only_evidence: false
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  contact_calibration_claim: false
+  setup_target_acceptance_claim: false
+  orientation_gate_acceptance_claim: false
+  gate_relaxation_claim: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+next_actions:
+- Use this packet only if the user gives the exact approval phrase and exact phase1
+  step scope.
+- After approval, instantiate a fresh scaffold and fill only tcp_contact_measurements.csv
+  rows.
+- Without approval, continue only non-final offline work and do not create approved
+  evidence.
+audit_root: /home/andy/reproduce-tase/runs/phase1_packet_freshness_after_v143/20260525T180000
