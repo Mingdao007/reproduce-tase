@@ -1,0 +1,274 @@
+{
+  "run_source": "phase1 approved-read-only evidence acceptance boundary audit",
+  "audit_run_id": "20260525T114000",
+  "source_files": {
+    "read_only_evidence_dependency_map": "runs/read_only_evidence_dependency_map/20260525T110000/metrics.yaml",
+    "read_only_next_step_selection": "runs/read_only_next_step_selection/20260525T111000/metrics.yaml",
+    "phase1_approval_request_freeze": "runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml",
+    "phase1_preapproval_finalizer_guard": "runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml",
+    "post_v122_completion_gate": "runs/post_v122_completion_gate/20260525T102000/metrics.yaml"
+  },
+  "actual_scan_roots": {
+    "read_only_runs": "runs/read_only_calibration_measurement",
+    "read_only_audits": "runs/read_only_calibration_measurement_run_audit"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "phase1_acceptance_boundary_complete": true,
+    "source_artifact_count": 5,
+    "boundary_row_count": 6,
+    "completion_evidence_ids": [],
+    "readiness_artifacts_are_non_evidence": true,
+    "current_repository_scan_finds_no_approved_evidence": true,
+    "read_only_run_count": 3,
+    "read_only_audit_count": 4,
+    "approved_read_only_run_count": 0,
+    "phase1_approved_read_only_run_count": 0,
+    "read_only_evidence_finalization_present_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "phase1_approved_read_only_audit_passed_count": 0,
+    "selected_phase1_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+    "selected_phase1_worksheet": "tcp_contact_measurements.csv",
+    "approval_phrase_required": "I approve this read-only measurement step",
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "guard_rejected_case_count": 5,
+    "guard_scaffold_preserved_case_count": 5,
+    "guard_approved_evidence_created_count": 0,
+    "repository_evidence_run_created_by_guard": false,
+    "approved_read_only_evidence_created": false,
+    "explicit_user_approval_required": true,
+    "live_access_authorized": false,
+    "execution_authorized": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "boundary_rows": [
+    {
+      "artifact_id": "v127_dependency_map",
+      "status": "ready_not_evidence",
+      "completion_evidence": false,
+      "evidence": {
+        "mapped_readiness_check_count": 5,
+        "mapped_step_count": 5,
+        "packet_covered_step_count": 5,
+        "preflight_ready_step_count": 5,
+        "approved_packet_count": 0,
+        "approved_read_only_evidence_created": false
+      }
+    },
+    {
+      "artifact_id": "v128_next_step_selection",
+      "status": "selected_not_approved",
+      "completion_evidence": false,
+      "evidence": {
+        "candidate_step_count": 5,
+        "first_candidate_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+        "first_candidate_worksheet": "tcp_contact_measurements.csv",
+        "approval_phrase_required": "I approve this read-only measurement step",
+        "approved_read_only_evidence_created": false
+      }
+    },
+    {
+      "artifact_id": "v129_phase1_approval_request_freeze",
+      "status": "frozen_not_approved",
+      "completion_evidence": false,
+      "evidence": {
+        "frozen_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+        "frozen_worksheet": "tcp_contact_measurements.csv",
+        "packet_status": "approval_packet_created_not_approved",
+        "packet_approval_status": "not_approved",
+        "approved_read_only_evidence_created": false
+      }
+    },
+    {
+      "artifact_id": "v130_preapproval_finalizer_guard",
+      "status": "rejection_guard_passed_temp_only",
+      "completion_evidence": false,
+      "evidence": {
+        "case_count": 5,
+        "rejected_case_count": 5,
+        "scaffold_preserved_case_count": 5,
+        "approved_read_only_evidence_created_count": 0,
+        "repository_evidence_run_created": false
+      }
+    },
+    {
+      "artifact_id": "v123_post_v122_completion_gate",
+      "status": "historical_gate_incomplete",
+      "completion_evidence": false,
+      "evidence": {
+        "approved_read_only_run_count": 0,
+        "approved_read_only_audit_passed_count": 0,
+        "readiness_artifacts_are_non_evidence": true,
+        "completion_claim_allowed": false
+      }
+    },
+    {
+      "artifact_id": "current_repository_read_only_evidence_scan",
+      "status": "no_approved_evidence_found",
+      "completion_evidence": false,
+      "evidence": {
+        "run_count": 3,
+        "audit_count": 4,
+        "approved_read_only_run_count": 0,
+        "phase1_approved_read_only_run_count": 0,
+        "read_only_evidence_finalization_present_count": 0,
+        "approved_read_only_audit_passed_count": 0,
+        "phase1_approved_read_only_audit_passed_count": 0,
+        "no_approved_read_only_evidence_found": true
+      }
+    }
+  ],
+  "current_repository_scan": {
+    "read_only_run_root": "runs/read_only_calibration_measurement",
+    "read_only_audit_root": "runs/read_only_calibration_measurement_run_audit",
+    "run_count": 3,
+    "audit_count": 4,
+    "approved_read_only_run_count": 0,
+    "phase1_approved_read_only_run_count": 0,
+    "read_only_evidence_finalization_present_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "phase1_approved_read_only_audit_passed_count": 0,
+    "no_approved_read_only_evidence_found": true,
+    "run_rows": [
+      {
+        "run_id": "20260525T012234",
+        "path": "runs/read_only_calibration_measurement/20260525T012234/metrics.yaml",
+        "status": "scaffold_created_not_executed",
+        "user_confirmed_read_only_step": false,
+        "live_hardware_accessed": false,
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_evidence": false,
+        "is_phase1_approved_evidence": false
+      },
+      {
+        "run_id": "20260525T014755",
+        "path": "runs/read_only_calibration_measurement/20260525T014755/metrics.yaml",
+        "status": "scaffold_created_not_executed",
+        "user_confirmed_read_only_step": false,
+        "live_hardware_accessed": false,
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_evidence": false,
+        "is_phase1_approved_evidence": false
+      },
+      {
+        "run_id": "20260525T015400",
+        "path": "runs/read_only_calibration_measurement/20260525T015400/metrics.yaml",
+        "status": "scaffold_created_not_executed",
+        "user_confirmed_read_only_step": false,
+        "live_hardware_accessed": false,
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_evidence": false,
+        "is_phase1_approved_evidence": false
+      }
+    ],
+    "audit_rows": [
+      {
+        "run_id": "20260525T012835",
+        "path": "runs/read_only_calibration_measurement_run_audit/20260525T012835/metrics.yaml",
+        "audit_mode": null,
+        "audit_passed": true,
+        "audited_run": "/home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T012234",
+        "run_status": "scaffold_created_not_executed",
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_audit": false,
+        "is_phase1_approved_read_only_audit": false
+      },
+      {
+        "run_id": "20260525T013421",
+        "path": "runs/read_only_calibration_measurement_run_audit/20260525T013421/metrics.yaml",
+        "audit_mode": "scaffold",
+        "audit_passed": true,
+        "audited_run": "/home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T012234",
+        "run_status": "scaffold_created_not_executed",
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_audit": false,
+        "is_phase1_approved_read_only_audit": false
+      },
+      {
+        "run_id": "20260525T014756",
+        "path": "runs/read_only_calibration_measurement_run_audit/20260525T014756/metrics.yaml",
+        "audit_mode": "scaffold",
+        "audit_passed": true,
+        "audited_run": "/home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T014755",
+        "run_status": "scaffold_created_not_executed",
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_audit": false,
+        "is_phase1_approved_read_only_audit": false
+      },
+      {
+        "run_id": "20260525T015401",
+        "path": "runs/read_only_calibration_measurement_run_audit/20260525T015401/metrics.yaml",
+        "audit_mode": "scaffold",
+        "audit_passed": true,
+        "audited_run": "/home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T015400",
+        "run_status": "scaffold_created_not_executed",
+        "read_only_evidence_finalization_present": false,
+        "approved_step_id": null,
+        "is_approved_read_only_audit": false,
+        "is_phase1_approved_read_only_audit": false
+      }
+    ]
+  },
+  "prompt_to_artifact_checklist": [
+    {
+      "requirement": "No approved phase1 read-only evidence exists before explicit approval.",
+      "evidence": "current_repository_scan",
+      "passed": true
+    },
+    {
+      "requirement": "The frozen phase1 packet remains not approved and non-authorizing.",
+      "evidence": "runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml",
+      "passed": true
+    },
+    {
+      "requirement": "Preapproval finalizer misuse paths create no repository evidence.",
+      "evidence": "runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml",
+      "passed": true
+    },
+    {
+      "requirement": "Readiness maps/selectors remain non-evidence.",
+      "evidence": [
+        "runs/read_only_evidence_dependency_map/20260525T110000/metrics.yaml",
+        "runs/read_only_next_step_selection/20260525T111000/metrics.yaml"
+      ],
+      "passed": true
+    }
+  ],
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "phase1_acceptance_boundary_only": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Request explicit user approval before any live read-only phase1 measurement.",
+    "If approval is absent, continue only non-final offline work.",
+    "After approval, create a fresh scaffold and finalize only tcp_contact_measurements.csv.",
+    "Do not treat v127-v131 readiness or guard artifacts as approved evidence."
+  ],
+  "audit_root": "/home/andy/reproduce-tase/runs/phase1_approved_evidence_acceptance_boundary/20260525T114000"
+}

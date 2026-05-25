@@ -5171,3 +5171,48 @@
   still create a fresh scaffold, finalize with the exact registered step ID,
   and audit in approved-read-only mode. Without approval, continue only
   non-final offline work.
+
+## 2026-05-25 v131 Phase1 Approved Evidence Acceptance Boundary
+
+### Scan current evidence directories after v130 without approving phase1
+
+- Branch:
+  `exp/tase-ur10e-v131-phase1-evidence-acceptance-boundary`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/phase1_approved_evidence_acceptance_boundary/20260525T114000`
+- Report:
+  `reports/phase1_approved_evidence_acceptance_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_phase1_approved_evidence_acceptance_boundary.py`
+  - `scripts/run_tests.sh tests/test_phase1_approved_evidence_acceptance_boundary.py`
+  - `python3 scripts/audit_phase1_approved_evidence_acceptance_boundary.py --run-id 20260525T114000`
+- Result:
+  V131 adds an offline acceptance-boundary audit for the frozen phase1 path.
+  It cross-checks v127-v130 and scans the current read-only evidence
+  directories. The run reports `audit_passed = true`,
+  `phase1_acceptance_boundary_complete = true`,
+  `current_repository_scan_finds_no_approved_evidence = true`, read-only runs
+  `3`, read-only audits `4`, approved read-only runs `0`, phase1 approved
+  read-only runs `0`, finalization records `0`, passed approved-read-only
+  audits `0`, `guard_rejected_case_count = 5`,
+  `guard_approved_evidence_created_count = 0`,
+  `approved_read_only_evidence_created = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline acceptance-boundary bookkeeping only. It does not collect
+  live measurements, approve any read-only SOP step, create approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.25s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `227 passed in 15.56s`; `git diff --check` passed.
+- Next step:
+  If the user later gives explicit approval, use the frozen phase1 request and
+  still create a fresh scaffold, finalize with the exact registered step ID,
+  and audit in approved-read-only mode. Without approval, continue only
+  non-final offline work.

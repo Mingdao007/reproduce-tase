@@ -3957,6 +3957,48 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V131 Phase1 Approved-Read-Only Evidence Acceptance Boundary
+
+### Scanned current evidence paths after v130 without authorizing phase1
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_phase1_approved_evidence_acceptance_boundary.py`
+- Runs:
+  - `runs/phase1_approved_evidence_acceptance_boundary/20260525T114000`
+- Report:
+  - `reports/phase1_approved_evidence_acceptance_boundary_report.md`
+- Tests:
+  - `tests/test_phase1_approved_evidence_acceptance_boundary.py`
+- Command:
+  `python3 scripts/audit_phase1_approved_evidence_acceptance_boundary.py --run-id 20260525T114000`
+- Tracked lightweight artifacts:
+  phase1 acceptance-boundary audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The acceptance-boundary audit passes while authorizing nothing:
+  `phase1_acceptance_boundary_complete = true`,
+  `current_repository_scan_finds_no_approved_evidence = true`, read-only runs
+  `3`, read-only audits `4`, approved read-only runs `0`, phase1 approved
+  read-only runs `0`, finalization records `0`, passed approved-read-only
+  audits `0`, `guard_rejected_case_count = 5`,
+  `guard_approved_evidence_created_count = 0`,
+  `approved_read_only_evidence_created = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.25s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `227 passed in 15.56s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  acceptance-boundary bookkeeping only; it does not approve any packet,
+  authorize live access, authorize execution, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

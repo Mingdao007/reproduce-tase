@@ -2854,6 +2854,30 @@
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## D136: Acceptance-Boundary Scans Are Still Not Approved Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v131 as an offline phase1 approved-read-only evidence acceptance-boundary
+  audit that scans the current repository read-only evidence run/audit
+  directories after v130 and cross-checks the v127-v130 readiness and guard
+  chain.
+- Reason:
+  V130 proves common finalizer misuse cases reject in temporary dry-run
+  scaffolds, but the project still needs a post-v130 scan of actual repository
+  evidence paths before any future thread treats the phase1 path as approved.
+  V131 requires zero approved read-only runs, zero phase1 approved runs, zero
+  finalization records, zero passed approved-read-only audits, zero approved
+  packets, and zero evidence created by the guard.
+- Consequence:
+  The repository has an explicit current-state acceptance boundary for phase1:
+  ready/not-approved artifacts exist, but approved evidence does not. V131
+  does not approve a packet, collect live evidence, accept a contact model,
+  accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25
