@@ -74,6 +74,12 @@ Expected branch:
 exp/tase-ur10e-v128-readonly-next-step-selection
 ```
 
+Verified implementation commit:
+
+```text
+51793eae7f878f9e6bb721216e2c1820ea178375
+```
+
 V128 artifacts:
 
 ```text

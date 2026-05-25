@@ -3836,6 +3836,8 @@ Legacy source root:
 
 ### Selected the first exact read-only approval candidate without authorization
 
+- Implementation commit:
+  `51793eae7f878f9e6bb721216e2c1820ea178375`
 - Scripts:
   - `scripts/audit_read_only_next_step_selection.py`
 - Runs:

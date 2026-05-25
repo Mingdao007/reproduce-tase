@@ -5046,6 +5046,8 @@
 
 - Branch:
   `exp/tase-ur10e-v128-readonly-next-step-selection`
+- Implementation commit:
+  `51793eae7f878f9e6bb721216e2c1820ea178375`
 - Runs:
   - `runs/read_only_next_step_selection/20260525T111000`
 - Report:
