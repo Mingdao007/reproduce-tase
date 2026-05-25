@@ -80,6 +80,12 @@ Expected branch:
 exp/tase-ur10e-v122-readonly-execution-preflight
 ```
 
+Verified implementation commit:
+
+```text
+8e3008f5c723444ce95716cd968012d6150d122e
+```
+
 V122 artifacts:
 
 ```text

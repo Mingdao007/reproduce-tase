@@ -3601,6 +3601,8 @@ Legacy source root:
 
 ### Verified the offline packet-to-finalizer command path
 
+- Implementation commit:
+  `8e3008f5c723444ce95716cd968012d6150d122e`
 - Scripts:
   - `scripts/audit_read_only_step_execution_preflight.py`
 - Runs:

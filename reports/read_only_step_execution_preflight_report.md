@@ -4,6 +4,9 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v122-readonly-execution-preflight`
 
+Implementation commit:
+`8e3008f5c723444ce95716cd968012d6150d122e`
+
 ## Scope
 
 V122 adds an offline preflight audit for the path from an audited

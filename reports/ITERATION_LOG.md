@@ -4789,6 +4789,8 @@
 
 - Branch:
   `exp/tase-ur10e-v122-readonly-execution-preflight`
+- Implementation commit:
+  `8e3008f5c723444ce95716cd968012d6150d122e`
 - Runs:
   - `runs/read_only_step_execution_preflight/20260525T101000`
 - Report:
