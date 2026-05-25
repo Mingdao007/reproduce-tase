@@ -3921,6 +3921,8 @@ Legacy source root:
 
 ### Audited negative finalizer paths for the frozen phase1 request
 
+- Implementation commit:
+  `292512d7d05eaeea0631fc971a05ce81250d06e2`
 - Scripts:
   - `scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`
 - Runs:

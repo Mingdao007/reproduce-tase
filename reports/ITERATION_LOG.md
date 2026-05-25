@@ -5136,6 +5136,8 @@
 
 - Branch:
   `exp/tase-ur10e-v130-phase1-preapproval-finalizer-guard`
+- Implementation commit:
+  `292512d7d05eaeea0631fc971a05ce81250d06e2`
 - Runs:
   - `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000`
 - Report:
