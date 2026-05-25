@@ -2628,3 +2628,28 @@
   robustness, prove strict paper-equivalent feasibility, calibrate contact
   geometry, establish hardware readiness, or authorize hardware
   motion/configuration.
+
+## D122: Contact Setup Target Changes Need Separate Acceptance Review
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v117 as a separate, non-default review scaffold for any future contact
+  model or setup-target definition change.
+- Reason:
+  V116 leaves strict terminal compatibility blocked under the current accepted
+  contact-point model. Further progress likely requires approved calibration
+  evidence or an explicitly accepted setup target/contact definition. V117
+  creates `templates/contact_setup_target_acceptance_review/`, creator and
+  auditor scripts, and a scaffold/audit run. The scaffold cites the v116
+  strict terminal boundary, defaults to `not_accepted`, and the audit rejects
+  drift toward accepted contact model, setup target, gate relaxation,
+  calibration, hardware-readiness, or goal-completion claims.
+- Consequence:
+  Do not accept contact model or setup-target changes implicitly from
+  simulation results. Any future accepted definition must pass a separate
+  review using approved read-only evidence and this audit path. V117 does not
+  collect live measurements, accept a contact model, accept a setup target,
+  change the canonical controller, close failed cells, prove robustness, prove
+  strict paper-equivalent feasibility, calibrate contact geometry, establish
+  hardware readiness, or authorize hardware motion/configuration.

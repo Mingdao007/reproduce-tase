@@ -1,0 +1,62 @@
+{
+  "review_source": "contact setup target acceptance review template",
+  "review_id": "20260525T091500",
+  "status": "review_scaffold_not_executed",
+  "template_source": "templates/contact_setup_target_acceptance_review",
+  "source_evidence": {
+    "source_read_only_run": null,
+    "source_run_audit": null,
+    "approved_read_only_audit_passed": false,
+    "evidence_reviewed": false,
+    "latest_terminal_optimization": "/home/andy/reproduce-tase/runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+    "terminal_optimization_reviewed": false,
+    "contact_geometry_measurement_reviewed": false,
+    "setup_target_definition_reviewed": false,
+    "force_source_reconciliation_reviewed": false
+  },
+  "terminal_compatibility_context": {
+    "source_metrics": "/home/andy/reproduce-tase/runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml",
+    "strict_terminal_pass_count": 0,
+    "best_max_gate_ratio": 2.11994927622362,
+    "v56_strict_best_max_gate_ratio": 2.413534442118322
+  },
+  "review_execution": {
+    "user_approved_contact_setup_target_review": false,
+    "live_hardware_accessed": false,
+    "robot_motion_commanded": false,
+    "configuration_written": false,
+    "zeroing_or_biasing_performed": false,
+    "force_control_run": false
+  },
+  "contact_setup_target_acceptance": {
+    "decision": "not_accepted",
+    "review_only": true,
+    "accepted_contact_model": null,
+    "accepted_setup_target_label": null,
+    "accepted_tcp_contact_datum_source": null,
+    "accepted_reference_xy_source": null,
+    "accepted_surface_normal_source": null,
+    "accepted_force_source": null,
+    "accepted_uncertainty_budget": null,
+    "accepted_gate_changes": null,
+    "reviewer": null,
+    "accepted_at_utc": null
+  },
+  "verdict": {
+    "supports_contact_model_update": false,
+    "supports_setup_target_update": false,
+    "supports_force_source_update": false,
+    "supports_gate_relaxation": false,
+    "supports_hardware_claim": false
+  },
+  "claim_boundary": {
+    "recovery_claim": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "paper_equivalent_feasibility": false,
+    "hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  },
+  "review_root": "/home/andy/reproduce-tase/runs/contact_setup_target_acceptance_review/20260525T091500"
+}

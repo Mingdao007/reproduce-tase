@@ -3389,6 +3389,48 @@ Legacy source root:
   cells, prove robustness, calibrate contact geometry, or authorize hardware
   work.
 
+## V117 Contact Setup Target Acceptance Review Scaffold
+
+### Added a non-default review path for contact/setup-target changes
+
+- Templates:
+  - `templates/contact_setup_target_acceptance_review/`
+- Scripts:
+  - `scripts/create_contact_setup_target_acceptance_review.py`
+  - `scripts/audit_contact_setup_target_acceptance_review.py`
+- Runs:
+  - `runs/contact_setup_target_acceptance_review/20260525T091500`
+  - `runs/contact_setup_target_acceptance_review_audit/20260525T091501`
+- Report:
+  - `reports/contact_setup_target_acceptance_review_template_report.md`
+- Tests:
+  - `tests/test_contact_setup_target_acceptance_review_template.py`
+- Commands:
+  - `python3 scripts/create_contact_setup_target_acceptance_review.py --review-id 20260525T091500`
+  - `python3 scripts/audit_contact_setup_target_acceptance_review.py runs/contact_setup_target_acceptance_review/20260525T091500 --run-id 20260525T091501`
+- Tracked lightweight artifacts:
+  template files, scaffold top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The generated review records `review_scaffold_not_executed`, cites the v116
+  terminal compatibility boundary, preserves `strict_terminal_pass_count = 0`,
+  keeps `contact_setup_target_acceptance.decision = not_accepted`, and keeps
+  support for contact-model update, setup-target update, force-source update,
+  gate relaxation, hardware claim, contact calibration, hardware readiness, and
+  goal completion false. The audit passed with `violations = []`.
+- Validation:
+  Focused tests passed with `3 passed in 0.35s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `181 passed in 7.50s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline scaffold and
+  audit evidence only; it does not accept a contact model, accept a setup
+  target, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

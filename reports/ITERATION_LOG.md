@@ -4553,3 +4553,47 @@
   over the same accepted model. The practical next blocker is approved
   read-only calibration evidence or a new explicitly accepted contact/setup
   target definition.
+
+## 2026-05-25 v117 Contact Setup Target Acceptance Review Scaffold
+
+### Add a non-default review path for contact/setup-target changes
+
+- Branch:
+  `exp/tase-ur10e-v117-contact-setup-target-review-scaffold`
+- Runs:
+  - `runs/contact_setup_target_acceptance_review/20260525T091500`
+  - `runs/contact_setup_target_acceptance_review_audit/20260525T091501`
+- Report:
+  `reports/contact_setup_target_acceptance_review_template_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/create_contact_setup_target_acceptance_review.py scripts/audit_contact_setup_target_acceptance_review.py`
+  - `scripts/run_tests.sh tests/test_contact_setup_target_acceptance_review_template.py`
+  - `python3 scripts/create_contact_setup_target_acceptance_review.py --review-id 20260525T091500`
+  - `python3 scripts/audit_contact_setup_target_acceptance_review.py runs/contact_setup_target_acceptance_review/20260525T091500 --run-id 20260525T091501`
+  - `rg -n "&id|\*id" runs/contact_setup_target_acceptance_review/20260525T091500/metrics.yaml runs/contact_setup_target_acceptance_review_audit/20260525T091501/metrics.yaml`
+  - `find runs/contact_setup_target_acceptance_review/20260525T091500 runs/contact_setup_target_acceptance_review_audit/20260525T091501 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline scaffold creates a separate contact/setup-target acceptance
+  review path. The generated review records
+  `review_scaffold_not_executed`, cites the v116 strict terminal optimization
+  metrics, preserves `strict_terminal_pass_count = 0`, keeps
+  `contact_setup_target_acceptance.decision = not_accepted`, and keeps support
+  for contact-model update, setup-target update, force-source update, gate
+  relaxation, hardware claim, contact calibration, hardware readiness, and goal
+  completion false. The audit passed with `violations = []`.
+- Limit:
+  This is offline scaffold/audit work only. It does not collect live
+  measurements, execute the read-only SOP, accept a contact model, accept a
+  setup target, relax a gate, calibrate contact geometry, prove strict
+  paper-equivalent feasibility, establish hardware readiness, or authorize
+  hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.35s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `181 passed in 7.50s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The top
+  practical blocker remains approved read-only calibration evidence. If future
+  evidence is collected, use this separate review scaffold before accepting any
+  contact model or setup-target definition change.
