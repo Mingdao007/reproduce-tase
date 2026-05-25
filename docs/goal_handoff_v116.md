@@ -92,7 +92,7 @@ exp/tase-ur10e-v115-explicit-stage-a-constraint-probe
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+315052286c42300dc9cf1665aec8a7b9279587bf
 ```
 
 V115 explicit Stage A constraint artifacts:

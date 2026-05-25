@@ -3345,7 +3345,7 @@ Legacy source root:
   Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
   anchors in the generated metrics; raw/heavy artifact scan found no payloads;
   full tests passed with `174 passed in 7.12s`; `git diff --check`
-  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+  passed. Branch push was verified at `315052286c42300dc9cf1665aec8a7b9279587bf`.
 - Limit:
   No live or physical measurement was collected. This is offline simulation
   evidence and does not prove strict paper-equivalent feasibility, accept a

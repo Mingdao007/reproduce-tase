@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v115-explicit-stage-a-constraint-probe`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `315052286c42300dc9cf1665aec8a7b9279587bf`
 
 ## Objective
 
@@ -100,7 +100,7 @@ hardware motion/configuration.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `315052286c42300dc9cf1665aec8a7b9279587bf`.
 
 ## Next Step
 
