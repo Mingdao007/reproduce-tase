@@ -3672,6 +3672,44 @@ Legacy source root:
   accept a setup target, prove strict paper-equivalent feasibility, calibrate
   contact geometry, establish hardware readiness, or authorize hardware work.
 
+## V124 Paper-Platform Claim Boundary Regression
+
+### Guarded split paper-platform evidence lines
+
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Scripts:
+  - `scripts/audit_paper_platform_claim_boundary.py`
+- Runs:
+  - `runs/paper_platform_claim_boundary/20260525T103000`
+- Report:
+  - `reports/paper_platform_claim_boundary_report.md`
+- Tests:
+  - `tests/test_paper_platform_claim_boundary.py`
+- Command:
+  `python3 scripts/audit_paper_platform_claim_boundary.py --run-id 20260525T103000`
+- Tracked lightweight artifacts:
+  claim-boundary audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The claim-boundary audit passes while preserving split paper-platform
+  reporting: `formula_convergence_claim_allowed = true`,
+  `tuned_figure_match_claim_allowed = true`,
+  `strict_paper_equivalent_claim_allowed = false`,
+  `claim_lines_collapsed = false`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.17s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `205 passed in 10.96s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  paper-platform bookkeeping only; it does not approve any packet, accept a
+  contact model, accept a setup target, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

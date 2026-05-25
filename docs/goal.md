@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v124.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v123 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, full paper-equivalent parity is not achieved, and the UR10e adapted line is diagnostic simulation only. V118 scans the actual post-v117 repository state and reports no approved read-only evidence, no accepted orientation review, no accepted contact/setup-target review, strict terminal pass `0`, closed robustness cells `0`, and no hardware gate report. V119 adds an exact read-only SOP step registry and guards finalization/audit. V120 creates an audited not-approved approval packet for `phase1_mounted_stack_tcp_contact_measurement`. V121 extends audited not-approved packet coverage to all `5 / 5` finalizer-eligible registered steps. V122 verifies the offline packet-to-scaffold/finalizer/audit command path for all `5 / 5` steps. V123 scans readiness artifacts together with real evidence paths and reports `overall_goal_complete = false`, `completion_claim_allowed = false`, approved read-only runs `0`, passed approved-read-only audits `0`, strict terminal pass `0`, closed robustness cells `0`, no hardware gate report, and `readiness_artifacts_are_non_evidence = true`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using one exact audited packet, the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v123 audits. Use the v117 scaffold before accepting any contact/setup-target definition. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v123 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v125.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v124 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, full paper-equivalent parity is not achieved, and the UR10e adapted line is diagnostic simulation only. V118 scans the actual post-v117 repository state and reports no approved read-only evidence, no accepted orientation review, no accepted contact/setup-target review, strict terminal pass `0`, closed robustness cells `0`, and no hardware gate report. V119 adds an exact read-only SOP step registry and guards finalization/audit. V120 creates an audited not-approved approval packet for `phase1_mounted_stack_tcp_contact_measurement`. V121 extends audited not-approved packet coverage to all `5 / 5` finalizer-eligible registered steps. V122 verifies the offline packet-to-scaffold/finalizer/audit command path for all `5 / 5` steps. V123 scans readiness artifacts together with real evidence paths and reports `overall_goal_complete = false`, `completion_claim_allowed = false`, approved read-only runs `0`, passed approved-read-only audits `0`, strict terminal pass `0`, closed robustness cells `0`, no hardware gate report, and `readiness_artifacts_are_non_evidence = true`. V124 adds a paper-platform claim-boundary regression audit with `formula_convergence_claim_allowed = true`, `tuned_figure_match_claim_allowed = true`, `strict_paper_equivalent_claim_allowed = false`, and `claim_lines_collapsed = false`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using one exact audited packet, the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v124 audits. Use the v117 scaffold before accepting any contact/setup-target definition. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v124 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v123` repository state. The project goal is to reproduce the T-ASE finite-time
+`v124` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v123-post-v122-completion-gate`
+  `exp/tase-ur10e-v124-paper-platform-claim-boundary-regression`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -221,12 +221,17 @@ Read and audit these files before making assumptions:
   `tests/test_post_v122_completion_gate.py`
   `runs/post_v122_completion_gate/20260525T102000`
   `reports/post_v122_completion_gate_report.md`
+- Current v124 paper-platform claim-boundary regression artifacts:
+  `scripts/audit_paper_platform_claim_boundary.py`
+  `tests/test_paper_platform_claim_boundary.py`
+  `runs/paper_platform_claim_boundary/20260525T103000`
+  `reports/paper_platform_claim_boundary_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v124.md`
+  `docs/goal_handoff_v125.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -662,6 +667,13 @@ Current accepted claims:
   accepted orientation reviews `0`, accepted contact/setup-target reviews `0`,
   strict terminal pass `0`, closed robustness cells `0`, no hardware gate
   report, and `readiness_artifacts_are_non_evidence = true`.
+- `paper_platform_claim_boundary_regression`: v124 scans the current
+  formula-convergence, tuned Fig.6, and strict aggregate paper-platform
+  artifacts. It reports `audit_passed = true`,
+  `formula_convergence_claim_allowed = true`,
+  `tuned_figure_match_claim_allowed = true`,
+  `strict_paper_equivalent_claim_allowed = false`,
+  `claim_lines_collapsed = false`, and `do_not_mark_goal_complete = true`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -675,7 +687,7 @@ Current next executable step:
   after explicit user confirmation, using one audited v120/v121 packet for a
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122 preflight command path for evidence capture; or continue only non-final
-  offline simulation/paper-platform work identified by the v95-v123 blocker
+  offline simulation/paper-platform work identified by the v95-v124 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
@@ -683,7 +695,7 @@ Current next executable step:
   approved read-only calibration evidence or a new explicitly accepted
   contact/setup-target definition through the v117 scaffold.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v123 diagnostic staged labels separate.
+  v63-v124 diagnostic staged labels separate.
 
 ## Safety Boundary
 

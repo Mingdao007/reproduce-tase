@@ -2697,6 +2697,28 @@
   prove robustness, establish hardware readiness, or authorize hardware
   motion/configuration.
 
+## D129: Paper-Platform Partial Claims Need Regression Guarding
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v124 as an offline paper-platform claim-boundary regression audit over
+  the current formula-convergence, tuned Fig.6, and strict aggregate evidence.
+- Reason:
+  The project has two valid paper-platform evidence lines: formula-faithful
+  convergence and a separate tuned Fig.6 q7 landmark match. These must not be
+  collapsed into a full paper-equivalent parity claim or used as UR10e
+  completion evidence. V124 makes that boundary machine-readable and fails if
+  the strict aggregate becomes claimed, the formula line drifts into Fig.6
+  q-trajectory parity, or the tuned line loses its documented non-paper-faithful
+  tuning boundary.
+- Consequence:
+  Current paper-platform reporting can continue to claim formula convergence
+  and tuned Fig.6 landmark evidence separately. It still cannot claim full
+  paper-equivalent numerical parity, prove the paper equations from the tuned
+  line, collect live evidence, accept a contact/setup target, prove
+  robustness, establish hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

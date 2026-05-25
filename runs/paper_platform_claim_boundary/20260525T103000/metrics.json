@@ -1,0 +1,103 @@
+{
+  "run_source": "paper-platform claim-boundary regression audit",
+  "audit_run_id": "20260525T103000",
+  "source_files": {
+    "paper_platform_parity_metrics": "runs/paper_platform_parity_eval/20260524T124200/metrics.yaml",
+    "tuned_figure_match_metrics": "runs/paper_7dof_section_v/20260524T134441/metrics.yaml",
+    "raw_provenance_metrics": "runs/paper_7dof_fig6_raw_provenance/20260524T134549/metrics.yaml",
+    "split_evidence_report": "reports/paper_platform_split_evidence_report.md"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "formula_convergence_claim_allowed": true,
+    "tuned_figure_match_claim_allowed": true,
+    "strict_paper_equivalent_claim_allowed": false,
+    "claim_lines_collapsed": false,
+    "claim_boundary_preserved": true,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true,
+    "q7_tolerance_rad": 0.05
+  },
+  "claim_rows": [
+    {
+      "claim_id": "paper_platform_7dof_formula_convergence",
+      "claim_allowed": true,
+      "source_claim": "paper_platform_7dof_formula_convergence",
+      "source_pass": true,
+      "required_checks_pass": true,
+      "required_check_status": {
+        "candidate_execution_contact_bounds": true,
+        "legacy_formula_faithful_overall": true,
+        "tail_force_error_against_formula": true,
+        "tail_position_error_against_formula": true,
+        "tail_orientation_error_against_formula": true,
+        "duration_coverage": true,
+        "fig5_r_sweep_coverage": true,
+        "paper_assumption_compatibility": true
+      },
+      "formula_candidate_fig6_landmark_pass": false,
+      "fig6_q7_abs_delta_rad": 0.8319377121883955,
+      "boundary": "Formula-faithful Python candidate passes formula-convergence checks but does not claim Fig.6 q-trajectory parity."
+    },
+    {
+      "claim_id": "paper_platform_7dof_tuned_figure_match_candidate",
+      "claim_allowed": true,
+      "source_claim": "paper_platform_7dof_tuned_figure_match_candidate",
+      "execution_pass": true,
+      "q7_landmark_pass": true,
+      "raw_provenance_pass": true,
+      "non_paper_faithful_tuning_present": true,
+      "expected_tuning_checks": {
+        "force_loop_mode_is_admittance_proxy": true,
+        "orientation_mode_is_normal_only": true,
+        "solver_mode_is_pinv_bounded": true,
+        "escape_velocity_alpha_is_20": true,
+        "kp_is_25": true,
+        "q7_nullspace_speed_is_0p35": true,
+        "force_integral_limit_is_finite_5": true
+      },
+      "python_abs_delta_to_figure_q7_at_22_s_rad": 2.6201263381153694e-12,
+      "python_abs_delta_to_formula_q7_at_22_s_rad": 1.3758206289207842,
+      "fig6_q7_abs_error_to_2p5_rad": 6.681366571115177e-11,
+      "formula_like": false,
+      "boundary": "Separate tuned Python candidate matches the legacy Fig.6 q7 landmark with documented non-paper-faithful tuning."
+    },
+    {
+      "claim_id": "paper_platform_7dof_legacy_strict_all_checks",
+      "claim_allowed": false,
+      "source_claim": "paper_platform_7dof_strict_parity",
+      "source_pass": false,
+      "failed_required_checks": [
+        "fig6_q7_22s_landmark"
+      ],
+      "required_check_status": {
+        "candidate_execution_contact_bounds": true,
+        "legacy_formula_faithful_overall": true,
+        "tail_force_error_against_formula": true,
+        "tail_position_error_against_formula": true,
+        "tail_orientation_error_against_formula": true,
+        "duration_coverage": true,
+        "fig5_r_sweep_coverage": true,
+        "paper_assumption_compatibility": true,
+        "legacy_figure_match_overall": true,
+        "fig6_q7_22s_landmark": false
+      },
+      "boundary": "Full paper-equivalent numerical parity remains unclaimed unless the strict aggregate is independently updated and accepted."
+    }
+  ],
+  "claim_boundary": {
+    "offline_audit_only": true,
+    "formula_convergence_claim": true,
+    "tuned_figure_match_claim": true,
+    "full_paper_equivalent_parity": false,
+    "formula_controller_fig6_q_trajectory_parity": false,
+    "tuned_figure_match_proves_paper_equations": false,
+    "ur10e_hardware_readiness": false,
+    "hardware_access_authorized": false,
+    "approved_read_only_evidence": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/paper_platform_claim_boundary/20260525T103000"
+}

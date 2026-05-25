@@ -4868,3 +4868,43 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and keep packet/preflight
   readiness separate from evidence.
+
+## 2026-05-25 v124 Paper-Platform Claim Boundary Regression
+
+### Guard the split formula-convergence and tuned Fig.6 evidence lines
+
+- Branch:
+  `exp/tase-ur10e-v124-paper-platform-claim-boundary-regression`
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Runs:
+  - `runs/paper_platform_claim_boundary/20260525T103000`
+- Report:
+  `reports/paper_platform_claim_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_paper_platform_claim_boundary.py`
+  - `scripts/run_tests.sh tests/test_paper_platform_claim_boundary.py`
+  - `python3 scripts/audit_paper_platform_claim_boundary.py --run-id 20260525T103000`
+- Result:
+  V124 adds an offline paper-platform claim-boundary regression audit. The
+  run reports `audit_passed = true`,
+  `formula_convergence_claim_allowed = true`,
+  `tuned_figure_match_claim_allowed = true`,
+  `strict_paper_equivalent_claim_allowed = false`,
+  `claim_lines_collapsed = false`, `claim_boundary_preserved = true`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline paper-platform bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, accept a contact model, accept
+  a setup target, prove strict paper-equivalent feasibility, prove robustness,
+  establish hardware readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.17s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `205 passed in 10.96s`; `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and keep formula-convergence,
+  tuned Fig.6, and strict paper-equivalent paper-platform claims separate.
