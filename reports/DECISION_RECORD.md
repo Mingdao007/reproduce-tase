@@ -2832,6 +2832,28 @@
   paper-equivalent feasibility, prove robustness, establish hardware readiness,
   or authorize hardware work.
 
+## D135: Preapproval Finalizer Rejections Must Preserve Scaffold State
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v130 as an offline preapproval finalizer guard for the frozen phase1
+  request. The audit creates temporary dry-run scaffolds and verifies the
+  finalizer rejects wrong confirmation phrases, unknown step IDs, `TBD`
+  operators, disallowed worksheet rows, and missing required rows.
+- Reason:
+  V129 freezes the exact phase1 approval request, but the project still needs
+  executable evidence that common misuse paths cannot turn that packet into an
+  approved-read-only run. V130 exercises those negative paths and requires each
+  failed attempt to preserve scaffold status, keep user confirmation false,
+  omit finalization metadata, and create no approved evidence.
+- Consequence:
+  The finalizer rejection boundary is now audited for the selected phase1 path.
+  V130 does not approve a packet, collect live evidence, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

@@ -3917,6 +3917,44 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V130 Read-Only Phase1 Preapproval Finalizer Guard
+
+### Audited negative finalizer paths for the frozen phase1 request
+
+- Scripts:
+  - `scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`
+- Runs:
+  - `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000`
+- Report:
+  - `reports/read_only_phase1_preapproval_finalizer_guard_report.md`
+- Tests:
+  - `tests/test_read_only_phase1_preapproval_finalizer_guard.py`
+- Command:
+  `python3 scripts/audit_read_only_phase1_preapproval_finalizer_guard.py --run-id 20260525T113000`
+- Tracked lightweight artifacts:
+  phase1 preapproval finalizer guard top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The guard audit passes while authorizing nothing: case count `5`, rejected
+  cases `5`, scaffold-preserved cases `5`,
+  `approved_read_only_evidence_created_count = 0`,
+  `successful_finalization_count = 0`,
+  `repository_evidence_run_created = false`, `temp_only_dry_run = true`,
+  `guard_authorizes_execution = false`, `completion_claim_allowed = false`,
+  and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 3.21s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `223 passed in 15.10s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline preapproval
+  guard bookkeeping only; it does not approve any packet, authorize live
+  access, authorize execution, create approved calibration evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

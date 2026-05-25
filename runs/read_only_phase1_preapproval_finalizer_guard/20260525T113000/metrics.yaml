@@ -1,0 +1,149 @@
+run_source: read-only phase1 preapproval finalizer guard audit
+audit_run_id: 20260525T113000
+source_files:
+  read_only_phase1_approval_request_freeze: runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml
+summary:
+  audit_passed: true
+  violations: []
+  preapproval_finalizer_guard_complete: true
+  source_freeze_audit_passed: true
+  case_count: 5
+  rejected_case_count: 5
+  scaffold_preserved_case_count: 5
+  approved_read_only_evidence_created_count: 0
+  successful_finalization_count: 0
+  repository_evidence_run_created: false
+  temp_only_dry_run: true
+  approved_packet_count: 0
+  execution_authorizing_packet_count: 0
+  live_access_authorizing_packet_count: 0
+  approved_read_only_evidence_created: false
+  guard_authorizes_live_access: false
+  guard_authorizes_execution: false
+  guard_creates_approved_evidence: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+rejection_case_rows:
+- case_id: wrong_confirmation_phrase
+  expected_rejection_substring: approval phrase mismatch
+  returncode: 1
+  rejected_as_expected: true
+  scaffold_preserved: true
+  stderr_excerpt: 'error: approval phrase mismatch; expected exact phrase ''I approve
+    this read-only measurement step'''
+  stdout_excerpt: ''
+  tcp_row_count: 1
+  ksm_row_count: 0
+  status_after_attempt: scaffold_created_not_executed
+  user_confirmed_after_attempt: false
+  live_hardware_accessed_after_attempt: false
+  read_only_evidence_finalization_present: false
+  approved_read_only_evidence_created: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+- case_id: unknown_step_id
+  expected_rejection_substring: is not in
+  returncode: 1
+  rejected_as_expected: true
+  scaffold_preserved: true
+  stderr_excerpt: 'error: approved_step_id ''phase999_not_registered'' is not in /home/andy/reproduce-tase/configs/read_only_sop_step_registry.yaml'
+  stdout_excerpt: ''
+  tcp_row_count: 1
+  ksm_row_count: 0
+  status_after_attempt: scaffold_created_not_executed
+  user_confirmed_after_attempt: false
+  live_hardware_accessed_after_attempt: false
+  read_only_evidence_finalization_present: false
+  approved_read_only_evidence_created: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+- case_id: operator_tbd
+  expected_rejection_substring: operator must be non-empty and not TBD
+  returncode: 1
+  rejected_as_expected: true
+  scaffold_preserved: true
+  stderr_excerpt: 'error: operator must be non-empty and not TBD'
+  stdout_excerpt: ''
+  tcp_row_count: 1
+  ksm_row_count: 0
+  status_after_attempt: scaffold_created_not_executed
+  user_confirmed_after_attempt: false
+  live_hardware_accessed_after_attempt: false
+  read_only_evidence_finalization_present: false
+  approved_read_only_evidence_created: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+- case_id: disallowed_worksheet_rows
+  expected_rejection_substring: does not allow rows in
+  returncode: 1
+  rejected_as_expected: true
+  scaffold_preserved: true
+  stderr_excerpt: 'error: approved_step_id ''phase1_mounted_stack_tcp_contact_measurement''
+    does not allow rows in: ksm_contact_patch_convention.csv'
+  stdout_excerpt: ''
+  tcp_row_count: 1
+  ksm_row_count: 1
+  status_after_attempt: scaffold_created_not_executed
+  user_confirmed_after_attempt: false
+  live_hardware_accessed_after_attempt: false
+  read_only_evidence_finalization_present: false
+  approved_read_only_evidence_created: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+- case_id: missing_required_rows
+  expected_rejection_substring: at least one worksheet CSV row is required
+  returncode: 1
+  rejected_as_expected: true
+  scaffold_preserved: true
+  stderr_excerpt: 'error: at least one worksheet CSV row is required before finalization'
+  stdout_excerpt: ''
+  tcp_row_count: 0
+  ksm_row_count: 0
+  status_after_attempt: scaffold_created_not_executed
+  user_confirmed_after_attempt: false
+  live_hardware_accessed_after_attempt: false
+  read_only_evidence_finalization_present: false
+  approved_read_only_evidence_created: false
+  hard_false_execution_fields:
+    robot_motion_commanded: false
+    configuration_written: false
+    zeroing_or_biasing_performed: false
+    force_control_run: false
+guarded_failure_modes:
+- wrong confirmation phrase
+- unknown approved step ID
+- TBD operator
+- worksheet rows outside the approved phase1 scope
+- missing required phase1 worksheet rows
+claim_boundary:
+  preapproval_finalizer_guard_only: true
+  temp_only_dry_run: true
+  approval_record_created: false
+  approved_read_only_evidence: false
+  contact_calibration_claim: false
+  setup_target_acceptance_claim: false
+  gate_relaxation_claim: false
+  strict_terminal_relaxation_accepted: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+audit_root: /home/andy/reproduce-tase/runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000

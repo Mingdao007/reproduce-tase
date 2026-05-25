@@ -284,6 +284,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_read_only_phase1_approval_request_freeze.py`
 - `runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml`
 - `reports/read_only_phase1_approval_request_freeze_report.md`
+- `scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`
+- `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml`
+- `reports/read_only_phase1_preapproval_finalizer_guard_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -297,17 +300,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v129 work uses dedicated branches; v128 branch push verified at `3fb16c37716db076e04849f438c830da4e4d5c58`; v129 implementation commit is `4bf07b2373af781eb35b20d13862afd9c5330907` with branch-close validation passed locally | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v129-readonly-phase1-approval-request-freeze`; latest local branch is `exp/tase-ur10e-v129-readonly-phase1-approval-request-freeze` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v130 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 is an in-progress local branch until branch-close validation | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v130-phase1-preapproval-finalizer-guard`; latest local branch is `exp/tase-ur10e-v130-phase1-preapproval-finalizer-guard` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v129 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D134 as of v129 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v130 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D135 as of v130 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v129 validation: `python3 -m py_compile scripts/audit_read_only_phase1_approval_request_freeze.py` passed, focused tests reported `3 passed in 0.11s`, full tests reported `220 passed in 11.97s`, YAML anchor and raw/heavy artifact scans passed, and no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v130 validation: `python3 -m py_compile scripts/audit_read_only_phase1_preapproval_finalizer_guard.py` passed, focused tests reported `3 passed in 3.21s`, full tests reported `223 passed in 15.10s`, YAML anchor and raw/heavy artifact scans passed, and no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -325,6 +328,7 @@ The objective has two separate technical claim levels:
 | Read-only evidence dependency map | `scripts/audit_read_only_evidence_dependency_map.py`, `tests/test_read_only_evidence_dependency_map.py`, `reports/read_only_evidence_dependency_map_report.md`, `runs/read_only_evidence_dependency_map/20260525T110000/metrics.yaml` | v127 maps all five measured-geometry readiness checks to exact registered finalizer steps with not-approved packet coverage and preflight readiness; no approved packet, execution, live access, approved evidence, or completion claim is created |
 | Read-only next-step selection | `scripts/audit_read_only_next_step_selection.py`, `tests/test_read_only_next_step_selection.py`, `reports/read_only_next_step_selection_report.md`, `runs/read_only_next_step_selection/20260525T111000/metrics.yaml` | v128 selects `phase1_mounted_stack_tcp_contact_measurement` as the first approval-ready candidate from the v127 map; no approved packet, execution, live access, approved evidence, or completion claim is created |
 | Phase1 approval request freeze | `scripts/audit_read_only_phase1_approval_request_freeze.py`, `tests/test_read_only_phase1_approval_request_freeze.py`, `reports/read_only_phase1_approval_request_freeze_report.md`, `runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml` | v129 freezes the phase1 packet request, worksheet, exact phrase, packet hash, forbidden actions, and post-approval command path; no approved packet, execution, live access, approved evidence, or completion claim is created |
+| Phase1 preapproval finalizer guard | `scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`, `tests/test_read_only_phase1_preapproval_finalizer_guard.py`, `reports/read_only_phase1_preapproval_finalizer_guard_report.md`, `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml` | v130 rejects five temporary dry-run finalizer misuse cases and preserves scaffold state in all five; no repository evidence run, approved packet, execution, live access, approved evidence, or completion claim is created |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -585,6 +589,27 @@ Evidence:
 
 - `reports/read_only_phase1_approval_request_freeze_report.md`
 - `runs/read_only_phase1_approval_request_freeze/20260525T112000/metrics.yaml`
+
+The phase1 preapproval finalizer guard audit can additionally claim:
+
+```text
+read_only_phase1_preapproval_finalizer_guard:
+  preapproval finalizer guard complete = true
+  rejected case count = 5
+  scaffold preserved case count = 5
+  approved read-only evidence created count = 0
+  successful finalization count = 0
+  repository evidence run created = false
+  temp-only dry run = true
+  guard authorizes execution = false
+  approved read-only evidence created = false
+  overall goal complete = false
+```
+
+Evidence:
+
+- `reports/read_only_phase1_preapproval_finalizer_guard_report.md`
+- `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000/metrics.yaml`
 
 The 30 s paper-platform candidate can additionally claim:
 
@@ -2019,6 +2044,10 @@ keeps worksheet scope to `tcp_contact_measurements.csv`, keeps the exact
 approval phrase `I approve this read-only measurement step`, and still reports
 `packet_approval_status = not_approved`, `freeze_authorizes_execution = false`,
 and `approved_read_only_evidence_created = false`.
+V130 then runs temporary dry-run finalizer misuse cases for the frozen phase1
+path. All five cases are rejected, all five scaffolds remain unfinalized, no
+temporary approved-read-only evidence is created, and no repository evidence
+run is created.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -2031,7 +2060,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v129 blocker and
+offline simulation/paper-platform work identified by the v95-v130 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -2078,11 +2107,14 @@ completion gate.
 V129 freezes the exact not-approved phase1 approval request, but the freeze
 itself also does not approve a packet, create evidence, authorize execution,
 or close any completion gate.
+V130 confirms common preapproval finalizer misuse cases are rejected in
+temporary scaffolds, but it also does not approve a packet, create repository
+evidence, authorize execution, or close any completion gate.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v129 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v130 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

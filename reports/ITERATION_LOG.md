@@ -5129,3 +5129,43 @@
   still create a fresh scaffold, finalize with the exact registered step ID,
   and audit in approved-read-only mode. Without approval, continue only
   non-final offline work.
+
+## 2026-05-25 v130 Read-Only Phase1 Preapproval Finalizer Guard
+
+### Verify phase1 misuse paths reject before evidence creation
+
+- Branch:
+  `exp/tase-ur10e-v130-phase1-preapproval-finalizer-guard`
+- Runs:
+  - `runs/read_only_phase1_preapproval_finalizer_guard/20260525T113000`
+- Report:
+  `reports/read_only_phase1_preapproval_finalizer_guard_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_phase1_preapproval_finalizer_guard.py`
+  - `scripts/run_tests.sh tests/test_read_only_phase1_preapproval_finalizer_guard.py`
+  - `python3 scripts/audit_read_only_phase1_preapproval_finalizer_guard.py --run-id 20260525T113000`
+- Result:
+  V130 adds an offline preapproval finalizer guard for the frozen phase1 path.
+  The run reports `audit_passed = true`,
+  `preapproval_finalizer_guard_complete = true`, case count `5`, rejected
+  cases `5`, scaffold-preserved cases `5`,
+  `approved_read_only_evidence_created_count = 0`,
+  `successful_finalization_count = 0`,
+  `repository_evidence_run_created = false`, `temp_only_dry_run = true`,
+  `guard_authorizes_execution = false`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline preapproval guard bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 3.21s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `223 passed in 15.10s`; `git diff --check` passed.
+- Next step:
+  If the user later gives explicit approval, use the frozen phase1 request and
+  still create a fresh scaffold, finalize with the exact registered step ID,
+  and audit in approved-read-only mode. Without approval, continue only
+  non-final offline work.
