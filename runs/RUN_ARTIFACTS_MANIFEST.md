@@ -4807,6 +4807,52 @@ Legacy source root:
   robustness, establish hardware readiness, close completion, or authorize
   hardware work.
 
+## V149 Overlay Collision Mask
+
+### Verified the diagnostic plane/tip pair is not contaminated by non-target contacts
+
+- Scripts:
+  - `scripts/audit_calibrated_contact_overlay_after_v147.py`
+- Runs:
+  - `runs/calibrated_contact_overlay_after_v147/20260525T223000`
+- Report:
+  - `reports/calibrated_contact_overlay_collision_mask_v149_report.md`
+- Tests:
+  - `tests/test_calibrated_contact_overlay_after_v147.py`
+- Data/config/model artifacts:
+  - `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml`
+  - `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml`
+- Command:
+  `python3 scripts/audit_calibrated_contact_overlay_after_v147.py --run-id 20260525T223000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  updated overlay MJCF with collision masks; report, tests, script, handoff,
+  and updated planning/decision/manifest documentation.
+- Result:
+  The collision-mask audit passes with `model_ncon_at_seed = 1`,
+  `target_contact_pair_count_at_seed = 1`,
+  `non_target_contact_count_at_seed = 0`,
+  `activation_probe_penetration_m = 0.001`,
+  `activation_probe_target_contact_pair_count = 1`,
+  `activation_probe_non_target_contact_count = 0`,
+  `activation_probe_target_normal_force_N = 11.078794158483424`,
+  `activation_probe_clean_target_contact = true`,
+  `simulation_can_start_from_diagnostic_overlay = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.28s`; full tests passed with
+  `308 passed in 33.10s`; YAML anchor scan found no anchors in the v149
+  overlay metrics/config YAML files; raw/heavy artifact scan found no payloads
+  in the v149 overlay artifacts; `git diff --check` passed.
+- Limit:
+  This is offline diagnostic contact-start scaffolding only. It does not
+  create approved read-only calibration evidence, approve any packet,
+  authorize live access or execution, accept a contact model or setup target,
+  relax an orientation gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

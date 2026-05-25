@@ -1,0 +1,109 @@
+run_source: calibrated diagnostic contact overlay audit after v147
+audit_run_id: 20260525T223000
+source_files:
+  source_config: configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml
+  previous_calibrated_mjcf_replay: runs/calibrated_mjcf_replay_after_v147/20260525T212000/metrics.yaml
+  source_mjcf: assets/mjcf/ur10e_calibrated_20260525T1641_tcp_offset.xml
+  seed: data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml
+  overlay_mjcf: assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml
+  overlay_config: configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml
+summary:
+  audit_passed: true
+  violations: []
+  overlay_model_loads: true
+  diagnostic_contact_overlay_generated: true
+  model_nq: 6
+  model_nv: 6
+  model_ngeom: 9
+  model_nsite: 1
+  model_ncon_at_seed: 1
+  tcp_site: tcp_site_live_offset_122p54mm
+  plane_geom_name: diagnostic_contact_plane_unaccepted
+  tip_geom_name: diagnostic_contact_tip_unaccepted
+  current_tcp_site_on_diagnostic_plane: true
+  contact_tip_surface_tangent_to_plane: true
+  plane_normal_matches_expected: true
+  tcp_site_shift_m: 0.0
+  tip_center_error_m: 0.0
+  tcp_plane_signed_distance_m: 0.0
+  tip_surface_gap_m: 0.0
+  plane_normal_error: 3.4120107557038376e-11
+  contact_tip_radius_m: 0.045
+  target_contact_pair_count_at_seed: 1
+  non_target_contact_count_at_seed: 0
+  seed_has_no_non_target_contacts: true
+  activation_probe_penetration_m: 0.001
+  activation_probe_target_contact_pair_count: 1
+  activation_probe_non_target_contact_count: 0
+  activation_probe_target_normal_force_N: 11.078794158483424
+  activation_probe_clean_target_contact: true
+  simulation_can_start_from_diagnostic_overlay: true
+  diagnostic_overlay_acceptance_status: not_accepted
+  approved_read_only_evidence_claim: false
+  contact_setup_target_acceptance_claim: false
+  orientation_gate_acceptance_claim: false
+  hardware_readiness_claim: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+geometry:
+  actual_q_rad:
+  - 0.7058797478675842
+  - -1.681310316125387
+  - -2.5494725704193115
+  - -0.4866345685771485
+  - 1.5723538398742676
+  - -0.867556397114889
+  tcp_site_position_world_m:
+  - 0.45619207276771306
+  - 0.16055309891221037
+  - 0.044663962326398465
+  plane_point_world_m:
+  - 0.45619207276771306
+  - 0.16055309891221037
+  - 0.044663962326398465
+  expected_plane_normal_world:
+  - 0.1736481777010905
+  - 0.0
+  - 0.9848077530061847
+  actual_plane_normal_world:
+  - 0.17364817766748875
+  - 0.0
+  - 0.9848077530121095
+  tip_center_world_m:
+  - 0.4640062407642621
+  - 0.16055309891221037
+  - 0.08898031121167678
+  tip_center_expected_world_m:
+  - 0.4640062407642621
+  - 0.16055309891221037
+  - 0.08898031121167678
+  tip_center_local_offset_m_from_tcp:
+  - 0.007636138423789576
+  - 0.00021697283048135996
+  - -0.04434684106859876
+  activation_probe_plane_shift_world_m:
+  - 0.0001736481777010905
+  - 0.0
+  - 0.0009848077530061848
+claim_boundary:
+  offline_diagnostic_contact_geometry_only: true
+  live_hardware_accessed_by_this_audit: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  approved_read_only_evidence: false
+  contact_calibration_claim: false
+  contact_setup_target_acceptance: false
+  setup_target_acceptance_claim: false
+  orientation_gate_acceptance_claim: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+next_actions:
+- Use the overlay only for offline diagnostic start-contact simulation experiments.
+- Do not treat the overlay plane, tip radius, or local offset as accepted contact
+  geometry.
+- Run contact/setup-target acceptance review before any claim-closing use.
+output_dir: /home/andy/reproduce-tase/runs/calibrated_contact_overlay_after_v147/20260525T223000

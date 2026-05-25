@@ -29,6 +29,7 @@ def test_calibrated_contact_overlay_generates_consistent_geometry(tmp_path: path
         plane_tilt_rad_about_y=0.1745329252,
         normal_world=[0.1736481777, 0.0, 0.9848077530],
         tolerance_m=1.0e-6,
+        activation_probe_penetration_m=1.0e-3,
         write_overlay=True,
     )
     summary = payload["summary"]
@@ -39,6 +40,12 @@ def test_calibrated_contact_overlay_generates_consistent_geometry(tmp_path: path
     assert summary["overlay_model_loads"] is True
     assert summary["current_tcp_site_on_diagnostic_plane"] is True
     assert summary["contact_tip_surface_tangent_to_plane"] is True
+    assert summary["non_target_contact_count_at_seed"] == 0
+    assert summary["seed_has_no_non_target_contacts"] is True
+    assert summary["activation_probe_target_contact_pair_count"] == 1
+    assert summary["activation_probe_non_target_contact_count"] == 0
+    assert summary["activation_probe_target_normal_force_N"] > 0.0
+    assert summary["activation_probe_clean_target_contact"] is True
     assert summary["simulation_can_start_from_diagnostic_overlay"] is True
     assert summary["diagnostic_overlay_acceptance_status"] == "not_accepted"
     assert summary["completion_claim_allowed"] is False
@@ -59,17 +66,22 @@ def test_calibrated_contact_overlay_mjcf_loads_with_plane_and_tip(tmp_path: path
         plane_tilt_rad_about_y=0.1745329252,
         normal_world=[0.1736481777, 0.0, 0.9848077530],
         tolerance_m=1.0e-6,
+        activation_probe_penetration_m=1.0e-3,
         write_overlay=True,
     )
 
     model = mujoco.MjModel.from_xml_path(str(overlay_mjcf))
     plane_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, "diagnostic_contact_plane_unaccepted")
     tip_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, "diagnostic_contact_tip_unaccepted")
+    marker_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_GEOM, "tcp_live_offset_marker")
 
     assert model.nq == 6
     assert model.nsite == 1
     assert plane_id >= 0
     assert tip_id >= 0
+    assert marker_id >= 0
+    assert model.geom_contype[marker_id] == 0
+    assert model.geom_conaffinity[marker_id] == 0
 
 
 def test_calibrated_contact_overlay_rejects_previous_replay_drift(tmp_path: pathlib.Path) -> None:
@@ -91,6 +103,7 @@ def test_calibrated_contact_overlay_rejects_previous_replay_drift(tmp_path: path
         plane_tilt_rad_about_y=0.1745329252,
         normal_world=[0.1736481777, 0.0, 0.9848077530],
         tolerance_m=1.0e-6,
+        activation_probe_penetration_m=1.0e-3,
         write_overlay=True,
     )
 

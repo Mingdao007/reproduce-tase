@@ -6072,3 +6072,50 @@
   `configs/mujoco_ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.yaml`
   while keeping results non-final unless contact/setup-target acceptance and
   approved evidence gates are separately satisfied.
+
+## 2026-05-25 v149 Overlay Collision Mask
+
+### Ensure the diagnostic contact plane is reserved for the named tip pair
+
+- Branch:
+  `exp/tase-ur10e-v149-overlay-collision-mask`
+- Runs:
+  - `runs/calibrated_contact_overlay_after_v147/20260525T223000`
+- Report:
+  `reports/calibrated_contact_overlay_collision_mask_v149_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_calibrated_contact_overlay_after_v147.py`
+  - `scripts/run_tests.sh tests/test_calibrated_contact_overlay_after_v147.py`
+  - `python3 scripts/audit_calibrated_contact_overlay_after_v147.py --run-id 20260525T223000`
+- Result:
+  V149 collision-masks the existing visual/primitive geoms in
+  `assets/mjcf/ur10e_calibrated_20260525T1641_diagnostic_contact_overlay.xml`
+  and explicitly keeps only `diagnostic_contact_plane_unaccepted` and
+  `diagnostic_contact_tip_unaccepted` collidable for the diagnostic contact
+  pair. The audit reports `model_ncon_at_seed = 1`,
+  `target_contact_pair_count_at_seed = 1`,
+  `non_target_contact_count_at_seed = 0`,
+  `activation_probe_penetration_m = 0.001`,
+  `activation_probe_target_contact_pair_count = 1`,
+  `activation_probe_non_target_contact_count = 0`,
+  `activation_probe_target_normal_force_N = 11.078794158483424`,
+  `activation_probe_clean_target_contact = true`,
+  `simulation_can_start_from_diagnostic_overlay = true`,
+  `diagnostic_overlay_acceptance_status = not_accepted`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is an offline diagnostic contact-start scaffold only. It does not
+  collect live measurements, approve any SOP packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model or setup target, relax an orientation gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or close the completion gate.
+- Validation:
+  Focused tests passed with `4 passed in 0.28s`; full tests passed with
+  `308 passed in 33.10s`; YAML anchor scan found no anchors in the v149
+  overlay metrics/config YAML files; raw/heavy artifact scan found no payloads
+  in the v149 overlay artifacts; `git diff --check` passed.
+- Next step:
+  Use the v149 collision-masked overlay for the next offline diagnostic
+  force/contact simulation, keeping any result non-final until contact/setup
+  target acceptance and approved evidence gates are separately satisfied.
