@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v139-full-reproduction-status`
+Current branch: `exp/tase-ur10e-v140-post-status-continuation-boundary`
 
 ## Scope
 
@@ -129,14 +129,16 @@ remaining miss to a small orientation-model margin rather than qdot: the
 critical weighted rows exceed `0.119 rad` by less than `0.00057 rad` with
 `0.0` qdot saturation, while the earlier contact-point versus legacy-center
 geometry convention changes +1.0 mm terminal orientation by about `0.024 rad`.
-v85-v139 turn that margin into read-only evidence requirements, not-approved
+v85-v140 turn that margin into read-only evidence requirements, not-approved
 approval packets, preflight readiness checks, sequence/acceptance boundaries,
 phase1/downstream row-quality guards, and a non-persistent finalization
 rehearsal boundary with a post-rehearsal completion gate and a
 strict-vs-diagnostic margin separation audit plus a post-margin completion
-gate. V139 records that the full reproduction is still incomplete. These
-artifacts do not approve live access, create approved calibration evidence, or
-close strict paper-equivalent, robustness, or hardware-readiness gates.
+gate. V139 records that the full reproduction is still incomplete. V140
+confirms that free-form continuation is not the exact read-only approval
+phrase and does not authorize live access or execution. These artifacts do not
+approve live access, create approved calibration evidence, or close strict
+paper-equivalent, robustness, or hardware-readiness gates.
 
 ## Test Command
 

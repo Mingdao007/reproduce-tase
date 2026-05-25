@@ -1,0 +1,97 @@
+{
+  "run_source": "post-v139 continuation boundary audit",
+  "audit_run_id": "20260525T140000",
+  "source_files": {
+    "v139_status": "runs/full_reproduction_status_after_v138/20260525T130000/metrics.yaml",
+    "read_only_sop_step_registry": "configs/read_only_sop_step_registry.yaml",
+    "read_only_next_step_selection": "runs/read_only_next_step_selection/20260525T111000/metrics.yaml",
+    "read_only_step_execution_preflight": "runs/read_only_step_execution_preflight/20260525T101000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "observed_user_request": "019e5d70-5cf8-7553-aa82-1b3cf93759f9 continue",
+    "approval_phrase_required": "I approve this read-only measurement step",
+    "exact_approval_phrase_observed": false,
+    "claimed_approved_step_id": "",
+    "exact_registered_step_observed": false,
+    "approval_is_exact_and_registered": false,
+    "freeform_continue_is_approval": false,
+    "selected_safe_continuation_mode": "await_exact_phase1_approval_or_nonfinal_offline",
+    "first_read_only_candidate_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+    "first_read_only_candidate_worksheet": "tcp_contact_measurements.csv",
+    "read_only_sop_can_execute_now": false,
+    "live_access_authorized_now": false,
+    "execution_authorized_now": false,
+    "nonfinal_offline_work_allowed": true,
+    "strict_policy_terminal_family_exhausted": true,
+    "strict_family_existing_run_count": 4,
+    "strict_family_existing_runs": [
+      "runs/strict_feasibility_policy_probe/20260525T073519/metrics.yaml",
+      "runs/strict_command_limited_stage_a/20260525T074557/metrics.yaml",
+      "runs/explicit_stage_a_constraint_probe/20260525T082500/metrics.yaml",
+      "runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml"
+    ],
+    "repeat_strict_family_recommended": false,
+    "v139_full_reproduction_complete": false,
+    "v139_continue_required": true,
+    "v139_top_blocker": "approved_read_only_calibration_evidence",
+    "v139_incomplete_requirement_count": 6,
+    "v139_incomplete_requirement_ids": [
+      "approved_read_only_calibration_evidence",
+      "contact_setup_target_acceptance",
+      "orientation_gate_acceptance",
+      "strict_terminal_or_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations",
+      "hardware_readiness"
+    ],
+    "required_incomplete_ids_present": true,
+    "missing_required_incomplete_ids": [],
+    "approved_read_only_run_count": 0,
+    "approved_read_only_audit_passed_count": 0,
+    "do_not_mark_goal_complete": true
+  },
+  "prompt_to_artifact_checklist": [
+    {
+      "prompt_requirement": "Continue after v139 without explicit live-read approval.",
+      "evidence": "observed request, registry approval phrase, and v139 safe continuation mode",
+      "status": "await_exact_phase1_approval_or_nonfinal_offline"
+    },
+    {
+      "prompt_requirement": "Do not treat free-form continuation as SOP approval.",
+      "evidence": "exact_approval_phrase_observed and exact_registered_step_observed",
+      "status": "guarded"
+    },
+    {
+      "prompt_requirement": "Preserve the top blocker and incomplete-requirement set.",
+      "evidence": "v139 full reproduction status metrics",
+      "status": "preserved"
+    },
+    {
+      "prompt_requirement": "Avoid repeating exhausted strict-policy and terminal probes.",
+      "evidence": "v113-v116 run artifacts",
+      "status": "exhausted_not_recommended"
+    }
+  ],
+  "claim_boundary": {
+    "post_hoc_existing_metrics_only": true,
+    "new_simulation_run": false,
+    "live_hardware_access": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "approval_record_created": false,
+    "approved_read_only_evidence_created": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "orientation_gate_acceptance_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_proof": false,
+    "hardware_readiness": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/post_v139_continuation_boundary/20260525T140000"
+}

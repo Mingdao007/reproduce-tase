@@ -8,10 +8,10 @@ instructions into the goal text.
 
 ```text
 Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`.
-First read `docs/goal.md`, `docs/goal_handoff_v140.md`,
+First read `docs/goal.md`, `docs/goal_handoff_v141.md`,
 `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and
 `reports/DECISION_RECORD.md`; then inspect git status before changing
-anything. Preserve the current v139 claim boundary: formula-faithful Python
+anything. Preserve the current v140 claim boundary: formula-faithful Python
 paper-platform convergence and tuned Fig.6 landmark evidence remain separate,
 full paper-equivalent parity is not achieved, and the UR10e adapted line is
 diagnostic simulation only. V118-v123 establish that actual approved
@@ -37,21 +37,23 @@ to close the v126 strict-terminal gap and still accepts no replacement gate.
 V138 confirms that margin-separation artifact is also non-evidence and cannot
 close the completion gate.
 V139 directly answers that the full reproduction is not complete and that
-continuation remains required.
+continuation remains required. V140 confirms that the current free-form
+continuation request is not the exact read-only approval phrase, so no live
+read-only SOP execution is authorized.
 The next branch should execute only a safe read-only SOP subset after explicit
 user confirmation using one exact audited packet, the
 scaffold, finalizer, and verifier, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v139 audits. Use the
+simulation/paper-platform work identified by the v95-v140 audits. Use the
 v117 scaffold before accepting any contact/setup-target definition. Keep
 strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and
-v63-v139 diagnostic staged labels separate. Do not move or configure the real
+v63-v140 diagnostic staged labels separate. Do not move or configure the real
 UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v139` repository state. The project goal is to reproduce the T-ASE finite-time
+`v140` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -72,7 +74,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v139-full-reproduction-status`
+  `exp/tase-ur10e-v140-post-status-continuation-boundary`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -339,12 +341,17 @@ Read and audit these files before making assumptions:
   `tests/test_full_reproduction_status_after_v138.py`
   `runs/full_reproduction_status_after_v138/20260525T130000`
   `reports/full_reproduction_status_after_v138_report.md`
+- Current v140 post-v139 continuation boundary artifacts:
+  `scripts/audit_post_v139_continuation_boundary.py`
+  `tests/test_post_v139_continuation_boundary.py`
+  `runs/post_v139_continuation_boundary/20260525T140000`
+  `reports/post_v139_continuation_boundary_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v140.md`
+  `docs/goal_handoff_v141.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -903,6 +910,13 @@ Current accepted claims:
   `full_reproduction_complete = false`, `continue_required = true`,
   top blocker `approved_read_only_calibration_evidence`, incomplete
   requirement count `6`, and `do_not_mark_goal_complete = true`.
+- `post_v139_continuation_boundary`: v140 confirms that the current free-form
+  continuation request is not the exact registered approval phrase. It reports
+  `freeform_continue_is_approval = false`,
+  `selected_safe_continuation_mode = await_exact_phase1_approval_or_nonfinal_offline`,
+  `read_only_sop_can_execute_now = false`,
+  `live_access_authorized_now = false`, and
+  `execution_authorized_now = false`.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -917,7 +931,7 @@ Current next executable step:
   registered finalizer-eligible step ID, the v93 scaffold, v91/v119 finalizer,
   v90/v119 verifier, and v122/v135 preflight and rehearsal path for evidence
   capture; or continue only non-final offline simulation/paper-platform work
-  identified by the v95-v139 blocker
+  identified by the v95-v140 blocker
   and review audits.
   Avoid repeating v113 instantaneous priority, v114 command limiting, v115
   terminal/path timing, or v116 bounded terminal minimax optimization over the
@@ -925,7 +939,7 @@ Current next executable step:
   approved read-only calibration evidence or a new explicitly accepted
   contact/setup-target definition through the v117 scaffold.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v139 diagnostic staged labels separate.
+  v63-v140 diagnostic staged labels separate.
 
 ## Safety Boundary
 

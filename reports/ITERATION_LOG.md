@@ -5611,3 +5611,52 @@
   approval, continue only non-final offline work that does not repeat the
   v113-v116 strict-feasibility families over the same accepted model and
   seeds.
+
+## 2026-05-25 v140 Post-V139 Continuation Boundary
+
+### Keep free-form continuation separate from exact read-only approval
+
+- Branch:
+  `exp/tase-ur10e-v140-post-status-continuation-boundary`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/post_v139_continuation_boundary/20260525T140000`
+- Report:
+  `reports/post_v139_continuation_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v139_continuation_boundary.py`
+  - `scripts/run_tests.sh tests/test_post_v139_continuation_boundary.py`
+  - `python3 scripts/audit_post_v139_continuation_boundary.py --run-id 20260525T140000 --observed-user-request '019e5d70-5cf8-7553-aa82-1b3cf93759f9 continue'`
+- Result:
+  V140 adds an offline continuation-boundary audit after v139. It confirms
+  the observed free-form continuation request is not the registered
+  read-only approval phrase and not an exact registered step approval. The
+  audit reports `audit_passed = true`,
+  `freeform_continue_is_approval = false`,
+  `selected_safe_continuation_mode = await_exact_phase1_approval_or_nonfinal_offline`,
+  first candidate `phase1_mounted_stack_tcp_contact_measurement`, worksheet
+  `tcp_contact_measurements.csv`, `read_only_sop_can_execute_now = false`,
+  `live_access_authorized_now = false`, `execution_authorized_now = false`,
+  `nonfinal_offline_work_allowed = true`,
+  `strict_policy_terminal_family_exhausted = true`,
+  `repeat_strict_family_recommended = false`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is continuation-boundary bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create repository approved
+  calibration evidence, accept a contact model, accept a setup target, relax a
+  gate, prove strict paper-equivalent feasibility, prove robustness, establish
+  hardware readiness, authorize live access, authorize execution, or authorize
+  hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Next step:
+  If the user gives exact approval, use the phase1 packet and fill only valid
+  `tcp_contact_measurements.csv` rows before finalization and
+  approved-read-only audit. Without exact approval, continue only non-final
+  offline work and do not repeat the exhausted v113-v116 strict-feasibility
+  family over the same accepted model and seeds.

@@ -3061,6 +3061,31 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, authorize live access, or authorize hardware work.
 
+## D145: Free-Form Continuation Is Not Read-Only SOP Approval
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v140 as a post-v139 continuation-boundary audit.
+- Reason:
+  V139 says continuation remains required and the safe mode is either exact
+  read-only approval or non-final offline work. A free-form continuation
+  request could be misread as approval unless it is compared against the
+  registered approval phrase and first exact step scope. V140 checks the v139
+  status, the read-only SOP registry, the v128 next-step selector, and the
+  v122 execution preflight, then records that free-form continuation is not
+  approval.
+- Consequence:
+  Live read-only SOP execution remains unauthorized until the exact phrase
+  `I approve this read-only measurement step` and exact registered step scope
+  are provided. The first candidate remains
+  `phase1_mounted_stack_tcp_contact_measurement` scoped to
+  `tcp_contact_measurements.csv`. V140 does not collect live evidence,
+  approve a packet, authorize live access, authorize execution, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

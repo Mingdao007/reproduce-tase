@@ -4372,6 +4372,50 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V140 Post-V139 Continuation Boundary
+
+### Kept free-form continuation separate from exact read-only approval
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_post_v139_continuation_boundary.py`
+- Runs:
+  - `runs/post_v139_continuation_boundary/20260525T140000`
+- Report:
+  - `reports/post_v139_continuation_boundary_report.md`
+- Tests:
+  - `tests/test_post_v139_continuation_boundary.py`
+- Command:
+  `python3 scripts/audit_post_v139_continuation_boundary.py --run-id 20260525T140000 --observed-user-request '019e5d70-5cf8-7553-aa82-1b3cf93759f9 continue'`
+- Tracked lightweight artifacts:
+  post-v139 continuation-boundary top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, handoff, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The continuation-boundary audit passes while authorizing nothing:
+  `freeform_continue_is_approval = false`,
+  `selected_safe_continuation_mode = await_exact_phase1_approval_or_nonfinal_offline`,
+  first candidate `phase1_mounted_stack_tcp_contact_measurement`, worksheet
+  `tcp_contact_measurements.csv`, `read_only_sop_can_execute_now = false`,
+  `live_access_authorized_now = false`, `execution_authorized_now = false`,
+  `nonfinal_offline_work_allowed = true`,
+  `strict_policy_terminal_family_exhausted = true`,
+  `repeat_strict_family_recommended = false`, approved read-only runs `0`,
+  passed approved-read-only audits `0`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
+  check, raw/heavy artifact scan, and `git diff --check` are pending final
+  closeout.
+- Limit:
+  No live or physical measurement was collected. This is continuation-boundary
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create repository approved calibration evidence, accept
+  a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence
