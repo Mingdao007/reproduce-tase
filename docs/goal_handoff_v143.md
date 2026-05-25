@@ -124,6 +124,7 @@ exists.
 - `scripts/run_tests.sh tests/test_robustness_dependency_frontier_after_v141.py`
   reported `4 passed in 0.16s`.
 - `python3 scripts/audit_robustness_dependency_frontier_after_v141.py --run-id 20260525T160000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `275 passed in 31.32s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v142 run artifact.
+- `git diff --check` passed.

@@ -4469,7 +4469,7 @@ Legacy source root:
 ### Classified remaining robustness blockers without closing failed cells
 
 - Implementation commit:
-  `TBD`
+  `4c5f46db2ca80c1864e0f4979d89eed0323b12d0`
 - Scripts:
   - `scripts/audit_robustness_dependency_frontier_after_v141.py`
 - Runs:
@@ -4502,9 +4502,10 @@ Legacy source root:
   `0`, accepted contact/setup-target reviews `0`, and
   `do_not_mark_goal_complete = true`.
 - Validation:
-  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.16s`; full tests passed with
+  `275 passed in 31.32s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v142 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is
   robustness-dependency bookkeeping only; it does not approve any packet,

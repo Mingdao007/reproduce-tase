@@ -5722,7 +5722,7 @@
 - Branch:
   `exp/tase-ur10e-v142-robustness-dependency-frontier`
 - Implementation commit:
-  `TBD`
+  `4c5f46db2ca80c1864e0f4979d89eed0323b12d0`
 - Runs:
   - `runs/robustness_dependency_frontier_after_v141/20260525T160000`
 - Report:
@@ -5760,9 +5760,10 @@
   readiness, authorize live access, authorize execution, or authorize hardware
   work.
 - Validation:
-  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.16s`; full tests passed with
+  `275 passed in 31.32s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v142 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user gives exact approval, use the phase1 packet and fill only valid
   `tcp_contact_measurements.csv` rows before finalization and
