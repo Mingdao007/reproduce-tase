@@ -3353,6 +3353,42 @@ Legacy source root:
   cells, prove robustness, calibrate contact geometry, or authorize hardware
   work.
 
+## V116 Strict Terminal Constrained Optimization
+
+### Tested stronger terminal minimax optimization over the accepted contact model
+
+- Scripts:
+  - `scripts/audit_strict_terminal_constrained_optimization.py`
+- Runs:
+  - `runs/strict_terminal_constrained_optimization/20260525T085000`
+- Report:
+  - `reports/strict_terminal_constrained_optimization_report.md`
+- Tests:
+  - `tests/test_strict_terminal_constrained_optimization.py`
+- Command:
+  `python3 scripts/audit_strict_terminal_constrained_optimization.py --output-dir runs/strict_terminal_constrained_optimization/20260525T085000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The offline strict terminal optimization audit seeds from the v56
+  contact-manifold candidates and runs bounded smooth-minimax SLSQP/L-BFGS-B
+  optimizers over normalized force, x/y, and orientation errors. It reports
+  strict terminal pass `0 / 12`, optimizer success `10 / 12`, best max-gate
+  ratio `2.11994927622362`, v56 strict best max-gate ratio
+  `2.413534442118322`, and strict paper-equivalent feasibility `false`.
+- Validation:
+  Focused tests passed with `4 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `178 passed in 7.16s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline simulation
+  evidence and does not prove strict paper-equivalent feasibility, accept a
+  replacement orientation gate, change the canonical controller, close failed
+  cells, prove robustness, calibrate contact geometry, or authorize hardware
+  work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

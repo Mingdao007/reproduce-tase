@@ -1,0 +1,1311 @@
+{
+  "run_source": "v116 strict terminal constrained optimization audit",
+  "source_files": {
+    "config": "/home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+    "acceptance": "/home/andy/reproduce-tase/configs/ur10e_adapted_acceptance.yaml",
+    "contact_manifold_gate_audit": "/home/andy/reproduce-tase/runs/contact_manifold_gate_audit/20260524T142404/metrics.yaml",
+    "v115_explicit_constraint_probe": "/home/andy/reproduce-tase/runs/explicit_stage_a_constraint_probe/20260525T082500/metrics.yaml",
+    "remaining_blockers": "/home/andy/reproduce-tase/runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml"
+  },
+  "v112_priority_context": {
+    "top_priority_blocker_id": "approved_read_only_calibration_evidence",
+    "offline_actionable_blocker_ids": [
+      "strict_paper_equivalent_full_staged_feasibility",
+      "robustness_to_contact_model_perturbations"
+    ]
+  },
+  "v115_context": {
+    "strict_setup_path_pass_count": 0,
+    "terminal_strict_criteria_pass_count": 0,
+    "qdot_criteria_pass_count": 5
+  },
+  "strict_terminal_thresholds": {
+    "max_force_error_N": 0.25,
+    "max_tangential_error_m": 0.002,
+    "max_orientation_error_rad": 0.03,
+    "min_target_contact_count": 1.0,
+    "max_joint_limit_violation_rad": 1e-09
+  },
+  "probe_parameters": {
+    "methods": [
+      "SLSQP",
+      "L-BFGS-B"
+    ],
+    "power": 8.0,
+    "no_contact_penalty": 20.0,
+    "maxiter": 200,
+    "seed_count": 6,
+    "optimizer_case_count": 12,
+    "objective": "smooth p-norm minimax over normalized force, x/y, and orientation errors with no-contact penalty",
+    "trajectory_stage": "not_run"
+  },
+  "summary": {
+    "optimization_case_count": 12,
+    "strict_terminal_pass_count": 0,
+    "optimizer_success_count": 10,
+    "setup_failed_criteria_counts": {
+      "force_error_N": 10,
+      "orientation_error_rad": 10,
+      "tangential_error_m": 9,
+      "target_contact_count": 3
+    },
+    "best_case_id": "xy_force_orientation__best_candidate__slsqp",
+    "best_max_gate_ratio": 2.11994927622362,
+    "v56_strict_best_max_gate_ratio": 2.413534442118322,
+    "best_ratio_improvement": 0.29358516589470174,
+    "best_force_case_id": "xy_force__best_candidate__l-bfgs-b",
+    "best_force_error_N": 2.4868995751603507e-14,
+    "best_xy_case_id": "xy_orientation__best_candidate__slsqp",
+    "best_xy_error_m": 5.204170427930421e-18,
+    "best_orientation_case_id": "xy_orientation__best_candidate__slsqp",
+    "best_orientation_error_rad": 5.551115123125783e-17,
+    "strict_terminal_constrained_optimization_complete": false,
+    "strict_paper_equivalent_feasibility": false
+  },
+  "seed_rows": [
+    {
+      "seed_id": "initial",
+      "source": "contact_manifold_initial_q",
+      "q_rad": [
+        0.0,
+        -0.1,
+        0.15,
+        -0.05,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "seed_id": "xy_force__best_candidate",
+      "source": "v56_xy_force_best_candidate",
+      "q_rad": [
+        0.09861730192758755,
+        -0.05397220454986746,
+        0.035204860039088993,
+        0.013096967269385312,
+        -0.0018520639871352235,
+        0.07128498489907026
+      ]
+    },
+    {
+      "seed_id": "xy_orientation__best_candidate",
+      "source": "v56_xy_orientation_best_candidate",
+      "q_rad": [
+        3.6911057292885273e-31,
+        -0.16425153865132933,
+        0.1463616332404001,
+        0.017692879774373258,
+        5.788894733487259e-29,
+        0.17472995087067608
+      ]
+    },
+    {
+      "seed_id": "force_orientation__best_candidate",
+      "source": "v56_force_orientation_best_candidate",
+      "q_rad": [
+        5.761902892740324e-11,
+        -0.12554150638737455,
+        0.15442360524371262,
+        -0.016349597839721314,
+        1.0509984200544382e-09,
+        0.07444844398401271
+      ]
+    },
+    {
+      "seed_id": "force_orientation__best_optimized_candidate",
+      "source": "v56_force_orientation_best_optimized_candidate",
+      "q_rad": [
+        5.480958987183088e-16,
+        -0.06453574364714038,
+        0.016043419820671336,
+        0.0650046579206236,
+        -3.607272704471622e-14,
+        0.1580205911399655
+      ]
+    },
+    {
+      "seed_id": "xy_force_orientation__best_candidate",
+      "source": "v56_xy_force_orientation_best_candidate",
+      "q_rad": [
+        3.724578706383892e-09,
+        -0.02440166656247787,
+        -0.0004827435167661435,
+        0.0002981421103399159,
+        1.9265571608002266e-11,
+        0.12671315993947466
+      ]
+    }
+  ],
+  "optimization_rows": [
+    {
+      "case_id": "initial__slsqp",
+      "seed": {
+        "seed_id": "initial",
+        "source": "contact_manifold_initial_q",
+        "q_rad": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 1335,
+        "nit": 134,
+        "objective": 1.9536840165541527
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -7.556385719691681e-06,
+          -0.025003486572536846,
+          -0.00038223530873119624,
+          0.0003649875133562925,
+          2.776918426360315e-06,
+          0.13595505704792654
+        ],
+        "tcp_m": [
+          0.0010373325212843024,
+          7.243293509344276e-07,
+          -0.00016984379468690247
+        ],
+        "force_N": 4.733710947770921,
+        "force_error_N": 0.2662890522290793,
+        "tangential_error_m": 0.003940596969229213,
+        "orientation_error_rad": 0.06359860306569605,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0651562089163171,
+        "tangential_error_m": 1.9702984846146063,
+        "orientation_error_rad": 2.1199534355232017
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.2662890522290793,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0651562089163171
+          },
+          "tangential_error_m": {
+            "actual": 0.003940596969229213,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9702984846146063
+          },
+          "orientation_error_rad": {
+            "actual": 0.06359860306569605,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.1199534355232017
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.1199534355232017
+      }
+    },
+    {
+      "case_id": "initial__l-bfgs-b",
+      "seed": {
+        "seed_id": "initial",
+        "source": "contact_manifold_initial_q",
+        "q_rad": [
+          0.0,
+          -0.1,
+          0.15,
+          -0.05,
+          0.0,
+          0.0
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+        "nfev": 3717,
+        "nit": 123,
+        "objective": 1.953684053074742
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -6.25453711449578e-08,
+          -0.02498641317730511,
+          -0.0004243990822553697,
+          0.00039907551625778396,
+          5.450864785904932e-07,
+          0.13594377323496665
+        ],
+        "tcp_m": [
+          0.0010377507456842978,
+          1.4365379948536238e-07,
+          -0.00016987610558254207
+        ],
+        "force_N": 4.732221997792915,
+        "force_error_N": 0.26777800220708503,
+        "tangential_error_m": 0.0039401786808776875,
+        "orientation_error_rad": 0.06360088874482556,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0711120088283401,
+        "tangential_error_m": 1.9700893404388438,
+        "orientation_error_rad": 2.1200296248275188
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.26777800220708503,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0711120088283401
+          },
+          "tangential_error_m": {
+            "actual": 0.0039401786808776875,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9700893404388438
+          },
+          "orientation_error_rad": {
+            "actual": 0.06360088874482556,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.1200296248275188
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.1200296248275188
+      }
+    },
+    {
+      "case_id": "xy_force__best_candidate__slsqp",
+      "seed": {
+        "seed_id": "xy_force__best_candidate",
+        "source": "v56_xy_force_best_candidate",
+        "q_rad": [
+          0.09861730192758755,
+          -0.05397220454986746,
+          0.035204860039088993,
+          0.013096967269385312,
+          -0.0018520639871352235,
+          0.07128498489907026
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 457,
+        "nit": 53,
+        "objective": 1.9536836377499391
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -2.5375000379331147e-06,
+          -0.024940653344006,
+          -0.0004664154240962584,
+          0.00036890300903131743,
+          1.285562747857878e-06,
+          0.13597240577213637
+        ],
+        "tcp_m": [
+          0.0010372168276694405,
+          3.3632165499482373e-07,
+          -0.0001698460160999976
+        ],
+        "force_N": 4.73490540281391,
+        "force_error_N": 0.2650945971860903,
+        "tangential_error_m": 0.003940712610625581,
+        "orientation_error_rad": 0.06359868528499442,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0603783887443612,
+        "tangential_error_m": 1.9703563053127906,
+        "orientation_error_rad": 2.1199561761664807
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.2650945971860903,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0603783887443612
+          },
+          "tangential_error_m": {
+            "actual": 0.003940712610625581,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9703563053127906
+          },
+          "orientation_error_rad": {
+            "actual": 0.06359868528499442,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.1199561761664807
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.1199561761664807
+      }
+    },
+    {
+      "case_id": "xy_force__best_candidate__l-bfgs-b",
+      "seed": {
+        "seed_id": "xy_force__best_candidate",
+        "source": "v56_xy_force_best_candidate",
+        "q_rad": [
+          0.09861730192758755,
+          -0.05397220454986746,
+          0.035204860039088993,
+          0.013096967269385312,
+          -0.0018520639871352235,
+          0.07128498489907026
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": false,
+        "status": 2,
+        "message": "ABNORMAL_TERMINATION_IN_LNSRCH",
+        "nfev": 147,
+        "nit": 0,
+        "objective": 11.078575305302
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          0.09861730192758755,
+          -0.05397220454986746,
+          0.035204860039088993,
+          0.013096967269385312,
+          -0.0018520639871352235,
+          0.07128498489907026
+        ],
+        "tcp_m": [
+          0.004977929423941972,
+          -3.903127820947816e-18,
+          -0.0006869178784564833
+        ],
+        "force_N": 4.999999999999975,
+        "force_error_N": 2.4868995751603507e-14,
+        "tangential_error_m": 1.2984463881799684e-15,
+        "orientation_error_rad": 0.14697007178233126,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 9.947598300641403e-14,
+        "tangential_error_m": 6.492231940899842e-13,
+        "orientation_error_rad": 4.899002392744376
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 2.4868995751603507e-14,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true,
+            "ratio": 9.947598300641403e-14
+          },
+          "tangential_error_m": {
+            "actual": 1.2984463881799684e-15,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": true,
+            "ratio": 6.492231940899842e-13
+          },
+          "orientation_error_rad": {
+            "actual": 0.14697007178233126,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 4.899002392744376
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 4.899002392744376
+      }
+    },
+    {
+      "case_id": "xy_orientation__best_candidate__slsqp",
+      "seed": {
+        "seed_id": "xy_orientation__best_candidate",
+        "source": "v56_xy_orientation_best_candidate",
+        "q_rad": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 7,
+        "nit": 1,
+        "objective": 37.43371085743472
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ],
+        "tcp_m": [
+          0.004977929423943275,
+          1.5214598946081535e-29,
+          0.0031155826136736453
+        ],
+        "force_N": 0.0,
+        "force_error_N": 5.0,
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17,
+        "target_contact_count": 0,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 20.0,
+        "tangential_error_m": 2.6020852139652106e-15,
+        "orientation_error_rad": 1.8503717077085944e-15
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "target_contact_count"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 5.0,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 20.0
+          },
+          "tangential_error_m": {
+            "actual": 5.204170427930421e-18,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": true,
+            "ratio": 2.6020852139652106e-15
+          },
+          "orientation_error_rad": {
+            "actual": 5.551115123125783e-17,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true,
+            "ratio": 1.8503717077085944e-15
+          },
+          "target_contact_count": {
+            "actual": 0.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": false,
+            "ratio": 0.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": Infinity
+      }
+    },
+    {
+      "case_id": "xy_orientation__best_candidate__l-bfgs-b",
+      "seed": {
+        "seed_id": "xy_orientation__best_candidate",
+        "source": "v56_xy_orientation_best_candidate",
+        "q_rad": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL",
+        "nfev": 7,
+        "nit": 0,
+        "objective": 37.43371085743472
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          3.6911057292885273e-31,
+          -0.16425153865132933,
+          0.1463616332404001,
+          0.017692879774373258,
+          5.788894733487259e-29,
+          0.17472995087067608
+        ],
+        "tcp_m": [
+          0.004977929423943275,
+          1.5214598946081535e-29,
+          0.0031155826136736453
+        ],
+        "force_N": 0.0,
+        "force_error_N": 5.0,
+        "tangential_error_m": 5.204170427930421e-18,
+        "orientation_error_rad": 5.551115123125783e-17,
+        "target_contact_count": 0,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 20.0,
+        "tangential_error_m": 2.6020852139652106e-15,
+        "orientation_error_rad": 1.8503717077085944e-15
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "target_contact_count"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 5.0,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 20.0
+          },
+          "tangential_error_m": {
+            "actual": 5.204170427930421e-18,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": true,
+            "ratio": 2.6020852139652106e-15
+          },
+          "orientation_error_rad": {
+            "actual": 5.551115123125783e-17,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": true,
+            "ratio": 1.8503717077085944e-15
+          },
+          "target_contact_count": {
+            "actual": 0.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": false,
+            "ratio": 0.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": Infinity
+      }
+    },
+    {
+      "case_id": "force_orientation__best_candidate__slsqp",
+      "seed": {
+        "seed_id": "force_orientation__best_candidate",
+        "source": "v56_force_orientation_best_candidate",
+        "q_rad": [
+          5.761902892740324e-11,
+          -0.12554150638737455,
+          0.15442360524371262,
+          -0.016349597839721314,
+          1.0509984200544382e-09,
+          0.07444844398401271
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 24,
+        "nit": 2,
+        "objective": 37.43371521192822
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          5.7553927010792215e-11,
+          -0.12554246718117734,
+          0.15442309095738846,
+          -0.016350575671032687,
+          1.0461250765824127e-09,
+          0.07444745198523749
+        ],
+        "tcp_m": [
+          -0.0026735401706750135,
+          2.7664910675836416e-10,
+          0.0006466933575997175
+        ],
+        "force_N": 0.0,
+        "force_error_N": 5.0,
+        "tangential_error_m": 0.007651469594618289,
+        "orientation_error_rad": 0.0875554251437042,
+        "target_contact_count": 0,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 20.0,
+        "tangential_error_m": 3.8257347973091442,
+        "orientation_error_rad": 2.9185141714568066
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad",
+          "target_contact_count"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 5.0,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 20.0
+          },
+          "tangential_error_m": {
+            "actual": 0.007651469594618289,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 3.8257347973091442
+          },
+          "orientation_error_rad": {
+            "actual": 0.0875554251437042,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.9185141714568066
+          },
+          "target_contact_count": {
+            "actual": 0.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": false,
+            "ratio": 0.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": Infinity
+      }
+    },
+    {
+      "case_id": "force_orientation__best_candidate__l-bfgs-b",
+      "seed": {
+        "seed_id": "force_orientation__best_candidate",
+        "source": "v56_force_orientation_best_candidate",
+        "q_rad": [
+          5.761902892740324e-11,
+          -0.12554150638737455,
+          0.15442360524371262,
+          -0.016349597839721314,
+          1.0509984200544382e-09,
+          0.07444844398401271
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": false,
+        "status": 2,
+        "message": "ABNORMAL_TERMINATION_IN_LNSRCH",
+        "nfev": 147,
+        "nit": 0,
+        "objective": 3.381070984625744
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          5.761902892740324e-11,
+          -0.12554150638737455,
+          0.15442360524371262,
+          -0.016349597839721314,
+          1.0509984200544382e-09,
+          0.07444844398401271
+        ],
+        "tcp_m": [
+          -0.00267525050946179,
+          2.7793830160324353e-10,
+          0.0006467360938615524
+        ],
+        "force_N": 5.0019409531145715,
+        "force_error_N": 0.001940953114571542,
+        "tangential_error_m": 0.0076531799334050655,
+        "orientation_error_rad": 0.0875519802334906,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 0.007763812458286168,
+        "tangential_error_m": 3.8265899667025325,
+        "orientation_error_rad": 2.9183993411163534
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.001940953114571542,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": true,
+            "ratio": 0.007763812458286168
+          },
+          "tangential_error_m": {
+            "actual": 0.0076531799334050655,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 3.8265899667025325
+          },
+          "orientation_error_rad": {
+            "actual": 0.0875519802334906,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.9183993411163534
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 3.8265899667025325
+      }
+    },
+    {
+      "case_id": "force_orientation__best_optimized_candidate__slsqp",
+      "seed": {
+        "seed_id": "force_orientation__best_optimized_candidate",
+        "source": "v56_force_orientation_best_optimized_candidate",
+        "q_rad": [
+          5.480958987183088e-16,
+          -0.06453574364714038,
+          0.016043419820671336,
+          0.0650046579206236,
+          -3.607272704471622e-14,
+          0.1580205911399655
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 539,
+        "nit": 67,
+        "objective": 1.9536865553144567
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          1.4409863242116744e-05,
+          -0.02506353303256653,
+          -0.00034227208816259985,
+          0.0004317901779379125,
+          -1.0082939980303225e-05,
+          0.13590813246061634
+        ],
+        "tcp_m": [
+          0.001037371981950471,
+          -2.643548918833151e-06,
+          -0.0001698447210461973
+        ],
+        "force_N": 4.7334345677049185,
+        "force_error_N": 0.26656543229508145,
+        "tangential_error_m": 0.003940558328713803,
+        "orientation_error_rad": 0.06359881016279724,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0662617291803258,
+        "tangential_error_m": 1.9702791643569015,
+        "orientation_error_rad": 2.119960338759908
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.26656543229508145,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0662617291803258
+          },
+          "tangential_error_m": {
+            "actual": 0.003940558328713803,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9702791643569015
+          },
+          "orientation_error_rad": {
+            "actual": 0.06359881016279724,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.119960338759908
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.119960338759908
+      }
+    },
+    {
+      "case_id": "force_orientation__best_optimized_candidate__l-bfgs-b",
+      "seed": {
+        "seed_id": "force_orientation__best_optimized_candidate",
+        "source": "v56_force_orientation_best_optimized_candidate",
+        "q_rad": [
+          5.480958987183088e-16,
+          -0.06453574364714038,
+          0.016043419820671336,
+          0.0650046579206236,
+          -3.607272704471622e-14,
+          0.1580205911399655
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+        "nfev": 875,
+        "nit": 55,
+        "objective": 1.9540679030693333
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -5.9184832581614146e-09,
+          -0.026493636985004843,
+          0.002626553124584081,
+          -0.0014653786658109602,
+          1.2570782063484434e-06,
+          0.13626298219540217
+        ],
+        "tcp_m": [
+          0.0010357153563994373,
+          3.3142999445238926e-07,
+          -0.00016963907453268479
+        ],
+        "force_N": 4.732529680104932,
+        "force_error_N": 0.2674703198950681,
+        "tangential_error_m": 0.003942214081475832,
+        "orientation_error_rad": 0.06360240557736938,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0698812795802723,
+        "tangential_error_m": 1.9711070407379156,
+        "orientation_error_rad": 2.1200801859123124
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.2674703198950681,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0698812795802723
+          },
+          "tangential_error_m": {
+            "actual": 0.003942214081475832,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9711070407379156
+          },
+          "orientation_error_rad": {
+            "actual": 0.06360240557736938,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.1200801859123124
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.1200801859123124
+      }
+    },
+    {
+      "case_id": "xy_force_orientation__best_candidate__slsqp",
+      "seed": {
+        "seed_id": "xy_force_orientation__best_candidate",
+        "source": "v56_xy_force_orientation_best_candidate",
+        "q_rad": [
+          3.724578706383892e-09,
+          -0.02440166656247787,
+          -0.0004827435167661435,
+          0.0002981421103399159,
+          1.9265571608002266e-11,
+          0.12671315993947466
+        ]
+      },
+      "optimizer": {
+        "method": "SLSQP",
+        "success": true,
+        "status": 0,
+        "message": "Optimization terminated successfully",
+        "nfev": 189,
+        "nit": 22,
+        "objective": 1.9536876827329104
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -6.414986778312559e-07,
+          -0.025071789563586678,
+          -0.0003671564662068853,
+          0.0004934773118290105,
+          1.771620137888504e-07,
+          0.1358799156688692
+        ],
+        "tcp_m": [
+          0.0010373725439165888,
+          4.6045677364451537e-08,
+          -0.00016983472932916022
+        ],
+        "force_N": 4.733025179416122,
+        "force_error_N": 0.26697482058387756,
+        "tangential_error_m": 0.003940556880295705,
+        "orientation_error_rad": 0.0635984782867086,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0678992823355102,
+        "tangential_error_m": 1.9702784401478524,
+        "orientation_error_rad": 2.11994927622362
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.26697482058387756,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0678992823355102
+          },
+          "tangential_error_m": {
+            "actual": 0.003940556880295705,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9702784401478524
+          },
+          "orientation_error_rad": {
+            "actual": 0.0635984782867086,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.11994927622362
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.11994927622362
+      }
+    },
+    {
+      "case_id": "xy_force_orientation__best_candidate__l-bfgs-b",
+      "seed": {
+        "seed_id": "xy_force_orientation__best_candidate",
+        "source": "v56_xy_force_orientation_best_candidate",
+        "q_rad": [
+          3.724578706383892e-09,
+          -0.02440166656247787,
+          -0.0004827435167661435,
+          0.0002981421103399159,
+          1.9265571608002266e-11,
+          0.12671315993947466
+        ]
+      },
+      "optimizer": {
+        "method": "L-BFGS-B",
+        "success": true,
+        "status": 0,
+        "message": "CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH",
+        "nfev": 469,
+        "nit": 27,
+        "objective": 1.953696946918171
+      },
+      "terminal_metrics": {
+        "q_rad": [
+          -1.9103124347472442e-08,
+          -0.02457374271667671,
+          -0.001124541304065562,
+          0.0006779501606969499,
+          -6.148982868949492e-08,
+          0.13595137371466676
+        ],
+        "tcp_m": [
+          0.001037688833832675,
+          -1.6232358084984084e-08,
+          -0.00016984759376370562
+        ],
+        "force_N": 4.733122520011038,
+        "force_error_N": 0.2668774799889624,
+        "tangential_error_m": 0.003940240590144031,
+        "orientation_error_rad": 0.06360188537953115,
+        "target_contact_count": 1,
+        "joint_limit_violation_rad": 0.0
+      },
+      "terminal_ratios": {
+        "force_error_N": 1.0675099199558495,
+        "tangential_error_m": 1.9701202950720156,
+        "orientation_error_rad": 2.120062845984372
+      },
+      "strict_terminal_gate": {
+        "passed": false,
+        "failed_criteria": [
+          "force_error_N",
+          "tangential_error_m",
+          "orientation_error_rad"
+        ],
+        "criteria": {
+          "force_error_N": {
+            "actual": 0.2668774799889624,
+            "operator": "<=",
+            "threshold": 0.25,
+            "passed": false,
+            "ratio": 1.0675099199558495
+          },
+          "tangential_error_m": {
+            "actual": 0.003940240590144031,
+            "operator": "<=",
+            "threshold": 0.002,
+            "passed": false,
+            "ratio": 1.9701202950720156
+          },
+          "orientation_error_rad": {
+            "actual": 0.06360188537953115,
+            "operator": "<=",
+            "threshold": 0.03,
+            "passed": false,
+            "ratio": 2.120062845984372
+          },
+          "target_contact_count": {
+            "actual": 1.0,
+            "operator": ">=",
+            "threshold": 1.0,
+            "passed": true,
+            "ratio": 1.0
+          },
+          "joint_limit_violation_rad": {
+            "actual": 0.0,
+            "operator": "<=",
+            "threshold": 1e-09,
+            "passed": true,
+            "ratio": 0.0
+          }
+        },
+        "max_gate_ratio": 2.120062845984372
+      }
+    }
+  ],
+  "claim_boundary": {
+    "offline_simulation_only": true,
+    "strict_terminal_constrained_optimization_complete": false,
+    "strict_paper_equivalent_feasibility": false,
+    "canonical_controller_change": false,
+    "canonical_orientation_gate_change": false,
+    "failed_cell_closed": false,
+    "robustness_claim": false,
+    "contact_calibration_claim": false,
+    "hardware_readiness": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_offline_actions": [
+    "Do not claim strict terminal feasibility from the improved minimax compromise.",
+    "The stronger optimizer reduces the worst normalized strict terminal violation but still has no strict pass.",
+    "Further progress likely needs approved calibration evidence or an accepted change to the setup target/contact model."
+  ],
+  "run_id": "20260525T080417",
+  "output_dir": "runs/strict_terminal_constrained_optimization/20260525T085000"
+}

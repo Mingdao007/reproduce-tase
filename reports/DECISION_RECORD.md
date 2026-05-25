@@ -2602,3 +2602,29 @@
   controller, close failed cells, prove robustness, prove strict
   paper-equivalent feasibility, calibrate contact geometry, establish
   hardware readiness, or authorize hardware motion/configuration.
+
+## D121: Stronger Terminal Optimization Still Does Not Recover Strict Setup
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v116 as an offline strict terminal constrained optimization audit,
+  not as a strict feasibility recovery.
+- Reason:
+  V115 showed qdot-timed paths remove setup qdot saturation but leave strict
+  terminal compatibility blocked. V116 runs bounded smooth-minimax SLSQP and
+  L-BFGS-B optimizations from v56 contact-manifold seeds over normalized
+  force, x/y, and orientation errors. It reports strict terminal pass `0 / 12`.
+  The best run improves the v56 strict best max-gate ratio from
+  `2.413534442118322` to `2.11994927622362`, but its target-contacting terminal
+  state still fails force, x/y, and orientation thresholds.
+- Consequence:
+  Do not repeat the same accepted contact-model seed/objective family as if it
+  were likely to close strict setup. The current terminal compatibility
+  blocker remains under stronger optimization. Further progress likely
+  requires approved calibration evidence or a new explicitly accepted
+  contact/setup-target definition. V116 does not accept a replacement
+  orientation gate, change the canonical controller, close failed cells, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.

@@ -7,13 +7,13 @@ instructions into the goal text.
 ## Short Thread Goal Prompt
 
 ```text
-Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v116.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v115 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script. V100 executes `base_z_plus1mm`, V101 executes `positive_fast_timing_0p0075`, V102 executes `positive_orientation_gate_0p119`, and V103 executes `weighted_plus1mm_0p119_gate`; all four remain unresolved. V104 classifies the four remaining `+1.0 mm` signatures. V105 isolates the `positive_fast_timing_0p0075` E2 qdot/usage blocker: at `paper_time_scale = 0.0075`, qdot-limit increases through `0.3 rad/s` remove qdot saturation but still fail orientation; the first tested E2 timing pass is `paper_time_scale = 0.0052`. V106 shows weighted priority clears the isolated E2 row at `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the fixed `0.12 rad` orientation gate. V107 reruns the exact full E1-E4 `+1.0 mm` fast-timing face: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4`; this remains diagnostic evidence and does not close the original failed cell because weighted priority has not been accepted as canonical. V108 splits `base_z_plus1mm`. V109 targets that relaxed handoff blocker: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4` at Stage A durations `15.0 s` and `16.0 s`; this remains diagnostic and does not close the original failed cell. V110 supports naming `weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for the v107/v109 covered faces. V111 restates the v98/v99 matrix with that named profile as a non-canonical overlay: `base_z_plus1mm` and `positive_fast_timing_0p0075` get profile overlay support, while `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain gate-acceptance blocked. V112 prioritizes the remaining blockers: top priority is approved read-only calibration evidence, four blockers require live/approval evidence, and two blockers can advance offline only as non-final evidence. V113 runs the strict-feasibility policy probe: strict setup pass remains `0 / 8`, planned setup-then-trajectory pass remains `0 / 8`, and full staged feasibility remains `0 / 8`. V114 tests command-limited Stage A: strict setup-chain pass remains `0 / 4`, planned setup-then-trajectory pass remains `0 / 4`, every command-limited row still fails x/y and setup qdot saturation, closed cells remain `0`, robustness proof remains `false`, and all canonical controller/gate changes remain `false`. V115 tests explicit terminal/path constraints: strict setup-path pass remains `0 / 5`, terminal strict-criteria pass remains `0 / 5`, qdot-criteria pass is `5 / 5`, and planned setup-then-trajectory pass remains `0 / 5`. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v115 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v115 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
+Continue the T-ASE finite-time UR10e + OnRobot reproduction in `/home/andy/reproduce-tase`. First read `docs/goal.md`, `docs/goal_handoff_v117.md`, `reports/completion_audit.md`, `reports/ITERATION_LOG.md`, and `reports/DECISION_RECORD.md`; then inspect git status before changing anything. Preserve the current v116 claim boundary: formula-faithful Python paper-platform convergence and tuned Fig.6 landmark evidence remain separate, so full paper-equivalent parity is still not achieved. The UR10e adapted line is diagnostic simulation only. V95 classifies strict paper-equivalent full staged feasibility and robustness as non-final offline-actionable, while approved read-only evidence, calibrated contact geometry, orientation-gate acceptance, and hardware readiness remain blocked on explicit approval/evidence. V96 confirms strict setup remains blocked: strict full staged feasibility is `0 / 4`, three-phase setup terminal state is `0 / 10`, and three-phase trajectory feasibility is `8 / 10`. V97 confirms robustness remains incomplete: baseline diagnostic stitched sensitivity is `4 / 9`, positive stitched sensitivity is `37 / 40`, and recovered faces remain diagnostic non-final evidence. V98 defines a diagnostic robustness matrix candidate with 12 cells: 7 diagnostic passes, 1 non-final diagnostic recovery, and 4 failed cells. V99 converts those four failed cells into a planned-not-executed offline experiment matrix and command script. V100 executes `base_z_plus1mm`, V101 executes `positive_fast_timing_0p0075`, V102 executes `positive_orientation_gate_0p119`, and V103 executes `weighted_plus1mm_0p119_gate`; all four remain unresolved. V104 classifies the four remaining `+1.0 mm` signatures. V105 isolates the `positive_fast_timing_0p0075` E2 qdot/usage blocker: at `paper_time_scale = 0.0075`, qdot-limit increases through `0.3 rad/s` remove qdot saturation but still fail orientation; the first tested E2 timing pass is `paper_time_scale = 0.0052`. V106 shows weighted priority clears the isolated E2 row at `paper_time_scale = 0.0075`, `qdot_limit = 0.15 rad/s`, and the fixed `0.12 rad` orientation gate. V107 reruns the exact full E1-E4 `+1.0 mm` fast-timing face: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4`; this remains diagnostic evidence and does not close the original failed cell because weighted priority has not been accepted as canonical. V108 splits `base_z_plus1mm`. V109 targets that relaxed handoff blocker: the linear-primary baseline still fails E2, while both weighted rows pass `4 / 4` at Stage A durations `15.0 s` and `16.0 s`; this remains diagnostic and does not close the original failed cell. V110 supports naming `weighted_zero_angular_stage_b_diagnostic` as a diagnostic profile for the v107/v109 covered faces. V111 restates the v98/v99 matrix with that named profile as a non-canonical overlay: `base_z_plus1mm` and `positive_fast_timing_0p0075` get profile overlay support, while `positive_orientation_gate_0p119` and `weighted_plus1mm_0p119_gate` remain gate-acceptance blocked. V112 prioritizes the remaining blockers: top priority is approved read-only calibration evidence, four blockers require live/approval evidence, and two blockers can advance offline only as non-final evidence. V113 runs the strict-feasibility policy probe: strict setup pass remains `0 / 8`, planned setup-then-trajectory pass remains `0 / 8`, and full staged feasibility remains `0 / 8`. V114 tests command-limited Stage A: strict setup-chain pass remains `0 / 4`, planned setup-then-trajectory pass remains `0 / 4`, every command-limited row still fails x/y and setup qdot saturation, closed cells remain `0`, robustness proof remains `false`, and all canonical controller/gate changes remain `false`. V115 tests explicit terminal/path constraints: strict setup-path pass remains `0 / 5`, terminal strict-criteria pass remains `0 / 5`, qdot-criteria pass is `5 / 5`, and planned setup-then-trajectory pass remains `0 / 5`. V116 tests stronger bounded smooth-minimax terminal optimization: strict terminal pass remains `0 / 12`, the best max-gate ratio improves from `2.413534442118322` to `2.11994927622362`, but the best row still fails force, x/y, and orientation thresholds. The next branch should execute only a safe read-only SOP subset after explicit user confirmation using the scaffold, finalizer, and verifier, or continue only non-final offline simulation/paper-platform work identified by the v95-v116 audits. Keep strict paper-equivalent setup, v38 relaxed trajectory-after-setup, and v63-v116 diagnostic staged labels separate. Do not move or configure the real UR10e; real hardware work is read-only unless a separate approved SOP exists.
 ```
 
 ## Objective
 
 Continue the UR10e + OnRobot force/torque sensor project from the current
-`v115` repository state. The project goal is to reproduce the T-ASE finite-time
+`v116` repository state. The project goal is to reproduce the T-ASE finite-time
 force-motion control paper, then adapt the method to the current UR10e
 hardware and simulation stack.
 
@@ -34,7 +34,7 @@ Read and audit these files before making assumptions:
 - Local authoritative clone:
   `/home/andy/reproduce-tase`
 - Current local branch:
-  `exp/tase-ur10e-v115-explicit-stage-a-constraint-probe`
+  `exp/tase-ur10e-v116-strict-terminal-constrained-optimization`
 - Current v87 SOP artifact:
   `reports/read_only_calibration_measurement_sop.md`
 - Current v88 template/scaffold artifacts:
@@ -169,12 +169,17 @@ Read and audit these files before making assumptions:
   `tests/test_explicit_stage_a_constraint_probe.py`
   `runs/explicit_stage_a_constraint_probe/20260525T082500`
   `reports/explicit_stage_a_constraint_probe_report.md`
+- Current v116 strict terminal constrained optimization artifacts:
+  `scripts/audit_strict_terminal_constrained_optimization.py`
+  `tests/test_strict_terminal_constrained_optimization.py`
+  `runs/strict_terminal_constrained_optimization/20260525T085000`
+  `reports/strict_terminal_constrained_optimization_report.md`
 - Paper PDF:
   `/home/andy/Zotero/storage/UZRF97KG/Xu 等 - 2026 - Finite-Time Convergence Neural Network-Based Force-Motion Control for Unknown Surface With Orientati.pdf`
 - Legacy source workspace that has been migrated/audited into the repo:
   `/home/andy/ur10e_ros2_ws/experiments/20260523_tase_finite_time_ur10e_mujoco_reproduction/`
 - Required repository entry points:
-  `docs/goal_handoff_v116.md`
+  `docs/goal_handoff_v117.md`
   `reports/completion_audit.md`
   `reports/ITERATION_LOG.md`
   `reports/DECISION_RECORD.md`
@@ -554,6 +559,12 @@ Current accepted claims:
   `5 / 5`, and planned setup-then-trajectory pass remains `0 / 5`. This
   separates qdot saturation from the remaining strict terminal compatibility
   blocker.
+- `ur10e_strict_terminal_constrained_optimization`: v116 runs bounded
+  smooth-minimax SLSQP/L-BFGS-B terminal optimizers from the v56
+  contact-manifold seeds. Strict terminal pass remains `0 / 12`; the best
+  max-gate ratio improves from `2.413534442118322` to `2.11994927622362`, but
+  the best target-contacting row still fails force, x/y, and orientation
+  thresholds.
 
 The v49-v50 provenance audits found that the legacy Fig.6 q7 landmark belongs
 to a tuned `admittance_proxy` figure-match line with explicit q7 nullspace
@@ -566,14 +577,14 @@ Current next executable step:
 - Continue UR10e adapted work by executing only a safe read-only SOP subset
   after explicit user confirmation, using the v93 scaffold, v91 finalizer, and
   v90/v93 verifier for evidence capture; or continue only non-final offline
-  simulation/paper-platform work identified by the v95-v115 blocker audits.
-  The next strict-feasibility probe should avoid repeating v113 instantaneous
-  priority, v114 command limiting, or v115 terminal/path timing matrices. It
-  should either test a stronger constrained optimization over the accepted
-  contact model or wait for approved read-only calibration evidence that can
-  justify changing the setup target/contact model.
+  simulation/paper-platform work identified by the v95-v116 blocker audits.
+  Avoid repeating v113 instantaneous priority, v114 command limiting, v115
+  terminal/path timing, or v116 bounded terminal minimax optimization over the
+  same accepted contact model and seeds. The practical next blocker is
+  approved read-only calibration evidence or a new explicitly accepted
+  contact/setup-target definition.
   Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-  v63-v115 diagnostic staged labels separate.
+  v63-v116 diagnostic staged labels separate.
 
 ## Safety Boundary
 

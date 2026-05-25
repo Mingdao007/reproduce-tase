@@ -4511,3 +4511,45 @@
   constrained optimization over the accepted contact model or wait for
   approved read-only calibration evidence that can justify changing the setup
   target/contact model.
+
+## 2026-05-25 v116 Strict Terminal Constrained Optimization
+
+### Test stronger terminal minimax optimization over the accepted contact model
+
+- Branch:
+  `exp/tase-ur10e-v116-strict-terminal-constrained-optimization`
+- Runs:
+  - `runs/strict_terminal_constrained_optimization/20260525T085000`
+- Report:
+  `reports/strict_terminal_constrained_optimization_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_terminal_constrained_optimization.py`
+  - `scripts/run_tests.sh tests/test_strict_terminal_constrained_optimization.py`
+  - `python3 scripts/audit_strict_terminal_constrained_optimization.py --output-dir runs/strict_terminal_constrained_optimization/20260525T085000`
+  - `rg -n "&id|\*id" runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml`
+  - `find runs/strict_terminal_constrained_optimization/20260525T085000 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline strict terminal optimization audit seeds from the v56
+  contact-manifold candidates and runs bounded smooth-minimax SLSQP/L-BFGS-B
+  optimizers over normalized force, x/y, and orientation errors. It reports
+  strict terminal pass `0 / 12`, optimizer success `10 / 12`, best case
+  `xy_force_orientation__best_candidate__slsqp`, and improves the v56 strict
+  best max-gate ratio from `2.413534442118322` to `2.11994927622362`. The best
+  target-contacting row still fails force, x/y, and orientation thresholds.
+- Limit:
+  This is offline simulation only. It does not prove strict paper-equivalent
+  feasibility, run a Stage A controller, run a Stage B trajectory, make a
+  canonical controller change, accept a replacement orientation gate, close
+  failed cells, prove robustness, calibrate contact geometry, establish
+  hardware readiness, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `4 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `178 passed in 7.16s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. Avoid repeating
+  v113-v116 policy, command-limiting, timing, and terminal minimax matrices
+  over the same accepted model. The practical next blocker is approved
+  read-only calibration evidence or a new explicitly accepted contact/setup
+  target definition.

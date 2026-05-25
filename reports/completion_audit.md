@@ -242,17 +242,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v115 branches pushed and GitHub-verified; v115 implementation branch push verified at `315052286c42300dc9cf1665aec8a7b9279587bf` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v115-explicit-stage-a-constraint-probe`; latest local branch is `exp/tase-ur10e-v115-explicit-stage-a-constraint-probe` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v116 branches pushed and GitHub-verified; v116 implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v116-strict-terminal-constrained-optimization`; latest local branch is `exp/tase-ur10e-v116-strict-terminal-constrained-optimization` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v116.md` include the short prompt, authoritative local clone, v95-v115 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D120 as of v115 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v117.md` include the short prompt, authoritative local clone, v95-v116 blocker-audit artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D121 as of v116 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v115 focused validation: `python3 -m py_compile scripts/audit_explicit_stage_a_constraint_probe.py` passed, `scripts/run_tests.sh tests/test_explicit_stage_a_constraint_probe.py` reported `3 passed in 0.12s`, the v115 explicit Stage A constraint run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `174 passed in 7.12s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v116 focused validation: `python3 -m py_compile scripts/audit_strict_terminal_constrained_optimization.py` passed, `scripts/run_tests.sh tests/test_strict_terminal_constrained_optimization.py` reported `4 passed in 0.12s`, the v116 strict terminal constrained optimization run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `178 passed in 7.16s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -327,7 +327,8 @@ The objective has two separate technical claim levels:
 | Strict feasibility policy probe | `scripts/audit_strict_feasibility_policy_probe.py`, `tests/test_strict_feasibility_policy_probe.py`, `runs/strict_feasibility_policy_probe/20260525T073519/metrics.yaml`, `reports/strict_feasibility_policy_probe_report.md` | v113 runs the highest-priority offline-actionable blocker as a compact E2 Stage A policy matrix. It reports setup terminal-state pass `0 / 8`, trajectory feasibility pass `4 / 8`, planned setup-then-trajectory pass `0 / 8`, full staged feasibility pass `0 / 8`, qdot saturation and tail utilization failures in all eight setup rows, and `do_not_mark_goal_complete = true`; implementation branch push verified at `98a6b3400901680ae2aeb51f9348963504606d9f` | Done |
 | Strict command-limited Stage A probe | `scripts/audit_strict_command_limited_stage_a.py`, `tests/test_strict_command_limited_stage_a.py`, `runs/strict_command_limited_stage_a/20260525T074557/metrics.yaml`, `reports/strict_command_limited_stage_a_report.md` | v114 changes Stage A command generation before allocation by lowering force gain, capping force-normal angular commands, and extending durations. It reports strict setup-chain pass `0 / 4`, trajectory feasibility pass `2 / 4`, planned setup-then-trajectory pass `0 / 4`, all four rows failing final x/y and setup qdot saturation/tail utilization, and `do_not_mark_goal_complete = true`; implementation branch push verified at `aaa42097f6778cc0b2c8617c9ffc21f57b5fbfb4` | Done |
 | Explicit Stage A constraint probe | `scripts/audit_explicit_stage_a_constraint_probe.py`, `tests/test_explicit_stage_a_constraint_probe.py`, `runs/explicit_stage_a_constraint_probe/20260525T082500/metrics.yaml`, `reports/explicit_stage_a_constraint_probe_report.md` | v115 tests terminal/path constraints using the v56 contact-manifold cases plus the v62 diagnostic path reference. It reports strict setup-path pass `0 / 5`, terminal strict-criteria pass `0 / 5`, qdot-criteria pass `5 / 5`, planned setup-then-trajectory pass `0 / 5`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `315052286c42300dc9cf1665aec8a7b9279587bf` | Done |
-| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10`; v115 explicit constraints still produce strict setup-path pass `0 / 5` despite qdot-criteria pass `5 / 5` | Not achieved |
+| Strict terminal constrained optimization | `scripts/audit_strict_terminal_constrained_optimization.py`, `tests/test_strict_terminal_constrained_optimization.py`, `runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml`, `reports/strict_terminal_constrained_optimization_report.md` | v116 runs bounded smooth-minimax terminal optimization from the v56 contact-manifold seeds. It reports strict terminal pass `0 / 12`, best max-gate ratio `2.11994927622362`, v56 strict best max-gate ratio `2.413534442118322`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10`; v115 explicit constraints still produce strict setup-path pass `0 / 5` despite qdot-criteria pass `5 / 5`; v116 stronger terminal optimization still has strict terminal pass `0 / 12` | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1767,7 +1768,12 @@ contact-manifold cases plus the v62 diagnostic path reference. It reports
 strict setup-path pass `0 / 5`, terminal strict-criteria pass `0 / 5`,
 qdot-criteria pass `5 / 5`, and planned setup-then-trajectory pass `0 / 5`.
 This separates the qdot saturation blocker from the remaining terminal
-compatibility blocker but still does not recover strict setup.
+compatibility blocker but still does not recover strict setup. V116 then runs
+bounded smooth-minimax terminal optimization from the v56 contact-manifold
+seeds. It improves the v56 strict best max-gate ratio from
+`2.413534442118322` to `2.11994927622362`, but still reports strict terminal
+pass `0 / 12`; the best target-contacting terminal state still fails force,
+x/y, and orientation thresholds.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -1779,8 +1785,8 @@ Do not accept a replacement orientation gate from simulation metrics or current
 local records alone. The next executable step is to execute only safe read-only
 portions of the v87 SOP with the v93 scaffold, v91 finalizer, and v90/v93
 verifier after explicit user confirmation, or continue only non-final offline
-simulation/paper-platform work identified by the v95-v115 blocker audits, the
-v99 planned experiment matrix, and the v100-v115 execution/probe audits. All
+simulation/paper-platform work identified by the v95-v116 blocker audits, the
+v99 planned experiment matrix, and the v100-v116 execution/probe audits. All
 v99 planned commands have now been executed; v111 restates the diagnostic
 matrix with the named weighted profile as a non-canonical overlay, and v112
 prioritizes the remaining blockers while preserving the canonical claim
@@ -1788,12 +1794,13 @@ boundary. V113 tests a compact strict-feasibility policy matrix and still finds
 `0 / 8` strict setup and full staged passes. V114 tests command-limited Stage A
 and still finds `0 / 4` strict setup-chain and planned setup-then-trajectory
 passes. V115 tests explicit terminal/path constraints and still finds `0 / 5`
-strict setup-path passes even though all five rows pass qdot criteria. Without
-read-only approval, avoid repeating the v113-v115 matrices; the next
-strict-feasibility probe should either test a stronger constrained
-optimization over the accepted contact model or wait for approved read-only
-calibration evidence that can justify changing the setup target/contact model.
-Keep strict paper-equivalent setup, v38 trajectory-after-relaxed-setup, and
-v63-v115 diagnostic staged labels separate.
+strict setup-path passes even though all five rows pass qdot criteria. V116
+tests stronger bounded smooth-minimax terminal optimization and still finds
+`0 / 12` strict terminal passes. Without read-only approval, avoid repeating
+the v113-v116 policy, timing, and terminal objective families over the same
+accepted model and seeds. The practical next blocker is approved read-only
+calibration evidence or a new explicitly accepted contact/setup-target
+definition. Keep strict paper-equivalent setup, v38
+trajectory-after-relaxed-setup, and v63-v116 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.
