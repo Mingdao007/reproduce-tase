@@ -4614,7 +4614,7 @@ Legacy source root:
 ### Checked whether only inaccessible real-machine data remains
 
 - Implementation commit:
-  `TBD pending final closeout`
+  `594dad3e476b51e9bce9f5afc8e1d9ba25d1398a`
 - Scripts:
   - `scripts/audit_user_completion_criterion_after_v144.py`
 - Runs:
@@ -4640,9 +4640,10 @@ Legacy source root:
   unresolved requirements are `strict_terminal_or_full_staged_feasibility` and
   `robustness_to_contact_model_perturbations`.
 - Validation:
-  Focused tests passed with `4 passed in 0.18s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.18s`; full tests passed with
+  `287 passed in 32.17s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v145 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is completion-criterion
   bookkeeping only; it does not approve any packet, authorize live access,

@@ -68,9 +68,12 @@ approved read-only evidence.
 - `scripts/run_tests.sh tests/test_user_completion_criterion_after_v144.py`
   reported `4 passed in 0.18s`.
 - `python3 scripts/audit_user_completion_criterion_after_v144.py --run-id 20260525T190000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `287 passed in 32.17s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v145 run artifact.
+- `git diff --check` passed.
+- Implementation commit:
+  `594dad3e476b51e9bce9f5afc8e1d9ba25d1398a`
 
 ## Limit
 

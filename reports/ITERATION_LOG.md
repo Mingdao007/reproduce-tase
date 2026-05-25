@@ -5885,7 +5885,7 @@
 - Branch:
   `exp/tase-ur10e-v145-user-completion-criterion`
 - Implementation commit:
-  `TBD pending final closeout`
+  `594dad3e476b51e9bce9f5afc8e1d9ba25d1398a`
 - Runs:
   - `runs/user_completion_criterion_after_v144/20260525T190000`
 - Report:
@@ -5913,9 +5913,10 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 - Validation:
-  Focused tests passed with `4 passed in 0.18s`. Full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.18s`; full tests passed with
+  `287 passed in 32.17s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v145 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user gives exact approval, use the phase1 packet and fill only valid
   `tcp_contact_measurements.csv` rows before finalization and
