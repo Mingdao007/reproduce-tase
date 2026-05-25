@@ -3086,6 +3086,31 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D146: Status And Continuation Boundaries Must Stay Non-Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v141 as a post-v140 completion gate that classifies the v139 status
+  answer and v140 continuation-boundary audit as non-evidence.
+- Reason:
+  V139 and v140 answer important user-facing questions, but neither one
+  collects measurements or approves a read-only SOP step. They could still be
+  overread as progress toward completion unless the actual evidence
+  directories, accepted review directories, strict terminal result, robustness
+  result, hardware gate, and readiness/status artifacts are checked together.
+- Consequence:
+  The v139 status answer and v140 continuation-boundary audit cannot support
+  completion claims. The top blocker remains approved read-only calibration
+  evidence, and the repository still has no approved read-only run, no passed
+  approved-read-only audit, no accepted contact/setup-target review, no
+  accepted orientation-gate review, no strict terminal pass, no robustness
+  proof, and no hardware gate report. V141 does not collect live evidence,
+  approve a packet, authorize live access, authorize execution, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25
