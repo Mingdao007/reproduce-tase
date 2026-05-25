@@ -5272,7 +5272,7 @@
 - Branch:
   `exp/tase-ur10e-v133-phase1-row-quality-guard`
 - Implementation commit:
-  pending verification marker update
+  `329bff1605c3a20ed0f9b53b08493f364d887f32`
 - Runs:
   - `runs/phase1_row_quality_guard/20260525T120000`
 - Report:

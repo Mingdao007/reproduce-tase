@@ -4051,7 +4051,7 @@ Legacy source root:
 ### Hardened future phase1 finalization against malformed rows
 
 - Implementation commit:
-  pending verification marker update
+  `329bff1605c3a20ed0f9b53b08493f364d887f32`
 - Scripts:
   - `scripts/audit_read_only_calibration_measurement_run.py`
   - `scripts/finalize_read_only_calibration_measurement_evidence.py`
