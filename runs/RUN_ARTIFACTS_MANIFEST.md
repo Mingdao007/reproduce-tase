@@ -4099,7 +4099,7 @@ Legacy source root:
 ### Hardened downstream finalization against malformed rows
 
 - Implementation commit:
-  pending verification marker update
+  `cd5ef9e5a93f0523109fdbc5491e7cb523f77439`
 - Scripts:
   - `scripts/audit_read_only_calibration_measurement_run.py`
   - `scripts/finalize_read_only_calibration_measurement_evidence.py`

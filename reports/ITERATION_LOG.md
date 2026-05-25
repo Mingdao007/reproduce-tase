@@ -5318,7 +5318,7 @@
 - Branch:
   `exp/tase-ur10e-v134-downstream-row-quality-guard`
 - Implementation commit:
-  pending verification marker update
+  `cd5ef9e5a93f0523109fdbc5491e7cb523f77439`
 - Runs:
   - `runs/downstream_row_quality_guard/20260525T121000`
 - Report:
