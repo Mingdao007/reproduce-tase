@@ -3234,6 +3234,31 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## D152: Readable State Backups Are Simulation Seeds, Not Completion Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v147 as a readable-state backup and calibrated offline simulation seed
+  audit.
+- Reason:
+  The real UR10e cannot be assumed to remain powered and connected while
+  offline simulation work continues. The repository needs a lightweight,
+  reproducible snapshot of the readable state that can initialize simulation
+  without treating that snapshot as approved calibration evidence or hardware
+  readiness. The old nominal primitive MuJoCo model also mismatched the
+  backed-up RTDE TCP pose by more than a meter, so continuing simulation from
+  the current real state requires calibrated kinematic seed infrastructure.
+- Consequence:
+  V147 backs up the readable UR10e / OnRobot state, stores repo-local seed and
+  calibration files, generates a calibrated URDF and simplified calibrated
+  MJCF, and verifies MuJoCo replay of the backed-up RTDE TCP pose within
+  `2.016003536429377e-06 m` and `6.278799181396437e-06 rad`. V147 does not
+  collect approved read-only evidence, approve a packet, authorize execution,
+  accept contact/setup targets, accept orientation gates, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, close completion, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

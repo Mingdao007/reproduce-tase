@@ -4694,6 +4694,75 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V147 Readable-State Simulation Seed
+
+### Backed up readable UR10e state and generated calibrated offline seeds
+
+- Scripts:
+  - `scripts/audit_current_real_snapshot_sim_seed_after_v146.py`
+  - `scripts/audit_calibrated_urdf_fk_snapshot_after_v147.py`
+  - `scripts/audit_calibrated_mjcf_replay_after_v147.py`
+- Runs:
+  - `runs/current_real_snapshot_sim_seed_after_v146/20260525T210000`
+  - `runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000`
+  - `runs/calibrated_mjcf_replay_after_v147/20260525T212000`
+- Report:
+  - `reports/readable_state_sim_seed_v147_report.md`
+- Tests:
+  - `tests/test_current_real_snapshot_sim_seed_after_v146.py`
+  - `tests/test_calibrated_urdf_fk_snapshot_after_v147.py`
+  - `tests/test_calibrated_mjcf_replay_after_v147.py`
+- Data/config/model artifacts:
+  - `data/ur10e_real_snapshot_20260525T1641/current_ur10e_sim_seed.yaml`
+  - `data/ur10e_real_snapshot_20260525T1641/ur10e_calibration.yaml`
+  - `assets/urdf/ur10e_calibrated_20260525T1641.urdf`
+  - `assets/mjcf/ur10e_calibrated_20260525T1641_tcp_offset.xml`
+  - `configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml`
+- External backup root:
+  - `/home/andy/ur10e_ros2_ws/experiments/20260525_tase_sim_readable_state_backup`
+- Commands:
+  - `python3 scripts/audit_current_real_snapshot_sim_seed_after_v146.py --run-id 20260525T210000`
+  - `python3 scripts/audit_calibrated_urdf_fk_snapshot_after_v147.py --run-id 20260525T211000`
+  - `python3 scripts/audit_calibrated_mjcf_replay_after_v147.py --run-id 20260525T212000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`
+  for all three runs; repo-local seed/calibration/config/model artifacts;
+  report, tests, scripts, handoff, and updated planning/decision/manifest
+  documentation.
+- Result:
+  The current readable state backup and seed audit passes:
+  `current_robot_state_backed_up = true`,
+  `offline_simulation_can_continue_from_seed = true`,
+  `calibration_hash = calib_7367377276742883610`, payload `0.44 kg`, and TCP
+  offset z `0.12254000000000001 m`. The old nominal MuJoCo primitive misses
+  the backed-up RTDE TCP pose by `1.1351349451303372 m` and
+  `2.840514162594206 rad`.
+
+  The calibrated URDF audit reports
+  `calibrated_urdf_fk_matches_rtde_tcp = true`,
+  `best_frame_id = tool0_plus_live_tcp_offset_z`,
+  `best_position_error_m = 2.0160035361820057e-06`, and
+  `best_orientation_error_rad = 6.278799181278485e-06`.
+
+  The calibrated MJCF replay audit reports `mujoco_model_loads = true`,
+  `calibrated_mjcf_replay_matches_rtde_tcp = true`,
+  `position_error_m = 2.016003536429377e-06`,
+  `orientation_error_rad = 6.278799181396437e-06`,
+  `simulation_can_use_calibrated_mjcf_seed = true`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed`, `5 passed`, and `4 passed`; full tests
+  passed with `304 passed in 32.86s`; YAML anchor check found no anchors in the
+  new metrics/data/config YAML files; raw/heavy artifact scan found no payloads
+  in the new lightweight artifacts; `git diff --check` passed.
+- Limit:
+  The external backup and repo-local seed are offline kinematic simulation
+  infrastructure only. They do not create approved read-only calibration
+  evidence, approve any packet, authorize live access or execution, accept a
+  contact model or setup target, relax an orientation gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, close completion, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

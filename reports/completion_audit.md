@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v146-offline-blocker-boundary`
+Branch: `exp/tase-ur10e-v147-readable-state-sim-seed`
 
 ## Objective Restatement
 
@@ -348,17 +348,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v146 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v146 is on `exp/tase-ur10e-v146-offline-blocker-boundary` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v146-offline-blocker-boundary`; latest local branch is `exp/tase-ur10e-v146-offline-blocker-boundary` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v147 work uses dedicated branches; v129 branch push verified at `345e5cde3bc58147d244f1b666e98d7a3d6646b4`; v130 implementation commit is `292512d7d05eaeea0631fc971a05ce81250d06e2`; v147 is on `exp/tase-ur10e-v147-readable-state-sim-seed` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v147-readable-state-sim-seed`; latest local branch is `exp/tase-ur10e-v147-readable-state-sim-seed` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v146 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D151 as of v146 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v147 blocker/review/seed artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D152 as of v147 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v146 validation: py_compile for the post-v145 offline blocker boundary audit passed; focused tests reported `4 passed in 0.29s`; full tests reported `291 passed in 32.10s`; YAML anchor scan found no anchors in the generated metrics; raw/heavy artifact scan found no payloads in the v146 run artifact; `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v147 validation: py_compile for the current snapshot audit passed; focused tests reported `4 passed`, `5 passed`, and `4 passed`; full tests reported `304 passed in 32.86s`; YAML anchor scan found no anchors in the new generated metrics/data/config YAML files; raw/heavy artifact scan found no payloads in the new lightweight artifacts; `git diff --check` passed; no robot motion or hardware writes were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -393,6 +393,7 @@ The objective has two separate technical claim levels:
 | Phase1 packet freshness after v143 | `scripts/audit_phase1_packet_freshness_after_v143.py`, `tests/test_phase1_packet_freshness_after_v143.py`, `reports/phase1_packet_freshness_after_v143_report.md`, `runs/phase1_packet_freshness_after_v143/20260525T180000/metrics.yaml` | v144 confirms the exact phase1 packet remains fresh and not approved; registry scope still matches, packet hash is unchanged, approved read-only runs and audits remain `0`, no approval record or approved evidence is created, and completion remains false |
 | User completion criterion after v144 | `scripts/audit_user_completion_criterion_after_v144.py`, `tests/test_user_completion_criterion_after_v144.py`, `reports/user_completion_criterion_after_v144_report.md`, `runs/user_completion_criterion_after_v144/20260525T190000/metrics.yaml` | v145 directly checks the user's real-data-only completion criterion and reports `answer = not_complete_not_only_real_data_missing`, `user_completion_criterion_met = false`, approval/live-data blocked requirements `4`, offline/non-final unresolved requirements `2`, and completion remains false |
 | Post-v145 offline blocker boundary | `scripts/audit_post_v145_offline_blocker_boundary.py`, `tests/test_post_v145_offline_blocker_boundary.py`, `reports/post_v145_offline_blocker_boundary_report.md`, `runs/post_v145_offline_blocker_boundary/20260525T200000/metrics.yaml` | v146 confirms the two offline/non-final blockers remain unresolved and there is no known safe non-repeating offline shortcut for closing them; completion-closing offline shortcut count is `0`, safe non-repeating completion action is false, and completion remains false |
+| Readable-state simulation seed after v146 | `scripts/audit_current_real_snapshot_sim_seed_after_v146.py`, `tests/test_current_real_snapshot_sim_seed_after_v146.py`, `scripts/audit_calibrated_urdf_fk_snapshot_after_v147.py`, `tests/test_calibrated_urdf_fk_snapshot_after_v147.py`, `scripts/audit_calibrated_mjcf_replay_after_v147.py`, `tests/test_calibrated_mjcf_replay_after_v147.py`, `reports/readable_state_sim_seed_v147_report.md`, `runs/current_real_snapshot_sim_seed_after_v146/20260525T210000/metrics.yaml`, `runs/calibrated_urdf_fk_snapshot_after_v147/20260525T211000/metrics.yaml`, `runs/calibrated_mjcf_replay_after_v147/20260525T212000/metrics.yaml` | v147 backs up readable real UR10e state for offline simulation, copies a repo-local seed and calibration snapshot, and verifies calibrated URDF/MJCF replay of the backed-up RTDE TCP pose within `2.016003536429377e-06 m` and `6.278799181396437e-06 rad`; this is kinematic seed infrastructure only, and completion remains false |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -2402,6 +2403,13 @@ approval/live-data blocked requirements.
 V146 then checks the two offline/non-final blockers and confirms there is no
 known safe non-repeating offline shortcut that can close either blocker from
 current evidence.
+V147 then backs up the currently readable real UR10e state for simulation use,
+copies the seed and UR calibration into the repository, and verifies a
+calibrated URDF/MJCF kinematic replay of the backed-up RTDE TCP pose. The
+calibrated MuJoCo seed is usable for offline simulation setup, but remains
+non-evidence: it does not approve read-only evidence, accept contact/setup
+targets, accept orientation gates, prove robustness, establish hardware
+readiness, or close completion.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -2414,7 +2422,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v146 blocker and
+offline simulation/paper-platform work identified by the v95-v147 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -2506,11 +2514,14 @@ V145 confirms the user's real-data-only completion criterion is not met and
 still cannot close the completion gate.
 V146 confirms no known safe non-repeating offline shortcut currently closes
 the two offline/non-final blockers.
+V147 confirms the readable-state backup and calibrated URDF/MJCF replay can be
+used as offline kinematic simulation seed infrastructure, but still cannot
+close the completion gate.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v146 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v147 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

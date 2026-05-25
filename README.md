@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v146-offline-blocker-boundary`
+Current branch: `exp/tase-ur10e-v147-readable-state-sim-seed`
 
 ## Scope
 
@@ -150,6 +150,14 @@ directly checks the user's real-data-only completion criterion and reports
 that it is not met because two offline/non-final blockers remain unresolved:
 strict terminal/full-staged feasibility and robustness. V146 confirms there is
 no known safe non-repeating offline shortcut that closes those two blockers.
+V147 backs up the currently readable UR10e / OnRobot state for offline
+simulation use, installs a repo-local seed and UR calibration snapshot, and
+generates calibrated URDF and MuJoCo MJCF kinematic seeds. The calibrated MJCF
+loads in MuJoCo and replays the backed-up RTDE TCP pose within
+`2.016003536429377e-06 m` and `6.278799181396437e-06 rad`; this is offline
+kinematic seed infrastructure only and does not create approved calibration
+evidence, contact/setup-target acceptance, robustness evidence, hardware
+readiness, or completion.
 
 ## Test Command
 
