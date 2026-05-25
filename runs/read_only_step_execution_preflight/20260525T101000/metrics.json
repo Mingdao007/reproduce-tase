@@ -1,0 +1,302 @@
+{
+  "run_source": "read-only step execution preflight audit",
+  "audit_run_id": "20260525T101000",
+  "registry_path": "configs/read_only_sop_step_registry.yaml",
+  "packet_root": "runs/read_only_step_approval_packet",
+  "packet_audit_root": "runs/read_only_step_approval_packet_audit",
+  "template_dir": "templates/read_only_calibration_measurement",
+  "required_scripts": [
+    {
+      "path": "scripts/create_read_only_calibration_measurement_run.py",
+      "exists": true,
+      "is_file": true
+    },
+    {
+      "path": "scripts/finalize_read_only_calibration_measurement_evidence.py",
+      "exists": true,
+      "is_file": true
+    },
+    {
+      "path": "scripts/audit_read_only_calibration_measurement_run.py",
+      "exists": true,
+      "is_file": true
+    },
+    {
+      "path": "scripts/audit_read_only_step_approval_packet.py",
+      "exists": true,
+      "is_file": true
+    },
+    {
+      "path": "scripts/audit_read_only_step_approval_packet_coverage.py",
+      "exists": true,
+      "is_file": true
+    }
+  ],
+  "template_required_files": [
+    "README.md",
+    "force_source_comparison.csv",
+    "measurement_plan.md",
+    "metrics.yaml",
+    "operator_checklist.md",
+    "orientation_gate_decision.md",
+    "photos_manifest.md",
+    "plane_normal_measurements.csv",
+    "summary.md",
+    "tcp_contact_measurements.csv"
+  ],
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "finalizer_eligible_step_count": 5,
+    "preflight_ready_step_count": 5,
+    "preflight_ready_step_ids": [
+      "phase1_mounted_stack_tcp_contact_measurement",
+      "phase2_ksm_contact_patch_convention",
+      "phase3_plane_normal_external_measurement",
+      "phase4_force_source_read_only_comparison",
+      "phase5_orientation_gate_semantics_evidence"
+    ],
+    "missing_ready_step_ids": [],
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "explicit_user_approval_required": true,
+    "preflight_authorizes_live_access": false,
+    "preflight_authorizes_execution": false,
+    "approved_read_only_evidence_created": false,
+    "do_not_mark_goal_complete": true
+  },
+  "preflight_rows": [
+    {
+      "step_id": "phase1_mounted_stack_tcp_contact_measurement",
+      "title": "Mounted stack TCP/contact point read-only measurement",
+      "allowed_worksheets": [
+        "tcp_contact_measurements.csv"
+      ],
+      "minimum_required_rows": {
+        "tcp_contact_measurements.csv": 1
+      },
+      "valid_not_approved_packets": [
+        {
+          "packet_metrics": "runs/read_only_step_approval_packet/20260525T095500/metrics.yaml",
+          "packet_dir": "runs/read_only_step_approval_packet/20260525T095500",
+          "audit_metrics": [
+            "runs/read_only_step_approval_packet_audit/20260525T095501/metrics.yaml"
+          ]
+        }
+      ],
+      "worksheet_statuses": [
+        {
+          "worksheet": "tcp_contact_measurements.csv",
+          "path": "templates/read_only_calibration_measurement/tcp_contact_measurements.csv",
+          "exists": true,
+          "header_matches": true,
+          "expected_header": "sample_id,datum,tool_axis_sign,distance_mm,instrument,resolution_mm,operator,notes",
+          "actual_header": "sample_id,datum,tool_axis_sign,distance_mm,instrument,resolution_mm,operator,notes"
+        }
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): tcp_contact_measurements.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase1_mounted_stack_tcp_contact_measurement --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ],
+      "blocking_conditions": [
+        "requires explicit user approval of this exact registered step",
+        "requires a fresh scaffold run before worksheet entry",
+        "requires approved-read-only finalization and audit before evidence claim"
+      ],
+      "preflight_ready": true,
+      "violations": []
+    },
+    {
+      "step_id": "phase2_ksm_contact_patch_convention",
+      "title": "KSM contact patch convention read-only evidence",
+      "allowed_worksheets": [
+        "ksm_contact_patch_convention.csv"
+      ],
+      "minimum_required_rows": {
+        "ksm_contact_patch_convention.csv": 1
+      },
+      "valid_not_approved_packets": [
+        {
+          "packet_metrics": "runs/read_only_step_approval_packet/20260525T100000/metrics.yaml",
+          "packet_dir": "runs/read_only_step_approval_packet/20260525T100000",
+          "audit_metrics": [
+            "runs/read_only_step_approval_packet_audit/20260525T100001/metrics.yaml"
+          ]
+        }
+      ],
+      "worksheet_statuses": [
+        {
+          "worksheet": "ksm_contact_patch_convention.csv",
+          "path": "templates/read_only_calibration_measurement/ksm_contact_patch_convention.csv",
+          "exists": true,
+          "header_matches": true,
+          "expected_header": "sample_id,datum,contact_patch_description,seating_observation,instrument,operator,notes",
+          "actual_header": "sample_id,datum,contact_patch_description,seating_observation,instrument,operator,notes"
+        }
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): ksm_contact_patch_convention.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase2_ksm_contact_patch_convention --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ],
+      "blocking_conditions": [
+        "requires explicit user approval of this exact registered step",
+        "requires a fresh scaffold run before worksheet entry",
+        "requires approved-read-only finalization and audit before evidence claim"
+      ],
+      "preflight_ready": true,
+      "violations": []
+    },
+    {
+      "step_id": "phase3_plane_normal_external_measurement",
+      "title": "Plane normal read-only or external-metrology evidence",
+      "allowed_worksheets": [
+        "plane_normal_measurements.csv"
+      ],
+      "minimum_required_rows": {
+        "plane_normal_measurements.csv": 1
+      },
+      "valid_not_approved_packets": [
+        {
+          "packet_metrics": "runs/read_only_step_approval_packet/20260525T100100/metrics.yaml",
+          "packet_dir": "runs/read_only_step_approval_packet/20260525T100100",
+          "audit_metrics": [
+            "runs/read_only_step_approval_packet_audit/20260525T100101/metrics.yaml"
+          ]
+        }
+      ],
+      "worksheet_statuses": [
+        {
+          "worksheet": "plane_normal_measurements.csv",
+          "path": "templates/read_only_calibration_measurement/plane_normal_measurements.csv",
+          "exists": true,
+          "header_matches": true,
+          "expected_header": "sample_id,method,normal_x,normal_y,normal_z,angle_uncertainty_deg,notes",
+          "actual_header": "sample_id,method,normal_x,normal_y,normal_z,angle_uncertainty_deg,notes"
+        }
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): plane_normal_measurements.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase3_plane_normal_external_measurement --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ],
+      "blocking_conditions": [
+        "requires explicit user approval of this exact registered step",
+        "requires a fresh scaffold run before worksheet entry",
+        "requires approved-read-only finalization and audit before evidence claim"
+      ],
+      "preflight_ready": true,
+      "violations": []
+    },
+    {
+      "step_id": "phase4_force_source_read_only_comparison",
+      "title": "Force-source read-only comparison evidence",
+      "allowed_worksheets": [
+        "force_source_comparison.csv"
+      ],
+      "minimum_required_rows": {
+        "force_source_comparison.csv": 1
+      },
+      "valid_not_approved_packets": [
+        {
+          "packet_metrics": "runs/read_only_step_approval_packet/20260525T100200/metrics.yaml",
+          "packet_dir": "runs/read_only_step_approval_packet/20260525T100200",
+          "audit_metrics": [
+            "runs/read_only_step_approval_packet_audit/20260525T100201/metrics.yaml"
+          ]
+        }
+      ],
+      "worksheet_statuses": [
+        {
+          "worksheet": "force_source_comparison.csv",
+          "path": "templates/read_only_calibration_measurement/force_source_comparison.csv",
+          "exists": true,
+          "header_matches": true,
+          "expected_header": "timestamp_s,source,Fx_N,Fy_N,Fz_N,Tx_Nm,Ty_Nm,Tz_Nm,zero_state,frame,notes",
+          "actual_header": "timestamp_s,source,Fx_N,Fy_N,Fz_N,Tx_Nm,Ty_Nm,Tz_Nm,zero_state,frame,notes"
+        }
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): force_source_comparison.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase4_force_source_read_only_comparison --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ],
+      "blocking_conditions": [
+        "requires explicit user approval of this exact registered step",
+        "requires a fresh scaffold run before worksheet entry",
+        "requires approved-read-only finalization and audit before evidence claim"
+      ],
+      "preflight_ready": true,
+      "violations": []
+    },
+    {
+      "step_id": "phase5_orientation_gate_semantics_evidence",
+      "title": "Orientation gate semantics read-only evidence",
+      "allowed_worksheets": [
+        "orientation_gate_semantics.csv"
+      ],
+      "minimum_required_rows": {
+        "orientation_gate_semantics.csv": 1
+      },
+      "valid_not_approved_packets": [
+        {
+          "packet_metrics": "runs/read_only_step_approval_packet/20260525T100300/metrics.yaml",
+          "packet_dir": "runs/read_only_step_approval_packet/20260525T100300",
+          "audit_metrics": [
+            "runs/read_only_step_approval_packet_audit/20260525T100301/metrics.yaml"
+          ]
+        }
+      ],
+      "worksheet_statuses": [
+        {
+          "worksheet": "orientation_gate_semantics.csv",
+          "path": "templates/read_only_calibration_measurement/orientation_gate_semantics.csv",
+          "exists": true,
+          "header_matches": true,
+          "expected_header": "sample_id,gate_type,gate_value_rad,normal_source,contact_datum_source,uncertainty_deg,geometry_uncertainty_um,decision,operator,notes",
+          "actual_header": "sample_id,gate_type,gate_value_rad,normal_source,contact_datum_source,uncertainty_deg,geometry_uncertainty_um,decision,operator,notes"
+        }
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): orientation_gate_semantics.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase5_orientation_gate_semantics_evidence --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ],
+      "blocking_conditions": [
+        "requires explicit user approval of this exact registered step",
+        "requires a fresh scaffold run before worksheet entry",
+        "requires approved-read-only finalization and audit before evidence claim"
+      ],
+      "preflight_ready": true,
+      "violations": []
+    }
+  ],
+  "artifact_audit": {
+    "file_count": 57,
+    "total_bytes": 62491,
+    "heavy_payloads": []
+  },
+  "claim_boundary": {
+    "preflight_audit_only": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root_path": "/home/andy/reproduce-tase/runs/read_only_step_execution_preflight/20260525T101000"
+}

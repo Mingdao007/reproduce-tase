@@ -2652,6 +2652,29 @@
   paper-equivalent feasibility, calibrate contact geometry, establish hardware
   readiness, or authorize hardware motion/configuration.
 
+## D127: Preflight Readiness Does Not Authorize Execution
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v122 as an offline execution-preflight audit for the read-only
+  exact-step path from audited packet to future scaffold, finalizer, and
+  approved-read-only audit.
+- Reason:
+  V121 proves every finalizer-eligible step has an audited not-approved
+  packet, but the next live-safe handoff also needs to verify the command path
+  and worksheet templates before any user approval is acted on. V122 checks
+  that each registered step has an audited not-approved packet, matching
+  template worksheet/header, required scripts, and a post-approval command
+  plan that keeps worksheet scope tied to the exact step ID.
+- Consequence:
+  The preflight audit can show command-path readiness, but it cannot approve
+  any packet, authorize live access, instantiate an approved evidence run,
+  collect measurements, accept a contact/setup target, relax a gate, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

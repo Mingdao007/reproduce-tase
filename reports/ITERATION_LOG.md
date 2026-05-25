@@ -4782,3 +4782,45 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and keep all claim-closing
   flags false.
+
+## 2026-05-25 v122 Read-Only Step Execution Preflight
+
+### Verify the offline packet-to-finalizer command path without approval
+
+- Branch:
+  `exp/tase-ur10e-v122-readonly-execution-preflight`
+- Runs:
+  - `runs/read_only_step_execution_preflight/20260525T101000`
+- Report:
+  `reports/read_only_step_execution_preflight_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_step_execution_preflight.py`
+  - `scripts/run_tests.sh tests/test_read_only_step_execution_preflight.py`
+  - `python3 scripts/audit_read_only_step_execution_preflight.py --run-id 20260525T101000`
+- Result:
+  V122 adds an offline preflight audit for the exact-step path from audited
+  not-approved packet to future scaffold, finalizer, and approved-read-only
+  audit. The run reports `audit_passed = true`, finalizer step preflight
+  readiness `5 / 5`, `missing_ready_step_ids = []`, approved packets `0`,
+  execution-authorizing packets `0`, live-access-authorizing packets `0`,
+  `explicit_user_approval_required = true`,
+  `preflight_authorizes_live_access = false`,
+  `preflight_authorizes_execution = false`,
+  `approved_read_only_evidence_created = false`, heavy payloads `[]`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline command-path readiness only. It does not approve a packet,
+  instantiate an approved evidence run, collect live measurements, execute the
+  read-only SOP, accept a contact model, accept a setup target, relax a gate,
+  calibrate contact geometry, prove strict paper-equivalent feasibility,
+  establish hardware readiness, or authorize hardware motion/configuration.
+- Validation:
+  Focused coverage/preflight tests passed with `6 passed in 2.02s`; YAML
+  anchor check found no anchors in the generated metrics; raw/heavy artifact
+  scan found no payloads; full tests passed with `198 passed in 10.52s`;
+  `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and keep all claim-closing
+  flags false.
