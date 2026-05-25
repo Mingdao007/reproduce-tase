@@ -73,7 +73,7 @@ exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+c1c8febca4a41009d1fb8b55e19cfbe64931c17b
 ```
 
 V119 artifacts:

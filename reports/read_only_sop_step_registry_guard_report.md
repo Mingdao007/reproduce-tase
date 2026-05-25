@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `c1c8febca4a41009d1fb8b55e19cfbe64931c17b`
 
 ## Objective
 
@@ -96,7 +96,7 @@ paper-equivalent feasibility, or make a hardware-readiness claim.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `c1c8febca4a41009d1fb8b55e19cfbe64931c17b`.
 
 ## Next Step
 
