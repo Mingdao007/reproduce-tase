@@ -128,6 +128,7 @@ rows as closure evidence before approved contact/gate evidence exists.
 - `scripts/run_tests.sh tests/test_post_v142_completion_gate.py`
   reported `4 passed in 0.48s`.
 - `python3 scripts/audit_post_v142_completion_gate.py --run-id 20260525T170000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `279 passed in 31.37s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v143 run artifact.
+- `git diff --check` passed.

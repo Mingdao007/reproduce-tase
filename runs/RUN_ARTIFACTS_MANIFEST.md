@@ -4520,7 +4520,7 @@ Legacy source root:
 ### Classified the robustness frontier as non-evidence
 
 - Implementation commit:
-  `TBD`
+  `557812db07c56b470a7b012d80490d5f23800fa4`
 - Scripts:
   - `scripts/audit_post_v142_completion_gate.py`
 - Runs:
@@ -4550,9 +4550,10 @@ Legacy source root:
   `v142_closed_cell_count = 0`, `v142_new_simulation_selected = false`, and
   `v142_additional_failed_cell_execution_recommended = false`.
 - Validation:
-  Focused tests passed with `4 passed in 0.48s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.48s`; full tests passed with
+  `279 passed in 31.37s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v143 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is completion-gate
   bookkeeping only; it does not approve any packet, authorize live access,

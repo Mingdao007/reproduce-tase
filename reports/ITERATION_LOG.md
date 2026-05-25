@@ -5779,7 +5779,7 @@
 - Branch:
   `exp/tase-ur10e-v143-post-v142-completion-gate`
 - Implementation commit:
-  `TBD`
+  `557812db07c56b470a7b012d80490d5f23800fa4`
 - Runs:
   - `runs/post_v142_completion_gate/20260525T170000`
 - Report:
@@ -5814,9 +5814,10 @@
   feasibility, prove robustness, establish hardware readiness, authorize live
   access, authorize execution, or authorize hardware work.
 - Validation:
-  Focused tests passed with `4 passed in 0.48s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.48s`; full tests passed with
+  `279 passed in 31.37s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v143 run
+  artifact; `git diff --check` passed.
 - Next step:
   If the user gives exact approval, use the phase1 packet and fill only valid
   `tcp_contact_measurements.csv` rows before finalization and
