@@ -71,6 +71,12 @@ Expected branch:
 exp/tase-ur10e-v127-readonly-evidence-dependency-map
 ```
 
+Verified implementation commit:
+
+```text
+9b494221728e1ff461fc5f6d6c13381a5f3c12f4
+```
+
 V127 artifacts:
 
 ```text

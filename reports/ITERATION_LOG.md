@@ -5003,6 +5003,8 @@
 
 - Branch:
   `exp/tase-ur10e-v127-readonly-evidence-dependency-map`
+- Implementation commit:
+  `9b494221728e1ff461fc5f6d6c13381a5f3c12f4`
 - Runs:
   - `runs/read_only_evidence_dependency_map/20260525T110000`
 - Report:

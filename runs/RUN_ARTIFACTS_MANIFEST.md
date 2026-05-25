@@ -3795,6 +3795,8 @@ Legacy source root:
 
 ### Mapped unresolved readiness checks to exact read-only evidence steps
 
+- Implementation commit:
+  `9b494221728e1ff461fc5f6d6c13381a5f3c12f4`
 - Scripts:
   - `scripts/audit_read_only_evidence_dependency_map.py`
 - Runs:
