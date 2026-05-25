@@ -5216,3 +5216,51 @@
   still create a fresh scaffold, finalize with the exact registered step ID,
   and audit in approved-read-only mode. Without approval, continue only
   non-final offline work.
+
+## 2026-05-25 v132 Read-Only Evidence Sequence Boundary
+
+### Freeze the full read-only evidence sequence without bundling approval
+
+- Branch:
+  `exp/tase-ur10e-v132-readonly-sequence-boundary`
+- Implementation commit:
+  `TBD`
+- Runs:
+  - `runs/read_only_evidence_sequence_boundary/20260525T115000`
+- Report:
+  `reports/read_only_evidence_sequence_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_evidence_sequence_boundary.py`
+  - `scripts/run_tests.sh tests/test_read_only_evidence_sequence_boundary.py`
+  - `python3 scripts/audit_read_only_evidence_sequence_boundary.py --run-id 20260525T115000`
+- Result:
+  V132 adds an offline sequence-boundary audit over the v127 dependency map,
+  v128 selector, and v131 evidence scan. The run reports
+  `audit_passed = true`, `sequence_boundary_complete = true`, ordered step
+  count `5`, first step `phase1_mounted_stack_tcp_contact_measurement`, first
+  worksheet `tcp_contact_measurements.csv`, remaining steps after phase1 `4`,
+  all steps packet-covered true, all steps preflight-ready true, all steps
+  separate approval required true,
+  `phase1_alone_completes_measured_geometry_chain = false`,
+  `phase1_alone_completes_overall_goal = false`, current approved read-only
+  runs `0`, current phase1 approved runs `0`, finalization records `0`,
+  passed approved-read-only audits `0`, approved packets `0`,
+  execution-authorizing packets `0`, live-access-authorizing packets `0`,
+  `bundle_approval_authorized = false`,
+  `approved_read_only_evidence_created = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline sequence-boundary bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `4 passed in 0.22s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `231 passed in 15.64s`; `git diff --check` passed.
+- Next step:
+  If the user later gives explicit approval, use only the frozen phase1
+  request for phase1 and do not bundle phase2-phase5 into that approval.
+  Without approval, continue only non-final offline work.

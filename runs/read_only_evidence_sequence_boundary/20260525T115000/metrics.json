@@ -1,0 +1,283 @@
+{
+  "run_source": "read-only evidence sequence boundary audit",
+  "audit_run_id": "20260525T115000",
+  "source_files": {
+    "read_only_evidence_dependency_map": "runs/read_only_evidence_dependency_map/20260525T110000/metrics.yaml",
+    "read_only_next_step_selection": "runs/read_only_next_step_selection/20260525T111000/metrics.yaml",
+    "phase1_approved_evidence_acceptance_boundary": "runs/phase1_approved_evidence_acceptance_boundary/20260525T114000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "sequence_boundary_complete": true,
+    "ordered_step_count": 5,
+    "expected_step_count": 5,
+    "first_step_id": "phase1_mounted_stack_tcp_contact_measurement",
+    "first_worksheet": "tcp_contact_measurements.csv",
+    "approval_phrase_required": "I approve this read-only measurement step",
+    "remaining_step_count_after_phase1": 4,
+    "remaining_step_ids_after_phase1": [
+      "phase2_ksm_contact_patch_convention",
+      "phase3_plane_normal_external_measurement",
+      "phase4_force_source_read_only_comparison",
+      "phase5_orientation_gate_semantics_evidence"
+    ],
+    "all_steps_packet_covered": true,
+    "all_steps_preflight_ready": true,
+    "all_steps_separate_approval_required": true,
+    "phase1_alone_completes_measured_geometry_chain": false,
+    "phase1_alone_completes_overall_goal": false,
+    "current_approved_read_only_run_count": 0,
+    "current_phase1_approved_read_only_run_count": 0,
+    "current_finalization_record_count": 0,
+    "current_approved_read_only_audit_passed_count": 0,
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "current_any_approved_step_evidence": false,
+    "bundle_approval_authorized": false,
+    "approved_read_only_evidence_created": false,
+    "explicit_user_approval_required": true,
+    "live_access_authorized": false,
+    "execution_authorized": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "sequence_rows": [
+    {
+      "sequence_index": 1,
+      "step_id": "phase1_mounted_stack_tcp_contact_measurement",
+      "readiness_check": "mounted_stack_tcp_contact_point",
+      "title": "Mounted stack TCP/contact point read-only measurement",
+      "worksheet": "tcp_contact_measurements.csv",
+      "chain_role": "first_selected_phase1",
+      "is_selected_phase1_first_step": true,
+      "would_remain_after_phase1_only": false,
+      "packet_coverage_passed": true,
+      "preflight_ready": true,
+      "valid_not_approved_packet_count": 1,
+      "approval_required": true,
+      "separate_exact_user_approval_required": true,
+      "approval_record_exists_now": false,
+      "live_access_authorized_now": false,
+      "execution_authorized_now": false,
+      "approved_evidence_created_now": false,
+      "bundle_authorized": false,
+      "creates_completion_evidence_now": false,
+      "supported_blocker_count": 6,
+      "blocker_ids_supported": [
+        "approved_read_only_calibration_evidence",
+        "calibrated_contact_geometry",
+        "orientation_gate_acceptance",
+        "strict_paper_equivalent_full_staged_feasibility",
+        "robustness_to_contact_model_perturbations",
+        "hardware_readiness"
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): tcp_contact_measurements.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase1_mounted_stack_tcp_contact_measurement --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ]
+    },
+    {
+      "sequence_index": 2,
+      "step_id": "phase2_ksm_contact_patch_convention",
+      "readiness_check": "contact_patch_convention",
+      "title": "KSM contact patch convention read-only evidence",
+      "worksheet": "ksm_contact_patch_convention.csv",
+      "chain_role": "remaining_required_step",
+      "is_selected_phase1_first_step": false,
+      "would_remain_after_phase1_only": true,
+      "packet_coverage_passed": true,
+      "preflight_ready": true,
+      "valid_not_approved_packet_count": 1,
+      "approval_required": true,
+      "separate_exact_user_approval_required": true,
+      "approval_record_exists_now": false,
+      "live_access_authorized_now": false,
+      "execution_authorized_now": false,
+      "approved_evidence_created_now": false,
+      "bundle_authorized": false,
+      "creates_completion_evidence_now": false,
+      "supported_blocker_count": 6,
+      "blocker_ids_supported": [
+        "approved_read_only_calibration_evidence",
+        "calibrated_contact_geometry",
+        "orientation_gate_acceptance",
+        "strict_paper_equivalent_full_staged_feasibility",
+        "robustness_to_contact_model_perturbations",
+        "hardware_readiness"
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): ksm_contact_patch_convention.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase2_ksm_contact_patch_convention --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ]
+    },
+    {
+      "sequence_index": 3,
+      "step_id": "phase3_plane_normal_external_measurement",
+      "readiness_check": "plane_contact_normal",
+      "title": "Plane normal read-only or external-metrology evidence",
+      "worksheet": "plane_normal_measurements.csv",
+      "chain_role": "remaining_required_step",
+      "is_selected_phase1_first_step": false,
+      "would_remain_after_phase1_only": true,
+      "packet_coverage_passed": true,
+      "preflight_ready": true,
+      "valid_not_approved_packet_count": 1,
+      "approval_required": true,
+      "separate_exact_user_approval_required": true,
+      "approval_record_exists_now": false,
+      "live_access_authorized_now": false,
+      "execution_authorized_now": false,
+      "approved_evidence_created_now": false,
+      "bundle_authorized": false,
+      "creates_completion_evidence_now": false,
+      "supported_blocker_count": 6,
+      "blocker_ids_supported": [
+        "approved_read_only_calibration_evidence",
+        "calibrated_contact_geometry",
+        "orientation_gate_acceptance",
+        "strict_paper_equivalent_full_staged_feasibility",
+        "robustness_to_contact_model_perturbations",
+        "hardware_readiness"
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): plane_normal_measurements.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase3_plane_normal_external_measurement --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ]
+    },
+    {
+      "sequence_index": 4,
+      "step_id": "phase4_force_source_read_only_comparison",
+      "readiness_check": "force_source_frame",
+      "title": "Force-source read-only comparison evidence",
+      "worksheet": "force_source_comparison.csv",
+      "chain_role": "remaining_required_step",
+      "is_selected_phase1_first_step": false,
+      "would_remain_after_phase1_only": true,
+      "packet_coverage_passed": true,
+      "preflight_ready": true,
+      "valid_not_approved_packet_count": 1,
+      "approval_required": true,
+      "separate_exact_user_approval_required": true,
+      "approval_record_exists_now": false,
+      "live_access_authorized_now": false,
+      "execution_authorized_now": false,
+      "approved_evidence_created_now": false,
+      "bundle_authorized": false,
+      "creates_completion_evidence_now": false,
+      "supported_blocker_count": 5,
+      "blocker_ids_supported": [
+        "approved_read_only_calibration_evidence",
+        "calibrated_contact_geometry",
+        "strict_paper_equivalent_full_staged_feasibility",
+        "robustness_to_contact_model_perturbations",
+        "hardware_readiness"
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): force_source_comparison.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase4_force_source_read_only_comparison --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ]
+    },
+    {
+      "sequence_index": 5,
+      "step_id": "phase5_orientation_gate_semantics_evidence",
+      "readiness_check": "orientation_gate_semantics",
+      "title": "Orientation gate semantics read-only evidence",
+      "worksheet": "orientation_gate_semantics.csv",
+      "chain_role": "remaining_required_step",
+      "is_selected_phase1_first_step": false,
+      "would_remain_after_phase1_only": true,
+      "packet_coverage_passed": true,
+      "preflight_ready": true,
+      "valid_not_approved_packet_count": 1,
+      "approval_required": true,
+      "separate_exact_user_approval_required": true,
+      "approval_record_exists_now": false,
+      "live_access_authorized_now": false,
+      "execution_authorized_now": false,
+      "approved_evidence_created_now": false,
+      "bundle_authorized": false,
+      "creates_completion_evidence_now": false,
+      "supported_blocker_count": 5,
+      "blocker_ids_supported": [
+        "approved_read_only_calibration_evidence",
+        "orientation_gate_acceptance",
+        "strict_paper_equivalent_full_staged_feasibility",
+        "robustness_to_contact_model_perturbations",
+        "hardware_readiness"
+      ],
+      "post_approval_command_plan": [
+        "python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>",
+        "Fill only the approved worksheet(s): orientation_gate_semantics.csv; leave all other worksheet CSVs empty.",
+        "python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id> --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id phase5_orientation_gate_semantics_evidence --operator <operator> --live-hardware-accessed <true|false>",
+        "python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id> --audit-mode approved-read-only --run-id <fresh_audit_id>"
+      ]
+    }
+  ],
+  "prompt_to_artifact_checklist": [
+    {
+      "requirement": "The first exact step remains phase1 mounted-stack TCP/contact measurement.",
+      "evidence": "runs/read_only_next_step_selection/20260525T111000/metrics.yaml",
+      "passed": true
+    },
+    {
+      "requirement": "The read-only evidence chain has five registered finalizer steps.",
+      "evidence": "runs/read_only_evidence_dependency_map/20260525T110000/metrics.yaml",
+      "passed": true
+    },
+    {
+      "requirement": "Four downstream evidence steps remain after phase1 only.",
+      "evidence": "sequence_rows",
+      "passed": true
+    },
+    {
+      "requirement": "Every step still requires separate exact user approval.",
+      "evidence": "sequence_rows",
+      "passed": true
+    },
+    {
+      "requirement": "Current repository evidence scan contains no approved evidence.",
+      "evidence": "runs/phase1_approved_evidence_acceptance_boundary/20260525T114000/metrics.yaml",
+      "passed": true
+    }
+  ],
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "sequence_boundary_only": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "phase1_alone_completes_measured_geometry_chain": false,
+    "phase1_alone_completes_overall_goal": false,
+    "bundle_approval_authorized": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Request explicit user approval before any live read-only phase1 measurement.",
+    "If phase1 is later approved and audited, keep the four remaining evidence steps separate.",
+    "Do not bundle phase2-phase5 into phase1 approval.",
+    "Do not use the sequence boundary as approved evidence or hardware authorization."
+  ],
+  "audit_root": "/home/andy/reproduce-tase/runs/read_only_evidence_sequence_boundary/20260525T115000"
+}

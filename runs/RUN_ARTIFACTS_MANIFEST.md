@@ -3999,6 +3999,53 @@ Legacy source root:
   strict paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V132 Read-Only Evidence Sequence Boundary
+
+### Froze the full registered sequence without bundling approval
+
+- Implementation commit:
+  `TBD`
+- Scripts:
+  - `scripts/audit_read_only_evidence_sequence_boundary.py`
+- Runs:
+  - `runs/read_only_evidence_sequence_boundary/20260525T115000`
+- Report:
+  - `reports/read_only_evidence_sequence_boundary_report.md`
+- Tests:
+  - `tests/test_read_only_evidence_sequence_boundary.py`
+- Command:
+  `python3 scripts/audit_read_only_evidence_sequence_boundary.py --run-id 20260525T115000`
+- Tracked lightweight artifacts:
+  sequence-boundary audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The sequence-boundary audit passes while authorizing nothing:
+  `sequence_boundary_complete = true`, ordered step count `5`, first step
+  `phase1_mounted_stack_tcp_contact_measurement`, first worksheet
+  `tcp_contact_measurements.csv`, remaining steps after phase1 `4`, all steps
+  packet-covered true, all steps preflight-ready true, all steps separate
+  approval required true,
+  `phase1_alone_completes_measured_geometry_chain = false`,
+  `phase1_alone_completes_overall_goal = false`, current approved read-only
+  runs `0`, current phase1 approved runs `0`, finalization records `0`,
+  passed approved-read-only audits `0`, approved packets `0`,
+  execution-authorizing packets `0`, live-access-authorizing packets `0`,
+  `bundle_approval_authorized = false`,
+  `approved_read_only_evidence_created = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `4 passed in 0.22s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `231 passed in 15.64s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  sequence-boundary bookkeeping only; it does not approve any packet,
+  authorize live access, authorize execution, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

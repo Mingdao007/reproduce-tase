@@ -2878,6 +2878,31 @@
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## D137: Phase1 Approval Must Not Bundle The Remaining Evidence Chain
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v132 as an offline sequence-boundary audit over the registered
+  read-only evidence chain. The audit freezes the ordered five-step sequence
+  from v127/v128, names phase1 as the first step, and requires the four
+  downstream steps to remain separate exact approvals.
+- Reason:
+  V131 proves there is no current approved phase1 evidence, but a future
+  phase1 approval could still be overread as permission to collect or finalize
+  all remaining worksheets. V132 makes the opposite boundary executable:
+  phase1 is first, not the whole chain; phase2-phase5 remain downstream
+  registered steps; each step requires separate explicit approval; and no
+  bundle approval, live access, execution, evidence, or completion claim is
+  created.
+- Consequence:
+  Future approved phase1 evidence may satisfy only the exact phase1 worksheet
+  scope and must not be used to authorize phase2-phase5 or close the measured
+  geometry chain. V132 does not approve a packet, collect live evidence,
+  accept a contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25
