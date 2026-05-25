@@ -72,7 +72,7 @@ exp/tase-ur10e-v124-paper-platform-claim-boundary-regression
 Verified implementation commit:
 
 ```text
-PENDING_BRANCH_CLOSE_COMMIT
+e7e1f89849dfd8827123bf74cc02201f7cd1332c
 ```
 
 V124 artifacts:

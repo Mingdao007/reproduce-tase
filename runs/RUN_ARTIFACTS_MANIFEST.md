@@ -3677,7 +3677,7 @@ Legacy source root:
 ### Guarded split paper-platform evidence lines
 
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `e7e1f89849dfd8827123bf74cc02201f7cd1332c`
 - Scripts:
   - `scripts/audit_paper_platform_claim_boundary.py`
 - Runs:

@@ -4876,7 +4876,7 @@
 - Branch:
   `exp/tase-ur10e-v124-paper-platform-claim-boundary-regression`
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `e7e1f89849dfd8827123bf74cc02201f7cd1332c`
 - Runs:
   - `runs/paper_platform_claim_boundary/20260525T103000`
 - Report:
