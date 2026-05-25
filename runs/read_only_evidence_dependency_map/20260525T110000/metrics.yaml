@@ -1,0 +1,397 @@
+run_source: read-only evidence dependency map audit
+audit_run_id: 20260525T110000
+source_files:
+  read_only_sop_step_registry: configs/read_only_sop_step_registry.yaml
+  measured_geometry_readiness: runs/measured_geometry_readiness/20260525T000739/metrics.yaml
+  remaining_blocker_prioritization: runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml
+  strict_terminal_relaxation_budget: runs/strict_terminal_relaxation_budget/20260525T105000/metrics.yaml
+  read_only_step_approval_packet_coverage: runs/read_only_step_approval_packet_coverage/20260525T100500/metrics.yaml
+  read_only_step_execution_preflight: runs/read_only_step_execution_preflight/20260525T101000/metrics.yaml
+summary:
+  audit_passed: true
+  violations: []
+  dependency_map_complete: true
+  mapped_readiness_check_count: 5
+  finalizer_step_count: 5
+  mapped_step_count: 5
+  packet_covered_step_count: 5
+  preflight_ready_step_count: 5
+  approved_packet_count: 0
+  execution_authorizing_packet_count: 0
+  live_access_authorizing_packet_count: 0
+  approved_read_only_evidence_created: false
+  explicit_user_approval_required: true
+  live_access_authorized: false
+  execution_authorized: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+step_dependency_rows:
+- readiness_check: mounted_stack_tcp_contact_point
+  readiness_status: insufficient_design_only
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence_role: mounted stack TCP/contact point
+  required_next:
+  - Measure mounted flange/sensor/tool stack contact point in the robot TCP convention.
+  - Record measurement method, repeatability, datum, sign, and uncertainty.
+  step_id: phase1_mounted_stack_tcp_contact_measurement
+  title: Mounted stack TCP/contact point read-only measurement
+  worksheet: tcp_contact_measurements.csv
+  finalizer_eligible: true
+  packet_coverage_passed: true
+  valid_not_approved_packet_count: 1
+  valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T095500/metrics.yaml
+  preflight_ready: true
+  preflight_valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T095500/metrics.yaml
+  worksheet_header_matched: true
+  post_approval_command_plan:
+  - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+  - 'Fill only the approved worksheet(s): tcp_contact_measurements.csv; leave all
+    other worksheet CSVs empty.'
+  - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+    phase1_mounted_stack_tcp_contact_measurement --operator <operator> --live-hardware-accessed
+    <true|false>
+  - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --audit-mode approved-read-only --run-id <fresh_audit_id>
+  blocker_ids_supported:
+  - approved_read_only_calibration_evidence
+  - calibrated_contact_geometry
+  - orientation_gate_acceptance
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_required: true
+  live_authorized_now: false
+  execution_authorized_now: false
+  creates_completion_evidence: false
+- readiness_check: contact_patch_convention
+  readiness_status: insufficient_design_assumption
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence_role: KSM contact patch convention
+  required_next:
+  - Verify KSM seating, protrusion, loaded contact patch, and centerline alignment
+    after assembly.
+  - Decide and document whether the gate uses contact point, ball center, or another
+    physical datum.
+  step_id: phase2_ksm_contact_patch_convention
+  title: KSM contact patch convention read-only evidence
+  worksheet: ksm_contact_patch_convention.csv
+  finalizer_eligible: true
+  packet_coverage_passed: true
+  valid_not_approved_packet_count: 1
+  valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100000/metrics.yaml
+  preflight_ready: true
+  preflight_valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100000/metrics.yaml
+  worksheet_header_matched: true
+  post_approval_command_plan:
+  - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+  - 'Fill only the approved worksheet(s): ksm_contact_patch_convention.csv; leave
+    all other worksheet CSVs empty.'
+  - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+    phase2_ksm_contact_patch_convention --operator <operator> --live-hardware-accessed
+    <true|false>
+  - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --audit-mode approved-read-only --run-id <fresh_audit_id>
+  blocker_ids_supported:
+  - approved_read_only_calibration_evidence
+  - calibrated_contact_geometry
+  - orientation_gate_acceptance
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_required: true
+  live_authorized_now: false
+  execution_authorized_now: false
+  creates_completion_evidence: false
+- readiness_check: plane_contact_normal
+  readiness_status: insufficient_analytic_simulation_only
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence_role: robot-base contact plane normal
+  required_next:
+  - Measure plane pose/normal in robot base frame with a repeatable read-only or fixture-based
+    method.
+  - Record normal uncertainty and compare directly to 0.03246 deg.
+  step_id: phase3_plane_normal_external_measurement
+  title: Plane normal read-only or external-metrology evidence
+  worksheet: plane_normal_measurements.csv
+  finalizer_eligible: true
+  packet_coverage_passed: true
+  valid_not_approved_packet_count: 1
+  valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100100/metrics.yaml
+  preflight_ready: true
+  preflight_valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100100/metrics.yaml
+  worksheet_header_matched: true
+  post_approval_command_plan:
+  - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+  - 'Fill only the approved worksheet(s): plane_normal_measurements.csv; leave all
+    other worksheet CSVs empty.'
+  - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+    phase3_plane_normal_external_measurement --operator <operator> --live-hardware-accessed
+    <true|false>
+  - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --audit-mode approved-read-only --run-id <fresh_audit_id>
+  blocker_ids_supported:
+  - approved_read_only_calibration_evidence
+  - calibrated_contact_geometry
+  - orientation_gate_acceptance
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_required: true
+  live_authorized_now: false
+  execution_authorized_now: false
+  creates_completion_evidence: false
+- readiness_check: force_source_frame
+  readiness_status: unresolved_conflict
+  has_measured_record: true
+  constrains_v85_margin: false
+  evidence_role: force source/frame reconciliation
+  required_next:
+  - Map PolyScope OnRobot variables to RTDE output registers in a no-motion program.
+  - Compare URCap variables, RTDE, and direct TCP DAQ under the same zero/frame state.
+  step_id: phase4_force_source_read_only_comparison
+  title: Force-source read-only comparison evidence
+  worksheet: force_source_comparison.csv
+  finalizer_eligible: true
+  packet_coverage_passed: true
+  valid_not_approved_packet_count: 1
+  valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100200/metrics.yaml
+  preflight_ready: true
+  preflight_valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100200/metrics.yaml
+  worksheet_header_matched: true
+  post_approval_command_plan:
+  - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+  - 'Fill only the approved worksheet(s): force_source_comparison.csv; leave all other
+    worksheet CSVs empty.'
+  - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+    phase4_force_source_read_only_comparison --operator <operator> --live-hardware-accessed
+    <true|false>
+  - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --audit-mode approved-read-only --run-id <fresh_audit_id>
+  blocker_ids_supported:
+  - approved_read_only_calibration_evidence
+  - calibrated_contact_geometry
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_required: true
+  live_authorized_now: false
+  execution_authorized_now: false
+  creates_completion_evidence: false
+- readiness_check: orientation_gate_semantics
+  readiness_status: not_accepted
+  has_measured_record: false
+  constrains_v85_margin: false
+  evidence_role: orientation gate semantics and uncertainty
+  required_next:
+  - Define whether the diagnostic gate is force-normal-only or full-frame rotation.
+  - Tie any replacement gate to measured geometry and normal uncertainty.
+  step_id: phase5_orientation_gate_semantics_evidence
+  title: Orientation gate semantics read-only evidence
+  worksheet: orientation_gate_semantics.csv
+  finalizer_eligible: true
+  packet_coverage_passed: true
+  valid_not_approved_packet_count: 1
+  valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100300/metrics.yaml
+  preflight_ready: true
+  preflight_valid_packet_paths:
+  - runs/read_only_step_approval_packet/20260525T100300/metrics.yaml
+  worksheet_header_matched: true
+  post_approval_command_plan:
+  - python3 scripts/create_read_only_calibration_measurement_run.py --run-id <fresh_run_id>
+  - 'Fill only the approved worksheet(s): orientation_gate_semantics.csv; leave all
+    other worksheet CSVs empty.'
+  - python3 scripts/finalize_read_only_calibration_measurement_evidence.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --confirmation-phrase 'I approve this read-only measurement step' --approved-step-id
+    phase5_orientation_gate_semantics_evidence --operator <operator> --live-hardware-accessed
+    <true|false>
+  - python3 scripts/audit_read_only_calibration_measurement_run.py runs/read_only_calibration_measurement/<fresh_run_id>
+    --audit-mode approved-read-only --run-id <fresh_audit_id>
+  blocker_ids_supported:
+  - approved_read_only_calibration_evidence
+  - orientation_gate_acceptance
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+  - hardware_readiness
+  approval_required: true
+  live_authorized_now: false
+  execution_authorized_now: false
+  creates_completion_evidence: false
+blocker_dependency_rows:
+- blocker_id: approved_read_only_calibration_evidence
+  title: Approved read-only calibration evidence
+  source_status: approval_required_prerequisite
+  source_priority_rank: 0
+  source_requires_explicit_approval: true
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase4_force_source_read_only_comparison
+  - phase5_orientation_gate_semantics_evidence
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - force_source_comparison.csv
+  - orientation_gate_semantics.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+- blocker_id: calibrated_contact_geometry
+  title: Calibrated contact geometry and force-frame evidence
+  source_status: blocked_on_approved_measurements
+  source_priority_rank: 2
+  source_requires_explicit_approval: true
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase4_force_source_read_only_comparison
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - force_source_comparison.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+- blocker_id: orientation_gate_acceptance
+  title: Orientation gate acceptance
+  source_status: blocked_on_evidence_and_separate_review
+  source_priority_rank: 1
+  source_requires_explicit_approval: true
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase5_orientation_gate_semantics_evidence
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - orientation_gate_semantics.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+- blocker_id: strict_paper_equivalent_full_staged_feasibility
+  title: Strict paper-equivalent full staged feasibility
+  source_status: offline_actionable_nonfinal
+  source_priority_rank: 3
+  source_requires_explicit_approval: false
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase4_force_source_read_only_comparison
+  - phase5_orientation_gate_semantics_evidence
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - force_source_comparison.csv
+  - orientation_gate_semantics.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+- blocker_id: robustness_to_contact_model_perturbations
+  title: Robustness matrix completion under accepted model
+  source_status: offline_actionable_but_final_claim_blocked
+  source_priority_rank: 4
+  source_requires_explicit_approval: false
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase4_force_source_read_only_comparison
+  - phase5_orientation_gate_semantics_evidence
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - force_source_comparison.csv
+  - orientation_gate_semantics.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+- blocker_id: hardware_readiness
+  title: Hardware readiness
+  source_status: blocked_on_evidence_chain
+  source_priority_rank: 5
+  source_requires_explicit_approval: true
+  source_completion_claim_allowed: false
+  required_step_ids:
+  - phase1_mounted_stack_tcp_contact_measurement
+  - phase2_ksm_contact_patch_convention
+  - phase3_plane_normal_external_measurement
+  - phase4_force_source_read_only_comparison
+  - phase5_orientation_gate_semantics_evidence
+  required_worksheets:
+  - tcp_contact_measurements.csv
+  - ksm_contact_patch_convention.csv
+  - plane_normal_measurements.csv
+  - force_source_comparison.csv
+  - orientation_gate_semantics.csv
+  all_packets_covered: true
+  all_preflight_ready: true
+  approved_evidence_exists: false
+  completion_claim_allowed: false
+  status: packet_preflight_ready_but_approval_missing
+source_guardrails:
+  registry_approval_phrase: I approve this read-only measurement step
+  remaining_top_priority_blocker_id: approved_read_only_calibration_evidence
+  remaining_overall_goal_complete: false
+  v126_relaxation_budget_acceptance_allowed: false
+  packet_coverage_complete: true
+  preflight_authorizes_execution: false
+  preflight_authorizes_live_access: false
+  approved_read_only_evidence_created: false
+claim_boundary:
+  dependency_map_only: true
+  readiness_artifacts_are_non_evidence: true
+  approved_read_only_evidence: false
+  contact_calibration_claim: false
+  setup_target_acceptance_claim: false
+  gate_relaxation_claim: false
+  strict_terminal_relaxation_accepted: false
+  strict_paper_equivalent_feasibility: false
+  robustness_claim: false
+  hardware_readiness: false
+  live_hardware_access_authorized: false
+  execution_authorized: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+audit_root: /home/andy/reproduce-tase/runs/read_only_evidence_dependency_map/20260525T110000

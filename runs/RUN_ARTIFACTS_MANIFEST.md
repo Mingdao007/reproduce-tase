@@ -3791,6 +3791,45 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V127 Read-Only Evidence Dependency Map
+
+### Mapped unresolved readiness checks to exact read-only evidence steps
+
+- Scripts:
+  - `scripts/audit_read_only_evidence_dependency_map.py`
+- Runs:
+  - `runs/read_only_evidence_dependency_map/20260525T110000`
+- Report:
+  - `reports/read_only_evidence_dependency_map_report.md`
+- Tests:
+  - `tests/test_read_only_evidence_dependency_map.py`
+- Command:
+  `python3 scripts/audit_read_only_evidence_dependency_map.py --run-id 20260525T110000`
+- Tracked lightweight artifacts:
+  dependency-map audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The dependency-map audit passes while creating no evidence:
+  `dependency_map_complete = true`, mapped readiness/finalizer counts `5 / 5`,
+  packet-covered steps `5 / 5`, preflight-ready steps `5 / 5`, approved
+  packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `explicit_user_approval_required = true`, `completion_claim_allowed = false`,
+  and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.21s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `214 passed in 11.67s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline dependency
+  bookkeeping only; it does not approve any packet, authorize live access,
+  authorize execution, create approved calibration evidence, accept a contact
+  model, accept a setup target, relax a gate, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

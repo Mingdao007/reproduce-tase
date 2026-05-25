@@ -2762,6 +2762,30 @@
   setup target, relax a gate, prove strict paper-equivalent feasibility, prove
   robustness, establish hardware readiness, or authorize hardware work.
 
+## D132: Read-Only Dependency Maps Are Readiness, Not Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v127 as an offline dependency-map audit linking each unresolved
+  measured-geometry readiness check to one exact finalizer-eligible registered
+  read-only SOP step, its worksheet, audited not-approved packet coverage, and
+  execution preflight readiness.
+- Reason:
+  V121 and v122 prove packet/preflight coverage, but the next operator-facing
+  handoff also needs a single map from the actual unresolved evidence
+  blockers to exact step IDs and worksheets. V127 makes that dependency chain
+  machine-readable and fails on missing mappings, worksheet drift, missing
+  packet/preflight readiness, approved packets, live-access authorization,
+  execution authorization, approved evidence, or drift in the v126
+  non-acceptance boundary.
+- Consequence:
+  The dependency map can guide a future explicitly approved read-only step,
+  but it is still readiness bookkeeping. V127 does not approve a packet,
+  collect live evidence, accept a contact model, accept a setup target, relax
+  a gate, prove strict paper-equivalent feasibility, prove robustness,
+  establish hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

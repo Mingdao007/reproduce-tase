@@ -4996,3 +4996,44 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and do not accept any
   strict-terminal relaxation from this budget audit.
+
+## 2026-05-25 v127 Read-Only Evidence Dependency Map
+
+### Map unresolved evidence blockers to exact registered read-only steps
+
+- Branch:
+  `exp/tase-ur10e-v127-readonly-evidence-dependency-map`
+- Runs:
+  - `runs/read_only_evidence_dependency_map/20260525T110000`
+- Report:
+  `reports/read_only_evidence_dependency_map_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_evidence_dependency_map.py`
+  - `scripts/run_tests.sh tests/test_read_only_evidence_dependency_map.py`
+  - `python3 scripts/audit_read_only_evidence_dependency_map.py --run-id 20260525T110000`
+- Result:
+  V127 adds an offline dependency-map audit from the five unresolved
+  measured-geometry readiness checks to exact registered read-only SOP
+  finalizer steps and worksheets. The run reports `audit_passed = true`,
+  `dependency_map_complete = true`, mapped readiness checks `5 / 5`, mapped
+  finalizer steps `5 / 5`, packet-covered steps `5 / 5`, preflight-ready
+  steps `5 / 5`, approved packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `explicit_user_approval_required = true`, `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline readiness bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 0.21s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `214 passed in 11.67s`; `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and keep the v127 dependency
+  map separate from approved evidence.
