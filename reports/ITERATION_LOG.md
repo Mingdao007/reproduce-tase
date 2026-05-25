@@ -4598,3 +4598,45 @@
   practical blocker remains approved read-only calibration evidence. If future
   evidence is collected, use this separate review scaffold before accepting any
   contact model or setup-target definition change.
+
+## 2026-05-25 v118 Post-V117 Evidence Readiness Audit
+
+### Scan actual current evidence before any completion claim
+
+- Branch:
+  `exp/tase-ur10e-v118-post-v117-evidence-readiness-audit`
+- Runs:
+  - `runs/post_v117_evidence_readiness/20260525T092500`
+- Report:
+  `reports/post_v117_evidence_readiness_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v117_evidence_readiness.py`
+  - `scripts/run_tests.sh tests/test_post_v117_evidence_readiness.py`
+  - `python3 scripts/audit_post_v117_evidence_readiness.py --run-id 20260525T092500`
+  - `rg -n "&id|\*id" runs/post_v117_evidence_readiness/20260525T092500/metrics.yaml`
+  - `find runs/post_v117_evidence_readiness/20260525T092500 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline audit scans current read-only measurement runs, read-only run
+  audits, orientation-gate reviews, contact/setup-target reviews, strict
+  terminal metrics, robustness restatement metrics, and the hardware gate
+  report path. It reports `overall_goal_complete = false`,
+  `completion_claim_allowed = false`, approved read-only runs `0`, passed
+  approved-read-only audits `0`, accepted orientation reviews `0`, accepted
+  contact/setup-target reviews `0`, strict terminal pass `0`, closed robustness
+  cells `0`, no hardware gate report, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline bookkeeping only. It does not collect live measurements,
+  execute the read-only SOP, accept a contact model, accept a setup target,
+  relax a gate, calibrate contact geometry, prove strict paper-equivalent
+  feasibility, establish hardware readiness, or authorize hardware
+  motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `184 passed in 7.74s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  The top blocker remains explicit approval for a safe read-only calibration
+  measurement step. Without approval, continue only non-final offline work and
+  avoid repeating v113-v116 policy, timing, seed, and terminal-objective
+  families over the same accepted model.

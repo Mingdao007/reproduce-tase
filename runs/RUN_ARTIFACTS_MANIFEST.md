@@ -3432,6 +3432,43 @@ Legacy source root:
   target, prove strict paper-equivalent feasibility, calibrate contact
   geometry, establish hardware readiness, or authorize hardware work.
 
+## V118 Post-V117 Evidence Readiness Audit
+
+### Scanned current evidence before any completion claim
+
+- Scripts:
+  - `scripts/audit_post_v117_evidence_readiness.py`
+- Runs:
+  - `runs/post_v117_evidence_readiness/20260525T092500`
+- Report:
+  - `reports/post_v117_evidence_readiness_report.md`
+- Tests:
+  - `tests/test_post_v117_evidence_readiness.py`
+- Command:
+  `python3 scripts/audit_post_v117_evidence_readiness.py --run-id 20260525T092500`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The audit scans current read-only measurement runs, read-only run audits,
+  orientation-gate reviews, contact/setup-target reviews, strict terminal
+  metrics, robustness restatement metrics, and the hardware gate report path.
+  It reports `overall_goal_complete = false`, `completion_claim_allowed =
+  false`, approved read-only runs `0`, passed approved-read-only audits `0`,
+  accepted orientation reviews `0`, accepted contact/setup-target reviews `0`,
+  strict terminal pass `0`, closed robustness cells `0`, no hardware gate
+  report, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `184 passed in 7.74s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline bookkeeping
+  only; it does not accept a contact model, accept a setup target, prove
+  strict paper-equivalent feasibility, calibrate contact geometry, establish
+  hardware readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

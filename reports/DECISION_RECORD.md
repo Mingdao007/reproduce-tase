@@ -2653,3 +2653,30 @@
   change the canonical controller, close failed cells, prove robustness, prove
   strict paper-equivalent feasibility, calibrate contact geometry, establish
   hardware readiness, or authorize hardware motion/configuration.
+
+## D123: Post-V117 Completion Check Must Use Actual Evidence Scans
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v118 as an offline post-v117 evidence-readiness audit that scans the
+  actual run and review directories before allowing any completion claim.
+- Reason:
+  V117 added the contact/setup-target review scaffold, but the active goal
+  still depends on real claim-closing evidence. V118 scans current read-only
+  measurement runs and audits, orientation-gate reviews, contact/setup-target
+  reviews, the strict terminal optimization result, robustness matrix
+  restatement, and the hardware gate report path. It reports
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  approved read-only runs `0`, passed approved-read-only audits `0`, accepted
+  orientation reviews `0`, accepted contact/setup-target reviews `0`, strict
+  terminal pass `0`, closed robustness cells `0`, and no hardware gate report.
+- Consequence:
+  Do not mark the active goal complete from scaffolds, old summaries, or tests
+  alone. The top blocker remains explicit approval and execution of a
+  read-only calibration measurement step. Without that approval, work remains
+  limited to non-final offline research. V118 does not collect live evidence,
+  accept a contact model, accept a setup target, relax a gate, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.
