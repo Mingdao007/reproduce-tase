@@ -2719,6 +2719,28 @@
   line, collect live evidence, accept a contact/setup target, prove
   robustness, establish hardware readiness, or authorize hardware work.
 
+## D130: Existing Strict-Terminal Rows Show A Tradeoff, Not A Hidden Pass
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v125 as a post-hoc offline tradeoff audit over the existing v116
+  strict-terminal optimization rows.
+- Reason:
+  V116 already ran the stronger bounded smooth-minimax optimizer over the
+  accepted contact model and seeds. Repeating that optimizer family is unlikely
+  to close the blocker without new evidence or an accepted contact/setup-target
+  definition. V125 makes the current failure structure explicit: the best
+  combined row still fails force, x/y, and orientation; force plus x/y/contact
+  can be recovered only while failing orientation; and x/y plus orientation can
+  be recovered only while losing the required force/contact.
+- Consequence:
+  The existing v116 rows should be treated as non-final strict-terminal
+  tradeoff evidence, not as hidden strict feasibility. V125 does not run a new
+  optimizer, collect live evidence, accept a contact model, accept a setup
+  target, relax a gate, prove strict paper-equivalent feasibility, prove
+  robustness, establish hardware readiness, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

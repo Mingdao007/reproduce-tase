@@ -4908,3 +4908,48 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and keep formula-convergence,
   tuned Fig.6, and strict paper-equivalent paper-platform claims separate.
+
+## 2026-05-25 v125 Strict Terminal Tradeoff Boundary
+
+### Audit existing v116 rows for force/x-y/orientation tradeoff behavior
+
+- Branch:
+  `exp/tase-ur10e-v125-strict-terminal-tradeoff-boundary`
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Runs:
+  - `runs/strict_terminal_tradeoff_boundary/20260525T104000`
+- Report:
+  `reports/strict_terminal_tradeoff_boundary_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_strict_terminal_tradeoff_boundary.py`
+  - `scripts/run_tests.sh tests/test_strict_terminal_tradeoff_boundary.py`
+  - `python3 scripts/audit_strict_terminal_tradeoff_boundary.py --run-id 20260525T104000`
+- Result:
+  V125 adds a post-hoc offline audit over the existing v116 strict-terminal
+  optimization rows. The run reports `audit_passed = true`,
+  `strict_terminal_pass_count = 0`, `optimization_case_count = 12`,
+  `best_combined_case_id = xy_force_orientation__best_candidate__slsqp`,
+  `best_combined_max_gate_ratio = 2.11994927622362`,
+  `best_combined_failed_all_three_scalar_gates = true`,
+  `force_xy_without_orientation_count = 1`,
+  `xy_orientation_without_force_or_contact_count = 2`,
+  `tradeoff_boundary_preserved = true`, `new_optimization_run = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline bookkeeping over existing v116 rows only. It does not run a
+  new optimizer, collect live measurements, approve any read-only SOP step,
+  accept a contact model, accept a setup target, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `208 passed in 11.32s`; `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and do not repeat the v116
+  bounded minimax optimizer over the same accepted contact model and seeds as
+  a likely closer.

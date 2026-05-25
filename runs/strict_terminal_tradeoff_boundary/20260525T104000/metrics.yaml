@@ -1,0 +1,380 @@
+run_source: strict terminal tradeoff boundary audit
+audit_run_id: 20260525T104000
+source_files:
+  strict_terminal_constrained_optimization: runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml
+  remaining_blocker_prioritization: runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml
+  paper_platform_claim_boundary: runs/paper_platform_claim_boundary/20260525T103000/metrics.yaml
+summary:
+  audit_passed: true
+  violations: []
+  strict_terminal_pass_count: 0
+  optimization_case_count: 12
+  contact_row_count: 9
+  finite_max_gate_ratio_row_count: 9
+  best_combined_case_id: xy_force_orientation__best_candidate__slsqp
+  best_combined_max_gate_ratio: 2.11994927622362
+  best_combined_failed_all_three_scalar_gates: true
+  pareto_frontier_count: 10
+  force_xy_without_orientation_count: 1
+  xy_orientation_without_force_or_contact_count: 2
+  tradeoff_boundary_preserved: true
+  new_optimization_run: false
+  overall_goal_complete: false
+  completion_claim_allowed: false
+  do_not_mark_goal_complete: true
+strict_terminal_thresholds:
+  max_force_error_N: 0.25
+  max_tangential_error_m: 0.002
+  max_orientation_error_rad: 0.03
+  min_target_contact_count: 1.0
+  max_joint_limit_violation_rad: 1.0e-09
+v116_summary:
+  optimization_case_count: 12
+  strict_terminal_pass_count: 0
+  optimizer_success_count: 10
+  setup_failed_criteria_counts:
+    force_error_N: 10
+    orientation_error_rad: 10
+    tangential_error_m: 9
+    target_contact_count: 3
+  best_case_id: xy_force_orientation__best_candidate__slsqp
+  best_max_gate_ratio: 2.11994927622362
+  v56_strict_best_max_gate_ratio: 2.413534442118322
+  best_ratio_improvement: 0.29358516589470174
+  best_force_case_id: xy_force__best_candidate__l-bfgs-b
+  best_force_error_N: 2.4868995751603507e-14
+  best_xy_case_id: xy_orientation__best_candidate__slsqp
+  best_xy_error_m: 5.204170427930421e-18
+  best_orientation_case_id: xy_orientation__best_candidate__slsqp
+  best_orientation_error_rad: 5.551115123125783e-17
+  strict_terminal_constrained_optimization_complete: false
+  strict_paper_equivalent_feasibility: false
+v112_context:
+  top_priority_blocker_id: approved_read_only_calibration_evidence
+  offline_actionable_blocker_ids:
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+v124_paper_platform_context:
+  formula_convergence_claim_allowed: true
+  tuned_figure_match_claim_allowed: true
+  strict_paper_equivalent_claim_allowed: false
+  claim_lines_collapsed: false
+best_combined_row:
+  case_id: xy_force_orientation__best_candidate__slsqp
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.11994927622362
+  ratios:
+    force_error_N: 1.0678992823355102
+    tangential_error_m: 1.9702784401478524
+    orientation_error_rad: 2.11994927622362
+  metrics:
+    force_error_N: 0.26697482058387756
+    tangential_error_m: 0.003940556880295705
+    orientation_error_rad: 0.0635984782867086
+    target_contact_count: 1
+single_criterion_best_rows:
+  force_error_N:
+    case_id: xy_force__best_candidate__l-bfgs-b
+    optimizer_success: false
+    target_contact_passed: true
+    joint_limit_passed: true
+    passed: false
+    failed_criteria:
+    - orientation_error_rad
+    max_gate_ratio: 4.899002392744376
+    ratios:
+      force_error_N: 9.947598300641403e-14
+      tangential_error_m: 6.492231940899842e-13
+      orientation_error_rad: 4.899002392744376
+    metrics:
+      force_error_N: 2.4868995751603507e-14
+      tangential_error_m: 1.2984463881799684e-15
+      orientation_error_rad: 0.14697007178233126
+      target_contact_count: 1
+  tangential_error_m:
+    case_id: xy_orientation__best_candidate__slsqp
+    optimizer_success: true
+    target_contact_passed: false
+    joint_limit_passed: true
+    passed: false
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    max_gate_ratio: .inf
+    ratios:
+      force_error_N: 20.0
+      tangential_error_m: 2.6020852139652106e-15
+      orientation_error_rad: 1.8503717077085944e-15
+    metrics:
+      force_error_N: 5.0
+      tangential_error_m: 5.204170427930421e-18
+      orientation_error_rad: 5.551115123125783e-17
+      target_contact_count: 0
+  orientation_error_rad:
+    case_id: xy_orientation__best_candidate__slsqp
+    optimizer_success: true
+    target_contact_passed: false
+    joint_limit_passed: true
+    passed: false
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    max_gate_ratio: .inf
+    ratios:
+      force_error_N: 20.0
+      tangential_error_m: 2.6020852139652106e-15
+      orientation_error_rad: 1.8503717077085944e-15
+    metrics:
+      force_error_N: 5.0
+      tangential_error_m: 5.204170427930421e-18
+      orientation_error_rad: 5.551115123125783e-17
+      target_contact_count: 0
+tradeoff_rows:
+  force_xy_without_orientation_count: 1
+  force_xy_without_orientation_best:
+    case_id: xy_force__best_candidate__l-bfgs-b
+    optimizer_success: false
+    target_contact_passed: true
+    joint_limit_passed: true
+    passed: false
+    failed_criteria:
+    - orientation_error_rad
+    max_gate_ratio: 4.899002392744376
+    ratios:
+      force_error_N: 9.947598300641403e-14
+      tangential_error_m: 6.492231940899842e-13
+      orientation_error_rad: 4.899002392744376
+    metrics:
+      force_error_N: 2.4868995751603507e-14
+      tangential_error_m: 1.2984463881799684e-15
+      orientation_error_rad: 0.14697007178233126
+      target_contact_count: 1
+  xy_orientation_without_force_or_contact_count: 2
+  xy_orientation_without_force_or_contact_best:
+    case_id: xy_orientation__best_candidate__slsqp
+    optimizer_success: true
+    target_contact_passed: false
+    joint_limit_passed: true
+    passed: false
+    failed_criteria:
+    - force_error_N
+    - target_contact_count
+    max_gate_ratio: .inf
+    ratios:
+      force_error_N: 20.0
+      tangential_error_m: 2.6020852139652106e-15
+      orientation_error_rad: 1.8503717077085944e-15
+    metrics:
+      force_error_N: 5.0
+      tangential_error_m: 5.204170427930421e-18
+      orientation_error_rad: 5.551115123125783e-17
+      target_contact_count: 0
+pareto_frontier_rows:
+- case_id: xy_force_orientation__best_candidate__slsqp
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.11994927622362
+  ratios:
+    force_error_N: 1.0678992823355102
+    tangential_error_m: 1.9702784401478524
+    orientation_error_rad: 2.11994927622362
+  metrics:
+    force_error_N: 0.26697482058387756
+    tangential_error_m: 0.003940556880295705
+    orientation_error_rad: 0.0635984782867086
+    target_contact_count: 1
+- case_id: initial__slsqp
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.1199534355232017
+  ratios:
+    force_error_N: 1.0651562089163171
+    tangential_error_m: 1.9702984846146063
+    orientation_error_rad: 2.1199534355232017
+  metrics:
+    force_error_N: 0.2662890522290793
+    tangential_error_m: 0.003940596969229213
+    orientation_error_rad: 0.06359860306569605
+    target_contact_count: 1
+- case_id: xy_force__best_candidate__slsqp
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.1199561761664807
+  ratios:
+    force_error_N: 1.0603783887443612
+    tangential_error_m: 1.9703563053127906
+    orientation_error_rad: 2.1199561761664807
+  metrics:
+    force_error_N: 0.2650945971860903
+    tangential_error_m: 0.003940712610625581
+    orientation_error_rad: 0.06359868528499442
+    target_contact_count: 1
+- case_id: force_orientation__best_optimized_candidate__slsqp
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.119960338759908
+  ratios:
+    force_error_N: 1.0662617291803258
+    tangential_error_m: 1.9702791643569015
+    orientation_error_rad: 2.119960338759908
+  metrics:
+    force_error_N: 0.26656543229508145
+    tangential_error_m: 0.003940558328713803
+    orientation_error_rad: 0.06359881016279724
+    target_contact_count: 1
+- case_id: initial__l-bfgs-b
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.1200296248275188
+  ratios:
+    force_error_N: 1.0711120088283401
+    tangential_error_m: 1.9700893404388438
+    orientation_error_rad: 2.1200296248275188
+  metrics:
+    force_error_N: 0.26777800220708503
+    tangential_error_m: 0.0039401786808776875
+    orientation_error_rad: 0.06360088874482556
+    target_contact_count: 1
+- case_id: xy_force_orientation__best_candidate__l-bfgs-b
+  optimizer_success: true
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 2.120062845984372
+  ratios:
+    force_error_N: 1.0675099199558495
+    tangential_error_m: 1.9701202950720156
+    orientation_error_rad: 2.120062845984372
+  metrics:
+    force_error_N: 0.2668774799889624
+    tangential_error_m: 0.003940240590144031
+    orientation_error_rad: 0.06360188537953115
+    target_contact_count: 1
+- case_id: force_orientation__best_candidate__l-bfgs-b
+  optimizer_success: false
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - tangential_error_m
+  - orientation_error_rad
+  max_gate_ratio: 3.8265899667025325
+  ratios:
+    force_error_N: 0.007763812458286168
+    tangential_error_m: 3.8265899667025325
+    orientation_error_rad: 2.9183993411163534
+  metrics:
+    force_error_N: 0.001940953114571542
+    tangential_error_m: 0.0076531799334050655
+    orientation_error_rad: 0.0875519802334906
+    target_contact_count: 1
+- case_id: xy_force__best_candidate__l-bfgs-b
+  optimizer_success: false
+  target_contact_passed: true
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - orientation_error_rad
+  max_gate_ratio: 4.899002392744376
+  ratios:
+    force_error_N: 9.947598300641403e-14
+    tangential_error_m: 6.492231940899842e-13
+    orientation_error_rad: 4.899002392744376
+  metrics:
+    force_error_N: 2.4868995751603507e-14
+    tangential_error_m: 1.2984463881799684e-15
+    orientation_error_rad: 0.14697007178233126
+    target_contact_count: 1
+- case_id: xy_orientation__best_candidate__l-bfgs-b
+  optimizer_success: true
+  target_contact_passed: false
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - target_contact_count
+  max_gate_ratio: .inf
+  ratios:
+    force_error_N: 20.0
+    tangential_error_m: 2.6020852139652106e-15
+    orientation_error_rad: 1.8503717077085944e-15
+  metrics:
+    force_error_N: 5.0
+    tangential_error_m: 5.204170427930421e-18
+    orientation_error_rad: 5.551115123125783e-17
+    target_contact_count: 0
+- case_id: xy_orientation__best_candidate__slsqp
+  optimizer_success: true
+  target_contact_passed: false
+  joint_limit_passed: true
+  passed: false
+  failed_criteria:
+  - force_error_N
+  - target_contact_count
+  max_gate_ratio: .inf
+  ratios:
+    force_error_N: 20.0
+    tangential_error_m: 2.6020852139652106e-15
+    orientation_error_rad: 1.8503717077085944e-15
+  metrics:
+    force_error_N: 5.0
+    tangential_error_m: 5.204170427930421e-18
+    orientation_error_rad: 5.551115123125783e-17
+    target_contact_count: 0
+claim_boundary:
+  post_hoc_existing_v116_rows_only: true
+  new_optimization_run: false
+  strict_terminal_tradeoff_closed: false
+  strict_paper_equivalent_feasibility: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  failed_cell_closed: false
+  robustness_claim: false
+  contact_calibration_claim: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+audit_root: /home/andy/reproduce-tase/runs/strict_terminal_tradeoff_boundary/20260525T104000

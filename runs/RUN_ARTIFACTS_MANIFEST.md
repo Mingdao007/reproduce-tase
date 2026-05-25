@@ -3710,6 +3710,46 @@ Legacy source root:
   feasibility, prove robustness, establish hardware readiness, or authorize
   hardware work.
 
+## V125 Strict Terminal Tradeoff Boundary
+
+### Recorded existing strict-terminal tradeoff structure
+
+- Implementation commit:
+  `PENDING_BRANCH_CLOSE_COMMIT`
+- Scripts:
+  - `scripts/audit_strict_terminal_tradeoff_boundary.py`
+- Runs:
+  - `runs/strict_terminal_tradeoff_boundary/20260525T104000`
+- Report:
+  - `reports/strict_terminal_tradeoff_boundary_report.md`
+- Tests:
+  - `tests/test_strict_terminal_tradeoff_boundary.py`
+- Command:
+  `python3 scripts/audit_strict_terminal_tradeoff_boundary.py --run-id 20260525T104000`
+- Tracked lightweight artifacts:
+  tradeoff-boundary audit top-level `metrics.yaml`, `metrics.json`,
+  `summary.md`, and `git_state.md`; report, tests, script, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The tradeoff-boundary audit passes while keeping strict feasibility open:
+  `strict_terminal_pass_count = 0`,
+  `best_combined_max_gate_ratio = 2.11994927622362`,
+  `best_combined_failed_all_three_scalar_gates = true`,
+  `force_xy_without_orientation_count = 1`,
+  `xy_orientation_without_force_or_contact_count = 2`,
+  `tradeoff_boundary_preserved = true`, `new_optimization_run = false`,
+  `completion_claim_allowed = false`, and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.24s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `208 passed in 11.32s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline bookkeeping
+  over existing v116 rows only; it does not run a new optimizer, approve any
+  packet, accept a contact model, accept a setup target, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

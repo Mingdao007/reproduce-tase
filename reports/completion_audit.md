@@ -269,6 +269,9 @@ The objective has two separate technical claim levels:
 - `scripts/audit_paper_platform_claim_boundary.py`
 - `runs/paper_platform_claim_boundary/20260525T103000/metrics.yaml`
 - `reports/paper_platform_claim_boundary_report.md`
+- `scripts/audit_strict_terminal_tradeoff_boundary.py`
+- `runs/strict_terminal_tradeoff_boundary/20260525T104000/metrics.yaml`
+- `reports/strict_terminal_tradeoff_boundary_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -282,17 +285,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v124 work uses dedicated branches; v123 branch push verified at `2bcb3c1c7774828cf5441f0d2d354c1421e1a77e`; v124 is an in-progress local branch until branch-close validation | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v124-paper-platform-claim-boundary-regression`; latest local branch is `exp/tase-ur10e-v124-paper-platform-claim-boundary-regression` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v125 work uses dedicated branches; v124 branch push verified at `cf5ffc4b4fdda04d23f3bb980a23fdc82d65c5ad`; v125 is an in-progress local branch until branch-close validation | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v125-strict-terminal-tradeoff-boundary`; latest local branch is `exp/tase-ur10e-v125-strict-terminal-tradeoff-boundary` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v124 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D129 as of v124 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and the current handoff include the short prompt, authoritative local clone, v95-v125 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D130 as of v125 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v124 validation: `python3 -m py_compile scripts/audit_paper_platform_claim_boundary.py` passed, focused tests reported `4 passed in 0.17s`, full tests reported `205 passed in 10.96s`, YAML anchor and raw/heavy artifact scans passed, and no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v125 validation: `python3 -m py_compile scripts/audit_strict_terminal_tradeoff_boundary.py` passed, focused tests reported `3 passed in 0.24s`, full tests reported `208 passed in 11.32s`, YAML anchor and raw/heavy artifact scans passed, and no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -305,6 +308,7 @@ The objective has two separate technical claim levels:
 | Tuned figure-match raw provenance | `scripts/compare_paper_7dof_fig6_raw_provenance.py`, `reports/paper_7dof_tuned_figure_match_provenance_report.md`, `runs/paper_7dof_fig6_raw_provenance/20260524T134549/metrics.yaml` | v52 matches legacy `figure_match` with joint RMSE `6.081574510252252e-09 rad`; this is tuned landmark evidence only |
 | Formalize split paper-platform evidence | `reports/paper_platform_split_evidence_report.md` | Done; accepted wording keeps formula-convergence and tuned-landmark claims separate and leaves full paper-equivalent numerical parity unclaimed |
 | Paper-platform claim-boundary regression | `scripts/audit_paper_platform_claim_boundary.py`, `tests/test_paper_platform_claim_boundary.py`, `reports/paper_platform_claim_boundary_report.md`, `runs/paper_platform_claim_boundary/20260525T103000/metrics.yaml` | v124 confirms formula convergence and tuned Fig.6 claims remain allowed, strict paper-equivalent parity remains unclaimed, and claim lines have not collapsed |
+| Strict-terminal tradeoff boundary | `scripts/audit_strict_terminal_tradeoff_boundary.py`, `tests/test_strict_terminal_tradeoff_boundary.py`, `reports/strict_terminal_tradeoff_boundary_report.md`, `runs/strict_terminal_tradeoff_boundary/20260525T104000/metrics.yaml` | v125 confirms the existing v116 rows contain no strict terminal pass; the best combined row still fails force, x/y, and orientation, while single-gate recoveries expose the remaining tradeoff |
 | UR10e TCP/contact model audit | `reports/tcp_contact_model_audit_report.md`, `runs/tcp_contact_model_audit/20260524T135607/metrics.yaml` | v53 validates the current convention problem: the 85 mm site is coincident with the sphere center, while the simulated contact surface is about 45 mm farther along the contact normal |
 | UR10e TCP contact-point model variant | `reports/tcp_contact_point_model_variant_report.md`, `runs/tcp_contact_model_audit/20260524T140535/metrics.yaml` | v54 adds a named contact-point convention where the 85 mm site is separated from the sphere center; still simulation-only and not hardware-ready |
 | Broad terminal feasibility audit | `reports/broad_terminal_feasibility_audit_report.md`, `runs/setup_terminal_ik_audit/20260524T141321/metrics.yaml` | v55 gates force/contact on the target `contact_plane` / `contact_tip` pair and finds `0 / 513` broad terminal passes |
@@ -462,6 +466,24 @@ Evidence:
 
 - `reports/paper_platform_claim_boundary_report.md`
 - `runs/paper_platform_claim_boundary/20260525T103000/metrics.yaml`
+
+The strict-terminal tradeoff boundary can additionally claim:
+
+```text
+strict_terminal_tradeoff_boundary:
+  strict terminal pass count = 0
+  best combined max-gate ratio = 2.11994927622362
+  best combined fails force, x/y, and orientation = true
+  force+xy/contact without orientation rows = 1
+  xy+orientation without force/contact rows = 2
+  new optimization run = false
+  overall goal complete = false
+```
+
+Evidence:
+
+- `reports/strict_terminal_tradeoff_boundary_report.md`
+- `runs/strict_terminal_tradeoff_boundary/20260525T104000/metrics.yaml`
 
 The 30 s paper-platform candidate can additionally claim:
 
@@ -1885,7 +1907,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91/v119 finalizer, v90/v119 verifier, and v122 preflight command
 path after explicit user confirmation, or continue only non-final
-offline simulation/paper-platform work identified by the v95-v124 blocker and
+offline simulation/paper-platform work identified by the v95-v125 blocker and
 review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
@@ -1913,11 +1935,15 @@ readiness artifacts and cannot close the goal.
 V124 confirms the paper-platform formula-convergence and tuned Fig.6 evidence
 lines remain separate, strict paper-equivalent parity remains unclaimed, and
 the paper-platform boundary also cannot close the UR10e goal.
+V125 confirms the existing v116 strict-terminal optimization rows contain no
+hidden strict pass: the best combined row still fails force, x/y, and
+orientation, while single-gate recoveries expose force/contact versus
+orientation tradeoffs. It also cannot close the UR10e goal.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v124 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v125 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.
