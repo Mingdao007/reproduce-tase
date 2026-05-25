@@ -3284,6 +3284,28 @@
   robustness, establish hardware readiness, close completion, or authorize
   hardware work.
 
+## D154: Diagnostic Overlay Contacts Must Be Target-Pair Clean
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v149 as a collision-mask audit for the calibrated diagnostic contact
+  overlay.
+- Reason:
+  V148 added the offline diagnostic contact geometry, but future force/contact
+  simulation needs assurance that the diagnostic plane is not also contacting
+  marker or primitive visualization geoms. Without a clean target-pair audit,
+  non-target contacts could contaminate force readings and make subsequent
+  simulation results hard to interpret.
+- Consequence:
+  V149 masks existing visual/primitive geoms from collision, keeps the
+  diagnostic plane and tip collidable, and verifies the seed pose and a 1 mm
+  activation probe both contain only the named target pair. V149 does not
+  collect approved read-only evidence, approve a packet, authorize execution,
+  accept contact/setup targets, accept orientation gates, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, close completion, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

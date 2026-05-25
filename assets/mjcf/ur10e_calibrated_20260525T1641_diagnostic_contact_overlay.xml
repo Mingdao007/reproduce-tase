@@ -3,36 +3,36 @@
   <option timestep="0.002" gravity="0 0 -9.81" />
   <default>
     <joint damping="8" armature="0.02" limited="true" />
-    <geom type="capsule" size="0.025" density="900" friction="1 0.005 0.0001" />
+    <geom type="capsule" size="0.025" density="900" friction="1 0.005 0.0001" contype="0" conaffinity="0" />
   </default>
   <worldbody>
-    <geom name="diagnostic_contact_plane_unaccepted" type="plane" pos="0.45619207276771306 0.16055309891221037 0.044663962326398465" euler="0 0.17453292519999999 0" size="1.2 1.2 0.02" rgba="0.78 0.74 0.62 0.45" friction="1 0.005 0.0001" />
+    <geom name="diagnostic_contact_plane_unaccepted" type="plane" pos="0.45619207276771306 0.16055309891221037 0.044663962326398465" euler="0 0.17453292519999999 0" size="1.2 1.2 0.02" rgba="0.78 0.74 0.62 0.45" friction="1 0.005 0.0001" contype="1" conaffinity="1" />
     <body name="base" pos="0 0 0">
       <body name="shoulder_link" pos="0 0 0.18089377267755391" quat="0.99999999999999445 0 0 -1.0547108770034266e-07">
         <joint name="shoulder_pan_joint" axis="0 0 1" range="-6.283185307179586 6.283185307179586" />
-        <geom name="shoulder_pan_joint_primitive" fromto="0 0 0 0 0 0.08" />
+        <geom name="shoulder_pan_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
         <body name="upper_arm_link" pos="2.0416891277915125e-05 0 0" quat="0.70688438899691852 0.70732910345355271 1.5242124891222752e-07 1.5232541808530616e-07">
           <joint name="shoulder_lift_joint" axis="0 0 1" range="-6.283185307179586 6.283185307179586" />
-          <geom name="shoulder_lift_joint_primitive" fromto="0 0 0 0 0 0.08" />
+          <geom name="shoulder_lift_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
           <body name="forearm_link" pos="-0.61231665716315808 0 0" quat="0.99999970594436793 -0.00071323727481014244 -0.00028178440713331278 -1.1469642345861922e-06">
             <joint name="elbow_joint" axis="0 0 1" range="-3.141592653589793 3.141592653589793" />
-            <geom name="elbow_joint_primitive" fromto="0 0 0 0 0 0.08" />
+            <geom name="elbow_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
             <body name="wrist_1_link" pos="-0.57126101201600177 -0.00056244594997925451 0.17399893501546188" quat="0.9999985897803042 0.0016162278654918167 0.00045633505967977484 -1.7896990794635787e-06">
               <joint name="wrist_1_joint" axis="0 0 1" range="-6.283185307179586 6.283185307179586" />
-              <geom name="wrist_1_joint_primitive" fromto="0 0 0 0 0 0.08" />
+              <geom name="wrist_1_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
               <body name="wrist_2_link" pos="-9.504674691390763e-06 -0.11977755060957024 0.00024639437567913606" quat="0.70783370061372053 0.70637911370217743 -6.3662250807396438e-07 -6.3793345109291207e-07">
                 <joint name="wrist_2_joint" axis="0 0 1" range="-6.283185307179586 6.283185307179586" />
-                <geom name="wrist_2_joint_primitive" fromto="0 0 0 0 0 0.08" />
+                <geom name="wrist_2_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
                 <body name="wrist_3_link" pos="-3.6037236572076613e-05 0.11560209879378842 -7.8715339920216169e-05" quat="0.70686600002203703 -0.7073474803891262 -1.0398830574088319e-08 1.0391752339318872e-08">
                   <joint name="wrist_3_joint" axis="0 0 1" range="-6.283185307179586 6.283185307179586" />
-                  <geom name="wrist_3_joint_primitive" fromto="0 0 0 0 0 0.08" />
+                  <geom name="wrist_3_joint_primitive" fromto="0 0 0 0 0 0.08" contype="0" conaffinity="0" />
                   <body name="flange" pos="0 0 0" quat="0.5 -0.5 -0.5 -0.5">
                     <body name="tool0" pos="0 0 0" quat="0.5 0.5 0.5 0.5">
                       <site name="tcp_site_live_offset_122p54mm" pos="0 0 0.12254000000000001" size="0.012" rgba="0 0.7 1 1" />
                       <body name="tcp_live_offset_body" pos="0 0 0.12254000000000001">
-                        <geom name="tcp_live_offset_marker" type="sphere" size="0.015" rgba="0 0.7 1 1" density="300" />
+                        <geom name="tcp_live_offset_marker" type="sphere" size="0.015" rgba="0 0.7 1 1" density="300" contype="0" conaffinity="0" />
                         <body name="diagnostic_contact_tip_center_unaccepted" pos="0.0076361384237895761 0.00021697283048135996 -0.044346841068598757">
-                          <geom name="diagnostic_contact_tip_unaccepted" type="sphere" size="0.044999999999999998" rgba="0.95 0.35 0.12 0.72" density="700" friction="1 0.005 0.0001" />
+                          <geom name="diagnostic_contact_tip_unaccepted" type="sphere" size="0.044999999999999998" rgba="0.95 0.35 0.12 0.72" density="700" friction="1 0.005 0.0001" contype="1" conaffinity="1" />
                         </body>
                       </body>
                     </body>

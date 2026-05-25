@@ -5,7 +5,7 @@ UR10e adapted reproduction.
 
 Target repository: `Mingdao007/reproduce-tase`
 
-Current branch: `exp/tase-ur10e-v148-calibrated-contact-overlay`
+Current branch: `exp/tase-ur10e-v149-overlay-collision-mask`
 
 ## Scope
 
@@ -161,7 +161,10 @@ readiness, or completion. V148 adds an unaccepted diagnostic contact overlay
 on the calibrated seed so offline simulation can start from the backed-up TCP
 pose with a deterministic tilted-plane contact geometry; the overlay reports
 zero TCP plane distance and zero tip surface gap, but remains diagnostic-only
-and not accepted contact/setup-target evidence.
+and not accepted contact/setup-target evidence. V149 fixes the overlay contact
+mask so visual/primitive geoms cannot contaminate the plane contact: at the
+seed pose the target plane/tip pair count is `1`, non-target contacts are `0`,
+and a 1 mm diagnostic activation probe produces only the target contact pair.
 
 ## Test Command
 

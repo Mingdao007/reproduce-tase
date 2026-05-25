@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
 from tase_repro.kinematics import load_model, make_data, set_qpos, site_position, site_rotation_matrix  # noqa: E402
+from tase_repro.contact_ladder import positive_contact_normal_force_between  # noqa: E402
 
 
 DEFAULT_SOURCE_CONFIG = "configs/mujoco_ur10e_calibrated_20260525T1641_tcp_offset.yaml"
@@ -30,6 +31,7 @@ DEFAULT_TIP_RADIUS_M = 0.045
 DEFAULT_PLANE_TILT_RAD_ABOUT_Y = 0.1745329252
 DEFAULT_NORMAL_WORLD = [0.1736481777, 0.0, 0.9848077530]
 DEFAULT_TOLERANCE_M = 1.0e-6
+DEFAULT_ACTIVATION_PROBE_PENETRATION_M = 1.0e-3
 
 
 class NoAliasDumper(yaml.SafeDumper):
@@ -102,6 +104,19 @@ def remove_named_child(parent: ET.Element, tag: str, name: str) -> None:
             parent.remove(child)
 
 
+def disable_existing_geom_contacts(root: ET.Element) -> list[str]:
+    disabled: list[str] = []
+    for geom in root.iter("geom"):
+        name = geom.attrib.get("name", "")
+        if name in {"diagnostic_contact_plane_unaccepted", "diagnostic_contact_tip_unaccepted"}:
+            continue
+        geom.set("contype", "0")
+        geom.set("conaffinity", "0")
+        if name:
+            disabled.append(name)
+    return disabled
+
+
 def find_body(root: ET.Element, name: str) -> ET.Element:
     for body in root.iter("body"):
         if body.attrib.get("name") == name:
@@ -121,6 +136,7 @@ def write_overlay_mjcf(
     tree = ET.parse(source_mjcf_path)
     root = tree.getroot()
     root.set("model", "ur10e_calibrated_20260525T1641_diagnostic_contact_overlay")
+    disable_existing_geom_contacts(root)
     worldbody = root.find("worldbody")
     if worldbody is None:
         raise ValueError("source MJCF has no worldbody")
@@ -136,6 +152,8 @@ def write_overlay_mjcf(
             "size": "1.2 1.2 0.02",
             "rgba": "0.78 0.74 0.62 0.45",
             "friction": "1 0.005 0.0001",
+            "contype": "1",
+            "conaffinity": "1",
         },
     )
     worldbody.insert(0, plane)
@@ -160,6 +178,8 @@ def write_overlay_mjcf(
             "rgba": "0.95 0.35 0.12 0.72",
             "density": "700",
             "friction": "1 0.005 0.0001",
+            "contype": "1",
+            "conaffinity": "1",
         },
     )
 
@@ -233,6 +253,24 @@ def geom_id(model: mujoco.MjModel, name: str) -> int:
     return int(idx)
 
 
+def contact_pair_counts(
+    data: mujoco.MjData,
+    *,
+    plane_idx: int,
+    tip_idx: int,
+) -> tuple[int, int]:
+    target_pair = {int(plane_idx), int(tip_idx)}
+    target_count = 0
+    non_target_count = 0
+    for idx in range(data.ncon):
+        pair = {int(data.contact[idx].geom[0]), int(data.contact[idx].geom[1])}
+        if pair == target_pair:
+            target_count += 1
+        else:
+            non_target_count += 1
+    return int(target_count), int(non_target_count)
+
+
 def build_payload(
     *,
     source_config_path: pathlib.Path,
@@ -244,6 +282,7 @@ def build_payload(
     plane_tilt_rad_about_y: float,
     normal_world: list[float],
     tolerance_m: float,
+    activation_probe_penetration_m: float,
     write_overlay: bool,
 ) -> dict[str, Any]:
     violations: list[str] = []
@@ -311,14 +350,47 @@ def build_payload(
     tcp_site_shift_m = float(np.linalg.norm(overlay_tcp_position - tcp_position))
     tip_center_expected = tcp_position + tip_radius_m * normal
     tip_center_error_m = float(np.linalg.norm(tip_center - tip_center_expected))
+    target_contact_pair_count, non_target_contact_count = contact_pair_counts(
+        overlay_data,
+        plane_idx=plane_idx,
+        tip_idx=tip_idx,
+    )
+
+    activation_model = load_model(overlay_mjcf_path)
+    activation_data = make_data(activation_model)
+    activation_plane_idx = geom_id(activation_model, "diagnostic_contact_plane_unaccepted")
+    activation_tip_idx = geom_id(activation_model, "diagnostic_contact_tip_unaccepted")
+    activation_model.geom_pos[activation_plane_idx] += float(activation_probe_penetration_m) * normal
+    set_qpos(activation_model, activation_data, q)
+    activation_target_count, activation_non_target_count = contact_pair_counts(
+        activation_data,
+        plane_idx=activation_plane_idx,
+        tip_idx=activation_tip_idx,
+    )
+    activation_force_N, _ = positive_contact_normal_force_between(
+        activation_model,
+        activation_data,
+        geom_a_name="diagnostic_contact_plane_unaccepted",
+        geom_b_name="diagnostic_contact_tip_unaccepted",
+    )
 
     current_tcp_on_plane = abs(tcp_plane_signed_distance) <= tolerance_m
     tip_tangent = abs(tip_surface_gap_m) <= tolerance_m
     normal_matches = normal_error <= tolerance_m
     tcp_unchanged = tcp_site_shift_m <= tolerance_m
     tip_center_matches = tip_center_error_m <= tolerance_m
+    seed_has_no_non_target_contacts = non_target_contact_count == 0
+    activation_probe_clean = activation_target_count > 0 and activation_non_target_count == 0
     overlay_consistent = all(
-        [current_tcp_on_plane, tip_tangent, normal_matches, tcp_unchanged, tip_center_matches]
+        [
+            current_tcp_on_plane,
+            tip_tangent,
+            normal_matches,
+            tcp_unchanged,
+            tip_center_matches,
+            seed_has_no_non_target_contacts,
+            activation_probe_clean,
+        ]
     )
     if not overlay_consistent:
         violations.append("diagnostic contact overlay geometry is inconsistent at the v147 seed pose")
@@ -343,6 +415,7 @@ def build_payload(
             "model_nv": int(overlay_model.nv),
             "model_ngeom": int(overlay_model.ngeom),
             "model_nsite": int(overlay_model.nsite),
+            "model_ncon_at_seed": int(overlay_data.ncon),
             "tcp_site": tcp_site,
             "plane_geom_name": "diagnostic_contact_plane_unaccepted",
             "tip_geom_name": "diagnostic_contact_tip_unaccepted",
@@ -355,6 +428,14 @@ def build_payload(
             "tip_surface_gap_m": tip_surface_gap_m,
             "plane_normal_error": normal_error,
             "contact_tip_radius_m": float(tip_radius_m),
+            "target_contact_pair_count_at_seed": target_contact_pair_count,
+            "non_target_contact_count_at_seed": non_target_contact_count,
+            "seed_has_no_non_target_contacts": seed_has_no_non_target_contacts,
+            "activation_probe_penetration_m": float(activation_probe_penetration_m),
+            "activation_probe_target_contact_pair_count": activation_target_count,
+            "activation_probe_non_target_contact_count": activation_non_target_count,
+            "activation_probe_target_normal_force_N": float(activation_force_N),
+            "activation_probe_clean_target_contact": activation_probe_clean,
             "simulation_can_start_from_diagnostic_overlay": overlay_consistent,
             "diagnostic_overlay_acceptance_status": "not_accepted",
             "approved_read_only_evidence_claim": False,
@@ -373,6 +454,9 @@ def build_payload(
             "tip_center_world_m": [float(v) for v in tip_center],
             "tip_center_expected_world_m": [float(v) for v in tip_center_expected],
             "tip_center_local_offset_m_from_tcp": [float(v) for v in tip_center_local_offset],
+            "activation_probe_plane_shift_world_m": [
+                float(v) for v in (float(activation_probe_penetration_m) * normal)
+            ],
         },
         "claim_boundary": {
             "offline_diagnostic_contact_geometry_only": True,
@@ -410,6 +494,9 @@ def write_summary(out_dir: pathlib.Path, payload: dict[str, Any]) -> None:
         f"- Overlay model loads: `{summary['overlay_model_loads']}`",
         f"- Current TCP site on diagnostic plane: `{summary['current_tcp_site_on_diagnostic_plane']}`",
         f"- Contact tip surface tangent to plane: `{summary['contact_tip_surface_tangent_to_plane']}`",
+        f"- Seed non-target contact count: `{summary['non_target_contact_count_at_seed']}`",
+        f"- Activation probe target contact count: `{summary['activation_probe_target_contact_pair_count']}`",
+        f"- Activation probe non-target contact count: `{summary['activation_probe_non_target_contact_count']}`",
         f"- TCP site shift: `{summary['tcp_site_shift_m']}` m",
         f"- Tip surface gap: `{summary['tip_surface_gap_m']}` m",
         f"- Simulation can start from diagnostic overlay: `{summary['simulation_can_start_from_diagnostic_overlay']}`",
@@ -419,6 +506,7 @@ def write_summary(out_dir: pathlib.Path, payload: dict[str, Any]) -> None:
         "Interpretation:",
         "",
         "- The generated overlay adds an unaccepted diagnostic plane and tip sphere to the v147 calibrated kinematic seed.",
+        "- Existing visual/primitive geoms are collision-masked so the diagnostic plane is reserved for the named tip pair.",
         "- It is a start-contact geometry scaffold for offline simulation only, not contact calibration or setup-target acceptance.",
     ]
     if payload["summary"]["violations"]:
@@ -437,6 +525,7 @@ def main() -> int:
     parser.add_argument("--plane-tilt-rad-about-y", type=float, default=DEFAULT_PLANE_TILT_RAD_ABOUT_Y)
     parser.add_argument("--normal-world", type=float, nargs=3, default=DEFAULT_NORMAL_WORLD)
     parser.add_argument("--tolerance-m", type=float, default=DEFAULT_TOLERANCE_M)
+    parser.add_argument("--activation-probe-penetration-m", type=float, default=DEFAULT_ACTIVATION_PROBE_PENETRATION_M)
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--output-dir", default=None)
     parser.add_argument("--no-write-overlay", action="store_true")
@@ -460,6 +549,7 @@ def main() -> int:
         plane_tilt_rad_about_y=float(args.plane_tilt_rad_about_y),
         normal_world=[float(v) for v in args.normal_world],
         tolerance_m=float(args.tolerance_m),
+        activation_probe_penetration_m=float(args.activation_probe_penetration_m),
         write_overlay=not args.no_write_overlay,
     )
     payload["output_dir"] = str(out_dir)
