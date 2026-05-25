@@ -4,7 +4,7 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v117-contact-setup-target-review-scaffold`
 
-Implementation commit: `IMPLEMENTATION_COMMIT_PENDING`
+Implementation commit: `f89b1dc4be31b213a28b493a277137c14e1977a0`
 
 ## Objective
 
@@ -108,7 +108,7 @@ or make a hardware-readiness claim.
 - `git diff --check`
   passed.
 - Branch push was verified at
-  `BRANCH_PUSH_PENDING`.
+  `f89b1dc4be31b213a28b493a277137c14e1977a0`.
 
 ## Next Step
 

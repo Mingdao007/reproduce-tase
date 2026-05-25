@@ -90,7 +90,7 @@ exp/tase-ur10e-v117-contact-setup-target-review-scaffold
 Verified implementation commit:
 
 ```text
-IMPLEMENTATION_COMMIT_PENDING
+f89b1dc4be31b213a28b493a277137c14e1977a0
 ```
 
 V117 contact/setup-target acceptance review artifacts:
