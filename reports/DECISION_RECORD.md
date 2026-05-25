@@ -2629,6 +2629,29 @@
   geometry, establish hardware readiness, or authorize hardware
   motion/configuration.
 
+## D126: Packet Coverage Must Stay Not-Approved Across All Finalizer Steps
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v121 as an aggregate approval-packet coverage audit requiring every
+  finalizer-eligible registered read-only SOP step to have at least one
+  not-approved packet with a passing packet audit.
+- Reason:
+  V120 clarified only the phase1 TCP/contact measurement approval scope.
+  Before asking for or acting on any exact read-only SOP approval, every
+  finalizer-eligible registry step should have the same reviewable
+  not-approved packet boundary. The aggregate audit scans packet and audit
+  metrics, requires `5 / 5` covered finalizer steps, and fails on missing
+  coverage, approved packets, live-access-authorizing packets,
+  execution-authorizing packets, or heavy payload drift.
+- Consequence:
+  Packet coverage is complete for registered finalizer-eligible steps, but it
+  is still not approval. V121 does not collect live evidence, accept a contact
+  model, accept a setup target, relax a gate, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, establish hardware
+  readiness, or authorize hardware motion/configuration.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

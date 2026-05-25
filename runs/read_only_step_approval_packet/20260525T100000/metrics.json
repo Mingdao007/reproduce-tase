@@ -1,0 +1,53 @@
+{
+  "packet_source": "read-only SOP exact-step approval packet",
+  "packet_id": "20260525T100000",
+  "status": "approval_packet_created_not_approved",
+  "registry_path": "configs/read_only_sop_step_registry.yaml",
+  "source_sop": "reports/read_only_calibration_measurement_sop.md",
+  "selected_step": {
+    "step_id": "phase2_ksm_contact_patch_convention",
+    "title": "KSM contact patch convention read-only evidence",
+    "finalizer_eligible": true,
+    "allowed_worksheets": [
+      "ksm_contact_patch_convention.csv"
+    ],
+    "minimum_required_rows": {
+      "ksm_contact_patch_convention.csv": 1
+    },
+    "live_hardware_access_allowed_if_user_approved": true,
+    "forbidden_actions": [
+      "robot_motion",
+      "force_control",
+      "zeroing_or_biasing",
+      "tcp_payload_cog_urcap_onrobot_or_rtde_writes"
+    ]
+  },
+  "approval_request": {
+    "approval_status": "not_approved",
+    "required_confirmation_phrase": "I approve this read-only measurement step",
+    "required_approved_step_id": "phase2_ksm_contact_patch_convention",
+    "operator": null,
+    "approved_at_utc": null,
+    "approval_source": null,
+    "packet_authorizes_execution": false,
+    "packet_authorizes_live_access": false
+  },
+  "execution": {
+    "live_hardware_accessed": false,
+    "robot_motion_commanded": false,
+    "configuration_written": false,
+    "zeroing_or_biasing_performed": false,
+    "force_control_run": false
+  },
+  "claim_boundary": {
+    "approval_packet_only": true,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  }
+}

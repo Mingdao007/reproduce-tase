@@ -3549,6 +3549,52 @@ Legacy source root:
   feasibility, calibrate contact geometry, establish hardware readiness, or
   authorize hardware work.
 
+## V121 Read-Only Approval Packet Coverage
+
+### Covered all finalizer-eligible steps with audited not-approved packets
+
+- Scripts:
+  - `scripts/audit_read_only_step_approval_packet_coverage.py`
+- Runs:
+  - `runs/read_only_step_approval_packet/20260525T100000`
+  - `runs/read_only_step_approval_packet/20260525T100100`
+  - `runs/read_only_step_approval_packet/20260525T100200`
+  - `runs/read_only_step_approval_packet/20260525T100300`
+  - `runs/read_only_step_approval_packet_audit/20260525T100001`
+  - `runs/read_only_step_approval_packet_audit/20260525T100101`
+  - `runs/read_only_step_approval_packet_audit/20260525T100201`
+  - `runs/read_only_step_approval_packet_audit/20260525T100301`
+  - `runs/read_only_step_approval_packet_coverage/20260525T100500`
+- Report:
+  - `reports/read_only_step_approval_packet_coverage_report.md`
+- Tests:
+  - `tests/test_read_only_step_approval_packet_coverage.py`
+- Command:
+  `python3 scripts/audit_read_only_step_approval_packet_coverage.py --run-id 20260525T100500`
+- Tracked lightweight artifacts:
+  each packet top-level `metrics.yaml`, `metrics.json`,
+  `approval_packet.md`, `summary.md`, and `git_state.md`; each packet audit
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  coverage audit top-level `metrics.yaml`, `metrics.json`, `summary.md`, and
+  `git_state.md`; report, tests, and updated planning/decision/manifest
+  documentation.
+- Result:
+  The coverage audit passes with `violations = []`, finalizer step coverage
+  `5 / 5`, approved packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`, heavy payloads `[]`, and
+  `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused packet tests passed with `7 passed in 1.60s`; YAML anchor check
+  found no anchors in the generated metrics; raw/heavy artifact scan found no
+  payloads; full tests passed with `195 passed in 9.83s`; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  approval-scoping evidence only; it does not approve any packet, accept a
+  contact model, accept a setup target, prove strict paper-equivalent
+  feasibility, calibrate contact geometry, establish hardware readiness, or
+  authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

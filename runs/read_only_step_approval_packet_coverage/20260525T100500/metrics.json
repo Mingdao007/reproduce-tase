@@ -1,0 +1,113 @@
+{
+  "run_source": "read-only step approval packet coverage audit",
+  "audit_run_id": "20260525T100500",
+  "registry_path": "configs/read_only_sop_step_registry.yaml",
+  "packet_root": "runs/read_only_step_approval_packet",
+  "audit_root": "runs/read_only_step_approval_packet_audit",
+  "summary": {
+    "required_finalizer_step_count": 5,
+    "covered_step_count": 5,
+    "missing_step_count": 0,
+    "missing_step_ids": [],
+    "coverage_complete": true,
+    "audit_passed": true,
+    "violations": [],
+    "approval_packet_count": 5,
+    "approval_packet_audit_count": 5,
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "do_not_mark_goal_complete": true
+  },
+  "coverage_rows": [
+    {
+      "step_id": "phase1_mounted_stack_tcp_contact_measurement",
+      "packet_count": 1,
+      "valid_not_approved_packet_count": 1,
+      "valid_packets": [
+        {
+          "packet_path": "runs/read_only_step_approval_packet/20260525T095500/metrics.yaml",
+          "audit_paths": [
+            "runs/read_only_step_approval_packet_audit/20260525T095501/metrics.yaml"
+          ]
+        }
+      ],
+      "coverage_passed": true
+    },
+    {
+      "step_id": "phase2_ksm_contact_patch_convention",
+      "packet_count": 1,
+      "valid_not_approved_packet_count": 1,
+      "valid_packets": [
+        {
+          "packet_path": "runs/read_only_step_approval_packet/20260525T100000/metrics.yaml",
+          "audit_paths": [
+            "runs/read_only_step_approval_packet_audit/20260525T100001/metrics.yaml"
+          ]
+        }
+      ],
+      "coverage_passed": true
+    },
+    {
+      "step_id": "phase3_plane_normal_external_measurement",
+      "packet_count": 1,
+      "valid_not_approved_packet_count": 1,
+      "valid_packets": [
+        {
+          "packet_path": "runs/read_only_step_approval_packet/20260525T100100/metrics.yaml",
+          "audit_paths": [
+            "runs/read_only_step_approval_packet_audit/20260525T100101/metrics.yaml"
+          ]
+        }
+      ],
+      "coverage_passed": true
+    },
+    {
+      "step_id": "phase4_force_source_read_only_comparison",
+      "packet_count": 1,
+      "valid_not_approved_packet_count": 1,
+      "valid_packets": [
+        {
+          "packet_path": "runs/read_only_step_approval_packet/20260525T100200/metrics.yaml",
+          "audit_paths": [
+            "runs/read_only_step_approval_packet_audit/20260525T100201/metrics.yaml"
+          ]
+        }
+      ],
+      "coverage_passed": true
+    },
+    {
+      "step_id": "phase5_orientation_gate_semantics_evidence",
+      "packet_count": 1,
+      "valid_not_approved_packet_count": 1,
+      "valid_packets": [
+        {
+          "packet_path": "runs/read_only_step_approval_packet/20260525T100300/metrics.yaml",
+          "audit_paths": [
+            "runs/read_only_step_approval_packet_audit/20260525T100301/metrics.yaml"
+          ]
+        }
+      ],
+      "coverage_passed": true
+    }
+  ],
+  "artifact_audit": {
+    "file_count": 45,
+    "total_bytes": 55461,
+    "heavy_payloads": []
+  },
+  "claim_boundary": {
+    "coverage_audit_only": true,
+    "approved_read_only_evidence": false,
+    "packet_approves_live_access": false,
+    "packet_authorizes_execution": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "contact_calibration_claim": false,
+    "gate_relaxation_claim": false,
+    "hardware_readiness": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root_path": "/home/andy/reproduce-tase/runs/read_only_step_approval_packet_coverage/20260525T100500"
+}

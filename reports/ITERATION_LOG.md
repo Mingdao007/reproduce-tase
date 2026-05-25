@@ -4726,3 +4726,57 @@
   The top blocker remains explicit approval for one exact read-only SOP step.
   This packet is not approval. If the user approves the packet later, use a
   fresh read-only run and fill only `tcp_contact_measurements.csv`.
+
+## 2026-05-25 v121 Read-Only Approval Packet Coverage
+
+### Cover every finalizer-eligible registered step with not-approved packets
+
+- Branch:
+  `exp/tase-ur10e-v121-readonly-approval-packet-coverage`
+- Runs:
+  - `runs/read_only_step_approval_packet/20260525T100000`
+  - `runs/read_only_step_approval_packet/20260525T100100`
+  - `runs/read_only_step_approval_packet/20260525T100200`
+  - `runs/read_only_step_approval_packet/20260525T100300`
+  - `runs/read_only_step_approval_packet_audit/20260525T100001`
+  - `runs/read_only_step_approval_packet_audit/20260525T100101`
+  - `runs/read_only_step_approval_packet_audit/20260525T100201`
+  - `runs/read_only_step_approval_packet_audit/20260525T100301`
+  - `runs/read_only_step_approval_packet_coverage/20260525T100500`
+- Report:
+  `reports/read_only_step_approval_packet_coverage_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_step_approval_packet_coverage.py`
+  - `scripts/run_tests.sh tests/test_read_only_step_approval_packet_coverage.py`
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase2_ksm_contact_patch_convention --packet-id 20260525T100000`
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase3_plane_normal_external_measurement --packet-id 20260525T100100`
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase4_force_source_read_only_comparison --packet-id 20260525T100200`
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase5_orientation_gate_semantics_evidence --packet-id 20260525T100300`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T100000 --run-id 20260525T100001`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T100100 --run-id 20260525T100101`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T100200 --run-id 20260525T100201`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T100300 --run-id 20260525T100301`
+  - `python3 scripts/audit_read_only_step_approval_packet_coverage.py --run-id 20260525T100500`
+- Result:
+  V121 adds an aggregate packet coverage audit and creates not-approved
+  packets for phases 2 through 5. Together with the v120 phase1 packet, the
+  coverage audit reports `audit_passed = true`, `coverage_complete = true`,
+  finalizer step coverage `5 / 5`, `missing_step_ids = []`, approved packets
+  `0`, execution-authorizing packets `0`, live-access-authorizing packets
+  `0`, heavy payloads `[]`, and `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline approval-scoping work only. It does not collect live
+  measurements, execute the read-only SOP, accept a contact model, accept a
+  setup target, relax a gate, calibrate contact geometry, prove strict
+  paper-equivalent feasibility, establish hardware readiness, or authorize
+  hardware motion/configuration.
+- Validation:
+  Focused packet tests passed with `7 passed in 1.60s`; YAML anchor check
+  found no anchors in the generated metrics; raw/heavy artifact scan found no
+  payloads; full tests passed with `195 passed in 9.83s`; `git diff --check`
+  passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and keep all claim-closing
+  flags false.

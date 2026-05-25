@@ -1824,6 +1824,12 @@ V120 then creates a not-approved exact-step approval packet for
 `phase1_mounted_stack_tcp_contact_measurement`. The packet allows only
 `tcp_contact_measurements.csv`, authorizes no execution or live access, passes
 audit with `violations = []`, and keeps `do_not_mark_goal_complete = true`.
+V121 then extends the same not-approved approval-packet boundary to all
+finalizer-eligible registered read-only SOP steps. The aggregate coverage
+audit reports finalizer step coverage `5 / 5`, `missing_step_ids = []`,
+approved packets `0`, execution-authorizing packets `0`,
+live-access-authorizing packets `0`, heavy payloads `[]`, and
+`do_not_mark_goal_complete = true`.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -1854,6 +1860,8 @@ hardware gate report exists. V119 requires any future approved-read-only
 finalization to use a registered exact step ID and matching worksheet scope.
 V120 provides a concrete but still not-approved packet for the phase1
 mounted-stack TCP/contact measurement step.
+V121 provides still-not-approved packets for every finalizer-eligible
+registered step and an aggregate coverage audit confirming `5 / 5` coverage.
 Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
