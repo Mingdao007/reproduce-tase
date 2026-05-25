@@ -2680,3 +2680,28 @@
   robustness, prove strict paper-equivalent feasibility, calibrate contact
   geometry, establish hardware readiness, or authorize hardware
   motion/configuration.
+
+## D124: Read-Only Evidence Approval Must Name A Registered Exact Step
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v119 as a machine-readable read-only SOP step registry and enforce it in
+  the read-only evidence finalizer and approved-read-only audit.
+- Reason:
+  V118 confirms the top blocker is still approved read-only calibration
+  evidence. The finalizer already required the exact approval phrase and a
+  non-empty step ID, but an arbitrary non-empty step ID could still be used.
+  V119 adds `configs/read_only_sop_step_registry.yaml`, audits it, and updates
+  the finalizer/auditor so future finalization must use a registered
+  finalizer-eligible step ID and worksheet rows must stay within that step's
+  approved scope.
+- Consequence:
+  Future approved-read-only evidence cannot be finalized from vague approval
+  labels or mixed worksheet rows. Approval remains exact-step scoped, and the
+  registry itself authorizes no live access, motion, writes, zeroing,
+  force-control, contact/setup-target acceptance, orientation-gate acceptance,
+  or hardware-readiness claim. V119 does not collect live evidence, accept a
+  contact model, accept a setup target, relax a gate, prove robustness, prove
+  strict paper-equivalent feasibility, calibrate contact geometry, establish
+  hardware readiness, or authorize hardware motion/configuration.

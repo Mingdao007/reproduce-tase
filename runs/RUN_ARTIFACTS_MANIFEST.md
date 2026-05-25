@@ -3470,6 +3470,44 @@ Legacy source root:
   strict paper-equivalent feasibility, calibrate contact geometry, establish
   hardware readiness, or authorize hardware work.
 
+## V119 Read-Only SOP Step Registry Finalizer Guard
+
+### Added exact-step registry checks before approved-read-only finalization
+
+- Config:
+  - `configs/read_only_sop_step_registry.yaml`
+- Scripts:
+  - `scripts/audit_read_only_sop_step_registry.py`
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+- Runs:
+  - `runs/read_only_sop_step_registry_audit/20260525T094000`
+- Report:
+  - `reports/read_only_sop_step_registry_guard_report.md`
+- Tests:
+  - `tests/test_read_only_calibration_measurement_template.py`
+- Command:
+  `python3 scripts/audit_read_only_sop_step_registry.py --run-id 20260525T094000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, registry config, and updated planning/decision/manifest
+  documentation.
+- Result:
+  The registry audit passes with `violations = []`, `6` exact step IDs, and `5`
+  finalizer-eligible evidence steps. The finalizer and approved-read-only audit
+  now require a registered finalizer-eligible step ID and reject worksheet rows
+  outside that step's allowed worksheet scope.
+- Validation:
+  Focused tests passed with `12 passed in 2.34s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `188 passed in 8.24s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  approval-scoping evidence only; it does not accept a contact model, accept a
+  setup target, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

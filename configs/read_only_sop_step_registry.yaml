@@ -1,0 +1,116 @@
+registry_source: read-only calibration measurement exact-step registry
+source_sop: reports/read_only_calibration_measurement_sop.md
+template_source: templates/read_only_calibration_measurement
+approval_phrase: I approve this read-only measurement step
+status: active
+claim_boundary:
+  registry_authorizes_live_access: false
+  registry_authorizes_robot_motion: false
+  registry_authorizes_configuration_writes: false
+  registry_authorizes_zeroing_or_biasing: false
+  registry_authorizes_force_control: false
+  registry_accepts_contact_model: false
+  registry_accepts_setup_target: false
+  registry_accepts_orientation_gate: false
+  registry_establishes_hardware_readiness: false
+known_worksheets:
+- tcp_contact_measurements.csv
+- ksm_contact_patch_convention.csv
+- plane_normal_measurements.csv
+- force_source_comparison.csv
+- orientation_gate_semantics.csv
+steps:
+- step_id: phase0_static_bench_preflight
+  title: Static bench preflight and local record inspection
+  finalizer_eligible: false
+  allowed_worksheets: []
+  minimum_required_rows: {}
+  live_hardware_access_allowed_if_user_approved: false
+  description: >
+    Confirm static bench prerequisites and inspect local records only. This step
+    is not sufficient to finalize an approved read-only evidence run.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+- step_id: phase1_mounted_stack_tcp_contact_measurement
+  title: Mounted stack TCP/contact point read-only measurement
+  finalizer_eligible: true
+  allowed_worksheets:
+  - tcp_contact_measurements.csv
+  minimum_required_rows:
+    tcp_contact_measurements.csv: 1
+  live_hardware_access_allowed_if_user_approved: true
+  description: >
+    Record mounted TCP/contact datum measurements and associated instrument
+    metadata without moving the robot or writing configuration.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+- step_id: phase2_ksm_contact_patch_convention
+  title: KSM contact patch convention read-only evidence
+  finalizer_eligible: true
+  allowed_worksheets:
+  - ksm_contact_patch_convention.csv
+  minimum_required_rows:
+    ksm_contact_patch_convention.csv: 1
+  live_hardware_access_allowed_if_user_approved: true
+  description: >
+    Record KSM-8N seating/contact-patch convention evidence without moving the
+    robot or writing configuration.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+- step_id: phase3_plane_normal_external_measurement
+  title: Plane normal read-only or external-metrology evidence
+  finalizer_eligible: true
+  allowed_worksheets:
+  - plane_normal_measurements.csv
+  minimum_required_rows:
+    plane_normal_measurements.csv: 1
+  live_hardware_access_allowed_if_user_approved: true
+  description: >
+    Record a plane normal expressed in robot base frame from read-only or
+    external metrology evidence under the no-motion/no-write boundary.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+- step_id: phase4_force_source_read_only_comparison
+  title: Force-source read-only comparison evidence
+  finalizer_eligible: true
+  allowed_worksheets:
+  - force_source_comparison.csv
+  minimum_required_rows:
+    force_source_comparison.csv: 1
+  live_hardware_access_allowed_if_user_approved: true
+  description: >
+    Record same-state force-source/frame observations as read-only evidence.
+    Direct OnRobot TCP DAQ remains informational until reconciled.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes
+- step_id: phase5_orientation_gate_semantics_evidence
+  title: Orientation gate semantics read-only evidence
+  finalizer_eligible: true
+  allowed_worksheets:
+  - orientation_gate_semantics.csv
+  minimum_required_rows:
+    orientation_gate_semantics.csv: 1
+  live_hardware_access_allowed_if_user_approved: true
+  description: >
+    Record orientation gate semantics as evidence only. This step does not
+    accept or relax an orientation gate.
+  forbidden_actions:
+  - robot_motion
+  - force_control
+  - zeroing_or_biasing
+  - tcp_payload_cog_urcap_onrobot_or_rtde_writes

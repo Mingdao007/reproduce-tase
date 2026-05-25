@@ -18,6 +18,8 @@ runs/read_only_calibration_measurement/<YYYYMMDDTHHMMSS>/
 Before filling any worksheet, confirm:
 
 - the user explicitly approved the exact read-only step
+- the approved step ID is listed in
+  `configs/read_only_sop_step_registry.yaml`
 - the robot will not be moved
 - no configuration write or zeroing operation is planned
 - direct OnRobot TCP DAQ `READFT` is informational only until reconciled

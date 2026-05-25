@@ -2,6 +2,7 @@ run_source: read-only calibration measurement template
 run_id: TEMPLATE
 status: template_not_executed
 source_sop: reports/read_only_calibration_measurement_sop.md
+approved_step_registry: configs/read_only_sop_step_registry.yaml
 v85_margin:
   required_normal_rotation_deg: 0.03245531101442353
   equivalent_geometry_um: 14.963398168061882

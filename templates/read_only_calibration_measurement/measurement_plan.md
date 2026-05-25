@@ -43,6 +43,8 @@ Not allowed:
   `I approve this read-only measurement step`
 - Approved step ID:
   `TBD`
+- Approved step registry:
+  `configs/read_only_sop_step_registry.yaml`
 - Operator:
   `TBD`
 - Date/time:
@@ -56,4 +58,6 @@ Not allowed:
 - unexpected safety mode
 - request to move robot
 - request to write configuration
+- approved step ID is not in the registry
+- worksheet rows do not match the approved step scope
 - unresolved force-source mismatch being ignored

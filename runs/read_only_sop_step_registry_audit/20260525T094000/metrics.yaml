@@ -1,0 +1,36 @@
+run_source: read-only SOP step registry audit
+registry_path: configs/read_only_sop_step_registry.yaml
+audit_passed: true
+violations: []
+step_count: 6
+finalizer_eligible_step_count: 5
+finalizer_eligible_step_ids:
+- phase1_mounted_stack_tcp_contact_measurement
+- phase2_ksm_contact_patch_convention
+- phase3_plane_normal_external_measurement
+- phase4_force_source_read_only_comparison
+- phase5_orientation_gate_semantics_evidence
+live_hardware_eligible_step_ids:
+- phase1_mounted_stack_tcp_contact_measurement
+- phase2_ksm_contact_patch_convention
+- phase3_plane_normal_external_measurement
+- phase4_force_source_read_only_comparison
+- phase5_orientation_gate_semantics_evidence
+known_worksheets:
+- force_source_comparison.csv
+- ksm_contact_patch_convention.csv
+- orientation_gate_semantics.csv
+- plane_normal_measurements.csv
+- tcp_contact_measurements.csv
+claim_boundary:
+  registry_authorizes_live_access: false
+  registry_authorizes_robot_motion: false
+  registry_authorizes_configuration_writes: false
+  registry_authorizes_zeroing_or_biasing: false
+  registry_authorizes_force_control: false
+  registry_accepts_contact_model: false
+  registry_accepts_setup_target: false
+  registry_accepts_orientation_gate: false
+  registry_establishes_hardware_readiness: false
+audit_run_id: 20260525T094000
+audit_root: /home/andy/reproduce-tase/runs/read_only_sop_step_registry_audit/20260525T094000

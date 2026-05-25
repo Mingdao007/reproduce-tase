@@ -2,7 +2,7 @@
 
 Date: 2026-05-25
 
-Branch: `exp/tase-ur10e-v118-post-v117-evidence-readiness-audit`
+Branch: `exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard`
 
 ## Objective Restatement
 
@@ -248,6 +248,10 @@ The objective has two separate technical claim levels:
 - `tests/test_post_v117_evidence_readiness.py`
 - `runs/post_v117_evidence_readiness/20260525T092500/metrics.yaml`
 - `reports/post_v117_evidence_readiness_report.md`
+- `configs/read_only_sop_step_registry.yaml`
+- `scripts/audit_read_only_sop_step_registry.py`
+- `runs/read_only_sop_step_registry_audit/20260525T094000/metrics.yaml`
+- `reports/read_only_sop_step_registry_guard_report.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/current_hardware_state.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/EOAT_TCP_NOTE.md`
 - `/home/andy/ur10e_lab_vault/onrobot/hex_e_v2_3010007655/eoat_design/v13_ksm8n_receiver_5p3mm_side_window_85mm/verification.json`
@@ -261,17 +265,17 @@ The objective has two separate technical claim levels:
 
 | Requirement | Evidence | Status |
 |---|---|---|
-| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v118 branches pushed and GitHub-verified; v118 implementation branch push verified at `a11668032fb01accde9ed55aaaf95c04b5465075` | Done |
-| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v118-post-v117-evidence-readiness-audit`; latest local branch is `exp/tase-ur10e-v118-post-v117-evidence-readiness-audit` | Done |
+| Use `Mingdao007/reproduce-tase` as target repo | `origin` is `git@github.com:Mingdao007/reproduce-tase.git`; decisions D001-D003; v37-v119 branches pushed and GitHub-verified; v119 implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Keep work Git-backed with dedicated branches | Iteration branches through `exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard`; latest local branch is `exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard` | Done |
 | Maintain mandatory plans | All required `plans/*.md` files exist: master, paper truth, math transfer, MuJoCo, controller, experiment matrix, hardware gate, rollback | Done |
-| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v119.md` include the short prompt, authoritative local clone, v95-v118 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
-| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D123 as of v118 | Done |
+| Preserve next-thread goal prompt | `docs/goal.md` and `docs/goal_handoff_v120.md` include the short prompt, authoritative local clone, v95-v119 blocker/review artifacts, claim boundary, and next executable read-only SOP or offline-only target | Done |
+| Maintain iteration log and decision record | `reports/ITERATION_LOG.md`, `reports/DECISION_RECORD.md`; decisions through D124 as of v119 | Done |
 | Migrate reproduction code/configs/reports/lightweight metadata | Repo contains `src/tase_repro`, `scripts`, `configs`, `reports`, `runs/*` summaries, and `runs/RUN_ARTIFACTS_MANIFEST.md` | Done |
 | Keep raw/heavy artifacts out of ordinary Git or manifest them | `.npz` raw arrays remain ignored; manifest documents tracked summaries and omitted raw artifacts | Done |
 | Extract paper truth from PDF | `reports/paper_truth_extraction.md`, `reports/orientation_signal_ambiguity_audit.md`, `reports/section_v_z0_audit.md`, `configs/paper_truth.yaml` | Done for extraction fields; Section V orientation and `z0` remain paper ambiguities |
 | Derive paper 7DOF method to UR10e 6DOF | `reports/math_derivation_ur10e_transfer.md` includes force-motion decomposition, orientation, slack/priority, and v38 implication | Done for current adapted line |
 | Verify MuJoCo baseline | Smoke, force ladder, force-feedback, trajectory, tilted-plane, and staged reports in `reports/*`; run manifest lists artifacts | Done for approximate simulation baseline |
-| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v118 focused validation: `python3 -m py_compile scripts/audit_post_v117_evidence_readiness.py` passed, `scripts/run_tests.sh tests/test_post_v117_evidence_readiness.py` reported `3 passed in 0.24s`, the v118 evidence-readiness run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `184 passed in 7.74s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
+| Implement tests before trusting plots | `scripts/run_tests.sh` used throughout; latest v119 focused validation: `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/audit_read_only_sop_step_registry.py scripts/create_read_only_calibration_measurement_run.py` passed, `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py` reported `12 passed in 2.34s`, the v119 registry audit run was created, root-metrics YAML anchor and raw/heavy artifact scans passed, `scripts/run_tests.sh` reported `188 passed in 8.24s`, and `git diff --check` passed; no live hardware commands were run | Done for current code |
 | Run staged simulations | v29-v38 staged runs and reports; v33 slowed E1-E4 matrix; v35-v37 setup probes | Done |
 | Separate UR10e adapted results from paper-platform reproduction | README claim boundary plus D043; relaxed label explicitly says not paper-equivalent | Done |
 | Paper-platform 7DOF executable line | `src/tase_repro/panda_kinematics.py`, `src/tase_repro/paper_7dof.py`, `scripts/run_paper_7dof_section_v.py`, v41 KKT run `20260524T113608`, v42 pinv run `20260524T114244`, v43 capped-integral KKT run `20260524T114736` | Diagnostic line exists and capped-integral KKT contact passes; not paper-equivalent parity |
@@ -349,7 +353,8 @@ The objective has two separate technical claim levels:
 | Strict terminal constrained optimization | `scripts/audit_strict_terminal_constrained_optimization.py`, `tests/test_strict_terminal_constrained_optimization.py`, `runs/strict_terminal_constrained_optimization/20260525T085000/metrics.yaml`, `reports/strict_terminal_constrained_optimization_report.md` | v116 runs bounded smooth-minimax terminal optimization from the v56 contact-manifold seeds. It reports strict terminal pass `0 / 12`, best max-gate ratio `2.11994927622362`, v56 strict best max-gate ratio `2.413534442118322`, and `do_not_mark_goal_complete = true`; implementation branch push verified at `b956ee36c659fb01bc23fc7d3db3e66bed9e8077` | Done |
 | Contact/setup-target acceptance review scaffold | `templates/contact_setup_target_acceptance_review/`, `scripts/create_contact_setup_target_acceptance_review.py`, `scripts/audit_contact_setup_target_acceptance_review.py`, `tests/test_contact_setup_target_acceptance_review_template.py`, `runs/contact_setup_target_acceptance_review/20260525T091500/metrics.yaml`, `runs/contact_setup_target_acceptance_review_audit/20260525T091501/metrics.yaml`, `reports/contact_setup_target_acceptance_review_template_report.md` | v117 creates a separate non-default acceptance review scaffold for any future contact model or setup-target change. It reports `audit_passed = true`, `violations = []`, `contact_setup_target_acceptance.decision = not_accepted`, support for contact model/setup target/gate/hardware changes false, and `do_not_mark_goal_complete = true`; implementation branch push verified at `f89b1dc4be31b213a28b493a277137c14e1977a0` | Done |
 | Post-v117 evidence readiness audit | `scripts/audit_post_v117_evidence_readiness.py`, `tests/test_post_v117_evidence_readiness.py`, `runs/post_v117_evidence_readiness/20260525T092500/metrics.yaml`, `reports/post_v117_evidence_readiness_report.md` | v118 scans actual current read-only runs, run audits, orientation reviews, contact/setup-target reviews, strict terminal metrics, robustness restatement metrics, and the hardware gate report path. It reports `overall_goal_complete = false`, approved read-only runs `0`, passed approved-read-only audits `0`, accepted orientation reviews `0`, accepted contact/setup-target reviews `0`, strict terminal pass `0`, closed robustness cells `0`, no hardware gate report, and `do_not_mark_goal_complete = true`; implementation branch push verified at `a11668032fb01accde9ed55aaaf95c04b5465075` | Done |
-| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10`; v115 explicit constraints still produce strict setup-path pass `0 / 5` despite qdot-criteria pass `5 / 5`; v116 stronger terminal optimization still has strict terminal pass `0 / 12`; v117-v118 do not alter strict feasibility results | Not achieved |
+| Read-only SOP step registry finalizer guard | `configs/read_only_sop_step_registry.yaml`, `scripts/audit_read_only_sop_step_registry.py`, `scripts/finalize_read_only_calibration_measurement_evidence.py`, `scripts/audit_read_only_calibration_measurement_run.py`, `tests/test_read_only_calibration_measurement_template.py`, `runs/read_only_sop_step_registry_audit/20260525T094000/metrics.yaml`, `reports/read_only_sop_step_registry_guard_report.md` | v119 adds exact-step approval scope to the read-only finalizer path. The registry audit passes with `violations = []`, `6` steps, `5` finalizer-eligible evidence steps, and all registry authorization/acceptance/readiness flags false; the finalizer and approved-read-only audit reject unknown step IDs and worksheet rows outside the approved step scope; implementation branch push verified at `IMPLEMENTATION_COMMIT_PENDING` | Done |
+| Strict full staged feasibility | v33 strict full staged `0 / 4`; v35 setup gate `0 / 10`; v36 setup gate `0 / 10`; v37 terminal IK `0 / 65`; v53 terminal IK rerun `0 / 65`; v54 terminal IK rerun `0 / 65`; v55 broad terminal IK `0 / 513`; v56 contact-manifold gate audit `0 / 161`; v96 strict blocker audit confirms strict full staged `0 / 4` and three-phase setup terminal state `0 / 10`; v115 explicit constraints still produce strict setup-path pass `0 / 5` despite qdot-criteria pass `5 / 5`; v116 stronger terminal optimization still has strict terminal pass `0 / 12`; v117-v119 do not alter strict feasibility results | Not achieved |
 | Robustness to contact/model perturbations | v64 baseline diagnostic stitched sensitivity `4 / 9`; v65 timing-margin recovery still `4 / 7`; v66 base-z recovery only `1 / 3`; v67 compact base-z bracket has no positive recovered delta; v73 positive stitched sensitivity `37 / 40`; v75 qdot012 positive matrix `8 / 8` is diagnostic non-final; v97 robustness blocker audit keeps `robustness_complete = false` | Not achieved |
 | UR10e adapted relaxed simulation claim | v38 evaluation: relaxed setup `4 / 4`, trajectory feasibility `4 / 4`, adapted label `4 / 4`, strict full staged `0 / 4` | Achieved for slowed tilted-plane E1-E4 only |
 | Hardware safety boundary | `plans/HARDWARE_GATE_SOP.md`; reports repeatedly state no motion/writes; no hardware commands were run in these iterations | Maintained |
@@ -1804,6 +1809,11 @@ completion claim. It finds approved read-only evidence runs `0`, passed
 approved-read-only audits `0`, accepted orientation reviews `0`, accepted
 contact/setup-target reviews `0`, strict terminal pass `0`, closed robustness
 cells `0`, no hardware gate report, and `do_not_mark_goal_complete = true`.
+V119 then adds exact-step approval scope to the read-only finalizer path. The
+registry has `6` steps, `5` finalizer-eligible evidence steps, passes audit
+with `violations = []`, and authorizes no motion, writes, zeroing, force
+control, contact/setup-target acceptance, orientation-gate acceptance, or
+hardware-readiness claim.
 The project still has not achieved strict paper-equivalent full staged
 feasibility, calibrated contact geometry, robustness, or hardware readiness.
 
@@ -1816,7 +1826,7 @@ from simulation metrics or current local records alone. The next executable
 step is to execute only safe read-only portions of the v87 SOP with the v93
 scaffold, v91 finalizer, and v90/v93 verifier after explicit user
 confirmation, or continue only non-final offline simulation/paper-platform work
-identified by the v95-v118 blocker and review audits. All v99 planned commands
+identified by the v95-v119 blocker and review audits. All v99 planned commands
 have now been executed; v111 restates the diagnostic matrix with the named
 weighted profile as a non-canonical overlay, and v112 prioritizes the
 remaining blockers while preserving the canonical claim boundary. V113 tests a
@@ -1830,11 +1840,13 @@ strict terminal passes. V117 provides the acceptance-review scaffold to use
 before any contact/setup-target change can be accepted. V118 confirms by
 actual scan that no approved read-only run, accepted gate review, accepted
 contact/setup-target review, strict terminal pass, robustness closure, or
-hardware gate report exists. Without read-only approval, avoid repeating the
+hardware gate report exists. V119 requires any future approved-read-only
+finalization to use a registered exact step ID and matching worksheet scope.
+Without read-only approval, avoid repeating the
 v113-v116 policy, timing, and terminal objective families over the same
 accepted model and seeds. The practical next blocker is approved read-only
 calibration evidence or a new explicitly accepted contact/setup-target
 definition through the v117 scaffold. Keep strict paper-equivalent setup, v38
-trajectory-after-relaxed-setup, and v63-v118 diagnostic staged labels separate.
+trajectory-after-relaxed-setup, and v63-v119 diagnostic staged labels separate.
 Any hardware write, zeroing, force-control, or robot motion still requires a
 separate approved SOP.

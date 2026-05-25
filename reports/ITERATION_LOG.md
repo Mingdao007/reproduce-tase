@@ -4641,3 +4641,43 @@
   measurement step. Without approval, continue only non-final offline work and
   avoid repeating v113-v116 policy, timing, seed, and terminal-objective
   families over the same accepted model.
+
+## 2026-05-25 v119 Read-Only SOP Step Registry Finalizer Guard
+
+### Require exact registered read-only step IDs before finalization
+
+- Branch:
+  `exp/tase-ur10e-v119-readonly-step-registry-finalizer-guard`
+- Runs:
+  - `runs/read_only_sop_step_registry_audit/20260525T094000`
+- Report:
+  `reports/read_only_sop_step_registry_guard_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_read_only_calibration_measurement_run.py scripts/audit_read_only_sop_step_registry.py scripts/create_read_only_calibration_measurement_run.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py`
+  - `python3 scripts/audit_read_only_sop_step_registry.py --run-id 20260525T094000`
+  - `rg -n "&id|\*id" runs/read_only_sop_step_registry_audit/20260525T094000/metrics.yaml`
+  - `find runs/read_only_sop_step_registry_audit/20260525T094000 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  V119 adds `configs/read_only_sop_step_registry.yaml`, audits the registry,
+  and updates the read-only finalizer/auditor. The registry has `6` exact
+  steps, `5` finalizer-eligible evidence steps, `violations = []`, and all
+  registry authorization/acceptance/readiness flags false. Finalization now
+  rejects unknown step IDs, non-finalizer step IDs, and worksheet rows outside
+  the approved step scope.
+- Limit:
+  This is offline approval-scoping work only. It does not collect live
+  measurements, execute the read-only SOP, accept a contact model, accept a
+  setup target, relax a gate, calibrate contact geometry, prove strict
+  paper-equivalent feasibility, establish hardware readiness, or authorize
+  hardware motion/configuration.
+- Validation:
+  Focused tests passed with `12 passed in 2.34s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `188 passed in 8.24s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  The top blocker remains explicit approval for one registered read-only SOP
+  step. Without approval, continue only non-final offline work and keep all
+  contact/setup-target, orientation-gate, robustness, strict-feasibility, and
+  hardware-readiness claims false.

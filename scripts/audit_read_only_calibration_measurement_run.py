@@ -12,6 +12,7 @@ from typing import Any
 import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+DEFAULT_STEP_REGISTRY = ROOT / "configs" / "read_only_sop_step_registry.yaml"
 
 REQUIRED_FILES = {
     "README.md",
@@ -86,6 +87,13 @@ ORIENTATION_ACCEPTANCE_NULL_FIELDS = [
     "accepted_contact_datum_source",
     "accepted_uncertainty_budget",
 ]
+
+FORBIDDEN_STEP_ACTIONS = {
+    "robot_motion",
+    "force_control",
+    "zeroing_or_biasing",
+    "tcp_payload_cog_urcap_onrobot_or_rtde_writes",
+}
 
 
 def load_yaml(path: pathlib.Path) -> dict[str, Any]:
@@ -185,6 +193,83 @@ def audit_orientation_gate_acceptance(
     return orientation_gate_acceptance
 
 
+def read_csv_row_counts(run_dir: pathlib.Path) -> dict[str, int]:
+    row_counts: dict[str, int] = {}
+    csv_headers = {**EXPECTED_CSV_HEADERS, **OPTIONAL_CSV_HEADERS}
+    for csv_name, expected_header in csv_headers.items():
+        csv_path = run_dir / csv_name
+        if not csv_path.exists():
+            row_counts[csv_name] = 0
+            continue
+        rows = csv_path.read_text(encoding="utf-8").splitlines()
+        row_counts[csv_name] = max(0, len([row for row in rows[1:] if row.strip()]))
+        if rows and rows[0] != expected_header:
+            row_counts[csv_name] = 0
+    return row_counts
+
+
+def audit_approved_step_registry(
+    metrics_yaml: dict[str, Any],
+    row_counts: dict[str, int],
+    violations: list[str],
+) -> dict[str, Any]:
+    finalization = metrics_yaml.get("read_only_evidence_finalization")
+    if not isinstance(finalization, dict):
+        violations.append("read_only_evidence_finalization is required in approved-read-only mode")
+        return {}
+    approved_step_id = finalization.get("approved_step_id")
+    if not approved_step_id:
+        violations.append("read_only_evidence_finalization.approved_step_id is missing")
+        return finalization
+
+    try:
+        registry = load_yaml(DEFAULT_STEP_REGISTRY)
+    except FileNotFoundError:
+        violations.append(f"approved-step registry missing: {DEFAULT_STEP_REGISTRY.relative_to(ROOT)}")
+        return finalization
+    if registry.get("source_sop") != "reports/read_only_calibration_measurement_sop.md":
+        violations.append("approved-step registry does not point to the v87 SOP")
+    if registry.get("approval_phrase") != "I approve this read-only measurement step":
+        violations.append("approved-step registry approval phrase mismatch")
+    for key, value in registry.get("claim_boundary", {}).items():
+        if value is not False:
+            violations.append(f"approved-step registry claim_boundary.{key} is not false")
+
+    steps = [step for step in registry.get("steps", []) if step.get("step_id") == approved_step_id]
+    if not steps:
+        violations.append(f"approved_step_id {approved_step_id!r} is not in approved-step registry")
+        return finalization
+    if len(steps) > 1:
+        violations.append(f"approved_step_id {approved_step_id!r} is duplicated in approved-step registry")
+        return finalization
+
+    step = steps[0]
+    if step.get("finalizer_eligible") is not True:
+        violations.append(f"approved_step_id {approved_step_id!r} is not eligible for evidence finalization")
+    forbidden_actions = set(step.get("forbidden_actions", []))
+    for missing_action in sorted(FORBIDDEN_STEP_ACTIONS - forbidden_actions):
+        violations.append(f"approved_step_id {approved_step_id!r} does not forbid {missing_action}")
+
+    allowed_worksheets = set(step.get("allowed_worksheets", []))
+    populated_disallowed = sorted(
+        csv_name for csv_name, count in row_counts.items() if count > 0 and csv_name not in allowed_worksheets
+    )
+    if populated_disallowed:
+        violations.append(
+            f"approved_step_id {approved_step_id!r} does not allow rows in: "
+            + ", ".join(populated_disallowed)
+        )
+    for csv_name, min_rows in step.get("minimum_required_rows", {}).items():
+        if row_counts.get(csv_name, 0) < int(min_rows):
+            violations.append(
+                f"approved_step_id {approved_step_id!r} requires at least {min_rows} row(s) in {csv_name}"
+            )
+    recorded_allowed = sorted(finalization.get("allowed_worksheets", []))
+    if recorded_allowed and recorded_allowed != sorted(allowed_worksheets):
+        violations.append("read_only_evidence_finalization.allowed_worksheets does not match registry")
+    return finalization
+
+
 def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
     violations: list[str] = []
     present_files = {path.name for path in run_dir.iterdir() if path.is_file()} if run_dir.exists() else set()
@@ -259,6 +344,11 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
             if audit_mode == "scaffold" and len(rows) > 1:
                 violations.append(f"{csv_name} contains rows in scaffold mode")
 
+    row_counts = read_csv_row_counts(run_dir)
+    finalization = {}
+    if audit_mode == "approved-read-only":
+        finalization = audit_approved_step_registry(metrics_yaml, row_counts, violations)
+
     orientation_decision_path = run_dir / "orientation_gate_decision.md"
     if orientation_decision_path.exists():
         orientation_decision = orientation_decision_path.read_text(encoding="utf-8")
@@ -289,6 +379,8 @@ def audit_run(run_dir: pathlib.Path, *, audit_mode: str) -> dict[str, Any]:
         "execution": metrics_yaml.get("execution", {}),
         "evidence_status": evidence_status,
         "orientation_gate_acceptance": orientation_gate_acceptance,
+        "read_only_evidence_finalization": finalization,
+        "worksheet_row_counts": row_counts,
         "verdict": metrics_yaml.get("verdict", {}),
         "claim_boundary": metrics_yaml.get("claim_boundary", {}),
         "artifact_audit": artifacts,

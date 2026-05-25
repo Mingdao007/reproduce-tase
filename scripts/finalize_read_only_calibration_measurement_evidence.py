@@ -30,6 +30,7 @@ from audit_read_only_calibration_measurement_run import (
 )
 
 APPROVAL_PHRASE = "I approve this read-only measurement step"
+DEFAULT_STEP_REGISTRY = ROOT / "configs" / "read_only_sop_step_registry.yaml"
 
 CSV_EVIDENCE_MAP = {
     "tcp_contact_measurements.csv": "mounted_stack_tcp_contact_point",
@@ -37,6 +38,13 @@ CSV_EVIDENCE_MAP = {
     "plane_normal_measurements.csv": "plane_normal_robot_base_frame",
     "force_source_comparison.csv": "force_source_frame_reconciliation",
     "orientation_gate_semantics.csv": "orientation_gate_semantics",
+}
+
+FORBIDDEN_STEP_ACTIONS = {
+    "robot_motion",
+    "force_control",
+    "zeroing_or_biasing",
+    "tcp_payload_cog_urcap_onrobot_or_rtde_writes",
 }
 
 
@@ -79,6 +87,77 @@ def validate_confirmation(confirmation_phrase: str, approved_step_id: str, opera
         )
     non_tbd(approved_step_id, field="approved_step_id")
     non_tbd(operator, field="operator")
+
+
+def load_step_registry(path: pathlib.Path = DEFAULT_STEP_REGISTRY) -> dict[str, Any]:
+    registry = load_yaml(path)
+    if registry.get("source_sop") != "reports/read_only_calibration_measurement_sop.md":
+        raise ValueError("approved-step registry does not point to the v87 SOP")
+    if registry.get("approval_phrase") != APPROVAL_PHRASE:
+        raise ValueError("approved-step registry approval phrase mismatch")
+    boundary = registry.get("claim_boundary", {})
+    for key, value in boundary.items():
+        if value is not False:
+            raise ValueError(f"approved-step registry claim_boundary.{key} is not false")
+    return registry
+
+
+def registry_step_by_id(registry: dict[str, Any], approved_step_id: str) -> dict[str, Any]:
+    matches = [step for step in registry.get("steps", []) if step.get("step_id") == approved_step_id]
+    if not matches:
+        raise ValueError(f"approved_step_id {approved_step_id!r} is not in {DEFAULT_STEP_REGISTRY}")
+    if len(matches) > 1:
+        raise ValueError(f"approved_step_id {approved_step_id!r} is duplicated in {DEFAULT_STEP_REGISTRY}")
+    return matches[0]
+
+
+def validate_approved_step_scope(
+    *,
+    approved_step_id: str,
+    row_counts: dict[str, int],
+    live_hardware_accessed: bool,
+) -> dict[str, Any]:
+    registry = load_step_registry()
+    known_worksheets = set(registry.get("known_worksheets", []))
+    if known_worksheets != set(CSV_EVIDENCE_MAP):
+        raise ValueError("approved-step registry known_worksheets do not match finalizer worksheets")
+    step = registry_step_by_id(registry, approved_step_id)
+    if step.get("finalizer_eligible") is not True:
+        raise ValueError(f"approved_step_id {approved_step_id!r} is not eligible for evidence finalization")
+    forbidden_actions = set(step.get("forbidden_actions", []))
+    missing_forbidden = sorted(FORBIDDEN_STEP_ACTIONS - forbidden_actions)
+    if missing_forbidden:
+        raise ValueError(
+            f"approved_step_id {approved_step_id!r} does not explicitly forbid: "
+            + ", ".join(missing_forbidden)
+        )
+    if live_hardware_accessed and step.get("live_hardware_access_allowed_if_user_approved") is not True:
+        raise ValueError(f"approved_step_id {approved_step_id!r} does not allow live hardware access")
+
+    allowed_worksheets = set(step.get("allowed_worksheets", []))
+    if not allowed_worksheets or not allowed_worksheets <= known_worksheets:
+        raise ValueError(f"approved_step_id {approved_step_id!r} has invalid allowed worksheets")
+    populated_disallowed = sorted(
+        csv_name for csv_name, count in row_counts.items() if count > 0 and csv_name not in allowed_worksheets
+    )
+    if populated_disallowed:
+        raise ValueError(
+            f"approved_step_id {approved_step_id!r} does not allow rows in: "
+            + ", ".join(populated_disallowed)
+        )
+    minimum_required_rows = step.get("minimum_required_rows", {})
+    for csv_name, min_rows in minimum_required_rows.items():
+        if row_counts.get(csv_name, 0) < int(min_rows):
+            raise ValueError(
+                f"approved_step_id {approved_step_id!r} requires at least {min_rows} row(s) in {csv_name}"
+            )
+    return {
+        "registry_path": str(DEFAULT_STEP_REGISTRY.relative_to(ROOT)),
+        "step_id": step["step_id"],
+        "title": step["title"],
+        "allowed_worksheets": sorted(allowed_worksheets),
+        "minimum_required_rows": minimum_required_rows,
+    }
 
 
 def read_worksheet_row_counts(run_dir: pathlib.Path) -> dict[str, int]:
@@ -164,6 +243,7 @@ def finalize_metrics(
     metrics: dict[str, Any],
     *,
     approved_step_id: str,
+    approved_step_scope: dict[str, Any],
     operator: str,
     live_hardware_accessed: bool,
     finalized_at_utc: str,
@@ -182,6 +262,9 @@ def finalize_metrics(
     finalized["read_only_evidence_finalization"] = {
         "confirmation_phrase_matched": True,
         "approved_step_id": approved_step_id,
+        "approved_step_title": approved_step_scope["title"],
+        "approved_step_registry": approved_step_scope["registry_path"],
+        "allowed_worksheets": approved_step_scope["allowed_worksheets"],
         "operator": operator,
         "finalized_at_utc": finalized_at_utc,
         "finalizer": "scripts/finalize_read_only_calibration_measurement_evidence.py",
@@ -196,6 +279,7 @@ def write_summary(
     *,
     run_id: str,
     approved_step_id: str,
+    approved_step_scope: dict[str, Any],
     operator: str,
     live_hardware_accessed: bool,
     finalized_at_utc: str,
@@ -210,6 +294,8 @@ def write_summary(
         "Status: `approved_read_only_evidence`",
         "",
         f"Approved step ID: `{approved_step_id}`",
+        f"Approved step title: `{approved_step_scope['title']}`",
+        f"Approved step registry: `{approved_step_scope['registry_path']}`",
         f"Operator: `{operator}`",
         f"Finalized at UTC: `{finalized_at_utc}`",
         f"Live hardware accessed: `{live_hardware_accessed}`",
@@ -261,9 +347,15 @@ def main() -> int:
         )
         approved_step_id = non_tbd(args.approved_step_id, field="approved_step_id")
         operator = non_tbd(args.operator, field="operator")
+        approved_step_scope = validate_approved_step_scope(
+            approved_step_id=approved_step_id,
+            row_counts=row_counts,
+            live_hardware_accessed=args.live_hardware_accessed,
+        )
         finalized = finalize_metrics(
             metrics,
             approved_step_id=approved_step_id,
+            approved_step_scope=approved_step_scope,
             operator=operator,
             live_hardware_accessed=args.live_hardware_accessed,
             finalized_at_utc=finalized_at_utc,
@@ -274,6 +366,7 @@ def main() -> int:
             run_dir,
             run_id=finalized.get("run_id", "UNKNOWN"),
             approved_step_id=approved_step_id,
+            approved_step_scope=approved_step_scope,
             operator=operator,
             live_hardware_accessed=args.live_hardware_accessed,
             finalized_at_utc=finalized_at_utc,
