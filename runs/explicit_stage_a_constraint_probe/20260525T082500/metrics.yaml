@@ -1,0 +1,578 @@
+run_source: v115 explicit Stage A terminal/path constraint probe
+source_files:
+  config: /home/andy/reproduce-tase/configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml
+  acceptance: /home/andy/reproduce-tase/configs/ur10e_adapted_acceptance.yaml
+  contact_manifold_gate_audit: /home/andy/reproduce-tase/runs/contact_manifold_gate_audit/20260524T142404/metrics.yaml
+  stage_a_tracking_reference: /home/andy/reproduce-tase/runs/stage_a_contact_path_tracking/20260524T152346/metrics.yaml
+  remaining_blockers: /home/andy/reproduce-tase/runs/remaining_blocker_prioritization/20260525T072557/metrics.yaml
+  v113_policy_probe: /home/andy/reproduce-tase/runs/strict_feasibility_policy_probe/20260525T073519/metrics.yaml
+  v114_command_limited_probe: /home/andy/reproduce-tase/runs/strict_command_limited_stage_a/20260525T074557/metrics.yaml
+v112_priority_context:
+  top_priority_blocker_id: approved_read_only_calibration_evidence
+  offline_actionable_blocker_ids:
+  - strict_paper_equivalent_full_staged_feasibility
+  - robustness_to_contact_model_perturbations
+v113_context:
+  setup_terminal_state_pass_count: 0
+  planned_setup_then_trajectory_pass_count: 0
+  full_staged_feasibility_pass_count: 0
+v114_context:
+  strict_setup_chain_pass_count: 0
+  planned_setup_then_trajectory_pass_count: 0
+strict_thresholds:
+  description: Paper-equivalent full staged gate remains strict and unchanged.
+  max_final_tangential_error_m: 0.002
+  max_final_orientation_error_rad: 0.03
+  max_tail_mean_abs_force_error_N: 0.25
+  contact_present_fraction_min: 1.0
+  max_qdot_violation_rad_s: 1.0e-09
+  max_joint_limit_violation_rad: 1.0e-09
+  qdot_saturation_fraction_max: 0.01
+  tail_max_qdot_utilization_max: 0.98
+probe_parameters:
+  qdot_limit_rad_s: 0.15
+  qdot_utilization_target: 0.95
+  terminal_source: v56 contact-manifold gate cases
+  path_source: qdot-timed straight joint path to each terminal candidate plus v62
+    diagnostic path reference
+  trajectory_stage: not_run
+summary:
+  case_count: 5
+  strict_setup_path_pass_count: 0
+  terminal_strict_criteria_pass_count: 0
+  qdot_criteria_pass_count: 5
+  setup_failed_criteria_counts:
+    path_target_contact_present_fraction: 1
+    terminal_force_error_N: 1
+    terminal_orientation_error_rad: 3
+    terminal_tangential_error_m: 3
+  best_score_case_id: diagnostic_contact_path_tracking_reference
+  best_score: 1.9173233402709422
+  best_qdot_case_id: diagnostic_contact_path_tracking_reference
+  best_qdot_saturation_fraction: 0.0
+  best_xy_case_id: terminal_xy_orientation_hold
+  best_xy_error_m: 5.204170427930421e-18
+  best_orientation_case_id: terminal_xy_orientation_hold
+  best_orientation_error_rad: 5.551115123125783e-17
+  planned_setup_then_trajectory_pass_count: 0
+  explicit_stage_a_constraint_probe_complete: false
+  strict_paper_equivalent_feasibility: false
+constraint_rows:
+- case_id: diagnostic_contact_path_tracking_reference
+  formulation: v62_diagnostic_contact_path_tracking_reinterpreted_under_strict_gate
+  source_path: /home/andy/reproduce-tase/runs/stage_a_contact_path_audit/20260524T151201/path.csv
+  duration_s: 15.0
+  minimum_duration_s: null
+  qdot_utilization_target: null
+  tracking_summary:
+    duration_s: 15.0
+    sample_count: 7501
+    dt_min_s: 0.0019999999999988916
+    dt_max_s: 0.002000000000000668
+    qdot_limit_rad_s: 0.15
+    max_abs_qdot_rad_s: 0.14332635022814824
+    max_qdot_utilization: 0.9555090015209883
+    qdot_saturation_fraction: 0.0
+    tail_max_qdot_utilization: 0.9555090015209883
+    max_abs_tracking_error_rad: 0.0
+    max_tracking_error_norm_rad: 0.0
+    final_tracking_error_norm_rad: 0.0
+  path_summary:
+    sample_count: 7501
+    target_contact_present_fraction: 1.0
+    min_target_contact_count: 1
+    max_force_error_N: 0.13962429878283
+    terminal_force_error_N: 0.005097546556703136
+    max_tangential_error_m: 0.0030075762251302427
+    terminal_tangential_error_m: 0.0030075762251302427
+    max_orientation_error_rad: 0.17453292523411995
+    terminal_orientation_error_rad: 0.07240605683117463
+    max_force_normal_orientation_error_rad: 0.17453292523411995
+    terminal_force_normal_orientation_error_rad: 0.07240605683117463
+    max_joint_limit_violation_rad: 0.0
+  strict_setup_path_gate:
+    passed: false
+    failed_criteria:
+    - terminal_tangential_error_m
+    - terminal_orientation_error_rad
+    criteria:
+      terminal_force_error_N:
+        actual: 0.005097546556703136
+        operator: <=
+        threshold: 0.25
+        passed: true
+        ratio: 0.020390186226812546
+      terminal_tangential_error_m:
+        actual: 0.0030075762251302427
+        operator: <=
+        threshold: 0.002
+        passed: false
+        ratio: 1.5037881125651213
+      terminal_orientation_error_rad:
+        actual: 0.07240605683117463
+        operator: <=
+        threshold: 0.03
+        passed: false
+        ratio: 2.413535227705821
+      path_target_contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+        ratio: 1.0
+      setup_qdot_saturation_fraction:
+        actual: 0.0
+        operator: <=
+        threshold: 0.01
+        passed: true
+        ratio: 0.0
+      setup_tail_max_qdot_utilization:
+        actual: 0.9555090015209883
+        operator: <=
+        threshold: 0.98
+        passed: true
+        ratio: 0.9750091852254983
+      setup_max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+      setup_max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+  strict_setup_violation_score: 1.9173233402709422
+- case_id: terminal_xy_force_hold
+  formulation: explicit_terminal_constraint_plus_qdot_timed_joint_path
+  terminal_constraint_case:
+    case_id: terminal_xy_force_hold
+    source_case_name: xy_force
+    selected_candidate: best_optimized_candidate
+    optimized_terms:
+    - xy
+    - force
+    q_rad:
+    - 0.09861730192758755
+    - -0.05397220454986746
+    - 0.035204860039088993
+    - 0.013096967269385312
+    - -0.0018520639871352235
+    - 0.07128498489907026
+    note: explicit terminal solve that holds x/y and target force, then audits orientation
+      and qdot-timed path
+  duration_s: 0.8055799295502527
+  minimum_duration_s: 0.76530093307274
+  qdot_utilization_target: 0.95
+  tracking_summary:
+    duration_s: 0.8055799295502527
+    sample_count: 404
+    dt_min_s: 0.00199895764156377
+    dt_max_s: 0.001998957641563992
+    qdot_limit_rad_s: 0.15
+    max_abs_qdot_rad_s: 0.14250000000001098
+    max_qdot_utilization: 0.9500000000000732
+    qdot_saturation_fraction: 0.0
+    tail_max_qdot_utilization: 0.9500000000000501
+    max_abs_tracking_error_rad: 0.0
+    max_tracking_error_norm_rad: 0.0
+    final_tracking_error_norm_rad: 0.0
+  path_summary:
+    sample_count: 404
+    target_contact_present_fraction: 1.0
+    min_target_contact_count: 1
+    max_force_error_N: 11.346287701976962
+    terminal_force_error_N: 2.4868995751603507e-14
+    max_tangential_error_m: 7.373445020380879e-06
+    terminal_tangential_error_m: 1.2984463881799684e-15
+    max_orientation_error_rad: 0.17453292523412012
+    terminal_orientation_error_rad: 0.14697007178233126
+    max_force_normal_orientation_error_rad: 0.17453292523411995
+    terminal_force_normal_orientation_error_rad: 0.10973025180066867
+    max_joint_limit_violation_rad: 0.0
+  strict_setup_path_gate:
+    passed: false
+    failed_criteria:
+    - terminal_orientation_error_rad
+    criteria:
+      terminal_force_error_N:
+        actual: 2.4868995751603507e-14
+        operator: <=
+        threshold: 0.25
+        passed: true
+        ratio: 9.947598300641403e-14
+      terminal_tangential_error_m:
+        actual: 1.2984463881799684e-15
+        operator: <=
+        threshold: 0.002
+        passed: true
+        ratio: 6.492231940899842e-13
+      terminal_orientation_error_rad:
+        actual: 0.14697007178233126
+        operator: <=
+        threshold: 0.03
+        passed: false
+        ratio: 4.899002392744376
+      path_target_contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+        ratio: 1.0
+      setup_qdot_saturation_fraction:
+        actual: 0.0
+        operator: <=
+        threshold: 0.01
+        passed: true
+        ratio: 0.0
+      setup_tail_max_qdot_utilization:
+        actual: 0.9500000000000501
+        operator: <=
+        threshold: 0.98
+        passed: true
+        ratio: 0.969387755102092
+      setup_max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+      setup_max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+  strict_setup_violation_score: 3.899002392744376
+- case_id: terminal_xy_orientation_hold
+  formulation: explicit_terminal_constraint_plus_qdot_timed_joint_path
+  terminal_constraint_case:
+    case_id: terminal_xy_orientation_hold
+    source_case_name: xy_orientation
+    selected_candidate: best_optimized_candidate
+    optimized_terms:
+    - xy
+    - orientation
+    q_rad:
+    - 3.6911057292885273e-31
+    - -0.16425153865132933
+    - 0.1463616332404001
+    - 0.017692879774373258
+    - 5.788894733487259e-29
+    - 0.17472995087067608
+    note: explicit terminal solve that holds x/y and force-normal orientation, then
+      audits contact and force
+  duration_s: 1.2261750938293061
+  minimum_duration_s: 1.1648663391378407
+  qdot_utilization_target: 0.95
+  tracking_summary:
+    duration_s: 1.2261750938293061
+    sample_count: 615
+    dt_min_s: 0.001997027840112686
+    dt_max_s: 0.0019970278401130193
+    qdot_limit_rad_s: 0.15
+    max_abs_qdot_rad_s: 0.14250000000001112
+    max_qdot_utilization: 0.9500000000000741
+    qdot_saturation_fraction: 0.0
+    tail_max_qdot_utilization: 0.9500000000000741
+    max_abs_tracking_error_rad: 0.0
+    max_tracking_error_norm_rad: 0.0
+    final_tracking_error_norm_rad: 0.0
+  path_summary:
+    sample_count: 615
+    target_contact_present_fraction: 0.011382113821138212
+    min_target_contact_count: 0
+    max_force_error_N: 5.0
+    terminal_force_error_N: 5.0
+    max_tangential_error_m: 4.037582761854015e-05
+    terminal_tangential_error_m: 5.204170427930421e-18
+    max_orientation_error_rad: 0.17453292523412012
+    terminal_orientation_error_rad: 5.551115123125783e-17
+    max_force_normal_orientation_error_rad: 0.17453292523411995
+    terminal_force_normal_orientation_error_rad: 0.0
+    max_joint_limit_violation_rad: 0.0
+  strict_setup_path_gate:
+    passed: false
+    failed_criteria:
+    - terminal_force_error_N
+    - path_target_contact_present_fraction
+    criteria:
+      terminal_force_error_N:
+        actual: 5.0
+        operator: <=
+        threshold: 0.25
+        passed: false
+        ratio: 20.0
+      terminal_tangential_error_m:
+        actual: 5.204170427930421e-18
+        operator: <=
+        threshold: 0.002
+        passed: true
+        ratio: 2.6020852139652106e-15
+      terminal_orientation_error_rad:
+        actual: 5.551115123125783e-17
+        operator: <=
+        threshold: 0.03
+        passed: true
+        ratio: 1.8503717077085944e-15
+      path_target_contact_present_fraction:
+        actual: 0.011382113821138212
+        operator: '>='
+        threshold: 1.0
+        passed: false
+        ratio: 0.011382113821138212
+      setup_qdot_saturation_fraction:
+        actual: 0.0
+        operator: <=
+        threshold: 0.01
+        passed: true
+        ratio: 0.0
+      setup_tail_max_qdot_utilization:
+        actual: 0.9500000000000741
+        operator: <=
+        threshold: 0.98
+        passed: true
+        ratio: 0.9693877551021165
+      setup_max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+      setup_max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+  strict_setup_violation_score: 19.98861788617886
+- case_id: terminal_force_orientation_hold
+  formulation: explicit_terminal_constraint_plus_qdot_timed_joint_path
+  terminal_constraint_case:
+    case_id: terminal_force_orientation_hold
+    source_case_name: force_orientation
+    selected_candidate: best_optimized_candidate
+    optimized_terms:
+    - force
+    - orientation
+    q_rad:
+    - 5.480958987183088e-16
+    - -0.06453574364714038
+    - 0.016043419820671336
+    - 0.0650046579206236
+    - -3.607272704471622e-14
+    - 0.1580205911399655
+    note: explicit terminal solve that holds target force and force-normal orientation,
+      then audits x/y drift
+  duration_s: 1.1089164290523894
+  minimum_duration_s: 1.05347060759977
+  qdot_utilization_target: 0.95
+  tracking_summary:
+    duration_s: 1.1089164290523894
+    sample_count: 556
+    dt_min_s: 0.0019980476199141783
+    dt_max_s: 0.0019980476199144004
+    qdot_limit_rad_s: 0.15
+    max_abs_qdot_rad_s: 0.14250000000001445
+    max_qdot_utilization: 0.9500000000000963
+    qdot_saturation_fraction: 0.0
+    tail_max_qdot_utilization: 0.9500000000000963
+    max_abs_tracking_error_rad: 0.0
+    max_tracking_error_norm_rad: 0.0
+    final_tracking_error_norm_rad: 0.0
+  path_summary:
+    sample_count: 556
+    target_contact_present_fraction: 1.0
+    min_target_contact_count: 1
+    max_force_error_N: 55.46484614682717
+    terminal_force_error_N: 1.6253665080512292e-13
+    max_tangential_error_m: 0.014127706733724453
+    terminal_tangential_error_m: 0.014127706733724453
+    max_orientation_error_rad: 0.17453292523412012
+    terminal_orientation_error_rad: 3.608594916770049e-14
+    max_force_normal_orientation_error_rad: 0.17453292523411995
+    terminal_force_normal_orientation_error_rad: 0.0
+    max_joint_limit_violation_rad: 0.0
+  strict_setup_path_gate:
+    passed: false
+    failed_criteria:
+    - terminal_tangential_error_m
+    criteria:
+      terminal_force_error_N:
+        actual: 1.6253665080512292e-13
+        operator: <=
+        threshold: 0.25
+        passed: true
+        ratio: 6.501466032204917e-13
+      terminal_tangential_error_m:
+        actual: 0.014127706733724453
+        operator: <=
+        threshold: 0.002
+        passed: false
+        ratio: 7.063853366862227
+      terminal_orientation_error_rad:
+        actual: 3.608594916770049e-14
+        operator: <=
+        threshold: 0.03
+        passed: true
+        ratio: 1.2028649722566832e-12
+      path_target_contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+        ratio: 1.0
+      setup_qdot_saturation_fraction:
+        actual: 0.0
+        operator: <=
+        threshold: 0.01
+        passed: true
+        ratio: 0.0
+      setup_tail_max_qdot_utilization:
+        actual: 0.9500000000000963
+        operator: <=
+        threshold: 0.98
+        passed: true
+        ratio: 0.9693877551021391
+      setup_max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+      setup_max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+  strict_setup_violation_score: 6.063853366862227
+- case_id: terminal_xy_force_orientation_soft_best
+  formulation: explicit_terminal_constraint_plus_qdot_timed_joint_path
+  terminal_constraint_case:
+    case_id: terminal_xy_force_orientation_soft_best
+    source_case_name: xy_force_orientation
+    selected_candidate: best_candidate
+    optimized_terms:
+    - xy
+    - force
+    - orientation
+    q_rad:
+    - 3.724578706383892e-09
+    - -0.02440166656247787
+    - -0.0004827435167661435
+    - 0.0002981421103399159
+    - 1.9265571608002266e-11
+    - 0.12671315993947466
+    note: best soft strict terminal compromise from contact-manifold gate audit, then
+      qdot-timed as a path target
+  duration_s: 1.0560192527492362
+  minimum_duration_s: 1.0032182901117743
+  qdot_utilization_target: 0.95
+  tracking_summary:
+    duration_s: 1.0560192527492362
+    sample_count: 530
+    dt_min_s: 0.001996255676274483
+    dt_max_s: 0.0019962556762747052
+    qdot_limit_rad_s: 0.15
+    max_abs_qdot_rad_s: 0.14250000000002508
+    max_qdot_utilization: 0.9500000000001673
+    qdot_saturation_fraction: 0.0
+    tail_max_qdot_utilization: 0.9500000000000547
+    max_abs_tracking_error_rad: 0.0
+    max_tracking_error_norm_rad: 0.0
+    final_tracking_error_norm_rad: 0.0
+  path_summary:
+    sample_count: 530
+    target_contact_present_fraction: 1.0
+    min_target_contact_count: 1
+    max_force_error_N: 25.76049944301723
+    terminal_force_error_N: 0.005097551486581864
+    max_tangential_error_m: 0.0030075787462736734
+    terminal_tangential_error_m: 0.0030075787462736734
+    max_orientation_error_rad: 0.17453292523412012
+    terminal_orientation_error_rad: 0.07240603326354965
+    max_force_normal_orientation_error_rad: 0.17453292523411995
+    terminal_force_normal_orientation_error_rad: 0.07240603326354836
+    max_joint_limit_violation_rad: 0.0
+  strict_setup_path_gate:
+    passed: false
+    failed_criteria:
+    - terminal_tangential_error_m
+    - terminal_orientation_error_rad
+    criteria:
+      terminal_force_error_N:
+        actual: 0.005097551486581864
+        operator: <=
+        threshold: 0.25
+        passed: true
+        ratio: 0.020390205946327455
+      terminal_tangential_error_m:
+        actual: 0.0030075787462736734
+        operator: <=
+        threshold: 0.002
+        passed: false
+        ratio: 1.5037893731368366
+      terminal_orientation_error_rad:
+        actual: 0.07240603326354965
+        operator: <=
+        threshold: 0.03
+        passed: false
+        ratio: 2.413534442118322
+      path_target_contact_present_fraction:
+        actual: 1.0
+        operator: '>='
+        threshold: 1.0
+        passed: true
+        ratio: 1.0
+      setup_qdot_saturation_fraction:
+        actual: 0.0
+        operator: <=
+        threshold: 0.01
+        passed: true
+        ratio: 0.0
+      setup_tail_max_qdot_utilization:
+        actual: 0.9500000000000547
+        operator: <=
+        threshold: 0.98
+        passed: true
+        ratio: 0.9693877551020966
+      setup_max_qdot_violation_rad_s:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+      setup_max_joint_limit_violation_rad:
+        actual: 0.0
+        operator: <=
+        threshold: 1.0e-09
+        passed: true
+        ratio: 0.0
+  strict_setup_violation_score: 1.9173238152551584
+claim_boundary:
+  offline_simulation_only: true
+  explicit_stage_a_constraint_probe_complete: false
+  strict_paper_equivalent_feasibility: false
+  canonical_controller_change: false
+  canonical_orientation_gate_change: false
+  failed_cell_closed: false
+  robustness_claim: false
+  contact_calibration_claim: false
+  hardware_readiness: false
+  robot_motion_authorized: false
+  hardware_writes_authorized: false
+  force_control_authorized: false
+  do_not_mark_goal_complete: true
+next_offline_actions:
+- Do not claim strict setup from qdot-timed terminal paths; terminal compatibility
+  remains unsolved.
+- The diagnostic path shows qdot saturation can be removed, but it still fails the
+  strict terminal x/y/orientation gate.
+- Further strict-feasibility work likely needs a changed setup target/contact model
+  supported by approved calibration evidence, or a formal constrained optimization
+  that proves compatibility under accepted gates.
+run_id: 20260525T075557
+output_dir: runs/explicit_stage_a_constraint_probe/20260525T082500

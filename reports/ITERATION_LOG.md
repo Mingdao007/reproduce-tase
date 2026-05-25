@@ -4466,3 +4466,48 @@
   feasibility branch should stop treating Stage A as a command-limited
   instantaneous velocity problem and test an explicit path or terminal
   constraint formulation.
+
+## 2026-05-25 v115 Explicit Stage A Constraint Probe
+
+### Test terminal/path constraints with qdot-timed setup paths
+
+- Branch:
+  `exp/tase-ur10e-v115-explicit-stage-a-constraint-probe`
+- Runs:
+  - `runs/explicit_stage_a_constraint_probe/20260525T082500`
+- Report:
+  `reports/explicit_stage_a_constraint_probe_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_explicit_stage_a_constraint_probe.py`
+  - `scripts/run_tests.sh tests/test_explicit_stage_a_constraint_probe.py`
+  - `python3 scripts/audit_explicit_stage_a_constraint_probe.py --output-dir runs/explicit_stage_a_constraint_probe/20260525T082500`
+  - `rg -n "&id|\*id" runs/explicit_stage_a_constraint_probe/20260525T082500/metrics.yaml`
+  - `find runs/explicit_stage_a_constraint_probe/20260525T082500 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  The offline explicit-constraint probe uses the v56 contact-manifold terminal
+  cases plus the v62 diagnostic contact-path tracking reference. It reports
+  strict setup-path pass `0 / 5`, terminal strict-criteria pass `0 / 5`,
+  qdot-criteria pass `5 / 5`, and planned setup-then-trajectory pass `0 / 5`.
+  Qdot-timed paths remove setup qdot saturation in all rows, but strict
+  terminal compatibility remains blocked: x/y plus force fails orientation,
+  x/y plus orientation loses target contact/force, force plus orientation
+  drifts in x/y, and the best soft strict compromise still fails x/y and
+  orientation.
+- Limit:
+  This is offline simulation only. It does not prove strict paper-equivalent
+  feasibility, run a Stage B trajectory, make a canonical controller change,
+  accept a replacement orientation gate, close failed cells, prove robustness,
+  calibrate contact geometry, establish hardware readiness, or authorize
+  hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `174 passed in 7.12s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  Without live approval, continue only non-final offline work. The strict
+  terminal compatibility blocker remains even when qdot saturation is removed
+  by explicit timing, so the next offline step should either test a stronger
+  constrained optimization over the accepted contact model or wait for
+  approved read-only calibration evidence that can justify changing the setup
+  target/contact model.

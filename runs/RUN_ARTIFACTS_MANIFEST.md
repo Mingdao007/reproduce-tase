@@ -3316,6 +3316,43 @@ Legacy source root:
   cells, prove robustness, calibrate contact geometry, or authorize hardware
   work.
 
+## V115 Explicit Stage A Constraint Probe
+
+### Tested terminal/path constraints with qdot-timed setup paths
+
+- Scripts:
+  - `scripts/audit_explicit_stage_a_constraint_probe.py`
+- Runs:
+  - `runs/explicit_stage_a_constraint_probe/20260525T082500`
+- Report:
+  - `reports/explicit_stage_a_constraint_probe_report.md`
+- Tests:
+  - `tests/test_explicit_stage_a_constraint_probe.py`
+- Command:
+  `python3 scripts/audit_explicit_stage_a_constraint_probe.py --output-dir runs/explicit_stage_a_constraint_probe/20260525T082500`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, and `git_state.md`;
+  report, tests, and updated planning/decision/manifest documentation.
+- Result:
+  The offline explicit-constraint probe uses the v56 contact-manifold terminal
+  cases plus the v62 diagnostic contact-path tracking reference. It reports
+  strict setup-path pass `0 / 5`, terminal strict-criteria pass `0 / 5`,
+  qdot-criteria pass `5 / 5`, planned setup-then-trajectory pass `0 / 5`,
+  terminal orientation failures `3 / 5`, terminal x/y failures `3 / 5`,
+  terminal force/contact failures `1 / 5`, and strict paper-equivalent
+  feasibility `false`.
+- Validation:
+  Focused tests passed with `3 passed in 0.12s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `174 passed in 7.12s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline simulation
+  evidence and does not prove strict paper-equivalent feasibility, accept a
+  replacement orientation gate, change the canonical controller, close failed
+  cells, prove robustness, calibrate contact geometry, or authorize hardware
+  work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

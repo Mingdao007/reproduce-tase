@@ -2572,3 +2572,33 @@
   close failed cells, prove robustness, prove strict paper-equivalent
   feasibility, calibrate contact geometry, establish hardware readiness, or
   authorize hardware motion/configuration.
+
+## D120: Explicit Timing Removes Qdot Saturation But Not Terminal Compatibility
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Record v115 as an offline explicit Stage A terminal/path constraint probe,
+  not as a strict feasibility recovery.
+- Reason:
+  V114 showed command limiting alone still leaves setup qdot saturation and
+  x/y failures. V115 uses the v56 contact-manifold terminal constraint cases
+  plus the v62 diagnostic contact path reference, then audits qdot-timed paths
+  against the strict setup gate. It reports strict setup-path pass `0 / 5`,
+  terminal strict-criteria pass `0 / 5`, qdot-criteria pass `5 / 5`, and
+  planned setup-then-trajectory pass `0 / 5`. The `xy_force` row holds x/y and
+  force but fails orientation; the `xy_orientation` row holds x/y and
+  orientation but loses target contact and force; the `force_orientation` row
+  holds force and orientation but drifts in x/y; and the best soft strict
+  compromise still fails x/y and orientation.
+- Consequence:
+  Do not treat qdot saturation as the only strict Stage A blocker. Explicit
+  timing can remove qdot saturation in these rows, but strict terminal
+  compatibility remains unsolved under the current accepted contact-point
+  model and gate. Future offline work should either test a stronger
+  constrained optimization over the accepted model or wait for approved
+  calibration evidence before changing the setup target/contact model. V115
+  does not accept a replacement orientation gate, change the canonical
+  controller, close failed cells, prove robustness, prove strict
+  paper-equivalent feasibility, calibrate contact geometry, establish
+  hardware readiness, or authorize hardware motion/configuration.
