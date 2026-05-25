@@ -2705,3 +2705,27 @@
   contact model, accept a setup target, relax a gate, prove robustness, prove
   strict paper-equivalent feasibility, calibrate contact geometry, establish
   hardware readiness, or authorize hardware motion/configuration.
+
+## D125: Approval Packets Are Not Approval Records
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v120 as a non-executing approval-packet path for registered read-only SOP
+  steps, starting with `phase1_mounted_stack_tcp_contact_measurement`.
+- Reason:
+  V119 made finalization require a registered exact step ID. V120 turns that
+  into a concrete reviewable packet that names the step ID, allowed worksheet
+  scope, required confirmation phrase, and forbidden actions before any live
+  evidence collection is attempted. The generated packet is explicitly
+  `not_approved`, allows only `tcp_contact_measurements.csv`, and the audit
+  rejects drift toward approved/executed/readiness claims.
+- Consequence:
+  A packet can clarify what the user would be approving, but it is not itself
+  approval and does not authorize live access, robot motion, writes, zeroing,
+  force control, contact/setup-target acceptance, orientation-gate acceptance,
+  hardware readiness, or goal completion. V120 does not collect live evidence,
+  accept a contact model, accept a setup target, relax a gate, prove
+  robustness, prove strict paper-equivalent feasibility, calibrate contact
+  geometry, establish hardware readiness, or authorize hardware
+  motion/configuration.

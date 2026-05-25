@@ -3509,6 +3509,45 @@ Legacy source root:
   setup target, prove strict paper-equivalent feasibility, calibrate contact
   geometry, establish hardware readiness, or authorize hardware work.
 
+## V120 Read-Only Step Approval Packet
+
+### Added a not-approved exact-step approval packet for phase1
+
+- Scripts:
+  - `scripts/create_read_only_step_approval_packet.py`
+  - `scripts/audit_read_only_step_approval_packet.py`
+- Runs:
+  - `runs/read_only_step_approval_packet/20260525T095500`
+  - `runs/read_only_step_approval_packet_audit/20260525T095501`
+- Report:
+  - `reports/read_only_step_approval_packet_report.md`
+- Tests:
+  - `tests/test_read_only_step_approval_packet.py`
+- Commands:
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase1_mounted_stack_tcp_contact_measurement --packet-id 20260525T095500`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T095500 --run-id 20260525T095501`
+- Tracked lightweight artifacts:
+  packet top-level `metrics.yaml`, `metrics.json`, `approval_packet.md`,
+  `summary.md`, and `git_state.md`; audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, and updated
+  planning/decision/manifest documentation.
+- Result:
+  The packet is for `phase1_mounted_stack_tcp_contact_measurement`, allows only
+  `tcp_contact_measurements.csv`, is explicitly `not_approved`, and keeps
+  packet/execution/live-access/readiness/goal-completion authorization false.
+  The audit passed with `violations = []`.
+- Validation:
+  Focused tests passed with `4 passed in 0.32s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `192 passed in 8.56s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Limit:
+  No live or physical measurement was collected. This is offline
+  approval-scoping evidence only; it does not approve the packet, accept a
+  contact model, accept a setup target, prove strict paper-equivalent
+  feasibility, calibrate contact geometry, establish hardware readiness, or
+  authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

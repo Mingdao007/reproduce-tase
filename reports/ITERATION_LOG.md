@@ -4682,3 +4682,46 @@
   step. Without approval, continue only non-final offline work and keep all
   contact/setup-target, orientation-gate, robustness, strict-feasibility, and
   hardware-readiness claims false.
+
+## 2026-05-25 v120 Read-Only Step Approval Packet
+
+### Create a not-approved exact-step packet for phase1 TCP/contact evidence
+
+- Branch:
+  `exp/tase-ur10e-v120-readonly-step-approval-packet`
+- Runs:
+  - `runs/read_only_step_approval_packet/20260525T095500`
+  - `runs/read_only_step_approval_packet_audit/20260525T095501`
+- Report:
+  `reports/read_only_step_approval_packet_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/create_read_only_step_approval_packet.py scripts/audit_read_only_step_approval_packet.py`
+  - `scripts/run_tests.sh tests/test_read_only_step_approval_packet.py`
+  - `python3 scripts/create_read_only_step_approval_packet.py --step-id phase1_mounted_stack_tcp_contact_measurement --packet-id 20260525T095500`
+  - `python3 scripts/audit_read_only_step_approval_packet.py runs/read_only_step_approval_packet/20260525T095500 --run-id 20260525T095501`
+  - `rg -n "&id|\*id" runs/read_only_step_approval_packet/20260525T095500/metrics.yaml runs/read_only_step_approval_packet_audit/20260525T095501/metrics.yaml`
+  - `find runs/read_only_step_approval_packet/20260525T095500 runs/read_only_step_approval_packet_audit/20260525T095501 -type f \( -name '*.npz' -o -name '*.npy' -o -name '*.mat' -o -name '*.tar' -o -name '*.gz' -o -name '*.zip' \) -print`
+- Result:
+  V120 creates an exact-step approval packet for
+  `phase1_mounted_stack_tcp_contact_measurement`. The packet is
+  `approval_packet_created_not_approved`, allows only
+  `tcp_contact_measurements.csv`, records the required confirmation phrase,
+  and keeps `packet_authorizes_execution = false`,
+  `packet_authorizes_live_access = false`, execution flags false,
+  hardware-readiness false, and `do_not_mark_goal_complete = true`. The audit
+  passed with `violations = []`.
+- Limit:
+  This is offline approval-scoping work only. It does not collect live
+  measurements, execute the read-only SOP, accept a contact model, accept a
+  setup target, relax a gate, calibrate contact geometry, prove strict
+  paper-equivalent feasibility, establish hardware readiness, or authorize
+  hardware motion/configuration.
+- Validation:
+  Focused tests passed with `4 passed in 0.32s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `192 passed in 8.56s`; `git diff --check`
+  passed. Branch push was verified at `BRANCH_PUSH_PENDING`.
+- Next step:
+  The top blocker remains explicit approval for one exact read-only SOP step.
+  This packet is not approval. If the user approves the packet later, use a
+  fresh read-only run and fill only `tcp_contact_measurements.csv`.
