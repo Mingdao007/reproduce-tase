@@ -2675,6 +2675,28 @@
   geometry, establish hardware readiness, or authorize hardware
   motion/configuration.
 
+## D128: Readiness Artifacts Must Not Count As Completion Evidence
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v123 as a post-v122 completion gate that scans both real evidence paths
+  and the v120-v122 readiness artifacts before any completion claim.
+- Reason:
+  V120-v122 created useful approval-scoping and command-path readiness
+  artifacts, but none of them are approved read-only evidence. V123 makes this
+  boundary machine-readable by treating packet coverage and execution
+  preflight as non-evidence readiness artifacts and requiring real approved
+  read-only runs, accepted reviews, strict feasibility, robustness, and a
+  hardware gate before completion can be claimed.
+- Consequence:
+  The active goal remains incomplete. Packet coverage and preflight can guide
+  a future approved read-only step, but they do not approve live access,
+  authorize execution, create calibration evidence, accept contact/setup
+  targets, accept orientation gates, prove strict paper-equivalent feasibility,
+  prove robustness, establish hardware readiness, or authorize hardware
+  motion/configuration.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

@@ -3635,6 +3635,41 @@ Legacy source root:
   accept a setup target, prove strict paper-equivalent feasibility, calibrate
   contact geometry, establish hardware readiness, or authorize hardware work.
 
+## V123 Post-V122 Completion Gate
+
+### Recorded readiness artifacts as non-evidence
+
+- Scripts:
+  - `scripts/audit_post_v122_completion_gate.py`
+- Runs:
+  - `runs/post_v122_completion_gate/20260525T102000`
+- Report:
+  - `reports/post_v122_completion_gate_report.md`
+- Tests:
+  - `tests/test_post_v122_completion_gate.py`
+- Command:
+  `python3 scripts/audit_post_v122_completion_gate.py --run-id 20260525T102000`
+- Tracked lightweight artifacts:
+  completion gate top-level `metrics.yaml`, `metrics.json`, `summary.md`, and
+  `git_state.md`; report, tests, script, and updated planning/decision/
+  manifest documentation.
+- Result:
+  The completion gate passes as an audit while keeping the goal incomplete:
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  approved read-only evidence runs `0`, passed approved-read-only audits `0`,
+  accepted orientation reviews `0`, accepted contact/setup-target reviews `0`,
+  strict terminal pass count `0`, closed robustness cells `0`, no hardware
+  gate report, and `readiness_artifacts_are_non_evidence = true`.
+- Validation:
+  Focused tests passed with `3 passed in 0.28s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `201 passed in 10.89s`; `git diff --check` passed.
+- Limit:
+  No live or physical measurement was collected. This is offline completion
+  bookkeeping only; it does not approve any packet, accept a contact model,
+  accept a setup target, prove strict paper-equivalent feasibility, calibrate
+  contact geometry, establish hardware readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

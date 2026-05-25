@@ -4826,3 +4826,43 @@
   read-only SOP step before any live read-only evidence collection. Without
   approval, continue only non-final offline work and keep all claim-closing
   flags false.
+
+## 2026-05-25 v123 Post-V122 Completion Gate
+
+### Treat packet coverage and preflight as non-evidence readiness artifacts
+
+- Branch:
+  `exp/tase-ur10e-v123-post-v122-completion-gate`
+- Runs:
+  - `runs/post_v122_completion_gate/20260525T102000`
+- Report:
+  `reports/post_v122_completion_gate_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_post_v122_completion_gate.py`
+  - `scripts/run_tests.sh tests/test_post_v122_completion_gate.py`
+  - `python3 scripts/audit_post_v122_completion_gate.py --run-id 20260525T102000`
+- Result:
+  V123 adds a current-state completion gate over the real evidence paths plus
+  the v120-v122 readiness artifacts. It reports `audit_passed = true`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`,
+  `do_not_mark_goal_complete = true`, top blocker
+  `approved_read_only_calibration_evidence`, approved read-only evidence runs
+  `0`, passed approved-read-only audits `0`, accepted orientation reviews `0`,
+  accepted contact/setup-target reviews `0`, strict terminal pass count `0`,
+  closed robustness cells `0`, no hardware gate report, and
+  `readiness_artifacts_are_non_evidence = true`.
+- Limit:
+  This is offline completion bookkeeping only. It does not approve a packet,
+  create approved read-only evidence, collect live measurements, execute the
+  read-only SOP, accept a contact model, accept a setup target, relax a gate,
+  calibrate contact geometry, prove strict paper-equivalent feasibility,
+  establish hardware readiness, or authorize hardware motion/configuration.
+- Validation:
+  Focused tests passed with `3 passed in 0.28s`; YAML anchor check found no
+  anchors in the generated metrics; raw/heavy artifact scan found no payloads;
+  full tests passed with `201 passed in 10.89s`; `git diff --check` passed.
+- Next step:
+  The top blocker remains explicit user approval for one exact registered
+  read-only SOP step before any live read-only evidence collection. Without
+  approval, continue only non-final offline work and keep packet/preflight
+  readiness separate from evidence.
