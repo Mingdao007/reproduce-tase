@@ -3715,7 +3715,7 @@ Legacy source root:
 ### Recorded existing strict-terminal tradeoff structure
 
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `a41aada3a50bd59d57652b1ec7dffe2a81d4bde7`
 - Scripts:
   - `scripts/audit_strict_terminal_tradeoff_boundary.py`
 - Runs:

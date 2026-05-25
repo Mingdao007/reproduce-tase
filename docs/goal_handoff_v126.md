@@ -77,7 +77,7 @@ exp/tase-ur10e-v125-strict-terminal-tradeoff-boundary
 Verified implementation commit:
 
 ```text
-PENDING_BRANCH_CLOSE_COMMIT
+a41aada3a50bd59d57652b1ec7dffe2a81d4bde7
 ```
 
 V125 artifacts:

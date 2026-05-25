@@ -4916,7 +4916,7 @@
 - Branch:
   `exp/tase-ur10e-v125-strict-terminal-tradeoff-boundary`
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `a41aada3a50bd59d57652b1ec7dffe2a81d4bde7`
 - Runs:
   - `runs/strict_terminal_tradeoff_boundary/20260525T104000`
 - Report:
