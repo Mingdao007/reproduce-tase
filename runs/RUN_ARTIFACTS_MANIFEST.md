@@ -4377,7 +4377,7 @@ Legacy source root:
 ### Kept free-form continuation separate from exact read-only approval
 
 - Implementation commit:
-  `TBD`
+  `a5b417fa172ddb33e32577558a0c5bd99eb92a9d`
 - Scripts:
   - `scripts/audit_post_v139_continuation_boundary.py`
 - Runs:
@@ -4405,9 +4405,10 @@ Legacy source root:
   passed approved-read-only audits `0`, and
   `do_not_mark_goal_complete = true`.
 - Validation:
-  Focused tests passed with `4 passed in 0.16s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.15s`; full tests passed with
+  `267 passed in 30.30s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v140 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is continuation-boundary
   bookkeeping only; it does not approve any packet, authorize live access,

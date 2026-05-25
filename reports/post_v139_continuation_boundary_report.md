@@ -73,11 +73,12 @@ family over the same accepted contact model and seeds.
 
 - `python3 -m py_compile scripts/audit_post_v139_continuation_boundary.py`
 - `scripts/run_tests.sh tests/test_post_v139_continuation_boundary.py`
-  reported `4 passed in 0.16s`.
+  reported `4 passed in 0.15s`.
 - `python3 scripts/audit_post_v139_continuation_boundary.py --run-id 20260525T140000 --observed-user-request '019e5d70-5cf8-7553-aa82-1b3cf93759f9 continue'`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `267 passed in 30.30s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v140 run artifact.
+- `git diff --check` passed.
 
 ## Limit
 
