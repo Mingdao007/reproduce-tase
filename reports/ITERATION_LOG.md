@@ -4961,7 +4961,7 @@
 - Branch:
   `exp/tase-ur10e-v126-strict-terminal-relaxation-budget`
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `7ba52057c82f19037916879880af322e8a7132ba`
 - Runs:
   - `runs/strict_terminal_relaxation_budget/20260525T105000`
 - Report:

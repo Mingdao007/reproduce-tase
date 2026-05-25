@@ -3755,7 +3755,7 @@ Legacy source root:
 ### Quantified non-accepted strict gate relaxation budgets
 
 - Implementation commit:
-  `PENDING_BRANCH_CLOSE_COMMIT`
+  `7ba52057c82f19037916879880af322e8a7132ba`
 - Scripts:
   - `scripts/audit_strict_terminal_relaxation_budget.py`
 - Runs:

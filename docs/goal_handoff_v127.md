@@ -78,7 +78,7 @@ exp/tase-ur10e-v126-strict-terminal-relaxation-budget
 Verified implementation commit:
 
 ```text
-PENDING_BRANCH_CLOSE_COMMIT
+7ba52057c82f19037916879880af322e8a7132ba
 ```
 
 V126 artifacts:
