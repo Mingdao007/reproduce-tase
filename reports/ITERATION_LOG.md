@@ -5310,3 +5310,49 @@
   fill only valid `tcp_contact_measurements.csv` rows, finalize with the exact
   registered step ID, and audit in approved-read-only mode. Without approval,
   continue only non-final offline work.
+
+## 2026-05-25 v134 Downstream Row-Quality Guard
+
+### Reject malformed downstream read-only rows before finalization
+
+- Branch:
+  `exp/tase-ur10e-v134-downstream-row-quality-guard`
+- Implementation commit:
+  pending verification marker update
+- Runs:
+  - `runs/downstream_row_quality_guard/20260525T121000`
+- Report:
+  `reports/downstream_row_quality_guard_report.md`
+- Commands run:
+  - `python3 -m py_compile scripts/audit_read_only_calibration_measurement_run.py scripts/finalize_read_only_calibration_measurement_evidence.py scripts/audit_downstream_row_quality_guard.py`
+  - `scripts/run_tests.sh tests/test_read_only_calibration_measurement_template.py tests/test_downstream_row_quality_guard.py`
+  - `python3 scripts/audit_downstream_row_quality_guard.py --run-id 20260525T121000`
+- Result:
+  V134 adds an offline row-quality guard for the four registered downstream
+  read-only evidence steps. It extends the read-only run auditor and finalizer
+  so malformed KSM contact-patch convention, plane-normal, force-source
+  comparison, and orientation-gate semantics rows reject before approved
+  evidence can be written. The audit run reports `audit_passed = true`,
+  `downstream_row_quality_guard_complete = true`, case count `4`, rejected
+  cases `4`, scaffold-preserved cases `4`,
+  `approved_read_only_evidence_created_count = 0`,
+  `repository_evidence_run_created = false`, `temp_only_dry_run = true`,
+  guarded downstream step count `4`, `guard_authorizes_execution = false`,
+  `overall_goal_complete = false`, `completion_claim_allowed = false`, and
+  `do_not_mark_goal_complete = true`.
+- Limit:
+  This is offline row-quality guard bookkeeping only. It does not collect live
+  measurements, approve any read-only SOP step, create approved calibration
+  evidence, accept a contact model, accept a setup target, relax a gate, prove
+  strict paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+- Validation:
+  Focused tests passed with `21 passed in 6.27s`; full tests passed with
+  `243 passed in 23.16s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Next step:
+  If the user later gives explicit approval, use one exact registered
+  approval packet, fill only valid rows for that step's worksheet scope,
+  finalize with the exact registered step ID, and audit in approved-read-only
+  mode. Without approval, continue only non-final offline work.

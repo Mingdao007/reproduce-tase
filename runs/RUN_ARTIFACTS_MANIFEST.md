@@ -4094,6 +4094,52 @@ Legacy source root:
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, or authorize hardware work.
 
+## V134 Downstream Row-Quality Guard
+
+### Hardened downstream finalization against malformed rows
+
+- Implementation commit:
+  pending verification marker update
+- Scripts:
+  - `scripts/audit_read_only_calibration_measurement_run.py`
+  - `scripts/finalize_read_only_calibration_measurement_evidence.py`
+  - `scripts/audit_downstream_row_quality_guard.py`
+- Runs:
+  - `runs/downstream_row_quality_guard/20260525T121000`
+- Report:
+  - `reports/downstream_row_quality_guard_report.md`
+- Tests:
+  - `tests/test_downstream_row_quality_guard.py`
+- Command:
+  `python3 scripts/audit_downstream_row_quality_guard.py --run-id 20260525T121000`
+- Tracked lightweight artifacts:
+  downstream row-quality guard audit top-level `metrics.yaml`,
+  `metrics.json`, `summary.md`, and `git_state.md`; report, tests, script, and
+  updated planning/decision/manifest documentation.
+- Result:
+  The downstream row-quality guard audit passes while authorizing nothing:
+  `downstream_row_quality_guard_complete = true`, case count `4`, rejected
+  cases `4`, scaffold-preserved cases `4`,
+  `approved_read_only_evidence_created_count = 0`,
+  `repository_evidence_run_created = false`, guarded downstream step count
+  `4`, approved packets `0`, execution-authorizing packets `0`,
+  live-access-authorizing packets `0`,
+  `approved_read_only_evidence_created = false`,
+  `guard_authorizes_execution = false`, `completion_claim_allowed = false`,
+  and `do_not_mark_goal_complete = true`.
+- Validation:
+  Focused tests passed with `21 passed in 6.27s`; full tests passed with
+  `243 passed in 23.16s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads; `git diff --check`
+  passed.
+- Limit:
+  No live or physical measurement was collected. This is offline row-quality
+  guard bookkeeping only; it does not approve any packet, authorize live
+  access, authorize execution, create approved calibration evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, or authorize hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

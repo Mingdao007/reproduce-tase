@@ -1,0 +1,159 @@
+{
+  "run_source": "downstream row-quality guard audit",
+  "audit_run_id": "20260525T121000",
+  "source_files": {
+    "phase1_row_quality_guard": "runs/phase1_row_quality_guard/20260525T120000/metrics.yaml"
+  },
+  "summary": {
+    "audit_passed": true,
+    "violations": [],
+    "downstream_row_quality_guard_complete": true,
+    "source_phase1_guard_audit_passed": true,
+    "case_count": 4,
+    "rejected_case_count": 4,
+    "scaffold_preserved_case_count": 4,
+    "approved_read_only_evidence_created_count": 0,
+    "repository_evidence_run_created": false,
+    "temp_only_dry_run": true,
+    "guarded_step_ids": [
+      "phase2_ksm_contact_patch_convention",
+      "phase3_plane_normal_external_measurement",
+      "phase4_force_source_read_only_comparison",
+      "phase5_orientation_gate_semantics_evidence"
+    ],
+    "guarded_worksheets": [
+      "ksm_contact_patch_convention.csv",
+      "plane_normal_measurements.csv",
+      "force_source_comparison.csv",
+      "orientation_gate_semantics.csv"
+    ],
+    "guarded_downstream_step_count": 4,
+    "approved_packet_count": 0,
+    "execution_authorizing_packet_count": 0,
+    "live_access_authorizing_packet_count": 0,
+    "approved_read_only_evidence_created": false,
+    "guard_authorizes_live_access": false,
+    "guard_authorizes_execution": false,
+    "guard_creates_approved_evidence": false,
+    "overall_goal_complete": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "rejection_case_rows": [
+    {
+      "case_id": "phase2_placeholder_contact_patch_description",
+      "step_id": "phase2_ksm_contact_patch_convention",
+      "worksheet": "ksm_contact_patch_convention.csv",
+      "expected_rejection_substring": "contact_patch_description must be non-empty and not a placeholder",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: ksm_contact_patch_convention.csv row 1.contact_patch_description must be non-empty and not a placeholder",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "phase3_nonunit_plane_normal",
+      "step_id": "phase3_plane_normal_external_measurement",
+      "worksheet": "plane_normal_measurements.csv",
+      "expected_rejection_substring": "normal_vector must have unit length",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: plane_normal_measurements.csv row 1.normal_vector must have unit length within 0.01",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "phase4_negative_timestamp",
+      "step_id": "phase4_force_source_read_only_comparison",
+      "worksheet": "force_source_comparison.csv",
+      "expected_rejection_substring": "timestamp_s must be nonnegative",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: force_source_comparison.csv row 1.timestamp_s must be nonnegative",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    },
+    {
+      "case_id": "phase5_accepted_decision_row",
+      "step_id": "phase5_orientation_gate_semantics_evidence",
+      "worksheet": "orientation_gate_semantics.csv",
+      "expected_rejection_substring": "decision must be one of",
+      "returncode": 1,
+      "rejected_as_expected": true,
+      "scaffold_preserved": true,
+      "stderr_excerpt": "error: orientation_gate_semantics.csv row 1.decision must be one of ['evidence_only', 'not_accepted', 'not_applicable', 'unresolved']",
+      "stdout_excerpt": "",
+      "status_after_attempt": "scaffold_created_not_executed",
+      "user_confirmed_after_attempt": false,
+      "live_hardware_accessed_after_attempt": false,
+      "read_only_evidence_finalization_present": false,
+      "approved_read_only_evidence_created": false,
+      "hard_false_execution_fields": {
+        "robot_motion_commanded": false,
+        "configuration_written": false,
+        "zeroing_or_biasing_performed": false,
+        "force_control_run": false
+      }
+    }
+  ],
+  "guarded_failure_modes": [
+    "phase2 placeholder contact_patch_description",
+    "phase3 nonunit plane normal",
+    "phase4 negative timestamp",
+    "phase5 accepted decision row"
+  ],
+  "claim_boundary": {
+    "post_hoc_offline_audit_only": true,
+    "downstream_row_quality_guard_only": true,
+    "temp_only_dry_run": true,
+    "approval_record_created": false,
+    "approved_read_only_evidence": false,
+    "contact_calibration_claim": false,
+    "setup_target_acceptance_claim": false,
+    "gate_relaxation_claim": false,
+    "strict_terminal_relaxation_accepted": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "live_hardware_access_authorized": false,
+    "execution_authorized": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "do_not_mark_goal_complete": true
+  },
+  "audit_root": "/home/andy/reproduce-tase/runs/downstream_row_quality_guard/20260525T121000"
+}

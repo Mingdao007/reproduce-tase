@@ -2925,6 +2925,27 @@
   paper-equivalent feasibility, prove robustness, establish hardware
   readiness, authorize live access, or authorize hardware work.
 
+## D139: Downstream Finalization Requires Valid Worksheet Rows
+
+- Date: 2026-05-25
+- Status: accepted
+- Decision:
+  Add v134 as an offline downstream row-quality guard for the four registered
+  read-only finalizer steps after phase1.
+- Reason:
+  V133 hardens phase1 row quality, but phase2-phase5 could still carry
+  malformed downstream rows while satisfying header and scope checks. V134
+  makes row quality executable for KSM contact-patch convention, plane-normal,
+  force-source comparison, and orientation-gate semantics worksheets before
+  approved evidence can be written.
+- Consequence:
+  The finalizer and approved-read-only audit reject malformed downstream rows
+  before they can create approved evidence. V134 is still a temporary dry-run
+  guard only: it does not approve a packet, collect live evidence, accept a
+  contact model, accept a setup target, relax a gate, prove strict
+  paper-equivalent feasibility, prove robustness, establish hardware
+  readiness, authorize live access, or authorize hardware work.
+
 ## D122: Contact Setup Target Changes Need Separate Acceptance Review
 
 - Date: 2026-05-25

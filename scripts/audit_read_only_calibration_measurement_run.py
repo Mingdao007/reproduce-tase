@@ -99,6 +99,8 @@ FORBIDDEN_STEP_ACTIONS = {
 
 TCP_TOOL_AXIS_SIGNS = {"+x", "-x", "+y", "-y", "+z", "-z"}
 PLACEHOLDER_VALUES = {"", "tbd", "todo", "unknown", "n/a", "na", "none", "not measured"}
+ORIENTATION_SEMANTICS_DECISIONS = {"not_accepted", "unresolved", "evidence_only", "not_applicable"}
+UNIT_NORMAL_TOLERANCE = 0.01
 
 
 def load_yaml(path: pathlib.Path) -> dict[str, Any]:
@@ -230,6 +232,29 @@ def positive_float(value: Any, *, field: str, row_label: str, violations: list[s
     return number
 
 
+def finite_float(value: Any, *, field: str, row_label: str, violations: list[str]) -> float | None:
+    raw = str(value or "").strip()
+    try:
+        number = float(raw)
+    except ValueError:
+        violations.append(f"{row_label}.{field} is not numeric")
+        return None
+    if not math.isfinite(number):
+        violations.append(f"{row_label}.{field} must be finite")
+        return None
+    return number
+
+
+def nonnegative_float(value: Any, *, field: str, row_label: str, violations: list[str]) -> float | None:
+    number = finite_float(value, field=field, row_label=row_label, violations=violations)
+    if number is None:
+        return None
+    if number < 0.0:
+        violations.append(f"{row_label}.{field} must be nonnegative")
+        return None
+    return number
+
+
 def read_dict_rows(path: pathlib.Path, expected_header: str, violations: list[str]) -> list[dict[str, str]]:
     if not path.exists():
         return []
@@ -272,8 +297,128 @@ def validate_tcp_contact_measurement_rows(run_dir: pathlib.Path) -> list[str]:
     return violations
 
 
+def validate_ksm_contact_patch_convention_rows(run_dir: pathlib.Path) -> list[str]:
+    violations: list[str] = []
+    rows = read_dict_rows(
+        run_dir / "ksm_contact_patch_convention.csv",
+        OPTIONAL_CSV_HEADERS["ksm_contact_patch_convention.csv"],
+        violations,
+    )
+    for index, row in enumerate(rows, start=1):
+        row_label = f"ksm_contact_patch_convention.csv row {index}"
+        for field in [
+            "sample_id",
+            "datum",
+            "contact_patch_description",
+            "seating_observation",
+            "instrument",
+            "operator",
+        ]:
+            if is_placeholder(row.get(field)):
+                violations.append(f"{row_label}.{field} must be non-empty and not a placeholder")
+    return violations
+
+
+def validate_plane_normal_measurement_rows(run_dir: pathlib.Path) -> list[str]:
+    violations: list[str] = []
+    rows = read_dict_rows(
+        run_dir / "plane_normal_measurements.csv",
+        EXPECTED_CSV_HEADERS["plane_normal_measurements.csv"],
+        violations,
+    )
+    for index, row in enumerate(rows, start=1):
+        row_label = f"plane_normal_measurements.csv row {index}"
+        for field in ["sample_id", "method"]:
+            if is_placeholder(row.get(field)):
+                violations.append(f"{row_label}.{field} must be non-empty and not a placeholder")
+        normal = [
+            finite_float(row.get(field), field=field, row_label=row_label, violations=violations)
+            for field in ["normal_x", "normal_y", "normal_z"]
+        ]
+        if all(component is not None for component in normal):
+            norm = math.sqrt(sum(float(component) ** 2 for component in normal))
+            if abs(norm - 1.0) > UNIT_NORMAL_TOLERANCE:
+                violations.append(
+                    f"{row_label}.normal_vector must have unit length within {UNIT_NORMAL_TOLERANCE}"
+                )
+        positive_float(
+            row.get("angle_uncertainty_deg"),
+            field="angle_uncertainty_deg",
+            row_label=row_label,
+            violations=violations,
+        )
+    return violations
+
+
+def validate_force_source_comparison_rows(run_dir: pathlib.Path) -> list[str]:
+    violations: list[str] = []
+    rows = read_dict_rows(
+        run_dir / "force_source_comparison.csv",
+        EXPECTED_CSV_HEADERS["force_source_comparison.csv"],
+        violations,
+    )
+    for index, row in enumerate(rows, start=1):
+        row_label = f"force_source_comparison.csv row {index}"
+        for field in ["source", "zero_state", "frame"]:
+            if is_placeholder(row.get(field)):
+                violations.append(f"{row_label}.{field} must be non-empty and not a placeholder")
+        nonnegative_float(row.get("timestamp_s"), field="timestamp_s", row_label=row_label, violations=violations)
+        for field in ["Fx_N", "Fy_N", "Fz_N", "Tx_Nm", "Ty_Nm", "Tz_Nm"]:
+            finite_float(row.get(field), field=field, row_label=row_label, violations=violations)
+    return violations
+
+
+def validate_orientation_gate_semantics_rows(run_dir: pathlib.Path) -> list[str]:
+    violations: list[str] = []
+    rows = read_dict_rows(
+        run_dir / "orientation_gate_semantics.csv",
+        OPTIONAL_CSV_HEADERS["orientation_gate_semantics.csv"],
+        violations,
+    )
+    for index, row in enumerate(rows, start=1):
+        row_label = f"orientation_gate_semantics.csv row {index}"
+        for field in [
+            "sample_id",
+            "gate_type",
+            "normal_source",
+            "contact_datum_source",
+            "decision",
+            "operator",
+        ]:
+            if is_placeholder(row.get(field)):
+                violations.append(f"{row_label}.{field} must be non-empty and not a placeholder")
+        positive_float(
+            row.get("gate_value_rad"), field="gate_value_rad", row_label=row_label, violations=violations
+        )
+        positive_float(
+            row.get("uncertainty_deg"), field="uncertainty_deg", row_label=row_label, violations=violations
+        )
+        positive_float(
+            row.get("geometry_uncertainty_um"),
+            field="geometry_uncertainty_um",
+            row_label=row_label,
+            violations=violations,
+        )
+        decision = str(row.get("decision") or "").strip().lower()
+        if decision not in ORIENTATION_SEMANTICS_DECISIONS:
+            violations.append(
+                f"{row_label}.decision must be one of {sorted(ORIENTATION_SEMANTICS_DECISIONS)}"
+            )
+    return violations
+
+
 def validate_worksheet_content(run_dir: pathlib.Path) -> list[str]:
-    return validate_tcp_contact_measurement_rows(run_dir)
+    violations: list[str] = []
+    validators = [
+        validate_tcp_contact_measurement_rows,
+        validate_ksm_contact_patch_convention_rows,
+        validate_plane_normal_measurement_rows,
+        validate_force_source_comparison_rows,
+        validate_orientation_gate_semantics_rows,
+    ]
+    for validator in validators:
+        violations.extend(validator(run_dir))
+    return violations
 
 
 def audit_approved_step_registry(
