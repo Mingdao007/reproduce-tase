@@ -4733,6 +4733,8 @@
 
 - Branch:
   `exp/tase-ur10e-v121-readonly-approval-packet-coverage`
+- Implementation commit:
+  `5cd3b3d8d4bb8672a8c74ba5832439c3faba7c7a`
 - Runs:
   - `runs/read_only_step_approval_packet/20260525T100000`
   - `runs/read_only_step_approval_packet/20260525T100100`

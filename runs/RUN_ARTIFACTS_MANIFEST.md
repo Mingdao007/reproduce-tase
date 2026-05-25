@@ -3553,6 +3553,8 @@ Legacy source root:
 
 ### Covered all finalizer-eligible steps with audited not-approved packets
 
+- Implementation commit:
+  `5cd3b3d8d4bb8672a8c74ba5832439c3faba7c7a`
 - Scripts:
   - `scripts/audit_read_only_step_approval_packet_coverage.py`
 - Runs:

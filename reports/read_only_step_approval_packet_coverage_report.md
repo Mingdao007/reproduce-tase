@@ -4,6 +4,9 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v121-readonly-approval-packet-coverage`
 
+Implementation commit:
+`5cd3b3d8d4bb8672a8c74ba5832439c3faba7c7a`
+
 ## Scope
 
 V121 extends the v120 not-approved approval-packet path from one exact

@@ -77,6 +77,12 @@ Expected branch:
 exp/tase-ur10e-v121-readonly-approval-packet-coverage
 ```
 
+Verified implementation commit:
+
+```text
+5cd3b3d8d4bb8672a8c74ba5832439c3faba7c7a
+```
+
 V121 artifacts:
 
 ```text
