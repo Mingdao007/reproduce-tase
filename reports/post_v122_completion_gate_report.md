@@ -4,6 +4,9 @@ Date: 2026-05-25
 
 Branch: `exp/tase-ur10e-v123-post-v122-completion-gate`
 
+Implementation commit:
+`ae2abb566b12dbc348a0675babe8f33f08c608bc`
+
 ## Scope
 
 V123 adds a current-state completion gate after the v120-v122 read-only

@@ -82,6 +82,12 @@ Expected branch:
 exp/tase-ur10e-v123-post-v122-completion-gate
 ```
 
+Verified implementation commit:
+
+```text
+ae2abb566b12dbc348a0675babe8f33f08c608bc
+```
+
 V123 artifacts:
 
 ```text

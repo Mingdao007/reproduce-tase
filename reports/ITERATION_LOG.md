@@ -4833,6 +4833,8 @@
 
 - Branch:
   `exp/tase-ur10e-v123-post-v122-completion-gate`
+- Implementation commit:
+  `ae2abb566b12dbc348a0675babe8f33f08c608bc`
 - Runs:
   - `runs/post_v122_completion_gate/20260525T102000`
 - Report:

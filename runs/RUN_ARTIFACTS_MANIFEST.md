@@ -3639,6 +3639,8 @@ Legacy source root:
 
 ### Recorded readiness artifacts as non-evidence
 
+- Implementation commit:
+  `ae2abb566b12dbc348a0675babe8f33f08c608bc`
 - Scripts:
   - `scripts/audit_post_v122_completion_gate.py`
 - Runs:
