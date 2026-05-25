@@ -124,6 +124,7 @@ continuation-boundary, or post-continuation-gate artifacts into evidence.
 - `scripts/run_tests.sh tests/test_post_v140_completion_gate.py`
   reported `4 passed in 0.44s`.
 - `python3 scripts/audit_post_v140_completion_gate.py --run-id 20260525T150000`
-
-Full tests, YAML anchor scan, raw/heavy artifact scan, and `git diff --check`
-are pending final closeout for this branch.
+- Full tests passed with `271 passed in 30.76s`.
+- YAML anchor scan found no anchors in the generated metrics.
+- Raw/heavy artifact scan found no payloads in the v141 run artifact.
+- `git diff --check` passed.

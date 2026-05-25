@@ -4422,7 +4422,7 @@ Legacy source root:
 ### Classified status and continuation-boundary artifacts as non-evidence
 
 - Implementation commit:
-  `TBD`
+  `e46d329c02298e607d748f6a90eba5b4c2f8be36`
 - Scripts:
   - `scripts/audit_post_v140_completion_gate.py`
 - Runs:
@@ -4452,9 +4452,10 @@ Legacy source root:
   `v140_live_access_authorized_now = false`, and
   `v140_execution_authorized_now = false`.
 - Validation:
-  Focused tests passed with `4 passed in 0.44s`; full tests, YAML anchor
-  check, raw/heavy artifact scan, and `git diff --check` are pending final
-  closeout.
+  Focused tests passed with `4 passed in 0.44s`; full tests passed with
+  `271 passed in 30.76s`; YAML anchor check found no anchors in the generated
+  metrics; raw/heavy artifact scan found no payloads in the v141 run
+  artifact; `git diff --check` passed.
 - Limit:
   No live or physical measurement was collected. This is completion-gate
   bookkeeping only; it does not approve any packet, authorize live access,
