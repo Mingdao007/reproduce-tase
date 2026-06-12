@@ -1,0 +1,45 @@
+run_source: read-only calibration measurement template
+run_id: 20260525T213125_phase1_post_manual_reposition
+status: scaffold_created_not_executed
+source_sop: reports/read_only_calibration_measurement_sop.md
+approved_step_registry: configs/read_only_sop_step_registry.yaml
+v85_margin:
+  required_normal_rotation_deg: 0.03245531101442353
+  equivalent_geometry_um: 14.963398168061882
+execution:
+  user_confirmed_read_only_step: false
+  live_hardware_accessed: false
+  robot_motion_commanded: false
+  configuration_written: false
+  zeroing_or_biasing_performed: false
+  force_control_run: false
+evidence_status:
+  mounted_stack_tcp_contact_point: not_collected
+  ksm_contact_patch_convention: not_collected
+  plane_normal_robot_base_frame: not_collected
+  force_source_frame_reconciliation: not_collected
+  orientation_gate_semantics: not_accepted
+orientation_gate_acceptance:
+  decision: not_accepted
+  evidence_only: true
+  requires_separate_gate_audit: true
+  accepted_gate_type: null
+  accepted_gate_value_rad: null
+  accepted_normal_source: null
+  accepted_contact_datum_source: null
+  accepted_uncertainty_budget: null
+  orientation_semantics_rows: 0
+verdict:
+  supports_contact_model_update: false
+  supports_accepting_v85_margin: false
+  supports_gate_relaxation: false
+  supports_hardware_claim: false
+  supports_more_stage_b_qdot_tuning: false
+claim_boundary:
+  recovery_claim: false
+  contact_calibration_claim: false
+  gate_relaxation_claim: false
+  paper_equivalent_feasibility: false
+  hardware_readiness: false
+template_source: templates/read_only_calibration_measurement
+run_root: /home/andy/reproduce-tase/runs/read_only_calibration_measurement/20260525T213125_phase1_post_manual_reposition
