@@ -4941,6 +4941,41 @@ Legacy source root:
   robustness, establish hardware readiness, close completion, or authorize
   hardware work.
 
+## V152 IK/RNN Offline Frontier
+
+### Added the first constrained inner-loop IK/RNN artifact
+
+- Scripts:
+  - `scripts/run_ik_rnn_offline_frontier.py`
+- Runs:
+  - `runs/ik_rnn_offline_frontier/20260612T000000`
+- Report:
+  - `reports/ik_rnn_offline_frontier_v152_report.md`
+- Tests:
+  - `tests/test_ik_rnn_offline_frontier.py`
+- Command:
+  `python3 scripts/run_ik_rnn_offline_frontier.py --run-id 20260612T000000`
+- Tracked lightweight artifacts:
+  top-level `metrics.yaml`, `metrics.json`, `summary.md`, `git_state.md`, and
+  the three generated PNG plots. The generated raw `.npz` remains ignored by
+  repository policy for generated numeric payloads.
+- Result:
+  The offline IK/RNN frontier run passes as a constrained feasibility probe:
+  `initial_position_error_mm = 2.291287847477922`,
+  `final_position_error_mm = 3.4770204750937506e-06`,
+  `initial_orientation_error_deg = 1.7188733853924707`,
+  `final_orientation_error_deg = 1.224465934208661`,
+  `solver_success_fraction = 1.0`, `qdot_limit_rad_s = 0.15`,
+  `max_abs_qdot_rad_s = 0.15`, and `completion_claim_allowed = false`.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; py_compile passed; PNG sanity
+  checks found all three figures nonblank.
+- Limit:
+  This is offline inner-loop IK/RNN evidence only. It does not access live
+  hardware, tune Step6 outer-loop behavior, resolve V151 contact-force coverage,
+  prove robustness, establish hardware readiness, close completion, or authorize
+  hardware work.
+
 ## Full Paper MATLAB/RNN Run
 
 ### Selected migrated evidence

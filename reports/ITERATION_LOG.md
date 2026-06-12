@@ -6211,3 +6211,44 @@
   contact-parameter or target-definition diagnostic before any controller run.
   Do not promote tuned contact parameters to accepted evidence without the
   contact/setup-target review path.
+
+## 2026-06-12 v152 IK/RNN Offline Frontier
+
+### Start the inner-loop constrained IK/RNN line while Step6 outer-loop tuning is parked
+
+- Branch:
+  `exp/tase-ur10e-v152-ik-rnn-offline-frontier`
+- Runs:
+  - `runs/ik_rnn_offline_frontier/20260612T000000`
+- Report:
+  `reports/ik_rnn_offline_frontier_v152_report.md`
+- Commands run:
+  - `python3 -m py_compile src/tase_repro/ik_rnn.py scripts/run_ik_rnn_offline_frontier.py`
+  - `scripts/run_tests.sh tests/test_ik_rnn_offline_frontier.py`
+  - `python3 scripts/run_ik_rnn_offline_frontier.py --run-id 20260612T000000`
+- Result:
+  V152 adds a finite-time RNN-style Cartesian velocity stepper around the
+  existing constrained IK solver. The canonical offline run reports
+  `audit_passed = true`, `initial_position_error_mm = 2.291287847477922`,
+  `final_position_error_mm = 3.4770204750937506e-06`,
+  `initial_orientation_error_deg = 1.7188733853924707`,
+  `final_orientation_error_deg = 1.224465934208661`,
+  `solver_success_fraction = 1.0`, `qdot_limit_rad_s = 0.15`,
+  `max_abs_qdot_rad_s = 0.15`, `max_qdot_utilization = 1.0`,
+  `qdot_saturation_fraction_98pct = 1.0`, and
+  `completion_claim_allowed = false`.
+- Limit:
+  This is an offline inner-loop IK/RNN frontier only. It does not access live
+  hardware, write RTDE registers, tune the completed Step6 outer loop, resolve
+  the V151 contact-force coverage gap, prove strict paper-equivalent
+  feasibility, prove robustness, establish hardware readiness, or close the
+  completion gate.
+- Validation:
+  Focused tests passed with `4 passed in 0.27s`; the canonical runner completed
+  and generated three nonblank PNG figures. The run is qdot-limited for the
+  whole interval, so it should be treated as a constrained feasibility frontier
+  rather than a margin-rich tuned controller.
+- Next step:
+  Continue offline IK/RNN work by separating linear and angular correction
+  budgets and adding comparison baselines, while keeping Step6 outer-loop
+  fine-tuning parked until new hardware evidence or report questions require it.

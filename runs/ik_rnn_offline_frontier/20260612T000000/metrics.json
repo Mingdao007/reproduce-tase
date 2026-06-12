@@ -1,0 +1,144 @@
+{
+  "run_source": "offline constrained finite-time IK/RNN frontier",
+  "audit_run_id": "20260612T000000",
+  "source_files": {
+    "config": "configs/mujoco_ur10e_tilted_plane_tcp_contact_point.yaml",
+    "mjcf": "assets/mjcf/ur10e_tilted_plane_10deg_tcp_contact_point.xml",
+    "module": "src/tase_repro/ik_rnn.py",
+    "script": "scripts/run_ik_rnn_offline_frontier.py"
+  },
+  "inputs": {
+    "site_name": "tcp_site_unverified_85mm",
+    "initial_q": [
+      0.1,
+      -0.4,
+      0.3,
+      -0.2,
+      0.15,
+      0.0
+    ],
+    "initial_tcp_m": [
+      0.2098703038877361,
+      0.06085720714385626,
+      0.0812973476675081
+    ],
+    "target_offset_m": [
+      0.002,
+      -0.001,
+      0.0005
+    ],
+    "target_rot_offset_rad": [
+      0.0,
+      0.0,
+      0.03
+    ],
+    "applied_base_z_offset_m": 0.0,
+    "linear_slack_axis_weights": [
+      1.0,
+      1.0,
+      2.0
+    ],
+    "angular_slack_axis_weights": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "angular_priority_mode": "linear_primary"
+  },
+  "summary": {
+    "audit_passed": true,
+    "position_error_reduced": true,
+    "orientation_error_reduced": true,
+    "qdot_bounds_respected": true,
+    "joint_bounds_respected": true,
+    "solver_success_fraction": 1.0,
+    "initial_position_error_mm": 2.291287847477922,
+    "final_position_error_mm": 3.4770204750937506e-06,
+    "position_error_reduction_mm": 2.291284370457447,
+    "initial_orientation_error_deg": 1.7188733853924707,
+    "final_orientation_error_deg": 1.224465934208661,
+    "orientation_error_reduction_deg": 0.49440745118380963,
+    "max_abs_qdot_rad_s": 0.15,
+    "qdot_limit_rad_s": 0.15,
+    "max_qdot_utilization": 1.0,
+    "qdot_saturation_fraction_98pct": 1.0,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "metrics": {
+    "steps": 1001,
+    "duration_s": 2.0,
+    "dt_s": 0.002,
+    "r": 0.5,
+    "linear_gain": 0.05,
+    "angular_gain": 0.08,
+    "max_linear_speed_m_s": 0.015,
+    "max_angular_speed_rad_s": 0.08,
+    "initial_position_error_m": 0.002291287847477922,
+    "final_position_error_m": 3.4770204750937508e-09,
+    "min_position_error_m": 3.107370012076613e-09,
+    "position_error_reduction_m": 0.002291284370457447,
+    "initial_orientation_error_rad": 0.030000000000000016,
+    "final_orientation_error_rad": 0.0213709621304494,
+    "min_orientation_error_rad": 0.0213709621304494,
+    "orientation_error_reduction_rad": 0.008629037869550615,
+    "solver_success_fraction": 1.0,
+    "solver_failure_count": 0,
+    "hidden_qdot_clip_count": 0,
+    "qdot_limit_rad_s": 0.15,
+    "max_abs_qdot_rad_s": 0.15,
+    "max_qdot_utilization": 1.0,
+    "qdot_saturation_fraction_98pct": 1.0,
+    "max_joint_limit_violation_rad": 0.0,
+    "final_q": [
+      0.09630601373809378,
+      -0.1670763873126604,
+      0.01620400433219777,
+      -0.24429950307522044,
+      0.14888132504919338,
+      0.09693842989543389
+    ],
+    "target_tcp_m": [
+      0.2118703038877361,
+      0.059857207143856256,
+      0.0817973476675081
+    ],
+    "final_tcp_m": [
+      0.21187030568691081,
+      0.059857209578370006,
+      0.08179734937800057
+    ],
+    "warnings": [
+      "offline IK/RNN frontier only",
+      "uses velocity-level constrained IK, not live UR control",
+      "does not close strict paper-equivalent, robustness, contact-model, or hardware gates"
+    ]
+  },
+  "plots": {
+    "position_error": "runs/ik_rnn_offline_frontier/20260612T000000/ik-rnn-position-error_20260612T000000.png",
+    "orientation_error": "runs/ik_rnn_offline_frontier/20260612T000000/ik-rnn-orientation-error_20260612T000000.png",
+    "qdot_utilization": "runs/ik_rnn_offline_frontier/20260612T000000/ik-rnn-qdot-utilization_20260612T000000.png"
+  },
+  "raw_artifact": "runs/ik_rnn_offline_frontier/20260612T000000/ik-rnn-frontier_raw.npz",
+  "claim_boundary": {
+    "offline_ik_rnn_frontier_only": true,
+    "live_hardware_accessed_by_this_run": false,
+    "robot_motion_authorized": false,
+    "hardware_writes_authorized": false,
+    "force_control_authorized": false,
+    "contact_force_gap_resolved": false,
+    "contact_model_acceptance_claim": false,
+    "setup_target_acceptance_claim": false,
+    "strict_paper_equivalent_feasibility": false,
+    "robustness_claim": false,
+    "hardware_readiness": false,
+    "completion_claim_allowed": false,
+    "do_not_mark_goal_complete": true
+  },
+  "next_actions": [
+    "Use this as the first offline inner-loop IK/RNN frontier artifact while the large platform is unavailable.",
+    "Keep Step6 outer-loop parameter tuning parked unless a new hardware or report question requires it.",
+    "Do not treat this run as resolving the V151 contact-force coverage gap."
+  ],
+  "output_dir": "runs/ik_rnn_offline_frontier/20260612T000000"
+}
